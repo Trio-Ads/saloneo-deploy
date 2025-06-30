@@ -1,0 +1,63 @@
+services:
+  # Backend API Service
+  - type: web
+    name: beauty-flow-backend
+    env: node
+    plan: free
+    buildCommand: cd beauty-flow-backend && npm install && npm run build
+    startCommand: cd beauty-flow-backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_EXPIRES_IN
+        value: 30d
+      - key: FRONTEND_URL
+        fromService:
+          type: web
+          name: beauty-flow-frontend
+          property: url
+      - key: MAX_FILE_SIZE
+        value: 5242880
+      - key: UPLOAD_DIR
+        value: uploads
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 900000
+      - key: RATE_LIMIT_MAX_REQUESTS
+        value: 100
+      - key: LOG_LEVEL
+        value: info
+
+  # Frontend Static Site
+  - type: web
+    name: beauty-flow-frontend
+    env: static
+    plan: free
+    buildCommand: cd beauty-flow && npm install && npm run build
+    staticPublishPath: beauty-flow/dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: beauty-flow-backend
+          property: url
+          envVarKey: VITE_API_URL
+      - key: VITE_ENV
+        value: production
+
+databases:
+  # Note: Render ne fournit pas MongoDB gratuit, nous utiliserons MongoDB Atlas
+  # Configuration dans les variables d'environnement

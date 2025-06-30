@@ -1,0 +1,61 @@
+{
+  "title": "Interface",
+  "templates": {
+    "title": "Galerie de Templates",
+    "subtitle": "Choisissez un template pour personnaliser rapidement votre interface",
+    "categories": {
+      "all": "Tous",
+      "minimal": "Minimal",
+      "classic": "Classique",
+      "modern": "Moderne",
+      "creative": "Créatif"
+    },
+    "apply": "Appliquer",
+    "applyTemplate": "Appliquer ce template",
+    "details": {
+      "typography": "Typographie",
+      "effects": "Effets"
+    }
+  },
+  "colors": {
+    "title": "Couleurs du thème",
+    "primary": "Couleur principale",
+    "secondary": "Couleur secondaire",
+    "accent": "Couleur d'accent",
+    "background": "Couleur de fond"
+  },
+  "images": {
+    "title": "Images",
+    "logo": "Logo du salon",
+    "banner": "Bannière",
+    "upload": "Télécharger une image",
+    "dimensions": "Dimensions recommandées : {{width}}x{{height}}px"
+  },
+  "presentation": {
+    "title": "Présentation",
+    "placeholder": "Présentez votre salon..."
+  },
+  "serviceDisplay": {
+    "title": "Affichage des Services",
+    "defaultView": "Vue par défaut",
+    "priceDisplay": "Affichage des prix",
+    "category": "Par catégorie",
+    "list": "En liste",
+    "grid": "En grille",
+    "fixed": "Prix fixe",
+    "range": "Fourchette de prix"
+  },
+  "appointments": {
+    "title": "Paramètres des Rendez-vous"
+  },
+  "sharing": {
+    "title": "Partage",
+    "publicLink": "Lien public",
+    "copy": "Copier le lien",
+    "copied": "Lien copié !",
+    "qrCode": "Code QR"
+  },
+  "save": "Enregistrer les modifications",
+  "saving": "Enregistrement...",
+  "loading": "Chargement..."
+}
