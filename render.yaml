@@ -1,7 +1,7 @@
 services:
   # Backend API Service
   - type: web
-    name: beauty-flow-backend
+    name: saloneo-backend
     env: node
     plan: free
     buildCommand: cd beauty-flow-backend && npm install && npm run build
@@ -21,11 +21,6 @@ services:
         generateValue: true
       - key: JWT_REFRESH_EXPIRES_IN
         value: 30d
-      - key: FRONTEND_URL
-        fromService:
-          type: web
-          name: beauty-flow-frontend
-          property: url
       - key: MAX_FILE_SIZE
         value: 5242880
       - key: UPLOAD_DIR
@@ -39,7 +34,7 @@ services:
 
   # Frontend Static Site
   - type: web
-    name: beauty-flow-frontend
+    name: saloneo-frontend
     env: static
     plan: free
     buildCommand: cd beauty-flow && npm install && npm run build
@@ -49,15 +44,5 @@ services:
         source: /*
         destination: /index.html
     envVars:
-      - key: VITE_API_URL
-        fromService:
-          type: web
-          name: beauty-flow-backend
-          property: url
-          envVarKey: VITE_API_URL
       - key: VITE_ENV
         value: production
-
-databases:
-  # Note: Render ne fournit pas MongoDB gratuit, nous utiliserons MongoDB Atlas
-  # Configuration dans les variables d'environnement
