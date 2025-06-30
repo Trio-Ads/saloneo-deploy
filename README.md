@@ -1,4 +1,4 @@
-# 💄 Beauty Flow - Système de Gestion de Salon de Beauté
+# 💄 Saloneo - Système de Gestion de Salon de Beauté
 
 Une application moderne et complète pour la gestion de salons de beauté avec interface publique de réservation.
 
@@ -23,8 +23,8 @@ Une application moderne et complète pour la gestion de salons de beauté avec i
 ## 🚀 Déploiement
 
 ### Version BETA en ligne
-- **Frontend** : [https://beauty-flow-frontend.onrender.com](https://beauty-flow-frontend.onrender.com)
-- **API** : [https://beauty-flow-backend.onrender.com](https://beauty-flow-backend.onrender.com)
+- **Frontend** : [https://saloneo-frontend.onrender.com](https://saloneo-frontend.onrender.com)
+- **API** : [https://saloneo-backend.onrender.com](https://saloneo-backend.onrender.com)
 
 ### Déploiement local
 ```bash
@@ -60,7 +60,7 @@ npm run dev
 
 ### URL de démonstration
 ```
-https://beauty-flow-frontend.onrender.com/salon/demo-salon
+https://saloneo-frontend.onrender.com/salon/demo-salon
 ```
 
 ### Fonctionnalités publiques
@@ -147,4 +147,4 @@ Pour toute question ou problème, consultez la documentation ou les guides de d�
 
 ---
 
-**🎉 Prêt à transformer votre salon de beauté avec Beauty Flow !**
+**🎉 Prêt à transformer votre salon de beauté avec Saloneo !**
