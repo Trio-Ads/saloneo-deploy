@@ -3,7 +3,7 @@ services:
   - type: web
     name: saloneo-backend
     env: node
-    plan: free
+    plan: starter
     buildCommand: cd beauty-flow-backend && npm install && npm run build
     startCommand: cd beauty-flow-backend && npm start
     envVars:
@@ -36,7 +36,7 @@ services:
   - type: web
     name: saloneo-frontend
     env: static
-    plan: free
+    plan: starter
     buildCommand: cd beauty-flow && npm install && npm run build
     staticPublishPath: beauty-flow/dist
     routes:
