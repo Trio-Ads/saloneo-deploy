@@ -145,13 +145,33 @@ app.use('/api/affiliation', affiliationRoutes);
 app.use('/api/public', publicRoutes);
 app.use('/api/marketing', marketingRoutes);
 
-// 404 handler
-app.use((req: Request, res: Response) => {
-  res.status(404).json({
-    error: 'Not Found',
-    message: `Cannot ${req.method} ${req.originalUrl}`,
+// Serve static files from React build (production only)
+if (process.env.NODE_ENV === 'production') {
+  const publicPath = path.join(__dirname, 'public');
+  app.use(express.static(publicPath));
+  
+  // Handle React Router - send all non-API requests to index.html
+  app.get('*', (req: Request, res: Response) => {
+    // Skip API routes
+    if (req.path.startsWith('/api/') || req.path.startsWith('/uploads/') || req.path === '/health') {
+      res.status(404).json({
+        error: 'Not Found',
+        message: `Cannot ${req.method} ${req.originalUrl}`,
+      });
+      return;
+    }
+    
+    res.sendFile(path.join(publicPath, 'index.html'));
   });
-});
+} else {
+  // 404 handler for development
+  app.use((req: Request, res: Response) => {
+    res.status(404).json({
+      error: 'Not Found',
+      message: `Cannot ${req.method} ${req.originalUrl}`,
+    });
+  });
+}
 
 // Global error handler
 app.use((err: any, _req: Request, res: Response, _next: NextFunction): void => {
