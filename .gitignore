@@ -4,3 +4,16 @@ node_modules/
 .env.local
 dist/
 build/
+uploads/
+*.test.*
+test-*.js
+test-*.cjs
+test-*.mjs
+debug-*.js
+fix-*.cjs
+complete-*.cjs
+finalize-*.cjs
+diagnostic-*.cjs
+migrate-*.js
+update-*.cjs
+clear-*.html
