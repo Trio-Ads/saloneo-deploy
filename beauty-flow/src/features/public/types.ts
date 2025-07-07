@@ -21,8 +21,8 @@ export interface PublicClientFormData {
   hairQuestionnaire?: {
     hairType: 'Raides' | 'Ondulés' | 'Bouclés' | 'Crépus';
     thickness: 'Fins' | 'Moyens' | 'Épais';
-    scalpCondition: 'Normal' | 'Sec' | 'Gras' | 'Sensible' | 'Pellicules';
-    porosity: 'Faible' | 'Moyenne' | 'Élevée';
+    scalpCondition: 'Secs' | 'Normaux' | 'Gras' | 'Mixtes';
+    porosity: 'Faible' | 'Modérée' | 'Élevée';
     chemicalTreatments: ('Aucun' | 'Coloration' | 'Mèches' | 'Défrisage' | 'Permanente')[];
     lastTreatmentDate?: string;
     hairProblems: ('Pointes fourchues' | 'Cassure' | 'Frisottis' | 'Sécheresse' | 'Excès de sébum')[];
@@ -32,9 +32,9 @@ export interface PublicClientFormData {
 
   // Questionnaire peau
   skinQuestionnaire?: {
-    skinType: 'Normale' | 'Sèche' | 'Grasse' | 'Mixte' | 'Sensible';
-    sensitivity: 'Pas sensible' | 'Légèrement sensible' | 'Très sensible';
-    skinProblems: ('Acné' | 'Vieillissement' | 'Taches pigmentaires' | 'Rougeurs' | 'Sécheresse')[];
+    skinType: 'Sèche' | 'Normale' | 'Grasse' | 'Mixte' | 'Sensible';
+    sensitivity: 'Faible' | 'Modérée' | 'Élevée';
+    skinProblems: ('Sécheresse' | 'Acné' | 'Vieillissement' | 'Taches pigmentaires' | 'Rougeurs')[];
     mainConcernArea: ('Front' | 'Joues' | 'Menton' | 'Nez' | 'Contour des yeux')[];
     currentProducts?: string;
     allergies?: string;
@@ -61,4 +61,13 @@ export interface PublicClientFormData {
 export interface BookingError {
   step: BookingStep;
   message: string;
+}
+
+export interface ServiceDepositInfo {
+  serviceId: string;
+  serviceName: string;
+  depositAmount: number;
+  totalAmount: number;
+  currency: string;
+  description?: string;
 }

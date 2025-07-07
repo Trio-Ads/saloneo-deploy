@@ -23,5 +23,21 @@
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/test-*.js",
+    "**/test-*.cjs",
+    "**/test-*.ts",
+    "**/debug-*.js",
+    "**/debug-*.cjs",
+    "**/fix-*.js",
+    "**/fix-*.cjs",
+    "**/migrate-*.js",
+    "**/migrate-*.cjs",
+    "src/setupTests.ts"
   ]
 }
