@@ -19,8 +19,12 @@ const connectDB = async () => {
     await mongoose.connect(mongoURI);
     console.log('✅ MongoDB connecté');
   } catch (error) {
-    console.error('❌ Erreur MongoDB:', error);
-    process.exit(1);
+    console.error('❌ Erreur MongoDB:', error.message);
+    if (process.env.NODE_ENV === 'production') {
+      process.exit(1);
+    } else {
+      console.log('⚠️  Continuant sans MongoDB en mode développement...');
+    }
   }
 };
 
