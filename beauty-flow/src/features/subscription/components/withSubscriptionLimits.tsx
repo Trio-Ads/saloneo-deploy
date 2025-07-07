@@ -14,7 +14,7 @@ export const withSubscriptionLimits = <P extends object>(
   return function WithSubscriptionLimitsComponent(
     props: P & WithSubscriptionLimitsProps
   ) {
-    const { checkLimit } = useSubscriptionLimits();
+    const { checkAppointmentLimit: checkLimit } = useSubscriptionLimits();
     const { onLimitExceeded, ...rest } = props;
 
     const handleAction = (callback: () => void) => {

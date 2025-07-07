@@ -34,16 +34,16 @@ const PublicClientForm: React.FC<PublicClientFormProps> = ({
     hairQuestionnaire: service?.category.toLowerCase().includes('cheveux') ? {
       hairType: 'Raides',
       thickness: 'Moyens',
-      scalpCondition: 'Normal',
-      porosity: 'Moyenne',
+      scalpCondition: 'Normaux',
+      porosity: 'Élevée',
       chemicalTreatments: [],
-      hairProblems: [],
+      hairProblems: []
     } : undefined,
     skinQuestionnaire: service?.category.toLowerCase().includes('soin') ? {
       skinType: 'Normale',
-      sensitivity: 'Pas sensible',
+      sensitivity: 'Élevée',
       skinProblems: [],
-      mainConcernArea: [],
+      mainConcernArea: []
     } : undefined,
     preferences: {
       communicationPreferences: {

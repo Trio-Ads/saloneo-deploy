@@ -70,4 +70,8 @@ export interface ServiceDepositInfo {
   totalAmount: number;
   currency: string;
   description?: string;
+  servicePrice: number;
+  depositType: 'percentage' | 'fixed';
+  depositPercentage?: number;
+  calculatedDepositAmount: number;
 }

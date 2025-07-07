@@ -85,7 +85,7 @@ const SkinQuestionnaireSection: React.FC<SkinQuestionnaireSectionProps> = ({
                 type="button"
                 onClick={() => onChange('sensitivity', level as SkinQuestionnaire['sensitivity'])}
                 className={`glass-button p-3 text-sm transition-all duration-300 ${
-                  values.sensitivity === level
+                  values.sensitivity === level as any
                     ? 'bg-gradient-to-r from-burgundy to-purple shadow-neon'
                     : 'hover:bg-white/5 hover-lift'
                 }`}
