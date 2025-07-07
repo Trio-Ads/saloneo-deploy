@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   startOfWeek,
   endOfWeek,
@@ -36,6 +37,7 @@ interface CalendarViewProps {
 }
 
 const CalendarView: React.FC<CalendarViewProps> = ({ appointments, onEdit }) => {
+  const { t } = useTranslation('appointments');
   const [currentDate, setCurrentDate] = React.useState(new Date());
   const clients = useClientStore((state) => state.clients);
   const services = useServiceStore((state) => state.services);
@@ -49,17 +51,17 @@ const CalendarView: React.FC<CalendarViewProps> = ({ appointments, onEdit }) => 
 
   const getClientName = (clientId: string) => {
     const client = clients.find((c) => c.id === clientId);
-    return client ? `${client.firstName} ${client.lastName}` : 'Client inconnu';
+    return client ? `${client.firstName} ${client.lastName}` : t('appointment_form.unknown.client');
   };
 
   const getServiceName = (serviceId: string) => {
     const service = services.find((s) => s.id === serviceId);
-    return service ? service.name : 'Service inconnu';
+    return service ? service.name : t('appointment_form.unknown.service');
   };
 
   const getStylistName = (stylistId: string) => {
     const stylist = stylists.find((s) => s.id === stylistId);
-    return stylist ? `${stylist.firstName} ${stylist.lastName}` : 'Coiffeur inconnu';
+    return stylist ? `${stylist.firstName} ${stylist.lastName}` : t('appointment_form.unknown.stylist');
   };
 
   const getStatusConfig = (status: Appointment['status']) => {
@@ -71,7 +73,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ appointments, onEdit }) => 
           textColor: 'text-blue-800',
           borderColor: 'border-blue-300',
           icon: CalendarDaysIcon,
-          label: 'Planifié'
+          label: t('appointment_list.status_labels.scheduled')
         };
       case 'confirmed':
         return {
@@ -80,7 +82,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ appointments, onEdit }) => 
           textColor: 'text-green-800',
           borderColor: 'border-green-300',
           icon: CheckCircleIcon,
-          label: 'Confirmé'
+          label: t('appointment_list.status_labels.confirmed')
         };
       case 'completed':
         return {
@@ -89,7 +91,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ appointments, onEdit }) => 
           textColor: 'text-purple-800',
           borderColor: 'border-purple-300',
           icon: CheckIcon,
-          label: 'Terminé'
+          label: t('appointment_list.status_labels.completed')
         };
       case 'cancelled':
         return {
@@ -98,7 +100,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ appointments, onEdit }) => 
           textColor: 'text-red-800',
           borderColor: 'border-red-300',
           icon: XMarkIcon,
-          label: 'Annulé'
+          label: t('appointment_list.status_labels.cancelled')
         };
       case 'noShow':
         return {
@@ -107,7 +109,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ appointments, onEdit }) => 
           textColor: 'text-gray-800',
           borderColor: 'border-gray-300',
           icon: EyeSlashIcon,
-          label: 'Non présenté'
+          label: t('appointment_list.status_labels.no_show')
         };
       default:
         return {
@@ -173,7 +175,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ appointments, onEdit }) => 
                 {format(weekDays[0], 'MMMM yyyy', { locale: fr })}
               </h2>
               <p className="text-sm text-gray-600">
-                Semaine du {format(weekDays[0], 'd', { locale: fr })} au {format(weekDays[6], 'd MMMM', { locale: fr })}
+                {t('calendar_view.week_from')} {format(weekDays[0], 'd', { locale: fr })} {t('calendar_view.week_to')} {format(weekDays[6], 'd MMMM', { locale: fr })}
               </p>
             </div>
           </div>
@@ -183,21 +185,21 @@ const CalendarView: React.FC<CalendarViewProps> = ({ appointments, onEdit }) => 
               onClick={handleToday}
               className="glass-button bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white border-0 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 px-4 py-2 text-sm"
             >
-              Aujourd'hui
+              {t('calendar_view.today')}
             </button>
             
             <div className="flex items-center space-x-1">
               <button
                 onClick={handlePreviousWeek}
                 className="glass-button p-3 text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl"
-                title="Semaine précédente"
+                title={t('calendar_view.previous_week')}
               >
                 <ChevronLeftIcon className="h-5 w-5" />
               </button>
               <button
                 onClick={handleNextWeek}
                 className="glass-button p-3 text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl"
-                title="Semaine suivante"
+                title={t('calendar_view.next_week')}
               >
                 <ChevronRightIcon className="h-5 w-5" />
               </button>
@@ -210,7 +212,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ appointments, onEdit }) => 
           <div className="flex items-center space-x-3 p-3 glass-card bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl">
             <CalendarDaysIcon className="h-5 w-5 text-blue-600" />
             <div>
-              <p className="text-sm font-medium text-gray-700">Total RDV</p>
+              <p className="text-sm font-medium text-gray-700">{t('calendar_view.stats.total')}</p>
               <p className="text-lg font-bold text-blue-600">{getTotalAppointments()}</p>
             </div>
           </div>
@@ -218,7 +220,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ appointments, onEdit }) => 
           <div className="flex items-center space-x-3 p-3 glass-card bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl">
             <CheckCircleIcon className="h-5 w-5 text-green-600" />
             <div>
-              <p className="text-sm font-medium text-gray-700">Confirmés</p>
+              <p className="text-sm font-medium text-gray-700">{t('calendar_view.stats.confirmed')}</p>
               <p className="text-lg font-bold text-green-600">
                 {appointments.filter(a => a.status === 'confirmed').length}
               </p>
@@ -228,7 +230,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ appointments, onEdit }) => 
           <div className="flex items-center space-x-3 p-3 glass-card bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl">
             <CheckIcon className="h-5 w-5 text-purple-600" />
             <div>
-              <p className="text-sm font-medium text-gray-700">Terminés</p>
+              <p className="text-sm font-medium text-gray-700">{t('calendar_view.stats.completed')}</p>
               <p className="text-lg font-bold text-purple-600">
                 {appointments.filter(a => a.status === 'completed').length}
               </p>
@@ -272,7 +274,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ appointments, onEdit }) => 
                     <div className={`text-xs mt-1 ${
                       isCurrentDay ? 'text-indigo-100' : isPastDay ? 'text-gray-500' : 'text-gray-600'
                     }`}>
-                      {dayAppointments.length} RDV
+                      {dayAppointments.length} {t('calendar_view.appointments_abbr')}
                     </div>
                   )}
                 </div>
@@ -286,7 +288,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ appointments, onEdit }) => 
                         : 'glass-card bg-gradient-to-r from-gray-50 to-slate-50 text-gray-500'
                     }`}>
                       <div className="text-xs">
-                        {isPastDay ? 'Aucun RDV' : 'Libre'}
+                        {isPastDay ? t('calendar_view.no_appointments') : t('calendar_view.free')}
                       </div>
                     </div>
                   ) : (
@@ -349,7 +351,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ appointments, onEdit }) => 
                             </span>
                             {isOverdue && (
                               <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                                Retard
+                                {t('calendar_view.overdue')}
                               </span>
                             )}
                           </div>
@@ -369,22 +371,22 @@ const CalendarView: React.FC<CalendarViewProps> = ({ appointments, onEdit }) => 
 
       {/* Légende */}
       <div className="glass-card p-4">
-        <h3 className="text-sm font-medium text-gray-700 mb-3">Légende des statuts</h3>
+        <h3 className="text-sm font-medium text-gray-700 mb-3">{t('calendar_view.legend.title')}</h3>
         <div className="flex flex-wrap gap-3">
           {[
-            { status: 'scheduled', label: 'Planifié' },
-            { status: 'confirmed', label: 'Confirmé' },
-            { status: 'completed', label: 'Terminé' },
-            { status: 'cancelled', label: 'Annulé' },
-            { status: 'noShow', label: 'Non présenté' }
-          ].map(({ status, label }) => {
+            { status: 'scheduled' },
+            { status: 'confirmed' },
+            { status: 'completed' },
+            { status: 'cancelled' },
+            { status: 'noShow' }
+          ].map(({ status }) => {
             const config = getStatusConfig(status as Appointment['status']);
             const StatusIcon = config.icon;
             return (
               <div key={status} className="flex items-center space-x-2">
                 <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${config.color}`} />
                 <StatusIcon className={`h-4 w-4 ${config.textColor}`} />
-                <span className="text-xs text-gray-600">{label}</span>
+                <span className="text-xs text-gray-600">{config.label}</span>
               </div>
             );
           })}

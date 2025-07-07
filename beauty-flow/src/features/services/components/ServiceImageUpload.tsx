@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
-import { useInterfaceStore } from '../../interface/store';
-import { fileService } from '../../../services/fileService';
+import { useServiceStore } from '../store';
+import api from '../../../services/api';
 
 interface ServiceImageUploadProps {
   serviceId: string;
@@ -8,8 +8,8 @@ interface ServiceImageUploadProps {
 
 const ServiceImageUpload: React.FC<ServiceImageUploadProps> = ({ serviceId }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { serviceSettings, updateServiceSettings } = useInterfaceStore();
-  const settings = serviceSettings.find(s => s.id === serviceId);
+  const { services, updateService } = useServiceStore();
+  const service = services.find(s => s.id === serviceId);
 
   const handleClick = () => {
     fileInputRef.current?.click();
@@ -31,25 +31,73 @@ const ServiceImageUpload: React.FC<ServiceImageUploadProps> = ({ serviceId }) =>
           return;
         }
 
-        // Upload de l'image
-        const url = await fileService.uploadImage(file, 'service', serviceId);
+        // Vérifier les dimensions de l'image
+        const img = new Image();
+        const imageUrl = URL.createObjectURL(file);
         
-        if (settings) {
-          // Mettre à jour les paramètres du service
-          const newImages = [...(settings.images || [])];
+        img.onload = async () => {
+          URL.revokeObjectURL(imageUrl);
           
-          // Limiter à 5 images par service
-          if (newImages.length >= 5) {
-            alert('Maximum 5 images par service');
-            return;
+          // Dimensions recommandées : 1200x800px (ratio 3:2)
+          const optimalWidth = 1200;
+          const optimalHeight = 800;
+          const tolerance = 0.1; // 10% de tolérance
+          
+          const widthDiff = Math.abs(img.width - optimalWidth) / optimalWidth;
+          const heightDiff = Math.abs(img.height - optimalHeight) / optimalHeight;
+          
+          if (widthDiff > tolerance || heightDiff > tolerance) {
+            const proceed = confirm(
+              `Dimensions détectées: ${img.width}x${img.height}px\n` +
+              `Dimensions optimales: ${optimalWidth}x${optimalHeight}px\n\n` +
+              `Pour un meilleur rendu, utilisez les dimensions optimales.\n` +
+              `Voulez-vous continuer quand même ?`
+            );
+            if (!proceed) return;
           }
           
-          newImages.push({ url, alt: file.name });
-          
-          updateServiceSettings(serviceId, {
-            images: newImages
-          });
-        }
+          try {
+            // Upload direct via l'API Service (plus de localStorage)
+            if (!service || service.id === 'temp-service') {
+              alert('Veuillez d\'abord sauvegarder le service');
+              return;
+            }
+
+            // Vérifier qu'on n'a pas déjà 5 images
+            if (service.images && service.images.length >= 5) {
+              alert('Maximum 5 images par service');
+              return;
+            }
+
+            // Upload via FormData vers l'API upload
+            const formData = new FormData();
+            formData.append('image', file);
+
+            const uploadResponse = await api.post(`/upload/service/${service.id}/image`, formData, {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            });
+
+            // Recharger le service pour avoir les données à jour
+            const response = await api.get(`/services/${service.id}`);
+            if (response.data.service) {
+              updateService(service.id, response.data.service);
+            }
+
+            console.log('✅ Image uploadée avec succès');
+          } catch (error) {
+            console.error('Erreur lors du téléchargement de l\'image:', error);
+            alert('Erreur lors du téléchargement de l\'image');
+          }
+        };
+        
+        img.onerror = () => {
+          URL.revokeObjectURL(imageUrl);
+          alert('Erreur lors de la lecture de l\'image');
+        };
+        
+        img.src = imageUrl;
       } catch (error) {
         console.error('Erreur lors du téléchargement de l\'image:', error);
         alert('Erreur lors du téléchargement de l\'image');
@@ -62,11 +110,28 @@ const ServiceImageUpload: React.FC<ServiceImageUploadProps> = ({ serviceId }) =>
     }
   };
 
-  const handleRemoveImage = (imageUrl: string) => {
-    if (settings) {
-      updateServiceSettings(serviceId, {
-        images: settings.images.filter(img => img.url !== imageUrl)
+  const handleRemoveImage = async (imageUrl: string) => {
+    try {
+      if (!service || service.id === 'temp-service') {
+        alert('Service non trouvé');
+        return;
+      }
+
+      // Supprimer via l'API Service
+      await api.delete(`/services/${service.id}/images`, {
+        data: { imageUrl }
       });
+      
+      // Recharger le service pour avoir les données à jour
+      const response = await api.get(`/services/${service.id}`);
+      if (response.data.service) {
+        updateService(service.id, response.data.service);
+      }
+
+      console.log('✅ Image supprimée avec succès');
+    } catch (error) {
+      console.error('Erreur lors de la suppression de l\'image:', error);
+      alert('Erreur lors de la suppression de l\'image');
     }
   };
 
@@ -78,10 +143,10 @@ const ServiceImageUpload: React.FC<ServiceImageUploadProps> = ({ serviceId }) =>
             Photos du service
           </label>
           <p className="text-xs text-gray-500 mt-1">
-            Taille recommandée : 800x600px
+            <span className="font-medium">Taille optimale :</span> 1200x800px (ratio 3:2)
           </p>
           <p className="text-xs text-gray-500">
-            Maximum 5 photos par service
+            <span className="font-medium">Formats :</span> JPG, PNG • <span className="font-medium">Taille max :</span> 2MB • <span className="font-medium">Maximum :</span> 5 photos
           </p>
         </div>
         <button
@@ -101,12 +166,12 @@ const ServiceImageUpload: React.FC<ServiceImageUploadProps> = ({ serviceId }) =>
         className="hidden"
       />
 
-      {settings?.images && settings.images.length > 0 ? (
+      {service?.images && service.images.length > 0 ? (
         <div className="grid grid-cols-2 gap-4 mt-4">
-          {settings.images.map((image, index) => (
+          {service.images.map((image, index) => (
             <div key={index} className="relative group">
               <img
-                src={fileService.getImageUrl(image.url)}
+                src={image.url}
                 alt={image.alt}
                 className="w-full h-32 object-cover rounded-lg"
               />

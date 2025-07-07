@@ -609,3 +609,27 @@ html[dir="rtl"] {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Global dropdown handler */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Amélioration des dropdowns */
+.language-dropdown {
+  position: relative;
+  z-index: 1000;
+}
+
+.language-dropdown-menu {
+  position: absolute;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  z-index: 1001;
+}

@@ -4,26 +4,26 @@ export const vintageParisienTemplate: DesignTemplate = {
   id: 'vintage-parisien',
   name: 'Vintage Parisien',
   category: 'classic',
-  description: 'Ornements Belle Époque, typographies cursives, palette crème/bordeaux/or vieilli',
+  description: 'Élégance parisienne authentique avec ornements Belle Époque, typographies raffinées et palette bordeaux-or sophistiquée',
   preview: '/templates/previews/vintage-parisien.jpg',
   theme: {
     colors: {
-      primary: '#8B0000',
-      secondary: '#DAA520',
-      accent: '#CD853F',
-      background: '#FFF8DC',
-      surface: '#FFFEF7',
-      text: '#2F1B14',
-      textSecondary: '#8B4513',
+      primary: '#722F37', // Bordeaux parisien raffiné
+      secondary: '#D4AF37', // Or français authentique
+      accent: '#B8860B', // Bronze doré
+      background: '#FAF7F2', // Crème parisienne
+      surface: '#FFFFFF', // Blanc pur
+      text: '#2C1810', // Brun foncé élégant
+      textSecondary: '#6B4423', // Sépia raffiné
       custom: {
-        bordeaux: '#8B0000',
-        gold: '#DAA520',
-        cream: '#FFF8DC',
-        sepia: '#704214',
-        antique: '#FAEBD7',
-        bronze: '#CD7F32',
-        champagne: '#F7E7CE',
-        mahogany: '#C04000'
+        bordeaux: '#722F37', // Bordeaux parisien
+        champagne: '#F7E7CE', // Champagne doré
+        ivoire: '#FFFFF0', // Ivoire précieux
+        sepia: '#8B7355', // Sépia vintage
+        bronze: '#CD7F32', // Bronze antique
+        mahogany: '#C04000', // Acajou précieux
+        pearl: '#F8F6F0', // Perle nacrée
+        velvet: '#4A1C40' // Velours profond
       }
     },
     typography: {
@@ -108,18 +108,24 @@ export const vintageParisienTemplate: DesignTemplate = {
     ]
   },
   customCSS: `
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Crimson+Text:wght@400;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
     
-    .vintage-parisien-2025 {
+    .vintage-parisien {
       font-family: 'Crimson Text', serif;
-      background: linear-gradient(135deg, #FFF8DC 0%, #FAEBD7 100%);
+      background: linear-gradient(135deg, #FAF7F2 0%, #F8F6F0 100%);
       min-height: 100vh;
       position: relative;
       overflow-x: hidden;
     }
 
-    /* Vintage Paper Texture */
-    .vintage-parisien-2025::before {
+    .vintage-parisien h1, 
+    .vintage-parisien h2, 
+    .vintage-parisien h3 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* Texture papier vintage parisien */
+    .vintage-parisien::before {
       content: '';
       position: fixed;
       top: 0;
@@ -127,591 +133,595 @@ export const vintageParisienTemplate: DesignTemplate = {
       right: 0;
       bottom: 0;
       background: 
-        radial-gradient(circle at 20% 30%, rgba(218, 165, 32, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 80% 70%, rgba(139, 0, 0, 0.03) 0%, transparent 50%),
-        linear-gradient(45deg, transparent 48%, rgba(205, 133, 63, 0.02) 50%, transparent 52%);
-      background-size: 300px 300px, 250px 250px, 20px 20px;
+        radial-gradient(circle at 25% 25%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(114, 47, 55, 0.02) 0%, transparent 50%),
+        linear-gradient(45deg, transparent 49%, rgba(184, 134, 11, 0.01) 50%, transparent 51%);
+      background-size: 400px 400px, 350px 350px, 30px 30px;
       pointer-events: none;
       z-index: 0;
-      filter: sepia(10%);
+      filter: sepia(5%) contrast(102%);
     }
 
-    /* Ornamental Flourishes */
-    .vintage-parisien-2025::after {
+    /* Ornements Belle Époque flottants */
+    .vintage-parisien::after {
       content: '';
       position: fixed;
       top: -10%;
       left: -10%;
       width: 120%;
       height: 120%;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M20,50 Q30,30 50,50 Q70,70 80,50" fill="none" stroke="%23DAA520" stroke-width="0.5" opacity="0.1"><animate attributeName="opacity" values="0.1;0.3;0.1" dur="6s" repeatCount="indefinite"/></path><circle cx="25" cy="25" r="2" fill="%238B0000" opacity="0.08"><animate attributeName="opacity" values="0.08;0.2;0.08" dur="4s" repeatCount="indefinite"/></circle><path d="M70,20 Q80,30 70,40 Q60,30 70,20" fill="%23CD853F" opacity="0.06"><animate attributeName="opacity" values="0.06;0.15;0.06" dur="5s" repeatCount="indefinite"/></path></svg>') repeat;
-      background-size: 180px 180px;
-      animation: ornamentFloat 20s linear infinite;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M20,50 Q35,25 50,50 Q65,75 80,50" fill="none" stroke="%23D4AF37" stroke-width="0.3" opacity="0.04"><animate attributeName="opacity" values="0.04;0.08;0.04" dur="8s" repeatCount="indefinite"/></path><circle cx="30" cy="30" r="1.5" fill="%23722F37" opacity="0.03"><animate attributeName="opacity" values="0.03;0.06;0.03" dur="6s" repeatCount="indefinite"/></circle><path d="M70,25 Q75,30 70,35 Q65,30 70,25" fill="%23B8860B" opacity="0.02"><animate attributeName="opacity" values="0.02;0.05;0.02" dur="7s" repeatCount="indefinite"/></path></svg>') repeat;
+      background-size: 250px 250px;
+      animation: ornementParisien 25s linear infinite;
       pointer-events: none;
       z-index: 1;
     }
 
-    @keyframes ornamentFloat {
+    @keyframes ornementParisien {
       0% { transform: translateX(0) translateY(0) rotate(0deg); }
-      100% { transform: translateX(-180px) translateY(-180px) rotate(360deg); }
+      100% { transform: translateX(-250px) translateY(-250px) rotate(360deg); }
     }
 
-    /* Navigation */
-    .vintage-navbar {
-      background: rgba(255, 248, 220, 0.95);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 2px solid rgba(218, 165, 32, 0.3);
+    /* Navigation parisienne raffinée */
+    .navbar {
+      background: rgba(250, 247, 242, 0.97);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       z-index: 1000;
-      padding: 1rem 0;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 2px 10px rgba(139, 0, 0, 0.1);
+      padding: 1.25rem 0;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 20px rgba(114, 47, 55, 0.08);
     }
 
-    .vintage-navbar.scrolled {
-      background: rgba(255, 248, 220, 0.98);
-      box-shadow: 0 4px 20px rgba(139, 0, 0, 0.15);
+    .navbar.scrolled {
+      background: rgba(250, 247, 242, 0.99);
+      box-shadow: 0 4px 30px rgba(114, 47, 55, 0.12);
+      border-bottom-color: rgba(212, 175, 55, 0.3);
     }
 
-    .vintage-logo {
+    .nav-logo {
       font-family: 'Playfair Display', serif;
-      font-size: 1.75rem;
+      font-size: 1.875rem;
       font-weight: 700;
-      color: #8B0000;
+      color: #722F37;
       letter-spacing: 0.02em;
       position: relative;
-      text-shadow: 0 0 10px rgba(139, 0, 0, 0.3);
       font-style: italic;
     }
 
-    .vintage-logo::after {
+    .nav-logo::after {
       content: '🌹';
-      margin-left: 0.5rem;
-      font-size: 1.2rem;
-      animation: vintageGlow 3s ease-in-out infinite;
+      margin-left: 0.75rem;
+      font-size: 1.25rem;
+      animation: roseParisienne 4s ease-in-out infinite;
+      filter: sepia(30%) hue-rotate(320deg) saturate(150%);
     }
 
-    @keyframes vintageGlow {
-      0%, 100% { transform: scale(1) rotate(0deg); filter: sepia(20%); }
-      50% { transform: scale(1.1) rotate(5deg); filter: sepia(40%); }
+    @keyframes roseParisienne {
+      0%, 100% { transform: scale(1) rotate(-2deg); filter: sepia(30%) hue-rotate(320deg) saturate(150%); }
+      50% { transform: scale(1.08) rotate(2deg); filter: sepia(50%) hue-rotate(320deg) saturate(180%); }
     }
 
-    .vintage-nav-link {
-      color: #2F1B14;
+    .nav-link {
+      color: #2C1810;
       text-decoration: none;
       font-weight: 600;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.5rem;
-      transition: all 0.3s ease;
+      padding: 0.875rem 1.75rem;
+      border-radius: 0.75rem;
+      transition: all 0.4s ease;
       position: relative;
       overflow: hidden;
       font-size: 0.95rem;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.025em;
+      font-style: italic;
     }
 
-    .vintage-nav-link::before {
+    .nav-link::before {
       content: '';
       position: absolute;
       top: 0;
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(218, 165, 32, 0.2), transparent);
-      transition: left 0.5s;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.15), transparent);
+      transition: left 0.6s ease;
     }
 
-    .vintage-nav-link:hover::before {
+    .nav-link:hover::before {
       left: 100%;
     }
 
-    .vintage-nav-link:hover {
-      color: #8B0000;
-      background: rgba(218, 165, 32, 0.1);
-      transform: translateY(-2px);
-      text-shadow: 0 0 8px rgba(139, 0, 0, 0.4);
+    .nav-link:hover {
+      color: #722F37;
+      background: rgba(212, 175, 55, 0.08);
+      transform: translateY(-1px);
     }
 
-    /* Hero Section */
-    .vintage-hero {
+    /* Hero Section parisienne raffinée */
+    .hero-section {
       min-height: 100vh;
       display: flex;
       align-items: center;
       position: relative;
       padding: 6rem 0 4rem;
-      background: linear-gradient(135deg, rgba(255, 248, 220, 0.9) 0%, rgba(250, 235, 215, 0.8) 100%);
+      background: linear-gradient(135deg, rgba(250, 247, 242, 0.95) 0%, rgba(248, 246, 240, 0.9) 100%);
+      overflow: hidden;
     }
 
-    .vintage-hero-content {
+    .hero-content {
       position: relative;
       z-index: 2;
       text-align: center;
     }
 
-    .vintage-hero-title {
+    .hero-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 700;
-      color: #8B0000;
-      line-height: 1.2;
+      font-size: clamp(2.75rem, 5.5vw, 4.5rem);
+      font-weight: 800;
+      color: #722F37;
+      line-height: 1.15;
       margin-bottom: 2rem;
       letter-spacing: 0.02em;
       position: relative;
-      text-shadow: 0 0 20px rgba(139, 0, 0, 0.3);
       font-style: italic;
     }
 
-    .vintage-hero-title::after {
+    .hero-title::after {
       content: '';
       position: absolute;
-      bottom: -15px;
+      bottom: -20px;
       left: 50%;
       transform: translateX(-50%);
-      width: 120px;
+      width: 140px;
       height: 4px;
-      background: linear-gradient(90deg, #8B0000, #DAA520, #CD853F);
+      background: linear-gradient(90deg, #722F37, #D4AF37, #B8860B);
       border-radius: 2px;
-      box-shadow: 0 0 15px rgba(218, 165, 32, 0.6);
+      animation: parisienneGlow 4s ease-in-out infinite;
     }
 
-    .vintage-hero-subtitle {
-      font-size: 1.25rem;
-      color: #2F1B14;
-      margin-bottom: 3rem;
+    @keyframes parisienneGlow {
+      0%, 100% { opacity: 0.8; box-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
+      50% { opacity: 1; box-shadow: 0 0 20px rgba(212, 175, 55, 0.6); }
+    }
+
+    .hero-subtitle {
+      font-size: 1.375rem;
+      color: #2C1810;
+      margin-bottom: 3.5rem;
       font-weight: 500;
       line-height: 1.7;
-      max-width: 650px;
+      max-width: 700px;
       margin-left: auto;
       margin-right: auto;
-      letter-spacing: 0.01em;
+      letter-spacing: 0.015em;
       font-style: italic;
     }
 
-    /* Buttons */
-    .vintage-btn-primary {
-      background: linear-gradient(135deg, #8B0000 0%, #A0522D 100%);
-      color: #FFF8DC;
+    /* Boutons parisiens raffinés */
+    .btn-primary {
+      background: linear-gradient(135deg, #722F37 0%, #4A1C40 100%);
+      color: #FAF7F2;
       border: none;
-      padding: 1.25rem 3rem;
-      border-radius: 0.5rem;
+      padding: 1.375rem 3.5rem;
+      border-radius: 0.75rem;
       font-weight: 700;
-      font-size: 1.1rem;
+      font-size: 1.125rem;
       cursor: pointer;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
       letter-spacing: 0.05em;
-      box-shadow: 0 8px 25px rgba(139, 0, 0, 0.3);
-      border: 2px solid rgba(218, 165, 32, 0.3);
+      box-shadow: 0 10px 30px rgba(114, 47, 55, 0.3);
+      border: 2px solid rgba(212, 175, 55, 0.3);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
     }
 
-    .vintage-btn-primary::before {
+    .btn-primary::before {
       content: '';
       position: absolute;
       top: 0;
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(218, 165, 32, 0.3), transparent);
-      transition: left 0.6s;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);
+      transition: left 0.7s ease;
     }
 
-    .vintage-btn-primary:hover::before {
+    .btn-primary:hover::before {
       left: 100%;
     }
 
-    .vintage-btn-primary:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 12px 35px rgba(139, 0, 0, 0.5);
-      text-shadow: 0 0 10px rgba(255, 248, 220, 0.8);
-      border-color: rgba(218, 165, 32, 0.6);
+    .btn-primary:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(114, 47, 55, 0.5);
+      border-color: rgba(212, 175, 55, 0.6);
     }
 
-    .vintage-btn-secondary {
-      background: rgba(255, 248, 220, 0.9);
-      color: #8B0000;
-      border: 2px solid #DAA520;
-      padding: 1.25rem 3rem;
-      border-radius: 0.5rem;
+    .btn-secondary {
+      background: rgba(250, 247, 242, 0.95);
+      color: #722F37;
+      border: 2px solid #D4AF37;
+      padding: 1.375rem 3.5rem;
+      border-radius: 0.75rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.4s ease;
       letter-spacing: 0.05em;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(15px);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
     }
 
-    .vintage-btn-secondary:hover {
-      background: #DAA520;
-      color: #FFF8DC;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(218, 165, 32, 0.4);
+    .btn-secondary:hover {
+      background: #D4AF37;
+      color: #FAF7F2;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
     }
 
-    /* Service Cards */
-    .vintage-services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 2.5rem;
-      margin-top: 4rem;
-    }
-
-    .vintage-service-card {
-      background: rgba(255, 254, 247, 0.9);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 2px solid rgba(218, 165, 32, 0.3);
+    /* Service Cards parisiennes raffinées */
+    .service-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(212, 175, 55, 0.25);
       border-radius: 1rem;
-      padding: 2.5rem;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 3rem;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
-      box-shadow: 0 8px 25px rgba(139, 0, 0, 0.1);
+      box-shadow: 0 10px 30px rgba(114, 47, 55, 0.08);
     }
 
-    .vintage-service-card::before {
+    .service-card::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       height: 4px;
-      background: linear-gradient(90deg, #8B0000 0%, #DAA520 50%, #CD853F 100%);
+      background: linear-gradient(90deg, #722F37 0%, #D4AF37 50%, #B8860B 100%);
       transform: scaleX(0);
-      transition: transform 0.4s ease;
+      transition: transform 0.5s ease;
+      border-radius: 1rem 1rem 0 0;
     }
 
-    .vintage-service-card:hover::before {
+    .service-card:hover::before {
       transform: scaleX(1);
     }
 
-    .vintage-service-card::after {
+    .service-card::after {
       content: '✨';
       position: absolute;
-      top: 1.5rem;
-      right: 1.5rem;
+      top: 2rem;
+      right: 2rem;
       font-size: 1.5rem;
-      opacity: 0.3;
-      transition: all 0.3s ease;
+      opacity: 0.4;
+      transition: all 0.4s ease;
+      filter: sepia(30%) hue-rotate(15deg);
     }
 
-    .vintage-service-card:hover::after {
-      opacity: 0.8;
-      transform: scale(1.3) rotate(15deg);
-      animation: vintageSparkle 1.5s ease-in-out infinite;
+    .service-card:hover::after {
+      opacity: 0.9;
+      transform: scale(1.4) rotate(20deg);
+      animation: parisienneSparkle 2s ease-in-out infinite;
     }
 
-    @keyframes vintageSparkle {
-      0%, 100% { transform: scale(1.3) rotate(15deg); filter: sepia(20%); }
-      50% { transform: scale(1.5) rotate(25deg); filter: sepia(50%); }
+    @keyframes parisienneSparkle {
+      0%, 100% { transform: scale(1.4) rotate(20deg); filter: sepia(30%) hue-rotate(15deg); }
+      50% { transform: scale(1.6) rotate(30deg); filter: sepia(60%) hue-rotate(25deg); }
     }
 
-    .vintage-service-card:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 25px 50px rgba(139, 0, 0, 0.2);
-      background: rgba(255, 254, 247, 0.95);
-      border-color: rgba(218, 165, 32, 0.6);
+    .service-card:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 25px 50px rgba(114, 47, 55, 0.15);
+      background: rgba(255, 255, 255, 0.98);
+      border-color: rgba(212, 175, 55, 0.5);
     }
 
-    .vintage-service-title {
+    .service-title {
       font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
+      font-size: 1.625rem;
       font-weight: 700;
-      color: #8B0000;
-      margin-bottom: 1rem;
-      letter-spacing: 0.01em;
-      text-shadow: 0 0 10px rgba(139, 0, 0, 0.2);
+      color: #722F37;
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.015em;
       font-style: italic;
     }
 
-    .vintage-service-description {
-      color: #2F1B14;
-      line-height: 1.7;
-      margin-bottom: 2rem;
-      font-size: 1rem;
+    .service-description {
+      color: #2C1810;
+      line-height: 1.75;
+      margin-bottom: 2.25rem;
+      font-size: 1.0625rem;
       font-style: italic;
     }
 
-    .vintage-service-price {
-      font-size: 2.25rem;
-      font-weight: 700;
-      color: #DAA520;
-      margin-bottom: 0.5rem;
+    .service-price {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #D4AF37;
+      margin-bottom: 0.75rem;
       letter-spacing: -0.02em;
-      text-shadow: 0 0 15px rgba(218, 165, 32, 0.4);
       font-family: 'Playfair Display', serif;
+      font-style: italic;
     }
 
-    .vintage-service-duration {
-      color: #CD853F;
-      font-size: 0.95rem;
+    .service-duration {
+      color: #B8860B;
+      font-size: 1rem;
       margin-bottom: 2rem;
       font-weight: 600;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.025em;
       font-style: italic;
+      text-transform: capitalize;
     }
 
-    /* Team Section */
-    .vintage-team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2.5rem;
-      margin-top: 4rem;
-    }
-
-    .vintage-team-member {
+    /* Team Section parisienne raffinée */
+    .team-member {
       text-align: center;
-      padding: 2.5rem 2rem;
-      background: rgba(255, 254, 247, 0.8);
+      padding: 3rem 2.5rem;
+      background: rgba(255, 255, 255, 0.95);
       border-radius: 1rem;
-      transition: all 0.4s ease;
-      border: 2px solid rgba(218, 165, 32, 0.2);
+      transition: all 0.5s ease;
+      border: 1px solid rgba(212, 175, 55, 0.25);
       position: relative;
       overflow: hidden;
-      box-shadow: 0 8px 25px rgba(139, 0, 0, 0.1);
+      box-shadow: 0 10px 30px rgba(114, 47, 55, 0.08);
     }
 
-    .vintage-team-member::before {
+    .team-member::before {
       content: '';
       position: absolute;
       top: -50%;
       left: -50%;
       width: 200%;
       height: 200%;
-      background: radial-gradient(circle, rgba(218, 165, 32, 0.1) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
       transform: scale(0);
-      transition: transform 0.5s ease;
+      transition: transform 0.6s ease;
     }
 
-    .vintage-team-member:hover::before {
+    .team-member:hover::before {
       transform: scale(1);
     }
 
-    .vintage-team-member:hover {
-      transform: translateY(-8px);
-      background: rgba(255, 254, 247, 0.95);
-      box-shadow: 0 20px 40px rgba(139, 0, 0, 0.15);
-      border-color: rgba(218, 165, 32, 0.5);
+    .team-member:hover {
+      transform: translateY(-10px) scale(1.02);
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 20px 50px rgba(114, 47, 55, 0.12);
+      border-color: rgba(212, 175, 55, 0.5);
     }
 
-    .vintage-team-avatar {
-      width: 120px;
-      height: 120px;
+    .team-avatar {
+      width: 130px;
+      height: 130px;
       border-radius: 50%;
-      margin: 0 auto 1.5rem;
-      border: 4px solid #DAA520;
+      margin: 0 auto 1.75rem;
+      border: 4px solid #D4AF37;
       object-fit: cover;
-      transition: all 0.4s ease;
+      transition: all 0.5s ease;
       position: relative;
       z-index: 2;
-      box-shadow: 0 0 20px rgba(218, 165, 32, 0.3);
-      filter: sepia(10%);
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+      filter: sepia(8%) contrast(105%);
     }
 
-    .vintage-team-member:hover .vintage-team-avatar {
-      transform: scale(1.1);
-      border-color: #8B0000;
-      box-shadow: 0 0 30px rgba(139, 0, 0, 0.4);
-      filter: sepia(20%);
+    .team-member:hover .team-avatar {
+      transform: scale(1.08);
+      border-color: #722F37;
+      box-shadow: 0 0 35px rgba(114, 47, 55, 0.4);
+      filter: sepia(15%) contrast(110%);
     }
 
-    .vintage-team-name {
+    .team-name {
       font-family: 'Playfair Display', serif;
-      font-size: 1.25rem;
+      font-size: 1.375rem;
       font-weight: 700;
-      color: #8B0000;
-      margin-bottom: 0.5rem;
-      letter-spacing: 0.01em;
+      color: #722F37;
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.015em;
       position: relative;
       z-index: 2;
-      text-shadow: 0 0 10px rgba(139, 0, 0, 0.2);
       font-style: italic;
     }
 
-    .vintage-team-role {
-      color: #2F1B14;
+    .team-role {
+      color: #2C1810;
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 1.0625rem;
       position: relative;
       z-index: 2;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.025em;
       font-style: italic;
     }
 
-    /* Contact Section */
-    .vintage-contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2.5rem;
-      margin-top: 4rem;
-    }
-
-    .vintage-contact-card {
-      background: rgba(255, 254, 247, 0.9);
-      backdrop-filter: blur(20px);
+    /* Contact Section parisienne raffinée */
+    .contact-info {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(25px);
       border-radius: 1rem;
-      padding: 2.5rem;
-      border: 2px solid rgba(218, 165, 32, 0.3);
+      padding: 3rem;
+      border: 1px solid rgba(212, 175, 55, 0.25);
       position: relative;
       overflow: hidden;
-      box-shadow: 0 8px 25px rgba(139, 0, 0, 0.1);
+      box-shadow: 0 10px 30px rgba(114, 47, 55, 0.08);
+      transition: all 0.4s ease;
     }
 
-    .vintage-contact-card::before {
+    .contact-info:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(114, 47, 55, 0.12);
+    }
+
+    .contact-info::before {
       content: '';
       position: absolute;
       top: 0;
       right: 0;
-      width: 60px;
-      height: 60px;
-      background: radial-gradient(circle, rgba(205, 133, 63, 0.2) 0%, transparent 70%);
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, rgba(184, 134, 11, 0.15) 0%, transparent 70%);
       border-radius: 0 1rem 0 1rem;
     }
 
-    .vintage-contact-title {
+    .contact-title {
       font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
+      font-size: 1.625rem;
       font-weight: 700;
-      color: #8B0000;
-      margin-bottom: 2rem;
-      letter-spacing: 0.01em;
-      text-shadow: 0 0 10px rgba(139, 0, 0, 0.2);
+      color: #722F37;
+      margin-bottom: 2.25rem;
+      letter-spacing: 0.015em;
       font-style: italic;
     }
 
-    .vintage-contact-item {
+    .contact-item {
       display: flex;
       align-items: center;
-      margin-bottom: 1.25rem;
-      padding: 1rem;
-      border-radius: 0.5rem;
-      transition: all 0.3s ease;
+      margin-bottom: 1.5rem;
+      padding: 1.25rem;
+      border-radius: 0.75rem;
+      transition: all 0.4s ease;
+      color: #2C1810;
     }
 
-    .vintage-contact-item:hover {
-      background: rgba(218, 165, 32, 0.1);
-      transform: translateX(5px);
+    .contact-item:hover {
+      background: rgba(212, 175, 55, 0.08);
+      transform: translateX(8px);
     }
 
-    .vintage-contact-icon {
-      width: 20px;
-      height: 20px;
-      margin-right: 1.25rem;
-      color: #DAA520;
+    .contact-icon {
+      width: 22px;
+      height: 22px;
+      margin-right: 1.5rem;
+      color: #D4AF37;
+      font-size: 1.25rem;
     }
 
-    .vintage-hours-item {
+    .hours-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 0;
-      border-bottom: 1px solid rgba(218, 165, 32, 0.2);
+      padding: 1.25rem 0;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      transition: all 0.3s ease;
     }
 
-    .vintage-hours-item:last-child {
+    .hours-item:last-child {
       border-bottom: none;
     }
 
-    .vintage-hours-day {
-      font-weight: 700;
-      color: #8B0000;
-      letter-spacing: 0.02em;
-      font-style: italic;
+    .hours-item:hover {
+      background: rgba(212, 175, 55, 0.05);
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+      border-radius: 0.75rem;
     }
 
-    .vintage-hours-time {
-      color: #2F1B14;
-      font-size: 1rem;
+    .hours-day {
+      font-weight: 700;
+      color: #722F37;
+      letter-spacing: 0.025em;
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .hours-time {
+      color: #2C1810;
+      font-size: 1.0625rem;
       font-weight: 500;
       font-style: italic;
     }
 
-    /* Footer */
-    .vintage-footer {
-      background: linear-gradient(135deg, #8B0000 0%, #A0522D 100%);
-      color: #FFF8DC;
-      padding: 4rem 0 2rem;
-      margin-top: 5rem;
+    /* Footer parisien raffiné */
+    .footer {
+      background: linear-gradient(135deg, #722F37 0%, #4A1C40 100%);
+      color: #FAF7F2;
+      padding: 5rem 0 2.5rem;
+      margin-top: 6rem;
       position: relative;
       overflow: hidden;
     }
 
-    .vintage-footer::before {
+    .footer::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M20,50 Q40,30 60,50 Q80,70 100,50" fill="none" stroke="rgba(218,165,32,0.1)" stroke-width="1"/><circle cx="30" cy="30" r="2" fill="rgba(218,165,32,0.08)"/><circle cx="70" cy="70" r="1.5" fill="rgba(205,133,63,0.06)"/></svg>') repeat;
-      background-size: 120px 120px;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M20,50 Q40,25 60,50 Q80,75 100,50" fill="none" stroke="rgba(212,175,55,0.08)" stroke-width="0.8"/><circle cx="25" cy="25" r="1.5" fill="rgba(212,175,55,0.06)"/><circle cx="75" cy="75" r="1" fill="rgba(184,134,11,0.04)"/><path d="M30,70 Q35,65 40,70 Q45,75 50,70" fill="none" stroke="rgba(212,175,55,0.05)" stroke-width="0.6"/></svg>') repeat;
+      background-size: 150px 150px;
     }
 
-    .vintage-footer-content {
+    .footer-content {
       text-align: center;
       position: relative;
       z-index: 2;
     }
 
-    .vintage-footer-logo {
+    .footer-logo {
       font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      font-weight: 700;
-      color: #FFF8DC;
-      margin-bottom: 2rem;
-      letter-spacing: 0.02em;
-      text-shadow: 0 0 20px rgba(255, 248, 220, 0.5);
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: #FAF7F2;
+      margin-bottom: 2.5rem;
+      letter-spacing: 0.025em;
       font-style: italic;
     }
 
-    .vintage-footer-text {
-      color: rgba(255, 248, 220, 0.9);
-      margin-bottom: 3rem;
-      font-size: 1.05rem;
-      line-height: 1.7;
-      max-width: 600px;
+    .footer-text {
+      color: rgba(250, 247, 242, 0.9);
+      margin-bottom: 3.5rem;
+      font-size: 1.125rem;
+      line-height: 1.75;
+      max-width: 650px;
       margin-left: auto;
       margin-right: auto;
       font-style: italic;
     }
 
-    .vintage-social-links {
+    .social-links {
       display: flex;
       justify-content: center;
-      gap: 2rem;
-      margin-bottom: 3rem;
+      gap: 2.5rem;
+      margin-bottom: 3.5rem;
     }
 
-    .vintage-social-link {
-      width: 55px;
-      height: 55px;
-      background: rgba(218, 165, 32, 0.2);
+    .social-link {
+      width: 60px;
+      height: 60px;
+      background: rgba(212, 175, 55, 0.15);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #FFF8DC;
+      color: #FAF7F2;
       text-decoration: none;
-      transition: all 0.3s ease;
-      border: 2px solid rgba(218, 165, 32, 0.3);
-      font-size: 1.5rem;
+      transition: all 0.4s ease;
+      border: 2px solid rgba(212, 175, 55, 0.3);
+      font-size: 1.625rem;
     }
 
-    .vintage-social-link:hover {
-      background: #DAA520;
-      color: #8B0000;
-      transform: translateY(-3px) scale(1.1);
-      border-color: #DAA520;
-      box-shadow: 0 8px 25px rgba(218, 165, 32, 0.4);
+    .social-link:hover {
+      background: #D4AF37;
+      color: #722F37;
+      transform: translateY(-4px) scale(1.1);
+      border-color: #D4AF37;
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
     }
 
-    .vintage-copyright {
-      color: rgba(255, 248, 220, 0.8);
-      font-size: 0.9rem;
-      border-top: 1px solid rgba(218, 165, 32, 0.2);
-      padding-top: 2rem;
+    .copyright {
+      color: rgba(250, 247, 242, 0.8);
+      font-size: 0.9375rem;
+      border-top: 1px solid rgba(212, 175, 55, 0.2);
+      padding-top: 2.5rem;
       font-style: italic;
     }
 

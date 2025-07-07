@@ -11,8 +11,8 @@ import { techFuturisteTemplate } from './tech-futuriste';
 import { modernSalon2025 } from './modern-salon-2025';
 
 export const allTemplates: DesignTemplate[] = [
-  modernSalon2025, // Nouveau template en premier
-  saloneoClassicTemplate,
+  saloneoClassicTemplate, // Template par défaut en premier
+  modernSalon2025,
   minimalScandinavianTemplate,
   urbanStreetArtTemplate,
   botanicalSpaTemplate,

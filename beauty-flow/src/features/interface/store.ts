@@ -45,7 +45,8 @@ const defaultSettings: InterfaceSettings = {
   serviceDisplay: {
     defaultView: 'category',
     priceDisplay: 'fixed'
-  }
+  },
+  showTeamOnPublicPage: true
 };
 
 const defaultServiceSettings: Omit<ServiceDisplaySettings, 'id'> = {
@@ -155,28 +156,34 @@ export const useInterfaceStore = create<InterfaceStore>()(
         const state = get();
         set({ isSaving: true });
         
+        let profileSaved = false;
+        let serviceErrors: string[] = [];
+        
         try {
-          // Sauvegarder les paramètres d'interface dans le profil utilisateur
+          // 1. Sauvegarder les paramètres d'interface dans le profil utilisateur (PRIORITÉ)
+          console.log('🔄 Sauvegarde du profil avec showTeamOnPublicPage:', state.settings.showTeamOnPublicPage);
           await api.put('/profile', {
             theme: state.settings.colors,
             logo: state.settings.logo.url,
             banner: state.settings.banner.url,
             presentation: state.settings.presentation,
-            serviceDisplay: state.settings.serviceDisplay
+            serviceDisplay: state.settings.serviceDisplay,
+            showTeamOnPublicPage: state.settings.showTeamOnPublicPage
           });
+          profileSaved = true;
+          console.log('✅ Profil sauvegardé avec succès');
 
-          // Sauvegarder les paramètres de services
-          for (const serviceSetting of state.serviceSettings) {
-            await api.put(`/services/${serviceSetting.id}/settings`, {
-              isOnline: serviceSetting.isOnline,
-              minimumBookingTime: serviceSetting.minimumBookingTime,
-              displayOrder: serviceSetting.displayOrder,
-              images: serviceSetting.images
-            });
+          // Note: Les paramètres de services sont gérés directement dans la page Services
+          // Ici on ne sauvegarde que les paramètres d'interface du profil
+          
+          console.log('🎉 Paramètres d\'interface sauvegardés avec succès');
+
+        } catch (error: any) {
+          console.error('❌ Erreur lors de la sauvegarde du profil:', error);
+          if (!profileSaved) {
+            // Si le profil n'a pas pu être sauvegardé, c'est critique
+            throw new Error(`Erreur critique: ${error.message}`);
           }
-        } catch (error) {
-          console.error('Erreur lors de la sauvegarde des paramètres:', error);
-          throw error;
         } finally {
           set({ isSaving: false });
         }
@@ -220,13 +227,33 @@ export const useInterfaceStore = create<InterfaceStore>()(
               newSettings.serviceDisplay = profile.serviceDisplay;
             }
 
+            // Charger le paramètre d'affichage de l'équipe
+            if (profile.showTeamOnPublicPage !== undefined) {
+              newSettings.showTeamOnPublicPage = profile.showTeamOnPublicPage;
+            }
+
             // Charger le template sélectionné
             if (profile.theme?.selectedTemplateId) {
               set({ selectedTemplateId: profile.theme.selectedTemplateId });
             }
 
             if (Object.keys(newSettings).length > 0) {
-              get().updateSettings(newSettings);
+              // Utiliser directement set() au lieu de updateSettings() pour éviter les problèmes de réactivité
+              set((state) => ({
+                ...state,
+                settings: {
+                  ...state.settings,
+                  ...newSettings,
+                  colors: {
+                    ...state.settings.colors,
+                    ...(newSettings.colors || {})
+                  },
+                  serviceDisplay: {
+                    ...state.settings.serviceDisplay,
+                    ...(newSettings.serviceDisplay || {})
+                  }
+                }
+              }));
             }
           }
 
@@ -256,12 +283,21 @@ export const useInterfaceStore = create<InterfaceStore>()(
       uploadLogo: async (file: File) => {
         try {
           const url = await fileService.uploadImage(file, 'logo');
+          
+          // Mettre à jour le store local
           get().updateSettings({
             logo: {
               url,
               alt: 'Logo du salon'
             }
           });
+
+          // Sauvegarder immédiatement dans la base de données
+          await api.put('/profile', {
+            logo: url
+          });
+
+          console.log('Logo uploadé et sauvegardé:', url);
         } catch (error) {
           console.error('Erreur lors de l\'upload du logo:', error);
           throw error;
@@ -272,14 +308,29 @@ export const useInterfaceStore = create<InterfaceStore>()(
       uploadBanner: async (file: File) => {
         try {
           const url = await fileService.uploadImage(file, 'banner');
+          console.log('🔍 URL de bannière générée:', url);
+          
+          // Mettre à jour le store local
           get().updateSettings({
             banner: {
               url,
               alt: 'Bannière du salon'
             }
           });
+
+          // Sauvegarder immédiatement dans la base de données
+          console.log('🔍 Envoi vers API:', { banner: url });
+          const response = await api.put('/profile', {
+            banner: url
+          });
+          console.log('🔍 Réponse du backend:', response.data);
+
+          // Recharger les settings pour synchroniser l'affichage
+          await get().loadSettings();
+
+          console.log('✅ Bannière uploadée et sauvegardée:', url);
         } catch (error) {
-          console.error('Erreur lors de l\'upload de la bannière:', error);
+          console.error('❌ Erreur lors de l\'upload de la bannière:', error);
           throw error;
         }
       },

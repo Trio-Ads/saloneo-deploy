@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { 
   UserIcon,
   EnvelopeIcon,
@@ -23,6 +24,7 @@ interface ClientListProps {
 }
 
 const ClientList: React.FC<ClientListProps> = ({ clients, onEdit, onDelete }) => {
+  const { t } = useTranslation('clients');
   const services = useServiceStore((state) => state.services);
   const teamMembers = useTeamStore((state) => state.members);
   const activeClients = clients.filter((client) => client.isActive);
@@ -65,10 +67,10 @@ const ClientList: React.FC<ClientListProps> = ({ clients, onEdit, onDelete }) =>
   };
 
   const getLoyaltyLevel = (points: number) => {
-    if (points >= 1000) return { level: 'VIP', color: 'text-indigo-600', bgColor: 'bg-indigo-100' };
-    if (points >= 500) return { level: 'Gold', color: 'text-yellow-600', bgColor: 'bg-yellow-100' };
-    if (points >= 200) return { level: 'Silver', color: 'text-gray-600', bgColor: 'bg-gray-100' };
-    return { level: 'Bronze', color: 'text-orange-600', bgColor: 'bg-orange-100' };
+    if (points >= 1000) return { level: t('client_list.loyalty_levels.vip'), color: 'text-indigo-600', bgColor: 'bg-indigo-100' };
+    if (points >= 500) return { level: t('client_list.loyalty_levels.gold'), color: 'text-yellow-600', bgColor: 'bg-yellow-100' };
+    if (points >= 200) return { level: t('client_list.loyalty_levels.silver'), color: 'text-gray-600', bgColor: 'bg-gray-100' };
+    return { level: t('client_list.loyalty_levels.bronze'), color: 'text-orange-600', bgColor: 'bg-orange-100' };
   };
 
   if (activeClients.length === 0) {
@@ -78,11 +80,11 @@ const ClientList: React.FC<ClientListProps> = ({ clients, onEdit, onDelete }) =>
           <UserIcon className="h-12 w-12 text-white" />
         </div>
         <h3 className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent mb-3">
-          Aucun client enregistré
+          {t('client_list.empty_state.title')}
         </h3>
-        <p className="text-gray-600 text-lg">Commencez par ajouter vos premiers clients</p>
+        <p className="text-gray-600 text-lg">{t('client_list.empty_state.subtitle')}</p>
         <div className="mt-6 inline-flex items-center px-4 py-2 bg-gradient-to-r from-indigo-100 to-blue-100 rounded-full text-indigo-700 text-sm font-medium">
-          ✨ Créez votre première fiche client
+          ✨ {t('client_list.empty_state.cta')}
         </div>
       </div>
     );
@@ -123,14 +125,14 @@ const ClientList: React.FC<ClientListProps> = ({ clients, onEdit, onDelete }) =>
                 <button
                   onClick={() => onEdit(client)}
                   className="glass-button p-3 text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl"
-                  title="Modifier le client"
+                  title={t('client_list.tooltips.edit_client')}
                 >
                   <PencilIcon className="h-5 w-5" />
                 </button>
                 <button
                   onClick={() => onDelete(client.id)}
                   className="glass-button p-3 text-red-600 hover:text-red-800 hover:bg-red-50 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl"
-                  title="Supprimer le client"
+                  title={t('client_list.tooltips.delete_client')}
                 >
                   <TrashIcon className="h-5 w-5" />
                 </button>
@@ -144,7 +146,7 @@ const ClientList: React.FC<ClientListProps> = ({ clients, onEdit, onDelete }) =>
                 <div className="flex items-center space-x-3 p-3 glass-card bg-white/30 rounded-xl">
                   <EnvelopeIcon className="h-5 w-5 text-indigo-600" />
                   <div>
-                    <p className="text-sm font-medium text-gray-700">Email</p>
+                    <p className="text-sm font-medium text-gray-700">{t('client_list.info_labels.email')}</p>
                     <p className="text-sm text-gray-900">{client.email}</p>
                   </div>
                 </div>
@@ -152,7 +154,7 @@ const ClientList: React.FC<ClientListProps> = ({ clients, onEdit, onDelete }) =>
                 <div className="flex items-center space-x-3 p-3 glass-card bg-white/30 rounded-xl">
                   <PhoneIcon className="h-5 w-5 text-indigo-600" />
                   <div>
-                    <p className="text-sm font-medium text-gray-700">Téléphone</p>
+                    <p className="text-sm font-medium text-gray-700">{t('client_list.info_labels.phone')}</p>
                     <p className="text-sm text-gray-900">{client.phone}</p>
                   </div>
                 </div>
@@ -161,7 +163,7 @@ const ClientList: React.FC<ClientListProps> = ({ clients, onEdit, onDelete }) =>
                   <div className="flex items-center space-x-3 p-3 glass-card bg-white/30 rounded-xl">
                     <GiftIcon className="h-5 w-5 text-indigo-600" />
                     <div>
-                      <p className="text-sm font-medium text-gray-700">Date de naissance</p>
+                      <p className="text-sm font-medium text-gray-700">{t('client_list.info_labels.birth_date')}</p>
                       <p className="text-sm text-gray-900">{formatDate(client.birthDate)}</p>
                     </div>
                   </div>
@@ -171,7 +173,7 @@ const ClientList: React.FC<ClientListProps> = ({ clients, onEdit, onDelete }) =>
                   <div className="flex items-center space-x-3 p-3 glass-card bg-white/30 rounded-xl">
                     <CalendarDaysIcon className="h-5 w-5 text-indigo-600" />
                     <div>
-                      <p className="text-sm font-medium text-gray-700">Dernière visite</p>
+                      <p className="text-sm font-medium text-gray-700">{t('client_list.info_labels.last_visit')}</p>
                       <p className={`text-sm font-medium ${statusColor}`}>{formatDate(client.lastVisit)}</p>
                     </div>
                   </div>
@@ -184,14 +186,14 @@ const ClientList: React.FC<ClientListProps> = ({ clients, onEdit, onDelete }) =>
                   <div className="p-3 glass-card bg-gradient-to-r from-indigo-50 to-blue-50 rounded-xl">
                     <div className="flex items-center space-x-2 mb-2">
                       <SparklesIcon className="h-5 w-5 text-indigo-600" />
-                      <p className="text-sm font-medium text-gray-700">Profil capillaire</p>
+                      <p className="text-sm font-medium text-gray-700">{t('client_list.profile_sections.hair_profile')}</p>
                     </div>
                     <div className="space-y-1">
                       <p className="text-sm text-gray-900">
-                        <span className="font-medium">Type:</span> {client.preferences.hairQuestionnaire.hairType}
+                        <span className="font-medium">{t('client_list.hair_info.type')}</span> {client.preferences.hairQuestionnaire.hairType}
                       </p>
                       <p className="text-sm text-gray-900">
-                        <span className="font-medium">Épaisseur:</span> {client.preferences.hairQuestionnaire.thickness}
+                        <span className="font-medium">{t('client_list.hair_info.thickness')}</span> {client.preferences.hairQuestionnaire.thickness}
                       </p>
                     </div>
                   </div>
@@ -200,7 +202,7 @@ const ClientList: React.FC<ClientListProps> = ({ clients, onEdit, onDelete }) =>
                 <div className="p-3 glass-card bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl">
                   <div className="flex items-center space-x-2 mb-2">
                     <StarIcon className="h-5 w-5 text-yellow-600" />
-                    <p className="text-sm font-medium text-gray-700">Points fidélité</p>
+                    <p className="text-sm font-medium text-gray-700">{t('client_list.profile_sections.loyalty_points')}</p>
                   </div>
                   <p className="text-2xl font-bold text-yellow-600">{client.loyaltyPoints}</p>
                 </div>
@@ -209,22 +211,22 @@ const ClientList: React.FC<ClientListProps> = ({ clients, onEdit, onDelete }) =>
                 <div className="p-3 glass-card bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl">
                   <div className="flex items-center space-x-2 mb-2">
                     <ChatBubbleLeftRightIcon className="h-5 w-5 text-blue-600" />
-                    <p className="text-sm font-medium text-gray-700">Communication</p>
+                    <p className="text-sm font-medium text-gray-700">{t('client_list.profile_sections.communication')}</p>
                   </div>
                   <div className="flex items-center space-x-3">
                     {client.preferences.communicationPreferences.smsReminders && (
                       <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                        📱 SMS
+                        📱 {t('client_list.communication_badges.sms')}
                       </span>
                     )}
                     {client.preferences.communicationPreferences.emailMarketing && (
                       <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                        📧 Email
+                        📧 {t('client_list.communication_badges.email')}
                       </span>
                     )}
                     {client.preferences.communicationPreferences.birthdayOffers && (
                       <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
-                        🎂 Anniversaire
+                        🎂 {t('client_list.communication_badges.birthday')}
                       </span>
                     )}
                   </div>
@@ -239,7 +241,7 @@ const ClientList: React.FC<ClientListProps> = ({ clients, onEdit, onDelete }) =>
                   <div className="p-4 glass-card bg-gradient-to-r from-indigo-50 to-blue-50 rounded-xl">
                     <div className="flex items-center space-x-2 mb-3">
                       <HeartIcon className="h-5 w-5 text-indigo-600" />
-                      <p className="text-sm font-medium text-gray-700">Services préférés</p>
+                      <p className="text-sm font-medium text-gray-700">{t('client_list.profile_sections.favorite_services')}</p>
                     </div>
                     <p className="text-sm text-gray-900 leading-relaxed">
                       {getServiceNames(client.preferences.favoriteServices)}
@@ -251,7 +253,7 @@ const ClientList: React.FC<ClientListProps> = ({ clients, onEdit, onDelete }) =>
                   <div className="p-4 glass-card bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl">
                     <div className="flex items-center space-x-2 mb-3">
                       <UserIcon className="h-5 w-5 text-blue-600" />
-                      <p className="text-sm font-medium text-gray-700">Coiffeurs préférés</p>
+                      <p className="text-sm font-medium text-gray-700">{t('client_list.profile_sections.preferred_stylists')}</p>
                     </div>
                     <p className="text-sm text-gray-900 leading-relaxed">
                       {getStylistNames(client.preferences.preferredStylists)}
@@ -266,7 +268,7 @@ const ClientList: React.FC<ClientListProps> = ({ clients, onEdit, onDelete }) =>
               <div className="mt-6 p-4 glass-card bg-gradient-to-r from-gray-50 to-slate-50 rounded-xl border-l-4 border-indigo-500">
                 <div className="flex items-center space-x-2 mb-2">
                   <ChatBubbleLeftRightIcon className="h-5 w-5 text-gray-600" />
-                  <p className="text-sm font-medium text-gray-700">Notes</p>
+                  <p className="text-sm font-medium text-gray-700">{t('client_list.profile_sections.notes')}</p>
                 </div>
                 <p className="text-sm text-gray-900 leading-relaxed italic">"{client.notes}"</p>
               </div>

@@ -1,4 +1,5 @@
 import React, { useReducer, useMemo, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { format, addMinutes, parse } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { 
@@ -64,6 +65,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   onSubmit,
   onCancel,
 }) => {
+  const { t } = useTranslation('appointments');
   const {
     clients,
     services,
@@ -208,23 +210,23 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               <div className="absolute inset-0 bg-white/20 rounded-xl opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
             </div>
             <h2 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              {initialData ? 'Modifier le Rendez-vous' : 'Nouveau Rendez-vous'}
+              {initialData ? t('appointment_form.title_edit') : t('appointment_form.title_new')}
             </h2>
           </div>
-          <p className="text-gray-600">Planifiez un rendez-vous pour votre client</p>
+          <p className="text-gray-600">{t('appointment_form.subtitle')}</p>
         </div>
 
         {/* Sélection du client */}
         <div className="glass-card p-6">
           <div className="flex items-center space-x-3 mb-6">
             <UserIcon className="h-6 w-6 text-indigo-600" />
-            <h3 className="text-lg font-semibold text-gray-900">Client</h3>
+            <h3 className="text-lg font-semibold text-gray-900">{t('appointment_form.sections.client')}</h3>
           </div>
           
           <div>
             <label htmlFor="clientId" className="block text-sm font-medium text-gray-700 mb-2">
               <UserIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
-              Sélectionner un client *
+              {t('appointment_form.labels.select_client')}
             </label>
             <select
               id="clientId"
@@ -234,7 +236,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               required
               className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
             >
-              <option value="">Choisir un client...</option>
+              <option value="">{t('appointment_form.labels.choose_client')}</option>
               {clients.map((client) => (
                 <option key={client.id} value={client.id}>
                   {client.firstName} {client.lastName}
@@ -258,13 +260,13 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
         <div className="glass-card p-6">
           <div className="flex items-center space-x-3 mb-6">
             <SparklesIcon className="h-6 w-6 text-indigo-600" />
-            <h3 className="text-lg font-semibold text-gray-900">Service</h3>
+            <h3 className="text-lg font-semibold text-gray-900">{t('appointment_form.sections.service')}</h3>
           </div>
           
           <div>
             <label htmlFor="serviceId" className="block text-sm font-medium text-gray-700 mb-2">
               <SparklesIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
-              Sélectionner un service *
+              {t('appointment_form.labels.select_service')}
             </label>
             <select
               id="serviceId"
@@ -274,7 +276,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               required
               className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
             >
-              <option value="">Choisir un service...</option>
+              <option value="">{t('appointment_form.labels.choose_service')}</option>
               {services.map((service) => (
                 <option key={service.id} value={service.id}>
                   {service.name} ({service.duration} min - {service.price}€)
@@ -299,7 +301,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
         <div className="glass-card p-6">
           <div className="flex items-center space-x-3 mb-6">
             <UserIcon className="h-6 w-6 text-indigo-600" />
-            <h3 className="text-lg font-semibold text-gray-900">Coiffeur</h3>
+            <h3 className="text-lg font-semibold text-gray-900">{t('appointment_form.sections.stylist')}</h3>
           </div>
           
           <div>
@@ -337,7 +339,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
         <div className="glass-card p-6">
           <div className="flex items-center space-x-3 mb-6">
             <CalendarDaysIcon className="h-6 w-6 text-indigo-600" />
-            <h3 className="text-lg font-semibold text-gray-900">Planification</h3>
+            <h3 className="text-lg font-semibold text-gray-900">{t('appointment_form.sections.scheduling')}</h3>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -405,7 +407,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
         <div className="glass-card p-6">
           <div className="flex items-center space-x-3 mb-6">
             <DocumentTextIcon className="h-6 w-6 text-indigo-600" />
-            <h3 className="text-lg font-semibold text-gray-900">Notes</h3>
+            <h3 className="text-lg font-semibold text-gray-900">{t('appointment_form.sections.notes')}</h3>
           </div>
           
           <div>

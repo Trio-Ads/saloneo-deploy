@@ -74,7 +74,7 @@ const serviceSchema = new Schema<IService>(
     },
     currency: {
       type: String,
-      default: 'DZD',
+      default: 'EUR',
       uppercase: true,
     },
     isActive: {

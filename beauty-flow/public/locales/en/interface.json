@@ -1,0 +1,202 @@
+{
+  "title": "Interface",
+  "customization": "Customization",
+  "appearance": "Appearance",
+  "settings": "Settings",
+  "theme": "Theme",
+  "colors": "Colors",
+  "layout": "Layout",
+  "branding": "Branding",
+  "templates": "Templates",
+  "preview": "Preview",
+  "save": "Save",
+  "reset": "Reset",
+  "apply": "Apply",
+  "themes": {
+    "modern": "Modern",
+    "classic": "Classic",
+    "minimal": "Minimal",
+    "elegant": "Elegant",
+    "bold": "Bold",
+    "soft": "Soft",
+    "dark": "Dark",
+    "light": "Light"
+  },
+  "colors": {
+    "primary": "Primary Color",
+    "secondary": "Secondary Color",
+    "accent": "Accent Color",
+    "background": "Background",
+    "text": "Text",
+    "border": "Border",
+    "success": "Success",
+    "warning": "Warning",
+    "error": "Error",
+    "info": "Information"
+  },
+  "layout": {
+    "header": "Header",
+    "sidebar": "Sidebar",
+    "footer": "Footer",
+    "content": "Content",
+    "navigation": "Navigation",
+    "logo_position": "Logo Position",
+    "menu_style": "Menu Style",
+    "spacing": "Spacing",
+    "borders": "Borders",
+    "shadows": "Shadows"
+  },
+  "branding": {
+    "logo": "Logo",
+    "business_name": "Business Name",
+    "tagline": "Tagline",
+    "description": "Description",
+    "contact_info": "Contact Information",
+    "social_media": "Social Media",
+    "upload_logo": "Upload Logo",
+    "remove_logo": "Remove Logo",
+    "logo_guidelines": "Guidelines: PNG or JPG format, maximum size 2MB"
+  },
+  "display": {
+    "show_prices": "Show Prices",
+    "show_duration": "Show Duration",
+    "show_description": "Show Description",
+    "show_images": "Show Images",
+    "show_ratings": "Show Ratings",
+    "show_availability": "Show Availability",
+    "compact_view": "Compact View",
+    "grid_view": "Grid View",
+    "list_view": "List View"
+  },
+  "public_page": {
+    "title": "Public Page",
+    "enable": "Enable Public Page",
+    "custom_url": "Custom URL",
+    "seo_title": "SEO Title",
+    "seo_description": "SEO Description",
+    "meta_keywords": "Meta Keywords",
+    "social_sharing": "Social Sharing",
+    "booking_widget": "Booking Widget",
+    "contact_form": "Contact Form",
+    "gallery": "Gallery",
+    "testimonials": "Testimonials"
+  },
+  "notifications": {
+    "email_notifications": "Email Notifications",
+    "sms_notifications": "SMS Notifications",
+    "push_notifications": "Push Notifications",
+    "appointment_reminders": "Appointment Reminders",
+    "booking_confirmations": "Booking Confirmations",
+    "payment_notifications": "Payment Notifications",
+    "marketing_emails": "Marketing Emails"
+  },
+  "language": {
+    "interface_language": "Interface Language",
+    "public_language": "Public Language",
+    "date_format": "Date Format",
+    "time_format": "Time Format",
+    "currency": "Currency",
+    "timezone": "Timezone",
+    "rtl_support": "RTL Support"
+  },
+  "advanced": {
+    "custom_css": "Custom CSS",
+    "custom_js": "Custom JavaScript",
+    "analytics": "Analytics",
+    "tracking_code": "Tracking Code",
+    "integrations": "Integrations",
+    "api_settings": "API Settings",
+    "webhooks": "Webhooks",
+    "backup": "Backup",
+    "export": "Export",
+    "import": "Import"
+  },
+  "messages": {
+    "settings_saved": "Settings saved successfully",
+    "theme_applied": "Theme applied successfully",
+    "logo_uploaded": "Logo uploaded successfully",
+    "logo_removed": "Logo removed successfully",
+    "preview_updated": "Preview updated",
+    "changes_saved": "Changes saved",
+    "reset_confirm": "Are you sure you want to reset all settings?",
+    "unsaved_changes": "You have unsaved changes",
+    "invalid_file": "Invalid file format",
+    "file_too_large": "File too large",
+    "upload_error": "Upload error"
+  },
+  "templates": {
+    "salon_classic": "Classic Salon",
+    "modern_spa": "Modern Spa",
+    "barbershop": "Barbershop",
+    "beauty_center": "Beauty Center",
+    "nail_studio": "Nail Studio",
+    "hair_salon": "Hair Salon",
+    "wellness_center": "Wellness Center",
+    "medical_spa": "Medical Spa"
+  },
+  "page": {
+    "title": "My Interface",
+    "subtitle": "Customize your salon's appearance",
+    "loading_subtitle": "Loading settings...",
+    "loading_interface": "Loading interface..."
+  },
+  "tabs": {
+    "templates": "Templates",
+    "colors": "Colors", 
+    "images": "Images",
+    "content": "Content",
+    "settings": "Settings"
+  },
+  "sections": {
+    "templates": {
+      "title": "Design Templates",
+      "description": "Choose a template for your salon"
+    },
+    "colors": {
+      "title": "Theme Colors", 
+      "description": "Customize the color palette"
+    },
+    "images": {
+      "title": "Salon Images",
+      "description": "Upload your logo and banner"
+    },
+    "content": {
+      "title": "Salon Content",
+      "description": "Manage presentation and display"
+    },
+    "settings": {
+      "title": "Advanced Settings",
+      "description": "Appointment configuration and sharing"
+    }
+  },
+  "forms": {
+    "presentation": {
+      "label": "Salon presentation",
+      "placeholder": "Present your salon, specialties, team..."
+    },
+    "services_display": "Services display",
+    "appointments_settings": "Appointment settings",
+    "team_display": "Team display",
+    "share_link": "Share link"
+  },
+  "team": {
+    "show_on_public": "Show team on public page",
+    "description": "If disabled, clients won't see your team and won't be able to choose a stylist when booking",
+    "visible_message": "✅ Team visible: Clients can see your team and choose their preferred stylist",
+    "hidden_message": "🔒 Team hidden: You will manually assign stylists to appointments from your admin interface"
+  },
+  "images": {
+    "logo_label": "Salon logo",
+    "banner_label": "Banner / Header",
+    "logo_tip": "💡 Tips: Use a transparent background (PNG) for optimal rendering in navigation",
+    "banner_tip": "💡 Tips: High resolution image for perfect display on all screens (16:5 ratio)"
+  },
+  "actions": {
+    "save": "Save",
+    "saving": "Saving..."
+  },
+  "errors": {
+    "upload": "Error uploading image:",
+    "save": "Error saving:"
+  }
+}

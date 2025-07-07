@@ -1,0 +1,28 @@
+{
+  "marketing": {
+    "hero": "/uploads/marketing/hero-1751408880546.webp",
+    "dashboard": "/uploads/marketing/dashboard-1751409075989.webp",
+    "team": "/uploads/marketing/team-1751409090919.webp",
+    "client": "/uploads/marketing/client-1751409104669.webp",
+    "barbershop": "/uploads/marketing/barbershop-1751409118278.webp",
+    "spa": "/uploads/marketing/spa-1751409131711.webp"
+  },
+  "logos": {
+    "horizontal": "/uploads/logos/saloneo-logo-horizontal-1751408905849-transparent.png",
+    "square": "/uploads/logos/saloneo-logo-square-1751408920542-transparent.png"
+  },
+  "avatars": [
+    {
+      "url": "/uploads/avatars/avatar-1-1751408935763.webp",
+      "index": 1
+    },
+    {
+      "url": "/uploads/avatars/avatar-2-1751408949173.webp",
+      "index": 2
+    },
+    {
+      "url": "/uploads/avatars/avatar-3-1751408963175.webp",
+      "index": 3
+    }
+  ]
+}

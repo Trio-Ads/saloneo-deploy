@@ -1,0 +1,202 @@
+{
+  "title": "Interface",
+  "customization": "Personnalisation",
+  "appearance": "Apparence",
+  "settings": "Paramètres",
+  "theme": "Thème",
+  "colors": "Couleurs",
+  "layout": "Mise en page",
+  "branding": "Image de marque",
+  "templates": "Modèles",
+  "preview": "Aperçu",
+  "save": "Enregistrer",
+  "reset": "Réinitialiser",
+  "apply": "Appliquer",
+  "themes": {
+    "modern": "Moderne",
+    "classic": "Classique",
+    "minimal": "Minimal",
+    "elegant": "Élégant",
+    "bold": "Audacieux",
+    "soft": "Doux",
+    "dark": "Sombre",
+    "light": "Clair"
+  },
+  "colors": {
+    "primary": "Couleur principale",
+    "secondary": "Couleur secondaire",
+    "accent": "Couleur d'accent",
+    "background": "Arrière-plan",
+    "text": "Texte",
+    "border": "Bordure",
+    "success": "Succès",
+    "warning": "Avertissement",
+    "error": "Erreur",
+    "info": "Information"
+  },
+  "layout": {
+    "header": "En-tête",
+    "sidebar": "Barre latérale",
+    "footer": "Pied de page",
+    "content": "Contenu",
+    "navigation": "Navigation",
+    "logo_position": "Position du logo",
+    "menu_style": "Style du menu",
+    "spacing": "Espacement",
+    "borders": "Bordures",
+    "shadows": "Ombres"
+  },
+  "branding": {
+    "logo": "Logo",
+    "business_name": "Nom de l'entreprise",
+    "tagline": "Slogan",
+    "description": "Description",
+    "contact_info": "Informations de contact",
+    "social_media": "Réseaux sociaux",
+    "upload_logo": "Télécharger un logo",
+    "remove_logo": "Supprimer le logo",
+    "logo_guidelines": "Recommandations : Format PNG ou JPG, taille maximale 2MB"
+  },
+  "display": {
+    "show_prices": "Afficher les prix",
+    "show_duration": "Afficher la durée",
+    "show_description": "Afficher la description",
+    "show_images": "Afficher les images",
+    "show_ratings": "Afficher les évaluations",
+    "show_availability": "Afficher la disponibilité",
+    "compact_view": "Vue compacte",
+    "grid_view": "Vue en grille",
+    "list_view": "Vue en liste"
+  },
+  "public_page": {
+    "title": "Page publique",
+    "enable": "Activer la page publique",
+    "custom_url": "URL personnalisée",
+    "seo_title": "Titre SEO",
+    "seo_description": "Description SEO",
+    "meta_keywords": "Mots-clés",
+    "social_sharing": "Partage social",
+    "booking_widget": "Widget de réservation",
+    "contact_form": "Formulaire de contact",
+    "gallery": "Galerie",
+    "testimonials": "Témoignages"
+  },
+  "notifications": {
+    "email_notifications": "Notifications par email",
+    "sms_notifications": "Notifications SMS",
+    "push_notifications": "Notifications push",
+    "appointment_reminders": "Rappels de rendez-vous",
+    "booking_confirmations": "Confirmations de réservation",
+    "payment_notifications": "Notifications de paiement",
+    "marketing_emails": "Emails marketing"
+  },
+  "language": {
+    "interface_language": "Langue de l'interface",
+    "public_language": "Langue publique",
+    "date_format": "Format de date",
+    "time_format": "Format d'heure",
+    "currency": "Devise",
+    "timezone": "Fuseau horaire",
+    "rtl_support": "Support RTL"
+  },
+  "advanced": {
+    "custom_css": "CSS personnalisé",
+    "custom_js": "JavaScript personnalisé",
+    "analytics": "Analytics",
+    "tracking_code": "Code de suivi",
+    "integrations": "Intégrations",
+    "api_settings": "Paramètres API",
+    "webhooks": "Webhooks",
+    "backup": "Sauvegarde",
+    "export": "Exporter",
+    "import": "Importer"
+  },
+  "messages": {
+    "settings_saved": "Paramètres enregistrés avec succès",
+    "theme_applied": "Thème appliqué avec succès",
+    "logo_uploaded": "Logo téléchargé avec succès",
+    "logo_removed": "Logo supprimé avec succès",
+    "preview_updated": "Aperçu mis à jour",
+    "changes_saved": "Modifications enregistrées",
+    "reset_confirm": "Êtes-vous sûr de vouloir réinitialiser tous les paramètres ?",
+    "unsaved_changes": "Vous avez des modifications non enregistrées",
+    "invalid_file": "Format de fichier non valide",
+    "file_too_large": "Fichier trop volumineux",
+    "upload_error": "Erreur lors du téléchargement"
+  },
+  "templates": {
+    "salon_classic": "Salon Classique",
+    "modern_spa": "Spa Moderne",
+    "barbershop": "Barbershop",
+    "beauty_center": "Centre de Beauté",
+    "nail_studio": "Studio d'Ongles",
+    "hair_salon": "Salon de Coiffure",
+    "wellness_center": "Centre de Bien-être",
+    "medical_spa": "Spa Médical"
+  },
+  "page": {
+    "title": "Mon Interface",
+    "subtitle": "Personnalisez l'apparence de votre salon",
+    "loading_subtitle": "Chargement des paramètres...",
+    "loading_interface": "Chargement de l'interface..."
+  },
+  "tabs": {
+    "templates": "Templates",
+    "colors": "Couleurs", 
+    "images": "Images",
+    "content": "Contenu",
+    "settings": "Paramètres"
+  },
+  "sections": {
+    "templates": {
+      "title": "Templates de Design",
+      "description": "Choisissez un template pour votre salon"
+    },
+    "colors": {
+      "title": "Couleurs du Thème", 
+      "description": "Personnalisez la palette de couleurs"
+    },
+    "images": {
+      "title": "Images du Salon",
+      "description": "Téléchargez votre logo et bannière"
+    },
+    "content": {
+      "title": "Contenu du Salon",
+      "description": "Gérez la présentation et l'affichage"
+    },
+    "settings": {
+      "title": "Paramètres Avancés",
+      "description": "Configuration des rendez-vous et partage"
+    }
+  },
+  "forms": {
+    "presentation": {
+      "label": "Présentation du salon",
+      "placeholder": "Présentez votre salon, vos spécialités, votre équipe..."
+    },
+    "services_display": "Affichage des services",
+    "appointments_settings": "Paramètres des rendez-vous",
+    "team_display": "Affichage de l'équipe",
+    "share_link": "Lien de partage"
+  },
+  "team": {
+    "show_on_public": "Afficher l'équipe sur la page publique",
+    "description": "Si désactivé, les clients ne verront pas votre équipe et ne pourront pas choisir de coiffeur lors de la réservation",
+    "visible_message": "✅ Équipe visible : Les clients peuvent voir votre équipe et choisir leur coiffeur préféré",
+    "hidden_message": "🔒 Équipe masquée : Vous assignerez manuellement les coiffeurs aux rendez-vous depuis votre interface d'administration"
+  },
+  "images": {
+    "logo_label": "Logo du salon",
+    "banner_label": "Bannière / Header",
+    "logo_tip": "💡 Conseils : Utilisez un fond transparent (PNG) pour un rendu optimal dans la navigation",
+    "banner_tip": "💡 Conseils : Image haute résolution pour un affichage parfait sur tous les écrans (ratio 16:5)"
+  },
+  "actions": {
+    "save": "Enregistrer",
+    "saving": "Sauvegarde..."
+  },
+  "errors": {
+    "upload": "Erreur lors du téléchargement de l'image:",
+    "save": "Erreur lors de la sauvegarde:"
+  }
+}

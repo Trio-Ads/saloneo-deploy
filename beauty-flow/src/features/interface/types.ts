@@ -17,8 +17,9 @@ export interface InterfaceSettings {
   salonSlug: string;
   serviceDisplay: {
     defaultView: 'category' | 'price' | 'duration' | 'popularity';
-    priceDisplay: 'fixed' | 'from' | 'range';
+    priceDisplay: 'fixed' | 'from' | 'range' | 'hidden';
   };
+  showTeamOnPublicPage: boolean;
 }
 
 export interface ServiceDisplaySettings {

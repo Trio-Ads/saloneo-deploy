@@ -17,6 +17,10 @@ import profileRoutes from './routes/profile.routes';
 import uploadRoutes from './routes/upload.routes';
 import publicRoutes from './routes/public.routes';
 import productRoutes from './routes/products.routes';
+import paymentRoutes from './routes/payment.routes';
+import subscriptionRoutes from './routes/subscription.routes';
+import marketingRoutes from './routes/marketing.routes';
+import affiliationRoutes from './routes/affiliation.routes';
 
 // Load environment variables
 dotenv.config();
@@ -104,8 +108,15 @@ if (!isDevelopment || process.env.ENABLE_RATE_LIMIT === 'true') {
   logger.warn('⚠️  Rate limiting DISABLED for development');
 }
 
-// Serve static files (uploads)
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+// Serve static files (uploads) with CORS headers
+app.use('/uploads', (_req, res, next) => {
+  // Add CORS headers for static files
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Cross-Origin-Resource-Policy', 'cross-origin');
+  next();
+}, express.static(path.join(__dirname, '../uploads')));
 
 // Health check endpoint
 app.get('/health', (_req: Request, res: Response) => {
@@ -126,9 +137,13 @@ app.use('/api/appointments', appointmentRoutes);
 app.use('/api/team', teamRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/payment', paymentRoutes);
+app.use('/api/subscription', subscriptionRoutes);
+app.use('/api/affiliation', affiliationRoutes);
 
 // Public routes (no authentication required)
 app.use('/api/public', publicRoutes);
+app.use('/api/marketing', marketingRoutes);
 
 // 404 handler
 app.use((req: Request, res: Response) => {

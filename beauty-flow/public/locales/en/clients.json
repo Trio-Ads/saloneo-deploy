@@ -1,0 +1,230 @@
+{
+  "title": "Clients",
+  "new_client": "New Client",
+  "edit_client": "Edit Client",
+  "client_details": "Client Details",
+  "client_profile": "Client Profile",
+  "all_clients": "All Clients",
+  "active_clients": "Active Clients",
+  "inactive_clients": "Inactive Clients",
+  "vip_clients": "VIP Clients",
+  "form": {
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "email": "Email",
+    "phone": "Phone",
+    "date_of_birth": "Date of Birth",
+    "gender": "Gender",
+    "address": "Address",
+    "city": "City",
+    "postal_code": "Postal Code",
+    "notes": "Notes",
+    "preferences": "Preferences",
+    "allergies": "Allergies",
+    "skin_type": "Skin Type",
+    "hair_type": "Hair Type",
+    "preferred_stylist": "Preferred Stylist",
+    "marketing_consent": "Marketing Consent",
+    "emergency_contact": "Emergency Contact",
+    "emergency_phone": "Emergency Phone"
+  },
+  "placeholders": {
+    "first_name": "Enter first name",
+    "last_name": "Enter last name",
+    "email": "example@email.com",
+    "phone": "06 12 34 56 78",
+    "address": "123 Peace Street",
+    "city": "Paris",
+    "postal_code": "75001",
+    "notes": "Notes about the client...",
+    "allergies": "Known allergies...",
+    "preferences": "Client preferences..."
+  },
+  "gender": {
+    "male": "Male",
+    "female": "Female",
+    "other": "Other",
+    "prefer_not_to_say": "Prefer not to say"
+  },
+  "skin_type": {
+    "normal": "Normal",
+    "dry": "Dry",
+    "oily": "Oily",
+    "combination": "Combination",
+    "sensitive": "Sensitive"
+  },
+  "hair_type": {
+    "straight": "Straight",
+    "wavy": "Wavy",
+    "curly": "Curly",
+    "coily": "Coily",
+    "fine": "Fine",
+    "thick": "Thick"
+  },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive",
+    "vip": "VIP",
+    "new": "New"
+  },
+  "actions": {
+    "add_client": "Add Client",
+    "edit": "Edit",
+    "delete": "Delete",
+    "view_history": "View History",
+    "book_appointment": "Book Appointment",
+    "send_message": "Send Message",
+    "mark_vip": "Mark VIP",
+    "export": "Export",
+    "import": "Import"
+  },
+  "filters": {
+    "search": "Search clients...",
+    "all_status": "All Status",
+    "all_genders": "All Genders",
+    "all_stylists": "All Stylists",
+    "registration_date": "Registration Date",
+    "last_visit": "Last Visit"
+  },
+  "statistics": {
+    "total_clients": "Total Clients",
+    "new_this_month": "New This Month",
+    "active_clients": "Active Clients",
+    "vip_clients": "VIP Clients",
+    "average_visits": "Average Visits",
+    "retention_rate": "Retention Rate"
+  },
+  "history": {
+    "appointment_history": "Appointment History",
+    "last_visit": "Last Visit",
+    "total_visits": "Total Visits",
+    "total_spent": "Total Spent",
+    "favorite_services": "Favorite Services",
+    "no_history": "No history available"
+  },
+  "messages": {
+    "client_created": "Client created successfully",
+    "client_updated": "Client updated successfully",
+    "client_deleted": "Client deleted successfully",
+    "no_clients": "No clients found",
+    "loading": "Loading clients...",
+    "confirm_delete": "Are you sure you want to delete this client?",
+    "email_exists": "This email address already exists",
+    "phone_exists": "This phone number already exists",
+    "export_success": "Clients exported successfully",
+    "import_success": "Clients imported successfully"
+  },
+  "import_export": {
+    "export_clients": "Export Clients",
+    "import_clients": "Import Clients",
+    "download_template": "Download Template",
+    "select_file": "Select File",
+    "supported_formats": "Supported formats: CSV, Excel"
+  },
+  "page_title": "Client Management",
+  "page_subtitle": "Manage your client base and build lasting relationships",
+  "loading": {
+    "clients": "Loading your clients...",
+    "preparing": "Preparing your client database"
+  },
+  "stats": {
+    "clients_total_badge": "clients total",
+    "vip_clients_badge": "VIP clients",
+    "total": "Total",
+    "all_clients": "All clients",
+    "vip_title": "VIP Clients",
+    "vip_description": "100+ loyalty points",
+    "recent_title": "New (30d)",
+    "recent_description": "Recent clients",
+    "loyalty_title": "Loyalty Points",
+    "loyalty_description": "Points accumulated"
+  },
+  "search": {
+    "placeholder": "Search for a client (name, email, phone...)",
+    "results": "client(s) found for"
+  },
+  "empty_state": {
+    "no_clients": "No clients found",
+    "modify_filters": "Try modifying your search filters",
+    "create_first": "Start by creating your first client",
+    "create_client": "Create client"
+  },
+  "errors": {
+    "saving": "Error saving client:",
+    "deleting": "Error deleting client:"
+  },
+  "client_form": {
+    "title_new": "New Client",
+    "title_edit": "Edit Client",
+    "subtitle": "Fill in the client information to personalize their experience",
+    "sections": {
+      "personal_info": "Personal Information",
+      "preferences": "Preferences",
+      "communication": "Communication Preferences"
+    },
+    "labels": {
+      "first_name_required": "First Name *",
+      "last_name_required": "Last Name *",
+      "phone_required": "Phone *",
+      "birth_date": "Date of Birth",
+      "favorite_services": "Favorite Services",
+      "preferred_stylists": "Preferred Stylists",
+      "sms_reminders": "SMS Reminders",
+      "email_marketing": "Email Marketing",
+      "birthday_offers": "Birthday Offers"
+    },
+    "placeholders": {
+      "enter_first_name": "Enter first name",
+      "enter_last_name": "Enter last name",
+      "phone_example": "+1 555 123 4567",
+      "address_example": "123 Beauty Street, New York, NY 10001",
+      "notes_placeholder": "Additional notes about the client..."
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "add": "Add",
+      "modify": "Modify"
+    },
+    "error_message": "Error submitting form:"
+  },
+  "client_list": {
+    "empty_state": {
+      "title": "No clients registered",
+      "subtitle": "Start by adding your first clients",
+      "cta": "Create your first client profile"
+    },
+    "loyalty_levels": {
+      "vip": "VIP",
+      "gold": "Gold",
+      "silver": "Silver",
+      "bronze": "Bronze"
+    },
+    "info_labels": {
+      "email": "Email",
+      "phone": "Phone",
+      "birth_date": "Date of Birth",
+      "last_visit": "Last Visit"
+    },
+    "profile_sections": {
+      "hair_profile": "Hair Profile",
+      "loyalty_points": "Loyalty Points",
+      "communication": "Communication",
+      "favorite_services": "Favorite Services",
+      "preferred_stylists": "Preferred Stylists",
+      "notes": "Notes"
+    },
+    "hair_info": {
+      "type": "Type:",
+      "thickness": "Thickness:"
+    },
+    "communication_badges": {
+      "sms": "SMS",
+      "email": "Email",
+      "birthday": "Birthday"
+    },
+    "tooltips": {
+      "edit_client": "Edit client",
+      "delete_client": "Delete client"
+    }
+  }
+}

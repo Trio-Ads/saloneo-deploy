@@ -1,0 +1,499 @@
+{
+  "header": {
+    "nav": {
+      "features": "Features",
+      "pricing": "Pricing",
+      "testimonials": "Testimonials",
+      "blog": "Blog",
+      "contact": "Contact"
+    },
+    "cta": {
+      "login": "Login",
+      "trial": "Free Trial",
+      "trial_free": "Free trial"
+    },
+    "stats": {
+      "active_salons": "Active salons",
+      "ca_increase": "+47% Revenue"
+    }
+  },
+  "hero": {
+    "badge": "Algeria's #1 solution",
+    "title": "Your salon deserves an infrastructure that matches your ambitions",
+    "title_static": "Transform your salon into a thriving digital business",
+    "title_gradient": " thriving digital business",
+    "subtitle": "The management platform that powers Algeria's top-performing salons. Transform your beauty expertise into a growth engine.",
+    "subtitle_static": "Saloneo powers the best salons, barbershops and spas in Algeria with an all-in-one platform that automates management, boosts revenue and builds customer loyalty.",
+    "loading_3d": "Loading 3D experience...",
+    "form": {
+      "placeholder": "Your professional email",
+      "button": "Start Free",
+      "button_static": "Start for free",
+      "loading": "Loading...",
+      "note": "30-day free trial • No credit card • 5-minute setup"
+    },
+    "stats": {
+      "salons_count": "847+ salons trust us",
+      "salons_active": "847+ Active salons",
+      "growth": "+47% Revenue increase",
+      "time_saved": "15h Saved/week",
+      "appointments": "127K+ Appointments managed",
+      "satisfaction": "98% Customer satisfaction",
+      "support": "24/7 Dedicated support"
+    },
+    "buttons": {
+      "demo": "Watch demo (2 min)",
+      "toggle_3d": "2D",
+      "toggle_2d": "3D"
+    },
+    "clients": {
+      "rating": "Rated 4.9/5 by our clients"
+    }
+  },
+  "problem_solution": {
+    "title": "Turn challenges into opportunities",
+    "title_static": "Break free from constraints that limit your growth",
+    "subtitle": "Saloneo solves the daily problems of modern salons with a complete digital infrastructure",
+    "subtitle_static": "Saloneo transforms every challenge into a growth opportunity",
+    "before": {
+      "title": "Before Saloneo",
+      "title_static": "Without Saloneo",
+      "items": [
+        {
+          "title": "Chaotic paper agenda",
+          "description": "Lost appointments, double bookings, confusion"
+        },
+        {
+          "title": "Invisible clients online",
+          "description": "No digital presence, clients lost to competition"
+        },
+        {
+          "title": "Approximate financial management",
+          "description": "Unoptimized revenue, cash flow leaks"
+        },
+        {
+          "title": "Lost clients due to lack of reminders",
+          "description": ""
+        },
+        {
+          "title": "No professional online presence",
+          "description": ""
+        },
+        {
+          "title": "Disorganized and stressed team",
+          "description": ""
+        }
+      ]
+    },
+    "after": {
+      "title": "With Saloneo",
+      "items": [
+        {
+          "title": "Smart synchronized calendar",
+          "description": "Zero conflicts, automatic notifications, optimal management"
+        },
+        {
+          "title": "Professional salon page",
+          "description": "24/7 booking, optimized local SEO, client reviews"
+        },
+        {
+          "title": "Business analytics and insights",
+          "description": "Real-time KPIs, revenue optimization, data-driven growth"
+        },
+        {
+          "title": "Automatic SMS reminders (0% no-show)",
+          "description": ""
+        },
+        {
+          "title": "Detailed analytics and financial reports",
+          "description": ""
+        },
+        {
+          "title": "Coordinated and productive team",
+          "description": ""
+        }
+      ]
+    }
+  },
+  "features": {
+    "title": "Complete infrastructure for your success",
+    "title_static": "Everything you need to dominate your market",
+    "subtitle": "Every feature designed to maximize your efficiency and profitability",
+    "subtitle_static": "A complete platform designed by beauty industry experts",
+    "items": {
+      "calendar": {
+        "title": "Appointment Management",
+        "title_static": "Smart Calendar",
+        "description": "Smart calendar with conflict management, automatic reminders, and real-time synchronization across all your devices.",
+        "description_static": "Automated appointment management with conflict detection, schedule optimization and multi-device synchronization.",
+        "benefits": [
+          "Zero double booking",
+          "Auto SMS reminders",
+          "Google Calendar sync"
+        ]
+      },
+      "clients": {
+        "title": "Enhanced Client Database",
+        "title_static": "Advanced Client CRM",
+        "description": "Complete history, preferences, personalized questionnaires. Transform every visit into a tailored experience.",
+        "description_static": "Enhanced client database with complete history, preferences, private notes and automatic segmentation.",
+        "benefits": [
+          "Detailed profiles",
+          "Complete history",
+          "Targeted marketing"
+        ]
+      },
+      "digital": {
+        "title": "Digital Presence",
+        "title_static": "Pro Digital Presence",
+        "description": "Professional salon page with 24/7 online booking. 10 premium templates included, optimized local SEO.",
+        "description_static": "Personalized salon page with online booking, photo gallery, client reviews and optimized local SEO.",
+        "benefits": [
+          "24/7 booking",
+          "10 premium templates",
+          "SEO optimized"
+        ]
+      },
+      "payments": {
+        "title": "Secure Payments",
+        "description": "Native SATIM integration for Algerian cards. Automated billing, real-time revenue tracking.",
+        "description_static": "Native SATIM integration to accept all Algerian cards. Automated billing and real-time tracking.",
+        "benefits": [
+          "CIB/EDAHABIA cards",
+          "Auto invoicing",
+          "Accounting export"
+        ]
+      },
+      "analytics": {
+        "title": "Advanced Analytics",
+        "title_static": "Analytics & Insights",
+        "description": "Performance KPIs, client analysis, growth forecasts. Make data-driven decisions.",
+        "description_static": "Real-time dashboards with essential KPIs, growth forecasts and AI recommendations.",
+        "benefits": [
+          "Live revenue",
+          "Occupancy rate",
+          "AI forecasts"
+        ]
+      },
+      "mobile": {
+        "title": "Mobile First",
+        "description": "Perfect responsive interface on all screens. Manage your salon from anywhere, anytime.",
+        "description_static": "Perfect responsive application on all screens. Manage your salon from anywhere, anytime.",
+        "benefits": [
+          "iOS & Android",
+          "Offline mode",
+          "Push notifications"
+        ]
+      }
+    }
+  },
+  "targets": {
+    "title": "A solution adapted to every beauty profession",
+    "subtitle": "Whether you're a hairdresser, barber, beautician or spa manager",
+    "items": {
+      "salon": {
+        "title": "Hair Salons",
+        "description": "Manage your colorings, track client formulas, optimize your stylists' time."
+      },
+      "barbershop": {
+        "title": "Barbershops",
+        "description": "Virtual queue, male loyalty, optimized walk-in management."
+      },
+      "beauty": {
+        "title": "Beauty Institutes",
+        "description": "Treatment protocols, cabin management, integrated product sales."
+      },
+      "spa": {
+        "title": "Spas & Wellness",
+        "description": "Packages and bundles, multi-practitioner management, premium client experience."
+      }
+    },
+    "discover": "Discover"
+  },
+  "roi": {
+    "title": "Calculate your return on investment",
+    "title_static": "An investment that pays for itself quickly",
+    "subtitle": "Discover how much Saloneo can increase your revenue from the first month",
+    "subtitle_static": "Our clients see an average return on investment in less than 30 days",
+    "calculator": {
+      "appointments_label": "Number of appointments per month",
+      "price_label": "Average price per service (DZD)",
+      "current_revenue": "Current revenue",
+      "revenue_with_saloneo": "Revenue with Saloneo (+35%)",
+      "monthly_gain": "Monthly gain"
+    },
+    "stats": {
+      "roi_average": "Average ROI: 3,700% in the first year",
+      "revenue_increase": "+47% Revenue increase",
+      "revenue_increase_note": "On average after 3 months",
+      "no_show_reduction": "-68% No-show reduction",
+      "no_show_note": "Thanks to automatic reminders",
+      "time_saved": "15h Saved per week",
+      "time_saved_note": "In administrative tasks"
+    }
+  },
+  "pricing": {
+    "title": "Pricing adapted to your ambitions",
+    "title_detailed": "Transparent pricing, adapted to your growth",
+    "title_static": "Transparent pricing that adapts to your growth",
+    "subtitle": "Start free, scale at your pace. No commitment, no surprises.",
+    "subtitle_detailed": "Start free, scale at your pace. Save up to 50% with our annual plans.",
+    "subtitle_static": "Start free, scale without limits",
+    "toggle": {
+      "monthly": "Monthly",
+      "yearly": "Annual",
+      "save": "-50%",
+      "save_40": "-40%"
+    },
+    "plans": {
+      "free": {
+        "name": "FREE",
+        "name_simple": "Free",
+        "price": "0 DZD",
+        "period": "/month",
+        "description": "To discover Saloneo",
+        "features": [
+          "20 appointments/month",
+          "10 clients max",
+          "5 services",
+          "Online booking",
+          "Basic calendar",
+          "Email support"
+        ],
+        "button": "Start Free"
+      },
+      "starter": {
+        "name": "STARTER",
+        "name_simple": "Starter",
+        "price": "1,900 DZD",
+        "original_price": "3,167 DZD",
+        "period": "/month",
+        "description": "For growing salons",
+        "popular": "POPULAR",
+        "popular_alt": "Most popular",
+        "save_note": "Save 40%",
+        "save_amount": "Save 15,204 DZD/year",
+        "features": [
+          "60 appointments/month",
+          "200 clients",
+          "20 services",
+          "5 team members",
+          "Custom interface",
+          "Inventory management",
+          "Pro salon page",
+          "SMS reminders",
+          "Basic analytics",
+          "Priority support"
+        ],
+        "button": "30-Day Free Trial"
+      },
+      "pro": {
+        "name": "PRO",
+        "name_simple": "Pro",
+        "price": "3,500 DZD",
+        "original_price": "5,000 DZD",
+        "period": "/month",
+        "description": "For established salons",
+        "description_alt": "For market leaders",
+        "save_note": "Save 30%",
+        "save_amount": "Save 18,000 DZD/year",
+        "features": [
+          "200 appointments/month",
+          "1000 clients",
+          "50 services",
+          "10 team members",
+          "All features",
+          "Priority support",
+          "Advanced analytics",
+          "SATIM payments",
+          "Unlimited appointments",
+          "Unlimited clients",
+          "Unlimited services",
+          "Unlimited team",
+          "Multi-locations",
+          "API & Integrations",
+          "VIP 24/7 support"
+        ],
+        "button": "30-Day Free Trial"
+      },
+      "enterprise": {
+        "name": "ENTERPRISE",
+        "name_simple": "Enterprise",
+        "price": "Custom",
+        "price_alt": "custom",
+        "description": "For salon chains",
+        "features": [
+          "Everything unlimited",
+          "Multi-locations",
+          "API & Integrations",
+          "Dedicated training",
+          "Account Manager",
+          "Personalized training"
+        ],
+        "button": "Contact us"
+      }
+    },
+    "comparison": {
+      "title": "Detailed plan comparison",
+      "subtitle": "Choose the plan that best fits your current needs. You can change plans anytime.",
+      "features": {
+        "appointments": "Appointments per month",
+        "clients": "Clients",
+        "services": "Services",
+        "team": "Team members",
+        "products": "Products",
+        "booking": "24/7 online booking",
+        "sms": "Automatic SMS reminders",
+        "interface": "Custom interface",
+        "inventory": "Inventory management",
+        "analytics": "Advanced analytics",
+        "payments": "Integrated SATIM payments",
+        "multi": "Multi-locations",
+        "api": "API & Integrations",
+        "support": "Priority support",
+        "training": "Personalized training"
+      },
+      "values": {
+        "unlimited": "Unlimited"
+      }
+    },
+    "note": "💰 Save up to 50% with our annual plans",
+    "note_static": "30-day money-back guarantee • No commitment • Cancel anytime",
+    "view_all": "View all plans and options →"
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "items": [
+      {
+        "question": "Can I change plans anytime?",
+        "answer": "Yes, you can upgrade to a higher plan anytime. The change takes effect immediately and you only pay the difference."
+      },
+      {
+        "question": "Are there any hidden fees?",
+        "answer": "No, our pricing is transparent. No setup fees, no commission on bookings, no surprises."
+      },
+      {
+        "question": "How does the free trial work?",
+        "answer": "You get access to all features of your chosen plan for 30 days. No credit card required to start."
+      },
+      {
+        "question": "What happens if I exceed my limits?",
+        "answer": "We notify you before reaching your limits. You can then upgrade to a higher plan or wait for the next month."
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "They transformed their salon with Saloneo",
+    "title_static": "They transformed their business with Saloneo",
+    "subtitle": "Discover how our clients revolutionized their business",
+    "subtitle_static": "Discover our clients' success stories",
+    "items": [
+      {
+        "quote": "Saloneo completely transformed how we work. We increased our revenue by 45% in just 3 months. The interface is intuitive and our clients love being able to book online.",
+        "quote_alt": "Saloneo revolutionized our salon. +45% revenue in 3 months, zero no-shows thanks to SMS reminders, and a finally organized team. The best investment of my career!",
+        "author": "Amina Benali",
+        "role": "Salon Élégance, Algiers"
+      },
+      {
+        "quote": "I save 15 hours per week thanks to automation. No more double bookings, no more confusion. My team is more efficient and my clients more satisfied.",
+        "quote_alt": "Online booking changed everything. My clients love it, I get bookings even at night! My schedule is full 2 weeks in advance now.",
+        "author": "Sarah Khelifi",
+        "author_alt": "Karim Mezouar",
+        "role": "Beauty Center, Oran",
+        "role_alt": "Barber Shop Premium, Oran"
+      },
+      {
+        "quote": "The most profitable investment I made for my salon. ROI in less than a month. Analytics help me make the right decisions at the right time.",
+        "quote_alt": "Analytics opened my eyes. I discovered my most profitable services and optimized my prices. Result: +30% margin without losing a single client!",
+        "author": "Mohamed Rahmani",
+        "author_alt": "Sarah Khelifi",
+        "role": "Barber Shop Pro, Constantine",
+        "role_alt": "Beauty Center Luxe, Constantine"
+      }
+    ]
+  },
+  "security": {
+    "title": "Guaranteed security and compliance",
+    "subtitle": "Your data and your clients' data are protected according to the highest standards",
+    "features": [
+      {
+        "title": "Secure SATIM payments",
+        "description": "Official integration with the Algerian payment system. 100% secure and compliant transactions."
+      },
+      {
+        "title": "Encrypted data",
+        "description": "End-to-end SSL/TLS encryption. Your data is hosted on secure servers."
+      },
+      {
+        "title": "GDPR compliance",
+        "description": "Total respect for privacy. Full control over your data."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Ready to transform your salon?",
+    "title_static": "Ready to join the elite of digitized salons?",
+    "subtitle": "Join the 847+ salons that have already revolutionized their business with Saloneo",
+    "subtitle_static": "847 salons already trust us. What about you?",
+    "buttons": {
+      "start": "Start free trial",
+      "start_now": "Start now",
+      "demo": "Watch demo",
+      "contact": "Talk to an expert"
+    },
+    "benefits": [
+      "30 days free",
+      "No credit card",
+      "5-minute setup"
+    ],
+    "note": "✓ 30 days free • ✓ No credit card • ✓ 5-minute setup"
+  },
+  "footer": {
+    "description": "The digital infrastructure of modern salons",
+    "description_static": "The digital infrastructure that propels beauty salons to success.",
+    "sections": {
+      "product": "Product",
+      "company": "Company",
+      "support": "Support",
+      "contact": "Contact"
+    },
+    "links": {
+      "features": "Features",
+      "pricing": "Pricing",
+      "security": "Security",
+      "integrations": "Integrations",
+      "updates": "Updates",
+      "about": "About",
+      "blog": "Blog",
+      "careers": "Careers",
+      "press": "Press",
+      "help": "Help Center",
+      "docs": "Documentation",
+      "api": "API",
+      "status": "Status",
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "cookies": "Cookies"
+    },
+    "contact": {
+      "email": "contact@saloneo.com",
+      "phone": "+213 555 123 456",
+      "address": "Algiers, Algeria"
+    },
+    "copyright": "© 2025 Saloneo. All rights reserved."
+  },
+  "video": {
+    "close": "✕ Close",
+    "demo": "Demo video"
+  },
+  "social_proof": {
+    "appointments_managed": "127K+ Appointments managed",
+    "satisfaction": "98% Customer satisfaction",
+    "support": "24/7 Dedicated support"
+  },
+  "floating_cards": {
+    "clients_month": "+127 clients this month",
+    "appointments_today": "32 appointments today",
+    "satisfaction_rate": "98% satisfaction rate"
+  }
+}

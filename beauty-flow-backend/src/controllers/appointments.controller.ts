@@ -116,6 +116,13 @@ export const createAppointment = async (req: AuthRequest, res: Response): Promis
     
     const { clientId, serviceId, teamMemberId, date, startTime, notes } = req.body;
 
+    // Vérifier que teamMemberId est présent
+    if (!teamMemberId) {
+      logger.error('Tentative de création de rendez-vous sans coiffeur');
+      res.status(400).json({ error: 'Un coiffeur doit être sélectionné pour créer un rendez-vous' });
+      return;
+    }
+
     // Validate client ID (must be ObjectId from API)
     const validClientId = validateObjectId(clientId);
     if (!validClientId) {

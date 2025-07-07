@@ -7,6 +7,7 @@ import { useServiceStore } from '../features/services/store';
 import { useTeamStore } from '../features/team/store';
 import { useAppointmentStore } from '../features/appointments/store';
 import UserMenu from '../components/UserMenu';
+import NavbarLanguageSelector from '../components/NavbarLanguageSelector';
 
 // Icons Saloneo 2025
 const MenuIcon = () => (
@@ -18,6 +19,12 @@ const MenuIcon = () => (
 const CloseIcon = () => (
   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+  </svg>
+);
+
+const DashboardIcon = () => (
+  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
   </svg>
 );
 
@@ -105,6 +112,12 @@ const MainLayout: React.FC = () => {
 
   const navigation = [
     { 
+      name: t('navigation.dashboard') || 'Dashboard', 
+      href: 'dashboard', 
+      icon: DashboardIcon,
+      color: 'from-purple-500 to-indigo-500'
+    },
+    { 
       name: t('navigation.appointments'), 
       href: 'appointments', 
       icon: CalendarIcon,
@@ -138,7 +151,7 @@ const MainLayout: React.FC = () => {
 
   const isActiveRoute = (href: string) => {
     return location.pathname === `/${href}` || 
-           (location.pathname === '/' && href === 'appointments');
+           (location.pathname === '/' && href === 'dashboard');
   };
 
   return (
@@ -174,7 +187,7 @@ const MainLayout: React.FC = () => {
                     Saloneo
                   </h1>
                   <p className="text-xs text-gray-500 dark:text-gray-400 font-body">
-                    Gestion moderne
+                    {t('common.app_subtitle', 'Gestion moderne')}
                   </p>
                 </div>
               </Link>
@@ -238,6 +251,11 @@ const MainLayout: React.FC = () => {
                   </svg>
                 )}
               </button>
+
+              {/* Sélecteur de langue */}
+              <div className="hidden lg:block">
+                <NavbarLanguageSelector />
+              </div>
 
               {/* Menu utilisateur */}
               <div className="hidden lg:block">

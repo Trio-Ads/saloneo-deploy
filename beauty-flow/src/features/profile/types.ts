@@ -1,3 +1,5 @@
+import { AffiliationData } from './types/affiliation';
+
 export type Language = 'fr' | 'en' | 'ar' | 'es' | 'tr' | 'pt';
 
 export interface Currency {
@@ -14,6 +16,8 @@ export interface Profile {
   language: Language;
   currency: Currency;
   publicLink?: string;
+  showAsTeamMember?: boolean;
+  affiliation?: AffiliationData;
 }
 
 export const CURRENCIES: Record<string, Currency> = {

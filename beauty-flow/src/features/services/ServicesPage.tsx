@@ -20,6 +20,8 @@ import type { ServiceStore } from './store';
 import ServiceList from './components/ServiceList';
 import { ServiceFormWithLimits } from '../subscription/components/LimitedForms';
 import { useLimitedForm } from '../subscription/components/LimitedForms';
+import { useSubscriptionLimits } from '../subscription/hooks/useSubscriptionLimits';
+import { SubscriptionLimitWidget } from '../subscription/components/SubscriptionLimitWidget';
 
 const ServicesPage: React.FC = () => {
   const { t } = useTranslation('services');
@@ -30,6 +32,7 @@ const ServicesPage: React.FC = () => {
   const categories = useServiceStore((state) => state.categories);
   const activeProducts = useServiceStore((state) => state.activeProducts);
   const { handleLimitExceeded } = useLimitedForm();
+  const { checkServiceLimit, currentPlan } = useSubscriptionLimits();
 
   const formattedProducts = useMemo(() => 
     activeProducts.map((p) => ({
@@ -141,18 +144,18 @@ const ServicesPage: React.FC = () => {
                 </div>
                 <div>
                   <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
-                    Gestion des Services
+                    {t('title')}
                   </h1>
-                  <p className="text-gray-600 mt-2 text-lg">Créez et gérez vos services de beauté</p>
+                  <p className="text-gray-600 mt-2 text-lg">{t('subtitle')}</p>
                   <div className="flex items-center mt-3 space-x-4">
                     <div className="flex items-center text-sm text-gray-500">
                       <ArrowTrendingUpIcon className="h-4 w-4 mr-1 text-green-500" />
-                      {serviceStats.total} services au total
+                      {serviceStats.total} {t('stats_text.total_services')}
                     </div>
                     {serviceStats.categories > 0 && (
                       <div className="flex items-center text-sm text-indigo-600">
                         <BellIcon className="h-4 w-4 mr-1 animate-bounce" />
-                        {serviceStats.categories} catégories
+                        {serviceStats.categories} {t('stats_text.categories')}
                       </div>
                     )}
                   </div>
@@ -167,11 +170,26 @@ const ServicesPage: React.FC = () => {
                 >
                   <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                   <PlusIcon className="h-5 w-5 mr-2 inline relative z-10" />
-                  <span className="relative z-10">Nouveau Service</span>
+                  <span className="relative z-10">{t('actions.new_service')}</span>
                 </button>
               </div>
             </div>
           </div>
+        </div>
+
+        {/* WIDGET DE LIMITE D'ABONNEMENT */}
+        <div className="mb-8">
+          <SubscriptionLimitWidget
+            title={t('limits.title')}
+            icon={
+              <div className="p-2 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl shadow-lg">
+                <SparklesIcon className="h-5 w-5 text-white" />
+              </div>
+            }
+            limitCheck={checkServiceLimit()}
+            planName={currentPlan}
+            resourceType="services"
+          />
         </div>
 
         {/* STATISTIQUES - Design premium avec couleurs d'AppointmentsPage */}
@@ -182,9 +200,9 @@ const ServicesPage: React.FC = () => {
             <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">Total</p>
+                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.total')}</p>
                   <p className="text-3xl font-bold text-gray-900 mt-1">{serviceStats.total}</p>
-                  <p className="text-xs text-gray-500 mt-1">Tous les services</p>
+                  <p className="text-xs text-gray-500 mt-1">{t('stats.all_services')}</p>
                 </div>
                 <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl shadow-lg">
                   <BeakerIcon className="h-6 w-6 text-white" />
@@ -199,9 +217,9 @@ const ServicesPage: React.FC = () => {
             <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">Catégories</p>
+                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.categories')}</p>
                   <p className="text-3xl font-bold text-purple-600 mt-1">{serviceStats.categories}</p>
-                  <p className="text-xs text-gray-500 mt-1">Types de services</p>
+                  <p className="text-xs text-gray-500 mt-1">{t('stats.service_types')}</p>
                 </div>
                 <div className="p-3 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl shadow-lg">
                   <TagIcon className="h-6 w-6 text-white" />
@@ -216,9 +234,9 @@ const ServicesPage: React.FC = () => {
             <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">Durée Moy.</p>
+                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.avg_duration')}</p>
                   <p className="text-3xl font-bold text-orange-600 mt-1">{serviceStats.avgDuration}min</p>
-                  <p className="text-xs text-gray-500 mt-1">Temps moyen</p>
+                  <p className="text-xs text-gray-500 mt-1">{t('stats.avg_time')}</p>
                 </div>
                 <div className="p-3 bg-gradient-to-r from-orange-500 to-amber-600 rounded-xl shadow-lg">
                   <ClockIcon className="h-6 w-6 text-white" />
@@ -233,9 +251,9 @@ const ServicesPage: React.FC = () => {
             <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">Prix Moyen</p>
+                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.avg_price')}</p>
                   <p className="text-3xl font-bold text-green-600 mt-1">{serviceStats.avgPrice}€</p>
-                  <p className="text-xs text-gray-500 mt-1">Tarif moyen</p>
+                  <p className="text-xs text-gray-500 mt-1">{t('stats.avg_rate')}</p>
                 </div>
                 <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl shadow-lg">
                   <CurrencyEuroIcon className="h-6 w-6 text-white" />
@@ -257,7 +275,7 @@ const ServicesPage: React.FC = () => {
                   <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                   <input
                     type="text"
-                    placeholder="Rechercher un service..."
+                    placeholder={t('search.placeholder')}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="pl-10 pr-4 py-3 w-64 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 text-sm"
@@ -272,7 +290,7 @@ const ServicesPage: React.FC = () => {
                     onChange={(e) => setSelectedCategory(e.target.value)}
                     className="pl-10 pr-8 py-3 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 text-sm appearance-none cursor-pointer"
                   >
-                    <option value="all">Toutes les catégories</option>
+                    <option value="all">{t('filters.all_categories')}</option>
                     {categories.map((category) => (
                       <option key={category} value={category}>
                         {category}
@@ -285,9 +303,9 @@ const ServicesPage: React.FC = () => {
             
             {(searchTerm || selectedCategory !== 'all') && (
               <p className="mt-2 text-sm text-gray-600">
-                {filteredServices.length} service(s) trouvé(s)
-                {searchTerm && ` pour "${searchTerm}"`}
-                {selectedCategory !== 'all' && ` dans "${selectedCategory}"`}
+                {filteredServices.length} {t('search.results')}
+                {searchTerm && ` ${t('search.for')} "${searchTerm}"`}
+                {selectedCategory !== 'all' && ` ${t('search.in')} "${selectedCategory}"`}
               </p>
             )}
           </div>
@@ -318,11 +336,11 @@ const ServicesPage: React.FC = () => {
               {filteredServices.length === 0 ? (
                 <div className="text-center py-16">
                   <SparklesIcon className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">Aucun service trouvé</h3>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">{t('messages.no_services')}</h3>
                   <p className="text-gray-500 mb-6">
                     {searchTerm || selectedCategory !== 'all' 
-                      ? 'Essayez de modifier vos filtres de recherche'
-                      : 'Commencez par créer votre premier service'
+                      ? t('messages.try_filters')
+                      : t('messages.create_first')
                     }
                   </p>
                   {!searchTerm && selectedCategory === 'all' && (
@@ -331,7 +349,7 @@ const ServicesPage: React.FC = () => {
                       className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
                     >
                       <PlusIcon className="h-4 w-4 mr-2 inline" />
-                      Créer un service
+                      {t('actions.create_service')}
                     </button>
                   )}
                 </div>

@@ -1,0 +1,72 @@
+{
+  "validation": {
+    "required": "Ce champ est obligatoire",
+    "email": "Veuillez saisir une adresse email valide",
+    "phone": "Veuillez saisir un numéro de téléphone valide",
+    "min_length": "Minimum {{count}} caractères requis",
+    "max_length": "Maximum {{count}} caractères autorisés",
+    "password_mismatch": "Les mots de passe ne correspondent pas",
+    "invalid_format": "Format invalide",
+    "invalid_date": "Veuillez saisir une date valide",
+    "invalid_time": "Veuillez saisir une heure valide",
+    "future_date": "La date doit être dans le futur",
+    "past_date": "La date doit être dans le passé"
+  },
+  "network": {
+    "connection_error": "Erreur de connexion",
+    "timeout": "Délai d'attente dépassé",
+    "server_error": "Erreur serveur",
+    "not_found": "Ressource non trouvée",
+    "unauthorized": "Accès non autorisé",
+    "forbidden": "Accès interdit",
+    "too_many_requests": "Trop de requêtes"
+  },
+  "auth": {
+    "invalid_credentials": "Identifiants invalides",
+    "account_locked": "Compte verrouillé",
+    "session_expired": "Session expirée",
+    "login_required": "Connexion requise",
+    "insufficient_permissions": "Permissions insuffisantes"
+  },
+  "booking": {
+    "slot_unavailable": "Ce créneau horaire n'est plus disponible",
+    "service_unavailable": "Ce service n'est pas disponible",
+    "stylist_unavailable": "Ce coiffeur n'est pas disponible",
+    "booking_failed": "Échec de la réservation",
+    "cancellation_failed": "Échec de l'annulation",
+    "modification_failed": "Échec de la modification",
+    "error": "Une erreur est survenue lors de la création de la réservation. Veuillez réessayer."
+  },
+  "payment": {
+    "payment_failed": "Échec du paiement",
+    "invalid_card": "Informations de carte invalides",
+    "insufficient_funds": "Fonds insuffisants",
+    "payment_declined": "Paiement refusé",
+    "transaction_error": "Erreur de transaction"
+  },
+  "general": {
+    "unexpected_error": "Oups ! Une erreur s'est produite",
+    "application_error": "L'application a rencontré un problème. Cela peut être dû à des données corrompues dans le cache.",
+    "reload_page": "Recharger la page",
+    "reset_data": "Réinitialiser les données",
+    "error_details": "Détails de l'erreur",
+    "close_notification": "Fermer la notification",
+    "try_again": "Veuillez réessayer",
+    "contact_support": "Veuillez contacter le support si le problème persiste"
+  },
+  "salon": {
+    "not_found": "Salon non trouvé",
+    "not_found_description": "Le salon que vous recherchez n'existe pas."
+  },
+  "template": {
+    "not_found": "Template non trouvé",
+    "not_found_description": "Le template sélectionné n'est pas disponible."
+  },
+  "service": {
+    "not_found": "Service non trouvé"
+  },
+  "loading": {
+    "please_wait": "Veuillez patienter",
+    "loading": "Chargement en cours..."
+  }
+}

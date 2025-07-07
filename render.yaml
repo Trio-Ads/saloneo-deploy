@@ -3,9 +3,14 @@ services:
   - type: web
     name: saloneo-backend
     env: node
-    plan: starter
+    plan: pro
+    region: frankfurt  # Europe (vous pouvez changer selon vos besoins)
     buildCommand: cd beauty-flow-backend && npm install && npm run build
     startCommand: cd beauty-flow-backend && npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    domains:
+      - api.saloneo.app
     envVars:
       - key: NODE_ENV
         value: production
@@ -31,14 +36,23 @@ services:
         value: 100
       - key: LOG_LEVEL
         value: info
+      - key: FRONTEND_URL
+        value: https://saloneo.app
+      - key: CORS_ORIGIN
+        value: https://saloneo.app
 
   # Frontend Static Site
   - type: web
     name: saloneo-frontend
     env: static
-    plan: starter
+    plan: pro
+    region: frankfurt  # Europe (vous pouvez changer selon vos besoins)
     buildCommand: cd beauty-flow && npm install && npm run build
     staticPublishPath: beauty-flow/dist
+    autoDeploy: true
+    domains:
+      - saloneo.app
+      - www.saloneo.app
     routes:
       - type: rewrite
         source: /*
@@ -46,3 +60,5 @@ services:
     envVars:
       - key: VITE_ENV
         value: production
+      - key: VITE_API_URL
+        value: https://api.saloneo.app

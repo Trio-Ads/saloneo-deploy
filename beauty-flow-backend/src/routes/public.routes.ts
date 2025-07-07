@@ -13,6 +13,9 @@ router.get('/services/:slug', publicController.getServicesBySlug);
 // Get team by slug
 router.get('/team/:slug', publicController.getTeamBySlug);
 
+// Search appointments by client info
+router.get('/appointments/search/:slug', publicController.searchAppointmentsByClient);
+
 // Create public appointment with client management
 router.post(
   '/appointments/:slug',

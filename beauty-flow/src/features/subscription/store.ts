@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { PlanType, Subscription, PLAN_LIMITS, Plan, PlanLimits } from './types';
+import { PlanType, Subscription, PLAN_LIMITS, Plan, PlanLimits, SubscriptionDuration } from './types';
 
 interface SubscriptionStore {
   subscription: Subscription;
@@ -18,6 +18,7 @@ interface SubscriptionStore {
 
 const defaultSubscription: Subscription = {
   currentPlan: PlanType.FREE,
+  duration: SubscriptionDuration.MONTHLY,
   startDate: new Date().toISOString(),
   isActive: true
 };

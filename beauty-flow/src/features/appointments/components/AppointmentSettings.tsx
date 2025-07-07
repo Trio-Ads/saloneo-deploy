@@ -73,10 +73,10 @@ const AppointmentSettings: React.FC = () => {
       await saveSettings();
       
       // TODO: Remplacer par une notification toast
-      alert('Paramètres de rendez-vous sauvegardés avec succès !');
+      alert(t('appointment_settings.success_message'));
     } catch (error) {
       console.error('Erreur lors de la sauvegarde des paramètres:', error);
-      alert('Erreur lors de la sauvegarde des paramètres');
+      alert(t('appointment_settings.error_message'));
     } finally {
       setIsSaving(false);
     }
@@ -87,7 +87,7 @@ const AppointmentSettings: React.FC = () => {
       {/* Temps de battement entre rendez-vous */}
       <div className="glass-card p-6 hover:bg-white/5 transition-all duration-300">
         <label htmlFor="bufferTime" className="block text-lg font-medium text-gray-800 mb-3">
-          Temps de battement entre rendez-vous
+          {t('appointment_settings.buffer_time')}
         </label>
         <div className="flex items-center space-x-4">
           <input
@@ -100,17 +100,17 @@ const AppointmentSettings: React.FC = () => {
             onChange={handleBufferTimeChange}
             className="glass-input px-4 py-3 text-gray-800 w-32"
           />
-          <span className="text-gray-600 font-medium">minutes</span>
+          <span className="text-gray-600 font-medium">{t('appointment_settings.units.minutes')}</span>
         </div>
         <p className="mt-3 text-sm text-gray-500">
-          Temps minimum entre deux rendez-vous pour permettre le nettoyage et la préparation
+          {t('appointment_settings.buffer_time_description')}
         </p>
       </div>
 
       {/* Délai minimum de réservation */}
       <div className="glass-card p-6 hover:bg-white/5 transition-all duration-300">
         <label htmlFor="minBookingTime" className="block text-lg font-medium text-gray-800 mb-3">
-          Délai minimum de réservation
+          {t('appointment_settings.min_booking_time')}
         </label>
         <div className="flex items-center space-x-4">
           <input
@@ -122,17 +122,17 @@ const AppointmentSettings: React.FC = () => {
             onChange={handleMinBookingTimeChange}
             className="glass-input px-4 py-3 text-gray-800 w-32"
           />
-          <span className="text-gray-600 font-medium">heures à l'avance</span>
+          <span className="text-gray-600 font-medium">{t('appointment_settings.units.hours_advance')}</span>
         </div>
         <p className="mt-3 text-sm text-gray-500">
-          Temps minimum requis entre la réservation et le rendez-vous
+          {t('appointment_settings.min_booking_time_description')}
         </p>
       </div>
 
       {/* Réservation maximale à l'avance */}
       <div className="glass-card p-6 hover:bg-white/5 transition-all duration-300">
         <label htmlFor="maxAdvanceBooking" className="block text-lg font-medium text-gray-800 mb-3">
-          Réservation maximale à l'avance
+          {t('appointment_settings.max_advance_booking')}
         </label>
         <div className="flex items-center space-x-4">
           <input
@@ -144,16 +144,16 @@ const AppointmentSettings: React.FC = () => {
             onChange={handleMaxAdvanceBookingChange}
             className="glass-input px-4 py-3 text-gray-800 w-32"
           />
-          <span className="text-gray-600 font-medium">jours</span>
+          <span className="text-gray-600 font-medium">{t('appointment_settings.units.days')}</span>
         </div>
         <p className="mt-3 text-sm text-gray-500">
-          Nombre maximum de jours à l'avance pour réserver un rendez-vous
+          {t('appointment_settings.max_advance_booking_description')}
         </p>
       </div>
 
       {/* Politique d'annulation */}
       <div className="glass-card p-6 hover:bg-white/5 transition-all duration-300">
-        <h3 className="text-lg font-medium text-gray-800 mb-4">Politique d'annulation</h3>
+        <h3 className="text-lg font-medium text-gray-800 mb-4">{t('appointment_settings.cancellation_policy')}</h3>
         
         <div className="space-y-4">
           <div className="flex items-center space-x-3">
@@ -165,14 +165,14 @@ const AppointmentSettings: React.FC = () => {
               className="w-5 h-5 text-primary bg-white/10 border-white/20 rounded focus:ring-primary"
             />
             <label htmlFor="allowCancellation" className="text-gray-800 font-medium">
-              Autoriser l'annulation en ligne
+              {t('appointment_settings.allow_cancellation')}
             </label>
           </div>
 
           {allowCancellation && (
             <div>
               <label htmlFor="cancellationDeadline" className="block text-sm font-medium text-gray-700 mb-2">
-                Délai limite d'annulation
+                {t('appointment_settings.cancellation_deadline')}
               </label>
               <div className="flex items-center space-x-4">
                 <input
@@ -184,7 +184,7 @@ const AppointmentSettings: React.FC = () => {
                   onChange={handleCancellationDeadlineChange}
                   className="glass-input px-4 py-3 text-gray-800 w-32"
                 />
-                <span className="text-gray-600">heures avant le rendez-vous</span>
+                <span className="text-gray-600">{t('appointment_settings.units.hours_before')}</span>
               </div>
             </div>
           )}
@@ -193,12 +193,12 @@ const AppointmentSettings: React.FC = () => {
 
       {/* Horaires d'ouverture */}
       <div className="glass-card p-6 hover:bg-white/5 transition-all duration-300">
-        <h3 className="text-lg font-medium text-gray-800 mb-4">Horaires d'ouverture</h3>
+        <h3 className="text-lg font-medium text-gray-800 mb-4">{t('appointment_settings.business_hours')}</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label htmlFor="startTime" className="block text-sm font-medium text-gray-700 mb-2">
-              Heure d'ouverture
+              {t('appointment_settings.opening_time')}
             </label>
             <input
               type="time"
@@ -211,7 +211,7 @@ const AppointmentSettings: React.FC = () => {
           
           <div>
             <label htmlFor="endTime" className="block text-sm font-medium text-gray-700 mb-2">
-              Heure de fermeture
+              {t('appointment_settings.closing_time')}
             </label>
             <input
               type="time"
@@ -236,7 +236,7 @@ const AppointmentSettings: React.FC = () => {
               className="w-5 h-5 text-primary bg-white/10 border-white/20 rounded focus:ring-primary"
             />
             <label htmlFor="lunchBreak" className="text-gray-800 font-medium">
-              Pause déjeuner
+              {t('appointment_settings.lunch_break')}
             </label>
           </div>
 
@@ -244,7 +244,7 @@ const AppointmentSettings: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ml-8">
               <div>
                 <label htmlFor="lunchStart" className="block text-sm font-medium text-gray-700 mb-2">
-                  Début de pause
+                  {t('appointment_settings.lunch_start')}
                 </label>
                 <input
                   type="time"
@@ -260,7 +260,7 @@ const AppointmentSettings: React.FC = () => {
               
               <div>
                 <label htmlFor="lunchEnd" className="block text-sm font-medium text-gray-700 mb-2">
-                  Fin de pause
+                  {t('appointment_settings.lunch_end')}
                 </label>
                 <input
                   type="time"
@@ -293,10 +293,10 @@ const AppointmentSettings: React.FC = () => {
           {isSaving ? (
             <div className="flex items-center space-x-2">
               <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
-              <span>Enregistrement...</span>
+              <span>{t('appointment_settings.saving')}</span>
             </div>
           ) : (
-            'Enregistrer les paramètres'
+            t('appointment_settings.save_settings')
           )}
         </button>
       </div>

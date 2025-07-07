@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useThemeColors } from '../../../hooks/useThemeColors';
+import AuthLanguageSelector from '../../../components/AuthLanguageSelector';
 
 interface AuthLayoutProps {
   children: React.ReactNode;
@@ -8,8 +9,21 @@ interface AuthLayoutProps {
 }
 
 export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title }) => {
-  const { t } = useTranslation('auth');
+  const { t, i18n } = useTranslation('auth');
   const { currentTheme } = useThemeColors();
+  const [, forceUpdate] = useState({});
+
+  // Force le re-render quand la langue change
+  useEffect(() => {
+    const handleLanguageChange = () => {
+      forceUpdate({});
+    };
+
+    i18n.on('languageChanged', handleLanguageChange);
+    return () => {
+      i18n.off('languageChanged', handleLanguageChange);
+    };
+  }, [i18n]);
 
   // Appliquer le thème au body pour l'arrière-plan
   useEffect(() => {
@@ -68,6 +82,11 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title }) => {
 
           {/* Carte principale avec glassmorphism */}
           <div className="auth-card">
+            {/* Sélecteur de langue */}
+            <div className="auth-language-selector" onMouseDown={(e) => e.stopPropagation()}>
+              <AuthLanguageSelector />
+            </div>
+
             <div className="auth-card-inner">
               {/* Titre */}
               <div className="auth-title-section">
@@ -271,6 +290,68 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title }) => {
             z-index: 1;
           }
 
+          .auth-language-selector {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 99999;
+            animation: fadeIn 0.8s ease-out 0.4s both;
+          }
+
+          
+          /* Styles améliorés pour le sélecteur de langue */
+          .auth-language-selector {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 99999 !important;
+            animation: fadeIn 0.8s ease-out 0.4s both;
+            pointer-events: auto !important;
+          }
+
+          .auth-language-selector * {
+            pointer-events: auto !important;
+          }
+
+          .auth-language-selector button {
+            background: rgba(255, 255, 255, 0.1) !important;
+            backdrop-filter: blur(10px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            color: white !important;
+            transition: all 0.3s ease !important;
+            pointer-events: auto !important;
+            position: relative !important;
+            z-index: 99999 !important;
+          }
+
+          .auth-language-selector button:hover {
+            background: rgba(255, 255, 255, 0.15) !important;
+            border-color: rgba(255, 255, 255, 0.3) !important;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+          }
+
+          /* Dropdown avec z-index très élevé */
+          .auth-language-selector [style*="position: fixed"] {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1) !important;
+            z-index: 999999 !important;
+            pointer-events: auto !important;
+          }
+
+          .auth-language-selector [style*="position: fixed"] button {
+            color: #374151 !important;
+            background: transparent !important;
+            border: none !important;
+            pointer-events: auto !important;
+          }
+
+          .auth-language-selector [style*="position: fixed"] button:hover {
+            background: rgba(99, 102, 241, 0.1) !important;
+          }
+
           .auth-footer {
             text-align: center;
             animation: fadeIn 0.8s ease-out 0.6s both;
@@ -318,6 +399,16 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title }) => {
             
             .auth-title {
               font-size: 1.75rem;
+            }
+
+            .auth-language-selector {
+              top: 1rem;
+              right: 1rem;
+            }
+
+            .auth-language-selector button {
+              padding: 6px 10px !important;
+              font-size: 12px !important;
             }
           }
         `

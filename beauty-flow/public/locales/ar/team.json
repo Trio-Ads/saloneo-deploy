@@ -1,0 +1,244 @@
+{
+  "title": "الفريق",
+  "subtitle": "إدارة فريق المحترفين الخاص بك",
+  "new_member": "عضو جديد",
+  "edit_member": "تعديل العضو",
+  "member_details": "تفاصيل العضو",
+  "all_members": "جميع الأعضاء",
+  "active_members": "الأعضاء النشطون",
+  "inactive_members": "الأعضاء غير النشطين",
+  "stylists": "المصففون",
+  "form": {
+    "first_name": "الاسم الأول",
+    "last_name": "اسم العائلة",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف",
+    "role": "الدور",
+    "specialties": "التخصصات",
+    "bio": "السيرة الذاتية",
+    "photo": "الصورة",
+    "hire_date": "تاريخ التوظيف",
+    "salary": "الراتب",
+    "commission_rate": "معدل العمولة",
+    "working_hours": "ساعات العمل",
+    "days_off": "أيام الإجازة",
+    "skills": "المهارات",
+    "certifications": "الشهادات",
+    "languages": "اللغات المتحدثة",
+    "emergency_contact": "جهة الاتصال الطارئة",
+    "address": "العنوان"
+  },
+  "roles": {
+    "owner": "المالك",
+    "manager": "المدير",
+    "senior_stylist": "مصفف أول",
+    "stylist": "مصفف",
+    "junior_stylist": "مصفف مبتدئ",
+    "apprentice": "متدرب",
+    "receptionist": "موظف الاستقبال",
+    "assistant": "مساعد",
+    "cleaner": "عامل نظافة"
+  },
+  "specialties": {
+    "haircut": "قص الشعر",
+    "coloring": "صبغ الشعر",
+    "styling": "تصفيف الشعر",
+    "perming": "تجعيد دائم",
+    "straightening": "فرد الشعر",
+    "extensions": "وصلات الشعر",
+    "bridal": "العروس",
+    "men_grooming": "العناية الرجالية",
+    "beard_care": "العناية باللحية",
+    "nail_art": "فن الأظافر",
+    "massage": "التدليك",
+    "facial_treatments": "علاجات الوجه"
+  },
+  "schedule": {
+    "monday": "الاثنين",
+    "tuesday": "الثلاثاء",
+    "wednesday": "الأربعاء",
+    "thursday": "الخميس",
+    "friday": "الجمعة",
+    "saturday": "السبت",
+    "sunday": "الأحد",
+    "start_time": "وقت البداية",
+    "end_time": "وقت النهاية",
+    "break_time": "وقت الاستراحة",
+    "day_off": "يوم إجازة",
+    "available": "متاح",
+    "busy": "مشغول",
+    "vacation": "إجازة"
+  },
+  "actions": {
+    "add_member": "إضافة عضو",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "activate": "تفعيل",
+    "deactivate": "إلغاء التفعيل",
+    "view_schedule": "عرض الجدول",
+    "view_performance": "عرض الأداء",
+    "assign_services": "تعيين الخدمات",
+    "set_commission": "تحديد العمولة",
+    "upload_photo": "رفع صورة"
+  },
+  "stats": {
+    "total_team": "إجمالي الفريق",
+    "all_members": "جميع الأعضاء",
+    "active": "نشط",
+    "available_members": "الأعضاء المتاحون",
+    "roles": "الأدوار",
+    "position_types": "أنواع المناصب",
+    "avg_specialties": "متوسط التخصصات",
+    "per_member": "لكل عضو"
+  },
+  "badges": {
+    "members": "عضو/أعضاء",
+    "active": "نشط"
+  },
+  "search": {
+    "placeholder": "البحث عن عضو في الفريق...",
+    "results": "عضو/أعضاء موجود",
+    "for": "لـ",
+    "with_role": "بدور"
+  },
+  "limits": {
+    "title": "حدود أعضاء الفريق",
+    "reached": "تم الوصول للحد الأقصى"
+  },
+  "errors": {
+    "save_error": "خطأ في الحفظ:"
+  },
+  "filters": {
+    "search": "البحث عن الأعضاء...",
+    "all_roles": "جميع الأدوار",
+    "all_specialties": "جميع التخصصات",
+    "availability": "التوفر",
+    "performance": "الأداء"
+  },
+  "statistics": {
+    "total_members": "إجمالي الأعضاء",
+    "active_members": "الأعضاء النشطون",
+    "stylists_count": "عدد المصففين",
+    "average_rating": "متوسط التقييم",
+    "total_appointments": "إجمالي المواعيد",
+    "revenue_generated": "الإيرادات المحققة",
+    "client_satisfaction": "رضا العملاء"
+  },
+  "performance": {
+    "appointments_completed": "المواعيد المكتملة",
+    "revenue": "الإيرادات",
+    "client_rating": "تقييم العملاء",
+    "punctuality": "الالتزام بالمواعيد",
+    "sales": "المبيعات",
+    "tips": "الإكراميات",
+    "repeat_clients": "العملاء المتكررون",
+    "no_shows": "عدم الحضور"
+  },
+  "messages": {
+    "member_created": "تم إنشاء العضو بنجاح",
+    "member_updated": "تم تحديث العضو بنجاح",
+    "member_deleted": "تم حذف العضو بنجاح",
+    "member_activated": "تم تفعيل العضو بنجاح",
+    "member_deactivated": "تم إلغاء تفعيل العضو بنجاح",
+    "no_members": "لم يتم العثور على أعضاء",
+    "loading": "جاري تحميل الأعضاء...",
+    "confirm_delete": "هل أنت متأكد من حذف هذا العضو؟",
+    "delete_confirmation": "هل أنت متأكد من حذف هذا العضو؟",
+    "photo_uploaded": "تم رفع الصورة بنجاح",
+    "schedule_updated": "تم تحديث الجدول بنجاح"
+  },
+  "permissions": {
+    "manage_appointments": "إدارة المواعيد",
+    "manage_clients": "إدارة العملاء",
+    "manage_services": "إدارة الخدمات",
+    "manage_team": "إدارة الفريق",
+    "view_reports": "عرض التقارير",
+    "manage_payments": "إدارة المدفوعات",
+    "manage_inventory": "إدارة المخزون",
+    "admin_access": "وصول المدير"
+  },
+  "team_member_form": {
+    "title_new": "عضو جديد",
+    "title_edit": "تعديل العضو",
+    "subtitle": "أضف عضواً جديداً إلى فريق الجمال الخاص بك",
+    "sections": {
+      "personal_info": "المعلومات الشخصية",
+      "specialties": "التخصصات",
+      "working_hours": "ساعات العمل"
+    },
+    "labels": {
+      "first_name_required": "الاسم الأول *",
+      "last_name_required": "اسم العائلة *",
+      "email_required": "البريد الإلكتروني *",
+      "phone_required": "الهاتف *",
+      "role_required": "الدور *"
+    },
+    "placeholders": {
+      "first_name": "الاسم الأول",
+      "last_name": "اسم العائلة",
+      "email_example": "example@email.com",
+      "phone_example": "+966 50 123 4567"
+    },
+    "working_days": {
+      "monday": "الاثنين",
+      "tuesday": "الثلاثاء",
+      "wednesday": "الأربعاء",
+      "thursday": "الخميس",
+      "friday": "الجمعة",
+      "saturday": "السبت",
+      "sunday": "الأحد"
+    },
+    "schedule_labels": {
+      "works": "يعمل",
+      "from": "من:",
+      "to": "إلى:"
+    },
+    "help_messages": {
+      "specialties_help": "اضغط مع الاستمرار على Ctrl/Cmd لاختيار تخصصات متعددة",
+      "order_help": "ترتيب الاختيار يحدد أولوية العرض"
+    },
+    "buttons": {
+      "cancel": "إلغاء",
+      "add": "إضافة",
+      "modify": "تعديل"
+    }
+  },
+  "team_list": {
+    "empty_state": {
+      "title": "لا يوجد أعضاء فريق",
+      "subtitle": "ابدأ بإضافة أول المتعاونين معك",
+      "cta": "بناء فريقك"
+    },
+    "info_labels": {
+      "email": "البريد الإلكتروني",
+      "phone": "الهاتف",
+      "working_days": "أيام العمل",
+      "specialties": "التخصصات"
+    },
+    "sections": {
+      "specialties": "التخصصات",
+      "weekly_schedule": "الجدول الأسبوعي"
+    },
+    "stats": {
+      "days_per_week": "أيام/أسبوع",
+      "specialties_count": "تخصص(ات)",
+      "average": "المتوسط",
+      "active": "نشط",
+      "services": "خدمة/خدمات",
+      "level_of": "المستوى {{level}}/5"
+    },
+    "tooltips": {
+      "edit_member": "تعديل العضو",
+      "delete_member": "حذف العضو"
+    },
+    "days_short": {
+      "monday": "الاثنين",
+      "tuesday": "الثلاثاء",
+      "wednesday": "الأربعاء",
+      "thursday": "الخميس",
+      "friday": "الجمعة",
+      "saturday": "السبت",
+      "sunday": "الأحد"
+    }
+  }
+}

@@ -1,0 +1,324 @@
+{
+  "title": "Services",
+  "new_service": "Nouveau service",
+  "edit_service": "Modifier le service",
+  "service_details": "Détails du service",
+  "all_services": "Tous les services",
+  "active_services": "Services actifs",
+  "inactive_services": "Services inactifs",
+  "popular_services": "Services populaires",
+  "form": {
+    "name": "Nom du service",
+    "description": "Description",
+    "duration": "Durée",
+    "price": "Prix",
+    "category": "Catégorie",
+    "stylist": "Kuaför",
+    "products": "Produits utilisés",
+    "images": "Resimler",
+    "status": "Statut",
+    "notes": "Notlar",
+    "preparation_time": "Hazırlık süresi",
+    "cleanup_time": "Temizlik süresi",
+    "image": "Image",
+    "tags": "Étiquettes",
+    "instructions": "Instructions",
+    "preparation": "Préparation",
+    "aftercare": "Soins post-traitement",
+    "equipment": "Équipement nécessaire",
+    "skill_level": "Niveau de compétence",
+    "commission": "Commission",
+    "discount": "Remise",
+    "add_image": "Ajouter une image",
+    "remove_image": "Supprimer l'image",
+    "save": "Sekles",
+    "cancel": "Sefsex"
+  },
+  "placeholders": {
+    "name": "Örn: Kesim ve fön",
+    "description": "Hizmetinizi detaylı olarak açıklayın...",
+    "duration": "60",
+    "price": "50.00",
+    "notes": "Hizmet hakkında ek notlar..."
+  },
+  "categories": {
+    "haircut": "Coupe",
+    "coloring": "Coloration",
+    "styling": "Coiffage",
+    "treatment": "Soin",
+    "manicure": "Manucure",
+    "pedicure": "Pédicure",
+    "facial": "Soin du visage",
+    "massage": "Massage",
+    "waxing": "Épilation",
+    "eyebrows": "Sourcils",
+    "makeup": "Maquillage",
+    "other": "Diğer",
+    "eyelashes": "Cils"
+  },
+  "status": {
+    "active": "Aktif",
+    "inactive": "Pasif",
+    "draft": "Taslak"
+  },
+  "actions": {
+    "add_service": "Ajouter un service",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "duplicate": "Dupliquer",
+    "activate": "Activer",
+    "deactivate": "Désactiver",
+    "view_bookings": "Voir les réservations",
+    "add_to_menu": "Menüye ekle",
+    "new_service": "Nouveau Service",
+    "create_service": "Créer un service",
+    "limit_reached": "Limite atteinte",
+    "set_price": "Définir le prix",
+    "upload_image": "Télécharger une image"
+  },
+  "filters": {
+    "search": "Rechercher des services...",
+    "all_categories": "Toutes les catégories",
+    "all_status": "Tous les statuts",
+    "all_stylists": "Tüm kuaförler",
+    "price_range": "Gamme de prix",
+    "duration_range": "Durée",
+    "search_placeholder": "Rechercher un service...",
+    "popularity": "Popularité"
+  },
+  "statistics": {
+    "total_services": "Total des services",
+    "active_services": "Services actifs",
+    "most_popular": "En popüler",
+    "average_price": "Prix moyen",
+    "average_duration": "Durée moyenne",
+    "total_bookings": "Total des réservations",
+    "popular_services": "Services populaires",
+    "revenue": "Chiffre d'affaires"
+  },
+  "messages": {
+    "service_created": "Service créé avec succès",
+    "service_updated": "Service mis à jour avec succès",
+    "service_deleted": "Service supprimé avec succès",
+    "service_activated": "Service activé avec succès",
+    "service_deactivated": "Service désactivé avec succès",
+    "no_services": "Aucun service trouvé",
+    "loading": "Chargement des services...",
+    "confirm_delete": "Êtes-vous sûr de vouloir supprimer ce service ?",
+    "confirm_deactivate": "Bu hizmeti pasifleştirmek istediğinizden emin misiniz?",
+    "delete_confirmation": "Êtes-vous sûr de vouloir supprimer ce service ?",
+    "try_filters": "Essayez de modifier vos filtres de recherche",
+    "create_first": "Commencez par créer votre premier service",
+    "image_uploaded": "Image téléchargée avec succès",
+    "image_upload_failed": "Échec du téléchargement de l'image"
+  },
+  "units": {
+    "minutes": "dakika",
+    "hours": "saat",
+    "min": "dk",
+    "h": "s"
+  },
+  "page_title": "Hizmet Yönetimi",
+  "page_subtitle": "Güzellik hizmetleri menünüzü oluşturun ve yönetin",
+  "loading": {
+    "services": "Hizmetleriniz yükleniyor...",
+    "preparing": "Hizmet menünüz hazırlanıyor"
+  },
+  "stats": {
+    "services_total_badge": "toplam hizmet",
+    "active_services_badge": "aktif hizmet",
+    "total": "Total",
+    "all_services": "Tous les services",
+    "active_title": "Aktif Hizmetler",
+    "active_description": "Rezervasyon için mevcut",
+    "popular_title": "En Popülerler",
+    "popular_description": "En çok talep edilen hizmetler",
+    "revenue_title": "Hizmet Gelirleri",
+    "revenue_description": "Elde edilen gelir",
+    "categories": "Catégories",
+    "service_types": "Types de services",
+    "avg_duration": "Durée Moy.",
+    "avg_time": "Temps moyen",
+    "avg_price": "Prix Moyen",
+    "avg_rate": "Tarif moyen"
+  },
+  "search": {
+    "placeholder": "Rechercher un service...",
+    "results": "service(s) trouvé(s)",
+    "for": "pour",
+    "in": "dans"
+  },
+  "empty_state": {
+    "no_services": "Hizmet bulunamadı",
+    "modify_filters": "Arama filtrelerinizi değiştirmeyi deneyin",
+    "create_first": "İlk hizmetinizi oluşturarak başlayın",
+    "create_service": "Hizmet oluştur"
+  },
+  "service_form": {
+    "title_new": "Yeni Hizmet",
+    "title_edit": "Hizmeti Düzenle",
+    "subtitle": "Müşterileriniz için özelleştirilmiş güzellik hizmeti oluşturun",
+    "sections": {
+      "basic_info": "Temel Bilgiler",
+      "pricing_duration": "Fiyat ve Süre",
+      "products": "Kullanılan ürünler",
+      "photos": "Hizmet Fotoğrafları"
+    },
+    "labels": {
+      "service_name": "Hizmet adı *",
+      "category": "Kategori *",
+      "description": "Açıklama",
+      "duration": "Süre (dakika) *",
+      "price": "Fiyat *",
+      "products_used": "Kullanılan ürünler",
+      "service_photos": "Hizmet fotoğrafları"
+    },
+    "placeholders": {
+      "enter_name": "Örn: Kesim ve fön",
+      "select_category": "Kategori seçin...",
+      "enter_description": "Hizmetinizi detaylı olarak açıklayın...",
+      "enter_duration": "60",
+      "enter_price": "50.00"
+    },
+    "buttons": {
+      "cancel": "İptal",
+      "create": "Hizmet Oluştur",
+      "modify": "Değiştir"
+    },
+    "messages": {
+      "no_products": "Mevcut ürün yok. Burada kullanmak için Stok bölümünden ürün ekleyin."
+    },
+    "product_labels": {
+      "product": "Ürün",
+      "quantity": "Miktar"
+    }
+  },
+  "service_list": {
+    "empty_state": {
+      "title": "Hiç hizmet oluşturulmamış",
+      "subtitle": "Hizmet menünüzü oluşturmaya başlayın",
+      "cta": "İlk hizmetinizi oluşturun"
+    },
+    "service_card": {
+      "duration_label": "Süre:",
+      "price_label": "Fiyat:",
+      "category_label": "Kategori:",
+      "products_used": "Kullanılan ürünler:",
+      "no_products": "Ürün yok"
+    },
+    "tooltips": {
+      "edit_service": "Hizmeti düzenle",
+      "delete_service": "Hizmeti sil",
+      "duplicate_service": "Hizmeti kopyala"
+    }
+  },
+  "products": {
+    "title": "Gestion des Stocks",
+    "new_product": "Yeni ürün",
+    "edit_product": "Ürünü düzenle",
+    "product_details": "Ürün detayları",
+    "all_products": "Tüm ürünler",
+    "low_stock": "Stock faible",
+    "out_of_stock": "Stok yok",
+    "form": {
+      "name": "Ürün adı",
+      "brand": "Marka",
+      "category": "Kategori",
+      "price": "Fiyat",
+      "cost": "Maliyet",
+      "stock": "Stok",
+      "min_stock": "Minimum stok",
+      "supplier": "Tedarikçi",
+      "barcode": "Barkod",
+      "description": "Açıklama",
+      "expiry_date": "Son kullanma tarihi"
+    },
+    "categories": {
+      "shampoo": "Şampuan",
+      "conditioner": "Saç kremi",
+      "hair_color": "Saç boyası",
+      "styling_product": "Şekillendirme ürünü",
+      "nail_polish": "Oje",
+      "skincare": "Cilt bakımı",
+      "makeup": "Makyaj",
+      "tools": "Araçlar",
+      "other": "Diğer"
+    },
+    "actions": {
+      "add_product": "Ürün ekle",
+      "edit": "Düzenle",
+      "delete": "Sil",
+      "restock": "Stok yenile",
+      "view_usage": "Kullanımı gör"
+    },
+    "messages": {
+      "product_created": "Ürün başarıyla oluşturuldu",
+      "product_updated": "Ürün başarıyla güncellendi",
+      "product_deleted": "Ürün başarıyla silindi",
+      "low_stock_alert": "Bazı ürünlerde düşük stok",
+      "out_of_stock_alert": "Bazı ürünler tükendi"
+    },
+    "subtitle": "Gérez vos produits et leurs quantités en stock",
+    "add_product": "Ajouter un Produit",
+    "stock_report": "Rapport de Stock",
+    "stats": {
+      "total": "Total Produits",
+      "all_products": "Tous les produits",
+      "units": "Unités",
+      "unit_types": "Types d'unités",
+      "low_stock": "Stock Faible",
+      "stock_alerts": "Alertes de stock",
+      "out_of_stock": "Rupture",
+      "stock_depleted": "Stock épuisé"
+    },
+    "search_placeholder": "Rechercher un produit, description ou unité...",
+    "filters": "les filtres",
+    "unit": "Unité",
+    "all_units": "Toutes les unités",
+    "stock_status": "État du Stock",
+    "all_stocks": "Tous les stocks",
+    "available_stock": "Stock disponible",
+    "no_products_found": "Aucun produit trouvé",
+    "no_products": "Aucun produit en stock",
+    "modify_search": "Essayez de modifier vos critères de recherche",
+    "add_first_products": "Commencez par ajouter vos premiers produits",
+    "stock_alerts": "Alertes de Stock",
+    "products_out_of_stock": "produit(s) en rupture de stock",
+    "products_low_stock": "produit(s) avec un stock faible",
+    "products_found": "produit(s) trouvé(s)",
+    "with_unit": "avec l'unité",
+    "with_filter": "avec le filtre",
+    "confirm_delete": "Êtes-vous sûr de vouloir supprimer ce produit ?"
+  },
+  "details": {
+    "available": "disponible"
+  },
+  "subtitle": "Créez et gérez vos services de beauté",
+  "duration": {
+    "minutes": "minutes",
+    "hours": "heures",
+    "min": "min",
+    "h": "h"
+  },
+  "stats_text": {
+    "total_services": "services au total",
+    "categories": "catégories"
+  },
+  "limits": {
+    "title": "Limite de Services"
+  },
+  "addService": "Rnu ameẓlu",
+  "editService": "Ẓreg ameẓlu",
+  "deleteService": "Kkes ameẓlu",
+  "serviceName": "Isem n umeẓlu",
+  "description": "Aglam",
+  "price": "Ssuma",
+  "category": "Taggayt",
+  "image": "Tugna",
+  "active": "Urmid",
+  "inactive": "Ur urmid ara",
+  "noServices": "Ulac imeẓla",
+  "searchServices": "Nadi imeẓla",
+  "filterByCategory": "Sizdeg s tggayt",
+  "allCategories": "Akk tiggayin"
+}

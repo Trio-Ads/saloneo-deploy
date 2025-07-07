@@ -1,196 +1,307 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 
-const languages = [
-  { code: 'fr', name: 'Français', flag: '🇫🇷' },
-  { code: 'en', name: 'English', flag: '🇺🇸' },
-  { code: 'es', name: 'Español', flag: '🇪🇸' },
-  { code: 'ar', name: 'العربية', flag: '🇸🇦' },
-  { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
-  { code: 'pt', name: 'Português', flag: '🇵🇹' }
-];
-
-const ChevronDownIcon = () => (
-  <svg className="w-4 h-4 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-  </svg>
-);
-
-const GlobeIcon = () => (
-  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-  </svg>
-);
-
 interface LanguageSelectorProps {
-  currentLanguage?: string;
-  onLanguageChange?: (languageCode: string) => void;
+  compact?: boolean;
+  showLabel?: boolean;
 }
 
-const LanguageSelector: React.FC<LanguageSelectorProps> = ({ 
-  currentLanguage: propCurrentLanguage,
-  onLanguageChange: propOnLanguageChange 
+const LanguageSelector: React.FC<LanguageSelectorProps> = ({
+  compact = false,
+  showLabel = true
 }) => {
   const { i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
+  const [buttonPosition, setButtonPosition] = useState({ top: 0, left: 0, width: 0 });
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const currentLanguage = languages.find(lang => 
-    lang.code === (propCurrentLanguage || i18n.language)
-  ) || languages[0];
+  const languages = [
+    { code: 'fr', name: 'Français', flag: '🇫🇷' },
+    { code: 'en', name: 'English', flag: '🇺🇸' },
+    { code: 'ar', name: 'العربية', flag: '🇸🇦' },
+    { code: 'es', name: 'Español', flag: '🇪🇸' },
+    { code: 'pt', name: 'Português', flag: '🇵🇹' },
+    { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
+    { code: 'ber', name: 'Tamazight', flag: '🏴' }
+  ];
+
+  const currentLang = i18n.language || 'fr';
+  const selectedLanguage = languages.find(lang => lang.code === currentLang) || languages[0];
+
+  // Fermer le dropdown quand on clique en dehors
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
 
   const handleLanguageChange = (languageCode: string) => {
-    if (propOnLanguageChange) {
-      propOnLanguageChange(languageCode);
-    } else {
+    try {
+      // Sauvegarder dans localStorage
+      localStorage.setItem('saloneo-language', languageCode);
+      
+      // Changer la langue
       i18n.changeLanguage(languageCode);
+      
+      // Fermer le dropdown
+      setIsOpen(false);
+      
+      // Debug log
+      console.log('Language changed to:', languageCode);
+    } catch (error) {
+      console.error('Error changing language:', error);
     }
-    setIsOpen(false);
   };
 
-  return (
-    <div className="relative">
-      {/* Bouton principal */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={`
-          language-selector-2025 w-full flex items-center justify-between
-          px-3 py-2.5 rounded-xl transition-all duration-300
-          text-white/80 hover:text-white
-          bg-white/5 hover:bg-white/10 backdrop-blur-sm
-          border border-white/10 hover:border-white/20
-          focus:outline-none focus:ring-2 focus:ring-saloneo-primary-400/30
-          ${isOpen ? 'bg-white/15 border-white/30' : ''}
-        `}
-        aria-expanded={isOpen}
-        aria-label="Sélectionner la langue"
-      >
-        <div className="flex items-center space-x-2">
-          <GlobeIcon />
-          <span className="text-lg">{currentLanguage.flag}</span>
-          <span className="font-medium font-body text-sm">
-            {currentLanguage.name}
-          </span>
-        </div>
-        <div className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
-          <ChevronDownIcon />
-        </div>
-      </button>
+  // Calculer la position du bouton quand le dropdown s'ouvre
+  const updateButtonPosition = () => {
+    if (buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      setButtonPosition({
+        top: rect.bottom + window.scrollY + 4,
+        left: rect.right - 200 + window.scrollX, // Aligné à droite
+        width: rect.width
+      });
+    }
+  };
 
-      {/* Menu déroulant */}
-      {isOpen && (
-        <>
-          {/* Overlay */}
-          <div 
-            className="fixed inset-0 z-[9998]"
-            onClick={() => setIsOpen(false)}
-          />
-          
-          <div className="language-dropdown-2025 absolute top-full left-0 right-0 mt-2 z-[9999]">
-            <div className="
-              bg-white/10 backdrop-blur-xl rounded-xl border border-white/20
-              shadow-glass-lg overflow-hidden animate-slide-down
-            ">
-              {languages.map((language) => {
-                const isActive = language.code === i18n.language;
-                
-                return (
+  // Ouvrir/fermer le dropdown
+  const toggleDropdown = () => {
+    if (!isOpen) {
+      updateButtonPosition();
+    }
+    setIsOpen(!isOpen);
+  };
+
+  if (compact) {
+    return (
+      <>
+        <div ref={dropdownRef} style={{ position: 'relative', display: 'inline-block' }}>
+          <button
+            ref={buttonRef}
+            onClick={toggleDropdown}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '8px 12px',
+              backgroundColor: 'white',
+              border: '1px solid #d1d5db',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontSize: '14px'
+            }}
+          >
+            <span style={{ fontSize: '16px' }}>{selectedLanguage.flag}</span>
+            <span>{selectedLanguage.code.toUpperCase()}</span>
+            <span style={{ 
+              transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+              transition: 'transform 0.2s'
+            }}>▼</span>
+          </button>
+        </div>
+
+        {isOpen && createPortal(
+          <>
+            {/* Overlay pour fermer le dropdown */}
+            <div 
+              style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                zIndex: 9998,
+                backgroundColor: 'transparent'
+              }}
+              onClick={() => setIsOpen(false)}
+            />
+            
+            {/* Dropdown avec position fixe */}
+            <div style={{
+              position: 'fixed',
+              top: buttonPosition.top,
+              left: buttonPosition.left,
+              backgroundColor: 'white',
+              border: '1px solid #d1d5db',
+              borderRadius: '8px',
+              boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+              zIndex: 99999,
+              pointerEvents: "auto",
+              minWidth: '200px'
+            }}>
+                {languages.map((language) => (
                   <button
                     key={language.code}
                     onClick={() => handleLanguageChange(language.code)}
-                    className={`
-                      w-full flex items-center space-x-3 px-3 py-2.5
-                      transition-all duration-300 font-body text-sm
-                      hover:bg-white/10 focus:bg-white/10
-                      focus:outline-none relative overflow-hidden
-                      ${isActive 
-                        ? 'bg-gradient-to-r from-saloneo-primary-500/20 to-saloneo-secondary-500/20 text-white border-l-2 border-saloneo-primary-400' 
-                        : 'text-white/80 hover:text-white'
+                    style={{
+                      width: '100%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      padding: '12px 16px',
+                      border: 'none',
+                      backgroundColor: currentLang === language.code ? '#f3f4f6' : 'transparent',
+                      cursor: 'pointer',
+                      fontSize: '14px',
+                      textAlign: 'left'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (currentLang !== language.code) {
+                        e.currentTarget.style.backgroundColor = '#f9fafb';
                       }
-                    `}
+                    }}
+                    onMouseLeave={(e) => {
+                      if (currentLang !== language.code) {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                      }
+                    }}
                   >
-                    <span className="text-lg">{language.flag}</span>
-                    <span className="font-medium flex-1 text-left">
+                    <span style={{ fontSize: '18px' }}>{language.flag}</span>
+                    <span style={{ fontWeight: currentLang === language.code ? 'bold' : 'normal' }}>
                       {language.name}
                     </span>
-                    
-                    {/* Indicateur actif */}
-                    {isActive && (
-                      <div className="w-2 h-2 bg-saloneo-primary-400 rounded-full animate-pulse" />
+                    {currentLang === language.code && (
+                      <span style={{ marginLeft: 'auto', color: '#10b981' }}>✓</span>
                     )}
-                    
-                    {/* Effet de brillance au survol */}
-                    <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full hover:translate-x-full transition-transform duration-700" />
                   </button>
-                );
-              })}
+                ))}
+            </div>
+          </>,
+          document.body
+        )}
+      </>
+    );
+  }
+
+  return (
+    <div style={{ marginBottom: '16px' }}>
+      {showLabel && (
+        <label style={{ 
+          display: 'block', 
+          marginBottom: '8px', 
+          fontSize: '14px', 
+          fontWeight: '500',
+          color: '#374151'
+        }}>
+          🌍 Langue / Language
+        </label>
+      )}
+      
+      <div ref={dropdownRef} style={{ position: 'relative' }}>
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setIsOpen(!isOpen);
+          }}
+          style={{
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '12px 16px',
+            backgroundColor: 'white',
+            border: '1px solid #d1d5db',
+            borderRadius: '8px',
+            cursor: 'pointer',
+            fontSize: '14px'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <span style={{ fontSize: '20px' }}>{selectedLanguage.flag}</span>
+            <div>
+              <div style={{ fontWeight: '500', color: '#111827' }}>{selectedLanguage.name}</div>
+              <div style={{ fontSize: '12px', color: '#6b7280' }}>{selectedLanguage.code.toUpperCase()}</div>
             </div>
           </div>
-        </>
-      )}
+          <span style={{ 
+            transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+            transition: 'transform 0.2s',
+            color: '#9ca3af'
+          }}>▼</span>
+        </button>
 
-      {/* Styles CSS intégrés */}
-      <style dangerouslySetInnerHTML={{
-        __html: `
-          .language-selector-2025:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-          }
-
-          .language-dropdown-2025 {
-            animation: slideDown 0.3s ease-out;
-          }
-
-          @keyframes slideDown {
-            from {
-              opacity: 0;
-              transform: translateY(-10px) scale(0.95);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0) scale(1);
-            }
-          }
-
-          .animate-slide-down {
-            animation: slideDown 0.3s ease-out;
-          }
-
-          /* Animation pour les éléments de la liste */
-          .language-dropdown-2025 button {
-            animation: fadeInUp 0.3s ease-out;
-            animation-fill-mode: both;
-          }
-
-          .language-dropdown-2025 button:nth-child(1) { animation-delay: 0.05s; }
-          .language-dropdown-2025 button:nth-child(2) { animation-delay: 0.1s; }
-          .language-dropdown-2025 button:nth-child(3) { animation-delay: 0.15s; }
-          .language-dropdown-2025 button:nth-child(4) { animation-delay: 0.2s; }
-          .language-dropdown-2025 button:nth-child(5) { animation-delay: 0.25s; }
-          .language-dropdown-2025 button:nth-child(6) { animation-delay: 0.3s; }
-
-          @keyframes fadeInUp {
-            from {
-              opacity: 0;
-              transform: translateY(10px);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
-          }
-
-          /* Responsive */
-          @media (max-width: 640px) {
-            .language-selector-2025 {
-              padding: 0.625rem 0.75rem;
-            }
-            
-            .language-dropdown-2025 button {
-              padding: 0.625rem 0.75rem;
-            }
-          }
-        `
-      }} />
+        {isOpen && (
+          <div style={{
+            position: 'absolute',
+            top: '100%',
+            left: '0',
+            right: '0',
+            marginTop: '4px',
+            backgroundColor: 'white',
+            border: '1px solid #d1d5db',
+            borderRadius: '8px',
+            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+            zIndex: 99999,
+              pointerEvents: "auto",
+            maxHeight: '300px',
+            overflowY: 'auto'
+          }}>
+              {languages.map((language) => (
+                <button
+                  key={language.code}
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleLanguageChange(language.code);
+                  }}
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '12px 16px',
+                    border: 'none',
+                    backgroundColor: currentLang === language.code ? '#f3f4f6' : 'transparent',
+                    cursor: 'pointer',
+                    fontSize: '14px',
+                    textAlign: 'left'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (currentLang !== language.code) {
+                      e.currentTarget.style.backgroundColor = '#f9fafb';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (currentLang !== language.code) {
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                    }
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <span style={{ fontSize: '18px' }}>{language.flag}</span>
+                    <div>
+                      <div style={{ fontWeight: currentLang === language.code ? 'bold' : 'normal' }}>
+                        {language.name}
+                      </div>
+                      <div style={{ fontSize: '12px', color: '#6b7280' }}>
+                        {language.code.toUpperCase()}
+                      </div>
+                    </div>
+                  </div>
+                  {currentLang === language.code && (
+                    <span style={{ color: '#10b981', fontSize: '16px' }}>✓</span>
+                  )}
+                </button>
+              ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

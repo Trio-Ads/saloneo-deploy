@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { create } from 'zustand';
 
 interface ToastState {
@@ -18,6 +19,7 @@ export const useToastStore = create<ToastState>((set) => ({
 }));
 
 export const Toast: React.FC = () => {
+  const { t } = useTranslation('common');
   const { message, isVisible, hideToast, type } = useToastStore();
   const [shouldRender, setShouldRender] = useState(false);
 
@@ -120,7 +122,7 @@ export const Toast: React.FC = () => {
               focus:outline-none focus:ring-2 focus:ring-white/30
               click-effect
             "
-            aria-label="Fermer la notification"
+            aria-label={t('toast.close')}
           >
             <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

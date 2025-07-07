@@ -28,6 +28,7 @@ export interface DesignTemplate {
         '2xl': string;
         '3xl': string;
         '4xl': string;
+        '5xl'?: string;
       };
       weights: {
         light: number;
@@ -35,6 +36,7 @@ export interface DesignTemplate {
         medium: number;
         semibold: number;
         bold: number;
+        extrabold?: number;
       };
     };
     effects: {

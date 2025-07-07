@@ -1,0 +1,144 @@
+{
+  "booking": {
+    "title": "Réservation en ligne",
+    "steps": {
+      "service": "Choisir un service",
+      "datetime": "Choisir date et heure",
+      "information": "Vos informations",
+      "confirmation": "Confirmation"
+    },
+    "progress": {
+      "step": "Étape {{current}} sur {{total}}",
+      "next": "Suivant",
+      "previous": "Précédent",
+      "finish": "Terminer"
+    },
+    "flow": {
+      "choose_slot": "Choisissez votre créneau",
+      "your_info": "Vos informations",
+      "choose_stylist": "Choisissez votre coiffeur",
+      "choose_date": "Choisissez une date",
+      "choose_time": "Choisissez une heure",
+      "your_selection": "Votre sélection",
+      "selected": "Sélectionné",
+      "chosen": "Choisi",
+      "no_slots": "Aucun créneau",
+      "no_slots_available": "Aucun créneau disponible pour cette date",
+      "choose_another_date": "Veuillez choisir une autre date",
+      "stylist": "Coiffeur",
+      "date": "Date",
+      "time": "Heure"
+    }
+  },
+  "salon": {
+    "about": "À propos",
+    "services": "Nos services",
+    "team": "Notre équipe",
+    "contact": "Contact",
+    "book_now": "Réserver maintenant",
+    "location": "Localisation",
+    "hours": "Horaires d'ouverture",
+    "page": {
+      "services_title": "Services",
+      "team_title": "Équipe",
+      "contact_title": "Contact",
+      "book_button": "Réserver",
+      "discover_services": "Découvrez notre gamme complète de services beauté et bien-être,",
+      "professional_team": "Des professionnels passionnés à votre service",
+      "opening_hours": "Horaires d'ouverture",
+      "information": "Informations",
+      "quick_booking": "Réservation rapide",
+      "quick_booking_desc": "Prenez rendez-vous en quelques clics",
+      "call_us": "Ou appelez-nous au",
+      "address": "Adresse",
+      "phone": "Téléphone",
+      "email": "Email",
+      "footer_text": "Votre salon de beauté de confiance depuis toujours",
+      "all_rights": "Tous droits réservés",
+      "closed": "Fermé",
+      "professional_service": "Service professionnel de qualité"
+    }
+  },
+  "datetime": {
+    "select_date": "Sélectionnez une date",
+    "select_time": "Sélectionnez une heure",
+    "morning": "Matin",
+    "afternoon": "Après-midi",
+    "evening": "Soir",
+    "no_slots": "Aucun créneau disponible",
+    "available_slots": "Créneaux disponibles"
+  },
+  "service_card": {
+    "duration": "Durée",
+    "price": "Prix",
+    "book": "Réserver",
+    "minutes": "minutes",
+    "description": "Description",
+    "book_now": "Réserver maintenant",
+    "popular": "Populaire"
+  },
+  "confirmation": {
+    "success": {
+      "title": "Réservation confirmée",
+      "message": "Votre rendez-vous a été confirmé",
+      "details": "Détails de la réservation",
+      "email_sent": "Un email de confirmation vous a été envoyé"
+    },
+    "error": {
+      "title": "Erreur de réservation",
+      "message": "Une erreur est survenue",
+      "try_again": "Veuillez réessayer"
+    },
+    "pending": {
+      "title": "Réservation en attente",
+      "message": "Votre demande est en cours de traitement"
+    }
+  },
+  "loading": {
+    "message": "Chargement en cours...",
+    "please_wait": "Veuillez patienter"
+  },
+  "modal": {
+    "close": "Fermer",
+    "cancel": "Annuler",
+    "confirm": "Confirmer"
+  },
+  "search": {
+    "title": "Gérer mes réservations",
+    "how_search": "Comment souhaitez-vous rechercher vos rendez-vous ?",
+    "by_email": "Email",
+    "by_phone": "Téléphone",
+    "by_name": "Nom",
+    "email_label": "Email",
+    "phone_label": "Téléphone",
+    "first_name_label": "Prénom",
+    "last_name_label": "Nom",
+    "email_placeholder": "votre@email.com",
+    "phone_placeholder": "06 12 34 56 78",
+    "first_name_placeholder": "Votre prénom",
+    "last_name_placeholder": "Votre nom",
+    "search_button": "Rechercher"
+  },
+  "appointments": {
+    "your_appointments": "Vos rendez-vous",
+    "no_appointments": "Aucun rendez-vous trouvé",
+    "back_home": "Retour à l'accueil",
+    "modify": "Modifier",
+    "cancel": "Annuler",
+    "cancel_confirmation": "Êtes-vous sûr de vouloir annuler ce rendez-vous ?",
+    "cancel_reason_placeholder": "Raison de l'annulation (optionnel)"
+  },
+  "gallery": {
+    "previous": "Image précédente",
+    "next": "Image suivante"
+  },
+  "days": {
+    "monday": "Lundi",
+    "tuesday": "Mardi", 
+    "wednesday": "Mercredi",
+    "thursday": "Jeudi",
+    "friday": "Vendredi",
+    "saturday": "Samedi",
+    "sunday": "Dimanche"
+  }
+}

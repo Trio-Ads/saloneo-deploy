@@ -1,0 +1,324 @@
+{
+  "title": "Services",
+  "new_service": "Nouveau service",
+  "edit_service": "Modifier le service",
+  "service_details": "Détails du service",
+  "all_services": "Tous les services",
+  "active_services": "Services actifs",
+  "inactive_services": "Services inactifs",
+  "popular_services": "Services populaires",
+  "form": {
+    "name": "Nom du service",
+    "description": "Description",
+    "duration": "Durée",
+    "price": "Prix",
+    "category": "Catégorie",
+    "stylist": "Cabeleireiro",
+    "products": "Produits utilisés",
+    "images": "Imagens",
+    "status": "Statut",
+    "notes": "Observações",
+    "preparation_time": "Tempo de preparação",
+    "cleanup_time": "Tempo de limpeza",
+    "image": "Image",
+    "tags": "Étiquettes",
+    "instructions": "Instructions",
+    "preparation": "Préparation",
+    "aftercare": "Soins post-traitement",
+    "equipment": "Équipement nécessaire",
+    "skill_level": "Niveau de compétence",
+    "commission": "Commission",
+    "discount": "Remise",
+    "add_image": "Ajouter une image",
+    "remove_image": "Supprimer l'image",
+    "save": "Sekles",
+    "cancel": "Sefsex"
+  },
+  "placeholders": {
+    "name": "Ex: Corte e escova",
+    "description": "Descreva seu serviço em detalhes...",
+    "duration": "60",
+    "price": "50.00",
+    "notes": "Observações adicionais sobre o serviço..."
+  },
+  "categories": {
+    "haircut": "Coupe",
+    "coloring": "Coloration",
+    "styling": "Coiffage",
+    "treatment": "Soin",
+    "manicure": "Manucure",
+    "pedicure": "Pédicure",
+    "facial": "Soin du visage",
+    "massage": "Massage",
+    "waxing": "Épilation",
+    "eyebrows": "Sourcils",
+    "makeup": "Maquillage",
+    "other": "Outro",
+    "eyelashes": "Cils"
+  },
+  "status": {
+    "active": "Ativo",
+    "inactive": "Inativo",
+    "draft": "Rascunho"
+  },
+  "actions": {
+    "add_service": "Ajouter un service",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "duplicate": "Dupliquer",
+    "activate": "Activer",
+    "deactivate": "Désactiver",
+    "view_bookings": "Voir les réservations",
+    "add_to_menu": "Adicionar ao menu",
+    "new_service": "Nouveau Service",
+    "create_service": "Créer un service",
+    "limit_reached": "Limite atteinte",
+    "set_price": "Définir le prix",
+    "upload_image": "Télécharger une image"
+  },
+  "filters": {
+    "search": "Rechercher des services...",
+    "all_categories": "Toutes les catégories",
+    "all_status": "Tous les statuts",
+    "all_stylists": "Todos os cabeleireiros",
+    "price_range": "Gamme de prix",
+    "duration_range": "Durée",
+    "search_placeholder": "Rechercher un service...",
+    "popularity": "Popularité"
+  },
+  "statistics": {
+    "total_services": "Total des services",
+    "active_services": "Services actifs",
+    "most_popular": "Mais popular",
+    "average_price": "Prix moyen",
+    "average_duration": "Durée moyenne",
+    "total_bookings": "Total des réservations",
+    "popular_services": "Services populaires",
+    "revenue": "Chiffre d'affaires"
+  },
+  "messages": {
+    "service_created": "Service créé avec succès",
+    "service_updated": "Service mis à jour avec succès",
+    "service_deleted": "Service supprimé avec succès",
+    "service_activated": "Service activé avec succès",
+    "service_deactivated": "Service désactivé avec succès",
+    "no_services": "Aucun service trouvé",
+    "loading": "Chargement des services...",
+    "confirm_delete": "Êtes-vous sûr de vouloir supprimer ce service ?",
+    "confirm_deactivate": "Tem certeza de que deseja desativar este serviço?",
+    "delete_confirmation": "Êtes-vous sûr de vouloir supprimer ce service ?",
+    "try_filters": "Essayez de modifier vos filtres de recherche",
+    "create_first": "Commencez par créer votre premier service",
+    "image_uploaded": "Image téléchargée avec succès",
+    "image_upload_failed": "Échec du téléchargement de l'image"
+  },
+  "units": {
+    "minutes": "minutos",
+    "hours": "horas",
+    "min": "min",
+    "h": "h"
+  },
+  "page_title": "Gestão de Serviços",
+  "page_subtitle": "Crie e gerencie sua carta de serviços de beleza",
+  "loading": {
+    "services": "Carregando seus serviços...",
+    "preparing": "Preparando sua carta de serviços"
+  },
+  "stats": {
+    "services_total_badge": "serviços no total",
+    "active_services_badge": "serviços ativos",
+    "total": "Total",
+    "all_services": "Tous les services",
+    "active_title": "Serviços Ativos",
+    "active_description": "Disponíveis para agendamento",
+    "popular_title": "Mais Populares",
+    "popular_description": "Serviços mais solicitados",
+    "revenue_title": "Receita por Serviços",
+    "revenue_description": "Receita gerada",
+    "categories": "Catégories",
+    "service_types": "Types de services",
+    "avg_duration": "Durée Moy.",
+    "avg_time": "Temps moyen",
+    "avg_price": "Prix Moyen",
+    "avg_rate": "Tarif moyen"
+  },
+  "search": {
+    "placeholder": "Rechercher un service...",
+    "results": "service(s) trouvé(s)",
+    "for": "pour",
+    "in": "dans"
+  },
+  "empty_state": {
+    "no_services": "Nenhum serviço encontrado",
+    "modify_filters": "Tente modificar seus filtros de busca",
+    "create_first": "Comece criando seu primeiro serviço",
+    "create_service": "Criar serviço"
+  },
+  "service_form": {
+    "title_new": "Novo Serviço",
+    "title_edit": "Editar Serviço",
+    "subtitle": "Crie um serviço de beleza personalizado para seus clientes",
+    "sections": {
+      "basic_info": "Informações Básicas",
+      "pricing_duration": "Preço e Duração",
+      "products": "Produtos utilizados",
+      "photos": "Fotos do Serviço"
+    },
+    "labels": {
+      "service_name": "Nome do serviço *",
+      "category": "Categoria *",
+      "description": "Descrição",
+      "duration": "Duração (minutos) *",
+      "price": "Preço *",
+      "products_used": "Produtos utilizados",
+      "service_photos": "Fotos do serviço"
+    },
+    "placeholders": {
+      "enter_name": "Ex: Corte e escova",
+      "select_category": "Selecionar categoria...",
+      "enter_description": "Descreva seu serviço em detalhes...",
+      "enter_duration": "60",
+      "enter_price": "50.00"
+    },
+    "buttons": {
+      "cancel": "Cancelar",
+      "create": "Criar Serviço",
+      "modify": "Modificar"
+    },
+    "messages": {
+      "no_products": "Nenhum produto disponível. Adicione produtos na seção Estoque para usá-los aqui."
+    },
+    "product_labels": {
+      "product": "Produto",
+      "quantity": "Quantidade"
+    }
+  },
+  "service_list": {
+    "empty_state": {
+      "title": "Nenhum serviço criado",
+      "subtitle": "Comece criando sua carta de serviços",
+      "cta": "Crie seu primeiro serviço"
+    },
+    "service_card": {
+      "duration_label": "Duração:",
+      "price_label": "Preço:",
+      "category_label": "Categoria:",
+      "products_used": "Produtos utilizados:",
+      "no_products": "Sem produtos"
+    },
+    "tooltips": {
+      "edit_service": "Editar serviço",
+      "delete_service": "Excluir serviço",
+      "duplicate_service": "Duplicar serviço"
+    }
+  },
+  "products": {
+    "title": "Gestion des Stocks",
+    "new_product": "Novo produto",
+    "edit_product": "Editar produto",
+    "product_details": "Detalhes do produto",
+    "all_products": "Todos os produtos",
+    "low_stock": "Stock faible",
+    "out_of_stock": "Sem estoque",
+    "form": {
+      "name": "Nome do produto",
+      "brand": "Marca",
+      "category": "Categoria",
+      "price": "Preço",
+      "cost": "Custo",
+      "stock": "Estoque",
+      "min_stock": "Estoque mínimo",
+      "supplier": "Fornecedor",
+      "barcode": "Código de barras",
+      "description": "Descrição",
+      "expiry_date": "Data de validade"
+    },
+    "categories": {
+      "shampoo": "Shampoo",
+      "conditioner": "Condicionador",
+      "hair_color": "Tinta para cabelo",
+      "styling_product": "Produto de penteado",
+      "nail_polish": "Esmalte",
+      "skincare": "Cuidados com a pele",
+      "makeup": "Maquiagem",
+      "tools": "Ferramentas",
+      "other": "Outro"
+    },
+    "actions": {
+      "add_product": "Adicionar produto",
+      "edit": "Editar",
+      "delete": "Excluir",
+      "restock": "Reabastecer",
+      "view_usage": "Ver uso"
+    },
+    "messages": {
+      "product_created": "Produto criado com sucesso",
+      "product_updated": "Produto atualizado com sucesso",
+      "product_deleted": "Produto excluído com sucesso",
+      "low_stock_alert": "Estoque baixo para alguns produtos",
+      "out_of_stock_alert": "Alguns produtos estão em falta"
+    },
+    "subtitle": "Gérez vos produits et leurs quantités en stock",
+    "add_product": "Ajouter un Produit",
+    "stock_report": "Rapport de Stock",
+    "stats": {
+      "total": "Total Produits",
+      "all_products": "Tous les produits",
+      "units": "Unités",
+      "unit_types": "Types d'unités",
+      "low_stock": "Stock Faible",
+      "stock_alerts": "Alertes de stock",
+      "out_of_stock": "Rupture",
+      "stock_depleted": "Stock épuisé"
+    },
+    "search_placeholder": "Rechercher un produit, description ou unité...",
+    "filters": "les filtres",
+    "unit": "Unité",
+    "all_units": "Toutes les unités",
+    "stock_status": "État du Stock",
+    "all_stocks": "Tous les stocks",
+    "available_stock": "Stock disponible",
+    "no_products_found": "Aucun produit trouvé",
+    "no_products": "Aucun produit en stock",
+    "modify_search": "Essayez de modifier vos critères de recherche",
+    "add_first_products": "Commencez par ajouter vos premiers produits",
+    "stock_alerts": "Alertes de Stock",
+    "products_out_of_stock": "produit(s) en rupture de stock",
+    "products_low_stock": "produit(s) avec un stock faible",
+    "products_found": "produit(s) trouvé(s)",
+    "with_unit": "avec l'unité",
+    "with_filter": "avec le filtre",
+    "confirm_delete": "Êtes-vous sûr de vouloir supprimer ce produit ?"
+  },
+  "details": {
+    "available": "disponible"
+  },
+  "subtitle": "Créez et gérez vos services de beauté",
+  "duration": {
+    "minutes": "minutes",
+    "hours": "heures",
+    "min": "min",
+    "h": "h"
+  },
+  "stats_text": {
+    "total_services": "services au total",
+    "categories": "catégories"
+  },
+  "limits": {
+    "title": "Limite de Services"
+  },
+  "addService": "Rnu ameẓlu",
+  "editService": "Ẓreg ameẓlu",
+  "deleteService": "Kkes ameẓlu",
+  "serviceName": "Isem n umeẓlu",
+  "description": "Aglam",
+  "price": "Ssuma",
+  "category": "Taggayt",
+  "image": "Tugna",
+  "active": "Urmid",
+  "inactive": "Ur urmid ara",
+  "noServices": "Ulac imeẓla",
+  "searchServices": "Nadi imeẓla",
+  "filterByCategory": "Sizdeg s tggayt",
+  "allCategories": "Akk tiggayin"
+}

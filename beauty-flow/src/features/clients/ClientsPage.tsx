@@ -22,7 +22,7 @@ import { Client, ClientFormData } from './types';
 import { useSocket } from '../../hooks/useSocket';
 
 const ClientsPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('clients');
   const [showForm, setShowForm] = useState(false);
   const [selectedClient, setSelectedClient] = useState<Client | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -96,7 +96,7 @@ const ClientsPage: React.FC = () => {
       setShowForm(false);
       setSelectedClient(null);
     } catch (error) {
-      console.error('Error saving client:', error);
+      console.error(t('errors.saving'), error);
     }
   };
 
@@ -109,7 +109,7 @@ const ClientsPage: React.FC = () => {
     try {
       await deleteClient(id);
     } catch (error) {
-      console.error('Error deleting client:', error);
+      console.error(t('errors.deleting'), error);
     }
   };
 
@@ -140,8 +140,8 @@ const ClientsPage: React.FC = () => {
                   <div className="animate-spin rounded-full h-20 w-20 border-4 border-indigo-100 border-t-indigo-600 mx-auto"></div>
                   <SparklesIcon className="h-8 w-8 text-indigo-600 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pulse" />
                 </div>
-                <p className="mt-8 text-xl font-semibold text-gray-800">Chargement de vos clients...</p>
-                <p className="mt-3 text-sm text-gray-500">Préparation de votre base clients</p>
+                <p className="mt-8 text-xl font-semibold text-gray-800">{t('loading.clients')}</p>
+                <p className="mt-3 text-sm text-gray-500">{t('loading.preparing')}</p>
               </div>
             </div>
           </div>
@@ -169,18 +169,18 @@ const ClientsPage: React.FC = () => {
                 </div>
                 <div>
                   <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
-                    Gestion des Clients
+                    {t('page_title')}
                   </h1>
-                  <p className="text-gray-600 mt-2 text-lg">Gérez votre base clients et fidélisez vos relations</p>
+                  <p className="text-gray-600 mt-2 text-lg">{t('page_subtitle')}</p>
                   <div className="flex items-center mt-3 space-x-4">
                     <div className="flex items-center text-sm text-gray-500">
                       <ArrowTrendingUpIcon className="h-4 w-4 mr-1 text-green-500" />
-                      {clientStats.total} clients au total
+                      {clientStats.total} {t('stats.clients_total_badge')}
                     </div>
                     {clientStats.vip > 0 && (
                       <div className="flex items-center text-sm text-amber-600">
                         <BellIcon className="h-4 w-4 mr-1 animate-bounce" />
-                        {clientStats.vip} clients VIP
+                        {clientStats.vip} {t('stats.vip_clients_badge')}
                       </div>
                     )}
                   </div>
@@ -196,7 +196,7 @@ const ClientsPage: React.FC = () => {
                 >
                   <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                   <PlusIcon className="h-5 w-5 mr-2 inline relative z-10" />
-                  <span className="relative z-10">Nouveau Client</span>
+                  <span className="relative z-10">{t('new_client')}</span>
                 </button>
               </div>
             </div>
@@ -211,9 +211,9 @@ const ClientsPage: React.FC = () => {
             <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">Total</p>
+                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.total')}</p>
                   <p className="text-3xl font-bold text-gray-900 mt-1">{clientStats.total}</p>
-                  <p className="text-xs text-gray-500 mt-1">Tous les clients</p>
+                  <p className="text-xs text-gray-500 mt-1">{t('stats.all_clients')}</p>
                 </div>
                 <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl shadow-lg">
                   <UserGroupIcon className="h-6 w-6 text-white" />
@@ -228,9 +228,9 @@ const ClientsPage: React.FC = () => {
             <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">Clients VIP</p>
+                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.vip_title')}</p>
                   <p className="text-3xl font-bold text-orange-600 mt-1">{clientStats.vip}</p>
-                  <p className="text-xs text-gray-500 mt-1">100+ points fidélité</p>
+                  <p className="text-xs text-gray-500 mt-1">{t('stats.vip_description')}</p>
                 </div>
                 <div className="p-3 bg-gradient-to-r from-orange-500 to-amber-600 rounded-xl shadow-lg">
                   <StarIcon className="h-6 w-6 text-white" />
@@ -245,9 +245,9 @@ const ClientsPage: React.FC = () => {
             <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">Nouveaux (30j)</p>
+                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.recent_title')}</p>
                   <p className="text-3xl font-bold text-green-600 mt-1">{clientStats.recent}</p>
-                  <p className="text-xs text-gray-500 mt-1">Clients récents</p>
+                  <p className="text-xs text-gray-500 mt-1">{t('stats.recent_description')}</p>
                 </div>
                 <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl shadow-lg">
                   <SparklesIcon className="h-6 w-6 text-white" />
@@ -262,9 +262,9 @@ const ClientsPage: React.FC = () => {
             <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">Points Fidélité</p>
+                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.loyalty_title')}</p>
                   <p className="text-3xl font-bold text-purple-600 mt-1">{clientStats.totalLoyalty}</p>
-                  <p className="text-xs text-gray-500 mt-1">Points cumulés</p>
+                  <p className="text-xs text-gray-500 mt-1">{t('stats.loyalty_description')}</p>
                 </div>
                 <div className="p-3 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl shadow-lg">
                   <HeartIcon className="h-6 w-6 text-white" />
@@ -306,7 +306,7 @@ const ClientsPage: React.FC = () => {
                   <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                   <input
                     type="text"
-                    placeholder="Rechercher un client (nom, email, téléphone...)"
+                    placeholder={t('search.placeholder')}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="pl-10 pr-4 py-3 w-64 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 text-sm"
@@ -316,7 +316,7 @@ const ClientsPage: React.FC = () => {
             </div>
             {searchTerm && (
               <p className="mt-2 text-sm text-gray-600">
-                {filteredClients.length} client(s) trouvé(s) pour "{searchTerm}"
+                {filteredClients.length} {t('search.results')} "{searchTerm}"
               </p>
             )}
           </div>
@@ -338,11 +338,11 @@ const ClientsPage: React.FC = () => {
               {filteredClients.length === 0 ? (
                 <div className="text-center py-16">
                   <UsersIcon className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">Aucun client trouvé</h3>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">{t('empty_state.no_clients')}</h3>
                   <p className="text-gray-500 mb-6">
                     {searchTerm 
-                      ? 'Essayez de modifier vos filtres de recherche'
-                      : 'Commencez par créer votre premier client'
+                      ? t('empty_state.modify_filters')
+                      : t('empty_state.create_first')
                     }
                   </p>
                   {!searchTerm && (
@@ -351,7 +351,7 @@ const ClientsPage: React.FC = () => {
                       className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
                     >
                       <PlusIcon className="h-4 w-4 mr-2 inline" />
-                      Créer un client
+                      {t('empty_state.create_client')}
                     </button>
                   )}
                 </div>

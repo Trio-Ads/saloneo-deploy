@@ -5,6 +5,13 @@ export enum PlanType {
   ENTERPRISE = 'ENTERPRISE'
 }
 
+export enum SubscriptionDuration {
+  MONTHLY = 'MONTHLY',
+  YEARLY = 'YEARLY',
+  BIENNIAL = 'BIENNIAL',
+  TRIENNIAL = 'TRIENNIAL'
+}
+
 export interface PlanLimits {
   appointments: number;
   clients: number;
@@ -23,6 +30,20 @@ export interface PlanPrice {
   customQuote?: boolean;
 }
 
+export interface DurationPrice {
+  monthly: number;
+  yearly: number;
+  biennial: number;
+  triennial: number;
+  currency: string;
+}
+
+export interface DurationDiscount {
+  yearly: number;    // 25%
+  biennial: number;  // 35%
+  triennial: number; // 50%
+}
+
 export interface Plan {
   type: PlanType;
   price: PlanPrice;
@@ -31,35 +52,40 @@ export interface Plan {
 
 export interface Subscription {
   currentPlan: PlanType;
+  duration: SubscriptionDuration;
   startDate: string;
   endDate?: string;
   isActive: boolean;
+  autoRenew?: boolean;
+  paidAmount?: number;
+  remainingMonths?: number;
+  lastTransactionId?: string;
 }
 
 export const PLAN_LIMITS: Record<PlanType, PlanLimits> = {
   [PlanType.FREE]: {
-    appointments: 30,
-    clients: 50,
+    appointments: 20,
+    clients: 10,
     services: 5,
     teamMembers: 1,
     stock: false,
-    onlineBooking: false,
+    onlineBooking: true, // Toujours activé pour la pub
     customInterface: false
   },
   [PlanType.STARTER]: {
-    appointments: 100,
+    appointments: 60,
     clients: 200,
-    services: 15,
-    teamMembers: 3,
+    services: 20,
+    teamMembers: 5,
     stock: true,
     onlineBooking: true,
     customInterface: true
   },
   [PlanType.PRO]: {
-    appointments: -1, // illimité
-    clients: -1, // illimité
-    services: -1, // illimité
-    teamMembers: 8,
+    appointments: 200,
+    clients: 1000,
+    services: 50,
+    teamMembers: 10,
     stock: true,
     onlineBooking: true,
     customInterface: true
@@ -88,10 +114,10 @@ export const PLAN_PRICES: Record<PlanType, PlanPrice> = {
     regularAmount: 3167
   },
   [PlanType.PRO]: {
-    amount: 2400,
+    amount: 3500,
     currency: 'DZD',
     isPromo: true,
-    regularAmount: 4000
+    regularAmount: 5000
   },
   [PlanType.ENTERPRISE]: {
     amount: 0,
@@ -99,4 +125,31 @@ export const PLAN_PRICES: Record<PlanType, PlanPrice> = {
     isPromo: false,
     customQuote: true
   }
+};
+
+// Prix par durée avec réductions généreuses
+export const DURATION_PRICES: Record<PlanType, DurationPrice | null> = {
+  [PlanType.FREE]: null,
+  [PlanType.STARTER]: {
+    monthly: 1900,
+    yearly: 14250,    // -25% (9 mois payés pour 12)
+    biennial: 24700,  // -35% (13 mois payés pour 24)
+    triennial: 34200, // -50% (18 mois payés pour 36)
+    currency: 'DZD'
+  },
+  [PlanType.PRO]: {
+    monthly: 3500,
+    yearly: 26250,    // -25% (9 mois payés pour 12)
+    biennial: 45500,  // -35% (13 mois payés pour 24)
+    triennial: 63000, // -50% (18 mois payés pour 36)
+    currency: 'DZD'
+  },
+  [PlanType.ENTERPRISE]: null
+};
+
+// Pourcentages de réduction
+export const DURATION_DISCOUNTS: DurationDiscount = {
+  yearly: 25,
+  biennial: 35,
+  triennial: 50
 };

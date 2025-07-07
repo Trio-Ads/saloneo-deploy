@@ -1,0 +1,43 @@
+{
+  "title": "Imeẓla",
+  "addService": "Rnu ameẓlu",
+  "editService": "Ẓreg ameẓlu",
+  "deleteService": "Kkes ameẓlu",
+  "serviceName": "Isem n umeẓlu",
+  "description": "Aglam",
+  "price": "Ssuma",
+  "duration": "Tanzagt",
+  "category": "Taggayt",
+  "image": "Tugna",
+  "active": "Urmid",
+  "inactive": "Ur urmid ara",
+  "noServices": "Ulac imeẓla",
+  "searchServices": "Nadi imeẓla",
+  "filterByCategory": "Sizdeg s tggayt",
+  "allCategories": "Akk tiggayin",
+  "categories": {
+    "haircut": "Tuqqsa n uzar",
+    "coloring": "Asemli",
+    "styling": "Asbeddi",
+    "treatment": "Asaḥ",
+    "manicure": "Manikir",
+    "pedicure": "Pedikir",
+    "facial": "Asaḥ n wudem",
+    "massage": "Amekṛaḍ",
+    "waxing": "Akkes n uzar",
+    "eyebrows": "Timiṭin",
+    "makeup": "Asebter",
+    "other": "Wayeḍ"
+  },
+  "form": {
+    "name": "Isem",
+    "description": "Aglam",
+    "price": "Ssuma",
+    "duration": "Tanzagt",
+    "category": "Taggayt",
+    "image": "Tugna",
+    "status": "Addad",
+    "save": "Sekles",
+    "cancel": "Sefsex"
+  }
+}

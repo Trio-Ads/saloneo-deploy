@@ -98,6 +98,16 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete }) => {
     return total / validSpecialties.length;
   };
 
+  const dayNames = {
+    monday: t('team_list.days_short.monday'),
+    tuesday: t('team_list.days_short.tuesday'),
+    wednesday: t('team_list.days_short.wednesday'),
+    thursday: t('team_list.days_short.thursday'),
+    friday: t('team_list.days_short.friday'),
+    saturday: t('team_list.days_short.saturday'),
+    sunday: t('team_list.days_short.sunday')
+  };
+
   if (activeMembers.length === 0) {
     return (
       <div className="glass-card p-12 text-center">
@@ -105,11 +115,11 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete }) => {
           <UserIcon className="h-12 w-12 text-white" />
         </div>
         <h3 className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent mb-3">
-          Aucun membre d'équipe
+          {t('team_list.empty_state.title')}
         </h3>
-        <p className="text-gray-600 text-lg">Commencez par ajouter vos premiers collaborateurs</p>
+        <p className="text-gray-600 text-lg">{t('team_list.empty_state.subtitle')}</p>
         <div className="mt-6 inline-flex items-center px-4 py-2 bg-gradient-to-r from-indigo-100 to-blue-100 rounded-full text-indigo-700 text-sm font-medium">
-          👥 Constituez votre équipe
+          👥 {t('team_list.empty_state.cta')}
         </div>
       </div>
     );
@@ -160,14 +170,14 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete }) => {
                 <button
                   onClick={() => onEdit(member)}
                   className="glass-button p-3 text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl"
-                  title="Modifier le membre"
+                  title={t('team_list.tooltips.edit_member')}
                 >
                   <PencilIcon className="h-5 w-5" />
                 </button>
                 <button
                   onClick={() => onDelete(member.id)}
                   className="glass-button p-3 text-red-600 hover:text-red-800 hover:bg-red-50 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl"
-                  title="Supprimer le membre"
+                  title={t('team_list.tooltips.delete_member')}
                 >
                   <TrashIcon className="h-5 w-5" />
                 </button>
@@ -180,7 +190,7 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete }) => {
                 <div className="flex items-center space-x-3 p-3 glass-card bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl">
                   <EnvelopeIcon className="h-5 w-5 text-blue-600" />
                   <div>
-                    <p className="text-sm font-medium text-gray-700">Email</p>
+                    <p className="text-sm font-medium text-gray-700">{t('team_list.info_labels.email')}</p>
                     <p className="text-sm text-gray-900">{member.email}</p>
                   </div>
                 </div>
@@ -188,7 +198,7 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete }) => {
                 <div className="flex items-center space-x-3 p-3 glass-card bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl">
                   <PhoneIcon className="h-5 w-5 text-green-600" />
                   <div>
-                    <p className="text-sm font-medium text-gray-700">Téléphone</p>
+                    <p className="text-sm font-medium text-gray-700">{t('team_list.info_labels.phone')}</p>
                     <p className="text-sm text-gray-900">{member.phone}</p>
                   </div>
                 </div>
@@ -198,16 +208,16 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete }) => {
                 <div className="flex items-center space-x-3 p-3 glass-card bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl">
                   <CalendarDaysIcon className="h-5 w-5 text-purple-600" />
                   <div>
-                    <p className="text-sm font-medium text-gray-700">Jours travaillés</p>
-                    <p className="text-sm text-gray-900">{workingDays}/7 jours</p>
+                    <p className="text-sm font-medium text-gray-700">{t('team_list.info_labels.working_days')}</p>
+                    <p className="text-sm text-gray-900">{workingDays}/7 {t('team_list.stats.days_per_week')}</p>
                   </div>
                 </div>
                 
                 <div className="flex items-center space-x-3 p-3 glass-card bg-gradient-to-r from-orange-50 to-red-50 rounded-xl">
                   <SparklesIcon className="h-5 w-5 text-orange-600" />
                   <div>
-                    <p className="text-sm font-medium text-gray-700">Spécialités</p>
-                    <p className="text-sm text-gray-900">{member.specialties.length} service(s)</p>
+                    <p className="text-sm font-medium text-gray-700">{t('team_list.info_labels.specialties')}</p>
+                    <p className="text-sm text-gray-900">{member.specialties.length} {t('team_list.stats.services')}</p>
                   </div>
                 </div>
               </div>
@@ -218,7 +228,7 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete }) => {
               <div className="mb-6">
                 <div className="flex items-center space-x-2 mb-4">
                   <SparklesIcon className="h-5 w-5 text-purple-600" />
-                  <h4 className="text-lg font-semibold text-gray-900">Spécialités</h4>
+                  <h4 className="text-lg font-semibold text-gray-900">{t('team_list.sections.specialties')}</h4>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {specialtyDetails.map((specialty, index) => (
@@ -243,7 +253,7 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete }) => {
                         />
                       </div>
                       <p className="text-xs text-gray-600 mt-1">
-                        Niveau {specialty.level.toFixed(1)}/5
+                        {t('team_list.stats.level_of', { level: specialty.level.toFixed(1) })}
                       </p>
                     </div>
                   ))}
@@ -255,22 +265,13 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete }) => {
             <div className="border-t border-gray-100 pt-6">
               <div className="flex items-center space-x-2 mb-4">
                 <ClockIcon className="h-5 w-5 text-blue-600" />
-                <h4 className="text-lg font-semibold text-gray-900">Planning de la semaine</h4>
+                <h4 className="text-lg font-semibold text-gray-900">{t('team_list.sections.weekly_schedule')}</h4>
               </div>
               <div className="grid grid-cols-7 gap-2">
                 {['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map((day) => {
                   // Utiliser workingHours ou schedule pour compatibilité
                   const schedule = member.workingHours || (member as any).schedule;
                   const daySchedule = schedule?.[day as keyof typeof schedule];
-                  const dayNames = {
-                    monday: 'Lun',
-                    tuesday: 'Mar',
-                    wednesday: 'Mer',
-                    thursday: 'Jeu',
-                    friday: 'Ven',
-                    saturday: 'Sam',
-                    sunday: 'Dim'
-                  };
                   
                   return (
                     <div
@@ -307,16 +308,16 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete }) => {
               <div className="flex items-center space-x-4">
                 <span className="flex items-center space-x-1">
                   <CalendarDaysIcon className="h-4 w-4" />
-                  <span>{workingDays} jours/semaine</span>
+                  <span>{workingDays} {t('team_list.stats.days_per_week')}</span>
                 </span>
                 <span className="flex items-center space-x-1">
                   <SparklesIcon className="h-4 w-4" />
-                  <span>{member.specialties.length} spécialité(s)</span>
+                  <span>{member.specialties.length} {t('team_list.stats.specialties_count')}</span>
                 </span>
                 {averageRating > 0 && (
                   <span className="flex items-center space-x-1">
                     <StarIcon className="h-4 w-4 text-yellow-500" />
-                    <span>Moyenne {averageRating.toFixed(1)}/5</span>
+                    <span>{t('team_list.stats.average')} {averageRating.toFixed(1)}/5</span>
                   </span>
                 )}
               </div>
@@ -324,7 +325,7 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete }) => {
               <div className="flex items-center space-x-2">
                 <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
                   <span className="w-1.5 h-1.5 bg-green-500 rounded-full mr-1"></span>
-                  Actif
+                  {t('team_list.stats.active')}
                 </span>
               </div>
             </div>

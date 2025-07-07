@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import { body, param } from 'express-validator';
 import * as clientsController from '../controllers/clients.controller';
-import { authenticate, checkLimits } from '../middleware/auth';
+import { authenticate } from '../middleware/auth';
+import { checkSubscriptionLimit } from '../middleware/checkLimits';
 
 const router = Router();
 
@@ -27,7 +28,7 @@ router.get(
 // Create new client
 router.post(
   '/',
-  checkLimits('clients'),
+  checkSubscriptionLimit('clients'),
   [
     body('firstName').notEmpty().trim(),
     body('lastName').notEmpty().trim(),

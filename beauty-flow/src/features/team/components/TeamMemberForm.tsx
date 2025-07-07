@@ -86,13 +86,13 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
   };
 
   const daysOfWeek = [
-    { key: 'monday', label: 'Lundi' },
-    { key: 'tuesday', label: 'Mardi' },
-    { key: 'wednesday', label: 'Mercredi' },
-    { key: 'thursday', label: 'Jeudi' },
-    { key: 'friday', label: 'Vendredi' },
-    { key: 'saturday', label: 'Samedi' },
-    { key: 'sunday', label: 'Dimanche' }
+    { key: 'monday', label: t('team_member_form.working_days.monday') },
+    { key: 'tuesday', label: t('team_member_form.working_days.tuesday') },
+    { key: 'wednesday', label: t('team_member_form.working_days.wednesday') },
+    { key: 'thursday', label: t('team_member_form.working_days.thursday') },
+    { key: 'friday', label: t('team_member_form.working_days.friday') },
+    { key: 'saturday', label: t('team_member_form.working_days.saturday') },
+    { key: 'sunday', label: t('team_member_form.working_days.sunday') }
   ];
 
   return (
@@ -105,24 +105,24 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
               <UserIcon className="h-8 w-8 text-white" />
             </div>
             <h2 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
-              {initialData ? 'Modifier le Membre' : 'Nouveau Membre'}
+              {initialData ? t('team_member_form.title_edit') : t('team_member_form.title_new')}
             </h2>
           </div>
-          <p className="text-gray-600">Ajoutez un nouveau membre à votre équipe de beauté</p>
+          <p className="text-gray-600">{t('team_member_form.subtitle')}</p>
         </div>
 
         {/* Informations personnelles */}
         <div className="glass-card p-6">
           <div className="flex items-center space-x-3 mb-6">
             <UserIcon className="h-6 w-6 text-indigo-600" />
-            <h3 className="text-lg font-semibold text-gray-900">Informations Personnelles</h3>
+            <h3 className="text-lg font-semibold text-gray-900">{t('team_member_form.sections.personal_info')}</h3>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
                 <UserIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
-                {t('form.personal_info.firstName')} *
+                {t('team_member_form.labels.first_name_required')}
               </label>
               <input
                 type="text"
@@ -132,14 +132,14 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
                 onChange={handleChange}
                 required
                 className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
-                placeholder="Prénom"
+                placeholder={t('team_member_form.placeholders.first_name')}
               />
             </div>
 
             <div>
               <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
                 <UserIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
-                {t('form.personal_info.lastName')} *
+                {t('team_member_form.labels.last_name_required')}
               </label>
               <input
                 type="text"
@@ -149,14 +149,14 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
                 onChange={handleChange}
                 required
                 className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
-                placeholder="Nom"
+                placeholder={t('team_member_form.placeholders.last_name')}
               />
             </div>
 
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                 <EnvelopeIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
-                {t('form.personal_info.email')} *
+                {t('team_member_form.labels.email_required')}
               </label>
               <input
                 type="email"
@@ -166,14 +166,14 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
                 onChange={handleChange}
                 required
                 className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
-                placeholder="exemple@email.com"
+                placeholder={t('team_member_form.placeholders.email_example')}
               />
             </div>
 
             <div>
               <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
                 <PhoneIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
-                {t('form.personal_info.phone')} *
+                {t('team_member_form.labels.phone_required')}
               </label>
               <input
                 type="tel"
@@ -183,14 +183,14 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
                 onChange={handleChange}
                 required
                 className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
-                placeholder="+33 6 12 34 56 78"
+                placeholder={t('team_member_form.placeholders.phone_example')}
               />
             </div>
 
             <div className="md:col-span-2">
               <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-2">
                 <BriefcaseIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
-                {t('form.personal_info.role')} *
+                {t('team_member_form.labels.role_required')}
               </label>
               <select
                 id="role"
@@ -214,7 +214,7 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
         <div className="glass-card p-6">
           <div className="flex items-center space-x-3 mb-6">
             <SparklesIcon className="h-6 w-6 text-indigo-600" />
-            <h3 className="text-lg font-semibold text-gray-900">Spécialités</h3>
+            <h3 className="text-lg font-semibold text-gray-900">{t('team_member_form.sections.specialties')}</h3>
           </div>
           
           <div>
@@ -240,12 +240,12 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
             <div className="mt-3 space-y-2">
               <div className="glass-card bg-blue-50/50 p-3 rounded-lg">
                 <p className="text-sm text-blue-700 font-medium">
-                  💡 {t('form.specialties.help')}
+                  💡 {t('team_member_form.help_messages.specialties_help')}
                 </p>
               </div>
               <div className="glass-card bg-indigo-50/50 p-3 rounded-lg">
                 <p className="text-sm text-indigo-700 font-medium">
-                  ⭐ {t('form.specialties.order_help')}
+                  ⭐ {t('team_member_form.help_messages.order_help')}
                 </p>
               </div>
             </div>
@@ -256,7 +256,7 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
         <div className="glass-card p-6">
           <div className="flex items-center space-x-3 mb-6">
             <ClockIcon className="h-6 w-6 text-indigo-600" />
-            <h3 className="text-lg font-semibold text-gray-900">Horaires de Travail</h3>
+            <h3 className="text-lg font-semibold text-gray-900">{t('team_member_form.sections.working_hours')}</h3>
           </div>
           
           <div className="space-y-4">
@@ -278,14 +278,14 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
                         className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                       />
                       <label htmlFor={`${key}-working`} className="text-sm text-gray-600">
-                        Travaille
+                        {t('team_member_form.schedule_labels.works')}
                       </label>
                     </div>
                     
                     {daySchedule?.isWorking && (
                       <>
                         <div className="flex items-center space-x-2">
-                          <label className="text-sm text-gray-600">De:</label>
+                          <label className="text-sm text-gray-600">{t('team_member_form.schedule_labels.from')}</label>
                           <input
                             type="time"
                             value={daySchedule.start || '09:00'}
@@ -295,7 +295,7 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
                         </div>
                         
                         <div className="flex items-center space-x-2">
-                          <label className="text-sm text-gray-600">À:</label>
+                          <label className="text-sm text-gray-600">{t('team_member_form.schedule_labels.to')}</label>
                           <input
                             type="time"
                             value={daySchedule.end || '18:00'}
@@ -319,13 +319,13 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
             onClick={onCancel}
             className="glass-button bg-white/70 hover:bg-white/90 text-gray-700 border border-gray-300 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
           >
-            {t('actions.cancel')}
+            {t('team_member_form.buttons.cancel')}
           </button>
           <button
             type="submit"
             className="glass-button bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white border-0 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
           >
-            {initialData ? t('actions.edit') : t('actions.add')}
+            {initialData ? t('team_member_form.buttons.modify') : t('team_member_form.buttons.add')}
           </button>
         </div>
       </form>

@@ -80,4 +80,37 @@ router.delete(
   servicesController.deleteService
 );
 
+// Add image to service
+router.post(
+  '/:id/images',
+  [
+    param('id').isMongoId(),
+    body('url').notEmpty().isURL(),
+    body('alt').optional().trim(),
+  ],
+  servicesController.addServiceImage
+);
+
+// Remove image from service
+router.delete(
+  '/:id/images',
+  [
+    param('id').isMongoId(),
+    body('imageUrl').notEmpty().isURL(),
+  ],
+  servicesController.removeServiceImage
+);
+
+// Update service images
+router.put(
+  '/:id/images',
+  [
+    param('id').isMongoId(),
+    body('images').isArray({ max: 5 }),
+    body('images.*.url').notEmpty().isURL(),
+    body('images.*.alt').optional().trim(),
+  ],
+  servicesController.updateServiceImages
+);
+
 export default router;

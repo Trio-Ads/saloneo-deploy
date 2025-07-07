@@ -1,6 +1,7 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { format } from 'date-fns';
-import { fr } from 'date-fns/locale';
+import { fr, enUS, es, pt, tr } from 'date-fns/locale';
 import { 
   CalendarDaysIcon,
   ClockIcon,
@@ -36,23 +37,43 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
   onNoShow,
   onConfirm,
 }) => {
+  const { t, i18n } = useTranslation('appointments');
+
+  // Fonction pour obtenir la locale date-fns basée sur la langue actuelle
+  const getDateLocale = () => {
+    switch (i18n.language) {
+      case 'fr': return fr;
+      case 'en': return enUS;
+      case 'es': return es;
+      case 'pt': return pt;
+      case 'tr': return tr;
+      case 'ar': return enUS; // Fallback pour l'arabe
+      default: return fr; // Fallback par défaut
+    }
+  };
   const clients = useClientStore((state) => state.clients);
   const services = useServiceStore((state) => state.services);
   const stylists = useTeamStore((state) => state.members);
 
-  const getClientName = (clientId: string) => {
-    const client = clients.find((c) => c.id === clientId);
-    return client ? `${client.firstName} ${client.lastName}` : 'Client inconnu';
+  const getClientName = (appointment: Appointment) => {
+    // Si les informations client sont directement disponibles dans le rendez-vous, les utiliser
+    if (appointment.clientInfo && appointment.clientInfo.firstName && appointment.clientInfo.lastName) {
+      return `${appointment.clientInfo.firstName} ${appointment.clientInfo.lastName}`;
+    }
+    
+    // Sinon, chercher dans le store
+    const client = clients.find((c) => c.id === appointment.clientId);
+    return client ? `${client.firstName} ${client.lastName}` : t('appointment_form.unknown.client');
   };
 
   const getServiceName = (serviceId: string) => {
     const service = services.find((s) => s.id === serviceId);
-    return service ? service.name : 'Service inconnu';
+    return service ? service.name : t('appointment_form.unknown.service');
   };
 
   const getStylistName = (stylistId: string) => {
     const stylist = stylists.find((s) => s.id === stylistId);
-    return stylist ? `${stylist.firstName} ${stylist.lastName}` : 'Coiffeur inconnu';
+    return stylist ? `${stylist.firstName} ${stylist.lastName}` : t('appointment_form.unknown.stylist');
   };
 
   const getStatusConfig = (status: Appointment['status']) => {
@@ -63,7 +84,7 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
           bgColor: 'bg-blue-100',
           textColor: 'text-blue-800',
           icon: CalendarDaysIcon,
-          label: 'Planifié'
+          label: t('appointment_list.status_labels.scheduled')
         };
       case 'confirmed':
         return {
@@ -71,7 +92,7 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
           bgColor: 'bg-green-100',
           textColor: 'text-green-800',
           icon: CheckCircleIcon,
-          label: 'Confirmé'
+          label: t('appointment_list.status_labels.confirmed')
         };
       case 'completed':
         return {
@@ -79,7 +100,7 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
           bgColor: 'bg-purple-100',
           textColor: 'text-purple-800',
           icon: CheckIcon,
-          label: 'Terminé'
+          label: t('appointment_list.status_labels.completed')
         };
       case 'cancelled':
         return {
@@ -87,7 +108,7 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
           bgColor: 'bg-red-100',
           textColor: 'text-red-800',
           icon: XMarkIcon,
-          label: 'Annulé'
+          label: t('appointment_list.status_labels.cancelled')
         };
       case 'noShow':
         return {
@@ -95,7 +116,7 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
           bgColor: 'bg-gray-100',
           textColor: 'text-gray-800',
           icon: EyeSlashIcon,
-          label: 'Non présenté'
+          label: t('appointment_list.status_labels.no_show')
         };
       default:
         return {
@@ -127,12 +148,12 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
       
       // Vérifier si la date est valide
       if (isNaN(dateObj.getTime())) {
-        return 'Date invalide';
+        return t('appointment_list.invalid_date');
       }
-      return format(dateObj, 'EEEE d MMMM yyyy', { locale: fr });
+      return format(dateObj, 'EEEE d MMMM yyyy', { locale: getDateLocale() });
     } catch (error) {
       console.error('Erreur de formatage de date:', error, date);
-      return 'Date invalide';
+      return t('appointment_list.invalid_date');
     }
   };
 
@@ -206,11 +227,11 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
           <CalendarDaysIcon className="h-12 w-12 text-white" />
         </div>
         <h3 className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-3">
-          Aucun rendez-vous
+          {t('appointment_list.no_appointments')}
         </h3>
-        <p className="text-gray-600 text-lg">Aucun rendez-vous prévu pour cette période</p>
+        <p className="text-gray-600 text-lg">{t('appointment_list.no_appointments_period')}</p>
         <div className="mt-6 inline-flex items-center px-4 py-2 bg-gradient-to-r from-indigo-100 to-purple-100 rounded-full text-indigo-700 text-sm font-medium">
-          📅 Planifiez vos premiers rendez-vous
+          📅 {t('appointment_list.schedule_first')}
         </div>
       </div>
     );
@@ -230,7 +251,7 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
               <h3 className="text-lg font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent capitalize">
                 {formatDate(date)}
               </h3>
-              <p className="text-xs text-gray-500">{dayAppointments.length} rendez-vous</p>
+              <p className="text-xs text-gray-500">{dayAppointments.length} {t('appointment_list.appointments_count')}</p>
             </div>
           </div>
 
@@ -273,7 +294,7 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
                           )}
                         </div>
                         <h4 className="text-base font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                          {getClientName(appointment.clientId)}
+                          {getClientName(appointment)}
                         </h4>
                       </div>
                     </div>
@@ -285,7 +306,7 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
                           <button
                             onClick={() => onConfirm(appointment.id)}
                             className="glass-button p-3 text-blue-600 hover:text-blue-800 hover:bg-blue-50 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl"
-                            title="Confirmer le rendez-vous"
+                            title={t('appointment_list.tooltips.confirm')}
                           >
                             <CheckCircleIcon className="h-5 w-5" />
                           </button>
@@ -293,28 +314,28 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
                         <button
                           onClick={() => onEdit(appointment)}
                           className="glass-button p-3 text-purple-600 hover:text-purple-800 hover:bg-purple-50 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl"
-                          title="Modifier le rendez-vous"
+                          title={t('appointment_list.tooltips.edit')}
                         >
                           <PencilIcon className="h-5 w-5" />
                         </button>
                         <button
                           onClick={() => onComplete(appointment.id)}
                           className="glass-button p-3 text-green-600 hover:text-green-800 hover:bg-green-50 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl"
-                          title="Marquer comme terminé"
+                          title={t('appointment_list.tooltips.complete')}
                         >
                           <CheckIcon className="h-5 w-5" />
                         </button>
                         <button
                           onClick={() => onNoShow(appointment.id)}
                           className="glass-button p-3 text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl"
-                          title="Marquer comme non présenté"
+                          title={t('appointment_list.tooltips.no_show')}
                         >
                           <EyeSlashIcon className="h-5 w-5" />
                         </button>
                         <button
                           onClick={() => onCancel(appointment.id)}
                           className="glass-button p-3 text-red-600 hover:text-red-800 hover:bg-red-50 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl"
-                          title="Annuler le rendez-vous"
+                          title={t('appointment_list.tooltips.cancel')}
                         >
                           <XMarkIcon className="h-5 w-5" />
                         </button>
@@ -327,7 +348,7 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
                     <div className="flex items-center space-x-3 p-3 glass-card bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl">
                       <SparklesIcon className="h-5 w-5 text-blue-600" />
                       <div>
-                        <p className="text-sm font-medium text-gray-700">Service</p>
+                        <p className="text-sm font-medium text-gray-700">{t('appointment_list.details.service')}</p>
                         <p className="text-sm text-gray-900 font-medium">{getServiceName(appointment.serviceId)}</p>
                       </div>
                     </div>
@@ -335,7 +356,7 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
                     <div className="flex items-center space-x-3 p-3 glass-card bg-gradient-to-r from-teal-50 to-emerald-50 rounded-xl">
                       <UserIcon className="h-5 w-5 text-teal-600" />
                       <div>
-                        <p className="text-sm font-medium text-gray-700">Coiffeur</p>
+                        <p className="text-sm font-medium text-gray-700">{t('appointment_list.details.stylist')}</p>
                         <p className="text-sm text-gray-900 font-medium">{getStylistName(appointment.stylistId)}</p>
                       </div>
                     </div>
@@ -345,7 +366,7 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
                   {appointment.notes && (
                     <div className="p-4 glass-card bg-gradient-to-r from-gray-50 to-slate-50 rounded-xl border-l-4 border-purple-500">
                       <div className="flex items-center space-x-2 mb-2">
-                        <span className="text-sm font-medium text-gray-700">Notes</span>
+                        <span className="text-sm font-medium text-gray-700">{t('appointment_list.details.notes')}</span>
                       </div>
                       <p className="text-sm text-gray-900 leading-relaxed italic">"{appointment.notes}"</p>
                     </div>

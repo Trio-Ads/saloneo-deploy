@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useInterfaceStore } from './store';
 import { 
   PaintBrushIcon,
@@ -24,40 +25,41 @@ interface Tab {
   gradient: string;
 }
 
-const tabs: Tab[] = [
-  {
-    id: 'templates',
-    label: 'Templates',
-    icon: SparklesIcon,
-    gradient: 'from-indigo-500 to-purple-600'
-  },
-  {
-    id: 'colors',
-    label: 'Couleurs',
-    icon: SwatchIcon,
-    gradient: 'from-blue-500 to-cyan-600'
-  },
-  {
-    id: 'images',
-    label: 'Images',
-    icon: PhotoIcon,
-    gradient: 'from-cyan-500 to-teal-600'
-  },
-  {
-    id: 'content',
-    label: 'Contenu',
-    icon: DocumentTextIcon,
-    gradient: 'from-teal-500 to-green-600'
-  },
-  {
-    id: 'settings',
-    label: 'Paramètres',
-    icon: Cog6ToothIcon,
-    gradient: 'from-purple-500 to-indigo-600'
-  }
-];
-
 const InterfacePage: React.FC = () => {
+  const { t } = useTranslation('interface');
+
+  const tabs: Tab[] = [
+    {
+      id: 'templates',
+      label: t('tabs.templates'),
+      icon: SparklesIcon,
+      gradient: 'from-indigo-500 to-purple-600'
+    },
+    {
+      id: 'colors',
+      label: t('tabs.colors'),
+      icon: SwatchIcon,
+      gradient: 'from-blue-500 to-cyan-600'
+    },
+    {
+      id: 'images',
+      label: t('tabs.images'),
+      icon: PhotoIcon,
+      gradient: 'from-cyan-500 to-teal-600'
+    },
+    {
+      id: 'content',
+      label: t('tabs.content'),
+      icon: DocumentTextIcon,
+      gradient: 'from-teal-500 to-green-600'
+    },
+    {
+      id: 'settings',
+      label: t('tabs.settings'),
+      icon: Cog6ToothIcon,
+      gradient: 'from-purple-500 to-indigo-600'
+    }
+  ];
   const { 
     settings, 
     updateSettings, 
@@ -120,9 +122,9 @@ const InterfacePage: React.FC = () => {
           <div className="space-y-6">
             <div className="text-center mb-8">
               <h3 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">
-                Templates de Design
+                {t('sections.templates.title')}
               </h3>
-              <p className="text-gray-600">Choisissez un template pour votre salon</p>
+              <p className="text-gray-600">{t('sections.templates.description')}</p>
             </div>
             <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
               <TemplateGallery />
@@ -135,35 +137,35 @@ const InterfacePage: React.FC = () => {
           <div className="space-y-6">
             <div className="text-center mb-8">
               <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-2">
-                Couleurs du Thème
+                {t('sections.colors.title')}
               </h3>
-              <p className="text-gray-600">Personnalisez la palette de couleurs</p>
+              <p className="text-gray-600">{t('sections.colors.description')}</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
                 <ColorPicker
-                  label="Couleur principale"
+                  label={t('colors.primary')}
                   value={settings.colors.primary}
                   onChange={handleColorChange('primary')}
                 />
               </div>
               <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
                 <ColorPicker
-                  label="Couleur secondaire"
+                  label={t('colors.secondary')}
                   value={settings.colors.secondary}
                   onChange={handleColorChange('secondary')}
                 />
               </div>
               <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
                 <ColorPicker
-                  label="Couleur d'accent"
+                  label={t('colors.accent')}
                   value={settings.colors.accent}
                   onChange={handleColorChange('accent')}
                 />
               </div>
               <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
                 <ColorPicker
-                  label="Couleur de fond"
+                  label={t('colors.background')}
                   value={settings.colors.background}
                   onChange={handleColorChange('background')}
                 />
@@ -177,28 +179,40 @@ const InterfacePage: React.FC = () => {
           <div className="space-y-6">
             <div className="text-center mb-8">
               <h3 className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-teal-600 bg-clip-text text-transparent mb-2">
-                Images du Salon
+                {t('sections.images.title')}
               </h3>
-              <p className="text-gray-600">Téléchargez votre logo et bannière</p>
+              <p className="text-gray-600">{t('sections.images.description')}</p>
             </div>
             <div className="space-y-6">
               <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
                 <ImageUpload
-                  label="Logo du salon"
+                  label={t('images.logo_label')}
                   imageUrl={settings.logo.url}
                   alt={settings.logo.alt}
                   onUpload={handleImageUpload('logo')}
-                  dimensions={{ width: 200, height: 80 }}
+                  dimensions={{ width: 300, height: 120 }}
+                  type="logo"
                 />
+                <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                  <p className="text-sm text-blue-700">
+                    <span className="font-medium">{t('images.logo_tip')}</span> Utilisez un fond transparent (PNG) pour un rendu optimal dans la navigation
+                  </p>
+                </div>
               </div>
               <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
                 <ImageUpload
-                  label="Bannière"
+                  label={t('images.banner_label')}
                   imageUrl={settings.banner.url}
                   alt={settings.banner.alt}
                   onUpload={handleImageUpload('banner')}
-                  dimensions={{ width: 1200, height: 400 }}
+                  dimensions={{ width: 1920, height: 600 }}
+                  type="banner"
                 />
+                <div className="mt-4 p-3 bg-green-50 rounded-lg border border-green-200">
+                  <p className="text-sm text-green-700">
+                    <span className="font-medium">{t('images.logo_tip')}</span> Image haute résolution pour un affichage parfait sur tous les écrans (ratio 16:5)
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -209,26 +223,26 @@ const InterfacePage: React.FC = () => {
           <div className="space-y-6">
             <div className="text-center mb-8">
               <h3 className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-green-600 bg-clip-text text-transparent mb-2">
-                Contenu du Salon
+                {t('sections.content.title')}
               </h3>
-              <p className="text-gray-600">Gérez la présentation et l'affichage</p>
+              <p className="text-gray-600">{t('sections.content.description')}</p>
             </div>
             <div className="space-y-6">
               {/* Présentation */}
               <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
-                <h4 className="text-lg font-semibold text-gray-800 mb-4">Présentation du salon</h4>
+                <h4 className="text-lg font-semibold text-gray-800 mb-4">{t('forms.presentation.label')}</h4>
                 <textarea
                   value={settings.presentation}
                   onChange={handlePresentationChange}
                   rows={4}
                   className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/70 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
-                  placeholder="Présentez votre salon, vos spécialités, votre équipe..."
+                  placeholder={t('forms.presentation.placeholder')}
                 />
               </div>
               
               {/* Affichage des Services */}
               <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
-                <h4 className="text-lg font-semibold text-gray-800 mb-4">Affichage des services</h4>
+                <h4 className="text-lg font-semibold text-gray-800 mb-4">{t('forms.services_display')}</h4>
                 <DisplaySettings
                   settings={settings.serviceDisplay}
                   onChange={handleDisplaySettingsChange}
@@ -243,20 +257,65 @@ const InterfacePage: React.FC = () => {
           <div className="space-y-6">
             <div className="text-center mb-8">
               <h3 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent mb-2">
-                Paramètres Avancés
+                {t('sections.settings.title')}
               </h3>
-              <p className="text-gray-600">Configuration des rendez-vous et partage</p>
+              <p className="text-gray-600">{t('sections.settings.description')}</p>
             </div>
             <div className="space-y-6">
               {/* Paramètres des Rendez-vous */}
               <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
-                <h4 className="text-lg font-semibold text-gray-800 mb-4">Paramètres des rendez-vous</h4>
+                <h4 className="text-lg font-semibold text-gray-800 mb-4">{t('forms.appointments_settings')}</h4>
                 <AppointmentSettings />
               </div>
               
+              {/* {t('forms.team_display')} */}
+              <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
+                <h4 className="text-lg font-semibold text-gray-800 mb-4">{t('forms.team_display')}</h4>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <label className="text-sm font-medium text-gray-700">
+                        {t('team.show_on_public')}
+                      </label>
+                      <p className="text-xs text-gray-500 mt-1">
+                        {t('team.description')}
+                      </p>
+                    </div>
+                    <div className="ml-4">
+                      <button
+                        type="button"
+                        onClick={() => updateSettings({ showTeamOnPublicPage: !settings.showTeamOnPublicPage })}
+                        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
+                          settings.showTeamOnPublicPage ? 'bg-indigo-600' : 'bg-gray-200'
+                        }`}
+                      >
+                        <span
+                          className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                            settings.showTeamOnPublicPage ? 'translate-x-6' : 'translate-x-1'
+                          }`}
+                        />
+                      </button>
+                    </div>
+                  </div>
+                  <div className={`p-3 rounded-lg border ${settings.showTeamOnPublicPage ? 'bg-green-50 border-green-200' : 'bg-orange-50 border-orange-200'}`}>
+                    <p className={`text-sm ${settings.showTeamOnPublicPage ? 'text-green-700' : 'text-orange-700'}`}>
+                      {settings.showTeamOnPublicPage ? (
+                        <>
+                          <span className="font-medium">{t('team.visible_message')}</span> Les clients peuvent voir votre équipe et choisir leur coiffeur préféré
+                        </>
+                      ) : (
+                        <>
+                          <span className="font-medium">{t('team.hidden_message')}</span> Vous assignerez manuellement les coiffeurs aux rendez-vous depuis votre interface d'administration
+                        </>
+                      )}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               {/* Lien de Partage */}
               <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
-                <h4 className="text-lg font-semibold text-gray-800 mb-4">Lien de partage</h4>
+                <h4 className="text-lg font-semibold text-gray-800 mb-4">{t('forms.share_link')}</h4>
                 <ShareableLink />
               </div>
             </div>
@@ -285,9 +344,9 @@ const InterfacePage: React.FC = () => {
                   </div>
                   <div>
                     <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
-                      Mon Interface
+                      {t('page.title')}
                     </h1>
-                    <p className="text-gray-600 mt-2 text-lg">Chargement des paramètres...</p>
+                    <p className="text-gray-600 mt-2 text-lg">{t('page.loading_subtitle')}</p>
                   </div>
                 </div>
               </div>
@@ -299,7 +358,7 @@ const InterfacePage: React.FC = () => {
             <div className="flex items-center justify-center py-12">
               <div className="flex items-center gap-3">
                 <div className="w-6 h-6 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
-                <span className="text-gray-700">Chargement de l'interface...</span>
+                <span className="text-gray-700">{t('page.loading_interface')}</span>
               </div>
             </div>
           </div>
@@ -327,9 +386,9 @@ const InterfacePage: React.FC = () => {
                 </div>
                 <div>
                   <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
-                    Mon Interface
+                    {t('page.title')}
                   </h1>
-                  <p className="text-gray-600 mt-2 text-lg">Personnalisez l'apparence de votre salon</p>
+                  <p className="text-gray-600 mt-2 text-lg">{t('page.subtitle')}</p>
                 </div>
               </div>
 
@@ -344,10 +403,10 @@ const InterfacePage: React.FC = () => {
                   {isSaving ? (
                     <div className="flex items-center gap-2">
                       <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      Sauvegarde...
+                      {t('actions.saving')}
                     </div>
                   ) : (
-                    'Enregistrer'
+                    t('actions.save')
                   )}
                 </button>
               </div>

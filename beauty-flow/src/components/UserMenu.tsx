@@ -12,14 +12,16 @@ import {
   StarIcon,
   BoltIcon
 } from '@heroicons/react/24/outline';
-import LanguageSelector from './LanguageSelector';
 import { useSubscriptionStore } from '../features/subscription/store';
+import { useAuthStore } from '../features/auth/store';
 
 const UserMenu: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const { subscription } = useSubscriptionStore();
+  const { logout } = useAuthStore();
   const menuRef = useRef<HTMLDivElement>(null);
 
   // Fermer le menu quand on clique en dehors
@@ -44,10 +46,19 @@ const UserMenu: React.FC = () => {
     navigate(path);
   };
 
-  const handleLogout = () => {
-    // TODO: Implement logout logic
-    setIsOpen(false);
-    navigate('/login');
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    try {
+      await logout();
+      setIsOpen(false);
+      navigate('/login');
+    } catch (error) {
+      console.error('Erreur lors de la déconnexion:', error);
+      // Rediriger quand même vers la page de connexion en cas d'erreur
+      navigate('/login');
+    } finally {
+      setIsLoggingOut(false);
+    }
   };
 
   // Configuration des badges de plan
@@ -207,43 +218,27 @@ const UserMenu: React.FC = () => {
               })}
             </nav>
 
-            {/* Séparateur */}
-            <div className="mx-4 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
-
-            {/* Section langue */}
-            <div className="p-3">
-              <div className="flex items-center mb-2">
-                <div className="flex items-center justify-center w-7 h-7 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg mr-2">
-                  <GlobeAltIcon className="h-3.5 w-3.5 text-white" />
-                </div>
-                <span className="font-medium text-sm text-gray-900">Langue</span>
-              </div>
-              
-              {/* LanguageSelector simplifié pour le UserMenu */}
-              <div className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg p-3 border border-gray-200 shadow-inner">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <span className="text-xl">🇫🇷</span>
-                    <div>
-                      <p className="font-medium text-sm text-gray-900">Français</p>
-                      <p className="text-xs text-gray-500">Langue actuelle</p>
-                    </div>
-                  </div>
-                  <button className="p-1.5 hover:bg-white rounded-lg transition-colors duration-200 group">
-                    <ChevronDownIcon className="h-3.5 w-3.5 text-gray-400 group-hover:text-gray-600" />
-                  </button>
-                </div>
-              </div>
-            </div>
-
             {/* Footer avec déconnexion */}
             <div className="p-3 bg-gradient-to-r from-gray-50 to-gray-100 border-t border-gray-200">
               <button
                 onClick={handleLogout}
-                className="w-full group flex items-center justify-center p-2.5 bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                disabled={isLoggingOut}
+                className="w-full group flex items-center justify-center p-2.5 bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <ArrowRightOnRectangleIcon className="h-4 w-4 mr-2 group-hover:translate-x-1 transition-transform duration-300" />
-                <span className="font-medium text-sm">Se déconnecter</span>
+                {isLoggingOut ? (
+                  <>
+                    <svg className="animate-spin h-4 w-4 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span className="font-medium text-sm">Déconnexion...</span>
+                  </>
+                ) : (
+                  <>
+                    <ArrowRightOnRectangleIcon className="h-4 w-4 mr-2 group-hover:translate-x-1 transition-transform duration-300" />
+                    <span className="font-medium text-sm">Se déconnecter</span>
+                  </>
+                )}
               </button>
               
               {/* Version */}

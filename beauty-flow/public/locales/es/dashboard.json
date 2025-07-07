@@ -1,0 +1,276 @@
+{
+  "title": "Panel de Control",
+  "page_title": "Panel de Control",
+  "page_subtitle": "Gestiona tu salón con elegancia y eficiencia",
+  "welcome": "Bienvenido",
+  "overview": "Vue d'ensemble",
+  "stats": {
+    "appointments": "Citas",
+    "clients": "Clientes",
+    "revenue": "Ingresos",
+    "services": "Imeẓla",
+    "team": "Tarbaɛt",
+    "growth": "Akker",
+    "today": "Ass-a",
+    "thisWeek": "Imalas-a",
+    "thisMonth": "Aggur-a",
+    "thisYear": "Aseggas-a"
+  },
+  "widgets": {
+    "upcoming_appointments": "Prochains rendez-vous",
+    "quick_actions": "Actions rapides",
+    "revenue_chart": {
+      "title": "Gráfico de Ingresos",
+      "daily": "Diario",
+      "weekly": "Semanal",
+      "monthly": "Mensual",
+      "yearly": "Anual",
+      "revenue": "Ingresos",
+      "target": "Objetivo",
+      "actual": "Real"
+    },
+    "appointment_chart": {
+      "title": "Gráfico de Citas",
+      "appointments": "Citas",
+      "completed": "Completadas",
+      "cancelled": "Canceladas",
+      "no_show": "No se presentaron"
+    },
+    "service_popularity": {
+      "title": "Popularidad de Servicios",
+      "most_popular": "Más Popular",
+      "bookings": "Reservas",
+      "revenue": "Ingresos"
+    },
+    "team_performance": "Performance de l'équipe",
+    "recent_activity": "Activité récente",
+    "business_insights": "Insights business",
+    "revenue": "Chiffre d'affaires",
+    "appointments": "Rendez-vous",
+    "clients": "Clients",
+    "services": "Services",
+    "popular_services": "Services populaires"
+  },
+  "charts": {
+    "labels": {
+      "jan": "Ene",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Abr",
+      "may": "May",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Ago",
+      "sep": "Sep",
+      "oct": "Oct",
+      "nov": "Nov",
+      "dec": "Dic",
+      "monday": "Lun",
+      "tuesday": "Mar",
+      "wednesday": "Mié",
+      "thursday": "Jue",
+      "friday": "Vie",
+      "saturday": "Sáb",
+      "sunday": "Dom"
+    },
+    "revenue_chart": "Graphique des revenus",
+    "appointment_chart": "Graphique des rendez-vous",
+    "service_popularity": "Popularité des services",
+    "client_retention": "Fidélisation client",
+    "daily": "Quotidien",
+    "weekly": "Hebdomadaire",
+    "monthly": "Mensuel",
+    "yearly": "Annuel",
+    "revenue": "Aɣaras",
+    "appointments": "Isuraf",
+    "clients": "Imsaɣen",
+    "services": "Imeẓla"
+  },
+  "loading": "Chargement du tableau de bord...",
+  "errors": {
+    "loading_failed": "Error al cargar el panel de control",
+    "stats_failed": "Error al cargar las estadísticas",
+    "charts_failed": "Error al cargar los gráficos",
+    "try_again": "Intentar de nuevo"
+  },
+  "filters": {
+    "today": "Hoy",
+    "yesterday": "Ayer",
+    "this_week": "Esta semana",
+    "last_week": "Semana pasada",
+    "this_month": "Este mes",
+    "last_month": "Mes pasado",
+    "this_year": "Este año",
+    "custom": "Personalizado",
+    "all_time": "Todo el tiempo"
+  },
+  "notifications": {
+    "new_appointment": "Nueva cita programada",
+    "appointment_reminder": "Recordatorio de cita",
+    "payment_received": "Pago recibido",
+    "low_stock": "Stock bajo",
+    "team_update": "Actualización del equipo"
+  },
+  "overview_subtitle": "Voici un aperçu de votre activité aujourd'hui",
+  "demo_mode": "Mode Démo",
+  "real_data": "Données Réelles",
+  "time_periods": {
+    "day": "Jour",
+    "week": "Semaine",
+    "month": "Mois"
+  },
+  "kpis": {
+    "daily_revenue": "Revenus du jour",
+    "monthly_revenue": "Revenus du mois",
+    "clients": "Clients",
+    "occupancy": "Occupation",
+    "appointments": "rendez-vous",
+    "this_month": "ce mois",
+    "upcoming": "à venir"
+  },
+  "charts_titles": {
+    "revenue_evolution": "Évolution des revenus",
+    "appointments_by_status": "Rendez-vous par statut",
+    "popular_services": "Services populaires"
+  },
+  "alerts": {
+    "subscription_limit": "Vous approchez de votre limite de rendez-vous ({{percentage}}% utilisé)",
+    "upgrade": "Mettre à niveau",
+    "unconfirmed_appointments": "{{count}} rendez-vous à confirmer aujourd'hui",
+    "view": "Voir",
+    "loyal_clients": "{{count}} clients fidèles méritent une récompense",
+    "manage": "Gérer"
+  },
+  "analytics": "Analyses",
+  "reports": "Rapports",
+  "components": {
+    "service_popularity": {
+      "no_data": "Aucune donnée disponible",
+      "unknown_service": "Service inconnu",
+      "other_category": "Autre"
+    },
+    "team_performance": {
+      "title": "Performance de l'équipe",
+      "no_members": "Aucun membre d'équipe",
+      "completed": "terminés"
+    },
+    "upcoming_appointments": {
+      "title": "Prochains rendez-vous",
+      "no_appointments": "Aucun rendez-vous à venir",
+      "today": "Aujourd'hui",
+      "tomorrow": "Demain",
+      "statuses": {
+        "scheduled": "Planifié",
+        "confirmed": "Confirmé",
+        "rescheduled": "Reprogrammé"
+      }
+    },
+    "appointment_chart": {
+      "no_data": "Aucun rendez-vous pour cette période",
+      "total": "Total",
+      "statuses": {
+        "scheduled": "Planifiés",
+        "confirmed": "Confirmés",
+        "completed": "Terminés",
+        "cancelled": "Annulés",
+        "noShow": "Non présentés",
+        "rescheduled": "Reprogrammés"
+      },
+      "title": "Rendez-vous par statut"
+    },
+    "business_insights": {
+      "title": "Insights Business",
+      "insights": {
+        "high_cancellation_title": "Taux d'annulation élevé",
+        "high_cancellation_desc": "{{rate}}% d'annulations ce mois. Considérez l'envoi de rappels SMS.",
+        "top_service_title": "Service le plus rentable",
+        "top_service_desc": "\"{{service}}\" génère {{revenue}}€ de revenus. Pensez à le promouvoir.",
+        "loyal_clients_title": "Clients fidèles",
+        "loyal_clients_desc": "{{rate}}% de vos clients ont plus de 50 points de fidélité. Créez un programme de récompenses.",
+        "popular_slot_title": "Créneau le plus demandé",
+        "popular_slot_desc": "{{slot}} est votre créneau le plus populaire. Optimisez votre planning en conséquence.",
+        "low_acquisition_title": "Acquisition client faible",
+        "low_acquisition_desc": "Aucun nouveau client cette semaine. Lancez une campagne promotionnelle."
+      }
+    },
+    "revenue_chart": {
+      "title": "Évolution des revenus",
+      "tooltip": "{{value}}€"
+    }
+  },
+  "quick_actions": {
+    "title": "Actions rapides",
+    "new_appointment": "Nouveau RDV",
+    "new_appointment_desc": "Planifier un rendez-vous",
+    "new_client": "Nouveau Client",
+    "new_client_desc": "Ajouter un client",
+    "calendar": "Planning",
+    "calendar_desc": "Voir le calendrier",
+    "subscription": "Abonnement",
+    "subscription_desc": "Gérer votre plan",
+    "statistics": "Statistiques",
+    "statistics_desc": "Voir l'historique",
+    "settings": "Paramètres",
+    "settings_desc": "Configuration",
+    "new_service": "Nouveau service",
+    "view_calendar": "Voir le calendrier",
+    "manage_team": "Gérer l'équipe",
+    "reports": "Rapports"
+  },
+  "recent_activity": {
+    "title": "Activité récente",
+    "no_activity": "Aucune activité récente",
+    "actions": {
+      "created": "Rendez-vous créé",
+      "confirmed": "Rendez-vous confirmé",
+      "completed": "Rendez-vous terminé",
+      "cancelled": "Rendez-vous annulé",
+      "rescheduled": "Rendez-vous reprogrammé",
+      "no_show": "Client non présenté"
+    },
+    "time": {
+      "just_now": "À l'instant",
+      "minutes_ago": "Il y a {{minutes}} min",
+      "hours_ago": "Il y a {{hours}}h",
+      "days_ago": "Il y a {{days}}j"
+    },
+    "unknown_client": "Client inconnu"
+  },
+  "metrics": {
+    "today": "Aujourd'hui",
+    "this_week": "Cette semaine",
+    "this_month": "Ce mois",
+    "this_year": "Cette année",
+    "total": "Total",
+    "growth": "Croissance",
+    "vs_last_period": "vs période précédente",
+    "increase": "Augmentation",
+    "decrease": "Diminution"
+  },
+  "insights": {
+    "peak_hours": "Heures de pointe",
+    "busiest_day": "Jour le plus chargé",
+    "top_service": "Service le plus demandé",
+    "best_performer": "Meilleur performeur",
+    "revenue_trend": "Tendance des revenus",
+    "client_satisfaction": "Satisfaction client"
+  },
+  "quickActions": {
+    "title": "Tigawin tiruḥin",
+    "newAppointment": "Asuref amaynut",
+    "newClient": "Amsaɣ amaynut",
+    "newService": "Ameẓlu amaynut",
+    "viewCalendar": "Ẓer awitay",
+    "viewReports": "Ẓer ineqqisen"
+  },
+  "recentActivity": {
+    "title": "Armud n melmi kan",
+    "noActivity": "Ulac armud",
+    "viewAll": "Ẓer akk"
+  },
+  "upcomingAppointments": {
+    "title": "Isuraf i d-iteddun",
+    "noAppointments": "Ulac isuraf",
+    "viewAll": "Ẓer akk isuraf"
+  }
+}

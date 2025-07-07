@@ -54,8 +54,12 @@ export const updateProfile = async (req: AuthRequest, res: Response): Promise<vo
     if (updates.logo !== undefined) updateData.logo = updates.logo;
     if (updates.banner !== undefined) updateData.banner = updates.banner;
     if (updates.presentation !== undefined) updateData.presentation = updates.presentation;
-    if (updates.serviceDisplay !== undefined) updateData.serviceDisplay = updates.serviceDisplay;
+    if (updates.serviceDisplay !== undefined) {
+      updateData.serviceDisplay = updates.serviceDisplay;
+      logger.info('🔍 ServiceDisplay being saved:', updates.serviceDisplay);
+    }
     if (updates.businessHours !== undefined) updateData.businessHours = updates.businessHours;
+    if (updates.showTeamOnPublicPage !== undefined) updateData.showTeamOnPublicPage = updates.showTeamOnPublicPage;
     
     // Handle settings object
     if (updates.settings) {

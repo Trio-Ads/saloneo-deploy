@@ -13,15 +13,15 @@ export const fileService = {
         formData.append('id', id);
       }
 
-      // Envoyer vers l'API backend
-      const response = await api.post('/upload', formData, {
+      // Envoyer vers l'API backend avec la bonne route
+      const response = await api.post(`/upload/single/${type}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
 
       // Retourner l'URL de l'image uploadée
-      return response.data.url;
+      return response.data.file.url;
     } catch (error) {
       console.error('Error uploading image:', error);
       

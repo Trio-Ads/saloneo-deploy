@@ -74,7 +74,8 @@ const useProfileStore = create<ProfileStore>()(
             currency: typeof userData.settings?.currency === 'string' 
               ? CURRENCIES[userData.settings.currency] || defaultCurrency
               : userData.settings?.currency || defaultCurrency,
-            publicLink: generatePublicLink(userData.establishmentName || '')
+            publicLink: generatePublicLink(userData.establishmentName || ''),
+            showAsTeamMember: userData.showAsTeamMember || false
           };
 
           set({ 
@@ -105,6 +106,7 @@ const useProfileStore = create<ProfileStore>()(
           if (profileData.lastName !== undefined) backendData.lastName = profileData.lastName;
           if (profileData.establishmentName !== undefined) backendData.establishmentName = profileData.establishmentName;
           if (profileData.address !== undefined) backendData.address = profileData.address;
+          if (profileData.showAsTeamMember !== undefined) backendData.showAsTeamMember = profileData.showAsTeamMember;
           
           // Gérer les settings séparément
           if (profileData.language !== undefined || profileData.currency !== undefined) {
@@ -135,7 +137,8 @@ const useProfileStore = create<ProfileStore>()(
             currency: typeof userData.settings?.currency === 'string' 
               ? CURRENCIES[userData.settings.currency] || defaultCurrency
               : userData.settings?.currency || defaultCurrency,
-            publicLink: generatePublicLink(userData.establishmentName || '')
+            publicLink: generatePublicLink(userData.establishmentName || ''),
+            showAsTeamMember: userData.showAsTeamMember || false
           };
 
           console.log('✅ Profil mis à jour localement:', updatedProfile);

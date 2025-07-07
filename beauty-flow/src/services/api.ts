@@ -190,6 +190,21 @@ export const publicAPI = {
     api.post('/public/appointment/cancel', { code, email }),
 };
 
+// Affiliation API
+export const affiliationAPI = {
+  getAffiliationData: () => api.get('/affiliation/stats'),
+  activateAffiliation: () => api.post('/affiliation/activate'),
+  updateAffiliationSettings: (settings: any) => api.put('/affiliation/settings', settings),
+  getCommissions: (filters?: any) => api.get('/affiliation/commissions', { params: filters }),
+  getMarketingMaterials: () => api.get('/affiliation/marketing-materials'),
+  generateAffiliateLink: (campaign?: string) => 
+    api.post('/affiliation/generate-link', { campaign }),
+  trackClick: (affiliateCode: string) => 
+    api.post(`/affiliation/track-click/${affiliateCode}`),
+  requestPayout: (amount: number) => 
+    api.post('/affiliation/payout-request', { amount }),
+};
+
 // File upload helper
 export const uploadFile = async (file: File, endpoint: string): Promise<string> => {
   const formData = new FormData();

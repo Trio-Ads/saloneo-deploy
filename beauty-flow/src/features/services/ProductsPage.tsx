@@ -16,10 +16,16 @@ import ProductList from './components/ProductList';
 import ProductForm from './components/ProductForm';
 import { useServiceStore } from './store';
 import { Product, ProductFormData } from './types';
+import { ProductFormWithLimits } from '../subscription/components/LimitedForms';
+import { useLimitedForm } from '../subscription/components/LimitedForms';
+import { useSubscriptionLimits } from '../subscription/hooks/useSubscriptionLimits';
+import { SubscriptionLimitWidget } from '../subscription/components/SubscriptionLimitWidget';
 
 const ProductsPage: React.FC = () => {
   const { t } = useTranslation(['services', 'common']);
   const { products, fetchProducts, addProduct, updateProduct, deleteProduct, loading, error } = useServiceStore();
+  const { handleLimitExceeded } = useLimitedForm();
+  const { checkProductLimit, currentPlan } = useSubscriptionLimits();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedUnit, setSelectedUnit] = useState<string>('all');
   const [stockFilter, setStockFilter] = useState<string>('all');
@@ -183,6 +189,21 @@ const ProductsPage: React.FC = () => {
           </div>
         </div>
 
+        {/* WIDGET DE LIMITE D'ABONNEMENT */}
+        <div className="mb-8">
+          <SubscriptionLimitWidget
+            title="Limite de Produits"
+            icon={
+              <div className="p-2 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl shadow-lg">
+                <CubeIcon className="h-5 w-5 text-white" />
+              </div>
+            }
+            limitCheck={checkProductLimit()}
+            planName={currentPlan}
+            resourceType="produits"
+          />
+        </div>
+
         {/* STATISTIQUES - Design premium avec couleurs cohérentes */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {/* Total */}
@@ -289,7 +310,7 @@ const ProductsPage: React.FC = () => {
                 <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <input
                   type="text"
-                  placeholder="Rechercher un produit, description ou unité..."
+                  placeholder={t("products.search_placeholder")}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10 pr-4 py-3 w-64 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 text-sm"
@@ -371,7 +392,7 @@ const ProductsPage: React.FC = () => {
         <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 min-h-[600px]">
           {showForm ? (
             <div className="animate-fadeIn">
-              <ProductForm
+              <ProductFormWithLimits
                 initialData={editingProduct ? {
                   name: editingProduct.name,
                   description: editingProduct.description,
@@ -381,6 +402,7 @@ const ProductsPage: React.FC = () => {
                 } : undefined}
                 onSubmit={handleFormSubmit}
                 onCancel={handleFormCancel}
+                onLimitExceeded={handleLimitExceeded}
               />
             </div>
           ) : filteredProducts.length === 0 ? (

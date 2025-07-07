@@ -15,13 +15,16 @@ import {
   KeyIcon,
   ShieldCheckIcon,
   EyeIcon,
-  EyeSlashIcon
+  EyeSlashIcon,
+  UserGroupIcon
 } from '@heroicons/react/24/outline';
 import { useProfileStore, generatePublicLink } from '../store';
 import { useToastStore } from '../../../components/Toast';
 import { Profile, Currency, getAllCurrencies } from '../types';
 import LanguageSelector from '../../../components/LanguageSelector';
 import CurrencySelector from '../../../components/CurrencySelector';
+import { AffiliationTab } from './affiliation';
+import { useAuthStore } from '../../auth/store';
 
 interface ExtendedProfile extends Profile {
   email?: string;
@@ -49,6 +52,7 @@ const ProfileForm: React.FC = () => {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
+  const [activeTab, setActiveTab] = useState<'profile' | 'affiliation'>('profile');
   
   const {
     register,
@@ -60,13 +64,21 @@ const ProfileForm: React.FC = () => {
   } = useForm<ExtendedProfile>({
     defaultValues: {
       ...profile,
-      email: 'user@example.com' // Valeur par défaut pour la démo
+      email: '' // Sera rempli dynamiquement depuis le store d'authentification
     }
   });
 
   const currentLanguage = watch('language');
   const newPassword = watch('newPassword');
   const availableCurrencies = useMemo(() => getAllCurrencies(), []);
+  const { user } = useAuthStore();
+
+  // Récupérer l'email de l'utilisateur depuis le store d'authentification
+  useEffect(() => {
+    if (user?.email) {
+      setValue('email', user.email);
+    }
+  }, [user, setValue]);
 
   // Synchroniser les valeurs du formulaire avec le profil du store
   useEffect(() => {
@@ -96,17 +108,17 @@ const ProfileForm: React.FC = () => {
       // Validation du changement de mot de passe
       if (isChangingPassword) {
         if (!data.currentPassword) {
-          showToast('Veuillez saisir votre mot de passe actuel', 'error');
+          showToast(t('profile_form.messages.password_required'), 'error');
           setIsSubmitting(false);
           return;
         }
         if (!data.newPassword || data.newPassword.length < 8) {
-          showToast('Le nouveau mot de passe doit contenir au moins 8 caractères', 'error');
+          showToast(t('profile_form.messages.password_min_length'), 'error');
           setIsSubmitting(false);
           return;
         }
         if (data.newPassword !== data.confirmPassword) {
-          showToast('Les mots de passe ne correspondent pas', 'error');
+          showToast(t('profile_form.messages.passwords_not_match'), 'error');
           setIsSubmitting(false);
           return;
         }
@@ -123,7 +135,7 @@ const ProfileForm: React.FC = () => {
 
       // Simuler la mise à jour de l'email et du mot de passe
       if (isChangingPassword) {
-        showToast('Mot de passe mis à jour avec succès', 'success');
+        showToast(t('profile_form.messages.password_updated'), 'success');
         setIsChangingPassword(false);
         // Réinitialiser les champs de mot de passe
         setValue('currentPassword', '');
@@ -133,8 +145,8 @@ const ProfileForm: React.FC = () => {
 
       showToast(t('success.save'), 'success');
     } catch (error) {
-      console.error('Erreur lors de la sauvegarde:', error);
-      showToast(t('error.save') || 'Erreur lors de la sauvegarde', 'error');
+      console.error('Error saving profile:', error);
+      showToast(t('error.save'), 'error');
     } finally {
       setIsSubmitting(false);
     }
@@ -149,8 +161,8 @@ const ProfileForm: React.FC = () => {
       // Mettre à jour le profil en arrière-plan sans notification
       await setLanguage(newLanguage as Profile['language']);
     } catch (error) {
-      console.error('Erreur lors du changement de langue:', error);
-      showToast(t('error.save') || 'Erreur lors du changement de langue', 'error');
+      console.error('Error changing language:', error);
+      showToast(t('profile_form.messages.language_error'), 'error');
     }
   };
 
@@ -158,10 +170,10 @@ const ProfileForm: React.FC = () => {
     try {
       setValue('currency', currency);
       await setCurrency(currency);
-      showToast('Devise mise à jour avec succès', 'success');
+      showToast(t('profile_form.messages.currency_updated'), 'success');
     } catch (error) {
-      console.error('Erreur lors du changement de devise:', error);
-      showToast('Erreur lors du changement de devise', 'error');
+      console.error('Error changing currency:', error);
+      showToast(t('profile_form.messages.currency_error'), 'error');
     }
   };
 
@@ -182,8 +194,47 @@ const ProfileForm: React.FC = () => {
   }, [error, showToast]);
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+    <div className="max-w-5xl mx-auto">
+      {/* Onglets */}
+      <div className="bg-white rounded-t-xl shadow-sm border-b border-gray-200">
+        <nav className="flex space-x-8 px-6" aria-label="Tabs">
+          <button
+            type="button"
+            onClick={() => setActiveTab('profile')}
+            className={`
+              flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm
+              transition-colors duration-200
+              ${activeTab === 'profile'
+                ? 'border-indigo-500 text-indigo-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }
+            `}
+          >
+            <UserIcon className="h-5 w-5" />
+            <span>{t('profile_form.tabs.profile')}</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('affiliation')}
+            className={`
+              flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm
+              transition-colors duration-200
+              ${activeTab === 'affiliation'
+                ? 'border-indigo-500 text-indigo-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }
+            `}
+          >
+            <UserGroupIcon className="h-5 w-5" />
+            <span>{t('profile_form.tabs.affiliation')}</span>
+          </button>
+        </nav>
+      </div>
+
+      {/* Contenu des onglets */}
+      <div className="bg-white rounded-b-xl shadow-sm p-6">
+        {activeTab === 'profile' ? (
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         
         {/* SECTION 1: Informations de connexion */}
         <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
@@ -192,7 +243,7 @@ const ProfileForm: React.FC = () => {
               <EnvelopeIcon className="h-5 w-5 text-white" />
             </div>
             <h3 className="text-lg font-semibold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
-              Informations de connexion
+              {t('profile_form.sections.login_info')}
             </h3>
           </div>
           
@@ -201,7 +252,7 @@ const ProfileForm: React.FC = () => {
             <div>
               <label className={`block text-sm font-medium text-gray-700 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
                 <EnvelopeIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
-                Adresse email
+                {t('profile_form.fields.email')}
               </label>
               <input
                 type="email"
@@ -210,11 +261,11 @@ const ProfileForm: React.FC = () => {
                   isRTL ? 'text-right' : 'text-left'
                 } ${errors.email ? 'ring-2 ring-red-300 focus:ring-red-500' : ''}`}
                 dir={isRTL ? 'rtl' : 'ltr'}
-                placeholder="votre@email.com"
+                placeholder={t('profile_form.placeholders.email')}
               />
               {errors.email && (
                 <p className={`mt-2 text-sm text-red-600 ${isRTL ? 'text-right' : 'text-left'}`}>
-                  Veuillez saisir une adresse email valide
+                  {t('profile_form.messages.email_validation')}
                 </p>
               )}
             </div>
@@ -224,14 +275,14 @@ const ProfileForm: React.FC = () => {
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-2">
                   <LockClosedIcon className="h-4 w-4 text-indigo-600" />
-                  <span className="text-sm font-medium text-gray-700">Mot de passe</span>
+                  <span className="text-sm font-medium text-gray-700">{t('security.current_password')}</span>
                 </div>
                 <button
                   type="button"
                   onClick={() => setIsChangingPassword(!isChangingPassword)}
                   className="text-sm text-indigo-600 hover:text-indigo-700 font-medium transition-colors duration-200"
                 >
-                  {isChangingPassword ? 'Annuler' : 'Changer le mot de passe'}
+                  {isChangingPassword ? t('profile_form.buttons.cancel') : t('profile_form.buttons.change_password')}
                 </button>
               </div>
 
@@ -240,7 +291,7 @@ const ProfileForm: React.FC = () => {
                   {/* Mot de passe actuel */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Mot de passe actuel
+                      {t('profile_form.fields.current_password')}
                     </label>
                     <div className="relative">
                       <input
@@ -266,7 +317,7 @@ const ProfileForm: React.FC = () => {
                   {/* Nouveau mot de passe */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Nouveau mot de passe
+                      {t('profile_form.fields.new_password')}
                     </label>
                     <div className="relative">
                       <input
@@ -292,7 +343,7 @@ const ProfileForm: React.FC = () => {
                   {/* Confirmer le mot de passe */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Confirmer le nouveau mot de passe
+                      {t('profile_form.fields.confirm_password')}
                     </label>
                     <div className="relative">
                       <input
@@ -327,7 +378,7 @@ const ProfileForm: React.FC = () => {
               <UserIcon className="h-5 w-5 text-white" />
             </div>
             <h3 className="text-lg font-semibold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-              Informations personnelles
+              {t('profile_form.sections.personal_info')}
             </h3>
           </div>
           
@@ -344,7 +395,7 @@ const ProfileForm: React.FC = () => {
                   isRTL ? 'text-right' : 'text-left'
                 } ${errors.firstName ? 'ring-2 ring-red-300 focus:ring-red-500' : ''}`}
                 dir={isRTL ? 'rtl' : 'ltr'}
-                placeholder="Votre prénom"
+                placeholder={t('profile_form.placeholders.first_name')}
               />
               {errors.firstName && (
                 <p className={`mt-2 text-sm text-red-600 ${isRTL ? 'text-right' : 'text-left'}`}>
@@ -365,7 +416,7 @@ const ProfileForm: React.FC = () => {
                   isRTL ? 'text-right' : 'text-left'
                 } ${errors.lastName ? 'ring-2 ring-red-300 focus:ring-red-500' : ''}`}
                 dir={isRTL ? 'rtl' : 'ltr'}
-                placeholder="Votre nom"
+                placeholder={t('profile_form.placeholders.last_name')}
               />
               {errors.lastName && (
                 <p className={`mt-2 text-sm text-red-600 ${isRTL ? 'text-right' : 'text-left'}`}>
@@ -383,7 +434,7 @@ const ProfileForm: React.FC = () => {
               <BuildingStorefrontIcon className="h-5 w-5 text-white" />
             </div>
             <h3 className="text-lg font-semibold bg-gradient-to-r from-cyan-600 to-teal-600 bg-clip-text text-transparent">
-              Informations du salon
+              {t('profile_form.sections.salon_info')}
             </h3>
           </div>
           
@@ -400,7 +451,7 @@ const ProfileForm: React.FC = () => {
                   isRTL ? 'text-right' : 'text-left'
                 } ${errors.establishmentName ? 'ring-2 ring-red-300 focus:ring-red-500' : ''}`}
                 dir={isRTL ? 'rtl' : 'ltr'}
-                placeholder="Nom de votre salon"
+                placeholder={t('profile_form.placeholders.establishment_name')}
               />
               {errors.establishmentName && (
                 <p className={`mt-2 text-sm text-red-600 ${isRTL ? 'text-right' : 'text-left'}`}>
@@ -421,7 +472,7 @@ const ProfileForm: React.FC = () => {
                   isRTL ? 'text-right' : 'text-left'
                 } ${errors.address ? 'ring-2 ring-red-300 focus:ring-red-500' : ''}`}
                 dir={isRTL ? 'rtl' : 'ltr'}
-                placeholder="Adresse complète de votre salon"
+                placeholder={t('profile_form.placeholders.address')}
               />
               {errors.address && (
                 <p className={`mt-2 text-sm text-red-600 ${isRTL ? 'text-right' : 'text-left'}`}>
@@ -439,7 +490,7 @@ const ProfileForm: React.FC = () => {
               <LanguageIcon className="h-5 w-5 text-white" />
             </div>
             <h3 className="text-lg font-semibold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
-              Préférences
+              {t('profile_form.sections.preferences')}
             </h3>
           </div>
           
@@ -450,10 +501,7 @@ const ProfileForm: React.FC = () => {
                 {t('language')}
               </label>
               <div className="bg-white/50 p-3 rounded-xl border border-gray-200">
-                <LanguageSelector
-                  currentLanguage={currentLanguage}
-                  onLanguageChange={handleLanguageChange}
-                />
+                <LanguageSelector />
               </div>
             </div>
 
@@ -471,6 +519,82 @@ const ProfileForm: React.FC = () => {
               </div>
             </div>
           </div>
+          
+          <div className="mt-6 border-t border-gray-200 pt-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <UserGroupIcon className="h-5 w-5 text-purple-600" />
+                <span className="text-sm font-medium text-gray-700">
+                  {t('profile_form.fields.show_as_team_member', 'Apparaître comme membre de l\'équipe')}
+                </span>
+              </div>
+            </div>
+            <p className="mt-2 text-sm text-gray-600">
+              {t('profile_form.messages.show_as_team_member_description', 'Activez cette option pour apparaître comme membre de l\'équipe dans les réservations et sur la page publique de votre salon.')}
+            </p>
+            
+            <div className="mt-4 flex flex-col space-y-4">
+              <div className="flex items-center">
+                <span className="mr-3 text-sm font-medium text-gray-700">État actuel:</span>
+                <span className={`px-3 py-1 rounded-full text-xs font-medium ${watch('showAsTeamMember') ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
+                  {watch('showAsTeamMember') ? 'Activé' : 'Désactivé'}
+                </span>
+              </div>
+              
+              <div className="flex space-x-4">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setValue('showAsTeamMember', true);
+                    updateProfile({
+                      showAsTeamMember: true
+                    }).then(() => {
+                      showToast('Vous apparaissez maintenant comme membre de l\'équipe', 'success');
+                      // Recharger le profil pour mettre à jour l'interface
+                      loadProfile().then(() => {
+                        console.log('Profil rechargé après activation');
+                      });
+                    }).catch(error => {
+                      showToast('Erreur lors de l\'activation', 'error');
+                    });
+                  }}
+                  className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200"
+                >
+                  Activer
+                </button>
+                
+                <button
+                  type="button"
+                  onClick={() => {
+                    setValue('showAsTeamMember', false);
+                    updateProfile({
+                      showAsTeamMember: false
+                    }).then(() => {
+                      showToast('Option désactivée', 'success');
+                      // Recharger le profil pour mettre à jour l'interface
+                      loadProfile().then(() => {
+                        console.log('Profil rechargé après désactivation');
+                      });
+                    }).catch(error => {
+                      showToast('Erreur lors de la désactivation', 'error');
+                    });
+                  }}
+                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors duration-200"
+                >
+                  Désactiver
+                </button>
+              </div>
+            </div>
+            
+            {watch('showAsTeamMember') && (
+              <div className="mt-3 p-3 bg-green-50 rounded-lg">
+                <p className="text-sm text-green-700 flex items-center">
+                  <CheckCircleIcon className="h-4 w-4 mr-2" />
+                  Option activée ! Vous apparaîtrez maintenant comme membre de l'équipe.
+                </p>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* SECTION 5: Lien public */}
@@ -480,17 +604,17 @@ const ProfileForm: React.FC = () => {
               <LinkIcon className="h-5 w-5 text-white" />
             </div>
             <h3 className="text-lg font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-              Lien de réservation public
+              {t('profile_form.sections.public_link')}
             </h3>
           </div>
           
           <div className="bg-white/70 p-4 rounded-xl border border-blue-200/50">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <p className="text-sm font-medium text-gray-700 mb-1">Votre lien de réservation</p>
+                <p className="text-sm font-medium text-gray-700 mb-1">{t('profile_form.messages.public_link_label')}</p>
                 <div className="flex items-center space-x-2">
                   <code className="text-sm text-blue-600 font-mono bg-blue-50 px-3 py-2 rounded-lg">
-                    {profile.publicLink || 'saloneo.tech/votre-salon'}
+                    {profile.publicLink || t('profile_form.placeholders.demo_link')}
                   </code>
                   <button
                     type="button"
@@ -512,7 +636,7 @@ const ProfileForm: React.FC = () => {
               </div>
             </div>
             <p className={`mt-2 text-sm text-gray-600 ${isRTL ? 'text-right' : 'text-left'}`}>
-              Partagez ce lien avec vos clients pour qu'ils puissent prendre rendez-vous directement
+              {t('profile_form.messages.public_link_description')}
             </p>
           </div>
         </div>
@@ -527,7 +651,7 @@ const ProfileForm: React.FC = () => {
             {isLoading || isSubmitting ? (
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                {t('actions.saving') || 'Sauvegarde...'}
+                {t('actions.saving')}
               </div>
             ) : (
               <div className="flex items-center gap-2">
@@ -536,9 +660,13 @@ const ProfileForm: React.FC = () => {
               </div>
             )}
           </button>
-        </div>
-      </form>
+          </div>
+        </form>
+      ) : (
+        <AffiliationTab />
+      )}
     </div>
+  </div>
   );
 };
 

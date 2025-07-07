@@ -1,0 +1,330 @@
+{
+  "title": "Abonelik",
+  "page_title": "Abonelik Planları",
+  "page_subtitle": "Salonunuz için mükemmel planı seçin",
+  "current_plan": "Mevcut Plan",
+  "upgrade": "Yükselt",
+  "downgrade": "Düşür",
+  "cancel": "İptal Et",
+  "renew": "Yenile",
+  "billing": {
+    "0": "F",
+    "1": "a",
+    "2": "t",
+    "3": "u",
+    "4": "r",
+    "5": "a",
+    "6": "l",
+    "7": "a",
+    "8": "n",
+    "9": "d",
+    "10": "ı",
+    "11": "r",
+    "12": "m",
+    "13": "a"
+  },
+  "payment_method": "Ödeme Yöntemi",
+  "next_billing": "Sonraki Faturalandırma",
+  "billing_history": "Faturalandırma Geçmişi",
+  "plans": {
+    "free": {
+      "name": "Gratuit",
+      "description": "Parfait pour commencer",
+      "price": "Gratuit",
+      "features": [
+        "Jusqu'à 10 rendez-vous par mois",
+        "Jusqu'à 5 clients",
+        "Gestion de services de base",
+        "Support par email"
+      ]
+    },
+    "starter": {
+      "name": "Starter",
+      "description": "Idéal pour les petits salons",
+      "price": "$29",
+      "features": [
+        "Jusqu'à 100 rendez-vous par mois",
+        "Jusqu'à 50 clients",
+        "Gestion complète des services",
+        "Gestion d'équipe (jusqu'à 3 membres)",
+        "Analyses de base",
+        "Support par email"
+      ]
+    },
+    "professional": {
+      "name": "Professionnel",
+      "description": "Pour les entreprises en croissance",
+      "price": "$79",
+      "features": [
+        "Jusqu'à 500 rendez-vous par mois",
+        "Jusqu'à 200 clients",
+        "Gestion avancée des services",
+        "Gestion d'équipe (jusqu'à 10 membres)",
+        "Analyses avancées",
+        "Réservation en ligne",
+        "Support prioritaire"
+      ]
+    },
+    "enterprise": {
+      "name": "Entreprise",
+      "description": "Pour les grands salons et chaînes",
+      "price": "$199",
+      "features": [
+        "Rendez-vous illimités",
+        "Clients illimités",
+        "Accès complet aux fonctionnalités",
+        "Membres d'équipe illimités",
+        "Analyses et rapports avancés",
+        "Support multi-emplacements",
+        "Intégrations personnalisées",
+        "Support dédié"
+      ]
+    }
+  },
+  "features": {
+    "appointments": "Randevular",
+    "clients": "Müşteriler",
+    "team_members": "Ekip Üyeleri",
+    "locations": "Lokasyonlar",
+    "storage": "Depolama",
+    "support": {
+      "0": "D",
+      "1": "e",
+      "2": "s",
+      "3": "t",
+      "4": "e",
+      "5": "k"
+    },
+    "analytics": "Analizler",
+    "integrations": "Entegrasyonlar",
+    "customization": "Özelleştirme",
+    "api_access": "API Erişimi",
+    "security": {
+      "title": "Sécurité Premium",
+      "description": "Vos données sont protégées avec un chiffrement de niveau bancaire"
+    },
+    "growth": {
+      "title": "Croissance Garantie",
+      "description": "Augmentez votre chiffre d'affaires de 30% en moyenne"
+    }
+  },
+  "billing_cycle": {
+    "monthly": "Aylık",
+    "yearly": "Yıllık",
+    "save": "{{discount}}% tasarruf edin"
+  },
+  "payment": {
+    "title": "Ödeme Bilgileri",
+    "card_number": "Kart Numarası",
+    "expiry_date": "Son Kullanma Tarihi",
+    "cvv": "CVV",
+    "cardholder_name": "Kart Sahibinin Adı",
+    "billing_address": "Fatura Adresi",
+    "country": "Ülke",
+    "city": "Şehir",
+    "postal_code": "Posta Kodu",
+    "process_payment": "Ödemeyi İşle",
+    "secure_payment": "Paiement Sécurisé",
+    "payment_methods": "Kabul Edilen Ödeme Yöntemleri",
+    "plan": "Plan",
+    "duration": "Durée",
+    "monthly": "mois",
+    "total": "Total",
+    "discount": "de réduction",
+    "economy": "Économisez",
+    "test_mode": {
+      "title": "Mode Test Activé",
+      "description": "Vous êtes en environnement de test. Les paiements seront simulés avec des montants réduits."
+    },
+    "security_features": {
+      "satim": "Paiement sécurisé par SATIM",
+      "cards": "Compatible avec toutes les cartes CIB"
+    },
+    "info": "En cliquant sur \"Procéder au paiement\", vous serez redirigé vers la plateforme sécurisée SATIM pour finaliser votre paiement.",
+    "proceed": "Procéder au paiement",
+    "processing": "Traitement en cours..."
+  },
+  "success": {
+    "title": "Paiement Réussi !",
+    "message": "Félicitations ! Votre abonnement au plan {{planName}} a été activé avec succès.",
+    "plan_activated": "{{plan}} planı etkinleştirildi",
+    "access_features": "Artık yeni planınızın tüm özelliklerine erişebilirsiniz",
+    "continue": "Accéder à mon tableau de bord",
+    "benefits": {
+      "title": "Vous pouvez maintenant :",
+      "premium": "Accéder à toutes les fonctionnalités premium",
+      "unlimited": "Gérer votre salon sans limites",
+      "support": "Bénéficier du support prioritaire"
+    },
+    "email_sent": "Un email de confirmation a été envoyé à votre adresse."
+  },
+  "failed": {
+    "title": "Paiement Échoué",
+    "message": "Ödemenizi işlerken bir sorun oluştu",
+    "try_again": "Tekrar Dene",
+    "contact_support": "Destek ile İletişime Geç",
+    "common_issues": "Yaygın Sorunlar",
+    "insufficient_funds": "Yetersiz bakiye",
+    "expired_card": "Süresi dolmuş kart",
+    "incorrect_details": "Yanlış bilgiler",
+    "help": {
+      "title": "Que faire maintenant ?",
+      "check_card": "Vérifiez que votre carte est valide et dispose de fonds suffisants",
+      "check_info": "Assurez-vous d'avoir saisi correctement vos informations",
+      "try_another": "Essayez avec une autre carte si le problème persiste"
+    },
+    "retry": "Réessayer le paiement",
+    "back": "Retour aux abonnements",
+    "support": "Besoin d'aide ?"
+  },
+  "limits": {
+    "title": "Plan Limitleri",
+    "current_usage": "Mevcut Kullanım",
+    "limit_reached": "Limite Ulaşıldı",
+    "upgrade_required": "Yükseltme Gerekli",
+    "appointments_limit": "Aylık randevu limitinize ulaştınız",
+    "clients_limit": "Müşteri limitinize ulaştınız",
+    "team_limit": "Ekip üyesi limitinize ulaştınız",
+    "upgrade_now": "Şimdi Yükselt",
+    "view_plans": "Planları Görüntüle",
+    "clients_reached": "Limite de clients atteinte",
+    "team_reached": "Limite de membres d'équipe atteinte",
+    "services_reached": "Limite de services atteinte",
+    "products_reached": "Limite de produits atteinte",
+    "upgrade_plan": "Mettre à niveau votre plan"
+  },
+  "cancel_subscription": {
+    "title": "Aboneliği İptal Et",
+    "confirm": "Aboneliğinizi iptal etmek istediğinizden emin misiniz?",
+    "consequences": "İptal etmenin sonuçları:",
+    "lose_access": "Premium özelliklere erişiminizi kaybedeceksiniz",
+    "data_retained": "Verileriniz 30 gün boyunca saklanacak",
+    "can_reactivate": "İstediğiniz zaman yeniden etkinleştirebilirsiniz",
+    "cancel_now": "Şimdi İptal Et",
+    "keep_subscription": "Aboneliği Koru"
+  },
+  "notifications": {
+    "payment_successful": "Ödeme başarıyla işlendi",
+    "payment_failed": "Ödeme başarısız",
+    "subscription_updated": "Abonelik güncellendi",
+    "subscription_cancelled": "Abonelik iptal edildi",
+    "trial_ending": "Deneme süreniz yakında sona eriyor",
+    "payment_due": "Ödeme bekliyor"
+  },
+  "page": {
+    "title": "Choisissez Votre Plan",
+    "subtitle": "Transformez votre salon avec Saloneo et rejoignez plus de 10,000+ professionnels qui ont révolutionné leur activité",
+    "why_choose": "Pourquoi choisir Saloneo ?",
+    "why_subtitle": "La solution complète pour faire prospérer votre salon de beauté"
+  },
+  "badges": {
+    "free_trial": "Essai gratuit 14 jours",
+    "no_commitment": "Sans engagement",
+    "premium_support": "Support premium"
+  },
+  "promotion": {
+    "limited_offer": "🔥 OFFRE LIMITÉE : -40% sur tous les plans ! 🔥"
+  },
+  "testimonials": {
+    "title": "Ce que disent nos clients",
+    "subtitle": "Plus de 10,000 professionnels nous font confiance",
+    "marie": {
+      "name": "Marie Dubois",
+      "salon": "Salon Élégance",
+      "text": "Saloneo a transformé ma façon de travailler. +50% de réservations en 3 mois !"
+    },
+    "sophie": {
+      "name": "Sophie Martin",
+      "salon": "Beauty Paradise",
+      "text": "Interface intuitive et support exceptionnel. Je recommande vivement !"
+    },
+    "amelie": {
+      "name": "Amélie Laurent",
+      "salon": "Coiffure Moderne",
+      "text": "Mes clients adorent pouvoir réserver en ligne. Un vrai plus pour mon salon !"
+    }
+  },
+  "faq": {
+    "title": "Questions Fréquentes",
+    "change_plan": {
+      "q": "Puis-je changer de plan à tout moment ?",
+      "a": "Oui, vous pouvez upgrader ou downgrader votre plan à tout moment. Les changements prennent effet immédiatement."
+    },
+    "hidden_fees": {
+      "q": "Y a-t-il des frais cachés ?",
+      "a": "Aucun frais caché ! Le prix affiché est tout compris. Pas de frais de setup, pas de commission sur les ventes."
+    },
+    "cancel": {
+      "q": "Que se passe-t-il si j'annule mon abonnement ?",
+      "a": "Vous gardez l'accès jusqu'à la fin de votre période de facturation. Vos données sont conservées 30 jours."
+    }
+  },
+  "cta": {
+    "title": "Prêt à transformer votre salon ?",
+    "subtitle": "Rejoignez des milliers de professionnels satisfaits",
+    "button": "Commencer l'essai gratuit"
+  },
+  "widget": {
+    "title": "Votre Abonnement",
+    "manage": "Gérer",
+    "unlimited": "Illimité",
+    "used": "Utilisés",
+    "remaining": "restants",
+    "limit_reached": "Limite atteinte",
+    "limit_near": "Limite proche",
+    "available": "Disponible",
+    "upgrade": "Upgrade"
+  },
+  "actions": {
+    "choose_plan": "Choisir le Plan",
+    "current_plan": "Plan Actuel",
+    "upgrade": "Mettre à niveau",
+    "downgrade": "Rétrograder",
+    "cancel": "Annuler l'Abonnement",
+    "reactivate": "Réactiver",
+    "change_plan": "Changer de Plan"
+  },
+  "status": {
+    "active": "Actif",
+    "cancelled": "Annulé",
+    "expired": "Expiré",
+    "trial": "Essai",
+    "pending": "En attente"
+  },
+  "messages": {
+    "upgrade_success": "Plan mis à niveau avec succès",
+    "downgrade_success": "Plan rétrogradé avec succès",
+    "cancellation_success": "Abonnement annulé avec succès",
+    "reactivation_success": "Abonnement réactivé avec succès",
+    "payment_updated": "Méthode de paiement mise à jour avec succès",
+    "trial_ending": "Votre essai se termine bientôt",
+    "subscription_expired": "Votre abonnement a expiré",
+    "upgrade_required": "Veuillez mettre à niveau votre plan pour continuer à utiliser cette fonctionnalité"
+  },
+  "invoice": "Tafaturt",
+  "subscription": "Ajerriḍ",
+  "trial": "Aɛeṛṛu",
+  "free": "Baṭel",
+  "premium": "Aɣalay",
+  "pro": "Aɣerfan",
+  "enterprise": "Takebbanit",
+  "monthly": "Aggur",
+  "yearly": "Aseggas",
+  "lifetime": "Tudert",
+  "usage": "Aseqdec",
+  "quota": "Azal",
+  "overage": "Azal n ufella",
+  "discount": "Aḥeṛṛi",
+  "coupon": "Takubunt",
+  "promo": "Abeṛṛani",
+  "refund": "Tuɣalin",
+  "chargeback": "Tuɣalin n uxelleṣ",
+  "dispute": "Anmegla",
+  "fraud": "Akukel",
+  "security": "Taɣellist",
+  "compliance": "Aḍfar",
+  "terms": "Tiwtilin",
+  "privacy": "Tudert tusligt",
+  "support": "Tallalt",
+  "contact": "Nermes"
+}

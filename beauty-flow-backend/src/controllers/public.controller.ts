@@ -24,7 +24,7 @@ export const getSalonBySlug = async (req: Request, res: Response): Promise<void>
     // Récupérer TOUS les utilisateurs actifs
     const users = await User.find({ 
       isActive: true 
-    }).select('firstName lastName establishmentName address phone email businessHours theme');
+    }).select('firstName lastName establishmentName address phone email businessHours theme settings logo banner presentation serviceDisplay showTeamOnPublicPage');
 
     if (!users || users.length === 0) {
       res.status(404).json({ error: 'No active salons found' });
@@ -45,6 +45,12 @@ export const getSalonBySlug = async (req: Request, res: Response): Promise<void>
       res.status(404).json({ error: 'Salon not found' });
       return;
     }
+
+    logger.info('🔍 Public API returning user data:', {
+      userId: matchingUser._id,
+      serviceDisplay: matchingUser.serviceDisplay,
+      showTeamOnPublicPage: matchingUser.showTeamOnPublicPage
+    });
 
     res.json(matchingUser);
   } catch (error) {
@@ -86,7 +92,7 @@ export const getServicesBySlug = async (req: Request, res: Response): Promise<vo
     const services = await Service.find({ 
       userId: matchingUser._id,
       isActive: true
-    }).select('name description category duration price images');
+    }).select('name description category duration price images currency');
 
     res.json(services);
   } catch (error) {
@@ -343,6 +349,13 @@ export const createPublicAppointment = async (req: Request, res: Response): Prom
       notes 
     } = req.body;
 
+    // Vérifier que teamMemberId est présent
+    if (!teamMemberId) {
+      logger.error('Tentative de création de rendez-vous sans coiffeur');
+      res.status(400).json({ error: 'Un coiffeur doit être sélectionné pour créer un rendez-vous' });
+      return;
+    }
+
     const user = await User.findOne({ 
       'tokens.public': token,
       isActive: true 
@@ -526,6 +539,13 @@ export const createPublicBooking = async (req: Request, res: Response): Promise<
       clientData,
       notes 
     } = req.body;
+
+    // Vérifier que stylistId est présent
+    if (!stylistId) {
+      logger.error('Tentative de création de rendez-vous sans coiffeur');
+      res.status(400).json({ error: 'Un coiffeur doit être sélectionné pour créer un rendez-vous' });
+      return;
+    }
 
     logger.info('Creating public booking:', { slug, serviceId, stylistId, date, startTime, clientData: { ...clientData, phone: '***' } });
 
@@ -756,6 +776,113 @@ export const createPublicBooking = async (req: Request, res: Response): Promise<
         details: process.env.NODE_ENV === 'development' ? error.message : undefined
       });
     }
+  }
+};
+
+// Search appointments by client info (email, phone, or name)
+export const searchAppointmentsByClient = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { slug } = req.params;
+    const { email, phone, firstName, lastName } = req.query;
+
+    // Find salon by slug
+    const users = await User.find({ isActive: true }).select('firstName lastName establishmentName');
+    let matchingUser = null;
+    
+    for (const user of users) {
+      const userSlug = generateSalonSlug(user.establishmentName || `${user.firstName} ${user.lastName}`);
+      if (userSlug === slug) {
+        matchingUser = user;
+        break;
+      }
+    }
+
+    if (!matchingUser) {
+      res.status(404).json({ error: 'Salon not found' });
+      return;
+    }
+
+    // Build search criteria
+    let searchCriteria: any = {};
+
+    if (email) {
+      // Search by email
+      const clients = await Client.find({
+        userId: matchingUser._id,
+        email: email as string
+      });
+      
+      if (clients.length > 0) {
+        searchCriteria.clientId = { $in: clients.map(c => c._id) };
+      } else {
+        res.json([]); // No clients found with this email
+        return;
+      }
+    } else if (phone) {
+      // Search by phone
+      const clients = await Client.find({
+        userId: matchingUser._id,
+        phone: phone as string
+      });
+      
+      if (clients.length > 0) {
+        searchCriteria.clientId = { $in: clients.map(c => c._id) };
+      } else {
+        res.json([]); // No clients found with this phone
+        return;
+      }
+    } else if (firstName && lastName) {
+      // Search by name
+      const clients = await Client.find({
+        userId: matchingUser._id,
+        firstName: new RegExp(firstName as string, 'i'),
+        lastName: new RegExp(lastName as string, 'i')
+      });
+      
+      if (clients.length > 0) {
+        searchCriteria.clientId = { $in: clients.map(c => c._id) };
+      } else {
+        res.json([]); // No clients found with this name
+        return;
+      }
+    } else {
+      res.status(400).json({ error: 'Please provide email, phone, or both firstName and lastName' });
+      return;
+    }
+
+    // Find appointments for the matching clients
+    const appointments = await Appointment.find({
+      userId: matchingUser._id,
+      ...searchCriteria,
+      status: { $ne: 'cancelled' }
+    })
+    .populate('clientId', 'firstName lastName email phone')
+    .populate('serviceId', 'name duration price')
+    .sort({ date: -1, startTime: -1 });
+
+    // Format appointments for frontend
+    const formattedAppointments = appointments.map(appointment => ({
+      id: appointment._id,
+      date: appointment.date,
+      startTime: appointment.startTime,
+      endTime: appointment.endTime,
+      duration: appointment.duration,
+      price: appointment.price,
+      status: appointment.status,
+      notes: appointment.notes,
+      serviceId: appointment.serviceId,
+      serviceName: (appointment.serviceId as any)?.name || 'Service',
+      stylistId: appointment.stylistId,
+      clientInfo: appointment.clientInfo,
+      modificationToken: appointment.tokens?.modification,
+      confirmationToken: appointment.confirmationToken,
+      canModify: appointment.status === 'scheduled' || appointment.status === 'confirmed'
+    }));
+
+    res.json(formattedAppointments);
+  } catch (error) {
+    logger.error('Search appointments by client error:', error);
+    res.status(500).json({ error: 'Server error' });
   }
 };
 

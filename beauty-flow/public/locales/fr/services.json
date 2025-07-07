@@ -1,0 +1,159 @@
+{
+  "title": "Services",
+  "subtitle": "Créez et gérez vos services de beauté",
+  "new_service": "Nouveau service",
+  "edit_service": "Modifier le service",
+  "service_details": "Détails du service",
+  "all_services": "Tous les services",
+  "active_services": "Services actifs",
+  "inactive_services": "Services inactifs",
+  "popular_services": "Services populaires",
+  "form": {
+    "name": "Nom du service",
+    "description": "Description",
+    "category": "Catégorie",
+    "duration": "Durée",
+    "price": "Prix",
+    "image": "Image",
+    "status": "Statut",
+    "tags": "Étiquettes",
+    "instructions": "Instructions",
+    "preparation": "Préparation",
+    "aftercare": "Soins post-traitement",
+    "equipment": "Équipement nécessaire",
+    "products": "Produits utilisés",
+    "skill_level": "Niveau de compétence",
+    "commission": "Commission",
+    "discount": "Remise",
+    "add_image": "Ajouter une image",
+    "remove_image": "Supprimer l'image"
+  },
+  "categories": {
+    "haircut": "Coupe",
+    "coloring": "Coloration",
+    "styling": "Coiffage",
+    "treatment": "Soin",
+    "manicure": "Manucure",
+    "pedicure": "Pédicure",
+    "facial": "Soin du visage",
+    "massage": "Massage",
+    "waxing": "Épilation",
+    "makeup": "Maquillage",
+    "eyebrows": "Sourcils",
+    "eyelashes": "Cils"
+  },
+  "duration": {
+    "minutes": "minutes",
+    "hours": "heures",
+    "min": "min",
+    "h": "h"
+  },
+  "actions": {
+    "add_service": "Ajouter un service",
+    "new_service": "Nouveau Service",
+    "create_service": "Créer un service",
+    "limit_reached": "Limite atteinte",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "duplicate": "Dupliquer",
+    "activate": "Activer",
+    "deactivate": "Désactiver",
+    "view_bookings": "Voir les réservations",
+    "set_price": "Définir le prix",
+    "upload_image": "Télécharger une image"
+  },
+  "filters": {
+    "search": "Rechercher des services...",
+    "search_placeholder": "Rechercher un service...",
+    "all_categories": "Toutes les catégories",
+    "all_status": "Tous les statuts",
+    "price_range": "Gamme de prix",
+    "duration_range": "Durée",
+    "popularity": "Popularité"
+  },
+  "search": {
+    "placeholder": "Rechercher un service...",
+    "results": "service(s) trouvé(s)",
+    "for": "pour",
+    "in": "dans"
+  },
+  "statistics": {
+    "total_services": "Total des services",
+    "active_services": "Services actifs",
+    "popular_services": "Services populaires",
+    "average_price": "Prix moyen",
+    "average_duration": "Durée moyenne",
+    "total_bookings": "Total des réservations",
+    "revenue": "Chiffre d'affaires"
+  },
+  "stats": {
+    "total": "Total",
+    "categories": "Catégories",
+    "service_types": "Types de services",
+    "avg_duration": "Durée Moy.",
+    "avg_time": "Temps moyen",
+    "avg_price": "Prix Moyen",
+    "avg_rate": "Tarif moyen",
+    "all_services": "Tous les services"
+  },
+  "stats_text": {
+    "total_services": "services au total",
+    "categories": "catégories"
+  },
+  "messages": {
+    "service_created": "Service créé avec succès",
+    "service_updated": "Service mis à jour avec succès",
+    "service_deleted": "Service supprimé avec succès",
+    "service_activated": "Service activé avec succès",
+    "service_deactivated": "Service désactivé avec succès",
+    "no_services": "Aucun service trouvé",
+    "loading": "Chargement des services...",
+    "confirm_delete": "Êtes-vous sûr de vouloir supprimer ce service ?",
+    "delete_confirmation": "Êtes-vous sûr de vouloir supprimer ce service ?",
+    "try_filters": "Essayez de modifier vos filtres de recherche",
+    "create_first": "Commencez par créer votre premier service",
+    "image_uploaded": "Image téléchargée avec succès",
+    "image_upload_failed": "Échec du téléchargement de l'image"
+  },
+  "limits": {
+    "title": "Limite de Services"
+  },
+  "products": {
+    "title": "Gestion des Stocks",
+    "subtitle": "Gérez vos produits et leurs quantités en stock",
+    "add_product": "Ajouter un Produit",
+    "stock_report": "Rapport de Stock",
+    "stats": {
+      "total": "Total Produits",
+      "all_products": "Tous les produits",
+      "units": "Unités",
+      "unit_types": "Types d'unités",
+      "low_stock": "Stock Faible",
+      "stock_alerts": "Alertes de stock",
+      "out_of_stock": "Rupture",
+      "stock_depleted": "Stock épuisé"
+    },
+    "search_placeholder": "Rechercher un produit, description ou unité...",
+    "filters": "les filtres",
+    "unit": "Unité",
+    "all_units": "Toutes les unités",
+    "stock_status": "État du Stock",
+    "all_stocks": "Tous les stocks",
+    "available_stock": "Stock disponible",
+    "low_stock": "Stock faible",
+    "no_products_found": "Aucun produit trouvé",
+    "no_products": "Aucun produit en stock",
+    "modify_search": "Essayez de modifier vos critères de recherche",
+    "add_first_products": "Commencez par ajouter vos premiers produits",
+    "stock_alerts": "Alertes de Stock",
+    "products_out_of_stock": "produit(s) en rupture de stock",
+    "products_low_stock": "produit(s) avec un stock faible",
+    "products_found": "produit(s) trouvé(s)",
+    "with_unit": "avec l'unité",
+    "with_filter": "avec le filtre",
+    "confirm_delete": "Êtes-vous sûr de vouloir supprimer ce produit ?"
+  },
+  "details": {
+    "available": "disponible"
+  }
+}

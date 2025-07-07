@@ -13,6 +13,12 @@ export interface ServiceProduct {
   quantity: number; // Quantité utilisée pour ce service
 }
 
+export interface ServiceImage {
+  url: string;
+  alt: string;
+  isPrimary?: boolean;
+}
+
 export interface Service {
   id: string;
   name: string;
@@ -23,6 +29,7 @@ export interface Service {
   isActive: boolean;
   products: ServiceProduct[]; // Produits utilisés pour ce service
   image?: string;
+  images?: ServiceImage[]; // Nouvelles images multiples
   bufferTimeBefore?: number;
   bufferTimeAfter?: number;
   maxAdvanceBooking?: number;

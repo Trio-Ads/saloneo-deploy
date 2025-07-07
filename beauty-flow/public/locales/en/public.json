@@ -1,0 +1,144 @@
+{
+  "booking": {
+    "title": "Online Booking",
+    "steps": {
+      "service": "Choose a service",
+      "datetime": "Choose date and time",
+      "information": "Your information",
+      "confirmation": "Confirmation"
+    },
+    "progress": {
+      "step": "Step {{current}} of {{total}}",
+      "next": "Next",
+      "previous": "Previous",
+      "finish": "Finish"
+    },
+    "flow": {
+      "choose_slot": "Choose your slot",
+      "your_info": "Your information",
+      "choose_stylist": "Choose your stylist",
+      "choose_date": "Choose a date",
+      "choose_time": "Choose a time",
+      "your_selection": "Your selection",
+      "selected": "Selected",
+      "chosen": "Chosen",
+      "no_slots": "No slots",
+      "no_slots_available": "No slots available for this date",
+      "choose_another_date": "Please choose another date",
+      "stylist": "Stylist",
+      "date": "Date",
+      "time": "Time"
+    }
+  },
+  "salon": {
+    "about": "About",
+    "services": "Our services",
+    "team": "Our team",
+    "contact": "Contact",
+    "book_now": "Book now",
+    "location": "Location",
+    "hours": "Opening hours",
+    "page": {
+      "services_title": "Services",
+      "team_title": "Team",
+      "contact_title": "Contact",
+      "book_button": "Book",
+      "discover_services": "Discover our complete range of beauty and wellness services,",
+      "professional_team": "Passionate professionals at your service",
+      "opening_hours": "Opening hours",
+      "information": "Information",
+      "quick_booking": "Quick booking",
+      "quick_booking_desc": "Book an appointment in just a few clicks",
+      "call_us": "Or call us at",
+      "address": "Address",
+      "phone": "Phone",
+      "email": "Email",
+      "footer_text": "Your trusted beauty salon since always",
+      "all_rights": "All rights reserved",
+      "closed": "Closed",
+      "professional_service": "Professional quality service"
+    }
+  },
+  "datetime": {
+    "select_date": "Select a date",
+    "select_time": "Select a time",
+    "morning": "Morning",
+    "afternoon": "Afternoon",
+    "evening": "Evening",
+    "no_slots": "No slots available",
+    "available_slots": "Available slots"
+  },
+  "service_card": {
+    "duration": "Duration",
+    "price": "Price",
+    "book": "Book",
+    "minutes": "minutes",
+    "description": "Description",
+    "book_now": "Book now",
+    "popular": "Popular"
+  },
+  "confirmation": {
+    "success": {
+      "title": "Booking confirmed",
+      "message": "Your appointment has been confirmed",
+      "details": "Booking details",
+      "email_sent": "A confirmation email has been sent to you"
+    },
+    "error": {
+      "title": "Booking error",
+      "message": "An error occurred",
+      "try_again": "Please try again"
+    },
+    "pending": {
+      "title": "Booking pending",
+      "message": "Your request is being processed"
+    }
+  },
+  "loading": {
+    "message": "Loading...",
+    "please_wait": "Please wait"
+  },
+  "modal": {
+    "close": "Close",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "search": {
+    "title": "Manage my bookings",
+    "how_search": "How would you like to search for your appointments?",
+    "by_email": "Email",
+    "by_phone": "Phone",
+    "by_name": "Name",
+    "email_label": "Email",
+    "phone_label": "Phone",
+    "first_name_label": "First name",
+    "last_name_label": "Last name",
+    "email_placeholder": "your@email.com",
+    "phone_placeholder": "06 12 34 56 78",
+    "first_name_placeholder": "Your first name",
+    "last_name_placeholder": "Your last name",
+    "search_button": "Search"
+  },
+  "appointments": {
+    "your_appointments": "Your appointments",
+    "no_appointments": "No appointments found",
+    "back_home": "Back to home",
+    "modify": "Modify",
+    "cancel": "Cancel",
+    "cancel_confirmation": "Are you sure you want to cancel this appointment?",
+    "cancel_reason_placeholder": "Cancellation reason (optional)"
+  },
+  "gallery": {
+    "previous": "Previous image",
+    "next": "Next image"
+  },
+  "days": {
+    "monday": "Monday",
+    "tuesday": "Tuesday", 
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
+  }
+}

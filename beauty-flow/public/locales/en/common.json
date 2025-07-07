@@ -1,0 +1,93 @@
+{
+  "navigation": {
+    "dashboard": "Dashboard",
+    "appointments": "Appointments",
+    "clients": "Clients",
+    "services": "Services",
+    "products": "Inventory",
+    "team": "Team",
+    "interface": "My Interface",
+    "profile": "My Profile",
+    "subscription": "Subscription"
+  },
+  "actions": {
+    "cancel": "Cancel",
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "next": "Next",
+    "back": "Back",
+    "close": "Close",
+    "logout": "Logout",
+    "logging_out": "Logging out...",
+    "add_product": "Add product"
+  },
+  "form": {
+    "required": "Required field",
+    "invalid_email": "Invalid email",
+    "invalid_phone": "Invalid phone number"
+  },
+  "common": {
+    "app_subtitle": "Modern management"
+  },
+  "modal": {
+    "close": "Close"
+  },
+  "toast": {
+    "close": "Close notification"
+  },
+  "user_menu": {
+    "user_name": "Saloneo User",
+    "user_email": "user@saloneo.com",
+    "plan_prefix": "Plan",
+    "plans": {
+      "FREE": "Free",
+      "STARTER": "Starter",
+      "PRO": "Pro",
+      "ENTERPRISE": "Enterprise"
+    },
+    "menu_items": {
+      "profile": {
+        "description": "Manage your information"
+      },
+      "interface": {
+        "description": "Customize your salon"
+      },
+      "subscription": {
+        "description": "Plans and billing"
+      }
+    },
+    "language_section": {
+      "title": "Language",
+      "current": "Current language"
+    },
+    "version": "Saloneo v2.0.0"
+  },
+  "service_form": {
+    "titles": {
+      "new": "New Service",
+      "edit": "Edit Service"
+    },
+    "subtitle": "Create a personalized beauty service for your clients",
+    "sections": {
+      "basic_info": "Basic Information",
+      "products": "Products Used",
+      "photos": "Service Photos"
+    },
+    "placeholders": {
+      "name": "Ex: Cut and blow-dry",
+      "description": "Describe your service in detail..."
+    },
+    "labels": {
+      "product": "Product",
+      "quantity": "Quantity"
+    },
+    "messages": {
+      "no_products": "No products available. Add products in the Inventory section to use them here."
+    },
+    "units": {
+      "min": "min"
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { 
   CalendarDaysIcon, 
   PlusIcon, 
@@ -25,8 +26,11 @@ import AppointmentList from './components/AppointmentList';
 import AppointmentForm from './components/AppointmentForm';
 import CalendarView from './components/CalendarView';
 import { useSocket } from '../../hooks/useSocket';
+import { useSubscriptionLimits } from '../subscription/hooks/useSubscriptionLimits';
+import { SubscriptionLimitWidget } from '../subscription/components/SubscriptionLimitWidget';
 
 const AppointmentsPage: React.FC = () => {
+  const { t } = useTranslation('appointments');
   const {
     appointments,
     addAppointment,
@@ -44,6 +48,7 @@ const AppointmentsPage: React.FC = () => {
 
   const services = useServiceStore((state) => state.services);
   const fetchClients = useClientStore((state) => state.fetchClients);
+  const { checkAppointmentLimit, currentPlan } = useSubscriptionLimits();
   
   // Enable real-time updates
   useSocket();
@@ -122,8 +127,8 @@ const AppointmentsPage: React.FC = () => {
                   <div className="animate-spin rounded-full h-20 w-20 border-4 border-indigo-100 border-t-indigo-600 mx-auto"></div>
                   <SparklesIcon className="h-8 w-8 text-indigo-600 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pulse" />
                 </div>
-                <p className="mt-8 text-xl font-semibold text-gray-800">Chargement de votre planning...</p>
-                <p className="mt-3 text-sm text-gray-500">Préparation de l'interface</p>
+                <p className="mt-8 text-xl font-semibold text-gray-800">{t('loading.planning')}</p>
+                <p className="mt-3 text-sm text-gray-500">{t('loading.interface_preparation')}</p>
               </div>
             </div>
           </div>
@@ -160,12 +165,12 @@ const AppointmentsPage: React.FC = () => {
         updateAppointment(editingAppointment.id, data);
       } else {
         await addAppointment(data);
-        alert('Rendez-vous créé avec succès !');
+        alert(t('success_messages.appointment_created'));
       }
       setShowForm(false);
       setEditingAppointment(null);
     } catch (error) {
-      console.error('Erreur lors de la soumission du formulaire:', error);
+      console.error(t('errors.form_submission'), error);
     }
   };
 
@@ -175,7 +180,7 @@ const AppointmentsPage: React.FC = () => {
   };
 
   const handleCancelAppointment = (appointmentId: string) => {
-    if (window.confirm('Êtes-vous sûr de vouloir annuler ce rendez-vous ?')) {
+    if (window.confirm(t('messages.confirm_cancel'))) {
       cancelAppointment(appointmentId);
     }
   };
@@ -185,7 +190,7 @@ const AppointmentsPage: React.FC = () => {
   };
 
   const handleNoShowAppointment = (appointmentId: string) => {
-    if (window.confirm('Marquer ce client comme non présenté ?')) {
+    if (window.confirm(t('messages.confirm_delete'))) {
       markAsNoShow(appointmentId);
     }
   };
@@ -196,20 +201,20 @@ const AppointmentsPage: React.FC = () => {
   
   const handleProcessPastAppointments = async (action: 'noShow' | 'completed') => {
     if (pastAppointmentsCount === 0) {
-      alert('Aucun rendez-vous passé à traiter.');
+      alert(t('past_appointments.none_to_process'));
       return;
     }
     
-    const actionText = action === 'noShow' ? 'Non présentés' : 'Terminés';
+    const actionText = action === 'noShow' ? t('past_appointments.no_show_status') : t('past_appointments.completed_status');
     
-    if (window.confirm(`${pastAppointmentsCount} rendez-vous passés trouvés. Souhaitez-vous les marquer comme "${actionText}" ?`)) {
+    if (window.confirm(`${pastAppointmentsCount} ${t('past_appointments.found_message')} "${actionText}" ?`)) {
       try {
         const processed = await processPastAppointments(action);
-        alert(`${processed} rendez-vous ont été traités.`);
+        alert(`${processed} ${t('past_appointments.processed_message')}`);
         setPastAppointmentsCount(0);
       } catch (error) {
         console.error('Erreur lors du traitement des rendez-vous passés:', error);
-        alert('Erreur lors du traitement des rendez-vous passés.');
+        alert(t('past_appointments.processing_error'));
       }
     }
   };
@@ -233,18 +238,18 @@ const AppointmentsPage: React.FC = () => {
                 </div>
                 <div>
                   <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
-                    Gestion des Rendez-vous
+                    {t('page_title')}
                   </h1>
-                  <p className="text-gray-600 mt-2 text-lg">Planifiez et gérez vos rendez-vous avec élégance</p>
+                  <p className="text-gray-600 mt-2 text-lg">{t('page_subtitle')}</p>
                   <div className="flex items-center mt-3 space-x-4">
                     <div className="flex items-center text-sm text-gray-500">
                       <ArrowTrendingUpIcon className="h-4 w-4 mr-1 text-green-500" />
-                      {appointmentStats.total} rendez-vous au total
+                      {appointmentStats.total} {t('stats.total_appointments_badge')}
                     </div>
                     {pastAppointmentsCount > 0 && (
                       <div className="flex items-center text-sm text-amber-600">
                         <BellIcon className="h-4 w-4 mr-1 animate-bounce" />
-                        {pastAppointmentsCount} en attente
+                        {pastAppointmentsCount} {t('stats.pending_badge')}
                       </div>
                     )}
                   </div>
@@ -260,14 +265,14 @@ const AppointmentsPage: React.FC = () => {
                       className="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
                     >
                       <CheckCircleIcon className="h-4 w-4 mr-2 inline" />
-                      Terminer ({pastAppointmentsCount})
+                      {t('past_appointments.complete_action')} ({pastAppointmentsCount})
                     </button>
                     <button
                       onClick={() => handleProcessPastAppointments('noShow')}
                       className="px-4 py-2 bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
                     >
                       <ExclamationTriangleIcon className="h-4 w-4 mr-2 inline" />
-                      Non présentés
+                      {t('past_appointments.no_show_action')}
                     </button>
                   </div>
                 )}
@@ -277,7 +282,7 @@ const AppointmentsPage: React.FC = () => {
                   className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
                 >
                   <ChartBarIcon className="h-4 w-4 mr-2 inline" />
-                  Historique
+                  {t('calendar.agenda_view')}
                 </Link>
                 
                 <button
@@ -287,11 +292,26 @@ const AppointmentsPage: React.FC = () => {
                 >
                   <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                   <PlusIcon className="h-5 w-5 mr-2 inline relative z-10" />
-                  <span className="relative z-10">Nouveau Rendez-vous</span>
+                  <span className="relative z-10">{t('new_appointment')}</span>
                 </button>
               </div>
             </div>
           </div>
+        </div>
+
+        {/* WIDGET DE LIMITE D'ABONNEMENT */}
+        <div className="mb-8">
+          <SubscriptionLimitWidget
+            title={t('limits.title')}
+            icon={
+              <div className="p-2 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl shadow-lg">
+                <CalendarDaysIcon className="h-5 w-5 text-white" />
+              </div>
+            }
+            limitCheck={checkAppointmentLimit()}
+            planName={currentPlan}
+            resourceType="rendez-vous"
+          />
         </div>
 
         {/* STATISTIQUES - Design premium avec vos couleurs */}
@@ -302,9 +322,9 @@ const AppointmentsPage: React.FC = () => {
             <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">Total</p>
+                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.total')}</p>
                   <p className="text-3xl font-bold text-gray-900 mt-1">{appointmentStats.total}</p>
-                  <p className="text-xs text-gray-500 mt-1">Tous les rendez-vous</p>
+                  <p className="text-xs text-gray-500 mt-1">{t('stats.all_appointments')}</p>
                 </div>
                 <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl shadow-lg">
                   <CalendarIcon className="h-6 w-6 text-white" />
@@ -319,9 +339,9 @@ const AppointmentsPage: React.FC = () => {
             <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">Planifiés</p>
+                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.scheduled')}</p>
                   <p className="text-3xl font-bold text-orange-600 mt-1">{appointmentStats.scheduled}</p>
-                  <p className="text-xs text-gray-500 mt-1">En attente de confirmation</p>
+                  <p className="text-xs text-gray-500 mt-1">{t('stats.awaiting_confirmation')}</p>
                 </div>
                 <div className="p-3 bg-gradient-to-r from-orange-500 to-amber-600 rounded-xl shadow-lg">
                   <ClockIcon className="h-6 w-6 text-white" />
@@ -336,9 +356,9 @@ const AppointmentsPage: React.FC = () => {
             <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">Confirmés</p>
+                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.confirmed')}</p>
                   <p className="text-3xl font-bold text-green-600 mt-1">{appointmentStats.confirmed}</p>
-                  <p className="text-xs text-gray-500 mt-1">Prêts à être réalisés</p>
+                  <p className="text-xs text-gray-500 mt-1">{t('stats.ready_to_perform')}</p>
                 </div>
                 <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl shadow-lg">
                   <CheckCircleIcon className="h-6 w-6 text-white" />
@@ -353,9 +373,9 @@ const AppointmentsPage: React.FC = () => {
             <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">Terminés</p>
+                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.completed')}</p>
                   <p className="text-3xl font-bold text-purple-600 mt-1">{appointmentStats.completed}</p>
-                  <p className="text-xs text-gray-500 mt-1">Services réalisés</p>
+                  <p className="text-xs text-gray-500 mt-1">{t('stats.services_performed')}</p>
                 </div>
                 <div className="p-3 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl shadow-lg">
                   <SparklesIcon className="h-6 w-6 text-white" />
@@ -377,7 +397,7 @@ const AppointmentsPage: React.FC = () => {
                   <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                   <input
                     type="text"
-                    placeholder="Rechercher un client ou service..."
+                    placeholder={t('search.placeholder')}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="pl-10 pr-4 py-3 w-64 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 text-sm"
@@ -392,12 +412,12 @@ const AppointmentsPage: React.FC = () => {
                     onChange={(e) => setSelectedStatus(e.target.value as AppointmentStatus | 'all')}
                     className="pl-10 pr-8 py-3 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 text-sm appearance-none cursor-pointer"
                   >
-                    <option value="all">Tous les statuts</option>
-                    <option value="scheduled">Planifiés</option>
-                    <option value="confirmed">Confirmés</option>
-                    <option value="completed">Terminés</option>
-                    <option value="cancelled">Annulés</option>
-                    <option value="noShow">Non présentés</option>
+                    <option value="all">{t('filters.all_status')}</option>
+                    <option value="scheduled">{t('status.scheduled')}</option>
+                    <option value="confirmed">{t('status.confirmed')}</option>
+                    <option value="completed">{t('status.completed')}</option>
+                    <option value="cancelled">{t('status.cancelled')}</option>
+                    <option value="noShow">{t('status.no_show')}</option>
                   </select>
                 </div>
               </div>
@@ -413,7 +433,7 @@ const AppointmentsPage: React.FC = () => {
                   }`}
                 >
                   <ListBulletIcon className="h-4 w-4 mr-2" />
-                  Liste
+                  {t('view_modes.list')}
                 </button>
                 <button
                   onClick={() => setViewMode('calendar')}
@@ -424,7 +444,7 @@ const AppointmentsPage: React.FC = () => {
                   }`}
                 >
                   <CalendarIcon className="h-4 w-4 mr-2" />
-                  Calendrier
+                  {t('view_modes.calendar')}
                 </button>
               </div>
             </div>
@@ -455,11 +475,11 @@ const AppointmentsPage: React.FC = () => {
                 filteredAppointments.length === 0 ? (
                   <div className="text-center py-16">
                     <CalendarDaysIcon className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">Aucun rendez-vous trouvé</h3>
+                    <h3 className="text-lg font-medium text-gray-900 mb-2">{t('empty_state.no_appointments')}</h3>
                     <p className="text-gray-500 mb-6">
                       {searchTerm || selectedStatus !== 'all' 
-                        ? 'Essayez de modifier vos filtres de recherche'
-                        : 'Commencez par créer votre premier rendez-vous'
+                        ? t('empty_state.modify_filters')
+                        : t('empty_state.create_first')
                       }
                     </p>
                     {!searchTerm && selectedStatus === 'all' && (
@@ -468,7 +488,7 @@ const AppointmentsPage: React.FC = () => {
                         className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
                       >
                         <PlusIcon className="h-4 w-4 mr-2 inline" />
-                        Créer un rendez-vous
+                        {t('empty_state.create_appointment')}
                       </button>
                     )}
                   </div>

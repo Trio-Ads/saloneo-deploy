@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
 interface ModalProps {
@@ -18,6 +19,7 @@ const Modal: React.FC<ModalProps> = ({
   size = 'lg',
   showCloseButton = true,
 }) => {
+  const { t } = useTranslation('common');
   // Fermer avec Escape
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -73,7 +75,7 @@ const Modal: React.FC<ModalProps> = ({
                 <button
                   onClick={onClose}
                   className="p-2 text-white/80 hover:text-white hover:bg-white/20 rounded-xl transition-all duration-200 transform hover:scale-110"
-                  aria-label="Fermer"
+                  aria-label={t('modal.close')}
                 >
                   <XMarkIcon className="h-6 w-6" />
                 </button>

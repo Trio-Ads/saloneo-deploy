@@ -74,9 +74,19 @@ export const createService = async (req: AuthRequest, res: Response): Promise<vo
     }
 
     const userId = req.userId;
+    
+    // Si aucune currency n'est spécifiée, récupérer celle du profil utilisateur
+    let currency = req.body.currency;
+    if (!currency) {
+      const { User } = require('../models/User');
+      const user = await User.findById(userId).select('settings.currency');
+      currency = user?.settings?.currency || 'EUR';
+    }
+    
     const serviceData = {
       ...req.body,
       userId,
+      currency,
     };
 
     const service = new Service(serviceData);
@@ -198,6 +208,109 @@ export const getServiceStats = async (req: AuthRequest, res: Response): Promise<
     });
   } catch (error) {
     logger.error('Get service stats error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+// Add image to service
+export const addServiceImage = async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const { url, alt } = req.body;
+    const userId = req.userId;
+
+    const service = await Service.findOne({ _id: id, userId });
+
+    if (!service) {
+      res.status(404).json({ error: 'Service not found' });
+      return;
+    }
+
+    // Check if we already have 5 images
+    if (service.images.length >= 5) {
+      res.status(400).json({ error: 'Maximum 5 images per service' });
+      return;
+    }
+
+    // Add the new image
+    service.images.push({
+      url,
+      alt: alt || '',
+      isPrimary: service.images.length === 0, // First image is primary
+    });
+
+    await service.save();
+
+    res.json({ service });
+  } catch (error) {
+    logger.error('Add service image error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+// Remove image from service
+export const removeServiceImage = async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const { imageUrl } = req.body;
+    const userId = req.userId;
+
+    const service = await Service.findOne({ _id: id, userId });
+
+    if (!service) {
+      res.status(404).json({ error: 'Service not found' });
+      return;
+    }
+
+    // Remove the image
+    service.images = service.images.filter(img => img.url !== imageUrl);
+
+    // If we removed the primary image, make the first remaining image primary
+    if (service.images.length > 0 && !service.images.some(img => img.isPrimary)) {
+      service.images[0].isPrimary = true;
+    }
+
+    await service.save();
+
+    res.json({ service });
+  } catch (error) {
+    logger.error('Remove service image error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+// Update service images
+export const updateServiceImages = async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const { images } = req.body;
+    const userId = req.userId;
+
+    const service = await Service.findOne({ _id: id, userId });
+
+    if (!service) {
+      res.status(404).json({ error: 'Service not found' });
+      return;
+    }
+
+    // Validate images array
+    if (!Array.isArray(images) || images.length > 5) {
+      res.status(400).json({ error: 'Invalid images array or too many images (max 5)' });
+      return;
+    }
+
+    // Update images
+    service.images = images.map((img, index) => ({
+      url: img.url,
+      alt: img.alt || '',
+      isPrimary: index === 0, // First image is primary
+    }));
+
+    await service.save();
+
+    res.json({ service });
+  } catch (error) {
+    logger.error('Update service images error:', error);
     res.status(500).json({ error: 'Server error' });
   }
 };

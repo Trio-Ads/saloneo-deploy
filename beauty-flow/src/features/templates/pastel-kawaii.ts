@@ -4,26 +4,26 @@ export const pastelKawaiiTemplate: DesignTemplate = {
   id: 'pastel-kawaii',
   name: 'Pastel Kawaii',
   category: 'creative',
-  description: 'Bulles 3D soft avec physics, emojis animés réactifs, confettis interactifs',
+  description: 'Design kawaii moderne avec couleurs pastel douces, animations mignonnes et esthétique japonaise contemporaine',
   preview: '/templates/previews/pastel-kawaii.jpg',
   theme: {
     colors: {
-      primary: '#FFB6C1',
-      secondary: '#E6E6FA',
-      accent: '#98FB98',
-      background: '#FFF0F5',
-      surface: '#FFFFFF',
-      text: '#8B4B8B',
-      textSecondary: '#DDA0DD',
+      primary: '#FF9EC7', // Rose kawaii moderne
+      secondary: '#B8A9FF', // Lavande douce
+      accent: '#A8E6CF', // Menthe pastel
+      background: '#FEFEFE', // Blanc très doux
+      surface: '#FFFFFF', // Blanc pur
+      text: '#6B4C7A', // Violet doux
+      textSecondary: '#9B8AA3', // Gris lavande
       custom: {
-        bubblegum: '#FFB6C1',
-        lavender: '#E6E6FA',
-        mint: '#98FB98',
-        peach: '#FFCCCB',
-        lemon: '#FFFACD',
-        cotton: '#F8F8FF',
-        rose: '#FFC0CB',
-        sky: '#E0F6FF'
+        sakura: '#FFB7C5', // Rose sakura
+        lavender: '#C8B2DB', // Lavande pastel
+        mint: '#B8F2CC', // Menthe kawaii
+        peach: '#FFD3A5', // Pêche douce
+        sky: '#A8D8EA', // Bleu ciel pastel
+        cream: '#FFF8DC', // Crème vanille
+        coral: '#FFB3BA', // Corail doux
+        lilac: '#E6E6FA' // Lilas tendre
       }
     },
     typography: {
@@ -110,16 +110,22 @@ export const pastelKawaiiTemplate: DesignTemplate = {
   customCSS: `
     @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Nunito:wght@300;400;500;600;700&display=swap');
     
-    .pastel-kawaii-2025 {
+    .pastel-kawaii {
       font-family: 'Nunito', sans-serif;
-      background: linear-gradient(135deg, #FFF0F5 0%, #F8F8FF 100%);
+      background: linear-gradient(135deg, #FEFEFE 0%, #F8F9FA 100%);
       min-height: 100vh;
       position: relative;
       overflow-x: hidden;
     }
 
-    /* Kawaii Background Pattern */
-    .pastel-kawaii-2025::before {
+    .pastel-kawaii h1, 
+    .pastel-kawaii h2, 
+    .pastel-kawaii h3 {
+      font-family: 'Comfortaa', cursive;
+    }
+
+    /* Background kawaii moderne */
+    .pastel-kawaii::before {
       content: '';
       position: fixed;
       top: 0;
@@ -127,39 +133,39 @@ export const pastelKawaiiTemplate: DesignTemplate = {
       right: 0;
       bottom: 0;
       background: 
-        radial-gradient(circle at 15% 25%, rgba(255, 182, 193, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 85% 75%, rgba(230, 230, 250, 0.06) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(152, 251, 152, 0.04) 0%, transparent 50%);
+        radial-gradient(circle at 20% 30%, rgba(255, 158, 199, 0.04) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(184, 169, 255, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(168, 230, 207, 0.02) 0%, transparent 50%);
       pointer-events: none;
       z-index: 0;
     }
 
-    /* Floating Hearts Animation */
-    .pastel-kawaii-2025::after {
+    /* Particules kawaii flottantes */
+    .pastel-kawaii::after {
       content: '';
       position: fixed;
       top: -10%;
       left: -10%;
       width: 120%;
       height: 120%;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50,85 C50,85 20,60 20,40 C20,25 30,15 45,20 C50,10 50,10 55,20 C70,15 80,25 80,40 C80,60 50,85 50,85 Z" fill="%23FFB6C1" opacity="0.1"><animateTransform attributeName="transform" type="scale" values="0.8;1.2;0.8" dur="4s" repeatCount="indefinite"/></path><circle cx="25" cy="25" r="2" fill="%23E6E6FA" opacity="0.3"><animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite"/></circle><circle cx="75" cy="75" r="1.5" fill="%2398FB98" opacity="0.4"><animate attributeName="opacity" values="0.4;0.9;0.4" dur="2.5s" repeatCount="indefinite"/></circle></svg>') repeat;
-      background-size: 150px 150px;
-      animation: floatingHearts 12s linear infinite;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50,85 C50,85 20,60 20,40 C20,25 30,15 45,20 C50,10 50,10 55,20 C70,15 80,25 80,40 C80,60 50,85 50,85 Z" fill="%23FF9EC7" opacity="0.06"><animateTransform attributeName="transform" type="scale" values="0.8;1.1;0.8" dur="5s" repeatCount="indefinite"/></path><circle cx="25" cy="25" r="1.5" fill="%23B8A9FF" opacity="0.04"><animate attributeName="opacity" values="0.04;0.1;0.04" dur="4s" repeatCount="indefinite"/></circle><circle cx="75" cy="75" r="1" fill="%23A8E6CF" opacity="0.05"><animate attributeName="opacity" values="0.05;0.12;0.05" dur="3s" repeatCount="indefinite"/></circle></svg>') repeat;
+      background-size: 200px 200px;
+      animation: floatingKawaii 15s linear infinite;
       pointer-events: none;
       z-index: 1;
     }
 
-    @keyframes floatingHearts {
+    @keyframes floatingKawaii {
       0% { transform: translateX(0) translateY(0) rotate(0deg); }
-      100% { transform: translateX(-150px) translateY(-150px) rotate(360deg); }
+      100% { transform: translateX(-200px) translateY(-200px) rotate(360deg); }
     }
 
-    /* Navigation */
-    .kawaii-navbar {
-      background: rgba(255, 240, 245, 0.95);
+    /* Navigation kawaii moderne */
+    .navbar {
+      background: rgba(254, 254, 254, 0.95);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border-bottom: 2px solid rgba(255, 182, 193, 0.3);
+      border-bottom: 1px solid rgba(255, 158, 199, 0.15);
       position: fixed;
       top: 0;
       left: 0;
@@ -167,39 +173,39 @@ export const pastelKawaiiTemplate: DesignTemplate = {
       z-index: 1000;
       padding: 1rem 0;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 15px rgba(255, 158, 199, 0.08);
     }
 
-    .kawaii-navbar.scrolled {
-      background: rgba(255, 240, 245, 0.98);
-      box-shadow: 0 4px 20px rgba(255, 182, 193, 0.2);
+    .navbar.scrolled {
+      background: rgba(254, 254, 254, 0.98);
+      box-shadow: 0 4px 25px rgba(255, 158, 199, 0.12);
     }
 
-    .kawaii-logo {
+    .nav-logo {
       font-family: 'Comfortaa', cursive;
       font-size: 1.75rem;
       font-weight: 700;
-      color: #FFB6C1;
+      color: #FF9EC7;
       letter-spacing: 0.02em;
       position: relative;
-      text-shadow: 0 0 10px rgba(255, 182, 193, 0.5);
     }
 
-    .kawaii-logo::after {
+    .nav-logo::after {
       content: '🌸';
       margin-left: 0.5rem;
       font-size: 1.2rem;
-      animation: kawaiiBounce 2s ease-in-out infinite;
+      animation: kawaiiBounce 3s ease-in-out infinite;
     }
 
     @keyframes kawaiiBounce {
       0%, 100% { transform: translateY(0px) scale(1) rotate(0deg); }
-      25% { transform: translateY(-8px) scale(1.1) rotate(-5deg); }
-      50% { transform: translateY(-4px) scale(1.05) rotate(0deg); }
-      75% { transform: translateY(-12px) scale(1.15) rotate(5deg); }
+      25% { transform: translateY(-6px) scale(1.05) rotate(-3deg); }
+      50% { transform: translateY(-3px) scale(1.02) rotate(0deg); }
+      75% { transform: translateY(-9px) scale(1.08) rotate(3deg); }
     }
 
-    .kawaii-nav-link {
-      color: #8B4B8B;
+    .nav-link {
+      color: #6B4C7A;
       text-decoration: none;
       font-weight: 600;
       padding: 0.75rem 1.5rem;
@@ -210,57 +216,56 @@ export const pastelKawaiiTemplate: DesignTemplate = {
       font-size: 0.95rem;
     }
 
-    .kawaii-nav-link::before {
+    .nav-link::before {
       content: '';
       position: absolute;
       top: 0;
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 182, 193, 0.2), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 158, 199, 0.15), transparent);
       transition: left 0.5s;
     }
 
-    .kawaii-nav-link:hover::before {
+    .nav-link:hover::before {
       left: 100%;
     }
 
-    .kawaii-nav-link:hover {
-      color: #FFB6C1;
-      background: rgba(255, 182, 193, 0.15);
-      transform: translateY(-2px) scale(1.05);
-      text-shadow: 0 0 8px rgba(255, 182, 193, 0.6);
+    .nav-link:hover {
+      color: #FF9EC7;
+      background: rgba(255, 158, 199, 0.1);
+      transform: translateY(-1px) scale(1.02);
     }
 
-    /* Hero Section */
-    .kawaii-hero {
+    /* Hero Section kawaii moderne */
+    .hero-section {
       min-height: 100vh;
       display: flex;
       align-items: center;
       position: relative;
       padding: 6rem 0 4rem;
-      background: linear-gradient(135deg, rgba(255, 240, 245, 0.9) 0%, rgba(248, 248, 255, 0.8) 100%);
+      background: linear-gradient(135deg, rgba(254, 254, 254, 0.95) 0%, rgba(248, 249, 250, 0.9) 100%);
+      overflow: hidden;
     }
 
-    .kawaii-hero-content {
+    .hero-content {
       position: relative;
       z-index: 2;
       text-align: center;
     }
 
-    .kawaii-hero-title {
+    .hero-title {
       font-family: 'Comfortaa', cursive;
       font-size: clamp(2.5rem, 5vw, 4rem);
       font-weight: 700;
-      color: #FFB6C1;
+      color: #FF9EC7;
       line-height: 1.2;
       margin-bottom: 2rem;
       letter-spacing: 0.02em;
       position: relative;
-      text-shadow: 0 0 20px rgba(255, 182, 193, 0.5);
     }
 
-    .kawaii-hero-title::after {
+    .hero-title::after {
       content: '';
       position: absolute;
       bottom: -15px;
@@ -268,14 +273,19 @@ export const pastelKawaiiTemplate: DesignTemplate = {
       transform: translateX(-50%);
       width: 80px;
       height: 4px;
-      background: linear-gradient(90deg, #FFB6C1, #E6E6FA, #98FB98);
+      background: linear-gradient(90deg, #FF9EC7, #B8A9FF, #A8E6CF);
       border-radius: 2rem;
-      box-shadow: 0 0 15px rgba(255, 182, 193, 0.6);
+      animation: kawaiiGlow 3s ease-in-out infinite;
     }
 
-    .kawaii-hero-subtitle {
+    @keyframes kawaiiGlow {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
+    }
+
+    .hero-subtitle {
       font-size: 1.25rem;
-      color: #8B4B8B;
+      color: #6B4C7A;
       margin-bottom: 3rem;
       font-weight: 500;
       line-height: 1.6;
@@ -285,10 +295,10 @@ export const pastelKawaiiTemplate: DesignTemplate = {
       letter-spacing: 0.01em;
     }
 
-    /* Buttons */
-    .kawaii-btn-primary {
-      background: linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 100%);
-      color: #8B4B8B;
+    /* Boutons kawaii modernes */
+    .btn-primary {
+      background: linear-gradient(135deg, #FF9EC7 0%, #FFB7C5 100%);
+      color: #6B4C7A;
       border: none;
       padding: 1.25rem 3rem;
       border-radius: 2rem;
@@ -298,10 +308,11 @@ export const pastelKawaiiTemplate: DesignTemplate = {
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
-      box-shadow: 0 8px 25px rgba(255, 182, 193, 0.4);
+      box-shadow: 0 8px 25px rgba(255, 158, 199, 0.3);
+      font-family: 'Nunito', sans-serif;
     }
 
-    .kawaii-btn-primary::before {
+    .btn-primary::before {
       content: '';
       position: absolute;
       top: 0;
@@ -312,208 +323,195 @@ export const pastelKawaiiTemplate: DesignTemplate = {
       transition: left 0.6s;
     }
 
-    .kawaii-btn-primary:hover::before {
+    .btn-primary:hover::before {
       left: 100%;
     }
 
-    .kawaii-btn-primary:hover {
+    .btn-primary:hover {
       transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 12px 35px rgba(255, 182, 193, 0.6);
-      text-shadow: 0 0 10px rgba(139, 75, 139, 0.8);
+      box-shadow: 0 12px 35px rgba(255, 158, 199, 0.5);
     }
 
-    .kawaii-btn-secondary {
+    .btn-secondary {
       background: rgba(255, 255, 255, 0.9);
-      color: #FFB6C1;
-      border: 2px solid #FFB6C1;
+      color: #FF9EC7;
+      border: 2px solid rgba(255, 158, 199, 0.4);
       padding: 1.25rem 3rem;
       border-radius: 2rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
       backdrop-filter: blur(10px);
+      font-family: 'Nunito', sans-serif;
     }
 
-    .kawaii-btn-secondary:hover {
-      background: #FFB6C1;
+    .btn-secondary:hover {
+      background: #FF9EC7;
       color: white;
       transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(255, 182, 193, 0.4);
+      box-shadow: 0 8px 25px rgba(255, 158, 199, 0.3);
     }
 
-    /* Service Cards */
-    .kawaii-services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 2.5rem;
-      margin-top: 4rem;
-    }
-
-    .kawaii-service-card {
-      background: rgba(255, 255, 255, 0.9);
+    /* Service Cards kawaii modernes */
+    .service-card {
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 2px solid rgba(255, 182, 193, 0.3);
+      border: 1px solid rgba(255, 158, 199, 0.2);
       border-radius: 2rem;
       padding: 2.5rem;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
+      box-shadow: 0 8px 30px rgba(255, 158, 199, 0.1);
     }
 
-    .kawaii-service-card::before {
+    .service-card::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       height: 4px;
-      background: linear-gradient(90deg, #FFB6C1 0%, #E6E6FA 50%, #98FB98 100%);
+      background: linear-gradient(90deg, #FF9EC7 0%, #B8A9FF 50%, #A8E6CF 100%);
       transform: scaleX(0);
       transition: transform 0.4s ease;
+      border-radius: 2rem 2rem 0 0;
     }
 
-    .kawaii-service-card:hover::before {
+    .service-card:hover::before {
       transform: scaleX(1);
     }
 
-    .kawaii-service-card::after {
-      content: '💖';
+    .service-card::after {
+      content: '🌸';
       position: absolute;
       top: 1.5rem;
       right: 1.5rem;
       font-size: 1.5rem;
-      opacity: 0.3;
+      opacity: 0.4;
       transition: all 0.3s ease;
     }
 
-    .kawaii-service-card:hover::after {
+    .service-card:hover::after {
       opacity: 0.8;
-      transform: scale(1.3) rotate(15deg);
-      animation: heartbeat 1s ease-in-out infinite;
+      transform: scale(1.2) rotate(15deg);
+      animation: kawaiiFloat 2s ease-in-out infinite;
     }
 
-    @keyframes heartbeat {
-      0%, 100% { transform: scale(1.3) rotate(15deg); }
-      50% { transform: scale(1.5) rotate(15deg); }
+    @keyframes kawaiiFloat {
+      0%, 100% { transform: scale(1.2) rotate(15deg) translateY(0px); }
+      50% { transform: scale(1.3) rotate(15deg) translateY(-5px); }
     }
 
-    .kawaii-service-card:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 25px 50px rgba(255, 182, 193, 0.3);
-      background: rgba(255, 255, 255, 0.95);
-      border-color: rgba(255, 182, 193, 0.6);
+    .service-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(255, 158, 199, 0.2);
+      background: rgba(255, 255, 255, 0.98);
+      border-color: rgba(255, 158, 199, 0.4);
     }
 
-    .kawaii-service-title {
+    .service-title {
       font-family: 'Comfortaa', cursive;
       font-size: 1.5rem;
       font-weight: 700;
-      color: #FFB6C1;
+      color: #FF9EC7;
       margin-bottom: 1rem;
       letter-spacing: 0.01em;
-      text-shadow: 0 0 10px rgba(255, 182, 193, 0.3);
     }
 
-    .kawaii-service-description {
-      color: #8B4B8B;
+    .service-description {
+      color: #6B4C7A;
       line-height: 1.7;
       margin-bottom: 2rem;
       font-size: 1rem;
     }
 
-    .kawaii-service-price {
+    .service-price {
       font-size: 2.25rem;
       font-weight: 700;
-      color: #E6E6FA;
+      color: #B8A9FF;
       margin-bottom: 0.5rem;
       letter-spacing: -0.02em;
-      text-shadow: 0 0 15px rgba(230, 230, 250, 0.5);
+      font-family: 'Comfortaa', cursive;
     }
 
-    .kawaii-service-duration {
-      color: #98FB98;
+    .service-duration {
+      color: #A8E6CF;
       font-size: 0.95rem;
       margin-bottom: 2rem;
       font-weight: 600;
       letter-spacing: 0.02em;
     }
 
-    /* Team Section */
-    .kawaii-team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2.5rem;
-      margin-top: 4rem;
-    }
-
-    .kawaii-team-member {
+    /* Team Section kawaii moderne */
+    .team-member {
       text-align: center;
       padding: 2.5rem 2rem;
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.9);
       border-radius: 2rem;
       transition: all 0.4s ease;
-      border: 2px solid rgba(255, 182, 193, 0.2);
+      border: 1px solid rgba(255, 158, 199, 0.2);
       position: relative;
       overflow: hidden;
+      box-shadow: 0 8px 30px rgba(255, 158, 199, 0.1);
     }
 
-    .kawaii-team-member::before {
+    .team-member::before {
       content: '';
       position: absolute;
       top: -50%;
       left: -50%;
       width: 200%;
       height: 200%;
-      background: radial-gradient(circle, rgba(255, 182, 193, 0.1) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(255, 158, 199, 0.08) 0%, transparent 70%);
       transform: scale(0);
       transition: transform 0.5s ease;
     }
 
-    .kawaii-team-member:hover::before {
+    .team-member:hover::before {
       transform: scale(1);
     }
 
-    .kawaii-team-member:hover {
-      transform: translateY(-8px);
-      background: rgba(255, 255, 255, 0.95);
-      box-shadow: 0 20px 40px rgba(255, 182, 193, 0.2);
-      border-color: rgba(255, 182, 193, 0.5);
+    .team-member:hover {
+      transform: translateY(-8px) scale(1.02);
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 20px 40px rgba(255, 158, 199, 0.2);
+      border-color: rgba(255, 158, 199, 0.4);
     }
 
-    .kawaii-team-avatar {
+    .team-avatar {
       width: 120px;
       height: 120px;
       border-radius: 50%;
       margin: 0 auto 1.5rem;
-      border: 4px solid #FFB6C1;
+      border: 3px solid #FF9EC7;
       object-fit: cover;
       transition: all 0.4s ease;
       position: relative;
       z-index: 2;
-      box-shadow: 0 0 20px rgba(255, 182, 193, 0.4);
+      box-shadow: 0 0 20px rgba(255, 158, 199, 0.3);
     }
 
-    .kawaii-team-member:hover .kawaii-team-avatar {
+    .team-member:hover .team-avatar {
       transform: scale(1.1);
-      border-color: #E6E6FA;
-      box-shadow: 0 0 30px rgba(230, 230, 250, 0.6);
+      border-color: #B8A9FF;
+      box-shadow: 0 0 30px rgba(184, 169, 255, 0.5);
     }
 
-    .kawaii-team-name {
+    .team-name {
       font-family: 'Comfortaa', cursive;
       font-size: 1.25rem;
       font-weight: 700;
-      color: #FFB6C1;
+      color: #FF9EC7;
       margin-bottom: 0.5rem;
       letter-spacing: 0.01em;
       position: relative;
       z-index: 2;
-      text-shadow: 0 0 10px rgba(255, 182, 193, 0.3);
     }
 
-    .kawaii-team-role {
-      color: #8B4B8B;
+    .team-role {
+      color: #6B4C7A;
       font-weight: 600;
       font-size: 1rem;
       position: relative;
@@ -521,93 +519,103 @@ export const pastelKawaiiTemplate: DesignTemplate = {
       letter-spacing: 0.02em;
     }
 
-    /* Contact Section */
-    .kawaii-contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2.5rem;
-      margin-top: 4rem;
-    }
-
-    .kawaii-contact-card {
-      background: rgba(255, 255, 255, 0.9);
+    /* Contact Section kawaii moderne */
+    .contact-info {
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(20px);
       border-radius: 2rem;
       padding: 2.5rem;
-      border: 2px solid rgba(255, 182, 193, 0.3);
+      border: 1px solid rgba(255, 158, 199, 0.2);
       position: relative;
       overflow: hidden;
+      box-shadow: 0 8px 30px rgba(255, 158, 199, 0.1);
+      transition: all 0.3s ease;
     }
 
-    .kawaii-contact-card::before {
+    .contact-info:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 40px rgba(255, 158, 199, 0.15);
+    }
+
+    .contact-info::before {
       content: '';
       position: absolute;
       top: 0;
       right: 0;
       width: 60px;
       height: 60px;
-      background: radial-gradient(circle, rgba(230, 230, 250, 0.3) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(184, 169, 255, 0.2) 0%, transparent 70%);
       border-radius: 0 2rem 0 2rem;
     }
 
-    .kawaii-contact-title {
+    .contact-title {
       font-family: 'Comfortaa', cursive;
       font-size: 1.5rem;
       font-weight: 700;
-      color: #FFB6C1;
+      color: #FF9EC7;
       margin-bottom: 2rem;
       letter-spacing: 0.01em;
-      text-shadow: 0 0 10px rgba(255, 182, 193, 0.3);
     }
 
-    .kawaii-contact-item {
+    .contact-item {
       display: flex;
       align-items: center;
       margin-bottom: 1.25rem;
       padding: 1rem;
       border-radius: 1rem;
       transition: all 0.3s ease;
+      color: #6B4C7A;
     }
 
-    .kawaii-contact-item:hover {
-      background: rgba(255, 182, 193, 0.1);
+    .contact-item:hover {
+      background: rgba(255, 158, 199, 0.08);
       transform: translateX(5px);
     }
 
-    .kawaii-contact-icon {
+    .contact-icon {
       width: 20px;
       height: 20px;
       margin-right: 1.25rem;
-      color: #E6E6FA;
+      color: #B8A9FF;
+      font-size: 1.125rem;
     }
 
-    .kawaii-hours-item {
+    .hours-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1rem 0;
-      border-bottom: 1px solid rgba(255, 182, 193, 0.2);
+      border-bottom: 1px solid rgba(255, 158, 199, 0.15);
+      transition: all 0.3s ease;
     }
 
-    .kawaii-hours-item:last-child {
+    .hours-item:last-child {
       border-bottom: none;
     }
 
-    .kawaii-hours-day {
-      font-weight: 700;
-      color: #FFB6C1;
-      letter-spacing: 0.02em;
+    .hours-item:hover {
+      background: rgba(255, 158, 199, 0.05);
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+      border-radius: 1rem;
     }
 
-    .kawaii-hours-time {
-      color: #8B4B8B;
+    .hours-day {
+      font-weight: 700;
+      color: #FF9EC7;
+      letter-spacing: 0.02em;
+      font-family: 'Comfortaa', cursive;
+    }
+
+    .hours-time {
+      color: #6B4C7A;
       font-size: 1rem;
       font-weight: 500;
     }
 
-    /* Footer */
-    .kawaii-footer {
-      background: linear-gradient(135deg, #FFB6C1 0%, #E6E6FA 100%);
+    /* Footer kawaii moderne */
+    .footer {
+      background: linear-gradient(135deg, #FF9EC7 0%, #B8A9FF 100%);
       color: white;
       padding: 4rem 0 2rem;
       margin-top: 5rem;
@@ -615,34 +623,33 @@ export const pastelKawaiiTemplate: DesignTemplate = {
       overflow: hidden;
     }
 
-    .kawaii-footer::before {
+    .footer::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="30" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="70" r="2" fill="rgba(255,255,255,0.08)"/><circle cx="50" cy="20" r="1.5" fill="rgba(255,255,255,0.12)"/></svg>') repeat;
-      background-size: 100px 100px;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="30" r="2" fill="rgba(255,255,255,0.08)"/><circle cx="80" cy="70" r="1.5" fill="rgba(255,255,255,0.06)"/><circle cx="50" cy="20" r="1" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+      background-size: 120px 120px;
     }
 
-    .kawaii-footer-content {
+    .footer-content {
       text-align: center;
       position: relative;
       z-index: 2;
     }
 
-    .kawaii-footer-logo {
+    .footer-logo {
       font-family: 'Comfortaa', cursive;
       font-size: 2rem;
       font-weight: 700;
       color: white;
       margin-bottom: 2rem;
       letter-spacing: 0.02em;
-      text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
     }
 
-    .kawaii-footer-text {
+    .footer-text {
       color: rgba(255, 255, 255, 0.9);
       margin-bottom: 3rem;
       font-size: 1.05rem;
@@ -652,17 +659,17 @@ export const pastelKawaiiTemplate: DesignTemplate = {
       margin-right: auto;
     }
 
-    .kawaii-social-links {
+    .social-links {
       display: flex;
       justify-content: center;
       gap: 2rem;
       margin-bottom: 3rem;
     }
 
-    .kawaii-social-link {
+    .social-link {
       width: 55px;
       height: 55px;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.15);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -670,19 +677,19 @@ export const pastelKawaiiTemplate: DesignTemplate = {
       color: white;
       text-decoration: none;
       transition: all 0.3s ease;
-      border: 2px solid rgba(255, 255, 255, 0.3);
+      border: 2px solid rgba(255, 255, 255, 0.2);
       font-size: 1.5rem;
     }
 
-    .kawaii-social-link:hover {
+    .social-link:hover {
       background: white;
-      color: #FFB6C1;
+      color: #FF9EC7;
       transform: translateY(-3px) scale(1.1);
       border-color: white;
       box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
     }
 
-    .kawaii-copyright {
+    .copyright {
       color: rgba(255, 255, 255, 0.8);
       font-size: 0.9rem;
       border-top: 1px solid rgba(255, 255, 255, 0.2);

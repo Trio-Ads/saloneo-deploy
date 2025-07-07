@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { 
   SparklesIcon, 
   RocketLaunchIcon, 
@@ -10,12 +11,22 @@ import {
   HeartIcon,
   CurrencyDollarIcon
 } from '@heroicons/react/24/outline';
-import { PlanCard } from './components/PlanCard';
+import { PlanCardWithDuration } from './components/PlanCardWithDuration';
+import { PaymentModal } from './components/PaymentModal';
+import { PaymentSuccess } from './components/PaymentSuccess';
+import { PaymentFailed } from './components/PaymentFailed';
 import { useSubscriptionStore } from './store';
-import { PLAN_LIMITS, PLAN_PRICES, PlanType, Plan } from './types';
+import { PLAN_LIMITS, PLAN_PRICES, PlanType, Plan, SubscriptionDuration } from './types';
+import { paymentService } from '../../services/paymentService';
 
 export const SubscriptionPage: React.FC = () => {
+  const { t } = useTranslation('subscription');
   const { subscription, updateSubscription } = useSubscriptionStore();
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<PlanType | null>(null);
+  const [selectedDuration, setSelectedDuration] = useState<SubscriptionDuration>(SubscriptionDuration.MONTHLY);
+  const [paymentStatus, setPaymentStatus] = useState<'idle' | 'success' | 'failed'>('idle');
+  const [paymentError, setPaymentError] = useState<string | undefined>();
 
   const plans: Plan[] = Object.values(PlanType).map((type) => ({
     type,
@@ -23,41 +34,125 @@ export const SubscriptionPage: React.FC = () => {
     price: PLAN_PRICES[type]
   }));
 
-  const handlePlanSelect = (planType: PlanType) => {
-    // Pour le moment, on met juste à jour le plan sans paiement
-    updateSubscription({
-      ...subscription,
-      currentPlan: planType,
-      startDate: new Date().toISOString()
-    });
+  // Check payment return parameters on load
+  useEffect(() => {
+    const paymentReturn = paymentService.parsePaymentReturn();
+    
+    console.log('Payment return parameters:', paymentReturn);
+    
+    if (paymentReturn.success) {
+      setPaymentStatus('success');
+      setSelectedPlan(paymentReturn.plan as PlanType || null);
+      // Update local subscription
+      if (paymentReturn.plan) {
+        updateSubscription({
+          ...subscription,
+          currentPlan: paymentReturn.plan as PlanType,
+          startDate: new Date().toISOString(),
+          lastTransactionId: paymentReturn.transactionId
+        });
+      }
+      paymentService.clearPaymentParams();
+    } else if (paymentReturn.error) {
+      setPaymentStatus('failed');
+      setPaymentError(paymentReturn.error);
+      paymentService.clearPaymentParams();
+    }
+  }, []);
+
+  const handlePlanSelect = (planType: PlanType, duration: SubscriptionDuration) => {
+    // Free plan: immediate activation
+    if (planType === PlanType.FREE) {
+      updateSubscription({
+        ...subscription,
+        currentPlan: planType,
+        duration: duration,
+        startDate: new Date().toISOString()
+      });
+      return;
+    }
+
+    // Paid plans: open payment modal
+    if (planType === PlanType.STARTER || planType === PlanType.PRO) {
+      setSelectedPlan(planType);
+      setSelectedDuration(duration);
+      setShowPaymentModal(true);
+      return;
+    }
+
+    // Enterprise plan: commercial contact
+    if (planType === PlanType.ENTERPRISE) {
+      window.location.href = 'mailto:enterprise@saloneo.com?subject=Enterprise plan request';
+    }
+  };
+
+  const handlePaymentModalClose = () => {
+    setShowPaymentModal(false);
+    setSelectedPlan(null);
+  };
+
+  const handleReturnToSubscriptions = () => {
+    setPaymentStatus('idle');
+    setPaymentError(undefined);
+    setSelectedPlan(null);
   };
 
   const features = [
     {
       icon: ShieldCheckIcon,
-      title: "Sécurité Premium",
-      description: "Vos données sont protégées avec un chiffrement de niveau bancaire"
+      title: t('features.security.title'),
+      description: t('features.security.description')
     },
     {
       icon: ArrowTrendingUpIcon,
-      title: "Croissance Garantie",
-      description: "Augmentez votre chiffre d'affaires de 30% en moyenne"
+      title: t('features.growth.title'),
+      description: t('features.growth.description')
     },
     {
       icon: HeartIcon,
-      title: "Support 24/7",
-      description: "Une équipe dédiée pour vous accompagner à chaque étape"
+      title: t('features.support.title'),
+      description: t('features.support.description')
     }
   ];
 
+  // Show success page if payment is successful
+  if (paymentStatus === 'success') {
+    return (
+      <PaymentSuccess
+        planName={selectedPlan || undefined}
+        onContinue={handleReturnToSubscriptions}
+      />
+    );
+  }
+
+  // Show failure page if payment failed
+  if (paymentStatus === 'failed') {
+    return (
+      <PaymentFailed
+        errorCode={paymentError}
+        onRetry={handleReturnToSubscriptions}
+        onBack={handleReturnToSubscriptions}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      {/* Payment modal */}
+      {selectedPlan && (
+        <PaymentModal
+          isOpen={showPaymentModal}
+          onClose={handlePaymentModalClose}
+          planType={selectedPlan}
+          duration={selectedDuration}
+        />
+      )}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
-        {/* HERO HEADER SPECTACULAIRE */}
+        {/* SPECTACULAR HERO HEADER */}
         <div className="relative mb-16">
           <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-12 overflow-hidden">
-            {/* Particules flottantes */}
+            {/* Floating particles */}
             <div className="absolute inset-0 overflow-hidden">
               <div className="absolute top-10 left-10 w-2 h-2 bg-indigo-400 rounded-full animate-pulse"></div>
               <div className="absolute top-20 right-20 w-1 h-1 bg-purple-400 rounded-full animate-bounce"></div>
@@ -66,7 +161,7 @@ export const SubscriptionPage: React.FC = () => {
             </div>
 
             <div className="relative text-center">
-              {/* Icône principale avec animation */}
+              {/* Main icon with animation */}
               <div className="flex justify-center mb-8">
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-3xl blur-2xl opacity-30 animate-pulse"></div>
@@ -76,42 +171,40 @@ export const SubscriptionPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Titre avec effet gradient animé */}
+              {/* Title with animated gradient effect */}
               <h1 className="text-6xl font-bold mb-6 bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 bg-clip-text text-transparent animate-pulse">
-                Choisissez Votre Plan
+                {t('page.title')}
               </h1>
               
               <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-                Transformez votre salon avec Saloneo et rejoignez plus de{' '}
-                <span className="font-bold text-indigo-600">10,000+ professionnels</span>{' '}
-                qui ont révolutionné leur activité
+                {t('page.subtitle')}
               </p>
 
-              {/* Badges de confiance */}
+              {/* Trust badges */}
               <div className="flex flex-wrap justify-center items-center gap-6 mb-8">
                 <div className="flex items-center bg-green-50 px-4 py-2 rounded-full border border-green-200">
                   <CheckCircleIcon className="h-5 w-5 text-green-500 mr-2" />
-                  <span className="text-green-700 font-medium">Essai gratuit 14 jours</span>
+                  <span className="text-green-700 font-medium">{t('badges.free_trial')}</span>
                 </div>
                 <div className="flex items-center bg-blue-50 px-4 py-2 rounded-full border border-blue-200">
                   <ShieldCheckIcon className="h-5 w-5 text-blue-500 mr-2" />
-                  <span className="text-blue-700 font-medium">Sans engagement</span>
+                  <span className="text-blue-700 font-medium">{t('badges.no_commitment')}</span>
                 </div>
                 <div className="flex items-center bg-purple-50 px-4 py-2 rounded-full border border-purple-200">
                   <StarIcon className="h-5 w-5 text-purple-500 mr-2" />
-                  <span className="text-purple-700 font-medium">Support premium</span>
+                  <span className="text-purple-700 font-medium">{t('badges.premium_support')}</span>
                 </div>
               </div>
 
-              {/* Promotion flash */}
+              {/* Flash promotion */}
               <div className="inline-block bg-gradient-to-r from-red-500 to-pink-600 text-white px-8 py-3 rounded-full font-bold text-lg shadow-xl animate-pulse">
-                🔥 OFFRE LIMITÉE : -40% sur tous les plans ! 🔥
+                {t('promotion.limited_offer')}
               </div>
             </div>
           </div>
         </div>
 
-        {/* GRILLE DES PLANS */}
+        {/* PLANS GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {plans.map((plan, index) => (
             <div 
@@ -119,7 +212,7 @@ export const SubscriptionPage: React.FC = () => {
               className="animate-fade-in"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <PlanCard
+              <PlanCardWithDuration
                 plan={plan}
                 isCurrentPlan={plan.type === subscription.currentPlan}
                 onSelect={handlePlanSelect}
@@ -128,14 +221,14 @@ export const SubscriptionPage: React.FC = () => {
           ))}
         </div>
 
-        {/* SECTION POURQUOI BEAUTY FLOW */}
+        {/* WHY SALONEO SECTION */}
         <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-12 mb-16">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              Pourquoi choisir Saloneo ?
+              {t('page.why_choose')}
             </h2>
             <p className="text-xl text-gray-600">
-              La solution complète pour faire prospérer votre salon de beauté
+              {t('page.why_subtitle')}
             </p>
           </div>
 
@@ -155,31 +248,31 @@ export const SubscriptionPage: React.FC = () => {
           </div>
         </div>
 
-        {/* TÉMOIGNAGES */}
+        {/* TESTIMONIALS */}
         <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-3xl shadow-2xl p-12 text-white mb-16">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Ce que disent nos clients</h2>
-            <p className="text-xl opacity-90">Plus de 10,000 professionnels nous font confiance</p>
+            <h2 className="text-4xl font-bold mb-4">{t('testimonials.title')}</h2>
+            <p className="text-xl opacity-90">{t('testimonials.subtitle')}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                name: "Marie Dubois",
-                salon: "Salon Élégance",
-                text: "Saloneo a transformé ma façon de travailler. +50% de réservations en 3 mois !",
+                name: t('testimonials.marie.name'),
+                salon: t('testimonials.marie.salon'),
+                text: t('testimonials.marie.text'),
                 rating: 5
               },
               {
-                name: "Sophie Martin",
-                salon: "Beauty Paradise",
-                text: "Interface intuitive et support exceptionnel. Je recommande vivement !",
+                name: t('testimonials.sophie.name'),
+                salon: t('testimonials.sophie.salon'),
+                text: t('testimonials.sophie.text'),
                 rating: 5
               },
               {
-                name: "Amélie Laurent",
-                salon: "Coiffure Moderne",
-                text: "Mes clients adorent pouvoir réserver en ligne. Un vrai plus pour mon salon !",
+                name: t('testimonials.amelie.name'),
+                salon: t('testimonials.amelie.salon'),
+                text: t('testimonials.amelie.text'),
                 rating: 5
               }
             ].map((testimonial, index) => (
@@ -203,23 +296,23 @@ export const SubscriptionPage: React.FC = () => {
         <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-12">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              Questions Fréquentes
+              {t('faq.title')}
             </h2>
           </div>
 
           <div className="max-w-4xl mx-auto space-y-6">
             {[
               {
-                q: "Puis-je changer de plan à tout moment ?",
-                a: "Oui, vous pouvez upgrader ou downgrader votre plan à tout moment. Les changements prennent effet immédiatement."
+                q: t('faq.change_plan.q'),
+                a: t('faq.change_plan.a')
               },
               {
-                q: "Y a-t-il des frais cachés ?",
-                a: "Aucun frais caché ! Le prix affiché est tout compris. Pas de frais de setup, pas de commission sur les ventes."
+                q: t('faq.hidden_fees.q'),
+                a: t('faq.hidden_fees.a')
               },
               {
-                q: "Que se passe-t-il si j'annule mon abonnement ?",
-                a: "Vous gardez l'accès jusqu'à la fin de votre période de facturation. Vos données sont conservées 30 jours."
+                q: t('faq.cancel.q'),
+                a: t('faq.cancel.a')
               }
             ].map((faq, index) => (
               <div key={index} className="bg-white/50 rounded-2xl p-6 hover:bg-white/80 transition-all duration-300">
@@ -230,13 +323,13 @@ export const SubscriptionPage: React.FC = () => {
           </div>
         </div>
 
-        {/* CTA FINAL */}
+        {/* FINAL CTA */}
         <div className="text-center mt-16">
           <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-3xl p-8 text-white">
-            <h2 className="text-3xl font-bold mb-4">Prêt à transformer votre salon ?</h2>
-            <p className="text-xl mb-6 opacity-90">Rejoignez des milliers de professionnels satisfaits</p>
+            <h2 className="text-3xl font-bold mb-4">{t('cta.title')}</h2>
+            <p className="text-xl mb-6 opacity-90">{t('cta.subtitle')}</p>
             <button className="bg-white text-indigo-600 px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 shadow-xl">
-              Commencer l'essai gratuit
+              {t('cta.button')}
             </button>
           </div>
         </div>

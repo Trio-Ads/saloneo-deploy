@@ -4,25 +4,28 @@ export const urbanStreetArtTemplate: DesignTemplate = {
   id: 'urban-street-art',
   name: 'Urban Barbershop',
   category: 'creative',
-  description: 'Design masculin moderne avec effets néon, graffitis urbains et esthétique barbershop',
+  description: 'Design urbain masculin avec effets néon, style street art et esthétique barbershop moderne pour une clientèle masculine',
   preview: '/templates/previews/urban-street-art.jpg',
   theme: {
     colors: {
-      primary: '#FF6B35',
-      secondary: '#00D4FF',
-      accent: '#FFD23F',
-      background: '#0F0F0F',
-      surface: '#1C1C1C',
-      text: '#FFFFFF',
-      textSecondary: '#B8B8B8',
+      primary: '#FF6B35', // Orange industriel barbershop
+      secondary: '#00D4FF', // Bleu électrique néon
+      accent: '#FFD23F', // Jaune néon street art
+      background: '#0F0F0F', // Noir profond urbain
+      surface: '#1C1C1C', // Gris foncé industriel
+      text: '#FFFFFF', // Blanc pur
+      textSecondary: '#B8B8B8', // Gris clair
       custom: {
-        neonOrange: '#FF6B35',
-        electricBlue: '#00D4FF',
-        goldYellow: '#FFD23F',
-        neonGreen: '#39FF14',
-        darkCharcoal: '#1C1C1C',
-        steelGray: '#2A2A2A',
-        crimsonRed: '#DC143C'
+        neonOrange: '#FF6B35', // Orange néon
+        electricBlue: '#00D4FF', // Bleu électrique
+        neonYellow: '#FFD23F', // Jaune néon
+        neonGreen: '#39FF14', // Vert néon
+        darkCharcoal: '#1C1C1C', // Charbon foncé
+        steelGray: '#2A2A2A', // Gris acier
+        crimsonRed: '#DC143C', // Rouge crimson
+        gradient1: '#FF6B35',
+        gradient2: '#00D4FF',
+        gradient3: '#FFD23F'
       }
     },
     typography: {
@@ -109,7 +112,7 @@ export const urbanStreetArtTemplate: DesignTemplate = {
   customCSS: `
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
     
-    .urban-barbershop-2025 {
+    .urban-street-art {
       font-family: 'Rajdhani', sans-serif;
       background: linear-gradient(135deg, #0F0F0F 0%, #1C1C1C 100%);
       min-height: 100vh;
@@ -117,8 +120,14 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       overflow-x: hidden;
     }
 
-    /* Urban Background Pattern */
-    .urban-barbershop-2025::before {
+    .urban-street-art h1, 
+    .urban-street-art h2, 
+    .urban-street-art h3 {
+      font-family: 'Orbitron', monospace;
+    }
+
+    /* Background urbain néon */
+    .urban-street-art::before {
       content: '';
       position: fixed;
       top: 0;
@@ -134,8 +143,8 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       z-index: 0;
     }
 
-    /* Neon Grid Animation */
-    .urban-barbershop-2025::after {
+    /* Grille néon animée */
+    .urban-street-art::after {
       content: '';
       position: fixed;
       top: -10%;
@@ -154,8 +163,8 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       100% { transform: translateX(-100px) translateY(-100px); }
     }
 
-    /* Navigation */
-    .urban-navbar {
+    /* Navigation barbershop urbaine */
+    .navbar {
       background: rgba(15, 15, 15, 0.95);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
@@ -169,12 +178,12 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .urban-navbar.scrolled {
+    .navbar.scrolled {
       background: rgba(15, 15, 15, 0.98);
       box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
     }
 
-    .urban-logo {
+    .nav-logo {
       font-family: 'Orbitron', monospace;
       font-size: 1.75rem;
       font-weight: 800;
@@ -185,7 +194,7 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       text-transform: uppercase;
     }
 
-    .urban-logo::after {
+    .nav-logo::after {
       content: '⚡';
       margin-left: 0.5rem;
       font-size: 1.2rem;
@@ -197,7 +206,7 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       50% { transform: scale(1.3) rotate(180deg); opacity: 1; }
     }
 
-    .urban-nav-link {
+    .nav-link {
       color: #B8B8B8;
       text-decoration: none;
       font-weight: 600;
@@ -211,7 +220,7 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       font-size: 0.9rem;
     }
 
-    .urban-nav-link::before {
+    .nav-link::before {
       content: '';
       position: absolute;
       top: 0;
@@ -222,19 +231,19 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       transition: left 0.5s;
     }
 
-    .urban-nav-link:hover::before {
+    .nav-link:hover::before {
       left: 100%;
     }
 
-    .urban-nav-link:hover {
+    .nav-link:hover {
       color: #FF6B35;
       background: rgba(255, 107, 53, 0.1);
       transform: translateY(-1px);
       text-shadow: 0 0 8px rgba(255, 107, 53, 0.6);
     }
 
-    /* Hero Section */
-    .urban-hero {
+    /* Hero Section barbershop urbain */
+    .hero-section {
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -243,13 +252,13 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       background: linear-gradient(135deg, rgba(15, 15, 15, 0.9) 0%, rgba(28, 28, 28, 0.8) 100%);
     }
 
-    .urban-hero-content {
+    .hero-content {
       position: relative;
       z-index: 2;
       text-align: center;
     }
 
-    .urban-hero-title {
+    .hero-title {
       font-family: 'Orbitron', monospace;
       font-size: clamp(2.5rem, 6vw, 4.5rem);
       font-weight: 900;
@@ -262,7 +271,7 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       text-transform: uppercase;
     }
 
-    .urban-hero-title::after {
+    .hero-title::after {
       content: '';
       position: absolute;
       bottom: -15px;
@@ -275,7 +284,7 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       box-shadow: 0 0 15px rgba(255, 107, 53, 0.8);
     }
 
-    .urban-hero-subtitle {
+    .hero-subtitle {
       font-size: 1.25rem;
       color: #B8B8B8;
       margin-bottom: 3rem;
@@ -287,8 +296,8 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       letter-spacing: 0.02em;
     }
 
-    /* Buttons */
-    .urban-btn-primary {
+    /* Boutons barbershop urbains */
+    .btn-primary {
       background: linear-gradient(135deg, #FF6B35 0%, #DC143C 100%);
       color: #FFFFFF;
       border: none;
@@ -303,9 +312,10 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       text-transform: uppercase;
       letter-spacing: 0.1em;
       box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+      font-family: 'Rajdhani', sans-serif;
     }
 
-    .urban-btn-primary::before {
+    .btn-primary::before {
       content: '';
       position: absolute;
       top: 0;
@@ -316,17 +326,17 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       transition: left 0.6s;
     }
 
-    .urban-btn-primary:hover::before {
+    .btn-primary:hover::before {
       left: 100%;
     }
 
-    .urban-btn-primary:hover {
+    .btn-primary:hover {
       transform: translateY(-3px) scale(1.05);
       box-shadow: 0 12px 35px rgba(255, 107, 53, 0.6);
       text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
     }
 
-    .urban-btn-secondary {
+    .btn-secondary {
       background: transparent;
       color: #00D4FF;
       border: 2px solid #00D4FF;
@@ -338,24 +348,18 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       text-transform: uppercase;
       letter-spacing: 0.1em;
       backdrop-filter: blur(10px);
+      font-family: 'Rajdhani', sans-serif;
     }
 
-    .urban-btn-secondary:hover {
+    .btn-secondary:hover {
       background: #00D4FF;
       color: #0F0F0F;
       transform: translateY(-2px);
       box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
     }
 
-    /* Service Cards */
-    .urban-services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 2.5rem;
-      margin-top: 4rem;
-    }
-
-    .urban-service-card {
+    /* Service Cards barbershop urbaines */
+    .service-card {
       background: rgba(28, 28, 28, 0.9);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
@@ -367,7 +371,7 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       overflow: hidden;
     }
 
-    .urban-service-card::before {
+    .service-card::before {
       content: '';
       position: absolute;
       top: 0;
@@ -379,12 +383,12 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       transition: transform 0.4s ease;
     }
 
-    .urban-service-card:hover::before {
+    .service-card:hover::before {
       transform: scaleX(1);
     }
 
-    .urban-service-card::after {
-      content: '✂️';
+    .service-card::after {
+      content: '⚡';
       position: absolute;
       top: 1.5rem;
       right: 1.5rem;
@@ -393,19 +397,19 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       transition: all 0.3s ease;
     }
 
-    .urban-service-card:hover::after {
+    .service-card:hover::after {
       opacity: 0.8;
       transform: scale(1.2) rotate(15deg);
     }
 
-    .urban-service-card:hover {
+    .service-card:hover {
       transform: translateY(-8px) scale(1.02);
       box-shadow: 0 20px 40px rgba(255, 107, 53, 0.3);
       background: rgba(28, 28, 28, 0.95);
       border-color: rgba(255, 107, 53, 0.6);
     }
 
-    .urban-service-title {
+    .service-title {
       font-family: 'Orbitron', monospace;
       font-size: 1.5rem;
       font-weight: 700;
@@ -416,14 +420,14 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       text-transform: uppercase;
     }
 
-    .urban-service-description {
+    .service-description {
       color: #B8B8B8;
       line-height: 1.6;
       margin-bottom: 2rem;
       font-size: 1rem;
     }
 
-    .urban-service-price {
+    .service-price {
       font-size: 2rem;
       font-weight: 700;
       color: #00D4FF;
@@ -432,7 +436,7 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       text-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
     }
 
-    .urban-service-duration {
+    .service-duration {
       color: #FFD23F;
       font-size: 0.9rem;
       margin-bottom: 2rem;
@@ -441,15 +445,8 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       letter-spacing: 0.05em;
     }
 
-    /* Team Section */
-    .urban-team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2.5rem;
-      margin-top: 4rem;
-    }
-
-    .urban-team-member {
+    /* Team Section barbershop */
+    .team-member {
       text-align: center;
       padding: 2.5rem 2rem;
       background: rgba(28, 28, 28, 0.8);
@@ -460,7 +457,7 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       overflow: hidden;
     }
 
-    .urban-team-member::before {
+    .team-member::before {
       content: '';
       position: absolute;
       top: -50%;
@@ -472,18 +469,18 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       transition: transform 0.5s ease;
     }
 
-    .urban-team-member:hover::before {
+    .team-member:hover::before {
       transform: scale(1);
     }
 
-    .urban-team-member:hover {
+    .team-member:hover {
       transform: translateY(-8px);
       background: rgba(28, 28, 28, 0.95);
       box-shadow: 0 15px 30px rgba(255, 107, 53, 0.2);
       border-color: rgba(255, 107, 53, 0.5);
     }
 
-    .urban-team-avatar {
+    .team-avatar {
       width: 120px;
       height: 120px;
       border-radius: 50%;
@@ -496,13 +493,13 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       box-shadow: 0 0 20px rgba(255, 107, 53, 0.4);
     }
 
-    .urban-team-member:hover .urban-team-avatar {
+    .team-member:hover .team-avatar {
       transform: scale(1.1);
       border-color: #00D4FF;
       box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
     }
 
-    .urban-team-name {
+    .team-name {
       font-family: 'Orbitron', monospace;
       font-size: 1.25rem;
       font-weight: 700;
@@ -515,7 +512,7 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       text-transform: uppercase;
     }
 
-    .urban-team-role {
+    .team-role {
       color: #B8B8B8;
       font-weight: 600;
       font-size: 1rem;
@@ -525,15 +522,8 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       letter-spacing: 0.05em;
     }
 
-    /* Contact Section */
-    .urban-contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2.5rem;
-      margin-top: 4rem;
-    }
-
-    .urban-contact-card {
+    /* Contact Section barbershop */
+    .contact-info {
       background: rgba(28, 28, 28, 0.9);
       backdrop-filter: blur(20px);
       border-radius: 0.5rem;
@@ -541,9 +531,15 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       border: 1px solid rgba(255, 107, 53, 0.3);
       position: relative;
       overflow: hidden;
+      transition: all 0.3s ease;
     }
 
-    .urban-contact-card::before {
+    .contact-info:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px rgba(255, 107, 53, 0.1);
+    }
+
+    .contact-info::before {
       content: '';
       position: absolute;
       top: 0;
@@ -554,7 +550,7 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       border-radius: 0 0.5rem 0 0.5rem;
     }
 
-    .urban-contact-title {
+    .contact-title {
       font-family: 'Orbitron', monospace;
       font-size: 1.5rem;
       font-weight: 700;
@@ -565,54 +561,65 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       text-transform: uppercase;
     }
 
-    .urban-contact-item {
+    .contact-item {
       display: flex;
       align-items: center;
       margin-bottom: 1.25rem;
       padding: 1rem;
       border-radius: 0.25rem;
       transition: all 0.3s ease;
+      color: #FFFFFF;
     }
 
-    .urban-contact-item:hover {
+    .contact-item:hover {
       background: rgba(255, 107, 53, 0.1);
       transform: translateX(5px);
     }
 
-    .urban-contact-icon {
+    .contact-icon {
       width: 20px;
       height: 20px;
       margin-right: 1.25rem;
       color: #00D4FF;
+      font-size: 1.125rem;
     }
 
-    .urban-hours-item {
+    .hours-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1rem 0;
       border-bottom: 1px solid rgba(255, 107, 53, 0.2);
+      transition: all 0.3s ease;
     }
 
-    .urban-hours-item:last-child {
+    .hours-item:last-child {
       border-bottom: none;
     }
 
-    .urban-hours-day {
+    .hours-item:hover {
+      background: rgba(255, 107, 53, 0.05);
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+      border-radius: 0.25rem;
+    }
+
+    .hours-day {
       font-weight: 700;
       color: #FF6B35;
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      font-family: 'Orbitron', monospace;
     }
 
-    .urban-hours-time {
+    .hours-time {
       color: #B8B8B8;
       font-size: 1rem;
       font-weight: 500;
     }
 
-    /* Footer */
-    .urban-footer {
+    /* Footer barbershop */
+    .footer {
       background: linear-gradient(135deg, #0F0F0F 0%, #000000 100%);
       color: #B8B8B8;
       padding: 4rem 0 2rem;
@@ -622,7 +629,7 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       border-top: 2px solid rgba(255, 107, 53, 0.3);
     }
 
-    .urban-footer::before {
+    .footer::before {
       content: '';
       position: absolute;
       top: 0;
@@ -633,13 +640,13 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       background-size: 100px 100px;
     }
 
-    .urban-footer-content {
+    .footer-content {
       text-align: center;
       position: relative;
       z-index: 2;
     }
 
-    .urban-footer-logo {
+    .footer-logo {
       font-family: 'Orbitron', monospace;
       font-size: 2rem;
       font-weight: 900;
@@ -650,7 +657,7 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       text-transform: uppercase;
     }
 
-    .urban-footer-text {
+    .footer-text {
       color: rgba(184, 184, 184, 0.8);
       margin-bottom: 3rem;
       font-size: 1.05rem;
@@ -660,14 +667,14 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       margin-right: auto;
     }
 
-    .urban-social-links {
+    .social-links {
       display: flex;
       justify-content: center;
       gap: 2rem;
       margin-bottom: 3rem;
     }
 
-    .urban-social-link {
+    .social-link {
       width: 55px;
       height: 55px;
       background: rgba(255, 107, 53, 0.1);
@@ -682,7 +689,7 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       font-size: 1.5rem;
     }
 
-    .urban-social-link:hover {
+    .social-link:hover {
       background: #FF6B35;
       color: #0F0F0F;
       transform: translateY(-3px) scale(1.1);
@@ -690,7 +697,7 @@ export const urbanStreetArtTemplate: DesignTemplate = {
       box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
     }
 
-    .urban-copyright {
+    .copyright {
       color: rgba(184, 184, 184, 0.6);
       font-size: 0.9rem;
       border-top: 1px solid rgba(255, 107, 53, 0.2);

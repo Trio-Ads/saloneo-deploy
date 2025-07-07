@@ -1,0 +1,43 @@
+{
+  "title": "Tarbaɛt",
+  "addMember": "Rnu aɛeggal",
+  "editMember": "Ẓreg aɛeggal",
+  "deleteMember": "Kkes aɛeggal",
+  "memberName": "Isem n uɛeggal",
+  "firstName": "Isem amezwaru",
+  "lastName": "Isem n tawacult",
+  "email": "Imayl",
+  "phone": "Tiliɣri",
+  "role": "Tamlilt",
+  "specialties": "Tiɣaṛa",
+  "schedule": "Ahil",
+  "salary": "Aɣaras",
+  "commission": "Taɛkkumt",
+  "hireDate": "Azemz n uxeddim",
+  "status": "Addad",
+  "noMembers": "Ulac iɛeggalen",
+  "searchMembers": "Nadi iɛeggalen",
+  "totalMembers": "Amḍan n iɛeggalen",
+  "activeMembers": "Iɛeggalen urmiden",
+  "performance": "Tamellit",
+  "workingHours": "Isragen n uxeddim",
+  "availability": "Tiwejda",
+  "roles": {
+    "owner": "Bab",
+    "manager": "Amsefrak",
+    "stylist": "Asbedday",
+    "colorist": "Asemlay",
+    "barber": "Amqess",
+    "esthetician": "Asaḥay",
+    "receptionist": "Amseɣbel",
+    "assistant": "Aɛiwen",
+    "other": "Wayeḍ"
+  },
+  "form": {
+    "personalInfo": "Talɣut tudmawant",
+    "contactInfo": "Talɣut n unermis",
+    "workInfo": "Talɣut n uxeddim",
+    "save": "Sekles",
+    "cancel": "Sefsex"
+  }
+}

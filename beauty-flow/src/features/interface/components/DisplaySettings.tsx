@@ -6,7 +6,8 @@ import {
   Squares2X2Icon,
   ClockIcon,
   ChartBarIcon,
-  FireIcon
+  FireIcon,
+  EyeSlashIcon
 } from '@heroicons/react/24/outline';
 import { InterfaceSettings } from '../types';
 
@@ -25,8 +26,9 @@ const DisplaySettings: React.FC<DisplaySettingsProps> = ({ settings, onChange })
 
   const priceOptions = [
     { value: 'fixed', label: 'Prix fixe', icon: CurrencyDollarIcon, description: 'Afficher le prix exact' },
-    { value: 'from', label: 'À partir de', icon: ChartBarIcon, description: 'Afficher "À partir de X€"' },
-    { value: 'range', label: 'Fourchette de prix', icon: CurrencyDollarIcon, description: 'Afficher "X€ - Y€"' }
+    { value: 'from', label: 'Environ', icon: ChartBarIcon, description: 'Afficher "Environ X€"' },
+    { value: 'range', label: 'Fourchette environ', icon: CurrencyDollarIcon, description: 'Afficher "Environ X€ - Y€"' },
+    { value: 'hidden', label: 'Masquer les prix', icon: EyeSlashIcon, description: 'Ne pas afficher les prix' }
   ];
 
   return (
@@ -97,7 +99,7 @@ const DisplaySettings: React.FC<DisplaySettingsProps> = ({ settings, onChange })
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {priceOptions.map((option) => {
             const IconComponent = option.icon;
             const isSelected = settings.priceDisplay === option.value;
