@@ -9,17 +9,18 @@ const stabilityService = new StabilityAIServiceExtended();
 const imageCache = new Map<string, any>();
 const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 heures
 
-export const generateMarketingImages = async (req: Request, res: Response) => {
+export const generateMarketingImages = async (_req: Request, res: Response) => {
   try {
     const cacheKey = 'marketing-images-v2';
     const cached = imageCache.get(cacheKey);
     
     if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
-      return res.json({
+      res.json({
         success: true,
         images: cached.images,
         fromCache: true
       });
+      return;
     }
 
     console.log('🎨 Génération des images marketing...');
@@ -102,17 +103,18 @@ export const generateMarketingImages = async (req: Request, res: Response) => {
   }
 };
 
-export const generateLogo = async (req: Request, res: Response) => {
+export const generateLogo = async (_req: Request, res: Response) => {
   try {
     const cacheKey = 'saloneo-logo-v2';
     const cached = imageCache.get(cacheKey);
     
     if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
-      return res.json({
+      res.json({
         success: true,
         logo: cached.logo,
         fromCache: true
       });
+      return;
     }
 
     console.log('🎨 Génération du logo Saloneo...');
@@ -185,7 +187,7 @@ export const generateLogo = async (req: Request, res: Response) => {
 };
 
 // Endpoint pour tracker les visites
-export const trackVisit = async (req: Request, res: Response) => {
+export const trackVisit = async (_req: Request, res: Response) => {
   try {
     // Ici vous pouvez implémenter le tracking des visites
     // Par exemple, sauvegarder dans la base de données
@@ -221,17 +223,18 @@ export const captureLead = async (req: Request, res: Response) => {
 };
 
 // Endpoint pour obtenir les avatars des témoignages
-export const generateTestimonialAvatars = async (req: Request, res: Response) => {
+export const generateTestimonialAvatars = async (_req: Request, res: Response) => {
   try {
     const cacheKey = 'testimonial-avatars';
     const cached = imageCache.get(cacheKey);
     
     if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
-      return res.json({
+      res.json({
         success: true,
         avatars: cached.avatars,
         fromCache: true
       });
+      return;
     }
 
     console.log('🎨 Génération des avatars de témoignages...');

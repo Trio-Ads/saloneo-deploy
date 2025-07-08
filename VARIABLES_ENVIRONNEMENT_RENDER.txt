@@ -1,0 +1,49 @@
+# 🔧 VARIABLES D'ENVIRONNEMENT RENDER - COPIER-COLLER
+
+## Variables OBLIGATOIRES (à ajouter dans Render Dashboard)
+
+NODE_ENV=production
+PORT=10000
+JWT_EXPIRES_IN=7d
+FRONTEND_URL=https://saloneo-deploy.onrender.com
+CORS_ORIGIN=https://saloneo-deploy.onrender.com
+
+## Variables AUTO-GÉNÉRÉES par Render (ne pas toucher)
+# DATABASE_URL=[Render génère automatiquement quand tu ajoutes PostgreSQL]
+# JWT_SECRET=[Cocher "Generate Value" dans Render]
+# JWT_REFRESH_SECRET=[Cocher "Generate Value" dans Render]
+
+## Variables OPTIONNELLES (recommandées)
+
+JWT_REFRESH_EXPIRES_IN=30d
+MAX_FILE_SIZE=5242880
+UPLOAD_DIR=uploads
+RATE_LIMIT_WINDOW_MS=900000
+RATE_LIMIT_MAX_REQUESTS=100
+LOG_LEVEL=info
+
+## 📋 CHECKLIST DÉPLOIEMENT
+
+✅ 1. Créer Web Service sur Render
+✅ 2. Connecter repo: https://github.com/Trio-Ads/saloneo-deploy
+✅ 3. Build Command: echo "=== INSTALLATION BACKEND ===" && cd beauty-flow-backend && npm install && echo "=== BUILD BACKEND ===" && npm run build && echo "=== INSTALLATION FRONTEND ===" && cd ../beauty-flow && npm install && echo "=== BUILD FRONTEND ===" && npm run build && echo "=== COPIE FRONTEND VERS BACKEND ===" && cp -r dist/* ../beauty-flow-backend/dist/public/ && echo "=== BUILD TERMINÉ ==="
+✅ 4. Start Command: cd beauty-flow-backend && npm start
+✅ 5. Ajouter toutes les variables ci-dessus
+✅ 6. Ajouter PostgreSQL Database
+✅ 7. Activer Auto-Deploy
+✅ 8. Health Check Path: /health
+
+## 🎯 RÉSULTAT FINAL
+
+URL: https://saloneo-deploy.onrender.com
+API: https://saloneo-deploy.onrender.com/api/
+Health: https://saloneo-deploy.onrender.com/health
+
+## 🚨 SI ÇA MARCHE PAS
+
+1. Vérifie les logs dans Render Dashboard
+2. Assure-toi que PostgreSQL est connecté
+3. Vérifie que toutes les variables sont bien définies
+4. Redéploie manuellement si besoin
+
+TOUT EST PRÊT POUR LE DÉPLOIEMENT !
