@@ -20,7 +20,7 @@ services:
       mkdir -p ../beauty-flow-backend/dist/public &&
       cp -r dist/* ../beauty-flow-backend/dist/public/ &&
       echo "=== BUILD TERMINÉ ==="
-    startCommand: cd beauty-flow-backend && npm start
+    startCommand: node server-deploy.js
     autoDeploy: true
     envVars:
       - key: NODE_ENV
@@ -28,12 +28,26 @@ services:
       - key: PORT
         value: 10000
       - key: MONGODB_URI
-        value: mongodb+srv://saloneo-user:s8OfObmiaiug2zOt@clustertriogeneral.hvkpnvh.mongodb.net/saloneo?retryWrites=true&w=majority&appName=ClusterTrioGeneral
+        value: mongodb+srv://saloneo-user:s8OfObmiaiug2zOt@cluster0.es8njbw.mongodb.net/saloneo?retryWrites=true&w=majority&appName=Cluster0
       - key: JWT_SECRET
         generateValue: true
       - key: JWT_EXPIRES_IN
         value: 7d
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_EXPIRES_IN
+        value: 30d
       - key: FRONTEND_URL
         value: https://saloneo-deploy.onrender.com
       - key: CORS_ORIGIN
         value: https://saloneo-deploy.onrender.com
+      - key: MAX_FILE_SIZE
+        value: 5242880
+      - key: UPLOAD_DIR
+        value: uploads
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 900000
+      - key: RATE_LIMIT_MAX_REQUESTS
+        value: 100
+      - key: LOG_LEVEL
+        value: info

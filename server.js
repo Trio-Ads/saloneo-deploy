@@ -84,11 +84,25 @@ const connectDB = async () => {
 let backendApp = null;
 try {
   // Try to import the compiled backend first
-  backendApp = require('./beauty-flow-backend/dist/app.js');
+  const backendModule = require('./beauty-flow-backend/dist/app.js');
+  backendApp = backendModule.default || backendModule;
   console.log('✅ Backend loaded from compiled dist');
+  
+  // Mount backend routes - the backend app already has /api routes defined
+  app.use('/', backendApp);
+  console.log('✅ Backend API routes mounted');
 } catch (error) {
   console.warn('⚠️  Backend not available:', error.message);
   console.log('🔄 Continuing with frontend-only mode...');
+  
+  // Add fallback API routes when backend is not available
+  app.use('/api/*', (req, res) => {
+    res.status(503).json({
+      error: 'Service Unavailable',
+      message: 'Backend API is not available. Please try again later.',
+      timestamp: new Date().toISOString()
+    });
+  });
 }
 
 // Health check endpoint
