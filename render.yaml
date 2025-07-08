@@ -20,7 +20,7 @@ services:
       mkdir -p ../beauty-flow-backend/dist/public &&
       cp -r dist/* ../beauty-flow-backend/dist/public/ &&
       echo "=== BUILD TERMINÉ ==="
-    startCommand: node server-deploy.js
+    startCommand: node server.js
     autoDeploy: true
     envVars:
       - key: NODE_ENV
@@ -28,7 +28,7 @@ services:
       - key: PORT
         value: 10000
       - key: MONGODB_URI
-        value: mongodb+srv://saloneo-user:s8OfObmiaiug2zOt@cluster0.es8njbw.mongodb.net/saloneo?retryWrites=true&w=majority&appName=Cluster0
+        value: mongodb+srv://saloneo-user:s8OfObmiaiug2zOt@clustertriogeneral.hvkpnvh.mongodb.net/saloneo?retryWrites=true&w=majority&appName=ClusterTrioGeneral
       - key: JWT_SECRET
         generateValue: true
       - key: JWT_EXPIRES_IN
