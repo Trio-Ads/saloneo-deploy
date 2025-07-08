@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import { body, param, query } from 'express-validator';
 import * as appointmentsController from '../controllers/appointments.controller';
-import { authenticate, checkLimits } from '../middleware/auth';
+import { authenticate } from '../middleware/auth';
+import { checkSubscriptionLimit } from '../middleware/checkLimits';
 
 const router = Router();
 
@@ -31,7 +32,7 @@ router.get(
 // Create new appointment
 router.post(
   '/',
-  checkLimits('appointments'),
+  checkSubscriptionLimit('appointments'),
   [
     body('clientId').isMongoId(),
     body('serviceId').isString().isLength({ min: 1 }).withMessage('Service ID is required'),
