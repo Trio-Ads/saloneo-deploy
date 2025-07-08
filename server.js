@@ -134,8 +134,21 @@ try {
 app.use('/uploads', express.static(path.join(__dirname, 'beauty-flow-backend/uploads')));
 
 // Servir les fichiers statiques du frontend
-const frontendPath = path.join(__dirname, 'beauty-flow/dist');
-app.use(express.static(frontendPath));
+// Le build copie les fichiers vers beauty-flow-backend/dist/public/
+const frontendPath = path.join(__dirname, 'beauty-flow-backend/dist/public');
+const fallbackFrontendPath = path.join(__dirname, 'beauty-flow/dist');
+
+// Essayer d'abord le chemin principal, puis le fallback
+const fs = require('fs');
+let actualFrontendPath = frontendPath;
+if (!fs.existsSync(frontendPath) && fs.existsSync(fallbackFrontendPath)) {
+  actualFrontendPath = fallbackFrontendPath;
+  console.log('📁 Frontend servi depuis:', fallbackFrontendPath);
+} else {
+  console.log('📁 Frontend servi depuis:', frontendPath);
+}
+
+app.use(express.static(actualFrontendPath));
 
 // Route catch-all pour React Router
 app.get('*', (req, res) => {
@@ -143,12 +156,13 @@ app.get('*', (req, res) => {
     return res.status(404).json({ error: 'Not Found' });
   }
   
-  const indexPath = path.join(frontendPath, 'index.html');
-  const fs = require('fs');
+  const indexPath = path.join(actualFrontendPath, 'index.html');
   
   if (fs.existsSync(indexPath)) {
+    console.log('📄 Serving index.html from:', indexPath);
     res.sendFile(indexPath);
   } else {
+    console.log('⚠️  index.html not found at:', indexPath);
     res.send(`
       <!DOCTYPE html>
       <html>
@@ -175,6 +189,7 @@ app.get('*', (req, res) => {
           <p>Application déployée avec succès !</p>
           <p>Serveur actif sur le port ${PORT}</p>
           <p>MongoDB: ${mongoose.connection.readyState === 1 ? 'Connecté' : 'En cours...'}</p>
+          <p><small>Frontend path: ${actualFrontendPath}</small></p>
         </div>
       </body>
       </html>
