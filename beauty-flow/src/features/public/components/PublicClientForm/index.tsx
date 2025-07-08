@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useInterfaceStore } from '../../../interface/store';
 import { useServiceStore } from '../../../services/store';
 import { PublicClientFormData } from '../../types';
-import { HairQuestionnaire, SkinQuestionnaire } from '../../../clients/types';
 import PersonalInfoSection from './PersonalInfoSection';
 import HairQuestionnaireSection from './HairQuestionnaireSection';
 import SkinQuestionnaireSection from './SkinQuestionnaireSection';
@@ -35,13 +34,13 @@ const PublicClientForm: React.FC<PublicClientFormProps> = ({
       hairType: 'Raides',
       thickness: 'Moyens',
       scalpCondition: 'Normaux',
-      porosity: 'Élevée',
+      porosity: 'Modérée',
       chemicalTreatments: [],
       hairProblems: []
     } : undefined,
     skinQuestionnaire: service?.category.toLowerCase().includes('soin') ? {
       skinType: 'Normale',
-      sensitivity: 'Élevée',
+      sensitivity: 'Modérée',
       skinProblems: [],
       mainConcernArea: []
     } : undefined,
@@ -102,7 +101,7 @@ const PublicClientForm: React.FC<PublicClientFormProps> = ({
     }
   };
 
-  const handleHairQuestionnaireChange = (field: keyof HairQuestionnaire, value: any) => {
+  const handleHairQuestionnaireChange = (field: string, value: any) => {
     setFormData(prev => ({
       ...prev,
       hairQuestionnaire: {
@@ -112,7 +111,7 @@ const PublicClientForm: React.FC<PublicClientFormProps> = ({
     }));
   };
 
-  const handleSkinQuestionnaireChange = (field: keyof SkinQuestionnaire, value: any) => {
+  const handleSkinQuestionnaireChange = (field: string, value: any) => {
     setFormData(prev => ({
       ...prev,
       skinQuestionnaire: {
@@ -157,7 +156,7 @@ const PublicClientForm: React.FC<PublicClientFormProps> = ({
       {service.category.toLowerCase().includes('cheveux') && formData.hairQuestionnaire && (
         <div className="glass-card p-6 animate-fade-in">
           <HairQuestionnaireSection
-            values={formData.hairQuestionnaire}
+            values={formData.hairQuestionnaire as any}
             onChange={handleHairQuestionnaireChange}
           />
         </div>
@@ -166,7 +165,7 @@ const PublicClientForm: React.FC<PublicClientFormProps> = ({
       {service.category.toLowerCase().includes('soin') && formData.skinQuestionnaire && (
         <div className="glass-card p-6 animate-fade-in">
           <SkinQuestionnaireSection
-            values={formData.skinQuestionnaire}
+            values={formData.skinQuestionnaire as any}
             onChange={handleSkinQuestionnaireChange}
           />
         </div>

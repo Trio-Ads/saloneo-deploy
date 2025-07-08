@@ -1,23 +1,51 @@
 services:
-  # Backend API Service
+  # Service unifié - Frontend + Backend
   - type: web
-    name: saloneo-backend
+    name: saloneo-app
     env: node
-    plan: pro
-    region: frankfurt  # Europe (vous pouvez changer selon vos besoins)
-    buildCommand: cd beauty-flow-backend && npm install && npm run build
-    startCommand: cd beauty-flow-backend && npm start
-    healthCheckPath: /api/health
+    plan: starter
+    region: frankfurt
+    buildCommand: |
+      echo "🚀 Starting Saloneo build process..."
+      
+      # Install root dependencies
+      echo "📦 Installing root dependencies..."
+      npm install
+      
+      # Build frontend
+      echo "🎨 Building frontend..."
+      cd beauty-flow
+      npm ci --only=production
+      npm run build
+      cd ..
+      
+      # Build backend
+      echo "⚙️ Building backend..."
+      cd beauty-flow-backend
+      npm ci --only=production
+      npm run build
+      cd ..
+      
+      # Create necessary directories
+      mkdir -p beauty-flow-backend/uploads
+      mkdir -p beauty-flow-backend/dist/uploads
+      
+      echo "✅ Build completed successfully!"
+    startCommand: npm start
+    healthCheckPath: /health
     autoDeploy: true
-    domains:
-      - api.saloneo.app
     envVars:
+      # Environment
       - key: NODE_ENV
         value: production
       - key: PORT
-        value: 5000
+        value: 10000
+      
+      # MongoDB
       - key: MONGODB_URI
         sync: false
+      
+      # JWT Configuration
       - key: JWT_SECRET
         generateValue: true
       - key: JWT_EXPIRES_IN
@@ -26,39 +54,46 @@ services:
         generateValue: true
       - key: JWT_REFRESH_EXPIRES_IN
         value: 30d
+      
+      # File Upload
       - key: MAX_FILE_SIZE
         value: 5242880
       - key: UPLOAD_DIR
         value: uploads
+      
+      # Rate Limiting
       - key: RATE_LIMIT_WINDOW_MS
         value: 900000
       - key: RATE_LIMIT_MAX_REQUESTS
         value: 100
+      
+      # Logging
       - key: LOG_LEVEL
         value: info
+      
+      # CORS & Frontend
       - key: FRONTEND_URL
-        value: https://saloneo.app
-      - key: CORS_ORIGIN
-        value: https://saloneo.app
-
-  # Frontend Static Site
-  - type: web
-    name: saloneo-frontend
-    env: static
-    plan: pro
-    region: frankfurt  # Europe (vous pouvez changer selon vos besoins)
-    buildCommand: cd beauty-flow && npm install && npm run build
-    staticPublishPath: beauty-flow/dist
-    autoDeploy: true
-    domains:
-      - saloneo.app
-      - www.saloneo.app
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
-    envVars:
-      - key: VITE_ENV
-        value: production
-      - key: VITE_API_URL
-        value: https://api.saloneo.app
+        fromService:
+          type: web
+          name: saloneo-app
+          property: host
+      
+      # SATIM Payment (if needed)
+      - key: SATIM_USERNAME
+        sync: false
+      - key: SATIM_PASSWORD
+        sync: false
+      - key: SATIM_BASE_URL
+        value: https://test.satim.dz
+      
+      # Additional services (if needed)
+      - key: STABILITY_AI_API_KEY
+        sync: false
+      - key: SMS_API_KEY
+        sync: false
+      
+    # Disk storage for uploads
+    disk:
+      name: saloneo-uploads
+      mountPath: /opt/render/project/src/beauty-flow-backend/uploads
+      sizeGB: 1

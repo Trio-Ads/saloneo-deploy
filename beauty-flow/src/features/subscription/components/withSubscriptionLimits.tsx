@@ -18,10 +18,10 @@ export const withSubscriptionLimits = <P extends object>(
     const { onLimitExceeded, ...rest } = props;
 
     const handleAction = (callback: () => void) => {
-      const { allowed, message } = checkLimit(limitType, count);
-      if (!allowed) {
+      const limitCheck = checkLimit();
+      if (!limitCheck.canAdd) {
         if (onLimitExceeded) {
-          onLimitExceeded(message);
+          onLimitExceeded(limitCheck.message || 'Limite atteinte');
         }
         return;
       }

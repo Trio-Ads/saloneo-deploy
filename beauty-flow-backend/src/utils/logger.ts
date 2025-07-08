@@ -1,49 +1,77 @@
 import winston from 'winston';
-import path from 'path';
+import chalk from 'chalk';
 
-const logDir = 'logs';
-
-// Define log format
-const logFormat = winston.format.combine(
-  winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+// Custom format for console output with colors
+const consoleFormat = winston.format.combine(
+  winston.format.timestamp({ format: 'HH:mm:ss' }),
   winston.format.errors({ stack: true }),
-  winston.format.splat(),
-  winston.format.json()
+  winston.format.printf(({ level, message, timestamp, stack }) => {
+    const coloredLevel = {
+      error: chalk.red('ERROR'),
+      warn: chalk.yellow('WARN'),
+      info: chalk.blue('INFO'),
+      debug: chalk.gray('DEBUG'),
+    }[level] || level;
+
+    const coloredTimestamp = chalk.gray(`[${timestamp}]`);
+    const formattedMessage = stack ? `${message}\n${stack}` : message;
+    
+    return `${coloredTimestamp} ${coloredLevel}: ${formattedMessage}`;
+  })
 );
 
-// Create the logger
+// Create logger instance
 export const logger = winston.createLogger({
   level: process.env.LOG_LEVEL || 'info',
-  format: logFormat,
-  defaultMeta: { service: 'beauty-flow-api' },
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.errors({ stack: true }),
+    winston.format.json()
+  ),
+  defaultMeta: { service: 'beauty-flow-backend' },
   transports: [
-    // Write all logs with level 'error' and below to error.log
-    new winston.transports.File({
-      filename: path.join(logDir, 'error.log'),
+    // Console transport with colors for development
+    new winston.transports.Console({
+      format: process.env.NODE_ENV === 'production' 
+        ? winston.format.json() 
+        : consoleFormat
+    }),
+    
+    // File transport for errors
+    new winston.transports.File({ 
+      filename: 'logs/error.log', 
       level: 'error',
+      format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.json()
+      )
     }),
-    // Write all logs with level 'info' and below to combined.log
-    new winston.transports.File({
-      filename: path.join(logDir, 'combined.log'),
-    }),
+    
+    // File transport for all logs
+    new winston.transports.File({ 
+      filename: 'logs/combined.log',
+      format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.json()
+      )
+    })
   ],
 });
 
-// If we're not in production, log to the console with colorized output
-if (process.env.NODE_ENV !== 'production') {
-  logger.add(
-    new winston.transports.Console({
-      format: winston.format.combine(
-        winston.format.colorize(),
-        winston.format.simple()
-      ),
-    })
-  );
+// Create logs directory if it doesn't exist
+import { existsSync, mkdirSync } from 'fs';
+import { dirname } from 'path';
+
+const logsDir = dirname(require.resolve('../../../logs/combined.log'));
+if (!existsSync(logsDir)) {
+  mkdirSync(logsDir, { recursive: true });
 }
 
-// Create a stream object with a 'write' function for Morgan
-export const stream = {
-  write: (message: string) => {
-    logger.info(message.trim());
-  },
-};
+// If we're not in production, log to the console with colors
+if (process.env.NODE_ENV !== 'production') {
+  logger.add(new winston.transports.Console({
+    format: consoleFormat
+  }));
+}
+
+export default logger;
