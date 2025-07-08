@@ -48,8 +48,17 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Tentative de montage du backend
+// Tentative de montage du backend avec ts-node
 try {
+  // Configurer ts-node pour l'environnement de production
+  require('ts-node').register({
+    project: path.join(__dirname, 'beauty-flow-backend/tsconfig.json'),
+    transpileOnly: true,
+    compilerOptions: {
+      module: 'commonjs'
+    }
+  });
+
   // Fonction pour importer une route de manière sécurisée
   const safeRequire = (path) => {
     try {
@@ -61,19 +70,21 @@ try {
     }
   };
 
-  // Importer les routes du backend
+  // Importer les routes du backend directement depuis les sources TypeScript
   const routes = {
-    auth: safeRequire('./beauty-flow-backend/dist/routes/auth.routes.js'),
-    clients: safeRequire('./beauty-flow-backend/dist/routes/clients.routes.js'),
-    services: safeRequire('./beauty-flow-backend/dist/routes/services.routes.js'),
-    appointments: safeRequire('./beauty-flow-backend/dist/routes/appointments.routes.js'),
-    team: safeRequire('./beauty-flow-backend/dist/routes/team.routes.js'),
-    profile: safeRequire('./beauty-flow-backend/dist/routes/profile.routes.js'),
-    public: safeRequire('./beauty-flow-backend/dist/routes/public.routes.js'),
-    payment: safeRequire('./beauty-flow-backend/dist/routes/payment.routes.js'),
-    subscription: safeRequire('./beauty-flow-backend/dist/routes/subscription.routes.js'),
-    marketing: safeRequire('./beauty-flow-backend/dist/routes/marketing.routes.js'),
-    affiliation: safeRequire('./beauty-flow-backend/dist/routes/affiliation.routes.js')
+    auth: safeRequire('./beauty-flow-backend/src/routes/auth.routes.ts'),
+    clients: safeRequire('./beauty-flow-backend/src/routes/clients.routes.ts'),
+    services: safeRequire('./beauty-flow-backend/src/routes/services.routes.ts'),
+    appointments: safeRequire('./beauty-flow-backend/src/routes/appointments.routes.ts'),
+    team: safeRequire('./beauty-flow-backend/src/routes/team.routes.ts'),
+    profile: safeRequire('./beauty-flow-backend/src/routes/profile.routes.ts'),
+    public: safeRequire('./beauty-flow-backend/src/routes/public.routes.ts'),
+    payment: safeRequire('./beauty-flow-backend/src/routes/payment.routes.ts'),
+    subscription: safeRequire('./beauty-flow-backend/src/routes/subscription.routes.ts'),
+    marketing: safeRequire('./beauty-flow-backend/src/routes/marketing.routes.ts'),
+    affiliation: safeRequire('./beauty-flow-backend/src/routes/affiliation.routes.ts'),
+    upload: safeRequire('./beauty-flow-backend/src/routes/upload.routes.ts'),
+    products: safeRequire('./beauty-flow-backend/src/routes/products.routes.ts')
   };
 
   // Monter les routes qui ont été importées avec succès
@@ -97,7 +108,7 @@ try {
   console.warn('⚠️  Impossible de monter les routes backend:', error.message);
   
   // Routes de fallback plus détaillées
-  const fallbackRoutes = ['auth', 'clients', 'services', 'appointments', 'team', 'profile', 'public', 'payment', 'subscription', 'marketing', 'affiliation'];
+  const fallbackRoutes = ['auth', 'clients', 'services', 'appointments', 'team', 'profile', 'public', 'payment', 'subscription', 'marketing', 'affiliation', 'upload', 'products', 'serviceDeposit'];
   
   fallbackRoutes.forEach(route => {
     app.use(`/api/${route}/*`, (req, res) => {
@@ -123,7 +134,7 @@ try {
 app.use('/uploads', express.static(path.join(__dirname, 'beauty-flow-backend/uploads')));
 
 // Servir les fichiers statiques du frontend
-const frontendPath = path.join(__dirname, 'beauty-flow-backend/dist/public');
+const frontendPath = path.join(__dirname, 'beauty-flow/dist');
 app.use(express.static(frontendPath));
 
 // Route catch-all pour React Router

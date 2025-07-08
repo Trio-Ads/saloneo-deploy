@@ -20,7 +20,7 @@ services:
       mkdir -p ../beauty-flow-backend/dist/public &&
       cp -r dist/* ../beauty-flow-backend/dist/public/ &&
       echo "=== BUILD TERMINÉ ==="
-    startCommand: node server-final.js
+    startCommand: node server.js
     autoDeploy: true
     envVars:
       - key: NODE_ENV
