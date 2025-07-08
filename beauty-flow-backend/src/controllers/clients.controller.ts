@@ -4,7 +4,6 @@ import { Types } from 'mongoose';
 import { Client } from '../models/Client';
 import { AuthRequest } from '../middleware/auth';
 import { logger } from '../utils/logger';
-import { emitClientUpdate } from '../config/socket';
 
 // Helper function to validate and convert ObjectIds
 const validateObjectIds = (ids: string[]): Types.ObjectId[] => {
@@ -117,7 +116,6 @@ export const createClient = async (req: AuthRequest, res: Response): Promise<voi
 
     // Emit socket event (disabled for deployment)
     try {
-      // emitClientUpdate(io, userId!, 'client:created', client);
     } catch (socketError) {
       logger.error('Socket emit error:', socketError);
       // Don't fail the request if socket fails
@@ -176,7 +174,6 @@ export const updateClient = async (req: AuthRequest, res: Response): Promise<voi
     res.json({ client });
 
     // Emit socket event (disabled for deployment)
-    // emitClientUpdate(io, userId!, 'client:updated', client);
   } catch (error) {
     logger.error('Update client error:', error);
     res.status(500).json({ error: 'Server error' });
@@ -198,7 +195,6 @@ export const deleteClient = async (req: AuthRequest, res: Response): Promise<voi
     res.json({ message: 'Client deleted successfully' });
 
     // Emit socket event (disabled for deployment)
-    // emitClientUpdate(io, userId!, 'client:deleted', { id });
   } catch (error) {
     logger.error('Delete client error:', error);
     res.status(500).json({ error: 'Server error' });

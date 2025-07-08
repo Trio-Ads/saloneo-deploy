@@ -1,0 +1,62 @@
+services:
+  # Service unifié (frontend + backend)
+  - type: web
+    name: saloneo-deploy
+    env: node
+    plan: starter
+    region: oregon
+    buildCommand: |
+      echo "🚀 === DÉBUT BUILD SALONEO ===" &&
+      echo "📍 Répertoire de travail: $(pwd)" &&
+      echo "📂 Contenu du répertoire:" &&
+      ls -la &&
+      echo "🔧 === INSTALLATION BACKEND ===" &&
+      cd beauty-flow-backend &&
+      npm install &&
+      echo "🏗️ === BUILD BACKEND ===" &&
+      npm run build &&
+      echo "🎨 === INSTALLATION FRONTEND ===" &&
+      cd ../beauty-flow &&
+      npm install &&
+      echo "📋 === VÉRIFICATION PACKAGE.JSON ===" &&
+      cat package.json | grep '"build"' &&
+      echo "🎯 === BUILD FRONTEND AVEC DEBUG ===" &&
+      npm run build --verbose 2>&1 || (echo "❌ ERREUR BUILD FRONTEND - DÉTAILS:" && npm run build 2>&1 && exit 1) &&
+      echo "✅ === VÉRIFICATION POST-BUILD ===" &&
+      ls -la &&
+      echo "📁 === VÉRIFICATION DOSSIER DIST ===" &&
+      if [ -d "dist" ]; then echo "✅ Dossier dist existe:" && ls -la dist/; else echo "❌ Dossier dist n'existe pas"; fi &&
+      echo "📄 === VÉRIFICATION INDEX.HTML ===" &&
+      if [ -f "dist/index.html" ]; then echo "✅ index.html trouvé:" && ls -la dist/index.html && head -5 dist/index.html; else echo "❌ index.html non trouvé"; fi &&
+      echo "🎉 === BUILD TERMINÉ AVEC SUCCÈS ==="
+    startCommand: node server.js
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        value: mongodb+srv://saloneo-user:s8OfObmiaiug2zOt@clustertriogeneral.hvkpnvh.mongodb.net/saloneo?retryWrites=true&w=majority&appName=ClusterTrioGeneral
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_EXPIRES_IN
+        value: 30d
+      - key: FRONTEND_URL
+        value: https://saloneo-deploy.onrender.com
+      - key: CORS_ORIGIN
+        value: https://saloneo-deploy.onrender.com
+      - key: MAX_FILE_SIZE
+        value: 5242880
+      - key: UPLOAD_DIR
+        value: uploads
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 900000
+      - key: RATE_LIMIT_MAX_REQUESTS
+        value: 100
+      - key: LOG_LEVEL
+        value: info

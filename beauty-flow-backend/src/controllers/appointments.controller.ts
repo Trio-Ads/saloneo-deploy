@@ -7,7 +7,6 @@ import { Client } from '../models/Client';
 import { TeamMember } from '../models/Team';
 import { AuthRequest } from '../middleware/auth';
 import { logger } from '../utils/logger';
-import { emitAppointmentUpdate } from '../config/socket';
 
 // Helper function to validate and convert ObjectId
 const validateObjectId = (id: string): Types.ObjectId | null => {
@@ -207,7 +206,6 @@ export const createAppointment = async (req: AuthRequest, res: Response): Promis
 
     // Emit socket event (disabled for deployment)
     try {
-      // emitAppointmentUpdate(io, userId!, 'appointment:created', appointment);
     } catch (socketError) {
       logger.error('Socket emit error:', socketError);
       // Don't fail the request if socket fails
@@ -310,7 +308,6 @@ export const updateAppointment = async (req: AuthRequest, res: Response): Promis
     res.json({ appointment: updatedAppointment });
 
     // Emit socket event (disabled for deployment)
-    // emitAppointmentUpdate(io, userId!, 'appointment:updated', updatedAppointment);
   } catch (error) {
     logger.error('Update appointment error:', error);
     res.status(500).json({ error: 'Server error' });
@@ -341,7 +338,6 @@ export const updateAppointmentStatus = async (req: AuthRequest, res: Response): 
     res.json({ appointment });
 
     // Emit socket event (disabled for deployment)
-    // emitAppointmentUpdate(io, userId!, 'appointment:statusChanged', appointment);
   } catch (error) {
     logger.error('Update appointment status error:', error);
     res.status(500).json({ error: 'Server error' });
@@ -363,7 +359,6 @@ export const deleteAppointment = async (req: AuthRequest, res: Response): Promis
     res.json({ message: 'Appointment deleted successfully' });
 
     // Emit socket event (disabled for deployment)
-    // emitAppointmentUpdate(io, userId!, 'appointment:deleted', { id });
   } catch (error) {
     logger.error('Delete appointment error:', error);
     res.status(500).json({ error: 'Server error' });
