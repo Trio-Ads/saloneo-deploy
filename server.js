@@ -84,15 +84,8 @@ const connectDB = async () => {
 let backendApp = null;
 try {
   // Try to import the compiled backend first
-  try {
-    backendApp = require('./beauty-flow-backend/dist/app.js');
-    console.log('✅ Backend loaded from compiled dist');
-  } catch (distError) {
-    // Fallback to source with ts-node
-    require('ts-node/register');
-    backendApp = require('./beauty-flow-backend/src/app.ts');
-    console.log('✅ Backend loaded from source with ts-node');
-  }
+  backendApp = require('./beauty-flow-backend/dist/app.js');
+  console.log('✅ Backend loaded from compiled dist');
 } catch (error) {
   console.warn('⚠️  Backend not available:', error.message);
   console.log('🔄 Continuing with frontend-only mode...');
