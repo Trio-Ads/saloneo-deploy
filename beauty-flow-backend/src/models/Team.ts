@@ -152,7 +152,7 @@ teamMemberSchema.virtual('fullName').get(function() {
 // Ensure JSON output includes virtuals
 teamMemberSchema.set('toJSON', {
   virtuals: true,
-  transform: function(_doc, ret) {
+  transform: function(_doc, ret: any) {
     delete ret.__v;
     return ret;
   },

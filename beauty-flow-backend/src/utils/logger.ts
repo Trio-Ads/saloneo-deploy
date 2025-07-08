@@ -60,9 +60,9 @@ export const logger = winston.createLogger({
 
 // Create logs directory if it doesn't exist
 import { existsSync, mkdirSync } from 'fs';
-import { dirname } from 'path';
+import { join } from 'path';
 
-const logsDir = dirname(require.resolve('../../../logs/combined.log'));
+const logsDir = join(__dirname, '../../logs');
 if (!existsSync(logsDir)) {
   mkdirSync(logsDir, { recursive: true });
 }
