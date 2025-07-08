@@ -16,9 +16,15 @@ services:
       npm install &&
       echo "=== BUILD FRONTEND ===" &&
       npm run build &&
+      echo "=== VÉRIFICATION BUILD FRONTEND ===" &&
+      ls -la dist/ &&
       echo "=== COPIE FRONTEND VERS BACKEND ===" &&
       mkdir -p ../beauty-flow-backend/dist/public &&
       cp -r dist/* ../beauty-flow-backend/dist/public/ &&
+      echo "=== VÉRIFICATION COPIE ===" &&
+      ls -la ../beauty-flow-backend/dist/public/ &&
+      echo "=== VÉRIFICATION INDEX.HTML ===" &&
+      ls -la ../beauty-flow-backend/dist/public/index.html &&
       echo "=== BUILD TERMINÉ ==="
     startCommand: node server.js
     autoDeploy: true
