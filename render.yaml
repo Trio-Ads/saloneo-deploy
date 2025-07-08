@@ -14,13 +14,20 @@ services:
       echo "=== INSTALLATION FRONTEND ===" &&
       cd ../beauty-flow &&
       npm install &&
-      echo "=== BUILD FRONTEND ===" &&
-      npm run build &&
-      echo "=== VÉRIFICATION BUILD FRONTEND ===" &&
-      ls -la dist/ &&
+      echo "=== DIAGNOSTIC PRE-BUILD ===" &&
+      pwd &&
+      ls -la &&
+      echo "=== VÉRIFICATION PACKAGE.JSON ===" &&
+      cat package.json | grep '"build"' &&
+      echo "=== BUILD FRONTEND AVEC DEBUG ===" &&
+      npm run build --verbose 2>&1 || (echo "❌ ERREUR BUILD FRONTEND:" && npm run build 2>&1 && exit 1) &&
+      echo "=== VÉRIFICATION POST-BUILD ===" &&
+      ls -la &&
+      echo "=== VÉRIFICATION DOSSIER DIST ===" &&
+      if [ -d "dist" ]; then echo "✅ Dossier dist existe" && ls -la dist/; else echo "❌ Dossier dist n'existe pas"; fi &&
       echo "=== VÉRIFICATION INDEX.HTML ===" &&
-      ls -la dist/index.html &&
-      echo "=== BUILD TERMINÉ - Frontend dans beauty-flow/dist ==="
+      if [ -f "dist/index.html" ]; then echo "✅ index.html trouvé" && ls -la dist/index.html; else echo "❌ index.html non trouvé"; fi &&
+      echo "=== BUILD TERMINÉ ==="
     startCommand: node server.js
     autoDeploy: true
     envVars:
