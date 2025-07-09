@@ -17,3 +17,4 @@ diagnostic-*.cjs
 migrate-*.js
 update-*.cjs
 clear-*.html
+test-deployment-local.js

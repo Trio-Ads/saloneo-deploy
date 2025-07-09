@@ -301,10 +301,10 @@ httpServer.listen(PORT, '0.0.0.0', () => {
     if (!fs.existsSync(path.join(__dirname, 'dist')) && !fs.existsSync(path.join(__dirname, 'beauty-flow/dist'))) {
       console.log('📦 Build frontend nécessaire...');
       
-      const buildProcess = spawn('npm', ['run', 'build'], {
+      // S'assurer que Vite est disponible
+      const buildProcess = spawn('sh', ['-c', 'npx vite --version || npm install vite && npm run build'], {
         cwd: path.join(__dirname, 'beauty-flow'),
-        stdio: 'pipe',
-        shell: true
+        stdio: 'pipe'
       });
 
       buildProcess.stdout.on('data', (data) => {
