@@ -14,7 +14,7 @@ services:
       echo "🎯 === BUILD FRONTEND ===" &&
       cd beauty-flow &&
       echo "📦 Installation dépendances frontend..." &&
-      npm ci --only=production &&
+      npm ci &&
       echo "🏗️ Build Vite..." &&
       npm run build &&
       echo "✅ Vérification build frontend:" &&
