@@ -35,15 +35,15 @@ const ensureFrontendExists = async () => {
     try {
       const frontendDir = path.join(__dirname, 'beauty-flow');
       
-      console.log('📦 Installation des dépendances frontend...');
-      execSync('npm install', { 
+      console.log('📦 Installation des dépendances frontend (avec devDependencies)...');
+      execSync('npm install --include=dev', { 
         cwd: frontendDir, 
         stdio: 'inherit',
         timeout: 300000 // 5 minutes
       });
       
-      console.log('🏗️  Build du frontend...');
-      execSync('npm run build', { 
+      console.log('🏗️  Build du frontend avec npx...');
+      execSync('npx vite build', { 
         cwd: frontendDir, 
         stdio: 'inherit',
         timeout: 300000 // 5 minutes
