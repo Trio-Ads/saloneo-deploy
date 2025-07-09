@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const { execSync } = require('child_process');
 require('dotenv').config();
 
 const app = express();
@@ -11,6 +12,133 @@ const PORT = process.env.PORT || 10000;
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+
+// Fonction pour vérifier et générer le frontend si nécessaire
+const ensureFrontendExists = async () => {
+  const frontendPath = path.join(__dirname, 'beauty-flow/dist');
+  const indexPath = path.join(frontendPath, 'index.html');
+  const fs = require('fs');
+
+  console.log('🔍 Vérification du frontend...');
+  console.log('📁 Chemin frontend:', frontendPath);
+  
+  // Vérifier si le dossier dist existe
+  if (!fs.existsSync(frontendPath)) {
+    console.log('📁 Création du dossier dist...');
+    fs.mkdirSync(frontendPath, { recursive: true });
+  }
+
+  // Vérifier si index.html existe
+  if (!fs.existsSync(indexPath)) {
+    console.log('❌ Frontend non trouvé - Génération automatique...');
+    
+    try {
+      const frontendDir = path.join(__dirname, 'beauty-flow');
+      
+      console.log('📦 Installation des dépendances frontend...');
+      execSync('npm install', { 
+        cwd: frontendDir, 
+        stdio: 'inherit',
+        timeout: 300000 // 5 minutes
+      });
+      
+      console.log('🏗️  Build du frontend...');
+      execSync('npm run build', { 
+        cwd: frontendDir, 
+        stdio: 'inherit',
+        timeout: 300000 // 5 minutes
+      });
+      
+      // Vérifier que le build a réussi
+      if (fs.existsSync(indexPath)) {
+        console.log('✅ Frontend généré avec succès !');
+        console.log('📄 index.html trouvé à:', indexPath);
+      } else {
+        throw new Error('Le build n\'a pas généré index.html');
+      }
+      
+    } catch (error) {
+      console.error('❌ Erreur lors de la génération du frontend:', error.message);
+      
+      // Créer un index.html de fallback
+      const fallbackHtml = `
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saloneo - En cours de déploiement</title>
+    <style>
+        body { 
+            font-family: system-ui, -apple-system, sans-serif; 
+            text-align: center; 
+            padding: 50px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; 
+            margin: 0; 
+            min-height: 100vh;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+        }
+        .container { 
+            background: rgba(255,255,255,0.1); 
+            padding: 40px; 
+            border-radius: 20px; 
+            backdrop-filter: blur(10px);
+            max-width: 600px;
+        }
+        .status { 
+            background: rgba(255,255,255,0.2); 
+            padding: 20px; 
+            border-radius: 10px; 
+            margin: 20px 0;
+        }
+        .error { 
+            background: rgba(255,0,0,0.2); 
+            color: #ffcccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💄 SALONEO</h1>
+        <p>Plateforme de gestion pour salons de beauté</p>
+        
+        <div class="status error">
+            <h3>⚠️ Frontend en cours de génération</h3>
+            <p>Le frontend n'a pas pu être généré automatiquement.</p>
+            <p>Veuillez patienter pendant que nous résolvons ce problème.</p>
+        </div>
+        
+        <div class="status">
+            <h3>📊 État du serveur</h3>
+            <p>✅ Serveur backend: Actif</p>
+            <p>✅ Port: ${PORT}</p>
+            <p>✅ MongoDB: ${mongoose.connection.readyState === 1 ? 'Connecté' : 'En cours...'}</p>
+            <p>⚠️ Frontend: En génération</p>
+        </div>
+        
+        <p><small>Timestamp: ${new Date().toISOString()}</small></p>
+        <p><small>Environment: ${process.env.NODE_ENV || 'development'}</small></p>
+    </div>
+    
+    <script>
+        // Recharger la page toutes les 30 secondes pour vérifier si le frontend est prêt
+        setTimeout(() => {
+            window.location.reload();
+        }, 30000);
+    </script>
+</body>
+</html>`;
+      
+      fs.writeFileSync(indexPath, fallbackHtml);
+      console.log('📄 Page de fallback créée');
+    }
+  } else {
+    console.log('✅ Frontend trouvé:', indexPath);
+  }
+};
 
 // Connexion MongoDB
 const connectDB = async () => {
@@ -29,12 +157,17 @@ const connectDB = async () => {
 
 // Routes de santé
 app.get('/health', (req, res) => {
+  const frontendPath = path.join(__dirname, 'beauty-flow/dist');
+  const indexPath = path.join(frontendPath, 'index.html');
+  const fs = require('fs');
+  
   res.json({ 
     status: 'OK', 
     message: 'Serveur Saloneo fonctionnel',
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV,
-    mongodb: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected'
+    mongodb: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+    frontend: fs.existsSync(indexPath) ? 'ready' : 'missing'
   });
 });
 
@@ -134,7 +267,6 @@ try {
 app.use('/uploads', express.static(path.join(__dirname, 'beauty-flow-backend/uploads')));
 
 // Servir les fichiers statiques du frontend
-// Vite génère les fichiers directement dans beauty-flow/dist
 const frontendPath = path.join(__dirname, 'beauty-flow/dist');
 const fs = require('fs');
 
@@ -190,7 +322,15 @@ app.get('*', (req, res) => {
 
 // Démarrage du serveur
 const startServer = async () => {
+  console.log('🚀 Démarrage de Saloneo...');
+  
+  // 1. Vérifier et générer le frontend si nécessaire
+  await ensureFrontendExists();
+  
+  // 2. Connecter à MongoDB
   await connectDB();
+  
+  // 3. Démarrer le serveur
   app.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 Serveur Saloneo démarré sur le port ${PORT}`);
     console.log(`📱 URL: http://localhost:${PORT}`);
