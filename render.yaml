@@ -24,9 +24,9 @@ services:
       - key: JWT_REFRESH_EXPIRES_IN
         value: 30d
       - key: FRONTEND_URL
-        value: https://saloneo-deploy.onrender.com
+        value: https://www.saloneo.app
       - key: CORS_ORIGIN
-        value: https://saloneo-deploy.onrender.com
+        value: https://www.saloneo.app,https://saloneo.app
       - key: MAX_FILE_SIZE
         value: 5242880
       - key: UPLOAD_DIR

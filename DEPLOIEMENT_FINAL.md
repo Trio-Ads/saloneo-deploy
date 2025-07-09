@@ -64,9 +64,9 @@ services:
       - key: JWT_REFRESH_EXPIRES_IN
         value: 30d
       - key: FRONTEND_URL
-        value: https://saloneo-app.onrender.com
+        value: https://www.saloneo.app
       - key: CORS_ORIGIN
-        value: https://saloneo-app.onrender.com
+        value: https://www.saloneo.app,https://saloneo.app
 ```
 
 ### build-and-deploy.sh
