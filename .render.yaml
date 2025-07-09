@@ -20,30 +20,32 @@ services:
       echo "✅ Vérification build frontend:" &&
       ls -la dist/ &&
       echo "" &&
-      echo "🎯 === ÉTAPE 2: PRÉPARATION BACKEND ===" &&
+      echo "🎯 === ÉTAPE 2: BUILD BACKEND ===" &&
       cd ../beauty-flow-backend &&
       echo "📦 Installation dépendances backend..." &&
-      npm ci --only=production &&
+      npm ci &&
+      echo "🔨 Compilation TypeScript..." &&
+      npm run build &&
+      echo "✅ Backend compilé" &&
       echo "" &&
       echo "🎯 === ÉTAPE 3: ASSEMBLAGE FINAL ===" &&
       cd .. &&
-      echo "📁 Copie du frontend buildé..." &&
-      cp -r beauty-flow/dist ./dist &&
-      echo "📁 Copie des uploads..." &&
-      mkdir -p uploads &&
-      echo "📁 Copie des dépendances backend..." &&
-      cp -r beauty-flow-backend/node_modules ./node_modules &&
-      cp -r beauty-flow-backend/src ./backend-src &&
+      echo "📁 Copie du frontend dans le backend..." &&
+      cp -r beauty-flow/dist beauty-flow-backend/dist/public &&
+      echo "📁 Création dossier uploads..." &&
+      mkdir -p beauty-flow-backend/uploads &&
       echo "" &&
       echo "✅ === VÉRIFICATION FINALE ===" &&
       echo "📁 Structure finale:" &&
       ls -la &&
-      echo "📁 Contenu dist:" &&
-      ls -la dist/ &&
+      echo "📁 Backend compilé:" &&
+      ls -la beauty-flow-backend/dist/ &&
+      echo "📁 Frontend dans backend:" &&
+      ls -la beauty-flow-backend/dist/public/ &&
       echo "📄 Index.html:" &&
-      ls -la dist/index.html &&
+      ls -la beauty-flow-backend/dist/public/index.html &&
       echo "🎉 === BUILD TERMINÉ AVEC SUCCÈS ==="
-    startCommand: node server-unified.js
+    startCommand: node beauty-flow-backend/dist/app.js
     autoDeploy: true
     envVars:
       - key: NODE_ENV
