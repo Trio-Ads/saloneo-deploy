@@ -1,12 +1,12 @@
 services:
   # Service unifié (frontend + backend)
   - type: web
-    name: saloneo-deploy
+    name: saloneo-app
     env: node
     plan: starter
     region: oregon
     buildCommand: |
-      echo "🚀 === DÉBUT BUILD SALONEO ===" &&
+      echo "🚀 === DÉBUT BUILD SALONEO OPTIMISÉ ===" &&
       echo "📍 Répertoire de travail: $(pwd)" &&
       echo "📂 Contenu du répertoire:" &&
       ls -la &&
@@ -18,16 +18,17 @@ services:
       echo "🎨 === INSTALLATION FRONTEND ===" &&
       cd ../beauty-flow &&
       npm install &&
-      echo "📋 === VÉRIFICATION PACKAGE.JSON ===" &&
-      cat package.json | grep '"build"' &&
-      echo "🎯 === BUILD FRONTEND AVEC DEBUG ===" &&
-      npm run build --verbose 2>&1 || (echo "❌ ERREUR BUILD FRONTEND - DÉTAILS:" && npm run build 2>&1 && exit 1) &&
+      echo "🎯 === BUILD FRONTEND AVEC VARIABLES CORRECTES ===" &&
+      VITE_API_URL=https://saloneo-app.onrender.com/api VITE_ENV=production VITE_APP_NAME=Saloneo VITE_SITE_URL=https://saloneo-app.onrender.com npm run build &&
       echo "✅ === VÉRIFICATION POST-BUILD ===" &&
       ls -la &&
       echo "📁 === VÉRIFICATION DOSSIER DIST ===" &&
       if [ -d "dist" ]; then echo "✅ Dossier dist existe:" && ls -la dist/; else echo "❌ Dossier dist n'existe pas"; fi &&
       echo "📄 === VÉRIFICATION INDEX.HTML ===" &&
       if [ -f "dist/index.html" ]; then echo "✅ index.html trouvé:" && ls -la dist/index.html && head -5 dist/index.html; else echo "❌ index.html non trouvé"; fi &&
+      echo "🔧 === INSTALLATION DÉPENDANCES RACINE ===" &&
+      cd .. &&
+      npm install &&
       echo "🎉 === BUILD TERMINÉ AVEC SUCCÈS ==="
     startCommand: node server.js
     autoDeploy: true
@@ -47,9 +48,17 @@ services:
       - key: JWT_REFRESH_EXPIRES_IN
         value: 30d
       - key: FRONTEND_URL
-        value: https://saloneo-deploy.onrender.com
+        value: https://saloneo-app.onrender.com
       - key: CORS_ORIGIN
-        value: https://saloneo-deploy.onrender.com
+        value: https://saloneo-app.onrender.com
+      - key: VITE_API_URL
+        value: https://saloneo-app.onrender.com/api
+      - key: VITE_ENV
+        value: production
+      - key: VITE_APP_NAME
+        value: Saloneo
+      - key: VITE_SITE_URL
+        value: https://saloneo-app.onrender.com
       - key: MAX_FILE_SIZE
         value: 5242880
       - key: UPLOAD_DIR
