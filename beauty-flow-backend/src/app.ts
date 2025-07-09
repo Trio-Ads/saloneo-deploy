@@ -36,7 +36,10 @@ export const io = initializeSocket(httpServer);
 connectDatabase();
 
 // Security middleware
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: false, // Désactivé pour permettre les styles et scripts
+  crossOriginEmbedderPolicy: false
+}));
 
 // CORS configuration
 const allowedOrigins = [
@@ -148,7 +151,27 @@ app.use('/api/marketing', marketingRoutes);
 // Serve static files from React build (production only)
 if (process.env.NODE_ENV === 'production') {
   const publicPath = path.join(__dirname, 'public');
-  app.use(express.static(publicPath));
+  
+  // Configuration pour servir les fichiers statiques avec les bons headers
+  app.use(express.static(publicPath, {
+    maxAge: '1d',
+    etag: true,
+    lastModified: true,
+    setHeaders: (res, path) => {
+      // Définir les types MIME corrects
+      if (path.endsWith('.css')) {
+        res.setHeader('Content-Type', 'text/css');
+      } else if (path.endsWith('.js')) {
+        res.setHeader('Content-Type', 'application/javascript');
+      } else if (path.endsWith('.json')) {
+        res.setHeader('Content-Type', 'application/json');
+      } else if (path.endsWith('.woff') || path.endsWith('.woff2')) {
+        res.setHeader('Content-Type', 'font/woff2');
+      }
+      // Permettre le cache et CORS pour les assets
+      res.setHeader('Access-Control-Allow-Origin', '*');
+    }
+  }));
   
   // Handle React Router - send all non-API requests to index.html
   app.get('*', (req: Request, res: Response) => {
