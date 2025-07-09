@@ -4,6 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const { createServer } = require('http');
+const fs = require('fs');
 
 const app = express();
 const httpServer = createServer(app);
@@ -132,26 +133,15 @@ try {
 
 // Serve static files from React build
 const frontendPath = path.join(__dirname, 'dist');
-const fallbackFrontendPath = path.join(__dirname, 'beauty-flow/dist');
 
-console.log(`📁 Chemin frontend principal: ${frontendPath}`);
-console.log(`📁 Chemin frontend fallback: ${fallbackFrontendPath}`);
+console.log(`📁 Chemin frontend: ${frontendPath}`);
 
 // Vérifier si le dossier dist existe
-const fs = require('fs');
-let distPath = null;
-
 if (fs.existsSync(frontendPath)) {
-  console.log('✅ Dossier dist trouvé à la racine');
-  distPath = frontendPath;
-} else if (fs.existsSync(fallbackFrontendPath)) {
-  console.log('✅ Dossier dist trouvé dans beauty-flow');
-  distPath = fallbackFrontendPath;
-}
-
-if (distPath) {
+  console.log('✅ Dossier dist trouvé');
+  
   // Servir les fichiers statiques
-  app.use(express.static(distPath, {
+  app.use(express.static(frontendPath, {
     maxAge: '1d',
     etag: true,
     lastModified: true
@@ -167,7 +157,7 @@ if (distPath) {
       });
     }
     
-    const indexPath = path.join(distPath, 'index.html');
+    const indexPath = path.join(frontendPath, 'index.html');
     if (fs.existsSync(indexPath)) {
       res.sendFile(indexPath);
     } else {
@@ -206,7 +196,9 @@ if (distPath) {
     }
   });
 } else {
-  console.log('❌ Dossier dist non trouvé');
+  console.log('❌ ERREUR CRITIQUE: Dossier dist non trouvé !');
+  console.log('💡 Le build doit être effectué pendant la phase de build de Render');
+  console.log('📝 Vérifiez que build-and-deploy.sh copie bien le dossier dist à la racine');
   
   // Fallback si pas de build frontend
   app.get('*', (req, res) => {
@@ -221,7 +213,7 @@ if (distPath) {
       <!DOCTYPE html>
       <html>
       <head>
-        <title>Saloneo - Build en cours</title>
+        <title>Saloneo - Build manquant</title>
         <style>
           body { 
             font-family: system-ui; 
@@ -241,32 +233,26 @@ if (distPath) {
             border-radius: 20px; 
             backdrop-filter: blur(10px);
           }
-          .spinner {
-            border: 4px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top: 4px solid white;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-          }
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+          h1 { margin-bottom: 20px; }
+          .error-details {
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: left;
           }
         </style>
       </head>
       <body>
         <div class="container">
-          <h1>💄 SALONEO</h1>
-          <div class="spinner"></div>
-          <p>Application en cours de déploiement...</p>
-          <p>Le frontend n'est pas encore disponible.</p>
-          <p><small>Dossier dist manquant</small></p>
+          <h1>💄 SALONEO - Erreur de déploiement</h1>
+          <p>Le dossier de build frontend n'a pas été trouvé.</p>
+          <div class="error-details">
+            <p><strong>Problème:</strong> Le dossier /dist est manquant</p>
+            <p><strong>Solution:</strong> Le build doit être fait pendant la phase de build de Render</p>
+            <p><strong>Script:</strong> build-and-deploy.sh doit copier le dossier dist à la racine</p>
+          </div>
         </div>
-        <script>
-          setTimeout(() => window.location.reload(), 30000);
-        </script>
       </body>
       </html>
     `);
@@ -296,58 +282,16 @@ httpServer.listen(PORT, '0.0.0.0', () => {
   console.log(`📱 Health check: http://localhost:${PORT}/health`);
   console.log('✅ Serveur prêt à recevoir des requêtes');
   
-  // Construire le frontend en arrière-plan après le démarrage
-  const { spawn } = require('child_process');
-  setTimeout(() => {
-    console.log('🔨 Vérification du build frontend...');
-    
-    if (!fs.existsSync(path.join(__dirname, 'dist')) && !fs.existsSync(path.join(__dirname, 'beauty-flow/dist'))) {
-      console.log('📦 Build frontend nécessaire...');
-      
-      // S'assurer que Vite est disponible et construire
-      console.log('📦 Installation de Vite et build du frontend...');
-      const buildCommand = 'npm install && npm run build';
-      const buildProcess = spawn('sh', ['-c', buildCommand], {
-        cwd: path.join(__dirname, 'beauty-flow'),
-        stdio: 'pipe',
-        env: { ...process.env, NODE_ENV: 'production' }
-      });
-
-      buildProcess.stdout.on('data', (data) => {
-        console.log(`📦 Frontend: ${data.toString().trim()}`);
-      });
-
-      buildProcess.stderr.on('data', (data) => {
-        console.log(`⚠️ Frontend: ${data.toString().trim()}`);
-      });
-
-      buildProcess.on('close', (code) => {
-        if (code === 0) {
-          console.log('✅ Build frontend terminé !');
-          // Copier le build à la racine si nécessaire
-          const srcDist = path.join(__dirname, 'beauty-flow/dist');
-          const destDist = path.join(__dirname, 'dist');
-          
-          if (fs.existsSync(srcDist) && !fs.existsSync(destDist)) {
-            console.log('📁 Copie du build vers la racine...');
-            const copyProcess = spawn('cp', ['-r', srcDist, destDist], {
-              shell: true
-            });
-            
-            copyProcess.on('close', (copyCode) => {
-              if (copyCode === 0) {
-                console.log('✅ Build copié avec succès');
-              }
-            });
-          }
-        } else {
-          console.log(`❌ Build frontend échoué: ${code}`);
-        }
-      });
-    } else {
-      console.log('✅ Build frontend déjà présent');
-    }
-  }, 2000);
+  // Vérification finale du build
+  if (fs.existsSync(frontendPath)) {
+    console.log('✅ Frontend disponible dans:', frontendPath);
+    const files = fs.readdirSync(frontendPath);
+    console.log(`📦 Fichiers dans dist: ${files.length} fichiers`);
+    console.log(`📄 Fichiers principaux: ${files.filter(f => f.endsWith('.html') || f.endsWith('.js')).join(', ')}`);
+  } else {
+    console.log('⚠️ ATTENTION: Frontend non disponible !');
+    console.log('🔧 Vérifiez le processus de build');
+  }
 });
 
 // Handle unhandled promise rejections

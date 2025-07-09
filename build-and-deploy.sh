@@ -47,7 +47,21 @@ head -10 dist/index.html
 
 cd ..
 
+# Étape 3: Copier le dossier dist à la racine
+echo "📁 === COPIE DU BUILD À LA RACINE ==="
+if [ -d "beauty-flow/dist" ]; then
+    echo "📦 Copie de beauty-flow/dist vers ./dist"
+    cp -r beauty-flow/dist ./
+    echo "✅ Build copié avec succès"
+    echo "📄 Contenu de ./dist:"
+    ls -la dist/
+else
+    echo "❌ ERREUR: Le dossier beauty-flow/dist n'existe pas !"
+    exit 1
+fi
+
 echo "🎉 === BUILD TERMINÉ AVEC SUCCÈS ==="
 echo "✅ Backend: Compilé"
 echo "✅ Frontend: Généré avec index.html"
+echo "✅ Dist: Copié à la racine"
 echo "🚀 Prêt pour le déploiement !"
