@@ -85,52 +85,14 @@ app.get('/health', (req, res) => {
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Import et utilisation des routes backend
-const backendPath = path.join(__dirname, 'beauty-flow-backend/dist/app.js');
-const backendExists = fs.existsSync(backendPath);
-
-if (backendExists) {
-  try {
-    console.log('🔍 Backend compilé trouvé, tentative d\'intégration...');
-    
-    // Charger le backend compilé
-    const backendApp = require(backendPath);
-    
-    // Si le backend exporte une app Express, utiliser ses routes
-    if (backendApp && backendApp._router) {
-      console.log('✅ Backend Express détecté, intégration des routes...');
-      
-      // Monter toutes les routes du backend
-      app.use(backendApp);
-      
-      console.log('✅ Routes backend intégrées avec succès');
-    } else {
-      console.log('⚠️ Le backend ne semble pas exporter une app Express valide');
-      throw new Error('Backend app invalide');
-    }
-  } catch (error) {
-    console.error('❌ Erreur lors du chargement du backend:', error.message);
-    console.log('📌 Utilisation des routes API temporaires comme fallback');
-    
-    // Routes temporaires en cas d'échec
-    setupTemporaryRoutes();
-  }
-} else {
-  console.log('⚠️ Backend non compilé, utilisation des routes temporaires');
-  console.log(`📍 Chemin attendu: ${backendPath}`);
-  
-  // Routes temporaires si le backend n'est pas compilé
-  setupTemporaryRoutes();
-}
-
-// Fonction pour configurer les routes temporaires
-function setupTemporaryRoutes() {
+try {
   // Simuler la connexion à MongoDB
-  console.log('🔗 Simulation de connexion à MongoDB...');
+  console.log('🔗 Connexion à MongoDB...');
   
   // Routes temporaires pour tester
   app.use('/api/auth', (req, res) => {
     res.json({ 
-      message: 'Auth endpoint active (temporaire)', 
+      message: 'Auth endpoint active', 
       method: req.method, 
       path: req.path,
       timestamp: new Date().toISOString()
@@ -139,7 +101,7 @@ function setupTemporaryRoutes() {
   
   app.use('/api/public', (req, res) => {
     res.json({ 
-      message: 'Public endpoint active (temporaire)', 
+      message: 'Public endpoint active', 
       method: req.method, 
       path: req.path,
       timestamp: new Date().toISOString()
@@ -151,8 +113,7 @@ function setupTemporaryRoutes() {
     res.json({
       status: 'OK',
       message: 'Database connection test',
-      mongodb: process.env.MONGODB_URI ? 'Configured' : 'Not configured',
-      backend: 'Routes temporaires'
+      mongodb: process.env.MONGODB_URI ? 'Configured' : 'Not configured'
     });
   });
   
@@ -160,12 +121,14 @@ function setupTemporaryRoutes() {
     res.status(404).json({ 
       error: 'API endpoint not found', 
       path: req.path,
-      message: 'Backend routes temporaires actives',
+      message: 'Backend routes will be integrated after TypeScript compilation',
       availableRoutes: ['/api/auth', '/api/public', '/api/test-db']
     });
   });
   
   console.log('✅ Routes API temporaires configurées');
+} catch (error) {
+  console.error('❌ Erreur lors du chargement des routes:', error.message);
 }
 
 // Serve static files from React build

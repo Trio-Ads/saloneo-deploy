@@ -49,14 +49,20 @@ head -10 dist/index.html
 
 cd ..
 
-# Étape 3: Copier le dossier dist à la racine
-echo "📁 === COPIE DU BUILD À LA RACINE ==="
+# Étape 3: Copier le dossier dist pour le backend
+echo "📁 === COPIE DU BUILD POUR LE BACKEND ==="
 if [ -d "beauty-flow/dist" ]; then
-    echo "📦 Copie de beauty-flow/dist vers ./dist"
+    echo "📦 Copie de beauty-flow/dist vers beauty-flow-backend/dist/public"
+    mkdir -p beauty-flow-backend/dist/public
+    cp -r beauty-flow/dist/* beauty-flow-backend/dist/public/
+    echo "✅ Frontend copié dans le backend"
+    echo "📄 Contenu de beauty-flow-backend/dist/public:"
+    ls -la beauty-flow-backend/dist/public/
+    
+    # Aussi copier à la racine pour compatibilité
+    echo "📦 Copie aussi vers ./dist pour compatibilité"
     cp -r beauty-flow/dist ./
-    echo "✅ Build copié avec succès"
-    echo "📄 Contenu de ./dist:"
-    ls -la dist/
+    echo "✅ Build copié à la racine"
 else
     echo "❌ ERREUR: Le dossier beauty-flow/dist n'existe pas !"
     exit 1
