@@ -6,12 +6,12 @@ services:
     plan: starter
     region: oregon
     buildCommand: |
-      echo "🚀 === BUILD SALONEO OPTIMISÉ ===" &&
+      echo "🚀 === BUILD SALONEO ===" &&
       echo "📍 Répertoire: $(pwd)" &&
       echo "📂 Contenu:" &&
       ls -la &&
       echo "" &&
-      echo "🎯 === ÉTAPE 1: BUILD FRONTEND ===" &&
+      echo "🎯 === BUILD FRONTEND ===" &&
       cd beauty-flow &&
       echo "📦 Installation dépendances frontend..." &&
       npm ci --only=production &&
@@ -20,32 +20,22 @@ services:
       echo "✅ Vérification build frontend:" &&
       ls -la dist/ &&
       echo "" &&
-      echo "🎯 === ÉTAPE 2: BUILD BACKEND ===" &&
-      cd ../beauty-flow-backend &&
-      echo "📦 Installation dépendances backend..." &&
-      npm ci &&
-      echo "🔨 Compilation TypeScript..." &&
-      npm run build &&
-      echo "✅ Backend compilé" &&
-      echo "" &&
-      echo "🎯 === ÉTAPE 3: ASSEMBLAGE FINAL ===" &&
+      echo "🎯 === COPIE DU FRONTEND ===" &&
       cd .. &&
-      echo "📁 Copie du frontend dans le backend..." &&
-      cp -r beauty-flow/dist beauty-flow-backend/dist/public &&
-      echo "📁 Création dossier uploads..." &&
-      mkdir -p beauty-flow-backend/uploads &&
+      echo "📁 Copie du frontend buildé..." &&
+      cp -r beauty-flow/dist ./dist &&
+      echo "📁 Copie des uploads..." &&
+      mkdir -p uploads &&
       echo "" &&
       echo "✅ === VÉRIFICATION FINALE ===" &&
       echo "📁 Structure finale:" &&
       ls -la &&
-      echo "📁 Backend compilé:" &&
-      ls -la beauty-flow-backend/dist/ &&
-      echo "📁 Frontend dans backend:" &&
-      ls -la beauty-flow-backend/dist/public/ &&
+      echo "📁 Contenu dist:" &&
+      ls -la dist/ &&
       echo "📄 Index.html:" &&
-      ls -la beauty-flow-backend/dist/public/index.html &&
+      ls -la dist/index.html &&
       echo "🎉 === BUILD TERMINÉ AVEC SUCCÈS ==="
-    startCommand: node beauty-flow-backend/dist/app.js
+    startCommand: node server.js
     autoDeploy: true
     envVars:
       - key: NODE_ENV
@@ -63,9 +53,9 @@ services:
       - key: JWT_REFRESH_EXPIRES_IN
         value: 30d
       - key: FRONTEND_URL
-        value: https://saloneo-deploy.onrender.com
+        value: https://saloneo-app.onrender.com
       - key: CORS_ORIGIN
-        value: https://saloneo-deploy.onrender.com
+        value: https://saloneo-app.onrender.com
       - key: MAX_FILE_SIZE
         value: 5242880
       - key: UPLOAD_DIR
