@@ -16,7 +16,8 @@ cd ..
 # Étape 2: Build du frontend
 echo "🎨 === BUILD FRONTEND ==="
 cd beauty-flow
-npm install
+# Forcer l'installation de toutes les dépendances (y compris devDependencies)
+NODE_ENV=development npm install
 
 # Vérification du script build
 echo "📋 === VÉRIFICATION PACKAGE.JSON ==="
@@ -24,7 +25,8 @@ cat package.json | grep '"build"'
 
 # Build avec gestion d'erreurs
 echo "🎯 === EXÉCUTION DU BUILD FRONTEND ==="
-npm run build
+# Utiliser npx pour s'assurer que Vite est trouvé
+npx vite build
 
 # Vérification critique que le build a réussi
 if [ ! -f "dist/index.html" ]; then
