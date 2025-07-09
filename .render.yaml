@@ -6,33 +6,39 @@ services:
     plan: starter
     region: oregon
     buildCommand: |
-      echo "🚀 === DÉBUT BUILD SALONEO OPTIMISÉ V2 ===" &&
+      echo "🚀 === DÉBUT BUILD SALONEO ROBUSTE V3 ===" &&
       echo "📍 Répertoire de travail: $(pwd)" &&
       echo "📂 Contenu du répertoire:" &&
       ls -la &&
-      echo "🔧 === INSTALLATION BACKEND ===" &&
-      cd beauty-flow-backend &&
-      npm ci --only=production --silent &&
-      npm install --save-dev typescript @types/node --silent &&
+      echo "🔧 === INSTALLATION GLOBALE DES OUTILS ===" &&
+      npm install -g typescript vite @types/node &&
       echo "🏗️ === BUILD BACKEND TYPESCRIPT ===" &&
-      npx tsc --noEmit --skipLibCheck &&
-      npm run build &&
-      echo "✅ === VÉRIFICATION BACKEND COMPILÉ ===" &&
-      if [ -f "dist/app.js" ]; then echo "✅ Backend compilé avec succès:" && ls -la dist/; else echo "❌ Erreur compilation backend" && exit 1; fi &&
-      echo "🎨 === INSTALLATION FRONTEND ===" &&
+      cd beauty-flow-backend &&
+      echo "📦 Installation des dépendances backend..." &&
+      npm install &&
+      echo "🔨 Compilation TypeScript..." &&
+      npx tsc &&
+      echo "✅ Vérification backend compilé..." &&
+      if [ -f "dist/app.js" ]; then 
+        echo "✅ Backend compilé avec succès:" && ls -la dist/
+      else 
+        echo "❌ Erreur compilation backend" && exit 1
+      fi &&
+      echo "🎨 === BUILD FRONTEND REACT ===" &&
       cd ../beauty-flow &&
-      npm ci --only=production --silent &&
-      echo "🎯 === BUILD FRONTEND AVEC VARIABLES OPTIMISÉES ===" &&
-      export VITE_API_URL=https://saloneo-app.onrender.com/api &&
-      export VITE_ENV=production &&
-      export VITE_APP_NAME=Saloneo &&
-      export VITE_SITE_URL=https://saloneo-app.onrender.com &&
-      npm run build &&
-      echo "✅ === VÉRIFICATION FRONTEND BUILD ===" &&
-      if [ -d "dist" ] && [ -f "dist/index.html" ]; then echo "✅ Frontend build réussi:" && ls -la dist/ && head -3 dist/index.html; else echo "❌ Erreur build frontend" && exit 1; fi &&
+      echo "📦 Installation des dépendances frontend..." &&
+      npm install &&
+      echo "🎯 Build frontend avec variables d'environnement..." &&
+      VITE_API_URL=https://saloneo-app.onrender.com/api VITE_ENV=production VITE_APP_NAME=Saloneo VITE_SITE_URL=https://saloneo-app.onrender.com npm run build &&
+      echo "✅ Vérification frontend build..." &&
+      if [ -d "dist" ] && [ -f "dist/index.html" ]; then 
+        echo "✅ Frontend build réussi:" && ls -la dist/ && echo "📄 Index.html:" && head -3 dist/index.html
+      else 
+        echo "❌ Erreur build frontend" && exit 1
+      fi &&
       echo "🔧 === INSTALLATION DÉPENDANCES RACINE ===" &&
       cd .. &&
-      npm install --silent &&
+      npm install &&
       echo "🎉 === BUILD TERMINÉ AVEC SUCCÈS ==="
     startCommand: node server.js
     autoDeploy: true

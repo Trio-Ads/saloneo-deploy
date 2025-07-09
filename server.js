@@ -97,47 +97,78 @@ async function buildFrontend() {
   return new Promise((resolve) => {
     console.log('🎨 Construction du frontend...');
     
-    const buildProcess = spawn('npm', ['run', 'build'], {
+    // Vérifier si vite est disponible
+    const viteCheck = spawn('npx', ['vite', '--version'], {
       cwd: path.join(__dirname, 'beauty-flow'),
       stdio: 'pipe',
-      shell: true,
-      env: {
-        ...process.env,
-        VITE_API_URL: 'https://saloneo-app.onrender.com/api',
-        VITE_ENV: 'production',
-        VITE_APP_NAME: 'Saloneo',
-        VITE_SITE_URL: 'https://saloneo-app.onrender.com'
-      }
+      shell: true
     });
 
-    let output = '';
-    let errorOutput = '';
+    viteCheck.on('close', (code) => {
+      if (code !== 0) {
+        console.log('⚠️ Vite non trouvé, installation...');
+        // Installer vite si nécessaire
+        const installVite = spawn('npm', ['install', 'vite'], {
+          cwd: path.join(__dirname, 'beauty-flow'),
+          stdio: 'pipe',
+          shell: true
+        });
 
-    buildProcess.stdout.on('data', (data) => {
-      output += data.toString();
-    });
-
-    buildProcess.stderr.on('data', (data) => {
-      errorOutput += data.toString();
-    });
-
-    buildProcess.on('close', (code) => {
-      if (code === 0) {
-        console.log('✅ Frontend construit avec succès !');
-        resolve(true);
+        installVite.on('close', () => {
+          startBuild();
+        });
       } else {
-        console.error('❌ Erreur de construction frontend:');
-        console.error('📄 Error output:', errorOutput);
-        resolve(false);
+        startBuild();
       }
     });
 
-    // Timeout de sécurité
-    setTimeout(() => {
-      buildProcess.kill();
-      console.log('⏰ Timeout de construction frontend');
-      resolve(false);
-    }, 300000); // 5 minutes
+    function startBuild() {
+      const buildProcess = spawn('npm', ['run', 'build'], {
+        cwd: path.join(__dirname, 'beauty-flow'),
+        stdio: 'pipe',
+        shell: true,
+        env: {
+          ...process.env,
+          VITE_API_URL: 'https://saloneo-app.onrender.com/api',
+          VITE_ENV: 'production',
+          VITE_APP_NAME: 'Saloneo',
+          VITE_SITE_URL: 'https://saloneo-app.onrender.com'
+        }
+      });
+
+      let output = '';
+      let errorOutput = '';
+
+      buildProcess.stdout.on('data', (data) => {
+        const text = data.toString();
+        output += text;
+        console.log('📦 Frontend build:', text.trim());
+      });
+
+      buildProcess.stderr.on('data', (data) => {
+        const text = data.toString();
+        errorOutput += text;
+        console.log('⚠️ Frontend warning:', text.trim());
+      });
+
+      buildProcess.on('close', (code) => {
+        if (code === 0) {
+          console.log('✅ Frontend construit avec succès !');
+          resolve(true);
+        } else {
+          console.error('❌ Erreur de construction frontend:');
+          console.error('📄 Error output:', errorOutput);
+          resolve(false);
+        }
+      });
+
+      // Timeout de sécurité
+      setTimeout(() => {
+        buildProcess.kill();
+        console.log('⏰ Timeout de construction frontend');
+        resolve(false);
+      }, 300000); // 5 minutes
+    }
   });
 }
 
