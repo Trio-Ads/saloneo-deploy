@@ -5,17 +5,13 @@
   "main": "dist/app.js",
   "scripts": {
     "dev": "nodemon",
-    "build": "echo '🔨 Compilation TypeScript...' && tsc && echo '✅ Compilation terminée'",
-    "build:clean": "rm -rf dist && npm run build",
-    "build:verbose": "tsc --verbose",
+    "build": "tsc",
     "start": "node dist/app.js",
     "start:prod": "NODE_ENV=production node dist/app.js",
     "start:compiled": "node dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "tsc --noEmit",
-    "check": "tsc --noEmit --skipLibCheck",
-    "prebuild": "echo '🧹 Nettoyage du dossier dist...' && rm -rf dist",
-    "postbuild": "echo '📁 Copie des fichiers uploads...' && cp -r uploads dist/ 2>/dev/null || mkdir -p dist/uploads && echo '✅ Build backend terminé'"
+    "postbuild": "cp -r uploads dist/ 2>/dev/null || mkdir -p dist/uploads"
   },
   "keywords": [
     "beauty",
