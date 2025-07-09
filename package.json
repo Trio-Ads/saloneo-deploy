@@ -5,9 +5,10 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "build": "npm run build:frontend && npm run copy:backend",
-    "build:frontend": "cd beauty-flow && npm install && npx vite --version || npm install -g vite && npm run build",
-    "copy:backend": "cp -r beauty-flow-backend ./",
+    "build": "npm run build:frontend && npm run build:backend && npm run copy:dist",
+    "build:frontend": "cd beauty-flow && npm ci && npm run build",
+    "build:backend": "cd beauty-flow-backend && npm ci && npm run build",
+    "copy:dist": "cp -r beauty-flow/dist ./dist 2>/dev/null || true",
     "dev": "npm run build && npm start",
     "install:all": "npm install && cd beauty-flow && npm install && cd ../beauty-flow-backend && npm install",
     "test": "echo \"Tests à implémenter\" && exit 0"

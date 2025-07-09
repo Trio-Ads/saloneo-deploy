@@ -16,6 +16,9 @@ console.log('🚀 === DÉMARRAGE SERVEUR UNIFIÉ SALONEO ===');
 console.log(`📍 Environment: ${NODE_ENV}`);
 console.log(`🔌 Port: ${PORT}`);
 
+// Trust proxy pour Render (IMPORTANT pour express-rate-limit)
+app.set('trust proxy', 1);
+
 // Security middleware
 app.use(helmet({
   contentSecurityPolicy: false, // Désactivé pour permettre les assets
@@ -301,10 +304,13 @@ httpServer.listen(PORT, '0.0.0.0', () => {
     if (!fs.existsSync(path.join(__dirname, 'dist')) && !fs.existsSync(path.join(__dirname, 'beauty-flow/dist'))) {
       console.log('📦 Build frontend nécessaire...');
       
-      // S'assurer que Vite est disponible
-      const buildProcess = spawn('sh', ['-c', 'npx vite --version || npm install vite && npm run build'], {
+      // S'assurer que Vite est disponible et construire
+      console.log('📦 Installation de Vite et build du frontend...');
+      const buildCommand = 'npm install && npm run build';
+      const buildProcess = spawn('sh', ['-c', buildCommand], {
         cwd: path.join(__dirname, 'beauty-flow'),
-        stdio: 'pipe'
+        stdio: 'pipe',
+        env: { ...process.env, NODE_ENV: 'production' }
       });
 
       buildProcess.stdout.on('data', (data) => {
