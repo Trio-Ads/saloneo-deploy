@@ -324,17 +324,19 @@ app.get('*', (req, res) => {
 const startServer = async () => {
   console.log('🚀 Démarrage de Saloneo...');
   
-  // 1. Vérifier et générer le frontend si nécessaire
-  await ensureFrontendExists();
-  
-  // 2. Connecter à MongoDB
+  // 1. Connecter à MongoDB en premier
   await connectDB();
   
-  // 3. Démarrer le serveur
+  // 2. Démarrer le serveur IMMÉDIATEMENT
   app.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 Serveur Saloneo démarré sur le port ${PORT}`);
     console.log(`📱 URL: http://localhost:${PORT}`);
     console.log(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
+  });
+  
+  // 3. Vérifier et générer le frontend EN ARRIÈRE-PLAN
+  ensureFrontendExists().catch(err => {
+    console.error('❌ Erreur lors de la génération du frontend:', err.message);
   });
 };
 
