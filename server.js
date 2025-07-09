@@ -3,252 +3,293 @@ const path = require('path');
 const { spawn } = require('child_process');
 const fs = require('fs');
 
-// Import du backend Express
-let backendApp;
-try {
-  // Essayer d'importer le backend compilé
-  backendApp = require('./beauty-flow-backend/dist/app.js');
-} catch (error) {
-  console.log('⚠️ Backend compilé non trouvé, tentative avec TypeScript...');
+const app = express();
+const PORT = process.env.PORT || 10000;
+
+// Configuration
+const BACKEND_DIST_PATH = path.join(__dirname, 'beauty-flow-backend', 'dist');
+const FRONTEND_DIST_PATH = path.join(__dirname, 'beauty-flow', 'dist');
+const BACKEND_COMPILED_APP = path.join(BACKEND_DIST_PATH, 'app.js');
+
+console.log('🚀 === DÉMARRAGE SERVEUR SALONEO OPTIMISÉ ===');
+console.log(`📍 Répertoire de travail: ${__dirname}`);
+console.log(`🎯 Port: ${PORT}`);
+console.log(`📁 Backend compilé: ${BACKEND_COMPILED_APP}`);
+console.log(`📁 Frontend build: ${FRONTEND_DIST_PATH}`);
+
+// Variables globales
+let backendApp = null;
+let isBackendLoaded = false;
+let buildInProgress = false;
+
+// Fonction pour charger le backend compilé
+async function loadCompiledBackend() {
   try {
-    // Fallback: utiliser ts-node pour exécuter directement le TypeScript
-    require('ts-node/register');
-    backendApp = require('./beauty-flow-backend/src/app.ts');
-  } catch (tsError) {
-    console.error('❌ Impossible de charger le backend:', tsError.message);
-    // Créer un serveur minimal en cas d'échec
-    backendApp = null;
+    console.log('🔍 Vérification du backend compilé...');
+    
+    if (fs.existsSync(BACKEND_COMPILED_APP)) {
+      console.log('✅ Backend compilé trouvé, chargement...');
+      
+      // Nettoyer le cache require
+      delete require.cache[require.resolve(BACKEND_COMPILED_APP)];
+      
+      // Charger le backend
+      backendApp = require(BACKEND_COMPILED_APP);
+      isBackendLoaded = true;
+      
+      console.log('🎉 Backend Express chargé avec succès !');
+      return true;
+    } else {
+      console.log('❌ Backend compilé non trouvé:', BACKEND_COMPILED_APP);
+      return false;
+    }
+  } catch (error) {
+    console.error('❌ Erreur lors du chargement du backend:', error.message);
+    return false;
   }
 }
 
-const PORT = process.env.PORT || 10000;
+// Fonction pour compiler le backend
+async function compileBackend() {
+  return new Promise((resolve) => {
+    console.log('🔨 Compilation du backend TypeScript...');
+    
+    const tscProcess = spawn('npm', ['run', 'build'], {
+      cwd: path.join(__dirname, 'beauty-flow-backend'),
+      stdio: 'pipe',
+      shell: true
+    });
 
-// Si le backend n'est pas disponible, créer un serveur minimal
-if (!backendApp) {
-  console.log('🔄 Création d\'un serveur minimal...');
-  
-  const app = express();
-  
-  // Middleware de base
-  app.use(express.json());
-  app.use(express.static(path.join(__dirname, 'beauty-flow/dist')));
-  
-  // Route de santé
-  app.get('/health', (req, res) => {
-    res.json({ 
-      status: 'OK', 
-      message: 'Serveur minimal actif',
-      timestamp: new Date().toISOString()
+    let output = '';
+    let errorOutput = '';
+
+    tscProcess.stdout.on('data', (data) => {
+      output += data.toString();
     });
-  });
-  
-  // API placeholder
-  app.use('/api/*', (req, res) => {
-    res.status(503).json({
-      error: 'Service Unavailable',
-      message: 'Backend en cours de démarrage...'
+
+    tscProcess.stderr.on('data', (data) => {
+      errorOutput += data.toString();
     });
+
+    tscProcess.on('close', (code) => {
+      if (code === 0) {
+        console.log('✅ Backend compilé avec succès !');
+        console.log('📄 Output:', output);
+        resolve(true);
+      } else {
+        console.error('❌ Erreur de compilation backend:');
+        console.error('📄 Error output:', errorOutput);
+        resolve(false);
+      }
+    });
+
+    // Timeout de sécurité
+    setTimeout(() => {
+      tscProcess.kill();
+      console.log('⏰ Timeout de compilation backend');
+      resolve(false);
+    }, 120000); // 2 minutes
   });
-  
-  // Servir le frontend
-  app.get('*', (req, res) => {
-    const indexPath = path.join(__dirname, 'beauty-flow/dist/index.html');
-    
-    if (fs.existsSync(indexPath)) {
-      res.sendFile(indexPath);
-    } else {
-      res.send(`
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <title>Saloneo - Construction en cours</title>
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1">
-          <style>
-            body { 
-              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-              margin: 0; 
-              padding: 0;
-              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-              color: white; 
-              min-height: 100vh;
-              display: flex; 
-              align-items: center; 
-              justify-content: center;
-            }
-            .container { 
-              background: rgba(255,255,255,0.1); 
-              padding: 40px; 
-              border-radius: 20px; 
-              backdrop-filter: blur(10px);
-              max-width: 600px;
-              text-align: center;
-              box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            }
-            .logo { 
-              font-size: 3em; 
-              margin-bottom: 20px;
-            }
-            .status { 
-              background: rgba(255,255,255,0.2); 
-              padding: 20px; 
-              border-radius: 10px; 
-              margin: 20px 0;
-            }
-            .building { 
-              background: rgba(255,165,0,0.2); 
-              color: #ffcc99;
-            }
-            .spinner {
-              border: 3px solid rgba(255,255,255,0.3);
-              border-top: 3px solid white;
-              border-radius: 50%;
-              width: 30px;
-              height: 30px;
-              animation: spin 1s linear infinite;
-              margin: 20px auto;
-            }
-            @keyframes spin {
-              0% { transform: rotate(0deg); }
-              100% { transform: rotate(360deg); }
-            }
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <div class="logo">💄 SALONEO</div>
-            <h2>Plateforme de gestion pour salons de beauté</h2>
-            
-            <div class="status building">
-              <h3>🔨 APPLICATION EN CONSTRUCTION</h3>
-              <div class="spinner"></div>
-              <p>✅ Serveur démarré sur le port ${PORT}</p>
-              <p>🔄 Frontend en cours de compilation...</p>
-              <p>⚙️ Backend en cours d'initialisation...</p>
-            </div>
-            
-            <p><small>Timestamp: ${new Date().toISOString()}</small></p>
-            <p><small>Rechargement automatique dans 15 secondes</small></p>
-          </div>
-          
-          <script>
-            setTimeout(() => window.location.reload(), 15000);
-          </script>
-        </body>
-        </html>
-      `);
-    }
-  });
-  
-  // Démarrer le serveur minimal
-  const server = app.listen(PORT, '0.0.0.0', () => {
-    console.log(`🚀 Serveur minimal démarré sur le port ${PORT}`);
-    
-    // Construire le frontend en arrière-plan
-    buildFrontend();
-  });
-  
-  // Gestion des erreurs
-  server.on('error', (err) => {
-    console.error('❌ Erreur serveur:', err);
-  });
-  
-} else {
-  // Le backend est disponible, l'utiliser directement
-  console.log('✅ Backend chargé avec succès');
-  console.log(`🚀 Serveur backend démarré sur le port ${PORT}`);
 }
 
 // Fonction pour construire le frontend
-function buildFrontend() {
-  console.log('🔨 Début de la construction du frontend...');
-  
-  const frontendPath = path.join(__dirname, 'beauty-flow');
-  
-  // Vérifier si le dossier frontend existe
-  if (!fs.existsSync(frontendPath)) {
-    console.error('❌ Dossier frontend non trouvé:', frontendPath);
-    return;
-  }
-  
-  // Installer les dépendances
-  console.log('📦 Installation des dépendances frontend...');
-  const installProcess = spawn('npm', ['install'], {
-    cwd: frontendPath,
-    stdio: 'pipe',
-    shell: true
-  });
-  
-  installProcess.stdout.on('data', (data) => {
-    console.log(`📦 ${data.toString().trim()}`);
-  });
-  
-  installProcess.stderr.on('data', (data) => {
-    console.log(`⚠️ ${data.toString().trim()}`);
-  });
-  
-  installProcess.on('close', (installCode) => {
-    if (installCode === 0) {
-      console.log('✅ Dépendances frontend installées');
-      
-      // Construire le frontend
-      console.log('🏗️ Construction du frontend...');
-      const buildProcess = spawn('npm', ['run', 'build'], {
-        cwd: frontendPath,
-        stdio: 'pipe',
-        shell: true,
-        env: {
-          ...process.env,
-          NODE_ENV: 'production',
-          VITE_API_URL: `https://saloneo-app.onrender.com/api`,
-          VITE_ENV: 'production',
-          VITE_APP_NAME: 'Saloneo',
-          VITE_SITE_URL: 'https://saloneo-app.onrender.com'
-        }
-      });
-      
-      buildProcess.stdout.on('data', (data) => {
-        console.log(`🏗️ ${data.toString().trim()}`);
-      });
-      
-      buildProcess.stderr.on('data', (data) => {
-        console.log(`⚠️ ${data.toString().trim()}`);
-      });
-      
-      buildProcess.on('close', (buildCode) => {
-        if (buildCode === 0) {
-          console.log('✅ Frontend construit avec succès !');
-          
-          // Vérifier que les fichiers ont été créés
-          const distPath = path.join(frontendPath, 'dist');
-          const indexPath = path.join(distPath, 'index.html');
-          
-          if (fs.existsSync(indexPath)) {
-            console.log('✅ index.html créé avec succès');
-            console.log('🎉 Application prête !');
-          } else {
-            console.log('⚠️ index.html non trouvé après le build');
-          }
-        } else {
-          console.error(`❌ Échec de la construction frontend (code: ${buildCode})`);
-        }
-      });
-      
-    } else {
-      console.error(`❌ Échec de l'installation des dépendances (code: ${installCode})`);
-    }
+async function buildFrontend() {
+  return new Promise((resolve) => {
+    console.log('🎨 Construction du frontend...');
+    
+    const buildProcess = spawn('npm', ['run', 'build'], {
+      cwd: path.join(__dirname, 'beauty-flow'),
+      stdio: 'pipe',
+      shell: true,
+      env: {
+        ...process.env,
+        VITE_API_URL: 'https://saloneo-app.onrender.com/api',
+        VITE_ENV: 'production',
+        VITE_APP_NAME: 'Saloneo',
+        VITE_SITE_URL: 'https://saloneo-app.onrender.com'
+      }
+    });
+
+    let output = '';
+    let errorOutput = '';
+
+    buildProcess.stdout.on('data', (data) => {
+      output += data.toString();
+    });
+
+    buildProcess.stderr.on('data', (data) => {
+      errorOutput += data.toString();
+    });
+
+    buildProcess.on('close', (code) => {
+      if (code === 0) {
+        console.log('✅ Frontend construit avec succès !');
+        resolve(true);
+      } else {
+        console.error('❌ Erreur de construction frontend:');
+        console.error('📄 Error output:', errorOutput);
+        resolve(false);
+      }
+    });
+
+    // Timeout de sécurité
+    setTimeout(() => {
+      buildProcess.kill();
+      console.log('⏰ Timeout de construction frontend');
+      resolve(false);
+    }, 300000); // 5 minutes
   });
 }
 
-// Gestion des signaux de fermeture
-process.on('SIGTERM', () => {
-  console.log('🛑 Arrêt du serveur...');
-  process.exit(0);
+// Middleware pour servir les fichiers statiques du frontend
+function setupFrontendStatic() {
+  if (fs.existsSync(FRONTEND_DIST_PATH)) {
+    console.log('📁 Configuration des fichiers statiques frontend...');
+    app.use(express.static(FRONTEND_DIST_PATH));
+    
+    // Route catch-all pour React Router
+    app.get('*', (req, res) => {
+      // Éviter les routes API et uploads
+      if (req.path.startsWith('/api/') || req.path.startsWith('/uploads/') || req.path === '/health') {
+        return res.status(404).json({
+          error: 'Not Found',
+          message: `Cannot ${req.method} ${req.originalUrl}`,
+          timestamp: new Date().toISOString()
+        });
+      }
+      
+      const indexPath = path.join(FRONTEND_DIST_PATH, 'index.html');
+      if (fs.existsSync(indexPath)) {
+        res.sendFile(indexPath);
+      } else {
+        res.status(503).send(`
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Saloneo - En construction</title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <style>
+              body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background: #f5f5f5; }
+              .container { max-width: 600px; margin: 0 auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+              .logo { font-size: 2.5em; color: #6366f1; margin-bottom: 20px; }
+              .status { color: #059669; font-weight: bold; margin: 20px 0; }
+              .progress { background: #e5e7eb; height: 8px; border-radius: 4px; overflow: hidden; margin: 20px 0; }
+              .progress-bar { background: #6366f1; height: 100%; width: 70%; animation: pulse 2s infinite; }
+              @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <div class="logo">💄 SALONEO</div>
+              <h1>Plateforme de gestion pour salons de beauté</h1>
+              <div class="status">🔨 APPLICATION EN CONSTRUCTION</div>
+              <div class="progress"><div class="progress-bar"></div></div>
+              <p>✅ Serveur démarré sur le port ${PORT}</p>
+              <p>🔄 Frontend en cours de compilation...</p>
+              <p>⚙️ Backend en cours d'initialisation...</p>
+              <p><small>Timestamp: ${new Date().toISOString()}</small></p>
+              <p><small>Rechargement automatique dans 15 secondes</small></p>
+              <script>setTimeout(() => window.location.reload(), 15000);</script>
+            </div>
+          </body>
+          </html>
+        `);
+      }
+    });
+    
+    return true;
+  }
+  return false;
+}
+
+// Route de santé
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'OK',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    backend: isBackendLoaded ? 'loaded' : 'loading',
+    frontend: fs.existsSync(FRONTEND_DIST_PATH) ? 'available' : 'building',
+    environment: process.env.NODE_ENV || 'production'
+  });
 });
 
-process.on('SIGINT', () => {
-  console.log('🛑 Arrêt du serveur...');
-  process.exit(0);
+// Middleware pour rediriger vers le backend si chargé
+app.use((req, res, next) => {
+  if (isBackendLoaded && backendApp && req.path.startsWith('/api/')) {
+    return backendApp(req, res, next);
+  }
+  next();
 });
 
-console.log('🎯 Serveur Saloneo initialisé');
+// Initialisation asynchrone
+async function initialize() {
+  console.log('🔄 Initialisation du serveur...');
+  
+  // Démarrer le serveur immédiatement
+  const server = app.listen(PORT, '0.0.0.0', () => {
+    console.log(`🎯 Serveur Saloneo initialisé`);
+    console.log(`🚀 Serveur minimal démarré sur le port ${PORT}`);
+    console.log(`🌐 Accessible sur: https://saloneo-app.onrender.com`);
+  });
+
+  // Configuration initiale du frontend
+  setupFrontendStatic();
+
+  // Processus d'initialisation en arrière-plan
+  if (!buildInProgress) {
+    buildInProgress = true;
+    
+    setTimeout(async () => {
+      console.log('🔨 Début de la construction du frontend...');
+      
+      // Vérifier si le frontend existe déjà
+      if (!fs.existsSync(FRONTEND_DIST_PATH)) {
+        console.log('📦 Installation des dépendances frontend...');
+        await buildFrontend();
+        setupFrontendStatic();
+      } else {
+        console.log('✅ Frontend déjà construit');
+      }
+
+      // Charger ou compiler le backend
+      console.log('⚙️ Initialisation du backend...');
+      
+      let backendReady = await loadCompiledBackend();
+      
+      if (!backendReady) {
+        console.log('⚠️ Backend compilé non trouvé, tentative avec TypeScript...');
+        const compiled = await compileBackend();
+        
+        if (compiled) {
+          backendReady = await loadCompiledBackend();
+        }
+      }
+
+      if (!backendReady) {
+        console.log('❌ Impossible de charger le backend: utilisation du serveur minimal');
+      }
+
+      buildInProgress = false;
+      console.log('🎉 Initialisation terminée !');
+      
+    }, 1000);
+  }
+
+  return server;
+}
+
+// Gestion des erreurs
+process.on('uncaughtException', (error) => {
+  console.error('❌ Erreur non gérée:', error);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('❌ Promesse rejetée:', reason);
+});
+
+// Démarrage
+initialize().catch(console.error);
+
+module.exports = app;

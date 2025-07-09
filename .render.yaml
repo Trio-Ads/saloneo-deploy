@@ -6,29 +6,33 @@ services:
     plan: starter
     region: oregon
     buildCommand: |
-      echo "🚀 === DÉBUT BUILD SALONEO OPTIMISÉ ===" &&
+      echo "🚀 === DÉBUT BUILD SALONEO OPTIMISÉ V2 ===" &&
       echo "📍 Répertoire de travail: $(pwd)" &&
       echo "📂 Contenu du répertoire:" &&
       ls -la &&
       echo "🔧 === INSTALLATION BACKEND ===" &&
       cd beauty-flow-backend &&
-      npm install &&
-      echo "🏗️ === BUILD BACKEND ===" &&
+      npm ci --only=production --silent &&
+      npm install --save-dev typescript @types/node --silent &&
+      echo "🏗️ === BUILD BACKEND TYPESCRIPT ===" &&
+      npx tsc --noEmit --skipLibCheck &&
       npm run build &&
+      echo "✅ === VÉRIFICATION BACKEND COMPILÉ ===" &&
+      if [ -f "dist/app.js" ]; then echo "✅ Backend compilé avec succès:" && ls -la dist/; else echo "❌ Erreur compilation backend" && exit 1; fi &&
       echo "🎨 === INSTALLATION FRONTEND ===" &&
       cd ../beauty-flow &&
-      npm install &&
-      echo "🎯 === BUILD FRONTEND AVEC VARIABLES CORRECTES ===" &&
-      VITE_API_URL=https://saloneo-app.onrender.com/api VITE_ENV=production VITE_APP_NAME=Saloneo VITE_SITE_URL=https://saloneo-app.onrender.com npm run build &&
-      echo "✅ === VÉRIFICATION POST-BUILD ===" &&
-      ls -la &&
-      echo "📁 === VÉRIFICATION DOSSIER DIST ===" &&
-      if [ -d "dist" ]; then echo "✅ Dossier dist existe:" && ls -la dist/; else echo "❌ Dossier dist n'existe pas"; fi &&
-      echo "📄 === VÉRIFICATION INDEX.HTML ===" &&
-      if [ -f "dist/index.html" ]; then echo "✅ index.html trouvé:" && ls -la dist/index.html && head -5 dist/index.html; else echo "❌ index.html non trouvé"; fi &&
+      npm ci --only=production --silent &&
+      echo "🎯 === BUILD FRONTEND AVEC VARIABLES OPTIMISÉES ===" &&
+      export VITE_API_URL=https://saloneo-app.onrender.com/api &&
+      export VITE_ENV=production &&
+      export VITE_APP_NAME=Saloneo &&
+      export VITE_SITE_URL=https://saloneo-app.onrender.com &&
+      npm run build &&
+      echo "✅ === VÉRIFICATION FRONTEND BUILD ===" &&
+      if [ -d "dist" ] && [ -f "dist/index.html" ]; then echo "✅ Frontend build réussi:" && ls -la dist/ && head -3 dist/index.html; else echo "❌ Erreur build frontend" && exit 1; fi &&
       echo "🔧 === INSTALLATION DÉPENDANCES RACINE ===" &&
       cd .. &&
-      npm install &&
+      npm install --silent &&
       echo "🎉 === BUILD TERMINÉ AVEC SUCCÈS ==="
     startCommand: node server.js
     autoDeploy: true
