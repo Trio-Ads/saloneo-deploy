@@ -20,24 +20,40 @@ const server = app.listen(PORT, '0.0.0.0', () => {
   setTimeout(() => {
     console.log('🔨 Début construction frontend...');
     
-    const buildProcess = spawn('npm', ['run', 'build'], {
+    // D'abord installer les dépendances si nécessaire
+    const installProcess = spawn('npm', ['install'], {
       cwd: path.join(__dirname, 'beauty-flow'),
       stdio: 'pipe',
       shell: true
     });
 
-    buildProcess.stdout.on('data', (data) => {
-      console.log(`📦 ${data.toString().trim()}`);
-    });
+    installProcess.on('close', (installCode) => {
+      if (installCode === 0) {
+        console.log('✅ Dépendances installées');
+        
+        // Ensuite construire avec npx pour s'assurer que vite est disponible
+        const buildProcess = spawn('npx', ['vite', 'build'], {
+          cwd: path.join(__dirname, 'beauty-flow'),
+          stdio: 'pipe',
+          shell: true
+        });
 
-    buildProcess.stderr.on('data', (data) => {
-      console.log(`⚠️ ${data.toString().trim()}`);
-    });
+        buildProcess.stdout.on('data', (data) => {
+          console.log(`📦 ${data.toString().trim()}`);
+        });
 
-    buildProcess.on('close', (code) => {
-      console.log(code === 0 ? '✅ Build terminé !' : `❌ Build échoué: ${code}`);
+        buildProcess.stderr.on('data', (data) => {
+          console.log(`⚠️ ${data.toString().trim()}`);
+        });
+
+        buildProcess.on('close', (code) => {
+          console.log(code === 0 ? '✅ Build terminé !' : `❌ Build échoué: ${code}`);
+        });
+      } else {
+        console.log(`❌ Installation échouée: ${installCode}`);
+      }
     });
-  }, 1000); // Attendre 1 seconde après le démarrage
+  }, 2000); // Attendre 2 secondes après le démarrage
 });
 
 // Route de santé
