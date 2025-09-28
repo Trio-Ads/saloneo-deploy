@@ -8,6 +8,7 @@ import { useTeamStore } from '../features/team/store';
 import { useAppointmentStore } from '../features/appointments/store';
 import UserMenu from '../components/UserMenu';
 import NavbarLanguageSelector from '../components/NavbarLanguageSelector';
+import './MainLayout.css';
 
 // Icons Saloneo 2025
 const MenuIcon = () => (
@@ -298,7 +299,7 @@ const MainLayout: React.FC = () => {
             lg:hidden overflow-hidden transition-all duration-300 ease-smooth
             ${isOpen ? 'max-h-[calc(100vh-5rem)] opacity-100' : 'max-h-0 opacity-0'}
           `}>
-            <div className="mobile-menu-2025 py-4 space-y-2 max-h-[calc(100vh-7rem)] overflow-y-auto">
+            <div className="mobile-menu-2025 py-4 space-y-2 max-h-[calc(100vh-7rem)] overflow-y-auto overflow-x-hidden">
               {navigation.map((item) => {
                 const Icon = item.icon;
                 const isActive = isActiveRoute(item.href);
@@ -411,8 +412,35 @@ const MainLayout: React.FC = () => {
             border: 1px solid rgba(255, 255, 255, 0.1);
           }
 
-          /* Améliorer le défilement sur mobile */
+          /* Forcer le défilement vertical sur mobile */
           @media (max-width: 1024px) {
+            .mobile-menu-2025 {
+              /* Forcer le défilement vertical uniquement */
+              overflow-y: scroll !important;
+              overflow-x: hidden !important;
+              -webkit-overflow-scrolling: touch !important;
+              overscroll-behavior-y: contain !important;
+              overscroll-behavior-x: none !important;
+              
+              /* Empêcher le contenu de déborder horizontalement */
+              width: 100% !important;
+              max-width: calc(100vw - 2rem) !important;
+            }
+
+            /* Empêcher les éléments enfants de déborder */
+            .mobile-menu-2025 > * {
+              max-width: 100% !important;
+              overflow-x: hidden !important;
+            }
+
+            .mobile-nav-item-2025 {
+              width: 100% !important;
+              max-width: 100% !important;
+              overflow: hidden !important;
+              text-overflow: ellipsis !important;
+              white-space: nowrap !important;
+            }
+
             .mobile-menu-2025::-webkit-scrollbar {
               width: 4px;
             }
