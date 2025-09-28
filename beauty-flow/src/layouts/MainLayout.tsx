@@ -72,6 +72,25 @@ const MainLayout: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  // Gérer le blocage du scroll du body sur mobile
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+    };
+  }, [isOpen]);
+
   // Charger les stores au démarrage
   const fetchClients = useClientStore((state) => state.fetchClients);
   const fetchServices = useServiceStore((state) => state.fetchServices);
@@ -277,9 +296,9 @@ const MainLayout: React.FC = () => {
           {/* Menu mobile */}
           <div className={`
             lg:hidden overflow-hidden transition-all duration-300 ease-smooth
-            ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}
+            ${isOpen ? 'max-h-[calc(100vh-5rem)] opacity-100' : 'max-h-0 opacity-0'}
           `}>
-            <div className="mobile-menu-2025 py-4 space-y-2">
+            <div className="mobile-menu-2025 py-4 space-y-2 max-h-[calc(100vh-7rem)] overflow-y-auto">
               {navigation.map((item) => {
                 const Icon = item.icon;
                 const isActive = isActiveRoute(item.href);
@@ -383,11 +402,43 @@ const MainLayout: React.FC = () => {
             border-radius: 1rem;
             border: 1px solid rgba(0, 0, 0, 0.1);
             margin: 0 1rem;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
           }
 
           .dark .mobile-menu-2025 {
             background: rgba(17, 24, 39, 0.95);
             border: 1px solid rgba(255, 255, 255, 0.1);
+          }
+
+          /* Améliorer le défilement sur mobile */
+          @media (max-width: 1024px) {
+            .mobile-menu-2025::-webkit-scrollbar {
+              width: 4px;
+            }
+
+            .mobile-menu-2025::-webkit-scrollbar-track {
+              background: transparent;
+            }
+
+            .mobile-menu-2025::-webkit-scrollbar-thumb {
+              background: rgba(0, 0, 0, 0.2);
+              border-radius: 2px;
+            }
+
+            .dark .mobile-menu-2025::-webkit-scrollbar-thumb {
+              background: rgba(255, 255, 255, 0.2);
+            }
+
+            /* Support pour iOS */
+            .mobile-menu-2025 {
+              scrollbar-width: thin;
+              scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+            }
+
+            .dark .mobile-menu-2025 {
+              scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+            }
           }
 
           .main-content-2025 {
