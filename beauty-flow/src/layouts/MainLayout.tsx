@@ -8,6 +8,7 @@ import { useTeamStore } from '../features/team/store';
 import { useAppointmentStore } from '../features/appointments/store';
 import UserMenu from '../components/UserMenu';
 import NavbarLanguageSelector from '../components/NavbarLanguageSelector';
+import MobileBottomNav from '../components/MobileBottomNav';
 import './MainLayout.css';
 
 // Icons Saloneo 2025
@@ -72,6 +73,7 @@ const MainLayout: React.FC = () => {
   const { currentTheme, toggleTheme } = useThemeColors();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Gérer le blocage du scroll du body sur mobile
   useEffect(() => {
@@ -105,6 +107,18 @@ const MainLayout: React.FC = () => {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Détecter si on est sur mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   // Charger toutes les données au démarrage
@@ -213,45 +227,47 @@ const MainLayout: React.FC = () => {
               </Link>
             </div>
 
-            {/* Navigation desktop */}
-            <div className="hidden lg:flex items-center space-x-2">
-              {navigation.map((item) => {
-                const Icon = item.icon;
-                const isActive = isActiveRoute(item.href);
-                
-                return (
-                  <Link
-                    key={item.href}
-                    to={item.href}
-                    className={`
-                      nav-item-2025 group relative
-                      ${isActive 
-                        ? 'nav-item-active text-white' 
-                        : 'nav-item-inactive text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
-                      }
-                    `}
-                  >
-                    <div className={`
-                      flex items-center space-x-2 px-4 py-3 rounded-2xl transition-all duration-300 transform hover:scale-105 active:scale-95
-                      ${isActive 
-                        ? `bg-gradient-to-r ${item.color} shadow-lg shadow-indigo-500/25` 
-                        : 'hover:bg-gray-100 dark:hover:bg-gray-800 hover:shadow-md'
-                      }
-                    `}>
-                      <Icon />
-                      <span className="font-medium font-body text-sm">
-                        {item.name}
-                      </span>
-                    </div>
-                    
-                    {/* Indicateur actif */}
-                    {isActive && (
-                      <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-white rounded-full shadow-soft animate-bounce-gentle" />
-                    )}
-                  </Link>
-                );
-              })}
-            </div>
+            {/* Navigation desktop - masquée sur mobile */}
+            {!isMobile && (
+              <div className="hidden lg:flex items-center space-x-2">
+                {navigation.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = isActiveRoute(item.href);
+                  
+                  return (
+                    <Link
+                      key={item.href}
+                      to={item.href}
+                      className={`
+                        nav-item-2025 group relative
+                        ${isActive 
+                          ? 'nav-item-active text-white' 
+                          : 'nav-item-inactive text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                        }
+                      `}
+                    >
+                      <div className={`
+                        flex items-center space-x-2 px-4 py-3 rounded-2xl transition-all duration-300 transform hover:scale-105 active:scale-95
+                        ${isActive 
+                          ? `bg-gradient-to-r ${item.color} shadow-lg shadow-indigo-500/25` 
+                          : 'hover:bg-gray-100 dark:hover:bg-gray-800 hover:shadow-md'
+                        }
+                      `}>
+                        <Icon />
+                        <span className="font-medium font-body text-sm">
+                          {item.name}
+                        </span>
+                      </div>
+                      
+                      {/* Indicateur actif */}
+                      {isActive && (
+                        <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-white rounded-full shadow-soft animate-bounce-gentle" />
+                      )}
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
 
             {/* Actions droite */}
             <div className="flex items-center space-x-3">
@@ -277,20 +293,24 @@ const MainLayout: React.FC = () => {
                 <NavbarLanguageSelector />
               </div>
 
-              {/* Menu utilisateur */}
-              <div className="hidden lg:block">
-                <UserMenu />
-              </div>
+              {/* Menu utilisateur - masqué sur mobile car dans la bottom nav */}
+              {!isMobile && (
+                <div className="hidden lg:block">
+                  <UserMenu />
+                </div>
+              )}
 
-              {/* Bouton menu mobile */}
-              <button
-                type="button"
-                className="lg:hidden mobile-menu-btn-2025 p-2.5 rounded-xl transition-all duration-300"
-                onClick={() => setIsOpen(!isOpen)}
-                aria-label="Menu principal"
-              >
-                {isOpen ? <CloseIcon /> : <MenuIcon />}
-              </button>
+              {/* Bouton menu mobile - masqué car on utilise la bottom nav */}
+              {!isMobile && (
+                <button
+                  type="button"
+                  className="lg:hidden mobile-menu-btn-2025 p-2.5 rounded-xl transition-all duration-300"
+                  onClick={() => setIsOpen(!isOpen)}
+                  aria-label="Menu principal"
+                >
+                  {isOpen ? <CloseIcon /> : <MenuIcon />}
+                </button>
+              )}
             </div>
           </div>
 
@@ -335,13 +355,16 @@ const MainLayout: React.FC = () => {
       </nav>
 
       {/* Contenu principal */}
-      <main className="main-content-2025 pt-24 pb-8">
+      <main className={`main-content-2025 pt-24 ${isMobile ? 'pb-20' : 'pb-8'}`}>
         <div className="container-2025">
           <div className="animate-fade-in">
             <Outlet />
           </div>
         </div>
       </main>
+
+      {/* Navigation mobile en bas */}
+      {isMobile && <MobileBottomNav />}
 
       {/* Styles CSS intégrés */}
       <style dangerouslySetInnerHTML={{

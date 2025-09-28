@@ -10,7 +10,9 @@ import {
   SparklesIcon,
   ChevronDownIcon,
   StarIcon,
-  BoltIcon
+  BoltIcon,
+  CubeIcon,
+  UserGroupIcon
 } from '@heroicons/react/24/outline';
 import { useSubscriptionStore } from '../features/subscription/store';
 import { useAuthStore } from '../features/auth/store';
@@ -118,6 +120,22 @@ const UserMenu: React.FC = () => {
       href: '/subscription',
       gradient: 'from-orange-500 to-yellow-500',
       hoverGradient: 'from-orange-600 to-yellow-600'
+    },
+    {
+      icon: CubeIcon,
+      label: t('navigation.products'),
+      description: 'Gérer vos produits',
+      href: '/products',
+      gradient: 'from-cyan-500 to-teal-500',
+      hoverGradient: 'from-cyan-600 to-teal-600'
+    },
+    {
+      icon: UserGroupIcon,
+      label: t('navigation.team'),
+      description: 'Gérer votre équipe',
+      href: '/team',
+      gradient: 'from-teal-500 to-green-500',
+      hoverGradient: 'from-teal-600 to-green-600'
     }
   ];
 
