@@ -14,6 +14,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { useSubscriptionStore } from '../features/subscription/store';
 import { useAuthStore } from '../features/auth/store';
+import './UserMenu.css';
 
 const UserMenu: React.FC = () => {
   const { t } = useTranslation();
@@ -38,6 +39,19 @@ const UserMenu: React.FC = () => {
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
+
+  // Gérer le scroll du body sur mobile
+  useEffect(() => {
+    if (isOpen && window.innerWidth <= 768) {
+      document.body.classList.add('menu-open');
+    } else {
+      document.body.classList.remove('menu-open');
+    }
+
+    return () => {
+      document.body.classList.remove('menu-open');
     };
   }, [isOpen]);
 
@@ -144,11 +158,11 @@ const UserMenu: React.FC = () => {
         <>
           {/* Overlay */}
           <div 
-            className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm transition-opacity"
+            className="user-menu-overlay fixed inset-0 z-40 bg-black/20 backdrop-blur-sm transition-opacity"
             onClick={() => setIsOpen(false)}
           />
           
-          <div className="absolute right-0 mt-3 w-72 bg-white/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/30 z-50 overflow-hidden animate-slide-down">
+          <div className="user-menu-dropdown absolute right-0 mt-3 w-72 bg-white/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/30 z-50 animate-slide-down max-h-[calc(100vh-100px)] overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
             
             {/* Header avec infos utilisateur */}
             <div className="relative p-4 bg-gradient-to-br from-indigo-500/10 to-purple-600/10 border-b border-white/20">
