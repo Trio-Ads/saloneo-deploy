@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import UserMenu from './UserMenu';
+import MobileUserMenu from './MobileUserMenu';
 
 // Icons pour la navigation mobile
 const DashboardIcon = () => (
@@ -86,7 +86,7 @@ const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ className = '' }) => 
               key={item.href}
               to={item.href}
               className={`
-                relative flex flex-col items-center justify-center space-y-1 transition-all duration-300
+                relative flex flex-col items-center justify-center space-y-0.5 transition-all duration-300 px-1
                 ${isActive 
                   ? 'text-indigo-600 dark:text-indigo-400' 
                   : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
@@ -101,7 +101,7 @@ const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ className = '' }) => 
               {/* Icône avec effet de scale au tap */}
               <div className={`
                 relative p-1 rounded-lg transition-all duration-300 transform active:scale-95
-                ${isActive ? 'scale-110' : 'hover:scale-105'}
+                ${isActive ? 'scale-105' : ''}
               `}>
                 <Icon />
                 {/* Effet glow pour l'élément actif */}
@@ -110,9 +110,9 @@ const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ className = '' }) => 
                 )}
               </div>
               
-              {/* Label */}
+              {/* Label - avec gestion du texte long */}
               <span className={`
-                text-xs font-medium transition-all duration-300
+                text-[10px] leading-tight font-medium transition-all duration-300 text-center w-full
                 ${isActive ? 'font-semibold' : ''}
               `}>
                 {item.name}
@@ -123,7 +123,7 @@ const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ className = '' }) => 
         
         {/* Menu utilisateur */}
         <div className="relative flex items-center justify-center">
-          <UserMenu />
+          <MobileUserMenu />
         </div>
       </div>
       
