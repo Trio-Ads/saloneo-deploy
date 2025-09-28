@@ -21,6 +21,8 @@ import paymentRoutes from './routes/payment.routes';
 import subscriptionRoutes from './routes/subscription.routes';
 import marketingRoutes from './routes/marketing.routes';
 import affiliationRoutes from './routes/affiliation.routes';
+import emailRoutes from './routes/email.routes';
+import { emailService } from './services/emailService';
 
 // Load environment variables
 dotenv.config();
@@ -34,6 +36,11 @@ export const io = initializeSocket(httpServer);
 
 // Connect to MongoDB
 connectDatabase();
+
+// Initialize email service
+emailService.initialize().catch(err => {
+  logger.error('Failed to initialize email service:', err);
+});
 
 // Security middleware
 app.use(helmet({
@@ -85,7 +92,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // Rate limiting - Configuration différente selon l'environnement
 const limiter = rateLimit({
   windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || (isDevelopment ? '60000' : '900000')), // 1 min en dev, 15 min en prod
-  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || (isDevelopment ? '1000' : '100')), // 1000 en dev, 100 en prod
+  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || (isDevelopment ? '1000' : '2000')), // 1000 en dev, 2000 en prod (augmenté de 100 à 2000)
   message: {
     error: 'Too Many Requests',
     message: 'Too many requests from this IP, please try again later.',
@@ -106,7 +113,7 @@ const limiter = rateLimit({
 // Apply rate limiting to all routes sauf en développement local
 if (!isDevelopment || process.env.ENABLE_RATE_LIMIT === 'true') {
   app.use('/api/', limiter);
-  logger.info(`🛡️  Rate limiting enabled: ${isDevelopment ? '1000 req/min' : '100 req/15min'}`);
+  logger.info(`🛡️  Rate limiting enabled: ${isDevelopment ? '1000 req/min' : '2000 req/15min (133 req/min)'}`);
 } else {
   logger.warn('⚠️  Rate limiting DISABLED for development');
 }
@@ -143,6 +150,7 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/subscription', subscriptionRoutes);
 app.use('/api/affiliation', affiliationRoutes);
+app.use('/api/email', emailRoutes);
 
 // Public routes (no authentication required)
 app.use('/api/public', publicRoutes);

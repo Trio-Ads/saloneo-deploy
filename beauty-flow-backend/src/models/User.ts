@@ -23,16 +23,29 @@ export interface IUser extends Document {
   establishmentName: string;
   phone?: string;
   address?: string;
-  subscription: {
-    plan: PlanType;
-    duration: SubscriptionDuration;
-    startDate: Date;
-    expiresAt?: Date;
-    isActive: boolean;
-    lastPaymentDate?: Date;
-    lastTransactionId?: string;
-    autoRenew?: boolean;
-  };
+    subscription: {
+      plan: PlanType;
+      duration: SubscriptionDuration;
+      startDate: Date;
+      expiresAt?: Date;
+      endDate?: Date;
+      isActive: boolean;
+      lastPaymentDate?: Date;
+      lastTransactionId?: string;
+      autoRenew?: boolean;
+      notifications?: {
+        expiry7d?: boolean;
+        expiry3d?: boolean;
+        expiry1d?: boolean;
+        expired?: boolean;
+        appointments80?: boolean;
+        appointments100?: boolean;
+        clients80?: boolean;
+        clients100?: boolean;
+        services80?: boolean;
+        services100?: boolean;
+      };
+    };
   settings: {
     language: string;
     currency: string;
@@ -155,6 +168,19 @@ const userSchema = new Schema<IUser>(
       autoRenew: {
         type: Boolean,
         default: false,
+      },
+      endDate: Date,
+      notifications: {
+        expiry7d: { type: Boolean, default: false },
+        expiry3d: { type: Boolean, default: false },
+        expiry1d: { type: Boolean, default: false },
+        expired: { type: Boolean, default: false },
+        appointments80: { type: Boolean, default: false },
+        appointments100: { type: Boolean, default: false },
+        clients80: { type: Boolean, default: false },
+        clients100: { type: Boolean, default: false },
+        services80: { type: Boolean, default: false },
+        services100: { type: Boolean, default: false },
       },
     },
     settings: {
