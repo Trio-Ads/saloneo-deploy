@@ -112,13 +112,28 @@ const MainLayout: React.FC = () => {
   // Détecter si on est sur mobile
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      const width = window.innerWidth;
+      const isMobileDevice = width <= 768;
+      console.log('🔍 Détection mobile:', { width, isMobileDevice });
+      setIsMobile(isMobileDevice);
     };
     
+    // Vérification initiale
     checkMobile();
+    
+    // Écouter les changements de taille
     window.addEventListener('resize', checkMobile);
     
-    return () => window.removeEventListener('resize', checkMobile);
+    // Vérification supplémentaire après le chargement complet
+    window.addEventListener('load', checkMobile);
+    
+    // Vérification après un court délai pour s'assurer que tout est chargé
+    setTimeout(checkMobile, 100);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      window.removeEventListener('load', checkMobile);
+    };
   }, []);
 
   // Charger toutes les données au démarrage
