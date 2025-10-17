@@ -2,10 +2,11 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
+import { Globe } from 'lucide-react';
 import saloneoLogo from '../assets/saloneo-logo.svg';
 
 const AwwwardsHeader: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation('marketing');
   const [isScrolled, setIsScrolled] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const headerRef = useRef<HTMLElement>(null);
@@ -137,7 +138,7 @@ const AwwwardsHeader: React.FC = () => {
                   transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                   whileHover={{ y: -2 }}
                 >
-                  <span className="nav-link-text">{t(`marketing.header.nav.${item.key}`)}</span>
+                  <span className="nav-link-text">{t(`header.nav.${item.key}`)}</span>
                   <motion.div 
                     className="nav-link-underline"
                     initial={{ scaleX: 0 }}
@@ -155,8 +156,23 @@ const AwwwardsHeader: React.FC = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
+              {/* Language Selector */}
+              <div className="language-selector-wrapper">
+                <button
+                  onClick={() => {
+                    const newLang = i18n.language === 'fr' ? 'en' : i18n.language === 'en' ? 'ar' : 'fr';
+                    i18n.changeLanguage(newLang);
+                  }}
+                  className="nav-btn nav-btn-ghost language-btn"
+                  title="Change language"
+                >
+                  <Globe size={18} />
+                  <span className="language-code">{i18n.language.toUpperCase()}</span>
+                </button>
+              </div>
+
               <Link to="/login" className="nav-btn nav-btn-ghost">
-                <span>{t('marketing.header.cta.login')}</span>
+                <span>{t('header.cta.login')}</span>
                 <div className="btn-glow" />
               </Link>
               
@@ -166,7 +182,7 @@ const AwwwardsHeader: React.FC = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 <Link to="/register" className="nav-btn nav-btn-primary">
-                  <span className="btn-text">{t('marketing.header.cta.trial')}</span>
+                  <span className="btn-text">{t('header.cta.trial')}</span>
                   <div className="btn-gradient" />
                   <div className="btn-shine" />
                   <motion.div 
@@ -212,7 +228,7 @@ const AwwwardsHeader: React.FC = () => {
             }}
           >
             <span className="stat-number">847+</span>
-            <span className="stat-label">{t('marketing.header.stats.active_salons')}</span>
+            <span className="stat-label">{t('header.stats.active_salons')}</span>
           </motion.div>
 
           <motion.div
@@ -229,7 +245,7 @@ const AwwwardsHeader: React.FC = () => {
             }}
           >
             <span className="badge-icon">🚀</span>
-            <span className="badge-text">{t('marketing.header.stats.ca_increase')}</span>
+            <span className="badge-text">{t('header.stats.ca_increase')}</span>
           </motion.div>
         </div>
       </motion.header>
