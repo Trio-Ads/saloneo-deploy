@@ -205,27 +205,27 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-3 mb-4">
-            <div className="relative p-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl shadow-lg shadow-purple-500/25 transform hover:scale-105 transition-all duration-300">
-              <CalendarDaysIcon className="h-8 w-8 text-white" />
-              <div className="absolute inset-0 bg-white/20 rounded-xl opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative p-3 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 rounded-xl shadow-orange-lg transform hover:scale-105 transition-all duration-300">
+              <CalendarDaysIcon className="h-8 w-8 text-white dark:text-gray-900" />
+              <div className="absolute inset-0 bg-white/20 dark:bg-white/10 rounded-xl opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
             </div>
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 bg-clip-text text-transparent">
               {initialData ? t('appointment_form.title_edit') : t('appointment_form.title_new')}
             </h2>
           </div>
-          <p className="text-gray-600">{t('appointment_form.subtitle')}</p>
+          <p className="text-gray-600 dark:text-gray-400">{t('appointment_form.subtitle')}</p>
         </div>
 
         {/* Sélection du client */}
-        <div className="glass-card p-6">
+        <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-orange-500/20 dark:border-orange-500/20 p-6 transition-colors duration-300">
           <div className="flex items-center space-x-3 mb-6">
-            <UserIcon className="h-6 w-6 text-indigo-600" />
-            <h3 className="text-lg font-semibold text-gray-900">{t('appointment_form.sections.client')}</h3>
+            <UserIcon className="h-6 w-6 text-orange-600 dark:text-orange-400" />
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{t('appointment_form.sections.client')}</h3>
           </div>
           
           <div>
-            <label htmlFor="clientId" className="block text-sm font-medium text-gray-700 mb-2">
-              <UserIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
+            <label htmlFor="clientId" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <UserIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-400" />
               {t('appointment_form.labels.select_client')}
             </label>
             <select
@@ -234,7 +234,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               value={formData.clientId}
               onChange={handleChange}
               required
-              className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
+              className="w-full rounded-xl border-0 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400 focus:bg-white dark:focus:bg-gray-800 transition-all duration-200 text-gray-900 dark:text-gray-100 px-4 py-3"
             >
               <option value="">{t('appointment_form.labels.choose_client')}</option>
               {clients.map((client) => (
@@ -244,12 +244,12 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               ))}
             </select>
             {selectedClient && (
-              <div className="mt-3 glass-card bg-indigo-50/50 p-3 rounded-lg">
-                <p className="text-sm text-indigo-700 font-medium">
+              <div className="mt-3 bg-orange-50 dark:bg-orange-900/20 backdrop-blur-sm p-3 rounded-lg border border-orange-500/20">
+                <p className="text-sm text-orange-700 dark:text-orange-300 font-medium">
                   ✅ Client sélectionné: {selectedClient.firstName} {selectedClient.lastName}
                 </p>
                 {selectedClient.phone && (
-                  <p className="text-xs text-indigo-600">📞 {selectedClient.phone}</p>
+                  <p className="text-xs text-orange-600 dark:text-orange-400">📞 {selectedClient.phone}</p>
                 )}
               </div>
             )}
@@ -257,15 +257,15 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
         </div>
 
         {/* Sélection du service */}
-        <div className="glass-card p-6">
+        <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-orange-500/20 dark:border-orange-500/20 p-6 transition-colors duration-300">
           <div className="flex items-center space-x-3 mb-6">
-            <SparklesIcon className="h-6 w-6 text-indigo-600" />
-            <h3 className="text-lg font-semibold text-gray-900">{t('appointment_form.sections.service')}</h3>
+            <SparklesIcon className="h-6 w-6 text-orange-600 dark:text-orange-400" />
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{t('appointment_form.sections.service')}</h3>
           </div>
           
           <div>
-            <label htmlFor="serviceId" className="block text-sm font-medium text-gray-700 mb-2">
-              <SparklesIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
+            <label htmlFor="serviceId" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <SparklesIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-400" />
               {t('appointment_form.labels.select_service')}
             </label>
             <select
@@ -274,7 +274,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               value={formData.serviceId}
               onChange={handleChange}
               required
-              className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
+              className="w-full rounded-xl border-0 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400 focus:bg-white dark:focus:bg-gray-800 transition-all duration-200 text-gray-900 dark:text-gray-100 px-4 py-3"
             >
               <option value="">{t('appointment_form.labels.choose_service')}</option>
               {services.map((service) => (
@@ -284,11 +284,11 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               ))}
             </select>
             {selectedService && (
-              <div className="mt-3 glass-card bg-purple-50/50 p-3 rounded-lg">
-                <p className="text-sm text-purple-700 font-medium">
+              <div className="mt-3 bg-orange-50 dark:bg-orange-900/20 backdrop-blur-sm p-3 rounded-lg border border-orange-500/20">
+                <p className="text-sm text-orange-700 dark:text-orange-300 font-medium">
                   ✨ Service: {selectedService.name}
                 </p>
-                <div className="flex items-center space-x-4 text-xs text-purple-600 mt-1">
+                <div className="flex items-center space-x-4 text-xs text-orange-600 dark:text-orange-400 mt-1">
                   <span>⏱️ {selectedService.duration} minutes</span>
                   <span>💰 {selectedService.price}€</span>
                 </div>
@@ -298,15 +298,15 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
         </div>
 
         {/* Sélection du coiffeur */}
-        <div className="glass-card p-6">
+        <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-orange-500/20 dark:border-orange-500/20 p-6 transition-colors duration-300">
           <div className="flex items-center space-x-3 mb-6">
-            <UserIcon className="h-6 w-6 text-indigo-600" />
-            <h3 className="text-lg font-semibold text-gray-900">{t('appointment_form.sections.stylist')}</h3>
+            <UserIcon className="h-6 w-6 text-orange-600 dark:text-orange-400" />
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{t('appointment_form.sections.stylist')}</h3>
           </div>
           
           <div>
-            <label htmlFor="stylistId" className="block text-sm font-medium text-gray-700 mb-2">
-              <UserIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
+            <label htmlFor="stylistId" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <UserIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-400" />
               Sélectionner un coiffeur *
             </label>
             <select
@@ -315,7 +315,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               value={formData.stylistId}
               onChange={handleChange}
               required
-              className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
+              className="w-full rounded-xl border-0 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400 focus:bg-white dark:focus:bg-gray-800 transition-all duration-200 text-gray-900 dark:text-gray-100 px-4 py-3"
             >
               <option value="">Choisir un coiffeur...</option>
               {stylists.map((stylist) => (
@@ -325,27 +325,27 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               ))}
             </select>
             {selectedStylist && (
-              <div className="mt-3 glass-card bg-green-50/50 p-3 rounded-lg">
-                <p className="text-sm text-green-700 font-medium">
+              <div className="mt-3 bg-green-50 dark:bg-green-900/20 backdrop-blur-sm p-3 rounded-lg border border-green-500/20">
+                <p className="text-sm text-green-700 dark:text-green-300 font-medium">
                   👨‍💼 Coiffeur: {selectedStylist.firstName} {selectedStylist.lastName}
                 </p>
-                <p className="text-xs text-green-600">🎯 {selectedStylist.role}</p>
+                <p className="text-xs text-green-600 dark:text-green-400">🎯 {selectedStylist.role}</p>
               </div>
             )}
           </div>
         </div>
 
         {/* Planification */}
-        <div className="glass-card p-6">
+        <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-orange-500/20 dark:border-orange-500/20 p-6 transition-colors duration-300">
           <div className="flex items-center space-x-3 mb-6">
-            <CalendarDaysIcon className="h-6 w-6 text-indigo-600" />
-            <h3 className="text-lg font-semibold text-gray-900">{t('appointment_form.sections.scheduling')}</h3>
+            <CalendarDaysIcon className="h-6 w-6 text-orange-600 dark:text-orange-400" />
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{t('appointment_form.sections.scheduling')}</h3>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-2">
-                <CalendarDaysIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
+              <label htmlFor="date" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <CalendarDaysIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-400" />
                 Date *
               </label>
               <input
@@ -356,13 +356,13 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
                 onChange={handleChange}
                 min={format(new Date(), 'yyyy-MM-dd')}
                 required
-                className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
+                className="w-full rounded-xl border-0 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400 focus:bg-white dark:focus:bg-gray-800 transition-all duration-200 text-gray-900 dark:text-gray-100 px-4 py-3"
               />
             </div>
 
             <div>
-              <label htmlFor="startTime" className="block text-sm font-medium text-gray-700 mb-2">
-                <ClockIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
+              <label htmlFor="startTime" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <ClockIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-400" />
                 Heure *
               </label>
               <select
@@ -371,7 +371,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
                 value={formData.startTime}
                 onChange={handleChange}
                 required
-                className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
+                className="w-full rounded-xl border-0 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400 focus:bg-white dark:focus:bg-gray-800 transition-all duration-200 text-gray-900 dark:text-gray-100 px-4 py-3"
                 disabled={!formData.serviceId || !formData.stylistId || !formData.date}
               >
                 <option value="">Sélectionner une heure...</option>
@@ -384,17 +384,17 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
                   ))}
               </select>
               {!formData.serviceId || !formData.stylistId || !formData.date ? (
-                <p className="mt-2 text-xs text-gray-500 flex items-center">
+                <p className="mt-2 text-xs text-gray-500 dark:text-gray-400 flex items-center">
                   <ExclamationTriangleIcon className="h-4 w-4 mr-1" />
                   Sélectionnez d'abord un service et un coiffeur
                 </p>
               ) : availableTimeSlots.filter(slot => slot.available).length === 0 ? (
-                <p className="mt-2 text-xs text-red-600 flex items-center">
+                <p className="mt-2 text-xs text-red-600 dark:text-red-400 flex items-center">
                   <ExclamationTriangleIcon className="h-4 w-4 mr-1" />
                   Aucun créneau disponible pour cette date
                 </p>
               ) : (
-                <p className="mt-2 text-xs text-green-600 flex items-center">
+                <p className="mt-2 text-xs text-green-600 dark:text-green-400 flex items-center">
                   <CheckCircleIcon className="h-4 w-4 mr-1" />
                   {availableTimeSlots.filter(slot => slot.available).length} créneaux disponibles
                 </p>
@@ -404,15 +404,15 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
         </div>
 
         {/* Notes */}
-        <div className="glass-card p-6">
+        <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-orange-500/20 dark:border-orange-500/20 p-6 transition-colors duration-300">
           <div className="flex items-center space-x-3 mb-6">
-            <DocumentTextIcon className="h-6 w-6 text-indigo-600" />
-            <h3 className="text-lg font-semibold text-gray-900">{t('appointment_form.sections.notes')}</h3>
+            <DocumentTextIcon className="h-6 w-6 text-orange-600 dark:text-orange-400" />
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{t('appointment_form.sections.notes')}</h3>
           </div>
           
           <div>
-            <label htmlFor="notes" className="block text-sm font-medium text-gray-700 mb-2">
-              <DocumentTextIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
+            <label htmlFor="notes" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <DocumentTextIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-400" />
               Notes supplémentaires
             </label>
             <textarea
@@ -421,7 +421,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               value={formData.notes}
               onChange={handleChange}
               rows={3}
-              className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
+              className="w-full rounded-xl border-0 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400 focus:bg-white dark:focus:bg-gray-800 transition-all duration-200 text-gray-900 dark:text-gray-100 px-4 py-3"
               placeholder="Ajoutez des notes sur le rendez-vous, les préférences du client..."
             />
           </div>
@@ -429,23 +429,23 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
 
         {/* Résumé du rendez-vous */}
         {isFormComplete && (
-          <div className="glass-card p-6 bg-gradient-to-r from-indigo-50/50 to-purple-50/50 border border-indigo-200/50">
+          <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-orange-500/20 dark:border-orange-500/20 p-6 bg-gradient-to-r from-orange-50/50 to-orange-100/50 dark:from-orange-900/20 dark:to-orange-800/20 transition-colors duration-300">
             <div className="flex items-center space-x-3 mb-4">
-              <CheckCircleIcon className="h-6 w-6 text-green-600" />
-              <h3 className="text-lg font-semibold text-gray-900">Résumé du Rendez-vous</h3>
+              <CheckCircleIcon className="h-6 w-6 text-green-600 dark:text-green-400" />
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Résumé du Rendez-vous</h3>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
               <div className="space-y-2">
-                <p><span className="font-medium text-gray-700">Client:</span> {selectedClient?.firstName} {selectedClient?.lastName}</p>
-                <p><span className="font-medium text-gray-700">Service:</span> {selectedService?.name}</p>
-                <p><span className="font-medium text-gray-700">Coiffeur:</span> {selectedStylist?.firstName} {selectedStylist?.lastName}</p>
+                <p><span className="font-medium text-gray-700 dark:text-gray-300">Client:</span> <span className="text-gray-900 dark:text-gray-100">{selectedClient?.firstName} {selectedClient?.lastName}</span></p>
+                <p><span className="font-medium text-gray-700 dark:text-gray-300">Service:</span> <span className="text-gray-900 dark:text-gray-100">{selectedService?.name}</span></p>
+                <p><span className="font-medium text-gray-700 dark:text-gray-300">Coiffeur:</span> <span className="text-gray-900 dark:text-gray-100">{selectedStylist?.firstName} {selectedStylist?.lastName}</span></p>
               </div>
               <div className="space-y-2">
-                <p><span className="font-medium text-gray-700">Date:</span> {format(new Date(formData.date), 'dd/MM/yyyy', { locale: fr })}</p>
-                <p><span className="font-medium text-gray-700">Heure:</span> {formData.startTime}</p>
-                <p><span className="font-medium text-gray-700">Durée:</span> {selectedService?.duration} minutes</p>
-                <p><span className="font-medium text-gray-700">Prix:</span> {selectedService?.price}€</p>
+                <p><span className="font-medium text-gray-700 dark:text-gray-300">Date:</span> <span className="text-gray-900 dark:text-gray-100">{format(new Date(formData.date), 'dd/MM/yyyy', { locale: fr })}</span></p>
+                <p><span className="font-medium text-gray-700 dark:text-gray-300">Heure:</span> <span className="text-gray-900 dark:text-gray-100">{formData.startTime}</span></p>
+                <p><span className="font-medium text-gray-700 dark:text-gray-300">Durée:</span> <span className="text-gray-900 dark:text-gray-100">{selectedService?.duration} minutes</span></p>
+                <p><span className="font-medium text-gray-700 dark:text-gray-300">Prix:</span> <span className="text-gray-900 dark:text-gray-100">{selectedService?.price}€</span></p>
               </div>
             </div>
           </div>
@@ -456,14 +456,14 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           <button
             type="button"
             onClick={onCancel}
-            className="glass-button bg-white/70 hover:bg-white/90 text-gray-700 border border-gray-300 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+            className="px-6 py-3 rounded-xl bg-white/70 dark:bg-gray-800/70 hover:bg-white/90 dark:hover:bg-gray-800/90 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
           >
             Annuler
           </button>
           <button
             type="submit"
             disabled={!isFormComplete}
-            className="glass-button bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white border-0 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+            className="px-6 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 hover:from-orange-600 hover:to-orange-700 dark:hover:from-orange-500 dark:hover:to-orange-600 text-white dark:text-gray-900 border-0 shadow-orange-lg hover:shadow-orange-xl transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none font-semibold"
           >
             {initialData ? 'Modifier' : 'Créer le Rendez-vous'}
           </button>

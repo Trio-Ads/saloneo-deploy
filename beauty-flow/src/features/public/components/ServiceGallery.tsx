@@ -34,7 +34,7 @@ const ServiceGallery: React.FC<ServiceGalleryProps> = ({ serviceId }) => {
       {/* Overlay complexe avec plusieurs gradients */}
       <div className="absolute inset-0 z-10">
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-orange-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
       
       {/* Image avec effet de zoom et transition fluide */}
@@ -54,7 +54,7 @@ const ServiceGallery: React.FC<ServiceGalleryProps> = ({ serviceId }) => {
               onClick={previousImage}
               className="glass-button p-3 rounded-full transform -translate-x-10 group-hover:translate-x-0
                        transition-all duration-500 hover:scale-110 shadow-lg hover:shadow-xl
-                       bg-gradient-to-br from-purple-500/30 to-pink-500/30 backdrop-blur-xl border border-white/20"
+                       bg-gradient-to-br from-orange-500/30 to-orange-600/30 backdrop-blur-xl border border-white/20"
               aria-label="Image précédente"
             >
               <ChevronLeftIcon className="w-6 h-6 text-white" />
@@ -63,7 +63,7 @@ const ServiceGallery: React.FC<ServiceGalleryProps> = ({ serviceId }) => {
               onClick={nextImage}
               className="glass-button p-3 rounded-full transform translate-x-10 group-hover:translate-x-0
                        transition-all duration-500 hover:scale-110 shadow-lg hover:shadow-xl
-                       bg-gradient-to-br from-purple-500/30 to-pink-500/30 backdrop-blur-xl border border-white/20"
+                       bg-gradient-to-br from-orange-500/30 to-orange-600/30 backdrop-blur-xl border border-white/20"
               aria-label="Image suivante"
             >
               <ChevronRightIcon className="w-6 h-6 text-white" />

@@ -37,13 +37,13 @@ const Modal: React.FC<ModalProps> = ({
           <div className="glass-card shadow-glass-lg">
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-white/10">
-              <h2 className="text-2xl font-bold text-white">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                 {title}
               </h2>
               {showCloseButton && (
                 <button
                   onClick={onClose}
-                  className="text-white/70 hover:text-white transition-colors duration-200 hover:scale-110 transform"
+                  className="text-gray-600 dark:text-white/70 hover:text-gray-900 dark:hover:text-white transition-colors duration-200 hover:scale-110 transform"
                 >
                   <span className="sr-only">Fermer</span>
                   <svg 
@@ -64,7 +64,7 @@ const Modal: React.FC<ModalProps> = ({
             </div>
 
             {/* Content with custom scrollbar */}
-            <div className="p-6 text-white/90 max-h-[70vh] overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent relative z-10">
+            <div className="p-6 text-gray-700 dark:text-white/90 max-h-[70vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-white/20 scrollbar-track-transparent relative z-10">
               {children}
             </div>
           </div>

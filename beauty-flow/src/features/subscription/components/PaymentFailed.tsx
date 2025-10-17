@@ -87,9 +87,9 @@ export const PaymentFailed: React.FC<PaymentFailedProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 dark:from-gray-900 dark:via-red-900/20 dark:to-gray-900 flex items-center justify-center p-4">
       <div className="max-w-md w-full">
-        <div className="bg-white rounded-3xl shadow-2xl p-8 text-center">
+        <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl p-8 text-center">
           {/* Error Icon */}
           <div className="mb-6 flex justify-center">
             <div className="relative">
@@ -101,12 +101,12 @@ export const PaymentFailed: React.FC<PaymentFailedProps> = ({
           </div>
 
           {/* Error Message */}
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
             {t('failed.title')}
           </h1>
           
           <div className="flex justify-between items-center mb-4">
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-gray-600 dark:text-gray-400">
               {errorMessage}
             </p>
             <img 
@@ -119,26 +119,26 @@ export const PaymentFailed: React.FC<PaymentFailedProps> = ({
             />
           </div>
           
-          <p className="text-sm text-gray-500 mb-4">
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
             {getDetailedMessage()}
           </p>
           
           {/* Transaction Details - Required by SATIM */}
-          <div className="bg-white border border-gray-200 rounded-2xl p-6 mb-8">
+          <div className="bg-white dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-2xl p-6 mb-8">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="font-semibold text-gray-900 flex items-center">
+              <h3 className="font-semibold text-gray-900 dark:text-gray-100 flex items-center">
                 <ShieldExclamationIcon className="h-5 w-5 mr-2 text-red-500" />
                 {t('failed.transaction.title')}
               </h3>
             </div>
             
             <div className="space-y-4 text-left">
-              <div className="flex justify-between border-b border-gray-100 pb-2">
-                <div className="flex items-center text-gray-700">
+              <div className="flex justify-between border-b border-gray-100 dark:border-gray-600 pb-2">
+                <div className="flex items-center text-gray-700 dark:text-gray-300">
                   <DocumentTextIcon className="h-5 w-5 mr-2 text-gray-500" />
                   <span>{t('failed.transaction.id')}</span>
                 </div>
-                <span className="font-medium text-gray-900">{transactionId}</span>
+                <span className="font-medium text-gray-900 dark:text-gray-100">{transactionId}</span>
               </div>
               
               <div className="flex justify-between border-b border-gray-100 pb-2">
@@ -146,24 +146,24 @@ export const PaymentFailed: React.FC<PaymentFailedProps> = ({
                   <ExclamationTriangleIcon className="h-5 w-5 mr-2 text-red-500" />
                   <span>{t('failed.transaction.error_code')}</span>
                 </div>
-                <span className="font-medium text-red-600">{errorCode}</span>
+                <span className="font-medium text-red-600 dark:text-red-400">{errorCode}</span>
               </div>
               
               <div className="flex justify-between pt-2">
-                <div className="flex items-center text-gray-700">
+                <div className="flex items-center text-gray-700 dark:text-gray-300">
                   <span>{t('failed.transaction.date')}</span>
                 </div>
-                <span className="font-medium text-gray-900">{formattedDate} {formattedTime}</span>
+                <span className="font-medium text-gray-900 dark:text-gray-100">{formattedDate} {formattedTime}</span>
               </div>
             </div>
           </div>
 
           {/* Help Section */}
-          <div className="bg-orange-50 rounded-2xl p-6 mb-8">
-            <h3 className="font-semibold text-orange-900 mb-3">
+          <div className="bg-orange-50 dark:bg-orange-900/20 rounded-2xl p-6 mb-8">
+            <h3 className="font-semibold text-orange-900 dark:text-orange-300 mb-3">
               {t('failed.help.title')}
             </h3>
-            <ul className="space-y-2 text-left text-orange-800 text-sm">
+            <ul className="space-y-2 text-left text-orange-800 dark:text-orange-300 text-sm">
               <li className="flex items-start">
                 <span className="mr-2">•</span>
                 <span>{t('failed.help.check_card')}</span>
@@ -191,7 +191,7 @@ export const PaymentFailed: React.FC<PaymentFailedProps> = ({
             
             <button
               onClick={handleBack}
-              className="w-full bg-gray-100 text-gray-700 py-4 px-6 rounded-xl font-semibold hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
+              className="w-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 py-4 px-6 rounded-xl font-semibold hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center justify-center gap-2"
             >
               <ArrowLeftIcon className="h-5 w-5" />
               <span>{t('failed.back')}</span>
@@ -199,19 +199,19 @@ export const PaymentFailed: React.FC<PaymentFailedProps> = ({
           </div>
 
           {/* Support Info */}
-          <div className="mt-8 pt-6 border-t border-gray-200">
-            <p className="text-sm text-gray-500 mb-2">
+          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
               {t('failed.support')}
             </p>
             <a
               href="mailto:support@saloneo.com"
-              className="text-sm text-orange-600 hover:text-orange-700 font-medium"
+              className="text-sm text-orange-600 dark:text-orange-500 hover:text-orange-700 dark:hover:text-orange-400 font-medium"
             >
               {t('common.contact_support')}
             </a>
             
             {/* SATIM Required Disclaimer */}
-            <div className="mt-4 text-xs text-gray-400 pt-4">
+            <div className="mt-4 text-xs text-gray-400 dark:text-gray-500 pt-4">
               <p>{t('failed.transaction.disclaimer')}</p>
               <p className="mt-1">{t('failed.transaction.support')}</p>
             </div>

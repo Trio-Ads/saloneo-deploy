@@ -131,17 +131,17 @@ const ClientsPage: React.FC = () => {
   // Afficher un état de chargement si les données ne sont pas encore disponibles
   if (!clients && loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-orange-50 to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-12 animate-pulse">
+          <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-3xl shadow-orange-lg dark:shadow-gray-lg border border-orange-500/20 dark:border-orange-500/20 p-12 animate-pulse">
             <div className="flex items-center justify-center h-64">
               <div className="text-center">
                 <div className="relative">
-                  <div className="animate-spin rounded-full h-20 w-20 border-4 border-indigo-100 border-t-indigo-600 mx-auto"></div>
-                  <SparklesIcon className="h-8 w-8 text-indigo-600 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pulse" />
+                  <div className="animate-spin rounded-full h-20 w-20 border-4 border-orange-100 dark:border-orange-900/30 border-t-orange-600 dark:border-t-orange-400 mx-auto"></div>
+                  <SparklesIcon className="h-8 w-8 text-orange-600 dark:text-orange-400 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pulse" />
                 </div>
-                <p className="mt-8 text-xl font-semibold text-gray-800">{t('loading.clients')}</p>
-                <p className="mt-3 text-sm text-gray-500">{t('loading.preparing')}</p>
+                <p className="mt-8 text-xl font-semibold text-gray-800 dark:text-gray-100">{t('loading.clients')}</p>
+                <p className="mt-3 text-sm text-gray-500 dark:text-gray-400">{t('loading.preparing')}</p>
               </div>
             </div>
           </div>
@@ -151,34 +151,34 @@ const ClientsPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-orange-50 to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
         {/* HERO HEADER - Design spectaculaire */}
         <div className="relative mb-12">
-          <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-8 overflow-hidden">
+          <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-3xl shadow-orange-lg dark:shadow-gray-lg border border-orange-500/20 dark:border-orange-500/20 p-8 overflow-hidden transition-colors duration-300">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
               
               {/* Titre avec icône spectaculaire */}
               <div className="flex items-center space-x-6">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl blur-lg opacity-30 animate-pulse"></div>
-                  <div className="relative bg-gradient-to-r from-indigo-500 to-purple-600 p-4 rounded-2xl shadow-xl transform hover:scale-110 transition-all duration-300">
-                    <UsersIcon className="h-8 w-8 text-white" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 rounded-2xl blur-lg opacity-30 animate-pulse"></div>
+                  <div className="relative bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 p-4 rounded-2xl shadow-orange-xl transform hover:scale-110 transition-all duration-300">
+                    <UsersIcon className="h-8 w-8 text-white dark:text-gray-900" />
                   </div>
                 </div>
                 <div>
-                  <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
+                  <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 dark:from-orange-400 dark:via-orange-500 dark:to-orange-600 bg-clip-text text-transparent">
                     {t('page_title')}
                   </h1>
-                  <p className="text-gray-600 mt-2 text-lg">{t('page_subtitle')}</p>
+                  <p className="text-gray-600 dark:text-gray-400 mt-2 text-lg">{t('page_subtitle')}</p>
                   <div className="flex items-center mt-3 space-x-4">
-                    <div className="flex items-center text-sm text-gray-500">
-                      <ArrowTrendingUpIcon className="h-4 w-4 mr-1 text-green-500" />
+                    <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                      <ArrowTrendingUpIcon className="h-4 w-4 mr-1 text-green-500 dark:text-green-400" />
                       {clientStats.total} {t('stats.clients_total_badge')}
                     </div>
                     {clientStats.vip > 0 && (
-                      <div className="flex items-center text-sm text-amber-600">
+                      <div className="flex items-center text-sm text-orange-600 dark:text-orange-400">
                         <BellIcon className="h-4 w-4 mr-1 animate-bounce" />
                         {clientStats.vip} {t('stats.vip_clients_badge')}
                       </div>
@@ -191,10 +191,10 @@ const ClientsPage: React.FC = () => {
               <div className="flex flex-wrap items-center gap-4">
                 <button
                   onClick={handleAddClick}
-                  className="px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 relative overflow-hidden group"
+                  className="px-8 py-3 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 hover:from-orange-600 hover:to-orange-700 dark:hover:from-orange-500 dark:hover:to-orange-600 text-white dark:text-gray-900 rounded-xl font-semibold shadow-orange-xl hover:shadow-orange-2xl transform hover:scale-105 transition-all duration-300 relative overflow-hidden group"
                   disabled={loading}
                 >
-                  <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                  <div className="absolute inset-0 bg-white/20 dark:bg-gray-900/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                   <PlusIcon className="h-5 w-5 mr-2 inline relative z-10" />
                   <span className="relative z-10">{t('new_client')}</span>
                 </button>
@@ -203,19 +203,19 @@ const ClientsPage: React.FC = () => {
           </div>
         </div>
 
-        {/* STATISTIQUES - Design premium avec couleurs d'AppointmentsPage */}
+        {/* STATISTIQUES - Design premium avec couleurs orange */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {/* Total */}
           <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <div className="absolute inset-0 bg-gradient-to-r from-gray-500 to-gray-600 dark:from-gray-600 dark:to-gray-700 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+            <div className="relative bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-orange-500/20 dark:border-orange-500/20 p-6 hover:shadow-orange-lg dark:hover:shadow-gray-lg transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.total')}</p>
-                  <p className="text-3xl font-bold text-gray-900 mt-1">{clientStats.total}</p>
-                  <p className="text-xs text-gray-500 mt-1">{t('stats.all_clients')}</p>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('stats.total')}</p>
+                  <p className="text-3xl font-bold text-gray-900 dark:text-gray-100 mt-1">{clientStats.total}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('stats.all_clients')}</p>
                 </div>
-                <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl shadow-lg">
+                <div className="p-3 bg-gradient-to-r from-gray-500 to-gray-600 dark:from-gray-600 dark:to-gray-700 rounded-xl shadow-lg">
                   <UserGroupIcon className="h-6 w-6 text-white" />
                 </div>
               </div>
@@ -224,16 +224,16 @@ const ClientsPage: React.FC = () => {
 
           {/* VIP */}
           <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-amber-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+            <div className="relative bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-orange-500/20 dark:border-orange-500/20 p-6 hover:shadow-orange-lg dark:hover:shadow-gray-lg transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.vip_title')}</p>
-                  <p className="text-3xl font-bold text-orange-600 mt-1">{clientStats.vip}</p>
-                  <p className="text-xs text-gray-500 mt-1">{t('stats.vip_description')}</p>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('stats.vip_title')}</p>
+                  <p className="text-3xl font-bold text-orange-600 dark:text-orange-400 mt-1">{clientStats.vip}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('stats.vip_description')}</p>
                 </div>
-                <div className="p-3 bg-gradient-to-r from-orange-500 to-amber-600 rounded-xl shadow-lg">
-                  <StarIcon className="h-6 w-6 text-white" />
+                <div className="p-3 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 rounded-xl shadow-lg">
+                  <StarIcon className="h-6 w-6 text-white dark:text-gray-900" />
                 </div>
               </div>
             </div>
@@ -241,16 +241,16 @@ const ClientsPage: React.FC = () => {
 
           {/* Nouveaux */}
           <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-600 dark:from-green-400 dark:to-emerald-500 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+            <div className="relative bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-orange-500/20 dark:border-orange-500/20 p-6 hover:shadow-orange-lg dark:hover:shadow-gray-lg transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.recent_title')}</p>
-                  <p className="text-3xl font-bold text-green-600 mt-1">{clientStats.recent}</p>
-                  <p className="text-xs text-gray-500 mt-1">{t('stats.recent_description')}</p>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('stats.recent_title')}</p>
+                  <p className="text-3xl font-bold text-green-600 dark:text-green-400 mt-1">{clientStats.recent}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('stats.recent_description')}</p>
                 </div>
-                <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl shadow-lg">
-                  <SparklesIcon className="h-6 w-6 text-white" />
+                <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-600 dark:from-green-400 dark:to-emerald-500 rounded-xl shadow-lg">
+                  <SparklesIcon className="h-6 w-6 text-white dark:text-gray-900" />
                 </div>
               </div>
             </div>
@@ -258,16 +258,16 @@ const ClientsPage: React.FC = () => {
 
           {/* Points Fidélité */}
           <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 dark:from-orange-300 dark:to-orange-400 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+            <div className="relative bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-orange-500/20 dark:border-orange-500/20 p-6 hover:shadow-orange-lg dark:hover:shadow-gray-lg transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.loyalty_title')}</p>
-                  <p className="text-3xl font-bold text-purple-600 mt-1">{clientStats.totalLoyalty}</p>
-                  <p className="text-xs text-gray-500 mt-1">{t('stats.loyalty_description')}</p>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('stats.loyalty_title')}</p>
+                  <p className="text-3xl font-bold text-orange-600 dark:text-orange-400 mt-1">{clientStats.totalLoyalty}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('stats.loyalty_description')}</p>
                 </div>
-                <div className="p-3 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl shadow-lg">
-                  <HeartIcon className="h-6 w-6 text-white" />
+                <div className="p-3 bg-gradient-to-r from-orange-400 to-orange-500 dark:from-orange-300 dark:to-orange-400 rounded-xl shadow-lg">
+                  <HeartIcon className="h-6 w-6 text-white dark:text-gray-900" />
                 </div>
               </div>
             </div>
@@ -276,17 +276,17 @@ const ClientsPage: React.FC = () => {
 
         {/* Message d'erreur moderne */}
         {error && (
-          <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-4 mb-8 bg-red-50/80 border-red-200">
+          <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-red-500/20 dark:border-red-500/20 p-4 mb-8 bg-red-50/80 dark:bg-red-900/20">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <ExclamationTriangleIcon className="h-5 w-5 text-red-400" />
+                <ExclamationTriangleIcon className="h-5 w-5 text-red-400 dark:text-red-300" />
               </div>
               <div className="ml-3 flex-1">
-                <p className="text-sm text-red-800">{error}</p>
+                <p className="text-sm text-red-800 dark:text-red-300">{error}</p>
               </div>
               <button
                 onClick={clearError}
-                className="ml-4 inline-flex text-red-400 hover:text-red-600 transition-colors duration-200"
+                className="ml-4 inline-flex text-red-400 dark:text-red-300 hover:text-red-600 dark:hover:text-red-200 transition-colors duration-200"
               >
                 <XMarkIcon className="h-5 w-5" />
               </button>
@@ -296,26 +296,26 @@ const ClientsPage: React.FC = () => {
 
         {/* FILTRES ET CONTRÔLES - Design sophistiqué */}
         {!showForm && (
-          <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 mb-8">
+          <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-orange-500/20 dark:border-orange-500/20 p-6 mb-8 transition-colors duration-300">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
               
               {/* Recherche et filtres */}
               <div className="flex flex-wrap items-center gap-4">
                 {/* Barre de recherche */}
                 <div className="relative">
-                  <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
                   <input
                     type="text"
                     placeholder={t('search.placeholder')}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 pr-4 py-3 w-64 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 text-sm"
+                    className="pl-10 pr-4 py-3 w-64 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400 focus:border-transparent transition-all duration-200 text-sm text-gray-900 dark:text-gray-100"
                   />
                 </div>
               </div>
             </div>
             {searchTerm && (
-              <p className="mt-2 text-sm text-gray-600">
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
                 {filteredClients.length} {t('search.results')} "{searchTerm}"
               </p>
             )}
@@ -323,7 +323,7 @@ const ClientsPage: React.FC = () => {
         )}
 
         {/* Contenu principal */}
-        <div className="glass-card p-6 min-h-[600px]">
+        <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-orange-500/20 dark:border-orange-500/20 p-6 min-h-[600px] transition-colors duration-300">
           {showForm ? (
             <div className="animate-fadeIn">
               <ClientFormWithLimits
@@ -337,9 +337,9 @@ const ClientsPage: React.FC = () => {
             <div className="animate-fadeIn">
               {filteredClients.length === 0 ? (
                 <div className="text-center py-16">
-                  <UsersIcon className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">{t('empty_state.no_clients')}</h3>
-                  <p className="text-gray-500 mb-6">
+                  <UsersIcon className="h-16 w-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">{t('empty_state.no_clients')}</h3>
+                  <p className="text-gray-500 dark:text-gray-400 mb-6">
                     {searchTerm 
                       ? t('empty_state.modify_filters')
                       : t('empty_state.create_first')
@@ -348,7 +348,7 @@ const ClientsPage: React.FC = () => {
                   {!searchTerm && (
                     <button
                       onClick={handleAddClick}
-                      className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+                      className="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 hover:from-orange-600 hover:to-orange-700 dark:hover:from-orange-500 dark:hover:to-orange-600 text-white dark:text-gray-900 rounded-xl font-medium shadow-orange-lg hover:shadow-orange-xl transform hover:scale-105 transition-all duration-200"
                     >
                       <PlusIcon className="h-4 w-4 mr-2 inline" />
                       {t('empty_state.create_client')}

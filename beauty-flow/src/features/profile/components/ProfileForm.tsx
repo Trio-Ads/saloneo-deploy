@@ -205,7 +205,7 @@ const ProfileForm: React.FC = () => {
   return (
     <div className="max-w-5xl mx-auto">
       {/* Onglets */}
-      <div className="bg-white rounded-t-xl shadow-sm border-b border-gray-200">
+      <div className="bg-white dark:bg-gray-800 rounded-t-xl shadow-sm border-b border-gray-200 dark:border-gray-700">
         <nav className="flex space-x-8 px-6" aria-label="Tabs">
           <button
             type="button"
@@ -214,8 +214,8 @@ const ProfileForm: React.FC = () => {
               flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm
               transition-colors duration-200
               ${activeTab === 'profile'
-                ? 'border-indigo-500 text-indigo-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                ? 'border-orange-500 text-orange-600 dark:text-orange-500'
+                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
               }
             `}
           >
@@ -229,8 +229,8 @@ const ProfileForm: React.FC = () => {
               flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm
               transition-colors duration-200
               ${activeTab === 'affiliation'
-                ? 'border-indigo-500 text-indigo-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                ? 'border-orange-500 text-orange-600 dark:text-orange-500'
+                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
               }
             `}
           >
@@ -241,17 +241,17 @@ const ProfileForm: React.FC = () => {
       </div>
 
       {/* Contenu des onglets */}
-      <div className="bg-white rounded-b-xl shadow-sm p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-b-xl shadow-sm p-6">
         {activeTab === 'profile' ? (
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         
         {/* SECTION 1: Informations de connexion */}
-        <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
+        <div className="bg-white/80 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6">
           <div className="flex items-center space-x-3 mb-6">
-            <div className="p-2 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-xl">
+            <div className="p-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-lg">
               <EnvelopeIcon className="h-5 w-5 text-white" />
             </div>
-            <h3 className="text-lg font-semibold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
+            <h3 className="text-lg font-semibold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
               {t('profile_form.sections.login_info')}
             </h3>
           </div>
@@ -259,14 +259,14 @@ const ProfileForm: React.FC = () => {
           <div className="space-y-6">
             {/* Email */}
             <div>
-              <label className={`block text-sm font-medium text-gray-700 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
-                <EnvelopeIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
+              <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
+                <EnvelopeIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
                 {t('profile_form.fields.email')}
               </label>
               <input
                 type="email"
                 {...register('email', { required: true, pattern: /^\S+@\S+\.\S+$/ })}
-                className={`w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/70 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 ${
+                className={`w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 ${
                   isRTL ? 'text-right' : 'text-left'
                 } ${errors.email ? 'ring-2 ring-red-300 focus:ring-red-500' : ''}`}
                 dir={isRTL ? 'rtl' : 'ltr'}
@@ -283,30 +283,30 @@ const ProfileForm: React.FC = () => {
             <div className="border-t border-gray-200 pt-6">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-2">
-                  <LockClosedIcon className="h-4 w-4 text-indigo-600" />
-                  <span className="text-sm font-medium text-gray-700">{t('security.current_password')}</span>
+                  <LockClosedIcon className="h-4 w-4 text-orange-600 dark:text-orange-500" />
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('security.current_password')}</span>
                 </div>
                 <button
                   type="button"
                   onClick={() => setIsChangingPassword(!isChangingPassword)}
-                  className="text-sm text-indigo-600 hover:text-indigo-700 font-medium transition-colors duration-200"
+                  className="text-sm text-orange-600 dark:text-orange-500 hover:text-orange-700 dark:hover:text-orange-400 font-medium transition-colors duration-200"
                 >
                   {isChangingPassword ? t('profile_form.buttons.cancel') : t('profile_form.buttons.change_password')}
                 </button>
               </div>
 
               {isChangingPassword && (
-                <div className="space-y-4 bg-indigo-50/50 rounded-xl p-4">
+                <div className="space-y-4 bg-orange-50/50 dark:bg-orange-900/20 rounded-xl p-4 border border-orange-200 dark:border-orange-700">
                   {/* Mot de passe actuel */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       {t('profile_form.fields.current_password')}
                     </label>
                     <div className="relative">
                       <input
                         type={showCurrentPassword ? 'text' : 'password'}
                         {...register('currentPassword')}
-                        className="w-full px-4 py-3 pr-12 rounded-xl border border-gray-200 bg-white/70 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+                        className="w-full px-4 py-3 pr-12 rounded-xl border border-gray-200 dark:border-gray-600 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
                         placeholder="••••••••"
                       />
                       <button
@@ -381,26 +381,26 @@ const ProfileForm: React.FC = () => {
         </div>
 
         {/* SECTION 2: Informations personnelles */}
-        <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
+        <div className="bg-white/80 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6">
           <div className="flex items-center space-x-3 mb-6">
-            <div className="p-2 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl">
+            <div className="p-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-lg">
               <UserIcon className="h-5 w-5 text-white" />
             </div>
-            <h3 className="text-lg font-semibold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+            <h3 className="text-lg font-semibold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
               {t('profile_form.sections.personal_info')}
             </h3>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className={`block text-sm font-medium text-gray-700 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
-                <UserIcon className="h-4 w-4 inline mr-2 text-blue-600" />
+              <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
+                <UserIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
                 {t('firstName')} *
               </label>
               <input
                 type="text"
                 {...register('firstName', { required: true })}
-                className={`w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/70 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 ${
+                className={`w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 ${
                   isRTL ? 'text-right' : 'text-left'
                 } ${errors.firstName ? 'ring-2 ring-red-300 focus:ring-red-500' : ''}`}
                 dir={isRTL ? 'rtl' : 'ltr'}
@@ -437,26 +437,26 @@ const ProfileForm: React.FC = () => {
         </div>
 
         {/* SECTION 3: Informations du salon */}
-        <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
+        <div className="bg-white/80 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6">
           <div className="flex items-center space-x-3 mb-6">
-            <div className="p-2 bg-gradient-to-r from-cyan-500 to-teal-600 rounded-xl">
+            <div className="p-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-lg">
               <BuildingStorefrontIcon className="h-5 w-5 text-white" />
             </div>
-            <h3 className="text-lg font-semibold bg-gradient-to-r from-cyan-600 to-teal-600 bg-clip-text text-transparent">
+            <h3 className="text-lg font-semibold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
               {t('profile_form.sections.salon_info')}
             </h3>
           </div>
           
           <div className="space-y-6">
             <div>
-              <label className={`block text-sm font-medium text-gray-700 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
-                <BuildingStorefrontIcon className="h-4 w-4 inline mr-2 text-cyan-600" />
+              <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
+                <BuildingStorefrontIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
                 {t('establishmentName')} *
               </label>
               <input
                 type="text"
                 {...register('establishmentName', { required: true })}
-                className={`w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/70 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all duration-200 ${
+                className={`w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 ${
                   isRTL ? 'text-right' : 'text-left'
                 } ${errors.establishmentName ? 'ring-2 ring-red-300 focus:ring-red-500' : ''}`}
                 dir={isRTL ? 'rtl' : 'ltr'}
@@ -470,8 +470,8 @@ const ProfileForm: React.FC = () => {
             </div>
 
             <div>
-              <label className={`block text-sm font-medium text-gray-700 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
-                <MapPinIcon className="h-4 w-4 inline mr-2 text-cyan-600" />
+              <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
+                <MapPinIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
                 {t('address')} *
               </label>
               <textarea
@@ -493,20 +493,20 @@ const ProfileForm: React.FC = () => {
         </div>
 
         {/* SECTION 4: Préférences */}
-        <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
+        <div className="bg-white/80 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6">
           <div className="flex items-center space-x-3 mb-6">
-            <div className="p-2 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl">
+            <div className="p-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-lg">
               <LanguageIcon className="h-5 w-5 text-white" />
             </div>
-            <h3 className="text-lg font-semibold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
+            <h3 className="text-lg font-semibold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
               {t('profile_form.sections.preferences')}
             </h3>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className={`block text-sm font-medium text-gray-700 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
-                <LanguageIcon className="h-4 w-4 inline mr-2 text-purple-600" />
+              <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
+                <LanguageIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
                 {t('language')}
               </label>
               <div className="bg-white/50 p-3 rounded-xl border border-gray-200">
@@ -515,8 +515,8 @@ const ProfileForm: React.FC = () => {
             </div>
 
             <div>
-              <label className={`block text-sm font-medium text-gray-700 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
-                <CurrencyDollarIcon className="h-4 w-4 inline mr-2 text-purple-600" />
+              <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
+                <CurrencyDollarIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
                 {t('currency')}
               </label>
               <div className="bg-white/50 p-3 rounded-xl border border-gray-200">
@@ -532,19 +532,19 @@ const ProfileForm: React.FC = () => {
           <div className="mt-6 border-t border-gray-200 pt-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
-                <UserGroupIcon className="h-5 w-5 text-purple-600" />
-                <span className="text-sm font-medium text-gray-700">
+                <UserGroupIcon className="h-5 w-5 text-orange-600 dark:text-orange-500" />
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   {t('profile_form.fields.show_as_team_member', 'Apparaître comme membre de l\'équipe')}
                 </span>
               </div>
             </div>
-            <p className="mt-2 text-sm text-gray-600">
+            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
               {t('profile_form.messages.show_as_team_member_description', 'Activez cette option pour apparaître comme membre de l\'équipe dans les réservations et sur la page publique de votre salon.')}
             </p>
             
             <div className="mt-4 flex flex-col space-y-4">
               <div className="flex items-center">
-                <span className="mr-3 text-sm font-medium text-gray-700">État actuel:</span>
+                <span className="mr-3 text-sm font-medium text-gray-700 dark:text-gray-300">État actuel:</span>
                 <span className={`px-3 py-1 rounded-full text-xs font-medium ${watch('showAsTeamMember') ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
                   {watch('showAsTeamMember') ? 'Activé' : 'Désactivé'}
                 </span>
@@ -567,7 +567,7 @@ const ProfileForm: React.FC = () => {
                       showToast('Erreur lors de l\'activation', 'error');
                     });
                   }}
-                  className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200"
+                  className="px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-lg shadow-orange-md hover:shadow-orange-lg transition-all duration-200"
                 >
                   Activer
                 </button>
@@ -588,7 +588,7 @@ const ProfileForm: React.FC = () => {
                       showToast('Erreur lors de la désactivation', 'error');
                     });
                   }}
-                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors duration-200"
+                  className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200"
                 >
                   Désactiver
                 </button>
@@ -596,8 +596,8 @@ const ProfileForm: React.FC = () => {
             </div>
             
             {watch('showAsTeamMember') && (
-              <div className="mt-3 p-3 bg-green-50 rounded-lg">
-                <p className="text-sm text-green-700 flex items-center">
+              <div className="mt-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-700">
+                <p className="text-sm text-green-700 dark:text-green-300 flex items-center">
                   <CheckCircleIcon className="h-4 w-4 mr-2" />
                   Option activée ! Vous apparaîtrez maintenant comme membre de l'équipe.
                 </p>
@@ -607,22 +607,22 @@ const ProfileForm: React.FC = () => {
         </div>
 
         {/* SECTION 5: Lien public */}
-        <div className="bg-gradient-to-r from-blue-50/80 to-indigo-50/80 backdrop-blur-xl rounded-2xl shadow-xl border border-blue-200/50 p-6">
+        <div className="bg-gradient-to-r from-orange-50/80 to-orange-100/80 dark:from-orange-900/20 dark:to-orange-800/20 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-200/50 dark:border-orange-700/50 p-6">
           <div className="flex items-center space-x-3 mb-6">
-            <div className="p-2 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl">
+            <div className="p-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-lg">
               <LinkIcon className="h-5 w-5 text-white" />
             </div>
-            <h3 className="text-lg font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+            <h3 className="text-lg font-semibold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
               {t('profile_form.sections.public_link')}
             </h3>
           </div>
           
-          <div className="bg-white/70 p-4 rounded-xl border border-blue-200/50">
+          <div className="bg-white/70 dark:bg-gray-800/70 p-4 rounded-xl border border-orange-200/50 dark:border-orange-700/50">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <p className="text-sm font-medium text-gray-700 mb-1">{t('profile_form.messages.public_link_label')}</p>
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('profile_form.messages.public_link_label')}</p>
                 <div className="flex items-center space-x-2">
-                  <code className="text-sm text-blue-600 font-mono bg-blue-50 px-3 py-2 rounded-lg">
+                  <code className="text-sm text-orange-600 dark:text-orange-400 font-mono bg-orange-50 dark:bg-orange-900/20 px-3 py-2 rounded-lg">
                     {profile.publicLink || t('profile_form.placeholders.demo_link')}
                   </code>
                   <button
@@ -631,8 +631,8 @@ const ProfileForm: React.FC = () => {
                     disabled={!profile.publicLink}
                     className={`p-2 rounded-lg transition-all duration-200 ${
                       linkCopied 
-                        ? 'bg-green-100 text-green-600' 
-                        : 'bg-blue-100 text-blue-600 hover:bg-blue-200'
+                        ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400' 
+                        : 'bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 hover:bg-orange-200 dark:hover:bg-orange-900/50'
                     } disabled:opacity-50 disabled:cursor-not-allowed`}
                   >
                     {linkCopied ? (
@@ -655,7 +655,7 @@ const ProfileForm: React.FC = () => {
           <button
             type="submit"
             disabled={isLoading || isSubmitting}
-            className="bg-gradient-to-r from-indigo-500 to-blue-600 hover:from-indigo-600 hover:to-blue-700 text-white px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none font-medium"
+            className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-8 py-3 rounded-xl shadow-orange-lg hover:shadow-orange-xl transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none font-medium"
           >
             {isLoading || isSubmitting ? (
               <div className="flex items-center gap-2">

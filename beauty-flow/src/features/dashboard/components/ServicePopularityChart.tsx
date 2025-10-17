@@ -48,7 +48,7 @@ const ServicePopularityChart: React.FC<ServicePopularityChartProps> = ({ appoint
   if (serviceStats.length === 0) {
     return (
       <div className="h-48 flex items-center justify-center">
-        <p className="text-gray-500 text-sm">{t('components.service_popularity.no_data')}</p>
+        <p className="text-gray-500 dark:text-gray-400 text-sm">{t('components.service_popularity.no_data')}</p>
       </div>
     );
   }
@@ -58,34 +58,42 @@ const ServicePopularityChart: React.FC<ServicePopularityChartProps> = ({ appoint
       {serviceStats.map((service, index) => {
         const percentage = (service.count / maxCount) * 100;
         const gradients = [
-          'from-indigo-500 to-purple-600',
-          'from-blue-500 to-cyan-600',
-          'from-green-500 to-emerald-600',
-          'from-orange-500 to-amber-600',
-          'from-pink-500 to-rose-600'
+          'from-orange-500 to-orange-600',
+          'from-orange-400 to-orange-500',
+          'from-orange-600 to-orange-700',
+          'from-orange-300 to-orange-400',
+          'from-orange-500 to-orange-700'
+        ];
+        const darkGradients = [
+          'dark:from-orange-400 dark:to-orange-500',
+          'dark:from-orange-300 dark:to-orange-400',
+          'dark:from-orange-500 dark:to-orange-600',
+          'dark:from-orange-200 dark:to-orange-300',
+          'dark:from-orange-400 dark:to-orange-600'
         ];
         const gradient = gradients[index % gradients.length];
+        const darkGradient = darkGradients[index % darkGradients.length];
 
         return (
           <div key={service.id} className="group">
             <div className="flex items-center justify-between mb-1">
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate">
+                <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
                   {service.name}
                 </p>
-                <p className="text-xs text-gray-500">{service.category}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">{service.category}</p>
               </div>
               <div className="ml-2 flex items-center space-x-2">
-                <span className="text-sm font-semibold text-gray-700">{service.count}</span>
-                <span className="text-xs text-gray-500">({((service.count / appointments.length) * 100).toFixed(0)}%)</span>
+                <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">{service.count}</span>
+                <span className="text-xs text-gray-500 dark:text-gray-400">({((service.count / appointments.length) * 100).toFixed(0)}%)</span>
               </div>
             </div>
-            <div className="relative h-6 bg-gray-100 rounded-full overflow-hidden">
+            <div className="relative h-6 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
               <div
-                className={`absolute inset-y-0 left-0 bg-gradient-to-r ${gradient} rounded-full transition-all duration-500 ease-out group-hover:shadow-lg`}
+                className={`absolute inset-y-0 left-0 bg-gradient-to-r ${gradient} ${darkGradient} rounded-full transition-all duration-500 ease-out group-hover:shadow-orange-lg`}
                 style={{ width: `${percentage}%` }}
               >
-                <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-white/20 dark:bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
             </div>
           </div>

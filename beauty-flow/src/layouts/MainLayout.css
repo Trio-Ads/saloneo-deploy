@@ -80,7 +80,7 @@
     white-space: nowrap !important;
   }
 
-  /* Scrollbar personnalisée */
+  /* Scrollbar personnalisée - ORANGE */
   .mobile-menu-2025::-webkit-scrollbar {
     width: 4px !important;
   }
@@ -90,22 +90,30 @@
   }
 
   .mobile-menu-2025::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2) !important;
+    background: rgba(249, 115, 22, 0.3) !important;
     border-radius: 2px !important;
   }
 
-  .dark .mobile-menu-2025::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2) !important;
+  .mobile-menu-2025::-webkit-scrollbar-thumb:hover {
+    background: rgba(249, 115, 22, 0.5) !important;
   }
 
-  /* Support Firefox */
+  .dark .mobile-menu-2025::-webkit-scrollbar-thumb {
+    background: rgba(251, 146, 60, 0.3) !important;
+  }
+
+  .dark .mobile-menu-2025::-webkit-scrollbar-thumb:hover {
+    background: rgba(251, 146, 60, 0.5) !important;
+  }
+
+  /* Support Firefox - ORANGE */
   .mobile-menu-2025 {
     scrollbar-width: thin !important;
-    scrollbar-color: rgba(0, 0, 0, 0.2) transparent !important;
+    scrollbar-color: rgba(249, 115, 22, 0.3) transparent !important;
   }
 
   .dark .mobile-menu-2025 {
-    scrollbar-color: rgba(255, 255, 255, 0.2) transparent !important;
+    scrollbar-color: rgba(251, 146, 60, 0.3) transparent !important;
   }
 
   /* Empêcher le scroll horizontal sur tout le body quand le menu est ouvert */

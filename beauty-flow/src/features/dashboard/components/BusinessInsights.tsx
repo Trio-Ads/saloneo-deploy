@@ -146,9 +146,9 @@ const BusinessInsights: React.FC<BusinessInsightsProps> = ({ appointments, clien
   }
 
   return (
-    <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-        <LightBulbIcon className="h-5 w-5 mr-2 text-yellow-500" />
+    <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-lg dark:shadow-gray-lg border border-orange-500/20 dark:border-orange-500/20 p-6 transition-colors duration-300">
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+        <LightBulbIcon className="h-5 w-5 mr-2 text-orange-500 dark:text-orange-400" />
         {t('components.business_insights.title')}
       </h3>
 
@@ -156,22 +156,22 @@ const BusinessInsights: React.FC<BusinessInsightsProps> = ({ appointments, clien
         {insights.map((insight, index) => {
           const Icon = insight.icon;
           const colors = {
-            success: 'text-green-600 bg-green-100',
-            warning: 'text-amber-600 bg-amber-100',
-            info: 'text-blue-600 bg-blue-100'
+            success: 'text-green-600 bg-green-100 dark:text-green-400 dark:bg-green-900/30',
+            warning: 'text-orange-600 bg-orange-100 dark:text-orange-400 dark:bg-orange-900/30',
+            info: 'text-orange-500 bg-orange-50 dark:text-orange-300 dark:bg-orange-900/20'
           };
 
           return (
             <div
               key={index}
-              className="flex items-start space-x-3 p-4 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
+              className="flex items-start space-x-3 p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50 hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-colors duration-200"
             >
               <div className={`p-2 rounded-lg ${colors[insight.type as keyof typeof colors]}`}>
                 <Icon className="h-5 w-5" />
               </div>
               <div className="flex-1">
-                <h4 className="font-medium text-gray-900 mb-1">{insight.title}</h4>
-                <p className="text-sm text-gray-600">{insight.description}</p>
+                <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-1">{insight.title}</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{insight.description}</p>
               </div>
             </div>
           );

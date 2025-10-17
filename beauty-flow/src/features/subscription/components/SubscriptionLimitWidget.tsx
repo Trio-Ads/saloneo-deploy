@@ -74,7 +74,7 @@ export const SubscriptionLimitWidget: React.FC<SubscriptionLimitWidgetProps> = (
       <div className={`absolute inset-0 bg-gradient-to-r ${colors.bg} rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300`}></div>
       
       {/* Contenu principal */}
-      <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300">
+      <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-6 hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300">
         {/* En-tête */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
@@ -84,29 +84,29 @@ export const SubscriptionLimitWidget: React.FC<SubscriptionLimitWidgetProps> = (
               </div>
             )}
             <div>
-              <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
-              <p className="text-xs text-gray-500">Plan {planName}</p>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{title}</h3>
+              <p className="text-xs text-gray-500 dark:text-gray-400">Plan {planName}</p>
             </div>
           </div>
           
           {/* Badge d'état */}
           {isUnlimited ? (
-            <div className="flex items-center px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">
+            <div className="flex items-center px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-xs font-medium">
               <SparklesIcon className="h-3 w-3 mr-1" />
               Illimité
             </div>
           ) : isAtLimit ? (
-            <div className="flex items-center px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-medium animate-pulse">
+            <div className="flex items-center px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-full text-xs font-medium animate-pulse">
               <ExclamationTriangleIcon className="h-3 w-3 mr-1" />
               Limite atteinte
             </div>
           ) : isNearLimit ? (
-            <div className="flex items-center px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-medium">
+            <div className="flex items-center px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-full text-xs font-medium">
               <ExclamationTriangleIcon className="h-3 w-3 mr-1" />
               Limite proche
             </div>
           ) : (
-            <div className="flex items-center px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">
+            <div className="flex items-center px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-xs font-medium">
               <CheckCircleIcon className="h-3 w-3 mr-1" />
               Disponible
             </div>
@@ -136,7 +136,7 @@ export const SubscriptionLimitWidget: React.FC<SubscriptionLimitWidgetProps> = (
                 {current}
                 {!isUnlimited && <span className="text-gray-400 text-lg">/{limit}</span>}
               </p>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 {isUnlimited ? 'Utilisés' : `${remaining} ${resourceType} restants`}
               </p>
             </div>
@@ -146,7 +146,7 @@ export const SubscriptionLimitWidget: React.FC<SubscriptionLimitWidgetProps> = (
                 <p className={`text-lg font-semibold ${colors.text}`}>
                   {Math.round(percentage)}%
                 </p>
-                <p className="text-xs text-gray-500">Utilisé</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Utilisé</p>
               </div>
             )}
           </div>
@@ -190,21 +190,21 @@ export const SubscriptionLimitWidgetCompact: React.FC<SubscriptionLimitWidgetPro
   
   return (
     <div 
-      className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-lg hover:shadow-xl transition-all duration-200 cursor-pointer"
+      className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-4 shadow-lg hover:shadow-xl transition-all duration-200 cursor-pointer"
       onClick={() => navigate('/subscription')}
     >
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center space-x-2">
-          {icon || <ChartBarIcon className="h-4 w-4 text-gray-600" />}
-          <span className="text-sm font-medium text-gray-700">{title}</span>
+          {icon || <ChartBarIcon className="h-4 w-4 text-gray-600 dark:text-gray-400" />}
+          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{title}</span>
         </div>
         {isNearLimit && !isUnlimited && (
-          <ExclamationTriangleIcon className="h-4 w-4 text-orange-500 animate-pulse" />
+          <ExclamationTriangleIcon className="h-4 w-4 text-orange-500 dark:text-orange-400 animate-pulse" />
         )}
       </div>
       
       {!isUnlimited && (
-        <div className="h-2 bg-gray-200 rounded-full overflow-hidden mb-2">
+        <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden mb-2">
           <div 
             className={`h-full ${getProgressColor()} rounded-full transition-all duration-300`}
             style={{ width: `${Math.min(percentage, 100)}%` }}
@@ -213,11 +213,11 @@ export const SubscriptionLimitWidgetCompact: React.FC<SubscriptionLimitWidgetPro
       )}
       
       <div className="flex items-center justify-between">
-        <span className="text-xs text-gray-600">
+        <span className="text-xs text-gray-600 dark:text-gray-400">
           {isUnlimited ? 'Illimité' : `${current}/${limit}`}
         </span>
         {!isUnlimited && (
-          <span className="text-xs text-gray-500">
+          <span className="text-xs text-gray-500 dark:text-gray-400">
             {remaining} restants
           </span>
         )}

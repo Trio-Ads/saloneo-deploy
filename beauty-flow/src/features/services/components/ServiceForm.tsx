@@ -84,27 +84,27 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-3 mb-4">
-            <div className="p-3 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-xl shadow-lg">
+            <div className="p-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-lg">
               <SparklesIcon className="h-8 w-8 text-white" />
             </div>
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
               {initialData ? t('common:service_form.titles.edit') : t('common:service_form.titles.new')}
             </h2>
           </div>
-          <p className="text-gray-600">{t('common:service_form.subtitle')}</p>
+          <p className="text-gray-600 dark:text-gray-400">{t('common:service_form.subtitle')}</p>
         </div>
 
         {/* Informations de base */}
-        <div className="glass-card p-6">
+        <div className="glass-card p-6 bg-white/90 dark:bg-gray-800/70 backdrop-blur-xl border border-orange-500/20 shadow-orange-md">
           <div className="flex items-center space-x-3 mb-6">
-            <SparklesIcon className="h-6 w-6 text-indigo-600" />
-            <h3 className="text-lg font-semibold text-gray-900">{t('common:service_form.sections.basic_info')}</h3>
+            <SparklesIcon className="h-6 w-6 text-orange-600 dark:text-orange-500" />
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{t('common:service_form.sections.basic_info')}</h3>
           </div>
           
           <div className="space-y-6">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                <SparklesIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <SparklesIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
                 {t('form.name')} *
               </label>
               <input
@@ -114,14 +114,14 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
+                className="glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 focus:bg-white dark:focus:bg-gray-600 transition-all duration-200"
                 placeholder={t('common:service_form.placeholders.name')}
               />
             </div>
 
             <div>
-              <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">
-                <DocumentTextIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
+              <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <DocumentTextIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
                 {t('form.description')}
               </label>
               <textarea
@@ -130,15 +130,15 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
                 value={formData.description}
                 onChange={handleChange}
                 rows={3}
-                className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
+                className="glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 focus:bg-white dark:focus:bg-gray-600 transition-all duration-200"
                 placeholder={t('common:service_form.placeholders.description')}
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <label htmlFor="duration" className="block text-sm font-medium text-gray-700 mb-2">
-                  <ClockIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
+                <label htmlFor="duration" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <ClockIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
                   {t('form.duration')} *
                 </label>
                 <div className="relative">
@@ -151,17 +151,17 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
                     min="5"
                     step="5"
                     required
-                    className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200 pr-12"
+                    className="glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 focus:bg-white dark:focus:bg-gray-600 transition-all duration-200 pr-12"
                   />
                   <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                    <span className="text-gray-500 text-sm">{t('common:service_form.units.min')}</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">{t('common:service_form.units.min')}</span>
                   </div>
                 </div>
               </div>
 
               <div>
-                <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-2">
-                  <CurrencyDollarIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
+                <label htmlFor="price" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <CurrencyDollarIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
                   {t('form.price')} ({currencySymbol}) *
                 </label>
                 <div className="relative">
@@ -174,17 +174,17 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
                     min="0"
                     step="0.01"
                     required
-                    className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200 pr-12"
+                    className="glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 focus:bg-white dark:focus:bg-gray-600 transition-all duration-200 pr-12"
                   />
                   <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                    <span className="text-gray-500 text-sm">{currencySymbol}</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">{currencySymbol}</span>
                   </div>
                 </div>
               </div>
 
               <div>
-                <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
-                  <TagIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
+                <label htmlFor="category" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <TagIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
                   {t('form.category')} *
                 </label>
                 <select
@@ -193,7 +193,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
                   value={formData.category}
                   onChange={handleChange}
                   required
-                  className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
+                  className="glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 focus:bg-white dark:focus:bg-gray-600 transition-all duration-200"
                 >
                   {categories.map((category) => (
                     <option key={category} value={category}>
@@ -207,20 +207,20 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
         </div>
 
         {/* Produits utilisés */}
-        <div className="glass-card p-6">
+        <div className="glass-card p-6 bg-white/90 dark:bg-gray-800/70 backdrop-blur-xl border border-orange-500/20 shadow-orange-md">
           <div className="flex items-center space-x-3 mb-6">
-            <BeakerIcon className="h-6 w-6 text-indigo-600" />
-            <h3 className="text-lg font-semibold text-gray-900">{t('common:service_form.sections.products')}</h3>
+            <BeakerIcon className="h-6 w-6 text-orange-600 dark:text-orange-500" />
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{t('common:service_form.sections.products')}</h3>
           </div>
           
           <div className="space-y-4">
             {formData.products.map((serviceProduct, index) => {
               const product = products.find(p => p.id === serviceProduct.productId);
               return (
-                <div key={index} className="glass-card bg-white/50 p-4 rounded-xl hover:bg-white/70 transition-all duration-200">
+                <div key={index} className="glass-card bg-white/50 dark:bg-gray-700/50 p-4 rounded-xl hover:bg-white/70 dark:hover:bg-gray-700/70 transition-all duration-200">
                   <div className="flex items-center space-x-4">
                     <div className="flex-1">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         {t('common:service_form.labels.product')}
                       </label>
                       <select
@@ -233,7 +233,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
                           };
                           setFormData(prev => ({ ...prev, products: newProducts }));
                         }}
-                        className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
+                        className="glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 focus:bg-white dark:focus:bg-gray-600 transition-all duration-200"
                       >
                         {products.map((p) => (
                           <option key={p.id} value={p.id}>
@@ -244,7 +244,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
                     </div>
                     
                     <div className="w-32">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         {t('common:service_form.labels.quantity')}
                       </label>
                       <input
@@ -260,7 +260,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
                         }}
                         min="0"
                         step="1"
-                        className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
+                        className="glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 focus:bg-white dark:focus:bg-gray-600 transition-all duration-200"
                       />
                     </div>
                     
@@ -294,14 +294,14 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
                 }
               }}
               disabled={products.length === 0}
-              className="glass-button bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white border-0 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="glass-button bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white border-0 shadow-orange-lg hover:shadow-orange-xl transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <PlusIcon className="h-4 w-4 mr-2" />
               {t('common:actions.add_product')}
             </button>
             
             {products.length === 0 && (
-              <p className="text-gray-500 text-sm italic">
+              <p className="text-gray-500 dark:text-gray-400 text-sm italic">
                 {t('common:service_form.messages.no_products')}
               </p>
             )}
@@ -310,10 +310,10 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
 
         {/* Photos du service */}
         {initialData && (
-          <div className="glass-card p-6">
+          <div className="glass-card p-6 bg-white/90 dark:bg-gray-800/70 backdrop-blur-xl border border-orange-500/20 shadow-orange-md">
             <div className="flex items-center space-x-3 mb-6">
-              <PhotoIcon className="h-6 w-6 text-indigo-600" />
-              <h3 className="text-lg font-semibold text-gray-900">{t('common:service_form.sections.photos')}</h3>
+              <PhotoIcon className="h-6 w-6 text-orange-600 dark:text-orange-500" />
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{t('common:service_form.sections.photos')}</h3>
             </div>
             <ServiceImageUpload serviceId={initialData.name || 'temp-service'} />
           </div>
@@ -324,13 +324,13 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
           <button
             type="button"
             onClick={onCancel}
-            className="glass-button bg-white/70 hover:bg-white/90 text-gray-700 border border-gray-300 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+            className="glass-button bg-white/70 dark:bg-gray-700 hover:bg-white/90 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
           >
             {t('common:actions.cancel')}
           </button>
           <button
             type="submit"
-            className="glass-button bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white border-0 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+            className="glass-button bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white border-0 shadow-orange-lg hover:shadow-orange-xl transform hover:scale-105 transition-all duration-200"
           >
             {initialData ? t('common:actions.edit') : t('common:actions.add')}
           </button>

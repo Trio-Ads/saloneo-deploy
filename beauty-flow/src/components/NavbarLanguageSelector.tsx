@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ChevronDownIcon, CheckIcon } from '@heroicons/react/24/outline';
 
 const NavbarLanguageSelector: React.FC = () => {
   const { i18n } = useTranslation();
@@ -67,25 +68,18 @@ const NavbarLanguageSelector: React.FC = () => {
           console.log('🔘 Clic sur le bouton langue, isOpen:', !isOpen);
           setIsOpen(!isOpen);
         }}
-        className="flex items-center space-x-2 px-3 py-2 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95"
+        className="flex items-center space-x-2 px-3 py-2 rounded-xl bg-white/10 dark:bg-white/5 backdrop-blur-sm border border-orange-500/20 dark:border-orange-400/20 hover:bg-orange-50/10 dark:hover:bg-orange-900/10 hover:border-orange-500/30 dark:hover:border-orange-400/30 transition-all duration-300 hover:scale-105 active:scale-95"
         aria-label="Changer de langue"
       >
         <span className="text-lg">{selectedLanguage.flag}</span>
         <span className="hidden sm:block text-sm font-medium text-gray-700 dark:text-gray-200">
           {selectedLanguage.code.toUpperCase()}
         </span>
-        <svg 
-          className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
-          fill="none" 
-          viewBox="0 0 24 24" 
-          stroke="currentColor"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
+        <ChevronDownIcon className={`w-4 h-4 text-gray-500 dark:text-gray-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden z-[9999]">
+        <div className="absolute right-0 top-full mt-2 w-56 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-[0_8px_32px_rgba(249,115,22,0.15)] dark:shadow-[0_8px_32px_rgba(251,146,60,0.2)] border border-orange-500/20 dark:border-orange-400/20 overflow-hidden z-[9999] animate-slide-down">
           <div className="p-2">
             {languages.map((language) => (
               <button
@@ -100,8 +94,8 @@ const NavbarLanguageSelector: React.FC = () => {
                 className={`
                   w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl transition-all duration-200 text-left
                   ${currentLang === language.code 
-                    ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400' 
-                    : 'hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200'
+                    ? 'bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400' 
+                    : 'hover:bg-orange-50 dark:hover:bg-orange-900/10 text-gray-700 dark:text-gray-200'
                   }
                 `}
               >
@@ -115,9 +109,7 @@ const NavbarLanguageSelector: React.FC = () => {
                   </div>
                 </div>
                 {currentLang === language.code && (
-                  <svg className="w-4 h-4 text-indigo-600 dark:text-indigo-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
+                  <CheckIcon className="w-4 h-4 text-orange-600 dark:text-orange-400" />
                 )}
               </button>
             ))}

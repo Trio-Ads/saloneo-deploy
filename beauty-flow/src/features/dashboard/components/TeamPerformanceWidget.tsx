@@ -41,13 +41,13 @@ const TeamPerformanceWidget: React.FC<TeamPerformanceWidgetProps> = ({ appointme
 
   if (teamStats.length === 0) {
     return (
-      <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-          <UserGroupIcon className="h-5 w-5 mr-2 text-purple-600" />
+      <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-lg dark:shadow-gray-lg border border-orange-500/20 dark:border-orange-500/20 p-6 transition-colors duration-300">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+          <UserGroupIcon className="h-5 w-5 mr-2 text-orange-500 dark:text-orange-400" />
           {t('components.team_performance.title')}
         </h3>
         <div className="h-48 flex items-center justify-center">
-          <p className="text-gray-500 text-sm">{t('components.team_performance.no_members')}</p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm">{t('components.team_performance.no_members')}</p>
         </div>
       </div>
     );
@@ -56,9 +56,9 @@ const TeamPerformanceWidget: React.FC<TeamPerformanceWidgetProps> = ({ appointme
   const maxRevenue = Math.max(...teamStats.map(s => s.revenue), 1);
 
   return (
-    <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-        <UserGroupIcon className="h-5 w-5 mr-2 text-purple-600" />
+    <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-lg dark:shadow-gray-lg border border-orange-500/20 dark:border-orange-500/20 p-6 transition-colors duration-300">
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+        <UserGroupIcon className="h-5 w-5 mr-2 text-orange-500 dark:text-orange-400" />
         {t('components.team_performance.title')}
       </h3>
       
@@ -75,38 +75,38 @@ const TeamPerformanceWidget: React.FC<TeamPerformanceWidgetProps> = ({ appointme
                     <img
                       src={member.avatar}
                       alt={member.name}
-                      className="h-10 w-10 rounded-full object-cover ring-2 ring-white"
+                      className="h-10 w-10 rounded-full object-cover ring-2 ring-orange-500 dark:ring-orange-400"
                     />
                   ) : (
-                    <div className="h-10 w-10 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center text-white font-semibold">
+                    <div className="h-10 w-10 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 flex items-center justify-center text-white font-semibold shadow-orange-md">
                       {member.name.charAt(0)}
                     </div>
                   )}
                 </div>
 
                 {/* Info */}
-                <div className="flex-1 min-w-0">
+                  <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-900 truncate">
+                      <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
                         {member.name}
                       </p>
-                      <p className="text-xs text-gray-500">{member.role}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">{member.role}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm font-semibold text-gray-900">
+                      <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
                         {formatPrice(member.revenue, profile.currency)}
                       </p>
-                      <div className="flex items-center justify-end space-x-1 text-xs text-gray-500">
+                      <div className="flex items-center justify-end space-x-1 text-xs text-gray-500 dark:text-gray-400">
                         <span>{member.completedCount} {t('components.team_performance.completed')}</span>
                       </div>
                     </div>
                   </div>
 
                   {/* Barre de progression */}
-                  <div className="mt-2 relative h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div className="mt-2 relative h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
                     <div
-                      className="absolute inset-y-0 left-0 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-full transition-all duration-500 ease-out"
+                      className="absolute inset-y-0 left-0 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 rounded-full transition-all duration-500 ease-out shadow-orange-sm"
                       style={{ width: `${revenuePercentage}%` }}
                     />
                   </div>

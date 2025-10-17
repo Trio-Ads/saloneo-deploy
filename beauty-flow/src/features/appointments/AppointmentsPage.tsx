@@ -118,17 +118,17 @@ const AppointmentsPage: React.FC = () => {
   // Afficher un état de chargement si les données ne sont pas encore disponibles
   if (!appointments && isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-orange-50 to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-12 animate-pulse">
+          <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-3xl shadow-orange-lg dark:shadow-gray-lg border border-orange-500/20 dark:border-orange-500/20 p-12 animate-pulse">
             <div className="flex items-center justify-center h-64">
               <div className="text-center">
                 <div className="relative">
-                  <div className="animate-spin rounded-full h-20 w-20 border-4 border-indigo-100 border-t-indigo-600 mx-auto"></div>
-                  <SparklesIcon className="h-8 w-8 text-indigo-600 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pulse" />
+                  <div className="animate-spin rounded-full h-20 w-20 border-4 border-orange-100 dark:border-orange-900/30 border-t-orange-500 dark:border-t-orange-400 mx-auto"></div>
+                  <SparklesIcon className="h-8 w-8 text-orange-500 dark:text-orange-400 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pulse" />
                 </div>
-                <p className="mt-8 text-xl font-semibold text-gray-800">{t('loading.planning')}</p>
-                <p className="mt-3 text-sm text-gray-500">{t('loading.interface_preparation')}</p>
+                <p className="mt-8 text-xl font-semibold text-gray-800 dark:text-gray-100">{t('loading.planning')}</p>
+                <p className="mt-3 text-sm text-gray-500 dark:text-gray-400">{t('loading.interface_preparation')}</p>
               </div>
             </div>
           </div>
@@ -220,34 +220,34 @@ const AppointmentsPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-orange-50 to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
         {/* HERO HEADER - Design spectaculaire */}
         <div className="relative mb-12">
-          <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-8 overflow-hidden">
+          <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-3xl shadow-orange-lg dark:shadow-gray-lg border border-orange-500/20 dark:border-orange-500/20 p-8 overflow-hidden transition-colors duration-300">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
               
               {/* Titre avec icône spectaculaire */}
               <div className="flex items-center space-x-6">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl blur-lg opacity-30 animate-pulse"></div>
-                  <div className="relative bg-gradient-to-r from-indigo-500 to-purple-600 p-4 rounded-2xl shadow-xl transform hover:scale-110 transition-all duration-300">
-                    <CalendarDaysIcon className="h-8 w-8 text-white" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 rounded-2xl blur-lg opacity-30 animate-pulse"></div>
+                  <div className="relative bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 p-4 rounded-2xl shadow-orange-lg transform hover:scale-110 transition-all duration-300">
+                    <CalendarDaysIcon className="h-8 w-8 text-white dark:text-gray-900" />
                   </div>
                 </div>
                 <div>
-                  <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
+                  <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 dark:from-orange-400 dark:via-orange-500 dark:to-orange-600 bg-clip-text text-transparent">
                     {t('page_title')}
                   </h1>
-                  <p className="text-gray-600 mt-2 text-lg">{t('page_subtitle')}</p>
+                  <p className="text-gray-600 dark:text-gray-300 mt-2 text-lg">{t('page_subtitle')}</p>
                   <div className="flex items-center mt-3 space-x-4">
-                    <div className="flex items-center text-sm text-gray-500">
-                      <ArrowTrendingUpIcon className="h-4 w-4 mr-1 text-green-500" />
+                    <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                      <ArrowTrendingUpIcon className="h-4 w-4 mr-1 text-green-500 dark:text-green-400" />
                       {appointmentStats.total} {t('stats.total_appointments_badge')}
                     </div>
                     {pastAppointmentsCount > 0 && (
-                      <div className="flex items-center text-sm text-amber-600">
+                      <div className="flex items-center text-sm text-orange-600 dark:text-orange-400">
                         <BellIcon className="h-4 w-4 mr-1 animate-bounce" />
                         {pastAppointmentsCount} {t('stats.pending_badge')}
                       </div>
@@ -279,7 +279,7 @@ const AppointmentsPage: React.FC = () => {
                 
                 <Link
                   to="/appointments/history"
-                  className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+                  className="px-6 py-3 bg-gradient-to-r from-gray-500 to-gray-600 dark:from-gray-600 dark:to-gray-700 hover:from-gray-600 hover:to-gray-700 dark:hover:from-gray-700 dark:hover:to-gray-800 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
                 >
                   <ChartBarIcon className="h-4 w-4 mr-2 inline" />
                   {t('calendar.agenda_view')}
@@ -287,10 +287,10 @@ const AppointmentsPage: React.FC = () => {
                 
                 <button
                   onClick={handleAddClick}
-                  className="px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 relative overflow-hidden group"
+                  className="px-8 py-3 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 hover:from-orange-600 hover:to-orange-700 dark:hover:from-orange-500 dark:hover:to-orange-600 text-white dark:text-gray-900 rounded-xl font-semibold shadow-orange-lg hover:shadow-orange-xl transform hover:scale-105 transition-all duration-300 relative overflow-hidden group"
                   disabled={isLoading}
                 >
-                  <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                  <div className="absolute inset-0 bg-white/20 dark:bg-white/10 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                   <PlusIcon className="h-5 w-5 mr-2 inline relative z-10" />
                   <span className="relative z-10">{t('new_appointment')}</span>
                 </button>
@@ -304,8 +304,8 @@ const AppointmentsPage: React.FC = () => {
           <SubscriptionLimitWidget
             title={t('limits.title')}
             icon={
-              <div className="p-2 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl shadow-lg">
-                <CalendarDaysIcon className="h-5 w-5 text-white" />
+              <div className="p-2 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 rounded-xl shadow-orange-md">
+                <CalendarDaysIcon className="h-5 w-5 text-white dark:text-gray-900" />
               </div>
             }
             limitCheck={checkAppointmentLimit()}
@@ -314,19 +314,19 @@ const AppointmentsPage: React.FC = () => {
           />
         </div>
 
-        {/* STATISTIQUES - Design premium avec vos couleurs */}
+        {/* STATISTIQUES - Design premium avec couleurs orange */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {/* Total */}
           <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <div className="absolute inset-0 bg-gradient-to-r from-gray-500 to-gray-600 dark:from-gray-600 dark:to-gray-700 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+            <div className="relative bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-orange-500/20 dark:border-orange-500/20 p-6 hover:shadow-orange-lg dark:hover:shadow-gray-lg transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.total')}</p>
-                  <p className="text-3xl font-bold text-gray-900 mt-1">{appointmentStats.total}</p>
-                  <p className="text-xs text-gray-500 mt-1">{t('stats.all_appointments')}</p>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('stats.total')}</p>
+                  <p className="text-3xl font-bold text-gray-900 dark:text-gray-100 mt-1">{appointmentStats.total}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('stats.all_appointments')}</p>
                 </div>
-                <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl shadow-lg">
+                <div className="p-3 bg-gradient-to-r from-gray-500 to-gray-600 dark:from-gray-600 dark:to-gray-700 rounded-xl shadow-lg">
                   <CalendarIcon className="h-6 w-6 text-white" />
                 </div>
               </div>
@@ -335,16 +335,16 @@ const AppointmentsPage: React.FC = () => {
 
           {/* Planifiés */}
           <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-amber-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+            <div className="relative bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-orange-500/20 dark:border-orange-500/20 p-6 hover:shadow-orange-lg dark:hover:shadow-gray-lg transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.scheduled')}</p>
-                  <p className="text-3xl font-bold text-orange-600 mt-1">{appointmentStats.scheduled}</p>
-                  <p className="text-xs text-gray-500 mt-1">{t('stats.awaiting_confirmation')}</p>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('stats.scheduled')}</p>
+                  <p className="text-3xl font-bold text-orange-600 dark:text-orange-400 mt-1">{appointmentStats.scheduled}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('stats.awaiting_confirmation')}</p>
                 </div>
-                <div className="p-3 bg-gradient-to-r from-orange-500 to-amber-600 rounded-xl shadow-lg">
-                  <ClockIcon className="h-6 w-6 text-white" />
+                <div className="p-3 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 rounded-xl shadow-orange-md">
+                  <ClockIcon className="h-6 w-6 text-white dark:text-gray-900" />
                 </div>
               </div>
             </div>
@@ -352,16 +352,16 @@ const AppointmentsPage: React.FC = () => {
 
           {/* Confirmés */}
           <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-600 dark:from-green-400 dark:to-emerald-500 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+            <div className="relative bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-orange-500/20 dark:border-orange-500/20 p-6 hover:shadow-orange-lg dark:hover:shadow-gray-lg transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.confirmed')}</p>
-                  <p className="text-3xl font-bold text-green-600 mt-1">{appointmentStats.confirmed}</p>
-                  <p className="text-xs text-gray-500 mt-1">{t('stats.ready_to_perform')}</p>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('stats.confirmed')}</p>
+                  <p className="text-3xl font-bold text-green-600 dark:text-green-400 mt-1">{appointmentStats.confirmed}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('stats.ready_to_perform')}</p>
                 </div>
-                <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl shadow-lg">
-                  <CheckCircleIcon className="h-6 w-6 text-white" />
+                <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-600 dark:from-green-400 dark:to-emerald-500 rounded-xl shadow-lg">
+                  <CheckCircleIcon className="h-6 w-6 text-white dark:text-gray-900" />
                 </div>
               </div>
             </div>
@@ -369,16 +369,16 @@ const AppointmentsPage: React.FC = () => {
 
           {/* Terminés */}
           <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 dark:from-orange-300 dark:to-orange-400 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+            <div className="relative bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-orange-500/20 dark:border-orange-500/20 p-6 hover:shadow-orange-lg dark:hover:shadow-gray-lg transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.completed')}</p>
-                  <p className="text-3xl font-bold text-purple-600 mt-1">{appointmentStats.completed}</p>
-                  <p className="text-xs text-gray-500 mt-1">{t('stats.services_performed')}</p>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('stats.completed')}</p>
+                  <p className="text-3xl font-bold text-orange-500 dark:text-orange-400 mt-1">{appointmentStats.completed}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('stats.services_performed')}</p>
                 </div>
-                <div className="p-3 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl shadow-lg">
-                  <SparklesIcon className="h-6 w-6 text-white" />
+                <div className="p-3 bg-gradient-to-r from-orange-400 to-orange-500 dark:from-orange-300 dark:to-orange-400 rounded-xl shadow-orange-md">
+                  <SparklesIcon className="h-6 w-6 text-white dark:text-gray-900" />
                 </div>
               </div>
             </div>
@@ -387,30 +387,30 @@ const AppointmentsPage: React.FC = () => {
 
         {/* FILTRES ET CONTRÔLES - Design sophistiqué */}
         {!showForm && (
-          <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 mb-8">
+          <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-orange-500/20 dark:border-orange-500/20 p-6 mb-8 transition-colors duration-300">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
               
               {/* Recherche et filtres */}
               <div className="flex flex-wrap items-center gap-4">
                 {/* Barre de recherche */}
                 <div className="relative">
-                  <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
                   <input
                     type="text"
                     placeholder={t('search.placeholder')}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 pr-4 py-3 w-64 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 text-sm"
+                    className="pl-10 pr-4 py-3 w-64 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400 focus:border-transparent transition-all duration-200 text-sm text-gray-900 dark:text-gray-100"
                   />
                 </div>
 
                 {/* Filtre par statut */}
                 <div className="relative">
-                  <FunnelIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <FunnelIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
                   <select
                     value={selectedStatus}
                     onChange={(e) => setSelectedStatus(e.target.value as AppointmentStatus | 'all')}
-                    className="pl-10 pr-8 py-3 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 text-sm appearance-none cursor-pointer"
+                    className="pl-10 pr-8 py-3 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400 focus:border-transparent transition-all duration-200 text-sm appearance-none cursor-pointer text-gray-900 dark:text-gray-100"
                   >
                     <option value="all">{t('filters.all_status')}</option>
                     <option value="scheduled">{t('status.scheduled')}</option>
@@ -423,13 +423,13 @@ const AppointmentsPage: React.FC = () => {
               </div>
 
               {/* Sélecteur de vue */}
-              <div className="flex items-center bg-gray-100 rounded-xl p-1 shadow-inner">
+              <div className="flex items-center bg-gray-100 dark:bg-gray-800 rounded-xl p-1 shadow-inner">
                 <button
                   onClick={() => setViewMode('list')}
                   className={`flex items-center px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
                     viewMode === 'list'
-                      ? 'bg-white text-indigo-600 shadow-md'
-                      : 'text-gray-600 hover:text-gray-900'
+                      ? 'bg-white dark:bg-gray-700 text-orange-600 dark:text-orange-400 shadow-md'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
                   }`}
                 >
                   <ListBulletIcon className="h-4 w-4 mr-2" />
@@ -439,8 +439,8 @@ const AppointmentsPage: React.FC = () => {
                   onClick={() => setViewMode('calendar')}
                   className={`flex items-center px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
                     viewMode === 'calendar'
-                      ? 'bg-white text-indigo-600 shadow-md'
-                      : 'text-gray-600 hover:text-gray-900'
+                      ? 'bg-white dark:bg-gray-700 text-orange-600 dark:text-orange-400 shadow-md'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
                   }`}
                 >
                   <CalendarIcon className="h-4 w-4 mr-2" />
@@ -452,7 +452,7 @@ const AppointmentsPage: React.FC = () => {
         )}
 
         {/* Contenu principal */}
-        <div className="glass-card p-6 min-h-[600px]">
+        <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-lg dark:shadow-gray-lg border border-orange-500/20 dark:border-orange-500/20 p-6 min-h-[600px] transition-colors duration-300">
           {showForm ? (
             <div className="animate-fadeIn">
               <AppointmentForm
@@ -474,9 +474,9 @@ const AppointmentsPage: React.FC = () => {
               {viewMode === 'list' ? (
                 filteredAppointments.length === 0 ? (
                   <div className="text-center py-16">
-                    <CalendarDaysIcon className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">{t('empty_state.no_appointments')}</h3>
-                    <p className="text-gray-500 mb-6">
+                    <CalendarDaysIcon className="h-16 w-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
+                    <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">{t('empty_state.no_appointments')}</h3>
+                    <p className="text-gray-500 dark:text-gray-400 mb-6">
                       {searchTerm || selectedStatus !== 'all' 
                         ? t('empty_state.modify_filters')
                         : t('empty_state.create_first')
@@ -485,7 +485,7 @@ const AppointmentsPage: React.FC = () => {
                     {!searchTerm && selectedStatus === 'all' && (
                       <button
                         onClick={handleAddClick}
-                        className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+                        className="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 hover:from-orange-600 hover:to-orange-700 dark:hover:from-orange-500 dark:hover:to-orange-600 text-white dark:text-gray-900 rounded-xl font-medium shadow-orange-lg hover:shadow-orange-xl transform hover:scale-105 transition-all duration-200"
                       >
                         <PlusIcon className="h-4 w-4 mr-2 inline" />
                         {t('empty_state.create_appointment')}

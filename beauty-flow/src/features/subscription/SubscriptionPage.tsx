@@ -137,7 +137,7 @@ export const SubscriptionPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-orange-50 to-orange-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* Payment modal */}
       {selectedPlan && (
         <PaymentModal
@@ -154,50 +154,50 @@ export const SubscriptionPage: React.FC = () => {
           <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-12 overflow-hidden">
             {/* Floating particles */}
             <div className="absolute inset-0 overflow-hidden">
-              <div className="absolute top-10 left-10 w-2 h-2 bg-indigo-400 rounded-full animate-pulse"></div>
-              <div className="absolute top-20 right-20 w-1 h-1 bg-purple-400 rounded-full animate-bounce"></div>
-              <div className="absolute bottom-20 left-20 w-1.5 h-1.5 bg-blue-400 rounded-full animate-ping"></div>
-              <div className="absolute bottom-10 right-10 w-2 h-2 bg-pink-400 rounded-full animate-pulse"></div>
+              <div className="absolute top-10 left-10 w-2 h-2 bg-orange-400 rounded-full animate-pulse"></div>
+              <div className="absolute top-20 right-20 w-1 h-1 bg-orange-300 rounded-full animate-bounce"></div>
+              <div className="absolute bottom-20 left-20 w-1.5 h-1.5 bg-orange-500 rounded-full animate-ping"></div>
+              <div className="absolute bottom-10 right-10 w-2 h-2 bg-orange-400 rounded-full animate-pulse"></div>
             </div>
 
             <div className="relative text-center">
               {/* Main icon with animation */}
               <div className="flex justify-center mb-8">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-3xl blur-2xl opacity-30 animate-pulse"></div>
-                  <div className="relative bg-gradient-to-r from-indigo-500 to-purple-600 p-6 rounded-3xl shadow-2xl transform hover:scale-110 transition-all duration-500">
+                  <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 rounded-3xl blur-2xl opacity-30 animate-pulse"></div>
+                  <div className="relative bg-gradient-to-r from-orange-500 to-orange-600 p-6 rounded-3xl shadow-2xl transform hover:scale-110 transition-all duration-500">
                     <CurrencyDollarIcon className="h-12 w-12 text-white animate-bounce" />
                   </div>
                 </div>
               </div>
 
               {/* Title with animated gradient effect */}
-              <h1 className="text-6xl font-bold mb-6 bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 bg-clip-text text-transparent animate-pulse">
+              <h1 className="text-6xl font-bold mb-6 bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 bg-clip-text text-transparent animate-pulse">
                 {t('page.title')}
               </h1>
               
-              <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-3xl mx-auto leading-relaxed">
                 {t('page.subtitle')}
               </p>
 
               {/* Trust badges */}
               <div className="flex flex-wrap justify-center items-center gap-6 mb-8">
-                <div className="flex items-center bg-green-50 px-4 py-2 rounded-full border border-green-200">
+                <div className="flex items-center bg-green-50 dark:bg-green-900/20 px-4 py-2 rounded-full border border-green-200 dark:border-green-700">
                   <CheckCircleIcon className="h-5 w-5 text-green-500 mr-2" />
-                  <span className="text-green-700 font-medium">{t('badges.free_trial')}</span>
+                  <span className="text-green-700 dark:text-green-300 font-medium">{t('badges.free_trial')}</span>
                 </div>
-                <div className="flex items-center bg-blue-50 px-4 py-2 rounded-full border border-blue-200">
-                  <ShieldCheckIcon className="h-5 w-5 text-blue-500 mr-2" />
-                  <span className="text-blue-700 font-medium">{t('badges.no_commitment')}</span>
+                <div className="flex items-center bg-orange-50 dark:bg-orange-900/20 px-4 py-2 rounded-full border border-orange-200 dark:border-orange-700">
+                  <ShieldCheckIcon className="h-5 w-5 text-orange-500 mr-2" />
+                  <span className="text-orange-700 dark:text-orange-300 font-medium">{t('badges.no_commitment')}</span>
                 </div>
-                <div className="flex items-center bg-purple-50 px-4 py-2 rounded-full border border-purple-200">
-                  <StarIcon className="h-5 w-5 text-purple-500 mr-2" />
-                  <span className="text-purple-700 font-medium">{t('badges.premium_support')}</span>
+                <div className="flex items-center bg-orange-50 dark:bg-orange-900/20 px-4 py-2 rounded-full border border-orange-200 dark:border-orange-700">
+                  <StarIcon className="h-5 w-5 text-orange-500 mr-2" />
+                  <span className="text-orange-700 dark:text-orange-300 font-medium">{t('badges.premium_support')}</span>
                 </div>
               </div>
 
               {/* Flash promotion */}
-              <div className="inline-block bg-gradient-to-r from-red-500 to-pink-600 text-white px-8 py-3 rounded-full font-bold text-lg shadow-xl animate-pulse">
+              <div className="inline-block bg-gradient-to-r from-orange-500 to-orange-600 text-white px-8 py-3 rounded-full font-bold text-lg shadow-xl animate-pulse">
                 {t('promotion.limited_offer')}
               </div>
             </div>
@@ -224,10 +224,10 @@ export const SubscriptionPage: React.FC = () => {
         {/* WHY SALONEO SECTION */}
         <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-12 mb-16">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
               {t('page.why_choose')}
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-600 dark:text-gray-400">
               {t('page.why_subtitle')}
             </p>
           </div>
@@ -236,20 +236,20 @@ export const SubscriptionPage: React.FC = () => {
             {features.map((feature, index) => (
               <div 
                 key={index}
-                className="group relative bg-white/50 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/80 transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                className="group relative bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all duration-300 hover:scale-105 hover:shadow-xl"
               >
-                <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl mb-6 group-hover:scale-110 transition-transform duration-300">
                   <feature.icon className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">{feature.title}</h3>
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{feature.description}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* TESTIMONIALS */}
-        <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-3xl shadow-2xl p-12 text-white mb-16">
+        <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-3xl shadow-2xl p-12 text-white mb-16">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">{t('testimonials.title')}</h2>
             <p className="text-xl opacity-90">{t('testimonials.subtitle')}</p>
@@ -295,7 +295,7 @@ export const SubscriptionPage: React.FC = () => {
         {/* FAQ SECTION */}
         <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-12">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
               {t('faq.title')}
             </h2>
           </div>
@@ -315,9 +315,9 @@ export const SubscriptionPage: React.FC = () => {
                 a: t('faq.cancel.a')
               }
             ].map((faq, index) => (
-              <div key={index} className="bg-white/50 rounded-2xl p-6 hover:bg-white/80 transition-all duration-300">
-                <h3 className="text-lg font-bold text-gray-900 mb-3">{faq.q}</h3>
-                <p className="text-gray-600">{faq.a}</p>
+              <div key={index} className="bg-white/50 dark:bg-gray-800/50 rounded-2xl p-6 hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all duration-300">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">{faq.q}</h3>
+                <p className="text-gray-600 dark:text-gray-400">{faq.a}</p>
               </div>
             ))}
           </div>
@@ -325,10 +325,10 @@ export const SubscriptionPage: React.FC = () => {
 
         {/* FINAL CTA */}
         <div className="text-center mt-16">
-          <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-3xl p-8 text-white">
-            <h2 className="text-3xl font-bold mb-4">{t('cta.title')}</h2>
-            <p className="text-xl mb-6 opacity-90">{t('cta.subtitle')}</p>
-            <button className="bg-white text-indigo-600 px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 shadow-xl">
+            <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-3xl p-8 text-white">
+              <h2 className="text-3xl font-bold mb-4">{t('cta.title')}</h2>
+              <p className="text-xl mb-6 opacity-90">{t('cta.subtitle')}</p>
+              <button className="bg-white text-orange-600 px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 shadow-xl">
               {t('cta.button')}
             </button>
           </div>

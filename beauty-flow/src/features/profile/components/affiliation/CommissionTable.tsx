@@ -145,14 +145,14 @@ const CommissionTable: React.FC = () => {
       </div>
 
       {/* Filtres et actions */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="flex items-center space-x-2">
-            <FunnelIcon className="h-5 w-5 text-gray-400" />
+            <FunnelIcon className="h-5 w-5 text-gray-400 dark:text-gray-500" />
             <select
               value={filter}
               onChange={(e) => setFilter(e.target.value as any)}
-              className="rounded-lg border-gray-300 text-sm focus:ring-indigo-500 focus:border-indigo-500"
+              className="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 text-sm focus:ring-orange-500 focus:border-orange-500"
             >
               <option value="all">{t('affiliation_components.commissions.filters.all')}</option>
               <option value="pending">{t('affiliation_components.commissions.filters.pending')}</option>
@@ -164,7 +164,7 @@ const CommissionTable: React.FC = () => {
           <button 
             onClick={handleExportCSV}
             disabled={filteredCommissions.length === 0}
-            className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <ArrowDownTrayIcon className="h-4 w-4 mr-2" />
             {t('affiliation_components.commissions.export')}
@@ -173,12 +173,12 @@ const CommissionTable: React.FC = () => {
       </div>
 
       {/* Tableau des commissions */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+          <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead className="bg-gray-50 dark:bg-gray-700">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   {t('affiliation_components.commissions.table.date')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -201,35 +201,35 @@ const CommissionTable: React.FC = () => {
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
               {filteredCommissions.map((commission) => (
-                <tr key={commission.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <tr key={commission.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                     {new Date(commission.createdAt).toLocaleDateString('fr-FR')}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">
+                    <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
                       {commission.referredUserName}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                     {getCommissionType(commission.type)}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                     {commission.originalAmount.toFixed(2)} €
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">
+                    <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
                       {commission.amount.toFixed(2)} €
                     </div>
-                    <div className="text-xs text-gray-500">
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
                       {(commission.commissionRate * 100).toFixed(0)}%
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     {getStatusBadge(commission.status)}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                     {commission.paymentDate 
                       ? new Date(commission.paymentDate).toLocaleDateString('fr-FR')
                       : '-'
@@ -243,9 +243,9 @@ const CommissionTable: React.FC = () => {
 
         {filteredCommissions.length === 0 && (
           <div className="text-center py-12">
-            <BanknotesIcon className="mx-auto h-12 w-12 text-gray-400" />
-            <h3 className="mt-2 text-sm font-medium text-gray-900">{t('affiliation_components.commissions.empty_state.title')}</h3>
-            <p className="mt-1 text-sm text-gray-500">
+            <BanknotesIcon className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" />
+            <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-gray-100">{t('affiliation_components.commissions.empty_state.title')}</h3>
+            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
               {t('affiliation_components.commissions.empty_state.subtitle')}
             </p>
           </div>
@@ -253,8 +253,8 @@ const CommissionTable: React.FC = () => {
       </div>
 
       {/* Note sur les paiements */}
-      <div className="bg-blue-50 rounded-xl p-4">
-        <p className="text-sm text-blue-800">
+      <div className="bg-orange-50 dark:bg-orange-900/20 rounded-xl p-4 border border-orange-200 dark:border-orange-700">
+        <p className="text-sm text-orange-800 dark:text-orange-200">
           <strong>{t('affiliation_components.commissions.payment_note.title')}</strong> {t('affiliation_components.commissions.payment_note.description')}
         </p>
       </div>

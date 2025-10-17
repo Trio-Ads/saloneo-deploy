@@ -126,34 +126,34 @@ const ServicesPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-orange-50 to-orange-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
         {/* HERO HEADER - Design spectaculaire */}
         <div className="relative mb-12">
-          <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-8 overflow-hidden">
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-orange-500/20 p-8 overflow-hidden">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
               
               {/* Titre avec icône spectaculaire */}
               <div className="flex items-center space-x-6">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl blur-lg opacity-30 animate-pulse"></div>
-                  <div className="relative bg-gradient-to-r from-indigo-500 to-purple-600 p-4 rounded-2xl shadow-xl transform hover:scale-110 transition-all duration-300">
+                  <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl blur-lg opacity-30 animate-pulse"></div>
+                  <div className="relative bg-gradient-to-r from-orange-500 to-orange-600 p-4 rounded-2xl shadow-orange-xl transform hover:scale-110 transition-all duration-300">
                     <SparklesIcon className="h-8 w-8 text-white" />
                   </div>
                 </div>
                 <div>
-                  <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
+                  <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 bg-clip-text text-transparent">
                     {t('title')}
                   </h1>
-                  <p className="text-gray-600 mt-2 text-lg">{t('subtitle')}</p>
+                  <p className="text-gray-600 dark:text-gray-400 mt-2 text-lg">{t('subtitle')}</p>
                   <div className="flex items-center mt-3 space-x-4">
                     <div className="flex items-center text-sm text-gray-500">
                       <ArrowTrendingUpIcon className="h-4 w-4 mr-1 text-green-500" />
                       {serviceStats.total} {t('stats_text.total_services')}
                     </div>
                     {serviceStats.categories > 0 && (
-                      <div className="flex items-center text-sm text-indigo-600">
+                      <div className="flex items-center text-sm text-orange-600 dark:text-orange-500">
                         <BellIcon className="h-4 w-4 mr-1 animate-bounce" />
                         {serviceStats.categories} {t('stats_text.categories')}
                       </div>
@@ -166,7 +166,7 @@ const ServicesPage: React.FC = () => {
               <div className="flex flex-wrap items-center gap-4">
                 <button
                   onClick={handleAddClick}
-                  className="px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 relative overflow-hidden group"
+                  className="px-8 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl font-semibold shadow-orange-xl hover:shadow-orange-2xl transform hover:scale-105 transition-all duration-300 relative overflow-hidden group"
                 >
                   <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                   <PlusIcon className="h-5 w-5 mr-2 inline relative z-10" />
@@ -182,7 +182,7 @@ const ServicesPage: React.FC = () => {
           <SubscriptionLimitWidget
             title={t('limits.title')}
             icon={
-              <div className="p-2 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl shadow-lg">
+              <div className="p-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-lg">
                 <SparklesIcon className="h-5 w-5 text-white" />
               </div>
             }
@@ -196,15 +196,15 @@ const ServicesPage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {/* Total */}
           <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+            <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.total')}</p>
-                  <p className="text-3xl font-bold text-gray-900 mt-1">{serviceStats.total}</p>
-                  <p className="text-xs text-gray-500 mt-1">{t('stats.all_services')}</p>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('stats.total')}</p>
+                  <p className="text-3xl font-bold text-gray-900 dark:text-gray-100 mt-1">{serviceStats.total}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('stats.all_services')}</p>
                 </div>
-                <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl shadow-lg">
+                <div className="p-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-lg">
                   <BeakerIcon className="h-6 w-6 text-white" />
                 </div>
               </div>
@@ -213,15 +213,15 @@ const ServicesPage: React.FC = () => {
 
           {/* Catégories */}
           <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <div className="absolute inset-0 bg-gradient-to-r from-gray-500 to-gray-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+            <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-xl border border-gray-500/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.categories')}</p>
-                  <p className="text-3xl font-bold text-purple-600 mt-1">{serviceStats.categories}</p>
-                  <p className="text-xs text-gray-500 mt-1">{t('stats.service_types')}</p>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('stats.categories')}</p>
+                  <p className="text-3xl font-bold text-gray-600 dark:text-gray-400 mt-1">{serviceStats.categories}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('stats.service_types')}</p>
                 </div>
-                <div className="p-3 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl shadow-lg">
+                <div className="p-3 bg-gradient-to-r from-gray-500 to-gray-600 rounded-xl shadow-lg">
                   <TagIcon className="h-6 w-6 text-white" />
                 </div>
               </div>
@@ -230,15 +230,15 @@ const ServicesPage: React.FC = () => {
 
           {/* Durée Moyenne */}
           <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-amber-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+            <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.avg_duration')}</p>
-                  <p className="text-3xl font-bold text-orange-600 mt-1">{serviceStats.avgDuration}min</p>
-                  <p className="text-xs text-gray-500 mt-1">{t('stats.avg_time')}</p>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('stats.avg_duration')}</p>
+                  <p className="text-3xl font-bold text-orange-600 dark:text-orange-500 mt-1">{serviceStats.avgDuration}min</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('stats.avg_time')}</p>
                 </div>
-                <div className="p-3 bg-gradient-to-r from-orange-500 to-amber-600 rounded-xl shadow-lg">
+                <div className="p-3 bg-gradient-to-r from-orange-400 to-orange-500 rounded-xl shadow-orange-lg">
                   <ClockIcon className="h-6 w-6 text-white" />
                 </div>
               </div>
@@ -247,15 +247,15 @@ const ServicesPage: React.FC = () => {
 
           {/* Prix Moyen */}
           <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-700 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+            <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.avg_price')}</p>
-                  <p className="text-3xl font-bold text-green-600 mt-1">{serviceStats.avgPrice}€</p>
-                  <p className="text-xs text-gray-500 mt-1">{t('stats.avg_rate')}</p>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('stats.avg_price')}</p>
+                  <p className="text-3xl font-bold text-orange-600 dark:text-orange-500 mt-1">{serviceStats.avgPrice}€</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('stats.avg_rate')}</p>
                 </div>
-                <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl shadow-lg">
+                <div className="p-3 bg-gradient-to-r from-orange-600 to-orange-700 rounded-xl shadow-orange-lg">
                   <CurrencyEuroIcon className="h-6 w-6 text-white" />
                 </div>
               </div>
@@ -265,7 +265,7 @@ const ServicesPage: React.FC = () => {
 
         {/* FILTRES ET CONTRÔLES - Design sophistiqué */}
         {!isFormOpen && (
-          <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 mb-8">
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6 mb-8">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
               
               {/* Recherche et filtres */}
@@ -278,7 +278,7 @@ const ServicesPage: React.FC = () => {
                     placeholder={t('search.placeholder')}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 pr-4 py-3 w-64 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 text-sm"
+                    className="pl-10 pr-4 py-3 w-64 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 text-sm"
                   />
                 </div>
 
@@ -288,7 +288,7 @@ const ServicesPage: React.FC = () => {
                   <select
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="pl-10 pr-8 py-3 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 text-sm appearance-none cursor-pointer"
+                    className="pl-10 pr-8 py-3 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 text-sm appearance-none cursor-pointer"
                   >
                     <option value="all">{t('filters.all_categories')}</option>
                     {categories.map((category) => (
@@ -302,7 +302,7 @@ const ServicesPage: React.FC = () => {
             </div>
             
             {(searchTerm || selectedCategory !== 'all') && (
-              <p className="mt-2 text-sm text-gray-600">
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
                 {filteredServices.length} {t('search.results')}
                 {searchTerm && ` ${t('search.for')} "${searchTerm}"`}
                 {selectedCategory !== 'all' && ` ${t('search.in')} "${selectedCategory}"`}
@@ -312,7 +312,7 @@ const ServicesPage: React.FC = () => {
         )}
 
         {/* Contenu principal */}
-        <div className="glass-card p-6 min-h-[600px]">
+        <div className="glass-card p-6 min-h-[600px] bg-white/90 dark:bg-gray-800/70 backdrop-blur-xl border border-orange-500/20 shadow-orange-md">
           {isFormOpen ? (
             <div className="animate-fadeIn">
               <ServiceFormWithLimits
@@ -336,8 +336,8 @@ const ServicesPage: React.FC = () => {
               {filteredServices.length === 0 ? (
                 <div className="text-center py-16">
                   <SparklesIcon className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">{t('messages.no_services')}</h3>
-                  <p className="text-gray-500 mb-6">
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">{t('messages.no_services')}</h3>
+                  <p className="text-gray-500 dark:text-gray-400 mb-6">
                     {searchTerm || selectedCategory !== 'all' 
                       ? t('messages.try_filters')
                       : t('messages.create_first')
@@ -346,7 +346,7 @@ const ServicesPage: React.FC = () => {
                   {!searchTerm && selectedCategory === 'all' && (
                     <button
                       onClick={handleAddClick}
-                      className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+                      className="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl font-medium shadow-orange-lg hover:shadow-orange-xl transform hover:scale-105 transition-all duration-200"
                     >
                       <PlusIcon className="h-4 w-4 mr-2 inline" />
                       {t('actions.create_service')}

@@ -136,11 +136,11 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title }) => {
             bottom: 0;
             background: linear-gradient(
               135deg,
-              #6366F1 0%,
-              #3B82F6 25%,
-              #06B6D4 50%,
-              #8B5CF6 75%,
-              #4F46E5 100%
+              #F97316 0%,
+              #EA580C 25%,
+              #FB923C 50%,
+              #FDBA74 75%,
+              #F97316 100%
             );
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
@@ -166,10 +166,10 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title }) => {
             position: absolute;
             width: 4px;
             height: 4px;
-            background: linear-gradient(45deg, rgba(99, 102, 241, 0.4), rgba(59, 130, 246, 0.3));
+            background: linear-gradient(45deg, rgba(249, 115, 22, 0.4), rgba(251, 146, 60, 0.3));
             border-radius: 50%;
             animation: float 6s ease-in-out infinite;
-            box-shadow: 0 0 8px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 0 8px rgba(249, 115, 22, 0.3);
           }
 
           .auth-particle-1 { animation-duration: 6s; }
@@ -206,10 +206,10 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title }) => {
 
           .auth-logo-icon {
             padding: 1rem;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(59, 130, 246, 0.1));
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(251, 146, 60, 0.1));
             border-radius: 1.5rem;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(99, 102, 241, 0.3);
+            border: 1px solid rgba(249, 115, 22, 0.3);
             animation: glow 2s ease-in-out infinite alternate;
           }
 
@@ -252,7 +252,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title }) => {
           .auth-title-underline {
             width: 60px;
             height: 3px;
-            background: linear-gradient(90deg, #6366F1, #3B82F6, #06B6D4);
+            background: linear-gradient(90deg, #F97316, #FB923C, #FDBA74);
             margin: 0 auto;
             border-radius: 2px;
             animation: expandWidth 0.8s ease-out 0.4s both;
@@ -268,7 +268,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title }) => {
             left: -2px;
             right: -2px;
             bottom: -2px;
-            background: linear-gradient(45deg, #6366F1, #3B82F6, #06B6D4, #8B5CF6);
+            background: linear-gradient(45deg, #F97316, #FB923C, #FDBA74, #EA580C);
             border-radius: 2rem;
             opacity: 0.3;
             filter: blur(8px);
@@ -284,7 +284,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title }) => {
             bottom: 0;
             border-radius: 2rem;
             padding: 1px;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(59, 130, 246, 0.2), rgba(255,255,255,0.1));
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.3), rgba(251, 146, 60, 0.2), rgba(255,255,255,0.1));
             mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             mask-composite: exclude;
             z-index: 1;
@@ -349,7 +349,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title }) => {
           }
 
           .auth-language-selector [style*="position: fixed"] button:hover {
-            background: rgba(99, 102, 241, 0.1) !important;
+            background: rgba(249, 115, 22, 0.1) !important;
           }
 
           .auth-footer {
@@ -373,8 +373,8 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title }) => {
           }
 
           @keyframes glow {
-            from { box-shadow: 0 0 20px rgba(99, 102, 241, 0.4); }
-            to { box-shadow: 0 0 30px rgba(99, 102, 241, 0.6), 0 0 40px rgba(59, 130, 246, 0.4); }
+            from { box-shadow: 0 0 20px rgba(249, 115, 22, 0.4); }
+            to { box-shadow: 0 0 30px rgba(249, 115, 22, 0.6), 0 0 40px rgba(251, 146, 60, 0.4); }
           }
 
           @keyframes float {

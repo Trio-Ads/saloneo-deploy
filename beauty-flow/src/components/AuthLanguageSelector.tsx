@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
+import { ChevronDownIcon, CheckIcon } from '@heroicons/react/24/outline';
 
 const AuthLanguageSelector: React.FC = () => {
   const { i18n } = useTranslation();
@@ -49,19 +50,10 @@ const AuthLanguageSelector: React.FC = () => {
 
   const handleLanguageChange = (languageCode: string) => {
     try {
-      // Sauvegarder dans localStorage
       localStorage.setItem('saloneo-language', languageCode);
-      
-      // Changer la langue
       i18n.changeLanguage(languageCode);
-      
-      // Fermer le dropdown
       setIsOpen(false);
-      
-      // Debug log
       console.log('Language changed to:', languageCode);
-      
-      // Forcer un re-render de la page
       window.location.reload();
     } catch (error) {
       console.error('Error changing language:', error);
@@ -80,7 +72,6 @@ const AuthLanguageSelector: React.FC = () => {
     }
   };
 
-  // Ouvrir/fermer le dropdown
   const toggleDropdown = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -95,124 +86,60 @@ const AuthLanguageSelector: React.FC = () => {
     <>
       <div 
         ref={dropdownRef} 
-        style={{ 
-          position: 'relative', 
-          display: 'inline-block',
-          zIndex: 99999
-        }}
+        className="relative inline-block z-[99999]"
         onMouseDown={(e) => e.stopPropagation()}
       >
         <button
           ref={buttonRef}
           onClick={toggleDropdown}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            padding: '8px 12px',
-            backgroundColor: 'rgba(255, 255, 255, 0.1)',
-            backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-            borderRadius: '8px',
-            cursor: 'pointer',
-            fontSize: '14px',
-            color: 'white',
-            transition: 'all 0.3s ease',
-            zIndex: 99999,
-            position: 'relative'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.15)';
-            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
-            e.currentTarget.style.transform = 'translateY(-1px)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-            e.currentTarget.style.transform = 'translateY(0)';
-          }}
+          className="flex items-center gap-2 px-3 py-2 bg-white/10 dark:bg-white/5 backdrop-blur-lg border border-white/20 dark:border-white/10 rounded-lg hover:bg-white/15 dark:hover:bg-white/10 hover:border-white/30 dark:hover:border-white/20 hover:-translate-y-0.5 transition-all duration-300 text-sm font-medium text-white z-[99999] relative shadow-lg hover:shadow-xl"
         >
-          <span style={{ fontSize: '16px' }}>{selectedLanguage.flag}</span>
+          <span className="text-base">{selectedLanguage.flag}</span>
           <span>{selectedLanguage.code.toUpperCase()}</span>
-          <span style={{ 
-            transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-            transition: 'transform 0.2s'
-          }}>▼</span>
+          <ChevronDownIcon className={`h-3.5 w-3.5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
         </button>
       </div>
 
       {isOpen && createPortal(
         <>
-          {/* Overlay pour fermer le dropdown */}
+          {/* Overlay */}
           <div 
-            style={{
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              zIndex: 999998,
-              backgroundColor: 'transparent'
-            }}
+            className="fixed inset-0 z-[999998] bg-transparent"
             onClick={() => setIsOpen(false)}
           />
           
-          {/* Dropdown avec position fixe */}
-          <div style={{
-            position: 'fixed',
-            top: buttonPosition.top,
-            left: buttonPosition.left,
-            backgroundColor: 'rgba(255, 255, 255, 0.95)',
-            backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-            borderRadius: '8px',
-            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1)',
-            zIndex: 999999,
-            minWidth: '200px',
-            pointerEvents: 'auto'
-          }}>
-              {languages.map((language) => (
-                <button
-                  key={language.code}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    handleLanguageChange(language.code);
-                  }}
-                  style={{
-                    width: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px',
-                    padding: '12px 16px',
-                    border: 'none',
-                    backgroundColor: currentLang === language.code ? '#f3f4f6' : 'transparent',
-                    cursor: 'pointer',
-                    fontSize: '14px',
-                    textAlign: 'left',
-                    color: '#374151',
-                    pointerEvents: 'auto'
-                  }}
-                  onMouseEnter={(e) => {
-                    if (currentLang !== language.code) {
-                      e.currentTarget.style.backgroundColor = 'rgba(99, 102, 241, 0.1)';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (currentLang !== language.code) {
-                      e.currentTarget.style.backgroundColor = 'transparent';
-                    }
-                  }}
-                >
-                  <span style={{ fontSize: '18px' }}>{language.flag}</span>
-                  <span style={{ fontWeight: currentLang === language.code ? 'bold' : 'normal' }}>
-                    {language.name}
-                  </span>
-                  {currentLang === language.code && (
-                    <span style={{ marginLeft: 'auto', color: '#10b981' }}>✓</span>
-                  )}
-                </button>
-              ))}
+          {/* Dropdown avec glassmorphism orange */}
+          <div 
+            className="fixed z-[999999] min-w-[200px] bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-orange-500/20 dark:border-orange-400/20 rounded-xl shadow-[0_8px_32px_rgba(249,115,22,0.2)] dark:shadow-[0_8px_32px_rgba(251,146,60,0.25)] animate-slide-down"
+            style={{
+              top: buttonPosition.top,
+              left: buttonPosition.left,
+              pointerEvents: 'auto'
+            }}
+          >
+            {languages.map((language) => (
+              <button
+                key={language.code}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleLanguageChange(language.code);
+                }}
+                className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all duration-200 first:rounded-t-xl last:rounded-b-xl ${
+                  currentLang === language.code
+                    ? 'bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/10'
+                }`}
+              >
+                <span className="text-lg">{language.flag}</span>
+                <span className={currentLang === language.code ? 'font-semibold' : ''}>
+                  {language.name}
+                </span>
+                {currentLang === language.code && (
+                  <CheckIcon className="h-4 w-4 ml-auto text-orange-600 dark:text-orange-400" />
+                )}
+              </button>
+            ))}
           </div>
         </>,
         document.body

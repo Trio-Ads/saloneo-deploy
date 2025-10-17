@@ -201,13 +201,13 @@ Lien dans ma bio 👆 ${affiliateLink}
   return (
     <div className="space-y-8">
       {/* QR Code */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-          <QrCodeIcon className="h-5 w-5 mr-2 text-indigo-600" />
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+          <QrCodeIcon className="h-5 w-5 mr-2 text-orange-600 dark:text-orange-500" />
           QR Code de parrainage
         </h3>
         <div className="flex flex-col md:flex-row items-center gap-6">
-          <div className="bg-gray-100 p-4 rounded-lg">
+          <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
             {qrCodeDataUrl ? (
               <img src={qrCodeDataUrl} alt="QR Code d'affiliation" className="w-48 h-48" />
             ) : (
@@ -217,14 +217,14 @@ Lien dans ma bio 👆 ${affiliateLink}
             )}
           </div>
           <div className="flex-1">
-            <p className="text-gray-700 mb-4">
+            <p className="text-gray-700 dark:text-gray-300 mb-4">
               Partagez ce QR code pour permettre à vos contacts de s'inscrire facilement.
               Parfait pour les cartes de visite, flyers ou affiches.
             </p>
             <button 
               onClick={handleDownloadQRCode}
               disabled={!qrCodeDataUrl}
-              className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <ArrowDownTrayIcon className="h-4 w-4 mr-2" />
               Télécharger le QR Code
@@ -234,18 +234,18 @@ Lien dans ma bio 👆 ${affiliateLink}
       </div>
 
       {/* Templates d'emails */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-          <EnvelopeIcon className="h-5 w-5 mr-2 text-indigo-600" />
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+          <EnvelopeIcon className="h-5 w-5 mr-2 text-orange-600 dark:text-orange-500" />
           Templates d'emails
         </h3>
         <div className="space-y-4">
           {emailTemplates.map((template) => (
-            <div key={template.id} className="border border-gray-200 rounded-lg p-4">
+            <div key={template.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
               <div className="flex items-start justify-between mb-2">
                 <div>
-                  <h4 className="font-medium text-gray-900">{template.title}</h4>
-                  <p className="text-sm text-gray-600">Objet : {template.subject}</p>
+                  <h4 className="font-medium text-gray-900 dark:text-gray-100">{template.title}</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Objet : {template.subject}</p>
                 </div>
                 <button
                   onClick={() => handleCopyText(template.content, template.id)}
@@ -262,7 +262,7 @@ Lien dans ma bio 👆 ${affiliateLink}
                   )}
                 </button>
               </div>
-              <div className="bg-gray-50 rounded p-3 text-sm text-gray-700 whitespace-pre-wrap max-h-40 overflow-y-auto">
+              <div className="bg-gray-50 dark:bg-gray-700 rounded p-3 text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap max-h-40 overflow-y-auto">
                 {template.content}
               </div>
             </div>
@@ -271,20 +271,20 @@ Lien dans ma bio 👆 ${affiliateLink}
       </div>
 
       {/* Messages réseaux sociaux */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-          <ShareIcon className="h-5 w-5 mr-2 text-indigo-600" />
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+          <ShareIcon className="h-5 w-5 mr-2 text-orange-600 dark:text-orange-500" />
           Messages pour réseaux sociaux
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {socialMessages.map((message) => {
             const Icon = message.icon;
             return (
-              <div key={message.id} className="border border-gray-200 rounded-lg p-4">
+              <div key={message.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center space-x-2">
-                    <Icon className="h-5 w-5 text-gray-600" />
-                    <span className="font-medium text-gray-900">{message.platform}</span>
+                    <Icon className="h-5 w-5 text-gray-600 dark:text-gray-400" />
+                    <span className="font-medium text-gray-900 dark:text-gray-100">{message.platform}</span>
                   </div>
                   <button
                     onClick={() => handleCopyText(message.message, message.id)}
@@ -301,7 +301,7 @@ Lien dans ma bio 👆 ${affiliateLink}
                     )}
                   </button>
                 </div>
-                <p className="text-sm text-gray-700 whitespace-pre-wrap">
+                <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
                   {message.message}
                 </p>
               </div>
@@ -311,15 +311,15 @@ Lien dans ma bio 👆 ${affiliateLink}
       </div>
 
       {/* Bannières publicitaires */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-          <PhotoIcon className="h-5 w-5 mr-2 text-indigo-600" />
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+          <PhotoIcon className="h-5 w-5 mr-2 text-orange-600 dark:text-orange-500" />
           Bannières publicitaires
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {banners.map((banner) => (
-            <div key={banner.id} className="border border-gray-200 rounded-lg overflow-hidden">
-              <div className="bg-gray-100 p-4 flex items-center justify-center h-40">
+            <div key={banner.id} className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+              <div className="bg-gray-100 dark:bg-gray-700 p-4 flex items-center justify-center h-40">
                 <div className="text-center">
                   <PhotoIcon className="h-12 w-12 text-gray-400 mx-auto mb-2" />
                   <p className="text-sm text-gray-500">
@@ -328,11 +328,11 @@ Lien dans ma bio 👆 ${affiliateLink}
                 </div>
               </div>
               <div className="p-4">
-                <h4 className="font-medium text-gray-900 mb-1">{banner.name}</h4>
-                <p className="text-sm text-gray-600 mb-3">{banner.description}</p>
+                <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-1">{banner.name}</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{banner.description}</p>
                 <button
                   onClick={() => handleDownloadImage(banner.imageUrl || '', banner.name)}
-                  className="w-full px-3 py-2 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition-colors duration-200 flex items-center justify-center"
+                  className="w-full px-3 py-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white text-sm rounded-lg transition-colors duration-200 flex items-center justify-center"
                 >
                   <ArrowDownTrayIcon className="h-4 w-4 mr-1" />
                   Télécharger
@@ -344,11 +344,11 @@ Lien dans ma bio 👆 ${affiliateLink}
       </div>
 
       {/* Guide de bonnes pratiques */}
-      <div className="bg-blue-50 rounded-xl p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <div className="bg-orange-50 dark:bg-orange-900/20 rounded-xl p-6 border border-orange-200 dark:border-orange-700">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
           📚 Guide des bonnes pratiques
         </h3>
-        <div className="space-y-3 text-gray-700">
+        <div className="space-y-3 text-gray-700 dark:text-gray-300">
           <div>
             <h4 className="font-medium mb-1">1. Personnalisez vos messages</h4>
             <p className="text-sm">Adaptez les templates à votre style et votre audience pour de meilleurs résultats.</p>

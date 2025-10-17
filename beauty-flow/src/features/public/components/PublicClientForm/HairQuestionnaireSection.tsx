@@ -34,14 +34,14 @@ const HairQuestionnaireSection: React.FC<HairQuestionnaireSectionProps> = ({
 
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-bold mb-6 gradient-text">
+      <h3 className="text-xl font-bold mb-6 bg-gradient-to-r from-orange-600 to-orange-700 dark:from-orange-500 dark:to-orange-600 bg-clip-text text-transparent">
         Questionnaire cheveux
       </h3>
 
       <div className="space-y-4">
         {/* Type de cheveux */}
         <div>
-          <label className="block text-sm font-medium text-white mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-white mb-2">
             Type de cheveux
           </label>
           <div className="grid grid-cols-2 gap-2">
@@ -52,8 +52,8 @@ const HairQuestionnaireSection: React.FC<HairQuestionnaireSectionProps> = ({
                 onClick={() => onChange('hairType', type as HairQuestionnaire['hairType'])}
                 className={`glass-button p-3 text-sm transition-all duration-300 ${
                   values.hairType === type
-                    ? 'bg-gradient-to-r from-burgundy to-purple shadow-neon'
-                    : 'hover:bg-white/5 hover-lift'
+                    ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-neon'
+                    : 'hover:bg-orange-50 dark:hover:bg-white/5 hover-lift'
                 }`}
               >
                 {type}
@@ -75,8 +75,8 @@ const HairQuestionnaireSection: React.FC<HairQuestionnaireSectionProps> = ({
                 onClick={() => onChange('thickness', type as HairQuestionnaire['thickness'])}
                 className={`glass-button p-3 text-sm transition-all duration-300 ${
                   values.thickness === type
-                    ? 'bg-gradient-to-r from-burgundy to-purple shadow-neon'
-                    : 'hover:bg-white/5 hover-lift'
+                    ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-neon'
+                    : 'hover:bg-orange-50 dark:hover:bg-white/5 hover-lift'
                 }`}
               >
                 {type}
@@ -93,7 +93,7 @@ const HairQuestionnaireSection: React.FC<HairQuestionnaireSectionProps> = ({
           <select
             value={values.scalpCondition}
             onChange={(e) => onChange('scalpCondition', e.target.value as HairQuestionnaire['scalpCondition'])}
-            className="glass-input w-full transition-all duration-300 hover:bg-white/10"
+            className="glass-input w-full transition-all duration-300 hover:bg-orange-50 dark:hover:bg-white/10"
           >
             {scalpConditions.map((condition) => (
               <option key={condition} value={condition}>
@@ -116,8 +116,8 @@ const HairQuestionnaireSection: React.FC<HairQuestionnaireSectionProps> = ({
                 onClick={() => onChange('porosity', level as HairQuestionnaire['porosity'])}
                 className={`glass-button p-3 text-sm transition-all duration-300 ${
                   values.porosity === level
-                    ? 'bg-gradient-to-r from-burgundy to-purple shadow-neon'
-                    : 'hover:bg-white/5 hover-lift'
+                    ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-neon'
+                    : 'hover:bg-orange-50 dark:hover:bg-white/5 hover-lift'
                 }`}
               >
                 {level}
@@ -143,9 +143,9 @@ const HairQuestionnaireSection: React.FC<HairQuestionnaireSectionProps> = ({
                       : values.chemicalTreatments.filter((t) => t !== treatment);
                     onChange('chemicalTreatments', newTreatments);
                   }}
-                  className="rounded border-white/20 bg-white/5 text-burgundy focus:ring-burgundy transition-colors duration-300"
+                  className="rounded border-gray-300 dark:border-white/20 bg-white dark:bg-white/5 text-orange-600 focus:ring-orange-500 transition-colors duration-300"
                 />
-                <span className="ml-3 text-sm text-white/80 group-hover:text-white transition-colors duration-300">
+                <span className="ml-3 text-sm text-gray-700 dark:text-white/80 group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-300">
                   {treatment}
                 </span>
               </label>
@@ -163,7 +163,7 @@ const HairQuestionnaireSection: React.FC<HairQuestionnaireSectionProps> = ({
               type="date"
               value={values.lastTreatmentDate || ''}
               onChange={(e) => onChange('lastTreatmentDate', e.target.value)}
-              className="glass-input w-full transition-all duration-300 hover:bg-white/10"
+              className="glass-input w-full transition-all duration-300 hover:bg-orange-50 dark:hover:bg-white/10"
             />
           </div>
         )}
@@ -185,9 +185,9 @@ const HairQuestionnaireSection: React.FC<HairQuestionnaireSectionProps> = ({
                       : values.hairProblems.filter((p) => p !== problem);
                     onChange('hairProblems', newProblems);
                   }}
-                  className="rounded border-white/20 bg-white/5 text-burgundy focus:ring-burgundy transition-colors duration-300"
+                  className="rounded border-gray-300 dark:border-white/20 bg-white dark:bg-white/5 text-orange-600 focus:ring-orange-500 transition-colors duration-300"
                 />
-                <span className="ml-3 text-sm text-white/80 group-hover:text-white transition-colors duration-300">
+                <span className="ml-3 text-sm text-gray-700 dark:text-white/80 group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-300">
                   {problem}
                 </span>
               </label>
@@ -204,7 +204,7 @@ const HairQuestionnaireSection: React.FC<HairQuestionnaireSectionProps> = ({
             value={values.currentProducts || ''}
             onChange={(e) => onChange('currentProducts', e.target.value)}
             rows={3}
-            className="glass-input w-full transition-all duration-300 hover:bg-white/10"
+            className="glass-input w-full transition-all duration-300 hover:bg-orange-50 dark:hover:bg-white/10"
             placeholder="Listez les produits que vous utilisez actuellement..."
           />
         </div>

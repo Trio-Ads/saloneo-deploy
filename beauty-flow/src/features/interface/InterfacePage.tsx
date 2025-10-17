@@ -33,31 +33,31 @@ const InterfacePage: React.FC = () => {
       id: 'templates',
       label: t('tabs.templates'),
       icon: SparklesIcon,
-      gradient: 'from-indigo-500 to-purple-600'
+      gradient: 'from-orange-500 to-orange-600'
     },
     {
       id: 'colors',
       label: t('tabs.colors'),
       icon: SwatchIcon,
-      gradient: 'from-blue-500 to-cyan-600'
+      gradient: 'from-orange-400 to-orange-500'
     },
     {
       id: 'images',
       label: t('tabs.images'),
       icon: PhotoIcon,
-      gradient: 'from-cyan-500 to-teal-600'
+      gradient: 'from-orange-500 to-orange-600'
     },
     {
       id: 'content',
       label: t('tabs.content'),
       icon: DocumentTextIcon,
-      gradient: 'from-teal-500 to-green-600'
+      gradient: 'from-orange-400 to-orange-500'
     },
     {
       id: 'settings',
       label: t('tabs.settings'),
       icon: Cog6ToothIcon,
-      gradient: 'from-purple-500 to-indigo-600'
+      gradient: 'from-orange-500 to-orange-600'
     }
   ];
   const { 
@@ -121,12 +121,12 @@ const InterfacePage: React.FC = () => {
         return (
           <div className="space-y-6">
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent mb-2">
                 {t('sections.templates.title')}
               </h3>
-              <p className="text-gray-600">{t('sections.templates.description')}</p>
+              <p className="text-gray-600 dark:text-gray-400">{t('sections.templates.description')}</p>
             </div>
-            <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
+            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-6">
               <TemplateGallery />
             </div>
           </div>
@@ -136,10 +136,10 @@ const InterfacePage: React.FC = () => {
         return (
           <div className="space-y-6">
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-2">
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent mb-2">
                 {t('sections.colors.title')}
               </h3>
-              <p className="text-gray-600">{t('sections.colors.description')}</p>
+              <p className="text-gray-600 dark:text-gray-400">{t('sections.colors.description')}</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
@@ -178,10 +178,10 @@ const InterfacePage: React.FC = () => {
         return (
           <div className="space-y-6">
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-teal-600 bg-clip-text text-transparent mb-2">
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent mb-2">
                 {t('sections.images.title')}
               </h3>
-              <p className="text-gray-600">{t('sections.images.description')}</p>
+              <p className="text-gray-600 dark:text-gray-400">{t('sections.images.description')}</p>
             </div>
             <div className="space-y-6">
               <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
@@ -193,8 +193,8 @@ const InterfacePage: React.FC = () => {
                   dimensions={{ width: 300, height: 120 }}
                   type="logo"
                 />
-                <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                  <p className="text-sm text-blue-700">
+                <div className="mt-4 p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-700">
+                  <p className="text-sm text-orange-700 dark:text-orange-300">
                     <span className="font-medium">{t('images.logo_tip')}</span> Utilisez un fond transparent (PNG) pour un rendu optimal dans la navigation
                   </p>
                 </div>
@@ -208,8 +208,8 @@ const InterfacePage: React.FC = () => {
                   dimensions={{ width: 1920, height: 600 }}
                   type="banner"
                 />
-                <div className="mt-4 p-3 bg-green-50 rounded-lg border border-green-200">
-                  <p className="text-sm text-green-700">
+                <div className="mt-4 p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-700">
+                  <p className="text-sm text-orange-700 dark:text-orange-300">
                     <span className="font-medium">{t('images.logo_tip')}</span> Image haute résolution pour un affichage parfait sur tous les écrans (ratio 16:5)
                   </p>
                 </div>
@@ -222,27 +222,27 @@ const InterfacePage: React.FC = () => {
         return (
           <div className="space-y-6">
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-green-600 bg-clip-text text-transparent mb-2">
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent mb-2">
                 {t('sections.content.title')}
               </h3>
-              <p className="text-gray-600">{t('sections.content.description')}</p>
+              <p className="text-gray-600 dark:text-gray-400">{t('sections.content.description')}</p>
             </div>
             <div className="space-y-6">
               {/* Présentation */}
               <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
-                <h4 className="text-lg font-semibold text-gray-800 mb-4">{t('forms.presentation.label')}</h4>
+                <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">{t('forms.presentation.label')}</h4>
                 <textarea
                   value={settings.presentation}
                   onChange={handlePresentationChange}
                   rows={4}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/70 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white/70 dark:bg-gray-700/70 dark:text-gray-200 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
                   placeholder={t('forms.presentation.placeholder')}
                 />
               </div>
               
               {/* Affichage des Services */}
               <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
-                <h4 className="text-lg font-semibold text-gray-800 mb-4">{t('forms.services_display')}</h4>
+                <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">{t('forms.services_display')}</h4>
                 <DisplaySettings
                   settings={settings.serviceDisplay}
                   onChange={handleDisplaySettingsChange}
@@ -256,10 +256,10 @@ const InterfacePage: React.FC = () => {
         return (
           <div className="space-y-6">
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent mb-2">
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent mb-2">
                 {t('sections.settings.title')}
               </h3>
-              <p className="text-gray-600">{t('sections.settings.description')}</p>
+              <p className="text-gray-600 dark:text-gray-400">{t('sections.settings.description')}</p>
             </div>
             <div className="space-y-6">
               {/* Paramètres des Rendez-vous */}
@@ -274,10 +274,10 @@ const InterfacePage: React.FC = () => {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
-                      <label className="text-sm font-medium text-gray-700">
+                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
                         {t('team.show_on_public')}
                       </label>
-                      <p className="text-xs text-gray-500 mt-1">
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                         {t('team.description')}
                       </p>
                     </div>
@@ -285,8 +285,8 @@ const InterfacePage: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => updateSettings({ showTeamOnPublicPage: !settings.showTeamOnPublicPage })}
-                        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
-                          settings.showTeamOnPublicPage ? 'bg-indigo-600' : 'bg-gray-200'
+                        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 ${
+                          settings.showTeamOnPublicPage ? 'bg-orange-600 dark:bg-orange-500' : 'bg-gray-200 dark:bg-gray-600'
                         }`}
                       >
                         <span
@@ -297,8 +297,8 @@ const InterfacePage: React.FC = () => {
                       </button>
                     </div>
                   </div>
-                  <div className={`p-3 rounded-lg border ${settings.showTeamOnPublicPage ? 'bg-green-50 border-green-200' : 'bg-orange-50 border-orange-200'}`}>
-                    <p className={`text-sm ${settings.showTeamOnPublicPage ? 'text-green-700' : 'text-orange-700'}`}>
+                  <div className={`p-3 rounded-lg border ${settings.showTeamOnPublicPage ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700' : 'bg-orange-50 dark:bg-orange-900/20 border-orange-200 dark:border-orange-700'}`}>
+                    <p className={`text-sm ${settings.showTeamOnPublicPage ? 'text-green-700 dark:text-green-300' : 'text-orange-700 dark:text-orange-300'}`}>
                       {settings.showTeamOnPublicPage ? (
                         <>
                           <span className="font-medium">{t('team.visible_message')}</span> Les clients peuvent voir votre équipe et choisir leur coiffeur préféré
@@ -329,7 +329,7 @@ const InterfacePage: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-orange-50 to-orange-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* HERO HEADER - Loading */}
           <div className="relative mb-12">
@@ -337,16 +337,16 @@ const InterfacePage: React.FC = () => {
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
                 <div className="flex items-center space-x-6">
                   <div className="relative">
-                    <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-2xl blur-lg opacity-30 animate-pulse"></div>
-                    <div className="relative bg-gradient-to-r from-indigo-500 to-blue-600 p-4 rounded-2xl shadow-xl">
+                    <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl blur-lg opacity-30 animate-pulse"></div>
+                    <div className="relative bg-gradient-to-r from-orange-500 to-orange-600 p-4 rounded-2xl shadow-xl">
                       <PaintBrushIcon className="h-8 w-8 text-white" />
                     </div>
                   </div>
                   <div>
-                    <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
+                    <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
                       {t('page.title')}
                     </h1>
-                    <p className="text-gray-600 mt-2 text-lg">{t('page.loading_subtitle')}</p>
+                    <p className="text-gray-600 dark:text-gray-400 mt-2 text-lg">{t('page.loading_subtitle')}</p>
                   </div>
                 </div>
               </div>
@@ -357,8 +357,8 @@ const InterfacePage: React.FC = () => {
           <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 min-h-[600px]">
             <div className="flex items-center justify-center py-12">
               <div className="flex items-center gap-3">
-                <div className="w-6 h-6 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
-                <span className="text-gray-700">{t('page.loading_interface')}</span>
+                <div className="w-6 h-6 border-2 border-orange-600 dark:border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+                <span className="text-gray-700 dark:text-gray-300">{t('page.loading_interface')}</span>
               </div>
             </div>
           </div>
@@ -380,15 +380,15 @@ const InterfacePage: React.FC = () => {
               <div className="flex items-center space-x-6">
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-2xl blur-lg opacity-30 animate-pulse"></div>
-                  <div className="relative bg-gradient-to-r from-indigo-500 to-blue-600 p-4 rounded-2xl shadow-xl transform hover:scale-110 transition-all duration-300">
+                  <div className="relative bg-gradient-to-r from-orange-500 to-orange-600 p-4 rounded-2xl shadow-xl transform hover:scale-110 transition-all duration-300">
                     <PaintBrushIcon className="h-8 w-8 text-white" />
                   </div>
                 </div>
                 <div>
-                  <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
+                  <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
                     {t('page.title')}
                   </h1>
-                  <p className="text-gray-600 mt-2 text-lg">{t('page.subtitle')}</p>
+                  <p className="text-gray-600 dark:text-gray-400 mt-2 text-lg">{t('page.subtitle')}</p>
                 </div>
               </div>
 
@@ -398,7 +398,7 @@ const InterfacePage: React.FC = () => {
                   type="button"
                   onClick={handleSave}
                   disabled={isSaving}
-                  className="bg-gradient-to-r from-indigo-500 to-blue-600 hover:from-indigo-600 hover:to-blue-700 text-white px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none font-medium"
+                  className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none font-medium"
                 >
                   {isSaving ? (
                     <div className="flex items-center gap-2">
@@ -430,7 +430,7 @@ const InterfacePage: React.FC = () => {
                       flex items-center space-x-2 px-4 py-3 rounded-xl font-medium transition-all duration-300 whitespace-nowrap
                       ${isActive 
                         ? `bg-gradient-to-r ${tab.gradient} text-white shadow-lg transform scale-105` 
-                        : 'text-gray-600 hover:text-gray-800 hover:bg-gray-100/50'
+                        : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-100/50 dark:hover:bg-gray-700/50'
                       }
                     `}
                   >

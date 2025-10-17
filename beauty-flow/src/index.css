@@ -8,89 +8,129 @@
 
 /* ===== SALONEO 2025 DESIGN SYSTEM ===== */
 
-/* Variables CSS pour le thème dynamique */
+/* Variables CSS pour le thème dynamique - ORANGE/GRIS 2025 */
 :root {
   /* Polices */
   --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
-  /* Mode Light - Couleurs principales */
-  --primary: #6366F1;
-  --primary-light: #818CF8;
-  --primary-dark: #4F46E5;
-  --primary-rgb: 99, 102, 241;
+  /* Mode Light - Couleurs Orange */
+  --primary: #F97316;
+  --primary-light: #FB923C;
+  --primary-dark: #EA580C;
+  --primary-rgb: 249, 115, 22;
 
-  --secondary: #14B8A6;
-  --secondary-light: #2DD4BF;
-  --secondary-dark: #0F766E;
-  --secondary-rgb: 20, 184, 166;
+  --secondary: #71717A;
+  --secondary-light: #A1A1AA;
+  --secondary-dark: #52525B;
+  --secondary-rgb: 113, 113, 122;
 
-  --accent: #F59E0B;
-  --accent-light: #FCD34D;
-  --accent-dark: #D97706;
-  --accent-rgb: 245, 158, 11;
+  --accent: #FB923C;
+  --accent-light: #FDBA74;
+  --accent-dark: #F97316;
+  --accent-rgb: 251, 146, 60;
 
   /* Neutres Light */
-  --background: #FAFBFC;
+  --background: #FAFAFA;
   --surface: #FFFFFF;
-  --surface-elevated: #F8FAFC;
-  --border: #E5E7EB;
-  --text-primary: #111827;
-  --text-secondary: #6B7280;
-  --text-tertiary: #9CA3AF;
+  --surface-elevated: #F4F4F5;
+  --surface-hover: #FAFAFA;
+  --border: #E4E4E7;
+  --border-light: #F4F4F5;
+  --border-focus: #F97316;
+  --text-primary: #18181B;
+  --text-secondary: #52525B;
+  --text-tertiary: #A1A1AA;
+  --text-disabled: #D4D4D8;
+  --text-on-orange: #FFFFFF;
 
-  /* États */
-  --success: #10B981;
-  --warning: #F59E0B;
+  /* États - Orange */
+  --success: #F97316;
+  --success-bg: rgba(249, 115, 22, 0.1);
+  --success-border: rgba(249, 115, 22, 0.2);
+  
+  --warning: #FB923C;
+  --warning-bg: rgba(251, 146, 60, 0.1);
+  --warning-border: rgba(251, 146, 60, 0.2);
+  
   --error: #EF4444;
-  --info: #3B82F6;
+  --error-bg: rgba(239, 68, 68, 0.1);
+  --error-border: rgba(239, 68, 68, 0.2);
+  
+  --info: #60A5FA;
+  --info-bg: rgba(96, 165, 250, 0.1);
+  --info-border: rgba(96, 165, 250, 0.2);
 
-  /* Glassmorphism 2025 */
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-shadow: rgba(0, 0, 0, 0.1);
-  --glass-blur: 10px;
-  --glass-highlight: rgba(255, 255, 255, 0.08);
+  /* Glassmorphism Light */
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-bg-hover: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(249, 115, 22, 0.15);
+  --glass-border-hover: rgba(249, 115, 22, 0.3);
+  --glass-shadow: 0 8px 32px rgba(249, 115, 22, 0.12);
+  --glass-shadow-hover: 0 12px 40px rgba(249, 115, 22, 0.18);
+  --glass-blur: 12px;
+  --glass-highlight: rgba(249, 115, 22, 0.05);
 }
 
-/* Mode Dark */
+/* Mode Dark - ORANGE/GRIS ADAPTÉ */
 [data-theme="dark"] {
-  /* Couleurs principales Dark */
-  --primary: #818CF8;
-  --primary-light: #A5B4FC;
-  --primary-dark: #6366F1;
-  --primary-rgb: 129, 140, 248;
+  /* Couleurs Orange Dark - Plus lumineuses */
+  --primary: #FF8C42;
+  --primary-light: #FFB088;
+  --primary-dark: #FF7A29;
+  --primary-rgb: 255, 140, 66;
 
-  --secondary: #2DD4BF;
-  --secondary-light: #5EEAD4;
-  --secondary-dark: #14B8A6;
-  --secondary-rgb: 45, 212, 191;
+  --secondary: #A1A1AA;
+  --secondary-light: #D4D4D8;
+  --secondary-dark: #71717A;
+  --secondary-rgb: 161, 161, 170;
 
-  --accent: #FCD34D;
-  --accent-light: #FDE68A;
-  --accent-dark: #F59E0B;
-  --accent-rgb: 252, 211, 77;
+  --accent: #FFB088;
+  --accent-light: #FED7AA;
+  --accent-dark: #FF8C42;
+  --accent-rgb: 255, 176, 136;
 
-  /* Neutres Dark */
-  --background: #0B0F1A;
-  --surface: #111827;
-  --surface-elevated: #1F2937;
-  --border: #374151;
-  --text-primary: #F9FAFB;
-  --text-secondary: #9CA3AF;
-  --text-tertiary: #6B7280;
+  /* Neutres Dark - Inversés */
+  --background: #0F1419;
+  --surface: #18181B;
+  --surface-elevated: #27272A;
+  --surface-hover: #2D2D32;
+  --border: #3F3F46;
+  --border-light: #52525B;
+  --border-focus: #FF8C42;
+  --text-primary: #F4F4F5;
+  --text-secondary: #D4D4D8;
+  --text-tertiary: #A1A1AA;
+  --text-disabled: #71717A;
+  --text-on-orange: #18181B;
 
-  /* États Dark */
-  --success: #34D399;
-  --warning: #FBBF24;
-  --error: #F87171;
+  /* États Dark - Orange */
+  --success: #FF8C42;
+  --success-bg: rgba(255, 140, 66, 0.1);
+  --success-border: rgba(255, 140, 66, 0.2);
+  
+  --warning: #FFB088;
+  --warning-bg: rgba(255, 176, 136, 0.1);
+  --warning-border: rgba(255, 176, 136, 0.2);
+  
+  --error: #EF4444;
+  --error-bg: rgba(239, 68, 68, 0.1);
+  --error-border: rgba(239, 68, 68, 0.2);
+  
   --info: #60A5FA;
+  --info-bg: rgba(96, 165, 250, 0.1);
+  --info-border: rgba(96, 165, 250, 0.2);
 
   /* Glassmorphism Dark */
-  --glass-bg: rgba(17, 24, 39, 0.8);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-shadow: rgba(0, 0, 0, 0.3);
+  --glass-bg: rgba(24, 24, 27, 0.70);
+  --glass-bg-hover: rgba(24, 24, 27, 0.85);
+  --glass-border: rgba(255, 140, 66, 0.15);
+  --glass-border-hover: rgba(255, 140, 66, 0.25);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --glass-shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.5);
+  --glass-blur: 16px;
+  --glass-highlight: rgba(255, 140, 66, 0.05);
 }
 
 /* Style de base pour le body */

@@ -45,15 +45,15 @@ export const Toast: React.FC = () => {
   const getToastStyles = () => {
     switch (type) {
       case 'success':
-        return 'toast-success bg-success-500 border-success-400';
+        return 'toast-success bg-orange-500 dark:bg-orange-600 border-l-4 border-orange-600 dark:border-orange-500';
       case 'error':
-        return 'toast-error bg-error-500 border-error-400';
+        return 'toast-error bg-red-500 dark:bg-red-600 border-l-4 border-red-600 dark:border-red-500';
       case 'warning':
-        return 'toast-warning bg-warning-500 border-warning-400';
+        return 'toast-warning bg-orange-400 dark:bg-orange-500 border-l-4 border-orange-500 dark:border-orange-400';
       case 'info':
-        return 'toast-info bg-info-500 border-info-400';
+        return 'toast-info bg-gray-500 dark:bg-gray-600 border-l-4 border-gray-600 dark:border-gray-500';
       default:
-        return 'toast-success bg-success-500 border-success-400';
+        return 'toast-success bg-orange-500 dark:bg-orange-600 border-l-4 border-orange-600 dark:border-orange-500';
     }
   };
 

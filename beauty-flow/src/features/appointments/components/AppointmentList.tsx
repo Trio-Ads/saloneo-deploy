@@ -80,49 +80,49 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
     switch (status) {
       case 'scheduled':
         return {
-          color: 'from-blue-500 to-cyan-500',
-          bgColor: 'bg-blue-100',
-          textColor: 'text-blue-800',
+          color: 'from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500',
+          bgColor: 'bg-orange-100 dark:bg-orange-900/30',
+          textColor: 'text-orange-800 dark:text-orange-300',
           icon: CalendarDaysIcon,
           label: t('appointment_list.status_labels.scheduled')
         };
       case 'confirmed':
         return {
-          color: 'from-green-500 to-emerald-500',
-          bgColor: 'bg-green-100',
-          textColor: 'text-green-800',
+          color: 'from-green-500 to-emerald-500 dark:from-green-400 dark:to-emerald-400',
+          bgColor: 'bg-green-100 dark:bg-green-900/30',
+          textColor: 'text-green-800 dark:text-green-300',
           icon: CheckCircleIcon,
           label: t('appointment_list.status_labels.confirmed')
         };
       case 'completed':
         return {
-          color: 'from-indigo-500 to-purple-600',
-          bgColor: 'bg-purple-100',
-          textColor: 'text-purple-800',
+          color: 'from-orange-400 to-orange-500 dark:from-orange-300 dark:to-orange-400',
+          bgColor: 'bg-orange-50 dark:bg-orange-900/20',
+          textColor: 'text-orange-700 dark:text-orange-300',
           icon: CheckIcon,
           label: t('appointment_list.status_labels.completed')
         };
       case 'cancelled':
         return {
-          color: 'from-red-500 to-orange-500',
-          bgColor: 'bg-red-100',
-          textColor: 'text-red-800',
+          color: 'from-gray-500 to-gray-600 dark:from-gray-600 dark:to-gray-700',
+          bgColor: 'bg-gray-100 dark:bg-gray-800/50',
+          textColor: 'text-gray-800 dark:text-gray-300',
           icon: XMarkIcon,
           label: t('appointment_list.status_labels.cancelled')
         };
       case 'noShow':
         return {
-          color: 'from-gray-500 to-slate-500',
-          bgColor: 'bg-gray-100',
-          textColor: 'text-gray-800',
+          color: 'from-gray-500 to-gray-600 dark:from-gray-600 dark:to-gray-700',
+          bgColor: 'bg-gray-100 dark:bg-gray-800/50',
+          textColor: 'text-gray-800 dark:text-gray-300',
           icon: EyeSlashIcon,
           label: t('appointment_list.status_labels.no_show')
         };
       default:
         return {
-          color: 'from-gray-500 to-slate-500',
-          bgColor: 'bg-gray-100',
-          textColor: 'text-gray-800',
+          color: 'from-gray-500 to-gray-600 dark:from-gray-600 dark:to-gray-700',
+          bgColor: 'bg-gray-100 dark:bg-gray-800/50',
+          textColor: 'text-gray-800 dark:text-gray-300',
           icon: CalendarDaysIcon,
           label: status
         };
@@ -222,15 +222,15 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
 
   if (sortedAppointments.length === 0) {
     return (
-      <div className="glass-card p-12 text-center">
-        <div className="mx-auto w-24 h-24 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mb-6 shadow-lg animate-pulse">
-          <CalendarDaysIcon className="h-12 w-12 text-white" />
+      <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-lg dark:shadow-gray-lg border border-orange-500/20 dark:border-orange-500/20 p-12 text-center transition-colors duration-300">
+        <div className="mx-auto w-24 h-24 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 rounded-full flex items-center justify-center mb-6 shadow-orange-lg animate-pulse">
+          <CalendarDaysIcon className="h-12 w-12 text-white dark:text-gray-900" />
         </div>
-        <h3 className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-3">
+        <h3 className="text-xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 bg-clip-text text-transparent mb-3">
           {t('appointment_list.no_appointments')}
         </h3>
-        <p className="text-gray-600 text-lg">{t('appointment_list.no_appointments_period')}</p>
-        <div className="mt-6 inline-flex items-center px-4 py-2 bg-gradient-to-r from-indigo-100 to-purple-100 rounded-full text-indigo-700 text-sm font-medium">
+        <p className="text-gray-600 dark:text-gray-400 text-lg">{t('appointment_list.no_appointments_period')}</p>
+        <div className="mt-6 inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-100 to-orange-200 dark:from-orange-900/30 dark:to-orange-800/30 rounded-full text-orange-700 dark:text-orange-300 text-sm font-medium">
           📅 {t('appointment_list.schedule_first')}
         </div>
       </div>
@@ -243,15 +243,15 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
         <div key={`date-${date}-${index}`} className="animate-fadeIn">
           {/* Header de date */}
           <div className="flex items-center space-x-3 mb-4">
-            <div className="relative p-2 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-md shadow-purple-500/25 transform hover:scale-105 transition-all duration-300">
-              <CalendarDaysIcon className="h-4 w-4 text-white" />
-              <div className="absolute inset-0 bg-white/20 rounded-lg opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative p-2 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 rounded-lg shadow-orange-md transform hover:scale-105 transition-all duration-300">
+              <CalendarDaysIcon className="h-4 w-4 text-white dark:text-gray-900" />
+              <div className="absolute inset-0 bg-white/20 dark:bg-white/10 rounded-lg opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
             </div>
             <div>
-              <h3 className="text-lg font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent capitalize">
+              <h3 className="text-lg font-bold bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 bg-clip-text text-transparent capitalize">
                 {formatDate(date)}
               </h3>
-              <p className="text-xs text-gray-500">{dayAppointments.length} {t('appointment_list.appointments_count')}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">{dayAppointments.length} {t('appointment_list.appointments_count')}</p>
             </div>
           </div>
 
@@ -266,19 +266,19 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
               return (
                 <div
                   key={`appointment-${appointment.id || `${date}-${appointmentIndex}`}`}
-                  className="glass-card p-4 hover:shadow-xl transition-all duration-300 transform hover:scale-[1.01] group border border-white/20"
+                  className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-orange-500/20 dark:border-orange-500/20 p-4 hover:shadow-orange-lg dark:hover:shadow-gray-lg transition-all duration-300 transform hover:scale-[1.01] group"
                 >
                   {/* Header du rendez-vous */}
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex items-center space-x-3">
                       <div className={`w-10 h-10 bg-gradient-to-r ${statusConfig.color} rounded-full flex items-center justify-center shadow-lg`}>
-                        <StatusIcon className="h-4 w-4 text-white" />
+                        <StatusIcon className="h-4 w-4 text-white dark:text-gray-900" />
                       </div>
                       <div>
                         <div className="flex items-center space-x-2 mb-1">
                           <div className="flex items-center space-x-1">
-                            <ClockIcon className="h-4 w-4 text-purple-600" />
-                            <span className="text-base font-bold text-gray-900">
+                            <ClockIcon className="h-4 w-4 text-orange-600 dark:text-orange-400" />
+                            <span className="text-base font-bold text-gray-900 dark:text-gray-100">
                               {appointment.startTime}
                             </span>
                           </div>
@@ -287,13 +287,13 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
                             {statusConfig.label}
                           </span>
                           {isOverdue && (
-                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800 animate-pulse">
+                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 animate-pulse">
                               <ExclamationTriangleIcon className="h-3 w-3 mr-1" />
                               Date passée
                             </span>
                           )}
                         </div>
-                        <h4 className="text-base font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                        <h4 className="text-base font-bold bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 bg-clip-text text-transparent">
                           {getClientName(appointment)}
                         </h4>
                       </div>
@@ -305,7 +305,7 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
                         {appointment.status === 'scheduled' && onConfirm && (
                           <button
                             onClick={() => onConfirm(appointment.id)}
-                            className="glass-button p-3 text-blue-600 hover:text-blue-800 hover:bg-blue-50 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl"
+                            className="p-3 rounded-xl bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm text-green-600 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300 hover:bg-green-50 dark:hover:bg-green-900/30 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl border border-green-500/20"
                             title={t('appointment_list.tooltips.confirm')}
                           >
                             <CheckCircleIcon className="h-5 w-5" />
@@ -313,28 +313,28 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
                         )}
                         <button
                           onClick={() => onEdit(appointment)}
-                          className="glass-button p-3 text-purple-600 hover:text-purple-800 hover:bg-purple-50 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl"
+                          className="p-3 rounded-xl bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300 hover:bg-orange-50 dark:hover:bg-orange-900/30 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl border border-orange-500/20"
                           title={t('appointment_list.tooltips.edit')}
                         >
                           <PencilIcon className="h-5 w-5" />
                         </button>
                         <button
                           onClick={() => onComplete(appointment.id)}
-                          className="glass-button p-3 text-green-600 hover:text-green-800 hover:bg-green-50 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl"
+                          className="p-3 rounded-xl bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm text-green-600 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300 hover:bg-green-50 dark:hover:bg-green-900/30 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl border border-green-500/20"
                           title={t('appointment_list.tooltips.complete')}
                         >
                           <CheckIcon className="h-5 w-5" />
                         </button>
                         <button
                           onClick={() => onNoShow(appointment.id)}
-                          className="glass-button p-3 text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl"
+                          className="p-3 rounded-xl bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl border border-gray-500/20"
                           title={t('appointment_list.tooltips.no_show')}
                         >
                           <EyeSlashIcon className="h-5 w-5" />
                         </button>
                         <button
                           onClick={() => onCancel(appointment.id)}
-                          className="glass-button p-3 text-red-600 hover:text-red-800 hover:bg-red-50 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl"
+                          className="p-3 rounded-xl bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl border border-gray-500/20"
                           title={t('appointment_list.tooltips.cancel')}
                         >
                           <XMarkIcon className="h-5 w-5" />
@@ -345,30 +345,30 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
 
                   {/* Détails du rendez-vous */}
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
-                    <div className="flex items-center space-x-3 p-3 glass-card bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl">
-                      <SparklesIcon className="h-5 w-5 text-blue-600" />
+                    <div className="flex items-center space-x-3 p-3 bg-orange-50 dark:bg-orange-900/20 backdrop-blur-sm rounded-xl border border-orange-500/20">
+                      <SparklesIcon className="h-5 w-5 text-orange-600 dark:text-orange-400" />
                       <div>
-                        <p className="text-sm font-medium text-gray-700">{t('appointment_list.details.service')}</p>
-                        <p className="text-sm text-gray-900 font-medium">{getServiceName(appointment.serviceId)}</p>
+                        <p className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('appointment_list.details.service')}</p>
+                        <p className="text-sm text-gray-900 dark:text-gray-100 font-medium">{getServiceName(appointment.serviceId)}</p>
                       </div>
                     </div>
                     
-                    <div className="flex items-center space-x-3 p-3 glass-card bg-gradient-to-r from-teal-50 to-emerald-50 rounded-xl">
-                      <UserIcon className="h-5 w-5 text-teal-600" />
+                    <div className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-500/20">
+                      <UserIcon className="h-5 w-5 text-gray-600 dark:text-gray-400" />
                       <div>
-                        <p className="text-sm font-medium text-gray-700">{t('appointment_list.details.stylist')}</p>
-                        <p className="text-sm text-gray-900 font-medium">{getStylistName(appointment.stylistId)}</p>
+                        <p className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('appointment_list.details.stylist')}</p>
+                        <p className="text-sm text-gray-900 dark:text-gray-100 font-medium">{getStylistName(appointment.stylistId)}</p>
                       </div>
                     </div>
                   </div>
 
                   {/* Notes */}
                   {appointment.notes && (
-                    <div className="p-4 glass-card bg-gradient-to-r from-gray-50 to-slate-50 rounded-xl border-l-4 border-purple-500">
+                    <div className="p-4 bg-gray-50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl border-l-4 border-orange-500 dark:border-orange-400">
                       <div className="flex items-center space-x-2 mb-2">
-                        <span className="text-sm font-medium text-gray-700">{t('appointment_list.details.notes')}</span>
+                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('appointment_list.details.notes')}</span>
                       </div>
-                      <p className="text-sm text-gray-900 leading-relaxed italic">"{appointment.notes}"</p>
+                      <p className="text-sm text-gray-900 dark:text-gray-100 leading-relaxed italic">"{appointment.notes}"</p>
                     </div>
                   )}
                 </div>

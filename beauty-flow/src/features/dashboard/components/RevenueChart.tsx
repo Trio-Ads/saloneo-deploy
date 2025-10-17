@@ -82,7 +82,7 @@ const RevenueChart: React.FC<RevenueChartProps> = ({ appointments, timeRange }) 
   return (
     <div className="h-64 relative">
       {/* Axe Y */}
-      <div className="absolute left-0 top-0 bottom-6 w-12 flex flex-col justify-between text-xs text-gray-500">
+      <div className="absolute left-0 top-0 bottom-6 w-12 flex flex-col justify-between text-xs text-gray-500 dark:text-gray-400">
         {yAxisValues.reverse().map((value, index) => (
           <div key={index} className="text-right pr-2">
             {formatPrice(value, profile.currency)}
@@ -97,7 +97,7 @@ const RevenueChart: React.FC<RevenueChartProps> = ({ appointments, timeRange }) 
           {yAxisValues.map((_, index) => (
             <div
               key={index}
-              className="absolute w-full border-t border-gray-100"
+              className="absolute w-full border-t border-gray-100 dark:border-gray-700"
               style={{ top: `${(index / yAxisSteps) * 100}%` }}
             />
           ))}
@@ -112,16 +112,16 @@ const RevenueChart: React.FC<RevenueChartProps> = ({ appointments, timeRange }) 
                   className="relative flex-1 mx-0.5 group"
                 >
                   <div
-                    className="absolute bottom-0 w-full bg-gradient-to-t from-indigo-600 to-purple-600 rounded-t-lg transition-all duration-300 hover:from-indigo-700 hover:to-purple-700"
+                    className="absolute bottom-0 w-full bg-gradient-to-t from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 rounded-t-lg transition-all duration-300 hover:from-orange-600 hover:to-orange-700 dark:hover:from-orange-500 dark:hover:to-orange-600 shadow-orange-md"
                     style={{ height: `${height}%` }}
                   >
                     {/* Tooltip */}
-                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-900 dark:bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap shadow-lg">
                       {formatPrice(data.value, profile.currency)}
                     </div>
                   </div>
                   {/* Label */}
-                  <div className="absolute -bottom-6 w-full text-center text-xs text-gray-500 transform rotate-0">
+                  <div className="absolute -bottom-6 w-full text-center text-xs text-gray-500 dark:text-gray-400 transform rotate-0">
                     {data.label}
                   </div>
                 </div>

@@ -48,8 +48,8 @@ const AffiliationTab: React.FC = () => {
     return (
       <div className="flex items-center justify-center py-12">
         <div className="flex items-center gap-3">
-          <div className="w-6 h-6 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
-          <span className="text-gray-700">Chargement des données d'affiliation...</span>
+          <div className="w-6 h-6 border-2 border-orange-600 border-t-transparent rounded-full animate-spin"></div>
+          <span className="text-gray-700 dark:text-gray-300">Chargement des données d'affiliation...</span>
         </div>
       </div>
     );
@@ -69,15 +69,15 @@ const AffiliationTab: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header avec statistiques rapides */}
-      <div className="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-2xl p-6">
+      <div className="bg-gradient-to-r from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 rounded-2xl p-6 border border-orange-200 dark:border-orange-700">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
-            <div className="p-3 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-xl">
+            <div className="p-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-lg">
               <UserGroupIcon className="h-6 w-6 text-white" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">Programme d'Affiliation</h2>
-              <p className="text-gray-600">Code affilié: <span className="font-mono font-semibold">{affiliation.affiliateCode}</span></p>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Programme d'Affiliation</h2>
+              <p className="text-gray-600 dark:text-gray-400">Code affilié: <span className="font-mono font-semibold">{affiliation.affiliateCode}</span></p>
             </div>
           </div>
           <div className="flex items-center space-x-2">
@@ -97,21 +97,21 @@ const AffiliationTab: React.FC = () => {
 
         {/* Statistiques rapides */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4">
-            <p className="text-sm text-gray-600">Total des parrainages</p>
-            <p className="text-2xl font-bold text-gray-900">{affiliation.totalReferrals}</p>
+          <div className="bg-white/80 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl p-4 border border-orange-200 dark:border-orange-700">
+            <p className="text-sm text-gray-600 dark:text-gray-400">Total des parrainages</p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{affiliation.totalReferrals}</p>
           </div>
-          <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4">
-            <p className="text-sm text-gray-600">Commissions totales</p>
-            <p className="text-2xl font-bold text-gray-900">{affiliation.totalCommissions.toFixed(2)} €</p>
+          <div className="bg-white/80 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl p-4 border border-orange-200 dark:border-orange-700">
+            <p className="text-sm text-gray-600 dark:text-gray-400">Commissions totales</p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{affiliation.totalCommissions.toFixed(2)} €</p>
           </div>
-          <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4">
-            <p className="text-sm text-gray-600">Taux de commission</p>
-            <p className="text-2xl font-bold text-gray-900">{(affiliation.commissionRate * 100).toFixed(0)}%</p>
+          <div className="bg-white/80 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl p-4 border border-orange-200 dark:border-orange-700">
+            <p className="text-sm text-gray-600 dark:text-gray-400">Taux de commission</p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{(affiliation.commissionRate * 100).toFixed(0)}%</p>
           </div>
-          <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4">
-            <p className="text-sm text-gray-600">Taux de conversion</p>
-            <p className="text-2xl font-bold text-gray-900">
+          <div className="bg-white/80 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl p-4 border border-orange-200 dark:border-orange-700">
+            <p className="text-sm text-gray-600 dark:text-gray-400">Taux de conversion</p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
               {affiliation.stats.conversionRate.toFixed(1)}%
             </p>
           </div>
@@ -119,8 +119,8 @@ const AffiliationTab: React.FC = () => {
       </div>
 
       {/* Navigation par onglets */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-        <div className="border-b border-gray-200">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+        <div className="border-b border-gray-200 dark:border-gray-700">
           <nav className="flex space-x-8 px-6" aria-label="Tabs">
             {tabs.map((tab) => {
               const Icon = tab.icon;
@@ -132,8 +132,8 @@ const AffiliationTab: React.FC = () => {
                     flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm
                     transition-colors duration-200
                     ${activeTab === tab.id
-                      ? 'border-indigo-500 text-indigo-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                      ? 'border-orange-500 text-orange-600 dark:text-orange-500'
+                      : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
                     }
                   `}
                 >

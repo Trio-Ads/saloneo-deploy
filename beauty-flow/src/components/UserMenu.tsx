@@ -80,15 +80,15 @@ const UserMenu: React.FC = () => {
     const plan = subscription.currentPlan;
     switch (plan) {
       case 'FREE':
-        return { text: 'Gratuit', class: 'bg-gray-500' };
+        return { text: 'Gratuit', class: 'bg-gray-500 dark:bg-gray-600' };
       case 'STARTER':
-        return { text: 'Starter', class: 'bg-gradient-to-r from-orange-500 to-red-500' };
+        return { text: 'Starter', class: 'bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-600 dark:to-orange-500' };
       case 'PRO':
-        return { text: 'Pro', class: 'bg-gradient-to-r from-indigo-500 to-purple-600' };
+        return { text: 'Pro', class: 'bg-gradient-to-r from-orange-600 to-orange-700 dark:from-orange-500 dark:to-orange-600' };
       case 'ENTERPRISE':
-        return { text: 'Enterprise', class: 'bg-gradient-to-r from-yellow-400 to-yellow-600' };
+        return { text: 'Enterprise', class: 'bg-gradient-to-r from-orange-400 to-orange-500 dark:from-orange-500 dark:to-orange-400' };
       default:
-        return { text: 'Gratuit', class: 'bg-gray-500' };
+        return { text: 'Gratuit', class: 'bg-gray-500 dark:bg-gray-600' };
     }
   };
 
@@ -100,24 +100,24 @@ const UserMenu: React.FC = () => {
       label: t('navigation.profile'),
       description: 'Gérer vos informations',
       href: '/profile',
-      gradient: 'from-indigo-500 to-blue-600',
-      hoverGradient: 'from-indigo-600 to-blue-700'
+      gradient: 'from-orange-500 to-orange-600',
+      hoverGradient: 'from-orange-600 to-orange-700'
     },
     {
       icon: Cog6ToothIcon,
       label: t('navigation.interface'),
       description: 'Personnaliser votre salon',
       href: '/interface',
-      gradient: 'from-purple-500 to-pink-600',
-      hoverGradient: 'from-purple-600 to-pink-700'
+      gradient: 'from-orange-400 to-orange-500',
+      hoverGradient: 'from-orange-500 to-orange-600'
     },
     {
       icon: CreditCardIcon,
       label: t('navigation.subscription'),
       description: 'Plans et facturation',
       href: '/subscription',
-      gradient: 'from-orange-500 to-yellow-500',
-      hoverGradient: 'from-orange-600 to-yellow-600'
+      gradient: 'from-orange-600 to-orange-700',
+      hoverGradient: 'from-orange-700 to-orange-800'
     }
   ];
 
@@ -128,16 +128,16 @@ const UserMenu: React.FC = () => {
         onClick={() => setIsOpen(!isOpen)}
         className={`group relative flex items-center space-x-2 p-1.5 rounded-xl transition-all duration-300 hover:scale-105 ${
           isOpen 
-            ? 'bg-white/20 backdrop-blur-xl shadow-2xl ring-2 ring-white/30' 
-            : 'bg-white/10 backdrop-blur-sm hover:bg-white/20'
+            ? 'bg-white/20 dark:bg-gray-800/40 backdrop-blur-xl shadow-2xl ring-2 ring-orange-500/30 dark:ring-orange-400/30' 
+            : 'bg-white/10 dark:bg-gray-800/20 backdrop-blur-sm hover:bg-white/20 dark:hover:bg-gray-800/30'
         }`}
         aria-expanded={isOpen}
       >
         {/* Avatar avec effet glow */}
         <div className="relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full blur-md opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
-          <div className="relative w-9 h-9 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center shadow-xl">
-            <UserIcon className="h-4 w-4 text-white" />
+          <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-600 dark:to-orange-500 rounded-full blur-md opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
+          <div className="relative w-9 h-9 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-600 dark:to-orange-500 rounded-full flex items-center justify-center shadow-xl">
+            <UserIcon className="h-4 w-4 text-white dark:text-gray-900" />
           </div>
           {/* Badge de plan */}
           <div className={`absolute -top-0.5 -right-0.5 ${planBadge.class} text-white text-xs font-bold px-1 py-0.5 rounded-full shadow-lg animate-pulse`}>
@@ -147,7 +147,7 @@ const UserMenu: React.FC = () => {
 
         {/* Chevron animé */}
         <ChevronDownIcon 
-          className={`h-3.5 w-3.5 text-white/70 transition-transform duration-300 ${
+          className={`h-3.5 w-3.5 text-white/70 dark:text-gray-300/70 transition-transform duration-300 ${
             isOpen ? 'rotate-180' : ''
           }`} 
         />
@@ -158,32 +158,32 @@ const UserMenu: React.FC = () => {
         <>
           {/* Overlay */}
           <div 
-            className="user-menu-overlay fixed inset-0 z-40 bg-black/20 backdrop-blur-sm transition-opacity"
+            className="user-menu-overlay fixed inset-0 z-40 bg-black/20 dark:bg-black/40 backdrop-blur-sm transition-opacity"
             onClick={() => setIsOpen(false)}
           />
           
-          <div className="user-menu-dropdown absolute right-0 mt-3 w-72 bg-white/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/30 z-50 animate-slide-down max-h-[calc(100vh-100px)] overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
+          <div className="user-menu-dropdown absolute right-0 mt-3 w-72 bg-white/95 dark:bg-gray-900/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-orange-500/20 dark:border-orange-400/20 z-50 animate-slide-down max-h-[calc(100vh-100px)] overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-orange-300 dark:scrollbar-thumb-orange-600 scrollbar-track-transparent">
             
             {/* Header avec infos utilisateur */}
-            <div className="relative p-4 bg-gradient-to-br from-indigo-500/10 to-purple-600/10 border-b border-white/20">
+            <div className="relative p-4 bg-gradient-to-br from-orange-500/10 to-orange-600/10 dark:from-orange-600/10 dark:to-orange-500/10 border-b border-orange-500/20 dark:border-orange-400/20">
               {/* Particules décoratives */}
-              <div className="absolute top-2 right-2 w-1 h-1 bg-indigo-400 rounded-full animate-ping"></div>
-              <div className="absolute bottom-2 left-2 w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse"></div>
+              <div className="absolute top-2 right-2 w-1 h-1 bg-orange-400 dark:bg-orange-500 rounded-full animate-ping"></div>
+              <div className="absolute bottom-2 left-2 w-1.5 h-1.5 bg-orange-500 dark:bg-orange-400 rounded-full animate-pulse"></div>
               
               <div className="flex items-center space-x-3">
                 {/* Avatar principal */}
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl blur-lg opacity-30"></div>
-                  <div className="relative w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-xl">
-                    <UserIcon className="h-6 w-6 text-white" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-600 dark:to-orange-500 rounded-xl blur-lg opacity-30"></div>
+                  <div className="relative w-12 h-12 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-600 dark:to-orange-500 rounded-xl flex items-center justify-center shadow-xl">
+                    <UserIcon className="h-6 w-6 text-white dark:text-gray-900" />
                   </div>
                 </div>
                 
                 {/* Infos utilisateur */}
                 <div className="flex-1">
-                  <h3 className="text-base font-bold text-gray-900 mb-1">Utilisateur Saloneo</h3>
-                  <p className="text-xs text-gray-600 mb-2">user@saloneo.com</p>
-                  <div className={`inline-flex items-center ${planBadge.class} text-white text-xs font-bold px-2 py-0.5 rounded-full shadow-lg`}>
+                  <h3 className="text-base font-bold text-gray-900 dark:text-gray-100 mb-1">Utilisateur Saloneo</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">user@saloneo.com</p>
+                  <div className={`inline-flex items-center ${planBadge.class} text-white dark:text-gray-900 text-xs font-bold px-2 py-0.5 rounded-full shadow-lg`}>
                     <StarIcon className="h-2.5 w-2.5 mr-1" />
                     Plan {planBadge.text}
                   </div>
@@ -212,17 +212,17 @@ const UserMenu: React.FC = () => {
                     
                     {/* Contenu */}
                     <div className="flex-1 text-left">
-                      <h4 className="font-semibold text-sm text-gray-900 group-hover:text-gray-800 transition-colors">
+                      <h4 className="font-semibold text-sm text-gray-900 dark:text-gray-100 group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors">
                         {item.label}
                       </h4>
-                      <p className="text-xs text-gray-600 group-hover:text-gray-700 transition-colors">
+                      <p className="text-xs text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">
                         {item.description}
                       </p>
                     </div>
 
                     {/* Flèche */}
                     <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <ChevronDownIcon className="h-3.5 w-3.5 text-gray-400 rotate-[-90deg]" />
+                      <ChevronDownIcon className="h-3.5 w-3.5 text-gray-400 dark:text-gray-500 rotate-[-90deg]" />
                     </div>
 
                     {/* Effet de brillance */}
@@ -233,11 +233,11 @@ const UserMenu: React.FC = () => {
             </nav>
 
             {/* Footer avec déconnexion */}
-            <div className="p-3 bg-gradient-to-r from-gray-50 to-gray-100 border-t border-gray-200">
+            <div className="p-3 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 border-t border-gray-200 dark:border-gray-700">
               <button
                 onClick={handleLogout}
                 disabled={isLoggingOut}
-                className="w-full group flex items-center justify-center p-2.5 bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full group flex items-center justify-center p-2.5 bg-gradient-to-r from-gray-600 to-gray-700 dark:from-gray-700 dark:to-gray-800 hover:from-gray-700 hover:to-gray-800 dark:hover:from-gray-800 dark:hover:to-gray-900 text-white rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoggingOut ? (
                   <>
@@ -257,7 +257,7 @@ const UserMenu: React.FC = () => {
               
               {/* Version */}
               <div className="text-center mt-2">
-                <p className="text-xs text-gray-500">Saloneo v2.0.0</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Saloneo v2.0.0</p>
               </div>
             </div>
           </div>

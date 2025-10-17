@@ -55,11 +55,11 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete }) => {
 
   const getRoleColor = (role: string) => {
     const colors: Record<string, string> = {
-      'Coiffeur': 'from-purple-500 to-pink-500',
-      'Coloriste': 'from-blue-500 to-cyan-500',
-      'Manager': 'from-green-500 to-emerald-500',
+      'Coiffeur': 'from-orange-500 to-orange-600',
+      'Coloriste': 'from-orange-400 to-orange-500',
+      'Manager': 'from-orange-600 to-orange-700',
       'Esthéticienne': 'from-orange-500 to-red-500',
-      'Réceptionniste': 'from-indigo-500 to-purple-500'
+      'Réceptionniste': 'from-orange-400 to-orange-600'
     };
     return colors[role] || 'from-gray-500 to-slate-500';
   };
@@ -110,15 +110,15 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete }) => {
 
   if (activeMembers.length === 0) {
     return (
-      <div className="glass-card p-12 text-center">
-        <div className="mx-auto w-24 h-24 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-full flex items-center justify-center mb-6 shadow-lg animate-pulse">
+      <div className="glass-card p-12 text-center bg-white/90 dark:bg-gray-800/70 backdrop-blur-xl border border-orange-500/20">
+        <div className="mx-auto w-24 h-24 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center mb-6 shadow-orange-lg animate-pulse">
           <UserIcon className="h-12 w-12 text-white" />
         </div>
-        <h3 className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent mb-3">
+        <h3 className="text-xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent mb-3">
           {t('team_list.empty_state.title')}
         </h3>
-        <p className="text-gray-600 text-lg">{t('team_list.empty_state.subtitle')}</p>
-        <div className="mt-6 inline-flex items-center px-4 py-2 bg-gradient-to-r from-indigo-100 to-blue-100 rounded-full text-indigo-700 text-sm font-medium">
+        <p className="text-gray-600 dark:text-gray-400 text-lg">{t('team_list.empty_state.subtitle')}</p>
+        <div className="mt-6 inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-100 to-orange-200 dark:from-orange-900/30 dark:to-orange-800/30 rounded-full text-orange-700 dark:text-orange-300 text-sm font-medium">
           👥 {t('team_list.empty_state.cta')}
         </div>
       </div>
@@ -135,7 +135,7 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete }) => {
         return (
           <div
             key={member.id}
-            className="glass-card p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] animate-fadeIn border border-white/20"
+            className="glass-card p-6 bg-white/90 dark:bg-gray-800/70 backdrop-blur-xl hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] animate-fadeIn border border-orange-500/20"
           >
             {/* Header avec photo et informations principales */}
             <div className="flex items-start justify-between mb-6">
@@ -146,7 +146,7 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete }) => {
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
+                  <h3 className="text-xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
                     {member.firstName} {member.lastName}
                   </h3>
                   <div className="flex items-center space-x-2 mt-1">
@@ -157,7 +157,7 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete }) => {
                     {averageRating > 0 && (
                       <div className="flex items-center space-x-1">
                         <StarIcon className="h-4 w-4 text-yellow-500" />
-                        <span className="text-sm font-medium text-gray-700">
+                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                           {averageRating.toFixed(1)}
                         </span>
                       </div>
@@ -169,14 +169,14 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete }) => {
               <div className="flex items-center space-x-2">
                 <button
                   onClick={() => onEdit(member)}
-                  className="glass-button p-3 text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl"
+                  className="glass-button p-3 text-orange-600 dark:text-orange-500 hover:text-orange-800 dark:hover:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl"
                   title={t('team_list.tooltips.edit_member')}
                 >
                   <PencilIcon className="h-5 w-5" />
                 </button>
                 <button
                   onClick={() => onDelete(member.id)}
-                  className="glass-button p-3 text-red-600 hover:text-red-800 hover:bg-red-50 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl"
+                  className="glass-button p-3 text-red-600 dark:text-red-500 hover:text-red-800 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl"
                   title={t('team_list.tooltips.delete_member')}
                 >
                   <TrashIcon className="h-5 w-5" />
@@ -187,37 +187,37 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete }) => {
             {/* Informations de contact */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
               <div className="space-y-3">
-                <div className="flex items-center space-x-3 p-3 glass-card bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl">
-                  <EnvelopeIcon className="h-5 w-5 text-blue-600" />
+                <div className="flex items-center space-x-3 p-3 glass-card bg-gradient-to-r from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 rounded-xl border border-orange-200 dark:border-orange-700">
+                  <EnvelopeIcon className="h-5 w-5 text-orange-600 dark:text-orange-500" />
                   <div>
-                    <p className="text-sm font-medium text-gray-700">{t('team_list.info_labels.email')}</p>
-                    <p className="text-sm text-gray-900">{member.email}</p>
+                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('team_list.info_labels.email')}</p>
+                    <p className="text-sm text-gray-900 dark:text-gray-100">{member.email}</p>
                   </div>
                 </div>
                 
-                <div className="flex items-center space-x-3 p-3 glass-card bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl">
-                  <PhoneIcon className="h-5 w-5 text-green-600" />
+                <div className="flex items-center space-x-3 p-3 glass-card bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 rounded-xl border border-green-200 dark:border-green-700">
+                  <PhoneIcon className="h-5 w-5 text-green-600 dark:text-green-500" />
                   <div>
-                    <p className="text-sm font-medium text-gray-700">{t('team_list.info_labels.phone')}</p>
-                    <p className="text-sm text-gray-900">{member.phone}</p>
+                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('team_list.info_labels.phone')}</p>
+                    <p className="text-sm text-gray-900 dark:text-gray-100">{member.phone}</p>
                   </div>
                 </div>
               </div>
 
               <div className="space-y-3">
-                <div className="flex items-center space-x-3 p-3 glass-card bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl">
-                  <CalendarDaysIcon className="h-5 w-5 text-purple-600" />
+                <div className="flex items-center space-x-3 p-3 glass-card bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700/50 dark:to-gray-600/50 rounded-xl border border-gray-200 dark:border-gray-600">
+                  <CalendarDaysIcon className="h-5 w-5 text-gray-600 dark:text-gray-400" />
                   <div>
-                    <p className="text-sm font-medium text-gray-700">{t('team_list.info_labels.working_days')}</p>
-                    <p className="text-sm text-gray-900">{workingDays}/7 {t('team_list.stats.days_per_week')}</p>
+                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('team_list.info_labels.working_days')}</p>
+                    <p className="text-sm text-gray-900 dark:text-gray-100">{workingDays}/7 {t('team_list.stats.days_per_week')}</p>
                   </div>
                 </div>
                 
-                <div className="flex items-center space-x-3 p-3 glass-card bg-gradient-to-r from-orange-50 to-red-50 rounded-xl">
-                  <SparklesIcon className="h-5 w-5 text-orange-600" />
+                <div className="flex items-center space-x-3 p-3 glass-card bg-gradient-to-r from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 rounded-xl border border-orange-200 dark:border-orange-700">
+                  <SparklesIcon className="h-5 w-5 text-orange-600 dark:text-orange-500" />
                   <div>
-                    <p className="text-sm font-medium text-gray-700">{t('team_list.info_labels.specialties')}</p>
-                    <p className="text-sm text-gray-900">{member.specialties.length} {t('team_list.stats.services')}</p>
+                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('team_list.info_labels.specialties')}</p>
+                    <p className="text-sm text-gray-900 dark:text-gray-100">{member.specialties.length} {t('team_list.stats.services')}</p>
                   </div>
                 </div>
               </div>
@@ -227,14 +227,14 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete }) => {
             {specialtyDetails.length > 0 && (
               <div className="mb-6">
                 <div className="flex items-center space-x-2 mb-4">
-                  <SparklesIcon className="h-5 w-5 text-purple-600" />
-                  <h4 className="text-lg font-semibold text-gray-900">{t('team_list.sections.specialties')}</h4>
+                  <SparklesIcon className="h-5 w-5 text-orange-600 dark:text-orange-500" />
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{t('team_list.sections.specialties')}</h4>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {specialtyDetails.map((specialty, index) => (
-                    <div key={index} className="p-4 glass-card bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl">
+                    <div key={index} className="p-4 glass-card bg-gradient-to-r from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 rounded-xl border border-orange-200 dark:border-orange-700">
                       <div className="flex items-center justify-between mb-2">
-                        <h5 className="font-medium text-gray-900">{specialty.name}</h5>
+                        <h5 className="font-medium text-gray-900 dark:text-gray-100">{specialty.name}</h5>
                         <div className="flex items-center space-x-1">
                           {[...Array(5)].map((_, i) => (
                             <StarIcon
@@ -246,13 +246,13 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete }) => {
                           ))}
                         </div>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
                         <div
-                          className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-300"
+                          className="bg-gradient-to-r from-orange-500 to-orange-600 h-2 rounded-full transition-all duration-300"
                           style={{ width: `${(specialty.level / 5) * 100}%` }}
                         />
                       </div>
-                      <p className="text-xs text-gray-600 mt-1">
+                      <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
                         {t('team_list.stats.level_of', { level: specialty.level.toFixed(1) })}
                       </p>
                     </div>
@@ -262,10 +262,10 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete }) => {
             )}
 
             {/* Planning de la semaine */}
-            <div className="border-t border-gray-100 pt-6">
+            <div className="border-t border-gray-100 dark:border-gray-700 pt-6">
               <div className="flex items-center space-x-2 mb-4">
-                <ClockIcon className="h-5 w-5 text-blue-600" />
-                <h4 className="text-lg font-semibold text-gray-900">{t('team_list.sections.weekly_schedule')}</h4>
+                <ClockIcon className="h-5 w-5 text-orange-600 dark:text-orange-500" />
+                <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{t('team_list.sections.weekly_schedule')}</h4>
               </div>
               <div className="grid grid-cols-7 gap-2">
                 {['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map((day) => {
@@ -278,22 +278,22 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete }) => {
                       key={day}
                       className={`p-3 rounded-xl text-center transition-all duration-200 ${
                         daySchedule?.isWorking
-                          ? 'glass-card bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200'
-                          : 'glass-card bg-gradient-to-r from-gray-50 to-slate-50 border border-gray-200'
+                          ? 'glass-card bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 border border-green-200 dark:border-green-700'
+                          : 'glass-card bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700/50 dark:to-gray-600/50 border border-gray-200 dark:border-gray-600'
                       }`}
                     >
                       <div className="flex items-center justify-center mb-1">
                         {daySchedule?.isWorking ? (
-                          <CheckCircleIcon className="h-4 w-4 text-green-600" />
+                          <CheckCircleIcon className="h-4 w-4 text-green-600 dark:text-green-500" />
                         ) : (
-                          <XCircleIcon className="h-4 w-4 text-gray-400" />
+                          <XCircleIcon className="h-4 w-4 text-gray-400 dark:text-gray-500" />
                         )}
                       </div>
-                      <p className="text-xs font-medium text-gray-700">
+                      <p className="text-xs font-medium text-gray-700 dark:text-gray-300">
                         {dayNames[day as keyof typeof dayNames]}
                       </p>
                       {daySchedule?.isWorking && daySchedule.start && daySchedule.end && (
-                        <p className="text-xs text-gray-600 mt-1">
+                        <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
                           {daySchedule.start}-{daySchedule.end}
                         </p>
                       )}
@@ -304,7 +304,7 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete }) => {
             </div>
 
             {/* Statistiques rapides */}
-            <div className="mt-6 flex items-center justify-between text-sm text-gray-600">
+            <div className="mt-6 flex items-center justify-between text-sm text-gray-600 dark:text-gray-400">
               <div className="flex items-center space-x-4">
                 <span className="flex items-center space-x-1">
                   <CalendarDaysIcon className="h-4 w-4" />

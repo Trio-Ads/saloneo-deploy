@@ -176,15 +176,15 @@ const AffiliationDashboard: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Section Lien d'affiliation */}
-      <div className="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-xl p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-          <LinkIcon className="h-5 w-5 mr-2 text-indigo-600" />
+      <div className="bg-gradient-to-r from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 rounded-xl p-6 border border-orange-200 dark:border-orange-700">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+          <LinkIcon className="h-5 w-5 mr-2 text-orange-600 dark:text-orange-500" />
           {t('affiliation_components.dashboard.affiliate_link')}
         </h3>
         
-        <div className="bg-white rounded-lg p-4 mb-4">
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-4 mb-4 border border-orange-200 dark:border-orange-700">
           <div className="flex items-center justify-between">
-            <code className="text-sm text-gray-700 font-mono flex-1 mr-4 break-all">
+            <code className="text-sm text-gray-700 dark:text-gray-300 font-mono flex-1 mr-4 break-all">
               {affiliateLink}
             </code>
             <div className="flex items-center space-x-2">
@@ -253,15 +253,15 @@ const AffiliationDashboard: React.FC = () => {
       </div>
 
       {/* Tableau des statistiques mensuelles */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
           {t('affiliation_components.dashboard.monthly_stats')}
         </h3>
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+            <thead className="bg-gray-50 dark:bg-gray-700">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   {t('affiliation_components.dashboard.table_headers.month')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -278,13 +278,13 @@ const AffiliationDashboard: React.FC = () => {
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
               {monthlyStats.map((stat) => (
                 <tr key={stat.month}>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
                     {stat.month}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                     {stat.clicks}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -293,7 +293,7 @@ const AffiliationDashboard: React.FC = () => {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {stat.clicks > 0 ? ((stat.conversions / stat.clicks) * 100).toFixed(1) : 0}%
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
                     {stat.revenue} €
                   </td>
                 </tr>
@@ -305,16 +305,16 @@ const AffiliationDashboard: React.FC = () => {
 
       {/* Statistiques détaillées */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center justify-between mb-2">
-            <h4 className="text-sm font-medium text-gray-600">{t('affiliation_components.dashboard.current_month.clicks')}</h4>
+            <h4 className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('affiliation_components.dashboard.current_month.clicks')}</h4>
             {Number(calculateGrowth(currentStats.clicks, lastMonthStats.clicks)) >= 0 ? (
               <ArrowTrendingUpIcon className="h-5 w-5 text-green-500" />
             ) : (
               <ArrowTrendingDownIcon className="h-5 w-5 text-red-500" />
             )}
           </div>
-          <p className="text-2xl font-bold text-gray-900">
+          <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
             {currentStats.clicks || affiliation?.stats.clicksCount || 0}
           </p>
           <p className={`text-sm mt-1 ${
@@ -326,16 +326,16 @@ const AffiliationDashboard: React.FC = () => {
           </p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center justify-between mb-2">
-            <h4 className="text-sm font-medium text-gray-600">{t('affiliation_components.dashboard.current_month.conversions')}</h4>
+            <h4 className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('affiliation_components.dashboard.current_month.conversions')}</h4>
             {Number(calculateGrowth(currentStats.conversions, lastMonthStats.conversions)) >= 0 ? (
               <ArrowTrendingUpIcon className="h-5 w-5 text-green-500" />
             ) : (
               <ArrowTrendingDownIcon className="h-5 w-5 text-red-500" />
             )}
           </div>
-          <p className="text-2xl font-bold text-gray-900">
+          <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
             {currentStats.conversions || affiliation?.stats.conversionsCount || 0}
           </p>
           <p className={`text-sm mt-1 ${
@@ -347,16 +347,16 @@ const AffiliationDashboard: React.FC = () => {
           </p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center justify-between mb-2">
-            <h4 className="text-sm font-medium text-gray-600">{t('affiliation_components.dashboard.current_month.revenue')}</h4>
+            <h4 className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('affiliation_components.dashboard.current_month.revenue')}</h4>
             {Number(calculateGrowth(currentMonthRevenue, lastMonthStats.revenue)) >= 0 ? (
               <ArrowTrendingUpIcon className="h-5 w-5 text-green-500" />
             ) : (
               <ArrowTrendingDownIcon className="h-5 w-5 text-red-500" />
             )}
           </div>
-          <p className="text-2xl font-bold text-gray-900">
+          <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
             {currentMonthRevenue.toFixed(2)} €
           </p>
           <p className={`text-sm mt-1 ${
@@ -370,13 +370,13 @@ const AffiliationDashboard: React.FC = () => {
       </div>
 
       {/* Conseils pour améliorer les performances */}
-      <div className="bg-blue-50 rounded-xl p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <div className="bg-orange-50 dark:bg-orange-900/20 rounded-xl p-6 border border-orange-200 dark:border-orange-700">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
           {t('affiliation_components.dashboard.tips.title')}
         </h3>
-        <ul className="space-y-2 text-gray-700">
+        <ul className="space-y-2 text-gray-700 dark:text-gray-300">
           <li className="flex items-start">
-            <span className="text-blue-600 mr-2">•</span>
+            <span className="text-orange-600 dark:text-orange-500 mr-2">•</span>
             {t('affiliation_components.dashboard.tips.social_share')}
           </li>
           <li className="flex items-start">

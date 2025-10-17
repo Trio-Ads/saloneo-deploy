@@ -193,27 +193,27 @@ const ClientForm: React.FC<ClientFormProps> = ({
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-3 mb-4">
-            <div className="p-3 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-xl shadow-lg">
+            <div className="p-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-md">
               <UserIcon className="h-8 w-8 text-white" />
             </div>
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
               {initialData ? t('client_form.title_edit') : t('client_form.title_new')}
             </h2>
           </div>
-          <p className="text-gray-600">{t('client_form.subtitle')}</p>
+          <p className="text-gray-600 dark:text-gray-400">{t('client_form.subtitle')}</p>
         </div>
 
         {/* Informations personnelles */}
-        <div className="glass-card p-6">
+        <div className="glass-card p-6 bg-white/90 dark:bg-gray-800/70 backdrop-blur-xl border border-orange-500/20 shadow-orange-md hover:shadow-orange-lg transition-all duration-300">
           <div className="flex items-center space-x-3 mb-6">
-            <UserIcon className="h-6 w-6 text-indigo-600" />
-            <h3 className="text-lg font-semibold text-gray-900">{t('client_form.sections.personal_info')}</h3>
+            <UserIcon className="h-6 w-6 text-orange-600 dark:text-orange-500" />
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{t('client_form.sections.personal_info')}</h3>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
-                <UserIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
+              <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <UserIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
                 {t('client_form.labels.first_name_required')}
               </label>
               <input
@@ -223,14 +223,14 @@ const ClientForm: React.FC<ClientFormProps> = ({
                 value={formData.firstName || ''}
                 onChange={handleChange}
                 required
-                className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
+                className="glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:bg-white dark:focus:bg-gray-600 transition-all duration-200"
                 placeholder={t('client_form.placeholders.enter_first_name')}
               />
             </div>
 
             <div>
-              <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
-                <UserIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
+              <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <UserIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
                 {t('client_form.labels.last_name_required')}
               </label>
               <input
@@ -240,14 +240,14 @@ const ClientForm: React.FC<ClientFormProps> = ({
                 value={formData.lastName || ''}
                 onChange={handleChange}
                 required
-                className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
+                className="glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:bg-white dark:focus:bg-gray-600 transition-all duration-200"
                 placeholder={t('client_form.placeholders.enter_last_name')}
               />
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                <EnvelopeIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <EnvelopeIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
                 {t('form.email')}
               </label>
               <input
@@ -256,14 +256,14 @@ const ClientForm: React.FC<ClientFormProps> = ({
                 name="email"
                 value={formData.email || ''}
                 onChange={handleChange}
-                className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
+                className="glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:bg-white dark:focus:bg-gray-600 transition-all duration-200"
                 placeholder={t('placeholders.email')}
               />
             </div>
 
             <div>
-              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                <PhoneIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
+              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <PhoneIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
                 {t('client_form.labels.phone_required')}
               </label>
               <input
@@ -273,14 +273,14 @@ const ClientForm: React.FC<ClientFormProps> = ({
                 value={formData.phone || ''}
                 onChange={handleChange}
                 required
-                className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
+                className="glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:bg-white dark:focus:bg-gray-600 transition-all duration-200"
                 placeholder={t('client_form.placeholders.phone_example')}
               />
             </div>
 
             <div>
-              <label htmlFor="birthDate" className="block text-sm font-medium text-gray-700 mb-2">
-                <CalendarDaysIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
+              <label htmlFor="birthDate" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <CalendarDaysIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
                 {t('client_form.labels.birth_date')}
               </label>
               <input
@@ -289,13 +289,13 @@ const ClientForm: React.FC<ClientFormProps> = ({
                 name="birthDate"
                 value={formData.birthDate || ''}
                 onChange={handleChange}
-                className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
+                className="glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:bg-white dark:focus:bg-gray-600 transition-all duration-200"
               />
             </div>
 
             <div>
-              <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-2">
-                <MapPinIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
+              <label htmlFor="address" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <MapPinIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
                 {t('form.address')}
               </label>
               <input
@@ -304,15 +304,15 @@ const ClientForm: React.FC<ClientFormProps> = ({
                 name="address"
                 value={formData.address || ''}
                 onChange={handleChange}
-                className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
+                className="glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:bg-white dark:focus:bg-gray-600 transition-all duration-200"
                 placeholder={t('client_form.placeholders.address_example')}
               />
             </div>
           </div>
 
           <div className="mt-6">
-            <label htmlFor="notes" className="block text-sm font-medium text-gray-700 mb-2">
-              <DocumentTextIcon className="h-4 w-4 inline mr-2 text-indigo-600" />
+            <label htmlFor="notes" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <DocumentTextIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
               {t('form.notes')}
             </label>
             <textarea
@@ -321,22 +321,22 @@ const ClientForm: React.FC<ClientFormProps> = ({
               value={formData.notes || ''}
               onChange={handleChange}
               rows={3}
-              className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
+              className="glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:bg-white dark:focus:bg-gray-600 transition-all duration-200"
               placeholder={t('client_form.placeholders.notes_placeholder')}
             />
           </div>
         </div>
 
         {/* Préférences */}
-        <div className="glass-card p-6">
+        <div className="glass-card p-6 bg-white/90 dark:bg-gray-800/70 backdrop-blur-xl border border-orange-500/20 shadow-orange-md hover:shadow-orange-lg transition-all duration-300">
           <div className="flex items-center space-x-3 mb-6">
-            <HeartIcon className="h-6 w-6 text-indigo-600" />
-            <h3 className="text-lg font-semibold text-gray-900">{t('client_form.sections.preferences')}</h3>
+            <HeartIcon className="h-6 w-6 text-orange-600 dark:text-orange-500" />
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{t('client_form.sections.preferences')}</h3>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label htmlFor="favoriteServices" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="favoriteServices" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 {t('client_form.labels.favorite_services')}
               </label>
               <select
@@ -344,7 +344,7 @@ const ClientForm: React.FC<ClientFormProps> = ({
                 multiple
                 value={formData.preferences.favoriteServices}
                 onChange={(e) => handleMultiSelect(e, 'favoriteServices')}
-                className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
+                className="glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:bg-white dark:focus:bg-gray-600 transition-all duration-200"
                 size={4}
               >
                 {services.map((service) => (
@@ -356,7 +356,7 @@ const ClientForm: React.FC<ClientFormProps> = ({
             </div>
 
             <div>
-              <label htmlFor="preferredStylists" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="preferredStylists" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 {t('client_form.labels.preferred_stylists')}
               </label>
               <select
@@ -364,7 +364,7 @@ const ClientForm: React.FC<ClientFormProps> = ({
                 multiple
                 value={formData.preferences.preferredStylists}
                 onChange={(e) => handleMultiSelect(e, 'preferredStylists')}
-                className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
+                className="glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:bg-white dark:focus:bg-gray-600 transition-all duration-200"
                 size={4}
               >
                 {teamMembers.map((member) => (
@@ -378,51 +378,51 @@ const ClientForm: React.FC<ClientFormProps> = ({
         </div>
 
         {/* Préférences de communication */}
-        <div className="glass-card p-6">
+        <div className="glass-card p-6 bg-white/90 dark:bg-gray-800/70 backdrop-blur-xl border border-orange-500/20 shadow-orange-md hover:shadow-orange-lg transition-all duration-300">
           <div className="flex items-center space-x-3 mb-6">
-            <ChatBubbleLeftRightIcon className="h-6 w-6 text-indigo-600" />
-            <h3 className="text-lg font-semibold text-gray-900">{t('client_form.sections.communication')}</h3>
+            <ChatBubbleLeftRightIcon className="h-6 w-6 text-orange-600 dark:text-orange-500" />
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{t('client_form.sections.communication')}</h3>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="flex items-center p-4 glass-card bg-white/50 rounded-xl hover:bg-white/70 transition-all duration-200">
+            <div className="flex items-center p-4 glass-card bg-white/50 dark:bg-gray-700/50 rounded-xl hover:bg-white/70 dark:hover:bg-gray-700/70 transition-all duration-200">
               <input
                 type="checkbox"
                 id="smsReminders"
                 name="smsReminders"
                 checked={formData.preferences.communicationPreferences.smsReminders}
                 onChange={handlePreferenceChange}
-                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                className="h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-orange-600 focus:ring-orange-500"
               />
-              <label htmlFor="smsReminders" className="ml-3 text-sm font-medium text-gray-700">
+              <label htmlFor="smsReminders" className="ml-3 text-sm font-medium text-gray-700 dark:text-gray-300">
                 {t('client_form.labels.sms_reminders')}
               </label>
             </div>
 
-            <div className="flex items-center p-4 glass-card bg-white/50 rounded-xl hover:bg-white/70 transition-all duration-200">
+            <div className="flex items-center p-4 glass-card bg-white/50 dark:bg-gray-700/50 rounded-xl hover:bg-white/70 dark:hover:bg-gray-700/70 transition-all duration-200">
               <input
                 type="checkbox"
                 id="emailMarketing"
                 name="emailMarketing"
                 checked={formData.preferences.communicationPreferences.emailMarketing}
                 onChange={handlePreferenceChange}
-                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                className="h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-orange-600 focus:ring-orange-500"
               />
-              <label htmlFor="emailMarketing" className="ml-3 text-sm font-medium text-gray-700">
+              <label htmlFor="emailMarketing" className="ml-3 text-sm font-medium text-gray-700 dark:text-gray-300">
                 {t('client_form.labels.email_marketing')}
               </label>
             </div>
 
-            <div className="flex items-center p-4 glass-card bg-white/50 rounded-xl hover:bg-white/70 transition-all duration-200">
+            <div className="flex items-center p-4 glass-card bg-white/50 dark:bg-gray-700/50 rounded-xl hover:bg-white/70 dark:hover:bg-gray-700/70 transition-all duration-200">
               <input
                 type="checkbox"
                 id="birthdayOffers"
                 name="birthdayOffers"
                 checked={formData.preferences.communicationPreferences.birthdayOffers}
                 onChange={handlePreferenceChange}
-                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                className="h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-orange-600 focus:ring-orange-500"
               />
-              <label htmlFor="birthdayOffers" className="ml-3 text-sm font-medium text-gray-700">
+              <label htmlFor="birthdayOffers" className="ml-3 text-sm font-medium text-gray-700 dark:text-gray-300">
                 {t('client_form.labels.birthday_offers')}
               </label>
             </div>
@@ -434,13 +434,13 @@ const ClientForm: React.FC<ClientFormProps> = ({
           <button
             type="button"
             onClick={onCancel}
-            className="glass-button bg-white/70 hover:bg-white/90 text-gray-700 border border-gray-300 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+            className="glass-button bg-white/70 dark:bg-gray-700/70 hover:bg-white/90 dark:hover:bg-gray-700/90 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
           >
             {t('client_form.buttons.cancel')}
           </button>
           <button
             type="submit"
-            className="glass-button bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white border-0 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+            className="glass-button bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white border-0 shadow-orange-md hover:shadow-orange-lg transform hover:scale-105 transition-all duration-200"
           >
             {initialData ? t('client_form.buttons.modify') : t('client_form.buttons.add')}
           </button>

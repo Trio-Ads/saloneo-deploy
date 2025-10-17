@@ -87,22 +87,22 @@ const PayoutSettings: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Solde disponible */}
-      <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 border border-green-200">
+      <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-6 border border-green-200 dark:border-green-700">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Solde disponible</h3>
-            <p className="text-3xl font-bold text-green-600">{availableBalance.toFixed(2)} €</p>
-            <p className="text-sm text-gray-600 mt-1">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Solde disponible</h3>
+            <p className="text-3xl font-bold text-green-600 dark:text-green-500">{availableBalance.toFixed(2)} €</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
               Seuil minimum de paiement : {minimumPayout} €
             </p>
           </div>
-          <BanknotesIcon className="h-12 w-12 text-green-600" />
+          <BanknotesIcon className="h-12 w-12 text-green-600 dark:text-green-500" />
         </div>
 
         {availableBalance >= minimumPayout && (
           <div className="mt-6 flex items-end space-x-4">
             <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Montant à retirer
               </label>
               <input
@@ -110,7 +110,7 @@ const PayoutSettings: React.FC = () => {
                 value={requestAmount}
                 onChange={(e) => setRequestAmount(e.target.value)}
                 placeholder={`Min. ${minimumPayout}€`}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
               />
             </div>
             <button
@@ -125,9 +125,9 @@ const PayoutSettings: React.FC = () => {
       </div>
 
       {/* Méthode de paiement */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-6 flex items-center">
-          <CreditCardIcon className="h-5 w-5 mr-2 text-indigo-600" />
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6 flex items-center">
+          <CreditCardIcon className="h-5 w-5 mr-2 text-orange-600 dark:text-orange-500" />
           Méthode de paiement
         </h3>
 
@@ -138,47 +138,47 @@ const PayoutSettings: React.FC = () => {
               onClick={() => setPayoutMethod('bank')}
               className={`p-4 rounded-lg border-2 transition-all duration-200 ${
                 payoutMethod === 'bank'
-                  ? 'border-indigo-500 bg-indigo-50'
-                  : 'border-gray-200 hover:border-gray-300'
+                  ? 'border-orange-500 bg-orange-50 dark:bg-orange-900/20'
+                  : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
               }`}
             >
-              <BuildingLibraryIcon className="h-8 w-8 mx-auto mb-2 text-indigo-600" />
-              <p className="font-medium">Virement bancaire</p>
+              <BuildingLibraryIcon className="h-8 w-8 mx-auto mb-2 text-orange-600 dark:text-orange-500" />
+              <p className="font-medium dark:text-gray-200">Virement bancaire</p>
             </button>
 
             <button
               onClick={() => setPayoutMethod('paypal')}
               className={`p-4 rounded-lg border-2 transition-all duration-200 ${
                 payoutMethod === 'paypal'
-                  ? 'border-indigo-500 bg-indigo-50'
-                  : 'border-gray-200 hover:border-gray-300'
+                  ? 'border-orange-500 bg-orange-50 dark:bg-orange-900/20'
+                  : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
               }`}
             >
-              <CurrencyDollarIcon className="h-8 w-8 mx-auto mb-2 text-blue-600" />
-              <p className="font-medium">PayPal</p>
+              <CurrencyDollarIcon className="h-8 w-8 mx-auto mb-2 text-blue-600 dark:text-blue-500" />
+              <p className="font-medium dark:text-gray-200">PayPal</p>
             </button>
 
             <button
               onClick={() => setPayoutMethod('crypto')}
               className={`p-4 rounded-lg border-2 transition-all duration-200 ${
                 payoutMethod === 'crypto'
-                  ? 'border-indigo-500 bg-indigo-50'
-                  : 'border-gray-200 hover:border-gray-300'
+                  ? 'border-orange-500 bg-orange-50 dark:bg-orange-900/20'
+                  : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
               }`}
             >
-              <CurrencyDollarIcon className="h-8 w-8 mx-auto mb-2 text-orange-600" />
-              <p className="font-medium">Crypto</p>
+              <CurrencyDollarIcon className="h-8 w-8 mx-auto mb-2 text-orange-600 dark:text-orange-500" />
+              <p className="font-medium dark:text-gray-200">Crypto</p>
             </button>
           </div>
 
           {/* Détails selon la méthode */}
-          <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+          <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
             {payoutMethod === 'bank' && (
               <div className="space-y-4">
-                <h4 className="font-medium text-gray-900 mb-4">Informations bancaires</h4>
+                <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-4">Informations bancaires</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Nom du titulaire
                     </label>
                     <input
@@ -188,7 +188,7 @@ const PayoutSettings: React.FC = () => {
                         ...payoutDetails,
                         bank: { ...payoutDetails.bank!, accountName: e.target.value }
                       })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
                     />
                   </div>
                   <div>
@@ -239,7 +239,7 @@ const PayoutSettings: React.FC = () => {
 
             {payoutMethod === 'paypal' && (
               <div className="space-y-4">
-                <h4 className="font-medium text-gray-900 mb-4">Informations PayPal</h4>
+                <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-4">Informations PayPal</h4>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Email PayPal
@@ -260,7 +260,7 @@ const PayoutSettings: React.FC = () => {
 
             {payoutMethod === 'crypto' && (
               <div className="space-y-4">
-                <h4 className="font-medium text-gray-900 mb-4">Informations Crypto</h4>
+                <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-4">Informations Crypto</h4>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Réseau
@@ -299,21 +299,21 @@ const PayoutSettings: React.FC = () => {
         </div>
 
         {/* Seuil minimum */}
-        <div className="mt-6 pt-6 border-t border-gray-200">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+        <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Seuil minimum de paiement
           </label>
           <select
             value={minimumPayout}
             onChange={(e) => setMinimumPayout(parseInt(e.target.value))}
-            className="w-full md:w-auto px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+            className="w-full md:w-auto px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
           >
             <option value={50}>50 €</option>
             <option value={100}>100 €</option>
             <option value={200}>200 €</option>
             <option value={500}>500 €</option>
           </select>
-          <p className="mt-2 text-sm text-gray-600">
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             Les paiements seront effectués automatiquement lorsque votre solde atteindra ce montant.
           </p>
         </div>
@@ -323,7 +323,7 @@ const PayoutSettings: React.FC = () => {
           <button
             onClick={handleSaveSettings}
             disabled={isSaving}
-            className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors duration-200 flex items-center space-x-2"
+            className="px-6 py-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-lg disabled:bg-gray-300 dark:disabled:bg-gray-600 disabled:cursor-not-allowed transition-colors duration-200 flex items-center space-x-2"
           >
             {isSaving ? (
               <>
@@ -341,9 +341,9 @@ const PayoutSettings: React.FC = () => {
       </div>
 
       {/* Avertissement */}
-      <div className="bg-yellow-50 rounded-xl p-4 flex items-start space-x-3">
-        <ExclamationTriangleIcon className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
-        <div className="text-sm text-yellow-800">
+      <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-xl p-4 flex items-start space-x-3 border border-yellow-200 dark:border-yellow-700">
+        <ExclamationTriangleIcon className="h-5 w-5 text-yellow-600 dark:text-yellow-500 flex-shrink-0 mt-0.5" />
+        <div className="text-sm text-yellow-800 dark:text-yellow-200">
           <p className="font-medium mb-1">Important :</p>
           <ul className="list-disc list-inside space-y-1">
             <li>Les paiements sont traités entre le 1er et le 5 de chaque mois</li>

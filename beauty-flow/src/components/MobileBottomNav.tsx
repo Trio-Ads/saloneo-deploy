@@ -47,25 +47,25 @@ const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ className = '' }) => 
       name: t('navigation.dashboard') || 'Dashboard',
       href: '/dashboard',
       icon: DashboardIcon,
-      gradient: 'from-purple-500 to-indigo-500'
+      gradient: 'from-orange-500 to-orange-600'
     },
     {
       name: t('navigation.appointments'),
       href: '/appointments',
       icon: CalendarIcon,
-      gradient: 'from-indigo-500 to-teal-500'
+      gradient: 'from-orange-400 to-orange-500'
     },
     {
       name: t('navigation.clients'),
       href: '/clients',
       icon: UsersIcon,
-      gradient: 'from-emerald-500 to-cyan-500'
+      gradient: 'from-orange-600 to-orange-700'
     },
     {
       name: t('navigation.services'),
       href: '/services',
       icon: ScissorsIcon,
-      gradient: 'from-blue-500 to-emerald-500'
+      gradient: 'from-orange-500 to-orange-600'
     }
   ];
 
@@ -75,7 +75,7 @@ const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ className = '' }) => 
   };
 
   return (
-    <nav className={`fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-t border-gray-200/20 dark:border-gray-700/20 ${className}`}>
+    <nav className={`fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-t border-orange-500/20 dark:border-orange-400/20 shadow-[0_-4px_16px_rgba(249,115,22,0.08)] dark:shadow-[0_-4px_16px_rgba(251,146,60,0.12)] ${className}`}>
       <div className="grid grid-cols-5 h-16">
         {navItems.map((item) => {
           const Icon = item.icon;
@@ -88,25 +88,25 @@ const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ className = '' }) => 
               className={`
                 relative flex flex-col items-center justify-center space-y-0.5 transition-all duration-300 px-1
                 ${isActive 
-                  ? 'text-indigo-600 dark:text-indigo-400' 
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                  ? 'text-orange-600 dark:text-orange-400' 
+                  : 'text-gray-600 dark:text-gray-400 hover:text-orange-500 dark:hover:text-orange-300'
                 }
               `}
             >
               {/* Indicateur actif en haut */}
               {isActive && (
-                <div className={`absolute top-0 left-1/2 transform -translate-x-1/2 w-12 h-0.5 bg-gradient-to-r ${item.gradient}`} />
+                <div className={`absolute top-0 left-1/2 transform -translate-x-1/2 w-12 h-0.5 bg-gradient-to-r ${item.gradient} shadow-[0_2px_8px_rgba(249,115,22,0.4)] dark:shadow-[0_2px_8px_rgba(251,146,60,0.5)]`} />
               )}
               
               {/* Icône avec effet de scale au tap */}
               <div className={`
                 relative p-1 rounded-lg transition-all duration-300 transform active:scale-95
-                ${isActive ? 'scale-105' : ''}
+                ${isActive ? 'scale-105 bg-orange-50 dark:bg-orange-900/20' : ''}
               `}>
                 <Icon />
                 {/* Effet glow pour l'élément actif */}
                 {isActive && (
-                  <div className={`absolute inset-0 bg-gradient-to-r ${item.gradient} opacity-20 blur-xl rounded-lg`} />
+                  <div className={`absolute inset-0 bg-gradient-to-r ${item.gradient} opacity-20 dark:opacity-30 blur-xl rounded-lg`} />
                 )}
               </div>
               
@@ -127,8 +127,8 @@ const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ className = '' }) => 
         </div>
       </div>
       
-      {/* Ombre subtile en haut */}
-      <div className="absolute -top-4 left-0 right-0 h-4 bg-gradient-to-t from-black/5 to-transparent pointer-events-none" />
+      {/* Ombre subtile en haut avec teinte orange */}
+      <div className="absolute -top-4 left-0 right-0 h-4 bg-gradient-to-t from-orange-500/5 dark:from-orange-400/10 to-transparent pointer-events-none" />
     </nav>
   );
 };

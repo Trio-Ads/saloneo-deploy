@@ -30,32 +30,38 @@ const AppointmentChart: React.FC<AppointmentChartProps> = ({ appointments }) => 
       { 
         label: t('components.appointment_chart.statuses.scheduled'), 
         value: statusCount.scheduled, 
-        color: 'from-orange-400 to-amber-500' 
+        color: 'from-orange-400 to-orange-500',
+        darkColor: 'dark:from-orange-400 dark:to-orange-500'
       },
       { 
         label: t('components.appointment_chart.statuses.confirmed'), 
         value: statusCount.confirmed, 
-        color: 'from-blue-400 to-indigo-500' 
+        color: 'from-orange-500 to-orange-600',
+        darkColor: 'dark:from-orange-500 dark:to-orange-600'
       },
       { 
         label: t('components.appointment_chart.statuses.completed'), 
         value: statusCount.completed, 
-        color: 'from-green-400 to-emerald-500' 
+        color: 'from-green-400 to-emerald-500',
+        darkColor: 'dark:from-green-400 dark:to-emerald-500'
       },
       { 
         label: t('components.appointment_chart.statuses.cancelled'), 
         value: statusCount.cancelled, 
-        color: 'from-red-400 to-rose-500' 
+        color: 'from-gray-400 to-gray-500',
+        darkColor: 'dark:from-gray-500 dark:to-gray-600'
       },
       { 
         label: t('components.appointment_chart.statuses.noShow'), 
         value: statusCount.noShow, 
-        color: 'from-gray-400 to-gray-500' 
+        color: 'from-gray-500 to-gray-600',
+        darkColor: 'dark:from-gray-600 dark:to-gray-700'
       },
       { 
         label: t('components.appointment_chart.statuses.rescheduled'), 
         value: statusCount.rescheduled, 
-        color: 'from-purple-400 to-violet-500' 
+        color: 'from-orange-300 to-orange-400',
+        darkColor: 'dark:from-orange-300 dark:to-orange-400'
       }
     ].filter(item => item.value > 0);
   }, [appointments, t]);
@@ -65,7 +71,7 @@ const AppointmentChart: React.FC<AppointmentChartProps> = ({ appointments }) => 
   if (total === 0) {
     return (
       <div className="h-64 flex items-center justify-center">
-        <p className="text-gray-500">{t('components.appointment_chart.no_data')}</p>
+        <p className="text-gray-500 dark:text-gray-400">{t('components.appointment_chart.no_data')}</p>
       </div>
     );
   }
@@ -149,8 +155,8 @@ const AppointmentChart: React.FC<AppointmentChartProps> = ({ appointments }) => 
         {/* Texte central */}
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center">
-            <p className="text-3xl font-bold text-gray-900">{total}</p>
-            <p className="text-xs text-gray-500">{t('components.appointment_chart.total')}</p>
+            <p className="text-3xl font-bold text-gray-900 dark:text-gray-100">{total}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">{t('components.appointment_chart.total')}</p>
           </div>
         </div>
       </div>
@@ -161,12 +167,12 @@ const AppointmentChart: React.FC<AppointmentChartProps> = ({ appointments }) => 
           {donutData.map((item, index) => (
             <div key={index} className="flex items-center justify-between">
               <div className="flex items-center">
-                <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${item.color} mr-2`}></div>
-                <span className="text-sm text-gray-700">{item.label}</span>
+                <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${item.color} ${item.darkColor} mr-2`}></div>
+                <span className="text-sm text-gray-700 dark:text-gray-300">{item.label}</span>
               </div>
               <div className="flex items-center space-x-2">
-                <span className="text-sm font-medium text-gray-900">{item.value}</span>
-                <span className="text-xs text-gray-500">({item.percentage.toFixed(1)}%)</span>
+                <span className="text-sm font-medium text-gray-900 dark:text-gray-100">{item.value}</span>
+                <span className="text-xs text-gray-500 dark:text-gray-400">({item.percentage.toFixed(1)}%)</span>
               </div>
             </div>
           ))}

@@ -115,9 +115,9 @@ export const PaymentSuccess: React.FC<PaymentSuccessProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 dark:from-gray-900 dark:via-green-900/20 dark:to-gray-900 flex items-center justify-center p-4">
       <div className="max-w-md w-full">
-        <div className="bg-white rounded-3xl shadow-2xl p-8 text-center">
+        <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl p-8 text-center">
           {/* Success Icon */}
           <div className="mb-6 flex justify-center">
             <div className="relative">
@@ -129,18 +129,18 @@ export const PaymentSuccess: React.FC<PaymentSuccessProps> = ({
           </div>
 
           {/* Success Message */}
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
             {t('success.title')}
           </h1>
           
-          <p className="text-lg text-gray-600 mb-8">
+          <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">
             {t('success.message', { planName: planName || '' })}
           </p>
 
           {/* Transaction Details - Required by SATIM */}
-          <div className="bg-white border border-gray-200 rounded-2xl p-6 mb-8">
+          <div className="bg-white dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-2xl p-6 mb-8">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="font-semibold text-gray-900">
+              <h3 className="font-semibold text-gray-900 dark:text-gray-100">
                 {t('success.transaction.title')}
               </h3>
               <img 
@@ -154,12 +154,12 @@ export const PaymentSuccess: React.FC<PaymentSuccessProps> = ({
             </div>
             
             <div className="space-y-4 text-left">
-              <div className="flex justify-between border-b border-gray-100 pb-2">
-                <div className="flex items-center text-gray-700">
+              <div className="flex justify-between border-b border-gray-100 dark:border-gray-600 pb-2">
+                <div className="flex items-center text-gray-700 dark:text-gray-300">
                   <DocumentTextIcon className="h-5 w-5 mr-2 text-gray-500" />
                   <span>{t('success.transaction.id')}</span>
                 </div>
-                <span className="font-medium text-gray-900">{transactionId}</span>
+                <span className="font-medium text-gray-900 dark:text-gray-100">{transactionId}</span>
               </div>
               
               <div className="flex justify-between border-b border-gray-100 pb-2">
@@ -167,7 +167,7 @@ export const PaymentSuccess: React.FC<PaymentSuccessProps> = ({
                   <CalendarIcon className="h-5 w-5 mr-2 text-gray-500" />
                   <span>{t('success.transaction.date')}</span>
                 </div>
-                <span className="font-medium text-gray-900">{formattedDate}</span>
+                <span className="font-medium text-gray-900 dark:text-gray-100">{formattedDate}</span>
               </div>
               
               <div className="flex justify-between border-b border-gray-100 pb-2">
@@ -175,7 +175,7 @@ export const PaymentSuccess: React.FC<PaymentSuccessProps> = ({
                   <ClockIcon className="h-5 w-5 mr-2 text-gray-500" />
                   <span>{t('success.transaction.time')}</span>
                 </div>
-                <span className="font-medium text-gray-900">{formattedTime}</span>
+                <span className="font-medium text-gray-900 dark:text-gray-100">{formattedTime}</span>
               </div>
               
               <div className="flex justify-between border-b border-gray-100 pb-2">
@@ -183,24 +183,24 @@ export const PaymentSuccess: React.FC<PaymentSuccessProps> = ({
                   <CreditCardIcon className="h-5 w-5 mr-2 text-gray-500" />
                   <span>{t('success.transaction.method')}</span>
                 </div>
-                <span className="font-medium text-gray-900">{paymentMethod} {cardLast4}</span>
+                <span className="font-medium text-gray-900 dark:text-gray-100">{paymentMethod} {cardLast4}</span>
               </div>
               
               <div className="flex justify-between pt-2">
-                <div className="flex items-center text-gray-700 font-semibold">
+                <div className="flex items-center text-gray-700 dark:text-gray-300 font-semibold">
                   <span>{t('success.transaction.amount')}</span>
                 </div>
-                <span className="font-bold text-green-600 text-lg">{amount.toLocaleString('fr-DZ')} DZD</span>
+                <span className="font-bold text-green-600 dark:text-green-400 text-lg">{amount.toLocaleString('fr-DZ')} DZD</span>
               </div>
             </div>
           </div>
           
           {/* Benefits */}
-          <div className="bg-green-50 rounded-2xl p-6 mb-8">
-            <h3 className="font-semibold text-green-900 mb-3">
+          <div className="bg-green-50 dark:bg-green-900/20 rounded-2xl p-6 mb-8">
+            <h3 className="font-semibold text-green-900 dark:text-green-300 mb-3">
               {t('success.benefits.title')}
             </h3>
-            <ul className="space-y-2 text-left text-green-800">
+            <ul className="space-y-2 text-left text-green-800 dark:text-green-300">
               <li className="flex items-start">
                 <CheckCircleIcon className="h-5 w-5 mr-2 mt-0.5 flex-shrink-0" />
                 <span>{t('success.benefits.premium')}</span>
@@ -226,12 +226,12 @@ export const PaymentSuccess: React.FC<PaymentSuccessProps> = ({
           </button>
 
           {/* Additional Info */}
-          <p className="mt-6 text-sm text-gray-500">
+          <p className="mt-6 text-sm text-gray-500 dark:text-gray-400">
             {t('success.email_sent')}
           </p>
           
           {/* SATIM Required Disclaimer */}
-          <div className="mt-4 text-xs text-gray-400 border-t border-gray-100 pt-4">
+          <div className="mt-4 text-xs text-gray-400 dark:text-gray-500 border-t border-gray-100 dark:border-gray-700 pt-4">
             <p>{t('success.transaction.disclaimer')}</p>
             <p className="mt-1">{t('success.transaction.support')}</p>
           </div>

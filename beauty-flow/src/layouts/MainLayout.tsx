@@ -164,37 +164,37 @@ const MainLayout: React.FC = () => {
       name: t('navigation.dashboard') || 'Dashboard', 
       href: 'dashboard', 
       icon: DashboardIcon,
-      color: 'from-purple-500 to-indigo-500'
+      color: 'from-orange-500 to-orange-600'
     },
     { 
       name: t('navigation.appointments'), 
       href: 'appointments', 
       icon: CalendarIcon,
-      color: 'from-indigo-500 to-teal-500'
+      color: 'from-orange-500 to-orange-600'
     },
     { 
       name: t('navigation.clients'), 
       href: 'clients', 
       icon: UsersIcon,
-      color: 'from-emerald-500 to-cyan-500'
+      color: 'from-orange-500 to-orange-600'
     },
     { 
       name: t('navigation.services'), 
       href: 'services', 
       icon: CogIcon,
-      color: 'from-blue-500 to-emerald-500'
+      color: 'from-orange-500 to-orange-600'
     },
     { 
       name: t('navigation.products'), 
       href: 'products', 
       icon: CubeIcon,
-      color: 'from-cyan-500 to-teal-500'
+      color: 'from-orange-500 to-orange-600'
     },
     { 
       name: t('navigation.team'), 
       href: 'team', 
       icon: UserGroupIcon,
-      color: 'from-teal-500 to-green-500'
+      color: 'from-orange-500 to-orange-600'
     }
   ];
 
@@ -224,7 +224,7 @@ const MainLayout: React.FC = () => {
                 <div className="logo-saloneo-2025">
                   <svg
                     viewBox="0 0 40 40"
-                    className="w-10 h-10 text-indigo-600 dark:text-indigo-400"
+                    className="w-10 h-10 text-orange-500 dark:text-orange-400"
                     fill="currentColor"
                   >
                     <path d="M20 4C11.163 4 4 11.163 4 20s7.163 16 16 16 16-7.163 16-16S28.837 4 20 4zm0 28c-6.627 0-12-5.373-12-12S13.373 8 20 8s12 5.373 12 12-5.373 12-12 12z"/>
@@ -232,7 +232,7 @@ const MainLayout: React.FC = () => {
                   </svg>
                 </div>
                 <div className="hidden sm:block">
-                  <h1 className="text-2xl font-display font-bold bg-gradient-to-r from-indigo-600 to-teal-500 bg-clip-text text-transparent">
+                  <h1 className="text-2xl font-display font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
                     Saloneo
                   </h1>
                   <p className="text-xs text-gray-500 dark:text-gray-400 font-body">
@@ -264,8 +264,8 @@ const MainLayout: React.FC = () => {
                       <div className={`
                         flex items-center space-x-2 px-4 py-3 rounded-2xl transition-all duration-300 transform hover:scale-105 active:scale-95
                         ${isActive 
-                          ? `bg-gradient-to-r ${item.color} shadow-lg shadow-indigo-500/25` 
-                          : 'hover:bg-gray-100 dark:hover:bg-gray-800 hover:shadow-md'
+                          ? `bg-gradient-to-r ${item.color} shadow-lg shadow-orange-500/25` 
+                          : 'hover:bg-orange-50 dark:hover:bg-orange-900/10 hover:shadow-md'
                         }
                       `}>
                         <Icon />
@@ -346,8 +346,8 @@ const MainLayout: React.FC = () => {
                     className={`
                       mobile-nav-item-2025 flex items-center space-x-3 px-4 py-3 rounded-2xl transition-all duration-300 transform hover:scale-105 active:scale-95
                       ${isActive 
-                        ? `bg-gradient-to-r ${item.color} text-white shadow-lg shadow-indigo-500/25` 
-                        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:shadow-md'
+                        ? `bg-gradient-to-r ${item.color} text-white shadow-lg shadow-orange-500/25` 
+                        : 'text-gray-600 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/10 hover:shadow-md'
                       }
                     `}
                     onClick={() => setIsOpen(false)}
@@ -386,14 +386,14 @@ const MainLayout: React.FC = () => {
         __html: `
           .logo-saloneo-2025 {
             padding: 0.5rem;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(20, 184, 166, 0.1));
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.1), rgba(234, 88, 12, 0.1));
             border-radius: 1rem;
             transition: all 0.3s ease;
           }
           
           .logo-saloneo-2025:hover {
             transform: scale(1.05);
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(20, 184, 166, 0.2));
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(234, 88, 12, 0.2));
           }
 
           .navbar-2025 {

@@ -55,27 +55,27 @@ export const ClientFormWithLimits: React.FC<ClientFormWithLimitsProps> = ({
   if (!clientLimit.canAdd) {
     return (
       <div className="max-w-4xl mx-auto">
-        <div className="bg-red-50 border border-red-200 rounded-2xl p-8 text-center">
-          <ExclamationTriangleIcon className="h-16 w-16 text-red-500 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-red-800 mb-4">
+        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 rounded-2xl p-8 text-center">
+          <ExclamationTriangleIcon className="h-16 w-16 text-red-500 dark:text-red-400 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-red-800 dark:text-red-300 mb-4">
             Limite de clients atteinte
           </h2>
-          <p className="text-red-700 mb-6">
+          <p className="text-red-700 dark:text-red-400 mb-6">
             {clientLimit.message}
           </p>
-          <p className="text-gray-700 mb-8">
+          <p className="text-gray-700 dark:text-gray-300 mb-8">
             {getUpgradeMessage()}
           </p>
           <div className="flex justify-center space-x-4">
             <button
               onClick={onCancel}
-              className="px-6 py-3 bg-white text-gray-700 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200"
+              className="px-6 py-3 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200"
             >
               Retour
             </button>
             <button
               onClick={onLimitExceeded}
-              className="px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+              className="px-6 py-3 bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
             >
               Voir les plans
             </button>

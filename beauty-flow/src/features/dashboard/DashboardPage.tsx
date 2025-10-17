@@ -223,37 +223,37 @@ const DashboardPage: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-orange-50 to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-4 border-indigo-100 border-t-indigo-600 mx-auto"></div>
-          <p className="mt-4 text-lg text-gray-600">{t('loading')}</p>
+          <div className="animate-spin rounded-full h-16 w-16 border-4 border-orange-100 border-t-orange-500 dark:border-orange-900 dark:border-t-orange-400 mx-auto"></div>
+          <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">{t('loading')}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-orange-50 to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
         {/* Header avec salutation personnalisée */}
         <div className="mb-8">
-          <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-8 overflow-hidden">
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 dark:border-gray-700/20 p-8 overflow-hidden">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
               <div>
-                <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 bg-clip-text text-transparent">
                   {t('welcome')} {user?.firstName || user?.establishmentName} 👋
                 </h1>
-                <p className="text-gray-600 mt-2 text-lg">
+                <p className="text-gray-600 dark:text-gray-300 mt-2 text-lg">
                   {t('overview_subtitle')}
                 </p>
-                <div className="flex items-center mt-3 space-x-4 text-sm text-gray-500">
+                <div className="flex items-center mt-3 space-x-4 text-sm text-gray-500 dark:text-gray-400">
                   <span className="flex items-center">
                     <CalendarDaysIcon className="h-4 w-4 mr-1" />
                     {format(new Date(), 'EEEE d MMMM yyyy', { locale: fr })}
                   </span>
                   <span className="flex items-center">
-                    <SparklesIcon className="h-4 w-4 mr-1 text-indigo-500" />
+                    <SparklesIcon className="h-4 w-4 mr-1 text-orange-500 dark:text-orange-400" />
                     Plan {currentPlan}
                   </span>
                 </div>
@@ -266,8 +266,8 @@ const DashboardPage: React.FC = () => {
                   onClick={() => setTimeRange('day')}
                   className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
                     timeRange === 'day'
-                      ? 'bg-white text-indigo-600 shadow-md'
-                      : 'text-gray-600 hover:text-gray-900'
+                      ? 'bg-white dark:bg-gray-700 text-orange-600 dark:text-orange-400 shadow-md'
+                      : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
                   }`}
                 >
                   {t('time_periods.day')}
@@ -276,8 +276,8 @@ const DashboardPage: React.FC = () => {
                   onClick={() => setTimeRange('week')}
                   className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
                     timeRange === 'week'
-                      ? 'bg-white text-indigo-600 shadow-md'
-                      : 'text-gray-600 hover:text-gray-900'
+                      ? 'bg-white dark:bg-gray-700 text-orange-600 dark:text-orange-400 shadow-md'
+                      : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
                   }`}
                 >
                   {t('time_periods.week')}
@@ -286,8 +286,8 @@ const DashboardPage: React.FC = () => {
                   onClick={() => setTimeRange('month')}
                   className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
                     timeRange === 'month'
-                      ? 'bg-white text-indigo-600 shadow-md'
-                      : 'text-gray-600 hover:text-gray-900'
+                      ? 'bg-white dark:bg-gray-700 text-orange-600 dark:text-orange-400 shadow-md'
+                      : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
                   }`}
                 >
                   {t('time_periods.month')}
@@ -353,15 +353,15 @@ const DashboardPage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {/* Revenus du jour */}
           <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+            <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('kpis.daily_revenue')}</p>
-                  <p className="text-3xl font-bold text-gray-900 mt-1">{formatPrice(stats.todayRevenue, profile.currency)}</p>
-                  <p className="text-xs text-gray-500 mt-1">{stats.todayAppointments} {t('kpis.appointments')}</p>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('kpis.daily_revenue')}</p>
+                  <p className="text-3xl font-bold text-gray-900 dark:text-white mt-1">{formatPrice(stats.todayRevenue, profile.currency)}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{stats.todayAppointments} {t('kpis.appointments')}</p>
                 </div>
-                <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl shadow-lg">
+                <div className="p-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-lg">
                   <CurrencyDollarIcon className="h-6 w-6 text-white" />
                 </div>
               </div>
@@ -370,12 +370,12 @@ const DashboardPage: React.FC = () => {
 
           {/* Revenus du mois */}
           <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-700 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+            <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('kpis.monthly_revenue')}</p>
-                  <p className="text-3xl font-bold text-gray-900 mt-1">{formatPrice(stats.monthRevenue, profile.currency)}</p>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('kpis.monthly_revenue')}</p>
+                  <p className="text-3xl font-bold text-gray-900 dark:text-white mt-1">{formatPrice(stats.monthRevenue, profile.currency)}</p>
                   <div className="flex items-center mt-1">
                     {stats.revenueGrowth >= 0 ? (
                       <ArrowTrendingUpIcon className="h-4 w-4 text-green-500 mr-1" />
@@ -389,7 +389,7 @@ const DashboardPage: React.FC = () => {
                     </span>
                   </div>
                 </div>
-                <div className="p-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl shadow-lg">
+                <div className="p-3 bg-gradient-to-r from-orange-600 to-orange-700 rounded-xl shadow-lg">
                   <ChartBarIcon className="h-6 w-6 text-white" />
                 </div>
               </div>
@@ -398,15 +398,15 @@ const DashboardPage: React.FC = () => {
 
           {/* Clients */}
           <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <div className="absolute inset-0 bg-gradient-to-r from-gray-500 to-gray-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+            <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('kpis.clients')}</p>
-                  <p className="text-3xl font-bold text-gray-900 mt-1">{stats.totalClients}</p>
-                  <p className="text-xs text-green-600 mt-1">+{stats.newClients} {t('kpis.this_month')}</p>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('kpis.clients')}</p>
+                  <p className="text-3xl font-bold text-gray-900 dark:text-white mt-1">{stats.totalClients}</p>
+                  <p className="text-xs text-orange-600 dark:text-orange-400 mt-1">+{stats.newClients} {t('kpis.this_month')}</p>
                 </div>
-                <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl shadow-lg">
+                <div className="p-3 bg-gradient-to-r from-gray-500 to-gray-600 rounded-xl shadow-lg">
                   <UsersIcon className="h-6 w-6 text-white" />
                 </div>
               </div>
@@ -415,15 +415,15 @@ const DashboardPage: React.FC = () => {
 
           {/* Taux d'occupation */}
           <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-amber-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+            <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('kpis.occupancy')}</p>
-                  <p className="text-3xl font-bold text-gray-900 mt-1">{stats.occupancyRate.toFixed(0)}%</p>
-                  <p className="text-xs text-gray-500 mt-1">{stats.upcomingAppointments} {t('kpis.upcoming')}</p>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('kpis.occupancy')}</p>
+                  <p className="text-3xl font-bold text-gray-900 dark:text-white mt-1">{stats.occupancyRate.toFixed(0)}%</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{stats.upcomingAppointments} {t('kpis.upcoming')}</p>
                 </div>
-                <div className="p-3 bg-gradient-to-r from-orange-500 to-amber-600 rounded-xl shadow-lg">
+                <div className="p-3 bg-gradient-to-r from-orange-400 to-orange-500 rounded-xl shadow-lg">
                   <ChartPieIcon className="h-6 w-6 text-white" />
                 </div>
               </div>
@@ -437,18 +437,18 @@ const DashboardPage: React.FC = () => {
         {/* Graphiques et widgets */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {/* Graphique des revenus */}
-          <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-              <ChartBarIcon className="h-5 w-5 mr-2 text-indigo-600" />
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-6">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+              <ChartBarIcon className="h-5 w-5 mr-2 text-orange-600 dark:text-orange-400" />
               {t('charts_titles.revenue_evolution')}
             </h3>
             <RevenueChart appointments={appointments || []} timeRange={timeRange} />
           </div>
 
           {/* Graphique des rendez-vous */}
-          <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-              <CalendarDaysIcon className="h-5 w-5 mr-2 text-purple-600" />
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-6">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+              <CalendarDaysIcon className="h-5 w-5 mr-2 text-orange-600 dark:text-orange-400" />
               {t('charts_titles.appointments_by_status')}
             </h3>
             <AppointmentChart appointments={filteredAppointments} />
@@ -464,9 +464,9 @@ const DashboardPage: React.FC = () => {
 
           {/* Services populaires */}
           <div className="lg:col-span-1">
-            <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                <StarIcon className="h-5 w-5 mr-2 text-amber-600" />
+            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-6">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+                <StarIcon className="h-5 w-5 mr-2 text-orange-600 dark:text-orange-400" />
                 {t('charts_titles.popular_services')}
               </h3>
               <ServicePopularityChart appointments={appointments || []} services={services} />

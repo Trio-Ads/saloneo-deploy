@@ -90,14 +90,14 @@ export const PlanCardWithDuration: React.FC<PlanCardWithDurationProps> = ({ plan
     
     if (typeof value === 'boolean') {
       return (
-        <div className="flex items-center text-sm text-gray-700 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+        <div className="flex items-center text-sm text-gray-700 dark:text-gray-300 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
           {value ? checkIcon : <span className="text-red-500 mr-2">✗</span>}
           {label}
         </div>
       );
     }
     return (
-      <div className="flex items-center text-sm text-gray-700 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+      <div className="flex items-center text-sm text-gray-700 dark:text-gray-300 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
         {checkIcon}
         {value === -1 ? `${label} illimités` : `${label} (${value})`}
       </div>
@@ -110,7 +110,7 @@ export const PlanCardWithDuration: React.FC<PlanCardWithDurationProps> = ({ plan
         return {
           icon: SparklesIcon,
           badge: null,
-          cardClass: "bg-white/90 backdrop-blur-xl border border-gray-200 hover:border-gray-300",
+          cardClass: "bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600",
           glowClass: "",
           popular: false
         };
@@ -118,23 +118,23 @@ export const PlanCardWithDuration: React.FC<PlanCardWithDurationProps> = ({ plan
         return {
           icon: RocketLaunchIcon,
           badge: { text: "POPULAIRE", class: "bg-gradient-to-r from-orange-500 to-red-500 animate-pulse" },
-          cardClass: "bg-white/90 backdrop-blur-xl border-2 border-orange-300 hover:border-orange-400",
+          cardClass: "bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl border-2 border-orange-300 dark:border-orange-500 hover:border-orange-400 dark:hover:border-orange-400",
           glowClass: "shadow-orange-200 hover:shadow-orange-300",
           popular: true
         };
       case PlanType.PRO:
         return {
           icon: BoltIcon,
-          badge: { text: "RECOMMANDÉ", class: "bg-gradient-to-r from-indigo-500 to-purple-600 animate-pulse" },
-          cardClass: "bg-white/90 backdrop-blur-xl border-2 border-indigo-400 hover:border-indigo-500 transform hover:scale-105",
-          glowClass: "shadow-indigo-200 hover:shadow-indigo-300 hover:shadow-2xl",
+          badge: { text: "RECOMMANDÉ", class: "bg-gradient-to-r from-orange-500 to-orange-600 animate-pulse" },
+          cardClass: "bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl border-2 border-orange-400 dark:border-orange-500 hover:border-orange-500 dark:hover:border-orange-400 transform hover:scale-105",
+          glowClass: "shadow-orange-200 dark:shadow-orange-900/50 hover:shadow-orange-300 dark:hover:shadow-orange-800/50 hover:shadow-2xl",
           popular: true
         };
       case PlanType.ENTERPRISE:
         return {
           icon: BuildingOfficeIcon,
           badge: { text: "PREMIUM", class: "bg-gradient-to-r from-yellow-400 to-yellow-600 animate-pulse" },
-          cardClass: "bg-gradient-to-br from-white/95 to-yellow-50/90 backdrop-blur-xl border-2 border-yellow-400 hover:border-yellow-500",
+          cardClass: "bg-gradient-to-br from-white/95 to-yellow-50/90 dark:from-gray-800/95 dark:to-yellow-900/20 backdrop-blur-xl border-2 border-yellow-400 dark:border-yellow-500 hover:border-yellow-500 dark:hover:border-yellow-400",
           glowClass: "shadow-yellow-200 hover:shadow-yellow-300",
           popular: false
         };
@@ -168,7 +168,7 @@ export const PlanCardWithDuration: React.FC<PlanCardWithDurationProps> = ({ plan
       <div className={`
         relative rounded-3xl p-8 shadow-xl transition-all duration-500 hover:shadow-2xl
         ${config.cardClass} ${config.glowClass}
-        ${isCurrentPlan ? 'ring-4 ring-indigo-500 ring-opacity-50' : ''}
+        ${isCurrentPlan ? 'ring-4 ring-orange-500 dark:ring-orange-400 ring-opacity-50' : ''}
         group-hover:transform group-hover:scale-105
       `}>
         
@@ -194,14 +194,14 @@ export const PlanCardWithDuration: React.FC<PlanCardWithDurationProps> = ({ plan
         <div className="text-center mb-6">
           <div className="flex justify-center mb-4">
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
-              <div className="relative bg-gradient-to-r from-indigo-500 to-purple-600 p-4 rounded-2xl shadow-xl group-hover:scale-110 transition-transform duration-300">
+              <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
+              <div className="relative bg-gradient-to-r from-orange-500 to-orange-600 p-4 rounded-2xl shadow-xl group-hover:scale-110 transition-transform duration-300">
                 <IconComponent className="h-8 w-8 text-white" />
               </div>
             </div>
           </div>
 
-          <h3 className="text-3xl font-bold mb-4 text-gray-900 group-hover:text-indigo-600 transition-colors duration-300">
+          <h3 className="text-3xl font-bold mb-4 text-gray-900 dark:text-gray-100 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors duration-300">
             {type}
           </h3>
         </div>
@@ -211,7 +211,7 @@ export const PlanCardWithDuration: React.FC<PlanCardWithDurationProps> = ({ plan
           <div className="mb-6">
             <div className="flex items-center justify-center mb-3">
               <ClockIcon className="h-4 w-4 text-gray-500 mr-2" />
-              <span className="text-sm text-gray-600 font-medium">Choisissez votre engagement</span>
+              <span className="text-sm text-gray-600 dark:text-gray-400 font-medium">Choisissez votre engagement</span>
             </div>
             <div className="grid grid-cols-2 gap-2">
               {Object.values(SubscriptionDuration).map((duration) => (
@@ -221,8 +221,8 @@ export const PlanCardWithDuration: React.FC<PlanCardWithDurationProps> = ({ plan
                   className={`
                     relative px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200
                     ${selectedDuration === duration
-                      ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg'
+                      : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                     }
                   `}
                 >
@@ -247,7 +247,7 @@ export const PlanCardWithDuration: React.FC<PlanCardWithDurationProps> = ({ plan
         {/* Prix */}
         <div className="mb-6">
           {price.customQuote ? (
-            <div className="text-2xl font-bold text-gray-900 text-center">
+            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 text-center">
               Consultez-nous
             </div>
           ) : (
@@ -255,22 +255,22 @@ export const PlanCardWithDuration: React.FC<PlanCardWithDurationProps> = ({ plan
               {canSelectDuration && selectedDuration !== SubscriptionDuration.MONTHLY ? (
                 <>
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-gray-900">
+                    <div className="text-3xl font-bold text-gray-900 dark:text-gray-100">
                       {displayPrice.amount} {displayPrice.currency}
                     </div>
-                    <div className="text-sm text-gray-600">
+                    <div className="text-sm text-gray-600 dark:text-gray-400">
                       soit {'monthlyEquivalent' in displayPrice ? displayPrice.monthlyEquivalent : displayPrice.amount} {'currency' in displayPrice ? displayPrice.currency : 'DZD'}/mois
                     </div>
                   </div>
                   {savings && (
-                    <div className="bg-green-50 border border-green-200 rounded-lg p-3 mt-3">
+                    <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg p-3 mt-3">
                       <div className="flex items-center justify-center">
                         <TagIcon className="h-5 w-5 text-green-600 mr-2" />
-                        <span className="text-green-700 font-medium">
+                        <span className="text-green-700 dark:text-green-300 font-medium">
                           Économisez {savings.savings} {'currency' in displayPrice ? displayPrice.currency : 'DZD'}
                         </span>
                       </div>
-                      <div className="text-xs text-green-600 text-center mt-1">
+                      <div className="text-xs text-green-600 dark:text-green-400 text-center mt-1">
                         {Math.round(savings.months * (1 - savings.discount / 100))} mois payés pour {savings.months}
                       </div>
                     </div>
@@ -278,9 +278,9 @@ export const PlanCardWithDuration: React.FC<PlanCardWithDurationProps> = ({ plan
                 </>
               ) : (
                 <div className="text-center">
-                  <div className="text-4xl font-bold text-gray-900">
+                  <div className="text-4xl font-bold text-gray-900 dark:text-gray-100">
                     {displayPrice.amount} {displayPrice.currency}
-                    <span className="text-lg text-gray-500 font-normal">/mois</span>
+                    <span className="text-lg text-gray-500 dark:text-gray-400 font-normal">/mois</span>
                   </div>
                   {displayPrice.isPromo && displayPrice.regularAmount && (
                     <div className="flex items-center justify-center space-x-2 mt-2">
@@ -323,8 +323,8 @@ export const PlanCardWithDuration: React.FC<PlanCardWithDurationProps> = ({ plan
           className={`
             w-full py-4 px-6 rounded-2xl font-bold text-lg transition-all duration-300 transform
             ${isCurrentPlan
-              ? 'bg-gray-100 text-gray-500 cursor-not-allowed'
-              : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white hover:scale-105 shadow-lg hover:shadow-xl'
+              ? 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
+              : 'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white hover:scale-105 shadow-lg hover:shadow-xl'
             }
           `}
         >
@@ -344,7 +344,7 @@ export const PlanCardWithDuration: React.FC<PlanCardWithDurationProps> = ({ plan
         {/* Garantie */}
         {!isCurrentPlan && (
           <div className="text-center mt-4">
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-500 dark:text-gray-400">
               ✓ Essai gratuit 14 jours • Sans engagement
             </p>
           </div>

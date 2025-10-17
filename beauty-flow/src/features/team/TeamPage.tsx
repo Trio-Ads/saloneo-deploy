@@ -120,31 +120,31 @@ const TeamPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-orange-50 to-orange-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* HERO HEADER - Design spectaculaire */}
         <div className="relative mb-12">
-          <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-8 overflow-hidden">
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-orange-500/20 p-8 overflow-hidden">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
               
               {/* Titre avec icône spectaculaire */}
               <div className="flex items-center space-x-6">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl blur-lg opacity-30 animate-pulse"></div>
-                  <div className="relative bg-gradient-to-r from-indigo-500 to-purple-600 p-4 rounded-2xl shadow-xl transform hover:scale-110 transition-all duration-300">
+                  <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl blur-lg opacity-30 animate-pulse"></div>
+                  <div className="relative bg-gradient-to-r from-orange-500 to-orange-600 p-4 rounded-2xl shadow-orange-xl transform hover:scale-110 transition-all duration-300">
                     <UserGroupIcon className="h-8 w-8 text-white" />
                   </div>
                 </div>
                 <div>
-                  <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
+                  <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 bg-clip-text text-transparent">
                     {t('title')}
                   </h1>
-                  <p className="text-gray-600 mt-2 text-lg">{t('subtitle')}</p>
+                  <p className="text-gray-600 dark:text-gray-400 mt-2 text-lg">{t('subtitle')}</p>
                   <div className="flex items-center mt-3 space-x-4">
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300">
                       👥 {teamStats.total} {t('badges.members')}
                     </span>
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300">
                       ✨ {teamStats.active} {t('badges.active')}
                     </span>
                   </div>
@@ -157,9 +157,9 @@ const TeamPage: React.FC = () => {
                   onClick={handleAddClick}
                   className={`px-8 py-3 ${
                     checkTeamMemberLimit().canAdd 
-                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700' 
+                      ? 'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-orange-xl hover:shadow-orange-2xl' 
                       : 'bg-gradient-to-r from-gray-400 to-gray-500 cursor-not-allowed'
-                  } text-white rounded-xl font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 relative overflow-hidden group`}
+                  } text-white rounded-xl font-semibold transform hover:scale-105 transition-all duration-300 relative overflow-hidden group`}
                   disabled={!checkTeamMemberLimit().canAdd}
                 >
                   <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
@@ -178,7 +178,7 @@ const TeamPage: React.FC = () => {
           <SubscriptionLimitWidget
             title={t('limits.title')}
             icon={
-              <div className="p-2 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl shadow-lg">
+              <div className="p-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-lg">
                 <UserGroupIcon className="h-5 w-5 text-white" />
               </div>
             }
@@ -192,15 +192,15 @@ const TeamPage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {/* Total */}
           <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+            <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.total_team')}</p>
-                  <p className="text-3xl font-bold text-gray-900 mt-1">{teamStats.total}</p>
-                  <p className="text-xs text-gray-500 mt-1">{t('stats.all_members')}</p>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('stats.total_team')}</p>
+                  <p className="text-3xl font-bold text-gray-900 dark:text-gray-100 mt-1">{teamStats.total}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('stats.all_members')}</p>
                 </div>
-                <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl shadow-lg">
+                <div className="p-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-lg">
                   <UserIcon className="h-6 w-6 text-white" />
                 </div>
               </div>
@@ -209,15 +209,15 @@ const TeamPage: React.FC = () => {
 
           {/* Actifs */}
           <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-green-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+            <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-xl border border-green-500/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.active')}</p>
-                  <p className="text-3xl font-bold text-green-600 mt-1">{teamStats.active}</p>
-                  <p className="text-xs text-gray-500 mt-1">{t('stats.available_members')}</p>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('stats.active')}</p>
+                  <p className="text-3xl font-bold text-green-600 dark:text-green-500 mt-1">{teamStats.active}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('stats.available_members')}</p>
                 </div>
-                <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl shadow-lg">
+                <div className="p-3 bg-gradient-to-r from-green-500 to-green-600 rounded-xl shadow-lg">
                   <SparklesIcon className="h-6 w-6 text-white" />
                 </div>
               </div>
@@ -226,15 +226,15 @@ const TeamPage: React.FC = () => {
 
           {/* Rôles */}
           <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <div className="absolute inset-0 bg-gradient-to-r from-gray-500 to-gray-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+            <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-xl border border-gray-500/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.roles')}</p>
-                  <p className="text-3xl font-bold text-purple-600 mt-1">{teamStats.roles}</p>
-                  <p className="text-xs text-gray-500 mt-1">{t('stats.position_types')}</p>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('stats.roles')}</p>
+                  <p className="text-3xl font-bold text-gray-600 dark:text-gray-400 mt-1">{teamStats.roles}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('stats.position_types')}</p>
                 </div>
-                <div className="p-3 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl shadow-lg">
+                <div className="p-3 bg-gradient-to-r from-gray-500 to-gray-600 rounded-xl shadow-lg">
                   <BriefcaseIcon className="h-6 w-6 text-white" />
                 </div>
               </div>
@@ -243,15 +243,15 @@ const TeamPage: React.FC = () => {
 
           {/* Spécialités Moyennes */}
           <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-amber-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+            <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{t('stats.avg_specialties')}</p>
-                  <p className="text-3xl font-bold text-orange-600 mt-1">{teamStats.avgSpecialties}</p>
-                  <p className="text-xs text-gray-500 mt-1">{t('stats.per_member')}</p>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('stats.avg_specialties')}</p>
+                  <p className="text-3xl font-bold text-orange-600 dark:text-orange-500 mt-1">{teamStats.avgSpecialties}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('stats.per_member')}</p>
                 </div>
-                <div className="p-3 bg-gradient-to-r from-orange-500 to-amber-600 rounded-xl shadow-lg">
+                <div className="p-3 bg-gradient-to-r from-orange-400 to-orange-500 rounded-xl shadow-orange-lg">
                   <AcademicCapIcon className="h-6 w-6 text-white" />
                 </div>
               </div>
@@ -261,7 +261,7 @@ const TeamPage: React.FC = () => {
 
         {/* FILTRES ET CONTRÔLES - Design sophistiqué */}
         {!isFormOpen && (
-          <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 mb-8">
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6 mb-8">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
               
               {/* Recherche et filtres */}
@@ -274,7 +274,7 @@ const TeamPage: React.FC = () => {
                     placeholder={t('search.placeholder')}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 pr-4 py-3 w-64 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 text-sm"
+                    className="pl-10 pr-4 py-3 w-64 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 text-sm"
                   />
                 </div>
 
@@ -283,7 +283,7 @@ const TeamPage: React.FC = () => {
                   <select
                     value={selectedRole}
                     onChange={(e) => setSelectedRole(e.target.value)}
-                    className="pl-4 pr-8 py-3 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 text-sm appearance-none cursor-pointer"
+                    className="pl-4 pr-8 py-3 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 text-sm appearance-none cursor-pointer"
                   >
                     <option value="all">{t('filters.all_roles')}</option>
                     {uniqueRoles.map((role) => (
@@ -297,7 +297,7 @@ const TeamPage: React.FC = () => {
             </div>
             
             {(searchTerm || selectedRole !== 'all') && (
-              <p className="mt-2 text-sm text-gray-600">
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
                 {filteredMembers.length} {t('search.results')}
                 {searchTerm && ` ${t('search.for')} "${searchTerm}"`}
                 {selectedRole !== 'all' && ` ${t('search.with_role')} "${selectedRole}"`}
@@ -307,7 +307,7 @@ const TeamPage: React.FC = () => {
         )}
 
         {/* Contenu principal */}
-        <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 min-h-[600px]">
+        <div className="bg-white/80 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6 min-h-[600px]">
           {isFormOpen ? (
             <div className="animate-fadeIn">
               <TeamMemberFormWithLimits

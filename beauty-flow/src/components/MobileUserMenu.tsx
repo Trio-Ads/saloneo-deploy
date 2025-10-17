@@ -40,10 +40,22 @@ const MobileUserMenu: React.FC = () => {
       {/* Bouton menu utilisateur */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex flex-col items-center justify-center space-y-0.5 p-1 text-gray-600 dark:text-gray-400"
+        className={`flex flex-col items-center justify-center space-y-0.5 p-1 transition-all duration-300 ${
+          isOpen 
+            ? 'text-orange-600 dark:text-orange-400 scale-105' 
+            : 'text-gray-600 dark:text-gray-400 hover:text-orange-500 dark:hover:text-orange-300'
+        }`}
       >
-        <UserIcon />
-        <span className="text-[10px] leading-tight font-medium">Menu</span>
+        <div className={`relative p-1 rounded-lg transition-all duration-300 ${
+          isOpen ? 'bg-orange-50 dark:bg-orange-900/20' : ''
+        }`}>
+          <UserIcon />
+        </div>
+        <span className={`text-[10px] leading-tight font-medium transition-all duration-300 ${
+          isOpen ? 'font-semibold' : ''
+        }`}>
+          Menu
+        </span>
       </button>
 
       {/* Menu déroulant */}
@@ -51,28 +63,28 @@ const MobileUserMenu: React.FC = () => {
         <>
           {/* Overlay */}
           <div 
-            className="fixed inset-0 z-40"
+            className="fixed inset-0 z-40 bg-black/20 dark:bg-black/40 backdrop-blur-sm"
             onClick={() => setIsOpen(false)}
           />
           
-          {/* Menu */}
-          <div className="absolute bottom-full right-0 mb-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 z-50 max-h-[60vh] overflow-hidden">
-            <div className="py-1 max-h-[60vh] overflow-y-auto overflow-x-hidden">
+          {/* Menu avec glassmorphism */}
+          <div className="absolute bottom-full right-0 mb-2 w-56 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-[0_8px_32px_rgba(249,115,22,0.15)] dark:shadow-[0_8px_32px_rgba(251,146,60,0.2)] border border-orange-500/20 dark:border-orange-400/20 z-50 max-h-[60vh] overflow-hidden animate-slide-down">
+            <div className="py-2 max-h-[60vh] overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-orange-300 dark:scrollbar-thumb-orange-600 scrollbar-track-transparent">
               {menuItems.map((item) => (
                 <button
                   key={item.path}
                   onClick={() => handleNavigation(item.path)}
-                  className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                  className="w-full text-left px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 transition-all duration-200 active:scale-95"
                 >
                   {item.label}
                 </button>
               ))}
               
-              <div className="border-t border-gray-200 dark:border-gray-700 my-1" />
+              <div className="border-t border-orange-500/20 dark:border-orange-400/20 my-2" />
               
               <button
                 onClick={handleLogout}
-                className="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors duration-200"
+                className="w-full text-left px-4 py-3 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-200 transition-all duration-200 active:scale-95"
               >
                 {t('auth.logout')}
               </button>
