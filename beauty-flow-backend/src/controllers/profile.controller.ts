@@ -48,6 +48,7 @@ export const updateProfile = async (req: AuthRequest, res: Response): Promise<vo
     if (updates.establishmentName !== undefined) updateData.establishmentName = updates.establishmentName;
     if (updates.phone !== undefined) updateData.phone = updates.phone;
     if (updates.address !== undefined) updateData.address = updates.address;
+    if (updates.showAsTeamMember !== undefined) updateData.showAsTeamMember = updates.showAsTeamMember;
     
     // Interface fields
     if (updates.theme !== undefined) updateData.theme = updates.theme;

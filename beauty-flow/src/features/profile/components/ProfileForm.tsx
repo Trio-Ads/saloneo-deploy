@@ -80,17 +80,22 @@ const ProfileForm: React.FC = () => {
     }
   }, [user, setValue]);
 
-  // Synchroniser les valeurs du formulaire avec le profil du store
+  // Synchroniser les valeurs du formulaire avec le profil du store (une seule fois au chargement)
   useEffect(() => {
-    if (profile) {
-      setValue('firstName', profile.firstName);
-      setValue('lastName', profile.lastName);
-      setValue('establishmentName', profile.establishmentName);
-      setValue('address', profile.address);
-      setValue('language', profile.language);
-      setValue('currency', profile.currency);
+    if (profile && !watch('firstName')) {
+      // Ne synchroniser que si les champs sont vides (premier chargement)
+      reset({
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+        establishmentName: profile.establishmentName,
+        address: profile.address,
+        language: profile.language,
+        currency: profile.currency,
+        showAsTeamMember: profile.showAsTeamMember,
+        email: user?.email || ''
+      });
     }
-  }, [profile, setValue]);
+  }, [profile, reset, user, watch]);
 
   // Synchroniser la langue du formulaire avec i18n
   useEffect(() => {
@@ -168,6 +173,10 @@ const ProfileForm: React.FC = () => {
 
   const handleCurrencyChange = async (currency: Currency) => {
     try {
+      // Ne mettre à jour que si la monnaie a vraiment changé
+      if (profile.currency === currency) {
+        return;
+      }
       setValue('currency', currency);
       await setCurrency(currency);
       showToast(t('profile_form.messages.currency_updated'), 'success');

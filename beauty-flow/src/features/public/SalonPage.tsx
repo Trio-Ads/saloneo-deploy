@@ -52,15 +52,15 @@ export const SalonPage: React.FC = () => {
   const settings = useInterfaceStore((state) => state.settings);
   const serviceSettings = useInterfaceStore((state) => state.serviceSettings);
 
-  useEffect(() => {
-    const loadSalonData = async () => {
-      try {
-        // Récupérer les données du salon depuis le backend via les nouvelles routes par slug
-        const [profileResponse, servicesResponse, teamResponse] = await Promise.all([
-          api.get('/public/salon/' + slug),
-          api.get('/public/services/' + slug),
-          api.get('/public/team/' + slug)
-        ]);
+  // Fonction pour charger les données du salon
+  const loadSalonData = React.useCallback(async () => {
+    try {
+      // Récupérer les données du salon depuis le backend via les nouvelles routes par slug
+      const [profileResponse, servicesResponse, teamResponse] = await Promise.all([
+        api.get('/public/salon/' + slug),
+        api.get('/public/services/' + slug),
+        api.get('/public/team/' + slug)
+      ]);
 
         const profile = profileResponse.data;
         const services = servicesResponse.data;
@@ -169,19 +169,32 @@ export const SalonPage: React.FC = () => {
           team: formattedTeam.length
         });
 
-      } catch (error) {
-        console.error('Erreur lors du chargement du salon:', error);
-        // En cas d'erreur, utiliser les données par défaut
-        setSalon(null);
-      } finally {
-        setLoading(false);
-      }
-    };
+    } catch (error) {
+      console.error('Erreur lors du chargement du salon:', error);
+      // En cas d'erreur, utiliser les données par défaut
+      setSalon(null);
+    } finally {
+      setLoading(false);
+    }
+  }, [slug, settings]);
 
+  // Charger les données au montage et quand le slug change
+  useEffect(() => {
     if (slug) {
       loadSalonData();
     }
-  }, [slug, settings]);
+  }, [slug, loadSalonData]);
+
+  // Recharger les données toutes les 30 secondes pour synchroniser les changements (monnaie, etc.)
+  useEffect(() => {
+    if (!slug) return;
+    
+    const intervalId = setInterval(() => {
+      loadSalonData();
+    }, 30000); // 30 secondes
+
+    return () => clearInterval(intervalId);
+  }, [slug, loadSalonData]);
 
   if (loading) {
     return (

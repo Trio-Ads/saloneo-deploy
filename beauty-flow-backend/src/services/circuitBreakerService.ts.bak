@@ -1,0 +1,428 @@
+import CircuitBreaker from 'opossum';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axiosRetry from 'axios-retry';
+import pRetry, { Options as PRetryOptions } from 'p-retry';
+import { logger } from '../utils/logger';
+import { cacheService } from './cacheService';
+
+// Circuit breaker options
+export interface CircuitBreakerOptions {
+  timeout?: number;
+  errorThresholdPercentage?: number;
+  resetTimeout?: number;
+  rollingCountTimeout?: number;
+  rollingCountBuckets?: number;
+  name?: string;
+  fallback?: Function;
+  cache?: boolean;
+  cacheTTL?: number;
+}
+
+// Service configuration
+export interface ServiceConfig {
+  name: string;
+  baseURL: string;
+  timeout?: number;
+  retries?: number;
+  circuitBreakerOptions?: CircuitBreakerOptions;
+  headers?: Record<string, string>;
+  healthCheckEndpoint?: string;
+  healthCheckInterval?: number;
+}
+
+// Health status
+export interface HealthStatus {
+  service: string;
+  status: 'healthy' | 'unhealthy' | 'degraded';
+  lastCheck: Date;
+  responseTime?: number;
+  error?: string;
+  circuitState?: 'open' | 'closed' | 'half-open';
+}
+
+class CircuitBreakerService {
+  private services: Map<string, {
+    client: AxiosInstance;
+    breaker: CircuitBreaker;
+    config: ServiceConfig;
+    healthStatus: HealthStatus;
+  }> = new Map();
+
+  private defaultCircuitBreakerOptions: CircuitBreakerOptions = {
+    timeout: 5000, // 5 seconds
+    errorThresholdPercentage: 50,
+    resetTimeout: 30000, // 30 seconds
+    rollingCountTimeout: 10000, // 10 seconds
+    rollingCountBuckets: 10,
+  };
+
+  /**
+   * Register a microservice
+   */
+  registerService(config: ServiceConfig): void {
+    // Create axios instance with retry
+    const axiosInstance = axios.create({
+      baseURL: config.baseURL,
+      timeout: config.timeout || 10000,
+      headers: config.headers || {},
+    });
+
+    // Configure axios retry
+    axiosRetry(axiosInstance, {
+      retries: config.retries || 3,
+      retryDelay: axiosRetry.exponentialDelay,
+      retryCondition: (error) => {
+        return axiosRetry.isNetworkOrIdempotentRequestError(error) ||
+          (error.response?.status ? error.response.status >= 500 : false);
+      },
+    });
+
+    // Create circuit breaker
+    const circuitBreakerOptions = {
+      ...this.defaultCircuitBreakerOptions,
+      ...config.circuitBreakerOptions,
+      name: config.name,
+    };
+
+    const breaker = new CircuitBreaker(
+      this.makeRequest.bind(this, axiosInstance),
+      circuitBreakerOptions
+    );
+
+    // Setup event listeners
+    this.setupBreakerEvents(breaker, config.name);
+
+    // Setup fallback if provided
+    if (circuitBreakerOptions.fallback) {
+      breaker.fallback(circuitBreakerOptions.fallback as any);
+    }
+
+    // Store service
+    this.services.set(config.name, {
+      client: axiosInstance,
+      breaker,
+      config,
+      healthStatus: {
+        service: config.name,
+        status: 'healthy',
+        lastCheck: new Date(),
+      },
+    });
+
+    // Start health checks if configured
+    if (config.healthCheckEndpoint && config.healthCheckInterval) {
+      this.startHealthCheck(config.name);
+    }
+
+    logger.info(`Circuit breaker registered for service: ${config.name}`);
+  }
+
+  /**
+   * Make HTTP request through circuit breaker
+   */
+  async request<T = any>(
+    serviceName: string,
+    config: AxiosRequestConfig
+  ): Promise<T> {
+    const service = this.services.get(serviceName);
+    if (!service) {
+      throw new Error(`Service ${serviceName} not registered`);
+    }
+
+    // Check cache if enabled
+    if (service.config.circuitBreakerOptions?.cache && config.method === 'GET') {
+      const cacheKey = this.getCacheKey(serviceName, config);
+      const cached = await cacheService.get<T>(cacheKey);
+      if (cached) {
+        logger.debug(`Cache hit for ${serviceName}: ${config.url}`);
+        return cached;
+      }
+    }
+
+    try {
+      // Make request through circuit breaker
+      const response = await service.breaker.fire(config) as AxiosResponse;
+      
+      // Cache response if enabled
+      if (service.config.circuitBreakerOptions?.cache && config.method === 'GET') {
+        const cacheKey = this.getCacheKey(serviceName, config);
+        const ttl = service.config.circuitBreakerOptions.cacheTTL || 300; // 5 minutes default
+        await cacheService.set(cacheKey, response.data, { ttl });
+      }
+
+      return response.data;
+    } catch (error) {
+      logger.error(`Circuit breaker error for ${serviceName}:`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Make request with retry
+   */
+  async requestWithRetry<T = any>(
+    serviceName: string,
+    config: AxiosRequestConfig,
+    retryOptions?: PRetryOptions
+  ): Promise<T> {
+    return pRetry(
+      () => this.request<T>(serviceName, config),
+      {
+        retries: 3,
+        onFailedAttempt: (error) => {
+          logger.warn(
+            `Attempt ${error.attemptNumber} failed for ${serviceName}. ${error.retriesLeft} retries left.`
+          );
+        },
+        ...retryOptions,
+      }
+    );
+  }
+
+  /**
+   * Batch requests
+   */
+  async batchRequests<T = any>(
+    serviceName: string,
+    configs: AxiosRequestConfig[]
+  ): Promise<T[]> {
+    const service = this.services.get(serviceName);
+    if (!service) {
+      throw new Error(`Service ${serviceName} not registered`);
+    }
+
+    // Process in batches to avoid overwhelming the service
+    const batchSize = 10;
+    const results: T[] = [];
+
+    for (let i = 0; i < configs.length; i += batchSize) {
+      const batch = configs.slice(i, i + batchSize);
+      const batchResults = await Promise.all(
+        batch.map(config => this.request<T>(serviceName, config))
+      );
+      results.push(...batchResults);
+    }
+
+    return results;
+  }
+
+  /**
+   * Get service health status
+   */
+  getHealthStatus(serviceName?: string): HealthStatus | HealthStatus[] {
+    if (serviceName) {
+      const service = this.services.get(serviceName);
+      return service ? service.healthStatus : {
+        service: serviceName,
+        status: 'unhealthy',
+        lastCheck: new Date(),
+        error: 'Service not found',
+      };
+    }
+
+    // Return all service health statuses
+    return Array.from(this.services.values()).map(s => ({
+      ...s.healthStatus,
+      circuitState: s.breaker.opened ? 'open' : s.breaker.halfOpen ? 'half-open' : 'closed',
+    }));
+  }
+
+  /**
+   * Get circuit breaker statistics
+   */
+  getStatistics(serviceName: string) {
+    const service = this.services.get(serviceName);
+    if (!service) {
+      throw new Error(`Service ${serviceName} not registered`);
+    }
+
+    return service.breaker.stats;
+  }
+
+  /**
+   * Force open circuit breaker
+   */
+  openCircuit(serviceName: string): void {
+    const service = this.services.get(serviceName);
+    if (!service) {
+      throw new Error(`Service ${serviceName} not registered`);
+    }
+
+    service.breaker.open();
+    logger.warn(`Circuit breaker manually opened for service: ${serviceName}`);
+  }
+
+  /**
+   * Force close circuit breaker
+   */
+  closeCircuit(serviceName: string): void {
+    const service = this.services.get(serviceName);
+    if (!service) {
+      throw new Error(`Service ${serviceName} not registered`);
+    }
+
+    service.breaker.close();
+    logger.info(`Circuit breaker manually closed for service: ${serviceName}`);
+  }
+
+  /**
+   * Private: Make actual HTTP request
+   */
+  private async makeRequest(
+    client: AxiosInstance,
+    config: AxiosRequestConfig
+  ) {
+    return client.request(config);
+  }
+
+  /**
+   * Private: Setup circuit breaker event listeners
+   */
+  private setupBreakerEvents(breaker: CircuitBreaker, serviceName: string): void {
+    breaker.on('open', () => {
+      logger.error(`Circuit breaker opened for service: ${serviceName}`);
+      const service = this.services.get(serviceName);
+      if (service) {
+        service.healthStatus.status = 'unhealthy';
+        service.healthStatus.error = 'Circuit breaker open';
+      }
+    });
+
+    breaker.on('halfOpen', () => {
+      logger.warn(`Circuit breaker half-open for service: ${serviceName}`);
+      const service = this.services.get(serviceName);
+      if (service) {
+        service.healthStatus.status = 'degraded';
+      }
+    });
+
+    breaker.on('close', () => {
+      logger.info(`Circuit breaker closed for service: ${serviceName}`);
+      const service = this.services.get(serviceName);
+      if (service) {
+        service.healthStatus.status = 'healthy';
+        service.healthStatus.error = undefined;
+      }
+    });
+
+    breaker.on('timeout', () => {
+      logger.error(`Request timeout for service: ${serviceName}`);
+    });
+
+    breaker.on('reject', () => {
+      logger.warn(`Request rejected by circuit breaker for service: ${serviceName}`);
+    });
+
+    breaker.on('success', (result: any) => {
+      logger.debug(`Successful request for service: ${serviceName}`);
+    });
+
+    breaker.on('failure', (error: any) => {
+      logger.error(`Request failed for service: ${serviceName}`, error);
+    });
+  }
+
+  /**
+   * Private: Start health check for a service
+   */
+  private startHealthCheck(serviceName: string): void {
+    const service = this.services.get(serviceName);
+    if (!service || !service.config.healthCheckEndpoint) {
+      return;
+    }
+
+    const checkHealth = async () => {
+      try {
+        const startTime = Date.now();
+        await this.request(serviceName, {
+          method: 'GET',
+          url: service.config.healthCheckEndpoint,
+          timeout: 5000,
+        });
+        const responseTime = Date.now() - startTime;
+
+        service.healthStatus = {
+          service: serviceName,
+          status: 'healthy',
+          lastCheck: new Date(),
+          responseTime,
+        };
+      } catch (error) {
+        service.healthStatus = {
+          service: serviceName,
+          status: 'unhealthy',
+          lastCheck: new Date(),
+          error: error instanceof Error ? error.message : 'Unknown error',
+        };
+      }
+    };
+
+    // Initial check
+    checkHealth();
+
+    // Schedule periodic checks
+    setInterval(checkHealth, service.config.healthCheckInterval);
+  }
+
+  /**
+   * Private: Generate cache key
+   */
+  private getCacheKey(serviceName: string, config: AxiosRequestConfig): string {
+    const url = config.url || '';
+    const params = config.params ? JSON.stringify(config.params) : '';
+    return `circuit:${serviceName}:${url}:${params}`;
+  }
+}
+
+// Export singleton instance
+export const circuitBreakerService = new CircuitBreakerService();
+
+// Export convenience functions for common services
+export const registerAuthService = (baseURL: string) => {
+  circuitBreakerService.registerService({
+    name: 'auth-service',
+    baseURL,
+    timeout: 5000,
+    retries: 2,
+    healthCheckEndpoint: '/health',
+    healthCheckInterval: 30000,
+    circuitBreakerOptions: {
+      errorThresholdPercentage: 50,
+      resetTimeout: 30000,
+    },
+  });
+};
+
+export const registerPaymentService = (baseURL: string) => {
+  circuitBreakerService.registerService({
+    name: 'payment-service',
+    baseURL,
+    timeout: 10000,
+    retries: 3,
+    healthCheckEndpoint: '/health',
+    healthCheckInterval: 30000,
+    circuitBreakerOptions: {
+      errorThresholdPercentage: 30, // More sensitive for payment
+      resetTimeout: 60000, // Longer reset for payment
+      fallback: async () => {
+        // Return cached payment status or queue for later
+        return { status: 'queued', message: 'Payment will be processed when service is available' };
+      },
+    },
+  });
+};
+
+export const registerNotificationService = (baseURL: string) => {
+  circuitBreakerService.registerService({
+    name: 'notification-service',
+    baseURL,
+    timeout: 3000,
+    retries: 2,
+    circuitBreakerOptions: {
+      errorThresholdPercentage: 70, // Less critical service
+      resetTimeout: 20000,
+      cache: true,
+      cacheTTL: 600, // 10 minutes
+    },
+  });
+};

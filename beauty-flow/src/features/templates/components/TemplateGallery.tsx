@@ -20,7 +20,14 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onTemplateSele
   const { t } = useTranslation('interface');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
-  const { applyTemplate } = useInterfaceStore();
+  const { applyTemplate, selectedTemplateId } = useInterfaceStore();
+
+  // Synchroniser l'état local avec le template sélectionné du store
+  React.useEffect(() => {
+    if (selectedTemplateId && !selectedTemplate) {
+      setSelectedTemplate(selectedTemplateId);
+    }
+  }, [selectedTemplateId, selectedTemplate]);
 
   const categories = [
     { id: 'all', name: 'Tous les thèmes', icon: SparklesIcon, color: 'from-purple-500 to-pink-600' },
