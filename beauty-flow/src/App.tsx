@@ -47,10 +47,30 @@ export const App: React.FC = () => {
     <ErrorBoundary>
       <Router>
         <Routes>
+        {/* Marketing routes - MUST BE FIRST to catch "/" */}
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/landing-static" element={<LandingPageStatic />} />
+        <Route path="/landing-pro" element={<LandingPagePro />} />
+        <Route path="/pricing" element={<PricingPage />} />
+        <Route path="/login" element={<Navigate to="/auth/login" replace />} />
+        <Route path="/register" element={<Navigate to="/auth/register" replace />} />
+
+        {/* Public routes */}
+        <Route path="salon/:slug" element={<SalonPage />} />
+        <Route path="salon/:slug/appointments/list" element={<PublicAppointmentList />} />
+        <Route path="appointment/:token" element={<PublicAppointmentManager />} />
+        <Route path="appointments/list" element={<PublicAppointmentList />} />
+
+        {/* Authentication routes */}
+        <Route path="auth" element={<PublicOnlyGuard />}>
+          <Route path="login" element={<LoginPage />} />
+          <Route path="register" element={<RegisterPage />} />
+          <Route path="*" element={<Navigate to="/auth/login" replace />} />
+        </Route>
+
         {/* Protected routes */}
         <Route element={<AuthGuard />}>
           <Route element={<MainLayout />}>
-            <Route index element={<Navigate to="/dashboard" replace />} />
             <Route path="dashboard" element={<DashboardPage />} />
             <Route path="clients" element={<ClientsPage />} />
             <Route path="services" element={<ServicesPage />} />
@@ -63,27 +83,6 @@ export const App: React.FC = () => {
             <Route path="subscription" element={<SubscriptionPage />} />
           </Route>
         </Route>
-
-        {/* Authentication routes */}
-        <Route path="auth" element={<PublicOnlyGuard />}>
-          <Route path="login" element={<LoginPage />} />
-          <Route path="register" element={<RegisterPage />} />
-          <Route path="*" element={<Navigate to="/auth/login" replace />} />
-        </Route>
-
-        {/* Public routes */}
-        <Route path="salon/:slug" element={<SalonPage />} />
-        <Route path="salon/:slug/appointments/list" element={<PublicAppointmentList />} />
-        <Route path="appointment/:token" element={<PublicAppointmentManager />} />
-        <Route path="appointments/list" element={<PublicAppointmentList />} />
-        
-        {/* Marketing routes */}
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/landing-static" element={<LandingPageStatic />} />
-        <Route path="/landing-pro" element={<LandingPagePro />} />
-        <Route path="/pricing" element={<PricingPage />} />
-        <Route path="/login" element={<Navigate to="/auth/login" replace />} />
-        <Route path="/register" element={<Navigate to="/auth/register" replace />} />
 
         {/* Default redirection */}
         <Route path="*" element={<Navigate to="/" replace />} />
