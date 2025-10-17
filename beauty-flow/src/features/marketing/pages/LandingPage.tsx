@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useStabilityAI } from '../hooks/useStabilityAI';
 import { use3DModels } from '../hooks/use3DModels';
-import AwwwardsHeader from '../components/AwwwardsHeader';
 import '../styles/marketing.css';
 import api from '../../../services/api';
 
@@ -19,11 +18,8 @@ const useAuth = () => {
   return { isAuthenticated };
 };
 
-// Import direct de la version lite pour un chargement rapide
-import { Hero3DLite } from '../components/Hero3DLite';
-
-// Lazy load de la version complète pour ceux qui veulent plus de détails
-const Hero3DFull = lazy(() => import('../components/Hero3D').then(module => ({ default: module.Hero3D })));
+// NOTE: Cette page n'est plus utilisée - LandingPagePremium est maintenant la page principale
+// Les composants 3D ont été supprimés
 
 // Import des icônes
 import { 
@@ -83,25 +79,8 @@ const LandingPage: React.FC = () => {
 
   return (
     <div className="landing-page">
-      {/* Awwwards Header */}
-      <AwwwardsHeader />
-      
-      {/* Hero Section 3D */}
+      {/* Hero Section */}
       <section className="hero-section-3d" style={{ paddingTop: '120px', position: 'relative', minHeight: '100vh', background: 'linear-gradient(135deg, #F97316 0%, #EA580C 50%, #C2410C 100%)' }}>
-        {/* Canvas 3D en arrière-plan */}
-        {show3D && (
-          <Suspense fallback={
-            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-orange-50 to-orange-100 dark:from-gray-900 dark:to-gray-800">
-              <div className="text-center">
-                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-orange-500 mx-auto mb-4"></div>
-                <p className="text-gray-600 dark:text-gray-300">{t('hero.loading', 'Chargement de l\'expérience 3D...')}</p>
-              </div>
-            </div>
-          }>
-            <Hero3DLite logoModelUrl={models?.logo ? getModelUrl(models.logo.url) : undefined} quality="medium" />
-          </Suspense>
-        )}
-
         {/* Contenu Hero au premier plan */}
         <div className="hero-content-3d" style={{ position: 'relative', zIndex: 10 }}>
           <div className="max-w-7xl mx-auto px-4 py-20">

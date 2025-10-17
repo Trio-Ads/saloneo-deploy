@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import AwwwardsHeader from '../components/AwwwardsHeader';
 import '../styles/marketing.css';
 import { 
   Check, 
@@ -75,11 +74,8 @@ const PricingPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Awwwards Header */}
-      <AwwwardsHeader />
-
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-50 to-cyan-50" style={{ marginTop: '100px' }}>
+      <section className="py-20 bg-gradient-to-br from-blue-50 to-cyan-50" style={{ paddingTop: '120px' }}>
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h1 className="text-5xl font-bold mb-6 text-gradient">
             {t('marketing.pricing.title_detailed')}
