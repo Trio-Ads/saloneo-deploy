@@ -579,24 +579,52 @@ export const createPublicBooking = async (req: Request, res: Response): Promise<
       return;
     }
 
-    // Verify team member exists
-    const teamMember = await TeamMember.findOne({
-      _id: stylistId,
-      userId: matchingUser._id,
-      isActive: true
-    });
+    // Handle owner vs team member
+    let actualStylistId = stylistId;
+    let stylistName = '';
+    
+    // Check if stylistId has "owner-" prefix
+    if (stylistId.startsWith('owner-')) {
+      // Extract the actual user ID
+      const ownerId = stylistId.replace('owner-', '');
+      
+      // Verify it matches the salon owner
+      if (ownerId !== (matchingUser._id as any).toString()) {
+        logger.error('Owner ID mismatch:', { provided: ownerId, expected: matchingUser._id });
+        res.status(400).json({ error: 'ID propriétaire invalide' });
+        return;
+      }
+      
+      // Use the owner's ID directly
+      actualStylistId = (matchingUser._id as any).toString();
+      stylistName = `${matchingUser.firstName} ${matchingUser.lastName}`;
+      
+      logger.info('Using salon owner as stylist:', {
+        ownerId: actualStylistId,
+        ownerName: stylistName
+      });
+    } else {
+      // Verify team member exists
+      const teamMember = await TeamMember.findOne({
+        _id: stylistId,
+        userId: matchingUser._id,
+        isActive: true
+      });
 
-    if (!teamMember) {
-      logger.error('Team member not found:', stylistId);
-      res.status(404).json({ error: 'Coiffeur non trouvé' });
-      return;
+      if (!teamMember) {
+        logger.error('Team member not found:', stylistId);
+        res.status(404).json({ error: 'Coiffeur non trouvé' });
+        return;
+      }
+      
+      stylistName = `${teamMember.firstName} ${teamMember.lastName}`;
     }
 
-    logger.info('Service and team member verified:', {
+    logger.info('Service and stylist verified:', {
       serviceName: service.name,
       duration: service.duration,
       price: service.price,
-      teamMemberName: `${teamMember.firstName} ${teamMember.lastName}`
+      stylistName: stylistName
     });
 
     // Calculate end time using service duration
@@ -610,7 +638,7 @@ export const createPublicBooking = async (req: Request, res: Response): Promise<
     const existingAppointments = await Appointment.find({
       userId: matchingUser._id,
       date: new Date(date),
-      stylistId: stylistId, // Using UUID as string
+      stylistId: actualStylistId,
       status: { $ne: 'cancelled' },
       $or: [
         {
@@ -723,8 +751,8 @@ export const createPublicBooking = async (req: Request, res: Response): Promise<
     const appointment = new Appointment({
       userId: matchingUser._id,
       clientId: client._id,
-      serviceId: service._id, // Use MongoDB ObjectId
-      stylistId: teamMember._id, // Use MongoDB ObjectId
+      serviceId: service._id,
+      stylistId: actualStylistId,
       date: new Date(date),
       startTime,
       endTime,
