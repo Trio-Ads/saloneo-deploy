@@ -36,6 +36,7 @@ const mapServiceFromAPI = (apiService: any): Service => ({
   isActive: apiService.isActive !== false,
   products: apiService.products || [],
   image: apiService.image,
+  images: apiService.images || [],
   bufferTimeBefore: apiService.bufferTimeBefore || 0,
   bufferTimeAfter: apiService.bufferTimeAfter || 0,
   maxAdvanceBooking: apiService.maxAdvanceBooking || 30,
