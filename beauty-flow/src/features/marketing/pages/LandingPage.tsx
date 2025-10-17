@@ -7,6 +7,18 @@ import AwwwardsHeader from '../components/AwwwardsHeader';
 import '../styles/marketing.css';
 import api from '../../../services/api';
 
+// Hook pour vérifier l'authentification
+const useAuth = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsAuthenticated(!!token);
+  }, []);
+  
+  return { isAuthenticated };
+};
+
 // Import direct de la version lite pour un chargement rapide
 import { Hero3DLite } from '../components/Hero3DLite';
 
@@ -32,14 +44,22 @@ import {
 } from 'lucide-react';
 
 const LandingPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation('marketing');
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
   const { images, getImageUrl } = useStabilityAI();
   const { models, getModelUrl } = use3DModels();
   const [showVideo, setShowVideo] = useState(false);
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [show3D, setShow3D] = useState(true);
+
+  // Redirection intelligente si connecté
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/dashboard');
+    }
+  }, [isAuthenticated, navigate]);
 
   // Track page visit
   useEffect(() => {
@@ -74,14 +94,14 @@ const LandingPage: React.FC = () => {
       <AwwwardsHeader />
       
       {/* Hero Section 3D */}
-      <section className="hero-section-3d" style={{ paddingTop: '120px', position: 'relative', minHeight: '100vh' }}>
+      <section className="hero-section-3d" style={{ paddingTop: '120px', position: 'relative', minHeight: '100vh', background: 'linear-gradient(135deg, #F97316 0%, #EA580C 50%, #C2410C 100%)' }}>
         {/* Canvas 3D en arrière-plan */}
         {show3D && (
           <Suspense fallback={
-            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blue-50 to-cyan-50">
+            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-orange-50 to-orange-100 dark:from-gray-900 dark:to-gray-800">
               <div className="text-center">
-                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary mx-auto mb-4"></div>
-                <p className="text-gray-600">Chargement de l'expérience 3D...</p>
+                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-orange-500 mx-auto mb-4"></div>
+                <p className="text-gray-600 dark:text-gray-300">{t('hero.loading', 'Chargement de l\'expérience 3D...')}</p>
               </div>
             </div>
           }>
@@ -95,11 +115,10 @@ const LandingPage: React.FC = () => {
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="hero-text-3d">
                 <h1 className="hero-headline-3d text-5xl md:text-6xl font-bold mb-6 text-white drop-shadow-2xl">
-                  Votre salon mérite une infrastructure à la hauteur de vos ambitions
+                  {t('hero.title', 'Révolutionnez la gestion de votre salon de beauté')}
                 </h1>
                 <p className="hero-subheadline-3d text-xl md:text-2xl mb-8 text-white/90 drop-shadow-lg">
-                  La plateforme de gestion qui équipe les salons les plus performants d'Algérie. 
-                  Transformez votre expertise beauté en machine de croissance.
+                  {t('hero.subtitle', 'La solution tout-en-un pour digitaliser et développer votre activité. Rejoignez 847+ salons qui ont transformé leur business.')}
                 </p>
                 
                 <div className="mb-8">
@@ -118,7 +137,7 @@ const LandingPage: React.FC = () => {
                       <div className="flex text-yellow-400">
                         {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" />)}
                       </div>
-                      <p className="text-sm text-white">847+ salons nous font confiance</p>
+                      <p className="text-sm text-white">{t('hero.trust', '847+ salons nous font confiance')}</p>
                     </div>
                   </div>
                 </div>
@@ -129,26 +148,26 @@ const LandingPage: React.FC = () => {
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Votre email professionnel"
-                      className="flex-1 px-6 py-4 rounded-lg bg-white/90 backdrop-blur-md border border-white/30 focus:outline-none focus:border-primary placeholder-gray-600"
+                      placeholder={t('hero.emailPlaceholder', 'Votre email professionnel')}
+                      className="flex-1 px-6 py-4 rounded-lg bg-white/90 backdrop-blur-md border border-white/30 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 placeholder-gray-600 dark:bg-gray-800/90 dark:text-white dark:placeholder-gray-400"
                       required
                     />
-                    <button type="submit" className="btn-primary-3d px-8 py-4 bg-gradient-to-r from-primary to-cyan-500 text-white font-bold rounded-lg shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300" disabled={loading}>
-                      {loading ? 'Chargement...' : 'Commencer Gratuitement'}
+                    <button type="submit" className="btn-primary-3d px-8 py-4 bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800 text-white font-bold rounded-lg shadow-orange-lg hover:shadow-orange-xl transform hover:scale-105 transition-all duration-300" disabled={loading}>
+                      {loading ? t('hero.loading', 'Chargement...') : t('hero.cta', 'Commencer Gratuitement')}
                     </button>
                   </div>
                   <p className="text-sm text-white/80 mt-2">
-                    30 jours d'essai gratuit • Sans carte bancaire • Installation en 5 minutes
+                    {t('hero.guarantee', '30 jours d\'essai gratuit • Sans carte bancaire • Installation en 5 minutes')}
                   </p>
                 </form>
 
                 <div className="hero-cta-group flex gap-4">
                   <button 
                     onClick={() => setShowVideo(true)}
-                    className="btn-secondary-3d flex items-center gap-2 px-6 py-3 bg-white/20 backdrop-blur-md text-white border border-white/30 rounded-lg hover:bg-white/30 transition-all duration-300"
+                    className="btn-secondary-3d flex items-center gap-2 px-6 py-3 bg-white/20 backdrop-blur-md text-white border border-orange-300/30 rounded-lg hover:bg-white/30 hover:border-orange-300/50 transition-all duration-300"
                   >
                     <Play size={20} />
-                    Voir la démo (2 min)
+                    {t('hero.demo', 'Voir la démo (2 min)')}
                   </button>
                   <button 
                     onClick={() => setShow3D(!show3D)}
@@ -162,22 +181,22 @@ const LandingPage: React.FC = () => {
               {/* Stats flottantes */}
               <div className="hidden md:block relative">
                 <div className="floating-stats-3d">
-                  <div className="stat-card-3d absolute top-0 right-0 bg-white/20 backdrop-blur-md rounded-2xl p-6 shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-300">
-                    <TrendingUp className="text-cyan-400 mb-2" size={32} />
+                  <div className="stat-card-3d absolute top-0 right-0 bg-white/20 backdrop-blur-md rounded-2xl p-6 shadow-orange-lg border border-orange-300/20 transform rotate-3 hover:rotate-0 transition-transform duration-300">
+                    <TrendingUp className="text-orange-300 mb-2" size={32} />
                     <p className="text-3xl font-bold text-white">+47%</p>
-                    <p className="text-white/80">Augmentation CA</p>
+                    <p className="text-white/80">{t('stats.revenue', 'Augmentation CA')}</p>
                   </div>
                   
-                  <div className="stat-card-3d absolute bottom-0 left-0 bg-white/20 backdrop-blur-md rounded-2xl p-6 shadow-2xl transform -rotate-3 hover:rotate-0 transition-transform duration-300">
-                    <Clock className="text-blue-400 mb-2" size={32} />
+                  <div className="stat-card-3d absolute bottom-0 left-0 bg-white/20 backdrop-blur-md rounded-2xl p-6 shadow-orange-lg border border-orange-300/20 transform -rotate-3 hover:rotate-0 transition-transform duration-300">
+                    <Clock className="text-orange-200 mb-2" size={32} />
                     <p className="text-3xl font-bold text-white">15h</p>
-                    <p className="text-white/80">Économisées/semaine</p>
+                    <p className="text-white/80">{t('stats.timeSaved', 'Économisées/semaine')}</p>
                   </div>
                   
-                  <div className="stat-card-3d absolute top-1/2 right-1/4 bg-white/20 backdrop-blur-md rounded-2xl p-6 shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-300">
-                    <Users className="text-purple-400 mb-2" size={32} />
+                  <div className="stat-card-3d absolute top-1/2 right-1/4 bg-white/20 backdrop-blur-md rounded-2xl p-6 shadow-orange-lg border border-orange-300/20 transform rotate-2 hover:rotate-0 transition-transform duration-300">
+                    <Users className="text-orange-100 mb-2" size={32} />
                     <p className="text-3xl font-bold text-white">847+</p>
-                    <p className="text-white/80">Salons actifs</p>
+                    <p className="text-white/80">{t('stats.salons', 'Salons actifs')}</p>
                   </div>
                 </div>
               </div>
@@ -187,38 +206,38 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Social Proof Bar */}
-      <section className="py-8 bg-gray-50 border-y">
+      <section className="py-8 bg-gray-50 dark:bg-gray-900 border-y border-gray-200 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex flex-wrap justify-center items-center gap-8 text-gray-600">
+          <div className="flex flex-wrap justify-center items-center gap-8 text-gray-600 dark:text-gray-300">
             <div className="text-center">
-              <p className="text-3xl font-bold text-primary">847+</p>
-              <p className="text-sm">Salons actifs</p>
+              <p className="text-3xl font-bold text-orange-600 dark:text-orange-500">847+</p>
+              <p className="text-sm">{t('socialProof.salons', 'Salons actifs')}</p>
             </div>
             <div className="text-center">
-              <p className="text-3xl font-bold text-primary">127K+</p>
-              <p className="text-sm">Rendez-vous gérés</p>
+              <p className="text-3xl font-bold text-orange-600 dark:text-orange-500">127K+</p>
+              <p className="text-sm">{t('socialProof.appointments', 'Rendez-vous gérés')}</p>
             </div>
             <div className="text-center">
-              <p className="text-3xl font-bold text-primary">98%</p>
-              <p className="text-sm">Satisfaction client</p>
+              <p className="text-3xl font-bold text-orange-600 dark:text-orange-500">98%</p>
+              <p className="text-sm">{t('socialProof.satisfaction', 'Satisfaction client')}</p>
             </div>
             <div className="text-center">
-              <p className="text-3xl font-bold text-primary">24/7</p>
-              <p className="text-sm">Support dédié</p>
+              <p className="text-3xl font-bold text-orange-600 dark:text-orange-500">24/7</p>
+              <p className="text-sm">{t('socialProof.support', 'Support dédié')}</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Problem/Solution Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">
-              Transformez les défis en opportunités
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-orange-600 to-orange-700 bg-clip-text text-transparent">
+              {t('problemSolution.title', 'Transformez les défis en opportunités')}
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Saloneo résout les problèmes quotidiens des salons modernes avec une infrastructure digitale complète
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              {t('problemSolution.subtitle', 'Saloneo résout les problèmes quotidiens des salons modernes avec une infrastructure digitale complète')}
             </p>
           </div>
 
@@ -251,27 +270,27 @@ const LandingPage: React.FC = () => {
             </div>
 
             <div>
-              <h3 className="text-2xl font-bold mb-6 text-primary">Avec Saloneo</h3>
+              <h3 className="text-2xl font-bold mb-6 text-orange-600 dark:text-orange-500">Avec Saloneo</h3>
               <ul className="space-y-4">
                 <li className="flex items-start gap-3">
-                  <Check className="text-cyan-500 mt-1" size={20} />
+                  <Check className="text-orange-500 mt-1" size={20} />
                   <div>
-                    <p className="font-semibold">Calendrier intelligent synchronisé</p>
-                    <p className="text-gray-600">Zéro conflit, notifications automatiques, gestion optimale</p>
+                    <p className="font-semibold dark:text-white">Calendrier intelligent synchronisé</p>
+                    <p className="text-gray-600 dark:text-gray-300">Zéro conflit, notifications automatiques, gestion optimale</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <Check className="text-cyan-500 mt-1" size={20} />
+                  <Check className="text-orange-500 mt-1" size={20} />
                   <div>
-                    <p className="font-semibold">Page salon professionnelle</p>
-                    <p className="text-gray-600">Réservation 24/7, SEO local optimisé, avis clients</p>
+                    <p className="font-semibold dark:text-white">Page salon professionnelle</p>
+                    <p className="text-gray-600 dark:text-gray-300">Réservation 24/7, SEO local optimisé, avis clients</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <Check className="text-cyan-500 mt-1" size={20} />
+                  <Check className="text-orange-500 mt-1" size={20} />
                   <div>
-                    <p className="font-semibold">Analytics et insights business</p>
-                    <p className="text-gray-600">KPIs en temps réel, optimisation des revenus, croissance pilotée</p>
+                    <p className="font-semibold dark:text-white">Analytics et insights business</p>
+                    <p className="text-gray-600 dark:text-gray-300">KPIs en temps réel, optimisation des revenus, croissance pilotée</p>
                   </div>
                 </li>
               </ul>
@@ -373,18 +392,18 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* ROI Calculator Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-gray-50 dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-4xl font-bold mb-6">
-                Calculez votre retour sur investissement
+              <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-orange-600 to-orange-700 bg-clip-text text-transparent">
+                {t('roi.title', 'Calculez votre retour sur investissement')}
               </h2>
-              <p className="text-xl text-gray-600 mb-8">
-                Découvrez combien Saloneo peut augmenter vos revenus dès le premier mois
+              <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
+                {t('roi.subtitle', 'Découvrez combien Saloneo peut augmenter vos revenus dès le premier mois')}
               </p>
 
-              <div className="bg-white p-8 rounded-2xl shadow-lg">
+              <div className="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-orange-lg border border-orange-500/10">
                 <div className="space-y-6">
                   <div>
                     <label className="block text-sm font-medium mb-2">
@@ -419,11 +438,11 @@ const LandingPage: React.FC = () => {
                       <span>Revenus actuels</span>
                       <span className="font-bold">200 000 DZD</span>
                     </div>
-                    <div className="flex justify-between mb-4 text-cyan-600">
+                    <div className="flex justify-between mb-4 text-orange-600 dark:text-orange-500">
                       <span>Revenus avec Saloneo (+35%)</span>
                       <span className="font-bold">270 000 DZD</span>
                     </div>
-                    <div className="flex justify-between text-xl font-bold text-primary">
+                    <div className="flex justify-between text-xl font-bold text-orange-600 dark:text-orange-500">
                       <span>Gain mensuel</span>
                       <span>+70 000 DZD</span>
                     </div>
@@ -449,14 +468,14 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="pricing-section">
-        <div className="max-w-7xl mx-auto">
+      <section id="pricing" className="pricing-section py-20 bg-white dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">
-              Des tarifs adaptés à vos ambitions
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-orange-600 to-orange-700 bg-clip-text text-transparent">
+              {t('pricing.title', 'Des tarifs adaptés à vos ambitions')}
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Commencez gratuitement, évoluez à votre rythme. Sans engagement, sans surprise.
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              {t('pricing.subtitle', 'Commencez gratuitement, évoluez à votre rythme. Sans engagement, sans surprise.')}
             </p>
           </div>
 
@@ -503,7 +522,7 @@ const LandingPage: React.FC = () => {
                   <span className="period">/mois</span>
                 </div>
                 <p className="pricing-original">3 167 DZD</p>
-                <p className="text-cyan-600 font-semibold">Économisez 40%</p>
+                <p className="text-orange-600 dark:text-orange-500 font-semibold">Économisez 40%</p>
               </div>
               <ul className="pricing-features">
                 <li className="pricing-feature">
@@ -545,7 +564,7 @@ const LandingPage: React.FC = () => {
                   <span className="period">/mois</span>
                 </div>
                 <p className="pricing-original">5 000 DZD</p>
-                <p className="text-cyan-600 font-semibold">Économisez 30%</p>
+                <p className="text-orange-600 dark:text-orange-500 font-semibold">Économisez 30%</p>
               </div>
               <ul className="pricing-features">
                 <li className="pricing-feature">
@@ -583,22 +602,22 @@ const LandingPage: React.FC = () => {
             <p className="text-lg font-semibold mb-4">
               💰 Économisez jusqu'à 50% avec nos forfaits annuels
             </p>
-            <Link to="/pricing" className="text-primary hover:underline">
-              Voir tous les forfaits et options →
+            <Link to="/pricing" className="text-orange-600 dark:text-orange-500 hover:underline font-semibold">
+              {t('pricing.viewAll', 'Voir tous les forfaits et options')} →
             </Link>
           </div>
         </div>
       </section>
 
       {/* Testimonials Section */}
-      <section id="testimonials" className="testimonials-section">
-        <div className="max-w-7xl mx-auto">
+      <section id="testimonials" className="testimonials-section py-20 bg-gray-50 dark:bg-gray-800">
+        <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">
-              Ils ont transformé leur salon avec Saloneo
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-orange-600 to-orange-700 bg-clip-text text-transparent">
+              {t('testimonials.title', 'Ils ont transformé leur salon avec Saloneo')}
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Découvrez comment nos clients ont révolutionné leur business
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              {t('testimonials.subtitle', 'Découvrez comment nos clients ont révolutionné leur business')}
             </p>
           </div>
 
@@ -679,7 +698,7 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Security Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
@@ -687,48 +706,45 @@ const LandingPage: React.FC = () => {
                 <img 
                   src={getImageUrl(images.security.url)} 
                   alt="Sécurité SATIM"
-                  className="rounded-2xl shadow-2xl"
+                  className="rounded-2xl shadow-orange-xl border border-orange-500/10"
                 />
               )}
             </div>
             <div>
-              <h2 className="text-4xl font-bold mb-6">
-                Sécurité et conformité garanties
+              <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-orange-600 to-orange-700 bg-clip-text text-transparent">
+                {t('security.title', 'Sécurité et conformité garanties')}
               </h2>
-              <p className="text-xl text-gray-600 mb-8">
-                Vos données et celles de vos clients sont protégées selon les plus hauts standards
+              <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
+                {t('security.subtitle', 'Vos données et celles de vos clients sont protégées selon les plus hauts standards')}
               </p>
               
               <div className="space-y-4">
                 <div className="flex items-start gap-4">
-                  <Shield className="text-primary mt-1" size={24} />
+                  <Shield className="text-orange-600 dark:text-orange-500 mt-1" size={24} />
                   <div>
-                    <h4 className="font-semibold mb-1">Paiements sécurisés SATIM</h4>
-                    <p className="text-gray-600">
-                      Intégration officielle avec le système de paiement algérien. 
-                      Transactions 100% sécurisées et conformes.
+                    <h4 className="font-semibold mb-1 dark:text-white">{t('security.satim', 'Paiements sécurisés SATIM')}</h4>
+                    <p className="text-gray-600 dark:text-gray-300">
+                      {t('security.satimDesc', 'Intégration officielle avec le système de paiement algérien. Transactions 100% sécurisées et conformes.')}
                     </p>
                   </div>
                 </div>
                 
                 <div className="flex items-start gap-4">
-                  <Shield className="text-primary mt-1" size={24} />
+                  <Shield className="text-orange-600 dark:text-orange-500 mt-1" size={24} />
                   <div>
-                    <h4 className="font-semibold mb-1">Données chiffrées</h4>
-                    <p className="text-gray-600">
-                      Chiffrement SSL/TLS de bout en bout. 
-                      Vos données sont hébergées sur des serveurs sécurisés.
+                    <h4 className="font-semibold mb-1 dark:text-white">{t('security.encryption', 'Données chiffrées')}</h4>
+                    <p className="text-gray-600 dark:text-gray-300">
+                      {t('security.encryptionDesc', 'Chiffrement SSL/TLS de bout en bout. Vos données sont hébergées sur des serveurs sécurisés.')}
                     </p>
                   </div>
                 </div>
                 
                 <div className="flex items-start gap-4">
-                  <Shield className="text-primary mt-1" size={24} />
+                  <Shield className="text-orange-600 dark:text-orange-500 mt-1" size={24} />
                   <div>
-                    <h4 className="font-semibold mb-1">Conformité RGPD</h4>
-                    <p className="text-gray-600">
-                      Respect total de la vie privée. 
-                      Contrôle total sur vos données.
+                    <h4 className="font-semibold mb-1 dark:text-white">{t('security.gdpr', 'Conformité RGPD')}</h4>
+                    <p className="text-gray-600 dark:text-gray-300">
+                      {t('security.gdprDesc', 'Respect total de la vie privée. Contrôle total sur vos données.')}
                     </p>
                   </div>
                 </div>
@@ -739,85 +755,86 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* CTA Final Section */}
-      <section className="cta-section">
-        <div className="cta-content">
-          <h2 className="cta-title">
-            Prêt à transformer votre salon ?
+      <section className="cta-section py-20 bg-gradient-to-br from-orange-600 via-orange-700 to-orange-800 relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="cta-content relative z-10 max-w-4xl mx-auto px-4 text-center">
+          <h2 className="cta-title text-5xl font-bold text-white mb-6">
+            {t('cta.title', 'Prêt à transformer votre salon ?')}
           </h2>
-          <p className="cta-description">
-            Rejoignez les 847+ salons qui ont déjà révolutionné leur business avec Saloneo
+          <p className="cta-description text-xl text-white/90 mb-8">
+            {t('cta.subtitle', 'Rejoignez les 847+ salons qui ont déjà révolutionné leur business avec Saloneo')}
           </p>
-          <div className="cta-buttons">
-            <Link to="/register" className="btn-white">
-              Commencer l'essai gratuit
+          <div className="cta-buttons flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/register" className="btn-white px-8 py-4 bg-white text-orange-600 font-bold rounded-lg hover:bg-gray-100 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105">
+              {t('cta.start', 'Commencer l\'essai gratuit')}
             </Link>
             <button 
               onClick={() => setShowVideo(true)}
-              className="btn-white flex items-center gap-2"
+              className="btn-white flex items-center justify-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-md text-white border-2 border-white/30 font-bold rounded-lg hover:bg-white/20 transition-all duration-300"
             >
               <Play size={20} />
-              Voir la démo
+              {t('cta.demo', 'Voir la démo')}
             </button>
           </div>
           <p className="text-white/80 mt-6">
-            ✓ 30 jours gratuits &nbsp;&nbsp; ✓ Sans carte bancaire &nbsp;&nbsp; ✓ Installation en 5 minutes
+            {t('cta.guarantee', '✓ 30 jours gratuits   ✓ Sans carte bancaire   ✓ Installation en 5 minutes')}
           </p>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
+      <footer className="bg-gray-900 dark:bg-black text-white py-12 border-t border-orange-500/10">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-2xl font-bold mb-4">Saloneo</h3>
+              <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">Saloneo</h3>
               <p className="text-gray-400">
-                L'infrastructure digitale des salons modernes
+                {t('footer.tagline', 'L\'infrastructure digitale des salons modernes')}
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Produit</h4>
+              <h4 className="font-semibold mb-4 text-orange-500">{t('footer.product', 'Produit')}</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><Link to="/features">Fonctionnalités</Link></li>
-                <li><Link to="/pricing">Tarifs</Link></li>
-                <li><Link to="/security">Sécurité</Link></li>
+                <li><Link to="/features" className="hover:text-orange-500 transition-colors">{t('footer.features', 'Fonctionnalités')}</Link></li>
+                <li><Link to="/pricing" className="hover:text-orange-500 transition-colors">{t('footer.pricing', 'Tarifs')}</Link></li>
+                <li><Link to="/security" className="hover:text-orange-500 transition-colors">{t('footer.security', 'Sécurité')}</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Entreprise</h4>
+              <h4 className="font-semibold mb-4 text-orange-500">{t('footer.company', 'Entreprise')}</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><Link to="/about">À propos</Link></li>
-                <li><Link to="/contact">Contact</Link></li>
-                <li><Link to="/blog">Blog</Link></li>
+                <li><Link to="/about" className="hover:text-orange-500 transition-colors">{t('footer.about', 'À propos')}</Link></li>
+                <li><Link to="/contact" className="hover:text-orange-500 transition-colors">{t('footer.contact', 'Contact')}</Link></li>
+                <li><Link to="/blog" className="hover:text-orange-500 transition-colors">{t('footer.blog', 'Blog')}</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Support</h4>
+              <h4 className="font-semibold mb-4 text-orange-500">{t('footer.support', 'Support')}</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><Link to="/help">Centre d'aide</Link></li>
-                <li><Link to="/docs">Documentation</Link></li>
-                <li><a href="mailto:support@saloneo.com">support@saloneo.com</a></li>
+                <li><Link to="/help" className="hover:text-orange-500 transition-colors">{t('footer.help', 'Centre d\'aide')}</Link></li>
+                <li><Link to="/docs" className="hover:text-orange-500 transition-colors">{t('footer.docs', 'Documentation')}</Link></li>
+                <li><a href="mailto:support@saloneo.com" className="hover:text-orange-500 transition-colors">support@saloneo.com</a></li>
               </ul>
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2025 Saloneo. Tous droits réservés.</p>
+            <p>&copy; 2025 Saloneo. {t('footer.rights', 'Tous droits réservés.')}</p>
           </div>
         </div>
       </footer>
 
       {/* Video Modal */}
       {showVideo && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
           <div className="relative max-w-4xl w-full">
             <button 
               onClick={() => setShowVideo(false)}
-              className="absolute -top-12 right-0 text-white hover:text-gray-300"
+              className="absolute -top-12 right-0 text-white hover:text-orange-500 transition-colors font-semibold"
             >
-              ✕ Fermer
+              ✕ {t('modal.close', 'Fermer')}
             </button>
-            <div className="aspect-video bg-gray-900 rounded-lg flex items-center justify-center">
-              <p className="text-white">Vidéo de démonstration</p>
+            <div className="aspect-video bg-gray-900 rounded-2xl flex items-center justify-center border-2 border-orange-500/20 shadow-orange-xl">
+              <p className="text-white text-xl">{t('modal.demoVideo', 'Vidéo de démonstration')}</p>
             </div>
           </div>
         </div>
