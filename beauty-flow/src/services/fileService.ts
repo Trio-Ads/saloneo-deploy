@@ -24,9 +24,7 @@ export const fileService = {
       return response.data.file.url;
     } catch (error) {
       console.error('Error uploading image:', error);
-      
-      // Fallback vers localStorage en cas d'erreur API
-      return this.uploadImageToLocalStorage(file, type, id);
+      throw new Error('Failed to upload image. Please try again.');
     }
   },
 

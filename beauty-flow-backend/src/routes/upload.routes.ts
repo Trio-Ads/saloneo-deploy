@@ -23,6 +23,12 @@ router.post('/service/:serviceId/image', uploadSingle('image'), uploadController
 // Upload team member avatar
 router.post('/team/:teamMemberId/avatar', uploadSingle('avatar'), uploadController.uploadTeamMemberAvatar);
 
+// Upload logo
+router.post('/logo', uploadSingle('logo'), uploadController.uploadLogo);
+
+// Upload banner
+router.post('/banner', uploadSingle('banner'), uploadController.uploadBanner);
+
 // Delete file
 router.delete('/file', uploadController.deleteFile);
 

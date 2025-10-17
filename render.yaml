@@ -37,3 +37,13 @@ services:
         value: 100
       - key: LOG_LEVEL
         value: info
+      - key: STORAGE_PROVIDER
+        value: cloudinary
+      - key: CLOUDINARY_CLOUD_NAME
+        value: dc7w17b96
+      - key: CLOUDINARY_API_KEY
+        value: 416623916388651
+      - key: CLOUDINARY_API_SECRET
+        value: 1HkTHGLvk5MnV_WKd3TYRAIctKo
+      - key: CDN_BASE_URL
+        value: https://res.cloudinary.com/dc7w17b96

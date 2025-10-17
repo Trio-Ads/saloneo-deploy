@@ -270,6 +270,112 @@ export const deleteFile = async (req: AuthRequest, res: Response): Promise<void>
   }
 };
 
+// Upload logo
+export const uploadLogo = async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    if (!req.file) {
+      res.status(400).json({ error: 'No file uploaded' });
+      return;
+    }
+
+    const userId = req.userId;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+
+    // Delete old logo from Cloudinary if exists
+    if (user.logo && user.logo.includes('cloudinary')) {
+      const publicId = user.logo.split('/').slice(-1)[0].split('.')[0];
+      await cloudStorageService.deleteFile(publicId).catch(() => {});
+    }
+
+    // Upload new logo to Cloudinary
+    const result = await cloudStorageService.uploadFile(
+      req.file.buffer,
+      req.file.originalname,
+      req.file.mimetype,
+      {
+        folder: 'saloneo/logos',
+        optimize: true,
+        generateThumbnails: true,
+        thumbnailSizes: [
+          { width: 100, height: 100, suffix: 'thumb' },
+          { width: 200, height: 200, suffix: 'medium' },
+        ],
+      }
+    );
+
+    // Update user logo
+    user.logo = result.cdnUrl || result.url;
+    await user.save();
+
+    res.json({
+      message: 'Logo uploaded successfully',
+      logo: result.cdnUrl || result.url,
+      thumbnails: result.thumbnails,
+    });
+  } catch (error) {
+    logger.error('Upload logo error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+// Upload banner
+export const uploadBanner = async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    if (!req.file) {
+      res.status(400).json({ error: 'No file uploaded' });
+      return;
+    }
+
+    const userId = req.userId;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+
+    // Delete old banner from Cloudinary if exists
+    if (user.banner && user.banner.includes('cloudinary')) {
+      const publicId = user.banner.split('/').slice(-1)[0].split('.')[0];
+      await cloudStorageService.deleteFile(publicId).catch(() => {});
+    }
+
+    // Upload new banner to Cloudinary
+    const result = await cloudStorageService.uploadFile(
+      req.file.buffer,
+      req.file.originalname,
+      req.file.mimetype,
+      {
+        folder: 'saloneo/banners',
+        optimize: true,
+        generateThumbnails: true,
+        thumbnailSizes: [
+          { width: 800, height: 400, suffix: 'medium' },
+          { width: 1600, height: 800, suffix: 'large' },
+        ],
+      }
+    );
+
+    // Update user banner
+    user.banner = result.cdnUrl || result.url;
+    await user.save();
+
+    res.json({
+      message: 'Banner uploaded successfully',
+      banner: result.cdnUrl || result.url,
+      thumbnails: result.thumbnails,
+    });
+  } catch (error) {
+    logger.error('Upload banner error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
 // Get optimized image URL
 export const getOptimizedImageUrl = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
