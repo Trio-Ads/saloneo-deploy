@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import { AuthRequest } from '../middleware/auth';
-import { getFileUrl, deleteUploadedFile } from '../middleware/upload';
+import { cloudStorageService } from '../services/cloudStorageService';
 import { logger } from '../utils/logger';
 import { User } from '../models/User';
 import { Service } from '../models/Service';
@@ -13,17 +13,26 @@ export const uploadFile = async (req: AuthRequest, res: Response): Promise<void>
       return;
     }
 
-    const fileUrl = getFileUrl(req.file.path, `${req.protocol}://${req.get('host')}`);
+    // Upload to Cloudinary
+    const result = await cloudStorageService.uploadFile(
+      req.file.buffer,
+      req.file.originalname,
+      req.file.mimetype,
+      {
+        folder: 'saloneo/general',
+        optimize: true,
+      }
+    );
 
     res.json({
       message: 'File uploaded successfully',
       file: {
-        filename: req.file.filename,
+        filename: req.file.originalname,
         originalName: req.file.originalname,
-        size: req.file.size,
+        size: result.size,
         mimetype: req.file.mimetype,
-        path: req.file.path,
-        url: fileUrl,
+        url: result.cdnUrl || result.url,
+        publicId: result.publicId,
       },
     });
   } catch (error) {
@@ -39,14 +48,30 @@ export const uploadMultipleFiles = async (req: AuthRequest, res: Response): Prom
       return;
     }
 
-    const baseUrl = `${req.protocol}://${req.get('host')}`;
-    const files = req.files.map(file => ({
-      filename: file.filename,
-      originalName: file.originalname,
-      size: file.size,
-      mimetype: file.mimetype,
-      path: file.path,
-      url: getFileUrl(file.path, baseUrl),
+    const filesArray = req.files as Express.Multer.File[];
+
+    // Upload all files to Cloudinary
+    const uploadPromises = filesArray.map(file =>
+      cloudStorageService.uploadFile(
+        file.buffer,
+        file.originalname,
+        file.mimetype,
+        {
+          folder: 'saloneo/general',
+          optimize: true,
+        }
+      )
+    );
+
+    const results = await Promise.all(uploadPromises);
+
+    const files = results.map((result, index) => ({
+      filename: filesArray[index].originalname,
+      originalName: filesArray[index].originalname,
+      size: result.size,
+      mimetype: filesArray[index].mimetype,
+      url: result.cdnUrl || result.url,
+      publicId: result.publicId,
     }));
 
     res.json({
@@ -70,30 +95,43 @@ export const uploadProfileAvatar = async (req: AuthRequest, res: Response): Prom
     const user = await User.findById(userId);
 
     if (!user) {
-      await deleteUploadedFile(req.file.path);
       res.status(404).json({ error: 'User not found' });
       return;
     }
 
-    // Delete old avatar if exists
-    if (user.avatar) {
-      await deleteUploadedFile(user.avatar).catch(() => {});
+    // Delete old avatar from Cloudinary if exists
+    if (user.avatar && user.avatar.includes('cloudinary')) {
+      const publicId = user.avatar.split('/').slice(-1)[0].split('.')[0];
+      await cloudStorageService.deleteFile(publicId).catch(() => {});
     }
 
+    // Upload new avatar to Cloudinary
+    const result = await cloudStorageService.uploadFile(
+      req.file.buffer,
+      req.file.originalname,
+      req.file.mimetype,
+      {
+        folder: 'saloneo/avatars',
+        optimize: true,
+        generateThumbnails: true,
+        thumbnailSizes: [
+          { width: 50, height: 50, suffix: 'thumb' },
+          { width: 150, height: 150, suffix: 'medium' },
+        ],
+      }
+    );
+
     // Update user avatar
-    const fileUrl = getFileUrl(req.file.path, `${req.protocol}://${req.get('host')}`);
-    user.avatar = req.file.path;
+    user.avatar = result.cdnUrl || result.url;
     await user.save();
 
     res.json({
       message: 'Avatar uploaded successfully',
-      avatar: fileUrl,
+      avatar: result.cdnUrl || result.url,
+      thumbnails: result.thumbnails,
     });
   } catch (error) {
     logger.error('Upload avatar error:', error);
-    if (req.file) {
-      await deleteUploadedFile(req.file.path).catch(() => {});
-    }
     res.status(500).json({ error: 'Server error' });
   }
 };
@@ -111,32 +149,47 @@ export const uploadServiceImage = async (req: AuthRequest, res: Response): Promi
     const service = await Service.findOne({ _id: serviceId, userId });
 
     if (!service) {
-      await deleteUploadedFile(req.file.path);
       res.status(404).json({ error: 'Service not found' });
       return;
     }
 
+    // Upload to Cloudinary
+    const result = await cloudStorageService.uploadFile(
+      req.file.buffer,
+      req.file.originalname,
+      req.file.mimetype,
+      {
+        folder: 'saloneo/services',
+        optimize: true,
+        generateThumbnails: true,
+        thumbnailSizes: [
+          { width: 300, height: 200, suffix: 'thumb' },
+          { width: 600, height: 400, suffix: 'medium' },
+        ],
+      }
+    );
+
     // Add new image to images array
-    const fileUrl = getFileUrl(req.file.path, `${req.protocol}://${req.get('host')}`);
     if (!service.images) {
       service.images = [];
     }
+    
     service.images.push({
-      url: fileUrl,
+      url: result.cdnUrl || result.url,
       alt: req.file.originalname,
       isPrimary: service.images.length === 0, // First image is primary
     });
+    
     await service.save();
 
     res.json({
       message: 'Service image uploaded successfully',
-      image: fileUrl,
+      image: result.cdnUrl || result.url,
+      thumbnails: result.thumbnails,
+      publicId: result.publicId,
     });
   } catch (error) {
     logger.error('Upload service image error:', error);
-    if (req.file) {
-      await deleteUploadedFile(req.file.path).catch(() => {});
-    }
     res.status(500).json({ error: 'Server error' });
   }
 };
@@ -154,48 +207,92 @@ export const uploadTeamMemberAvatar = async (req: AuthRequest, res: Response): P
     const teamMember = await TeamMember.findOne({ _id: teamMemberId, userId });
 
     if (!teamMember) {
-      await deleteUploadedFile(req.file.path);
       res.status(404).json({ error: 'Team member not found' });
       return;
     }
 
-    // Delete old avatar if exists
-    if (teamMember.avatar) {
-      await deleteUploadedFile(teamMember.avatar).catch(() => {});
+    // Delete old avatar from Cloudinary if exists
+    if (teamMember.avatar && teamMember.avatar.includes('cloudinary')) {
+      const publicId = teamMember.avatar.split('/').slice(-1)[0].split('.')[0];
+      await cloudStorageService.deleteFile(publicId).catch(() => {});
     }
 
+    // Upload new avatar to Cloudinary
+    const result = await cloudStorageService.uploadFile(
+      req.file.buffer,
+      req.file.originalname,
+      req.file.mimetype,
+      {
+        folder: 'saloneo/team',
+        optimize: true,
+        generateThumbnails: true,
+        thumbnailSizes: [
+          { width: 50, height: 50, suffix: 'thumb' },
+          { width: 150, height: 150, suffix: 'medium' },
+        ],
+      }
+    );
+
     // Update team member avatar
-    const fileUrl = getFileUrl(req.file.path, `${req.protocol}://${req.get('host')}`);
-    teamMember.avatar = req.file.path;
+    teamMember.avatar = result.cdnUrl || result.url;
     await teamMember.save();
 
     res.json({
       message: 'Team member avatar uploaded successfully',
-      avatar: fileUrl,
+      avatar: result.cdnUrl || result.url,
+      thumbnails: result.thumbnails,
     });
   } catch (error) {
     logger.error('Upload team member avatar error:', error);
-    if (req.file) {
-      await deleteUploadedFile(req.file.path).catch(() => {});
-    }
     res.status(500).json({ error: 'Server error' });
   }
 };
 
 export const deleteFile = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
-    const { filePath } = req.body;
+    const { publicId } = req.body;
 
-    if (!filePath) {
-      res.status(400).json({ error: 'File path is required' });
+    if (!publicId) {
+      res.status(400).json({ error: 'Public ID is required' });
       return;
     }
 
-    await deleteUploadedFile(filePath);
+    const success = await cloudStorageService.deleteFile(publicId);
 
-    res.json({ message: 'File deleted successfully' });
+    if (success) {
+      res.json({ message: 'File deleted successfully' });
+    } else {
+      res.status(404).json({ error: 'File not found or could not be deleted' });
+    }
   } catch (error) {
     logger.error('Delete file error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+// Get optimized image URL
+export const getOptimizedImageUrl = async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const { publicId } = req.params;
+    const { width, height, format, quality } = req.query;
+
+    if (!publicId) {
+      res.status(400).json({ error: 'Public ID is required' });
+      return;
+    }
+
+    const optimizedUrl = cloudStorageService.getCDNUrl(publicId, {
+      width: width ? parseInt(width as string) : undefined,
+      height: height ? parseInt(height as string) : undefined,
+      format: format as any,
+      quality: quality ? parseInt(quality as string) : undefined,
+    });
+
+    res.json({
+      url: optimizedUrl,
+    });
+  } catch (error) {
+    logger.error('Get optimized image URL error:', error);
     res.status(500).json({ error: 'Server error' });
   }
 };

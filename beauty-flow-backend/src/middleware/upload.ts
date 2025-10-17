@@ -1,41 +1,9 @@
 import multer from 'multer';
 import path from 'path';
-import fs from 'fs';
 import { Request } from 'express';
 
-// Ensure upload directories exist
-const uploadDirs = {
-  services: 'uploads/services',
-  avatars: 'uploads/avatars',
-  logos: 'uploads/logos',
-  gallery: 'uploads/gallery',
-};
-
-Object.values(uploadDirs).forEach(dir => {
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-  }
-});
-
-// Configure storage
-const storage = multer.diskStorage({
-  destination: (req: Request, _file, cb) => {
-    const uploadType = req.params.type || 'general';
-    const dir = uploadDirs[uploadType as keyof typeof uploadDirs] || 'uploads/general';
-    
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    
-    cb(null, dir);
-  },
-  filename: (_req: Request, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    const ext = path.extname(file.originalname);
-    const name = path.basename(file.originalname, ext);
-    cb(null, `${name}-${uniqueSuffix}${ext}`);
-  }
-});
+// Configure memory storage for Cloudinary
+const storage = multer.memoryStorage();
 
 // File filter
 const fileFilter = (_req: Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
@@ -69,21 +37,14 @@ export const uploadMultiple = (fieldName: string, maxCount: number = 10) =>
 // Middleware for fields with different names
 export const uploadFields = (fields: multer.Field[]) => upload.fields(fields);
 
-// Helper to delete uploaded file
-export const deleteUploadedFile = (filePath: string): Promise<void> => {
-  return new Promise((resolve, reject) => {
-    fs.unlink(filePath, (err) => {
-      if (err && err.code !== 'ENOENT') {
-        reject(err);
-      } else {
-        resolve();
-      }
-    });
-  });
+// Legacy functions for backward compatibility (will be removed later)
+export const deleteUploadedFile = async (_filePath: string): Promise<void> => {
+  // No longer needed with Cloudinary
+  console.warn('deleteUploadedFile is deprecated. Use cloudStorageService.deleteFile instead.');
 };
 
-// Helper to get file URL
-export const getFileUrl = (filePath: string, baseUrl: string): string => {
-  const relativePath = filePath.replace(/\\/g, '/');
-  return `${baseUrl}/${relativePath}`;
+export const getFileUrl = (_filePath: string, _baseUrl: string): string => {
+  // No longer needed with Cloudinary
+  console.warn('getFileUrl is deprecated. URLs are provided by Cloudinary.');
+  return '';
 };

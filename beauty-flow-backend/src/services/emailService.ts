@@ -10,7 +10,7 @@ import {
   EmailLog,
   EmailQueueJob 
 } from '../types/email.types';
-// Remove unused import
+import { EmailTemplates } from './emailTemplates';
 import { v4 as uuidv4 } from 'uuid';
 
 // Email logs storage (in production, use database)
@@ -25,15 +25,15 @@ class EmailService {
 
   constructor() {
     this.config = {
-      host: process.env.SMTP_HOST || 'smtpout.secureserver.net',
-      port: parseInt(process.env.SMTP_PORT || '465'),
-      secure: process.env.SMTP_SECURE === 'true',
+      host: process.env.SMTP_HOST || 'smtp.office365.com',
+      port: parseInt(process.env.SMTP_PORT || '587'),
+      secure: process.env.SMTP_SECURE === 'true' || false,
       auth: {
         user: process.env.SMTP_USER || '',
         pass: process.env.SMTP_PASS || ''
       },
-      from: process.env.EMAIL_FROM || '"Saloneo" <donotreply@saloneo.app>',
-      replyTo: process.env.EMAIL_REPLY_TO || 'support@saloneo.app'
+      from: process.env.SMTP_FROM || '"Saloneo" <donotreply@saloneo.app>',
+      replyTo: process.env.SMTP_REPLY_TO || 'support@saloneo.app'
     };
 
     // Register Handlebars helpers
@@ -113,18 +113,41 @@ class EmailService {
 
       // Load all template files
       const templateFiles = [
+        // Appointments
         'appointment-confirmation',
         'appointment-reminder',
         'appointment-cancellation',
+        'appointment-modification',
+        // Subscriptions
         'subscription-welcome',
         'subscription-expiry-reminder',
         'subscription-expired',
         'subscription-limit-reached',
+        'subscription-upgrade',
+        'upgrade-suggestion',
+        // Payments
         'payment-receipt',
+        // Authentication
         'password-reset',
         'email-verification',
+        'suspicious-login-alert',
+        // Account
+        'account-suspended',
+        'account-reactivated',
+        // Affiliation
+        'affiliation-activation',
         'commission-earned',
-        'newsletter'
+        'commission-payout',
+        'monthly-performance-report',
+        // Marketing
+        'newsletter',
+        'monthly-newsletter',
+        'special-offer',
+        'birthday-wishes',
+        'loyalty-program-welcome',
+        'loyalty-program-update',
+        'reward-earned',
+        're-engagement'
       ];
 
       for (const templateName of templateFiles) {
@@ -147,21 +170,74 @@ class EmailService {
   }
 
   private getDefaultTemplate(templateName: string): string {
-    const baseTemplate = `
+    // Return the complete HTML template based on template name
+    return this.getTemplateContent(templateName);
+  }
+
+  private getTemplateContent(templateName: string): string {
+    const templates: Record<string, string> = {
+      'appointment-confirmation': EmailTemplates.getAppointmentConfirmationTemplate(),
+      'appointment-reminder': EmailTemplates.getAppointmentReminderTemplate(),
+      'appointment-cancellation': EmailTemplates.getAppointmentCancellationTemplate(),
+      'appointment-modification': EmailTemplates.getAppointmentModificationTemplate(),
+      'subscription-welcome': EmailTemplates.getSubscriptionWelcomeTemplate(),
+      'subscription-expiry-reminder': EmailTemplates.getSubscriptionExpiryReminderTemplate(),
+      'subscription-expired': EmailTemplates.getSubscriptionExpiredTemplate(),
+      'subscription-limit-reached': EmailTemplates.getSubscriptionLimitReachedTemplate(),
+      'subscription-upgrade': EmailTemplates.getSubscriptionUpgradeTemplate(),
+      'upgrade-suggestion': EmailTemplates.getUpgradeSuggestionTemplate(),
+      'payment-receipt': EmailTemplates.getPaymentReceiptTemplate(),
+      'password-reset': EmailTemplates.getPasswordResetTemplate(),
+      'email-verification': EmailTemplates.getEmailVerificationTemplate(),
+      'suspicious-login-alert': EmailTemplates.getSuspiciousLoginAlertTemplate(),
+      'account-suspended': EmailTemplates.getAccountSuspendedTemplate(),
+      'account-reactivated': EmailTemplates.getAccountReactivatedTemplate(),
+      'affiliation-activation': EmailTemplates.getAffiliationActivationTemplate(),
+      'commission-earned': EmailTemplates.getCommissionEarnedTemplate(),
+      'commission-payout': EmailTemplates.getCommissionPayoutTemplate(),
+      'monthly-performance-report': EmailTemplates.getMonthlyPerformanceReportTemplate(),
+      'newsletter': EmailTemplates.getNewsletterTemplate(),
+      'monthly-newsletter': EmailTemplates.getMonthlyNewsletterTemplate(),
+      'special-offer': EmailTemplates.getSpecialOfferTemplate(),
+      'birthday-wishes': EmailTemplates.getBirthdayWishesTemplate(),
+      'loyalty-program-welcome': EmailTemplates.getLoyaltyProgramWelcomeTemplate(),
+      'loyalty-program-update': EmailTemplates.getLoyaltyProgramUpdateTemplate(),
+      'reward-earned': EmailTemplates.getRewardEarnedTemplate(),
+      're-engagement': EmailTemplates.getReEngagementTemplate()
+    };
+
+    return templates[templateName] || this.getGenericTemplate();
+  }
+
+  private getBaseStyles(): string {
+    return `
+      body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background: #f4f4f4; }
+      .container { max-width: 600px; margin: 20px auto; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+      .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }
+      .header h1 { margin: 0; font-size: 28px; font-weight: 600; }
+      .content { padding: 30px; background: white; }
+      .content h2 { color: #667eea; margin-top: 0; }
+      .footer { text-align: center; padding: 20px; background: #f9f9f9; color: #666; font-size: 12px; border-top: 1px solid #eee; }
+      .button { display: inline-block; padding: 14px 32px; background: #667eea; color: white !important; text-decoration: none; border-radius: 6px; font-weight: 600; margin: 20px 0; transition: background 0.3s; }
+      .button:hover { background: #5568d3; }
+      .info-box { background: #f8f9ff; padding: 20px; margin: 20px 0; border-radius: 8px; border-left: 4px solid #667eea; }
+      .info-box p { margin: 8px 0; }
+      .alert-box { background: #fff3cd; padding: 15px; margin: 20px 0; border-radius: 6px; border-left: 4px solid #ffc107; }
+      .success-box { background: #d4edda; padding: 15px; margin: 20px 0; border-radius: 6px; border-left: 4px solid #28a745; }
+      .warning-box { background: #f8d7da; padding: 15px; margin: 20px 0; border-radius: 6px; border-left: 4px solid #dc3545; }
+      ul { padding-left: 20px; }
+      ul li { margin: 8px 0; }
+    `;
+  }
+
+  private getGenericTemplate(): string {
+    return `
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-    .header { background: #8B5CF6; color: white; padding: 20px; text-align: center; }
-    .content { padding: 20px; background: #f9f9f9; }
-    .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }
-    .button { display: inline-block; padding: 12px 24px; background: #8B5CF6; color: white; text-decoration: none; border-radius: 5px; }
-    .info-box { background: white; padding: 15px; margin: 10px 0; border-radius: 5px; }
-  </style>
+  <style>${this.getBaseStyles()}</style>
 </head>
 <body>
   <div class="container">
@@ -169,72 +245,19 @@ class EmailService {
       <h1>{{salonName}}</h1>
     </div>
     <div class="content">
-      {{#if (ifEquals template 'appointment-confirmation')}}
-        <h2>Confirmation de votre rendez-vous</h2>
-        <p>Bonjour {{clientName}},</p>
-        <p>Votre rendez-vous a été confirmé avec succès.</p>
-        <div class="info-box">
-          <p><strong>Service:</strong> {{serviceName}}</p>
-          <p><strong>Date:</strong> {{formatDate appointmentDate}}</p>
-          <p><strong>Heure:</strong> {{appointmentTime}}</p>
-          <p><strong>Avec:</strong> {{staffName}}</p>
-          <p><strong>Prix:</strong> {{formatCurrency servicePrice}}</p>
-        </div>
-      {{/if}}
-
-      {{#if (ifEquals template 'subscription-expiry-reminder')}}
-        <h2>Votre abonnement expire bientôt</h2>
-        <p>Bonjour {{userName}},</p>
-        <p>Votre abonnement {{planName}} expire dans {{daysRemaining}} jours.</p>
-        <p>Date d'expiration: {{formatDate expiryDate}}</p>
-        <p style="text-align: center; margin: 30px 0;">
-          <a href="{{salonEmail}}/subscription" class="button">Renouveler maintenant</a>
-        </p>
-      {{/if}}
-
-      {{#if (ifEquals template 'subscription-limit-reached')}}
-        <h2>Limite atteinte</h2>
-        <p>Bonjour {{userName}},</p>
-        <p>Vous avez atteint votre limite pour l'une de vos fonctionnalités :</p>
-        <div class="info-box">
-          {{#if currentUsage.appointments}}
-            <p><strong>Rendez-vous:</strong> {{currentUsage.appointments.used}}/{{currentUsage.appointments.limit}} ({{percentage currentUsage.appointments.used currentUsage.appointments.limit}}%)</p>
-          {{/if}}
-          {{#if currentUsage.clients}}
-            <p><strong>Clients:</strong> {{currentUsage.clients.used}}/{{currentUsage.clients.limit}} ({{percentage currentUsage.clients.used currentUsage.clients.limit}}%)</p>
-          {{/if}}
-          {{#if currentUsage.services}}
-            <p><strong>Services:</strong> {{currentUsage.services.used}}/{{currentUsage.services.limit}} ({{percentage currentUsage.services.used currentUsage.services.limit}}%)</p>
-          {{/if}}
-        </div>
-        <p style="text-align: center; margin: 30px 0;">
-          <a href="{{salonEmail}}/subscription" class="button">Augmenter mes limites</a>
-        </p>
-      {{/if}}
-
-      {{#if (ifEquals template 'payment-receipt')}}
-        <h2>Reçu de paiement</h2>
-        <p>Bonjour {{userName}},</p>
-        <p>Nous confirmons la réception de votre paiement.</p>
-        <div class="info-box">
-          <p><strong>Montant:</strong> {{formatCurrency amount currency}}</p>
-          <p><strong>Transaction:</strong> {{transactionId}}</p>
-          <p><strong>Plan:</strong> {{planName}}</p>
-          <p><strong>Durée:</strong> {{planDuration}}</p>
-        </div>
-      {{/if}}
+      <h2>Notification Saloneo</h2>
+      <p>Bonjour {{userName}},</p>
+      <p>Ceci est une notification de votre compte Saloneo.</p>
     </div>
     <div class="footer">
-      <p>{{salonName}} - {{salonAddress}}</p>
+      <p>{{salonName}}</p>
+      <p>{{salonAddress}}</p>
       <p>{{salonPhone}} | {{salonEmail}}</p>
       <p>&copy; {{currentYear}} Saloneo. Tous droits réservés.</p>
-      <p><a href="{{salonEmail}}/unsubscribe">Se désinscrire</a></p>
     </div>
   </div>
 </body>
 </html>`;
-
-    return baseTemplate.replace('{{template}}', templateName);
   }
 
   async sendEmail(options: EmailOptions): Promise<EmailLog> {

@@ -5,6 +5,7 @@ import { Transaction, TransactionStatus, PaymentMethod } from '../models/Transac
 import { User } from '../models/User';
 import { PlanType, PriceCalculator, SubscriptionDuration } from '../utils/priceCalculator';
 import { logger } from '../utils/logger';
+import { subscriptionEmailService } from '../services/subscriptionEmailService';
 
 interface AuthRequest extends Request {
   userId?: string;
@@ -184,6 +185,20 @@ export class PaymentController {
             userId: transaction.userId,
             planType: transaction.planType,
             amount: transaction.displayAmount
+          });
+
+          // Send payment receipt email (async, don't wait for it)
+          subscriptionEmailService.sendPaymentReceipt((transaction._id as any).toString()).catch(err => {
+            logger.error('Failed to send payment receipt email:', err);
+          });
+
+          // Send subscription confirmation email (async, don't wait for it)
+          subscriptionEmailService.sendSubscriptionUpgrade(
+            (transaction.userId as any).toString(),
+            'FREE', // Assuming upgrade from FREE, could be improved
+            transaction.planType
+          ).catch(err => {
+            logger.error('Failed to send subscription upgrade email:', err);
           });
 
           // Rediriger vers la page de succès avec les informations de transaction

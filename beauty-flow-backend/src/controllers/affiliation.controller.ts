@@ -4,6 +4,7 @@ import { User } from '../models/User';
 import { Commission } from '../models/Commission';
 import { AuthRequest } from '../middleware/auth';
 import { logger } from '../utils/logger';
+import { subscriptionEmailService } from '../services/subscriptionEmailService';
 
 // Obtenir les données d'affiliation
 export const getAffiliationData = async (req: AuthRequest, res: Response): Promise<void> => {
@@ -81,6 +82,11 @@ export const activateAffiliation = async (req: AuthRequest, res: Response): Prom
     };
 
     await user.save();
+
+    // Send affiliation activation email (async, don't wait for it)
+    subscriptionEmailService.sendAffiliationActivation((user._id as any).toString()).catch(err => {
+      logger.error('Failed to send affiliation activation email:', err);
+    });
 
     logger.info('Affiliation activated:', { userId: req.userId, affiliateCode: finalCode });
     res.json({ affiliation: user.affiliation });

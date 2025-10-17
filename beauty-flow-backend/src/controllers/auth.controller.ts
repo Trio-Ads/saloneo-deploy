@@ -5,6 +5,7 @@ import crypto from 'crypto';
 import { User } from '../models/User';
 import { generateToken, generateRefreshToken, AuthRequest } from '../middleware/auth';
 import { logger } from '../utils/logger';
+import { subscriptionEmailService } from '../services/subscriptionEmailService';
 
 export const register = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -51,6 +52,11 @@ export const register = async (req: Request, res: Response): Promise<void> => {
     // Save refresh token
     user.refreshToken = refreshToken;
     await user.save();
+
+    // Send welcome email (async, don't wait for it)
+    subscriptionEmailService.sendWelcomeEmail(userId).catch(err => {
+      logger.error('Failed to send welcome email:', err);
+    });
 
     res.status(201).json({
       message: 'User created successfully',
@@ -115,14 +121,33 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
+    // Check for suspicious login (different IP or user agent)
+    const currentIp = req.ip || req.connection.remoteAddress || 'unknown';
+    const currentUserAgent = req.get('user-agent') || 'unknown';
+    const lastLoginIp = user.lastLoginIp;
+    const lastLoginUserAgent = user.lastLoginUserAgent;
+
+    // If IP or user agent changed significantly, send alert
+    if (lastLoginIp && lastLoginIp !== currentIp) {
+      subscriptionEmailService.sendSuspiciousLoginAlert((user._id as any).toString(), {
+        ip: currentIp,
+        userAgent: currentUserAgent,
+        timestamp: new Date()
+      }).catch(err => {
+        logger.error('Failed to send suspicious login alert:', err);
+      });
+    }
+
     // Generate tokens
     const userId = (user as any)._id.toString();
     const token = generateToken(userId);
     const refreshToken = generateRefreshToken(userId);
 
-    // Save refresh token
+    // Save refresh token and login info
     user.refreshToken = refreshToken;
     user.lastLogin = new Date();
+    user.lastLoginIp = currentIp;
+    user.lastLoginUserAgent = currentUserAgent;
     await user.save();
 
     res.json({
@@ -260,11 +285,13 @@ export const forgotPassword = async (req: Request, res: Response): Promise<void>
     user.passwordResetExpires = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
     await user.save();
 
-    // TODO: Send email with reset link
-    // For now, just return the token (in production, this should be sent via email)
+    // Send password reset email (async, don't wait for it)
+    subscriptionEmailService.sendPasswordReset((user._id as any).toString(), resetToken).catch(err => {
+      logger.error('Failed to send password reset email:', err);
+    });
+
     res.json({ 
-      message: 'If the email exists, a reset link has been sent',
-      resetToken: resetToken // Remove this in production
+      message: 'If the email exists, a reset link has been sent'
     });
   } catch (error) {
     logger.error('Forgot password error:', error);

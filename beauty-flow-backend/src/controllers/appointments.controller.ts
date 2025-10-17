@@ -7,6 +7,7 @@ import { Client } from '../models/Client';
 import { TeamMember } from '../models/Team';
 import { AuthRequest } from '../middleware/auth';
 import { logger } from '../utils/logger';
+import { subscriptionEmailService } from '../services/subscriptionEmailService';
 
 // Helper function to validate and convert ObjectId
 const validateObjectId = (id: string): Types.ObjectId | null => {
@@ -202,6 +203,12 @@ export const createAppointment = async (req: AuthRequest, res: Response): Promis
     ]);
 
     logger.info('Appointment created successfully:', appointment._id);
+    
+    // Send appointment confirmation email (async, don't wait for it)
+    subscriptionEmailService.sendAppointmentConfirmation((appointment._id as any).toString()).catch(err => {
+      logger.error('Failed to send appointment confirmation email:', err);
+    });
+
     res.status(201).json({ appointment });
 
     // Emit socket event (disabled for deployment)
@@ -305,6 +312,18 @@ export const updateAppointment = async (req: AuthRequest, res: Response): Promis
       { path: 'stylistId', select: 'firstName lastName' },
     ]);
 
+    // Send appointment modification email (async, don't wait for it)
+    // Note: We pass dummy old values since we don't track them in the current implementation
+    const oldDate = appointment.date;
+    const oldTime = appointment.startTime;
+    subscriptionEmailService.sendAppointmentModification(
+      (updatedAppointment!._id as any).toString(),
+      oldDate,
+      oldTime
+    ).catch(err => {
+      logger.error('Failed to send appointment modification email:', err);
+    });
+
     res.json({ appointment: updatedAppointment });
 
     // Emit socket event (disabled for deployment)
@@ -355,6 +374,11 @@ export const deleteAppointment = async (req: AuthRequest, res: Response): Promis
       res.status(404).json({ error: 'Appointment not found' });
       return;
     }
+
+    // Send appointment cancellation email (async, don't wait for it)
+    subscriptionEmailService.sendAppointmentCancellation((appointment._id as any).toString()).catch(err => {
+      logger.error('Failed to send appointment cancellation email:', err);
+    });
 
     res.json({ message: 'Appointment deleted successfully' });
 

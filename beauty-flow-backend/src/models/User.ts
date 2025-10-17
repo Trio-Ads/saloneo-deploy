@@ -59,6 +59,8 @@ export interface IUser extends Document {
   passwordResetExpires?: Date;
   refreshToken?: string;
   lastLogin?: Date;
+  lastLoginIp?: string;
+  lastLoginUserAgent?: string;
   avatar?: string;
   tokens?: {
     public?: string;
@@ -212,6 +214,8 @@ const userSchema = new Schema<IUser>(
     passwordResetExpires: Date,
     refreshToken: String,
     lastLogin: Date,
+    lastLoginIp: String,
+    lastLoginUserAgent: String,
     avatar: String,
     tokens: {
       public: { type: String, index: true },
