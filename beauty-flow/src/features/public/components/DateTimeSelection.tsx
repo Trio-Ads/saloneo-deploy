@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { 
+import {
   UserIcon,
   CalendarDaysIcon,
   ClockIcon,
@@ -8,6 +8,8 @@ import {
   CheckCircleIcon,
   XMarkIcon
 } from '@heroicons/react/24/outline';
+import ModernCalendar from './ModernCalendar';
+import AdaptiveModal from './AdaptiveModal';
 import { useInterfaceStore } from '../../interface/store';
 import { useServiceStore } from '../../services/store';
 import { useTeamStore } from '../../team/store';
@@ -37,7 +39,7 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
   showTeamSelection = true,
   onSelect,
 }) => {
-  const { t } = useTranslation('public');
+  const { t, i18n } = useTranslation('public');
   const settings = useInterfaceStore(state => state.settings);
   const service = useServiceStore(state => state.services.find(s => s.id === serviceId));
   const { getDaySchedule, addPreBooking, removePreBooking } = useAppointmentStore();
@@ -109,6 +111,10 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
   const [internalSelectedDate, setInternalSelectedDate] = useState(selectedDate);
   const [preBookingId, setPreBookingId] = useState<string | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
+  const [showCalendarModal, setShowCalendarModal] = useState(false);
+  const [calendarSelectedDate, setCalendarSelectedDate] = useState<Date | undefined>(
+    selectedDate ? new Date(selectedDate) : undefined
+  );
 
   // Auto-sélectionner le premier coiffeur si l'équipe n'est pas affichée
   useEffect(() => {
@@ -134,8 +140,8 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
     try {
       const newSlots: Record<string, DaySchedule> = {};
       
-      // Charger les créneaux pour les 3 prochains jours
-      for (let i = 0; i < 3; i++) {
+      // Charger les créneaux pour les 30 prochains jours (au lieu de 3)
+      for (let i = 0; i < 30; i++) {
         const date = new Date();
         date.setDate(date.getDate() + i);
         const formattedDate = format(date, 'yyyy-MM-dd');
@@ -313,13 +319,22 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
 
       {selectedStylistId && (
         <div className="glass-card p-6">
-          <div className="flex items-center space-x-3 mb-6">
-            <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl shadow-lg">
-              <CalendarDaysIcon className="h-6 w-6 text-white" />
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center space-x-3">
+              <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl shadow-lg">
+                <CalendarDaysIcon className="h-6 w-6 text-white" />
+              </div>
+              <h3 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                {t('booking.flow.choose_date')}
+              </h3>
             </div>
-            <h3 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-              {t('booking.flow.choose_date')}
-            </h3>
+            <button
+              onClick={() => setShowCalendarModal(true)}
+              className="px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-600 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+            >
+              <CalendarDaysIcon className="h-5 w-5 inline mr-2" />
+              Voir le calendrier complet
+            </button>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -374,6 +389,38 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
           </div>
         </div>
       )}
+
+      {/* Modal avec calendrier complet */}
+      <AdaptiveModal
+        isOpen={showCalendarModal}
+        onClose={() => setShowCalendarModal(false)}
+        title={t('booking.flow.choose_date')}
+        size="xl"
+      >
+        <ModernCalendar
+          selectedDate={calendarSelectedDate}
+          onSelectDate={(date) => {
+            const formattedDate = format(date, 'yyyy-MM-dd');
+            const hasAvailableSlots = availableSlots[formattedDate]?.timeSlots.some(
+              slot => slot.available
+            );
+            
+            if (hasAvailableSlots) {
+              setCalendarSelectedDate(date);
+              setInternalSelectedDate(formattedDate);
+              setShowCalendarModal(false);
+            }
+          }}
+          availableDates={useMemo(() => {
+            return Object.keys(availableSlots)
+              .filter(date => availableSlots[date]?.timeSlots.some(slot => slot.available))
+              .map(date => new Date(date));
+          }, [availableSlots])}
+          minDate={new Date()}
+          maxDate={new Date(new Date().setFullYear(new Date().getFullYear() + 1))}
+          locale={i18n.language}
+        />
+      </AdaptiveModal>
 
       {/* Sélection de l'heure */}
       {internalSelectedDate && selectedStylistId && (

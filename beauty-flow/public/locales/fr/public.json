@@ -28,6 +28,13 @@
       "stylist": "Coiffeur",
       "date": "Date",
       "time": "Heure"
+    },
+    "calendar": {
+      "month_view": "Mois",
+      "week_view": "Semaine",
+      "today": "Aujourd'hui",
+      "available": "Disponible",
+      "unavailable": "Indisponible"
     }
   },
   "salon": {
