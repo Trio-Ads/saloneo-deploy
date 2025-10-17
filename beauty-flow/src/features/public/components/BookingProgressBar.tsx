@@ -6,14 +6,14 @@ import {
   ClockIcon
 } from '@heroicons/react/24/outline';
 import { BookingStep } from '../types';
-import { useInterfaceStore } from '../../interface/store';
+import { useTemplateStyles } from '../../../hooks/useTemplateStyles';
 
 interface BookingProgressBarProps {
   currentStep: BookingStep;
 }
 
 const BookingProgressBar: React.FC<BookingProgressBarProps> = ({ currentStep }) => {
-  const settings = useInterfaceStore((state) => state.settings);
+  const { colors } = useTemplateStyles();
 
   const steps = [
     { 
@@ -38,16 +38,22 @@ const BookingProgressBar: React.FC<BookingProgressBarProps> = ({ currentStep }) 
 
   return (
     <div className="py-8 animate-fadeIn">
-      <div className="glass-card p-8 rounded-2xl border border-white/20 bg-gradient-to-r from-purple-50/50 to-pink-50/50">
+      <div 
+        className="glass-card p-8 rounded-2xl border border-white/20"
+        style={{
+          background: `linear-gradient(to right, ${colors.primary}08, ${colors.accent}08)`
+        }}
+      >
         <div className="relative flex items-center justify-center max-w-2xl mx-auto">
           {/* Background line */}
           <div className="absolute inset-0 h-1 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded-full" />
           
           {/* Progress line */}
           <div 
-            className="absolute left-0 h-1 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full transition-all duration-700 ease-out shadow-lg"
+            className="absolute left-0 h-1 rounded-full transition-all duration-700 ease-out shadow-lg"
             style={{
-              width: `${(currentStepIndex / (steps.length - 1)) * 100}%`
+              width: `${(currentStepIndex / (steps.length - 1)) * 100}%`,
+              background: `linear-gradient(to right, ${colors.primary}, ${colors.accent})`
             }}
           />
           
@@ -67,12 +73,19 @@ const BookingProgressBar: React.FC<BookingProgressBarProps> = ({ currentStep }) 
                       w-16 h-16 rounded-full flex items-center justify-center
                       transition-all duration-500 transform relative overflow-hidden
                       ${isCompleted 
-                        ? 'bg-gradient-to-r from-green-500 to-emerald-600 shadow-lg scale-110' 
+                        ? 'shadow-lg scale-110' 
                         : isCurrent
-                          ? 'bg-gradient-to-r from-purple-500 to-pink-600 shadow-xl scale-125 animate-pulse' 
+                          ? 'shadow-xl scale-125 animate-pulse' 
                           : 'bg-gradient-to-r from-gray-300 to-gray-400 hover:from-gray-400 hover:to-gray-500'}
                       border-4 border-white shadow-lg
                     `}
+                    style={
+                      isCompleted 
+                        ? { background: `linear-gradient(to right, ${colors.success}, ${colors.success})` }
+                        : isCurrent
+                          ? { background: `linear-gradient(to right, ${colors.primary}, ${colors.accent})` }
+                          : undefined
+                    }
                   >
                     {isCompleted ? (
                       <CheckCircleIcon className="h-8 w-8 text-white" />
@@ -95,11 +108,23 @@ const BookingProgressBar: React.FC<BookingProgressBarProps> = ({ currentStep }) 
                       className={`
                         text-lg font-bold transition-all duration-500 mb-1
                         ${isCompleted 
-                          ? 'text-green-600' 
+                          ? '' 
                           : isCurrent
-                            ? 'bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent' 
+                            ? '' 
                             : 'text-gray-500'}
                       `}
+                      style={
+                        isCompleted 
+                          ? { color: colors.success }
+                          : isCurrent
+                            ? { 
+                                background: `linear-gradient(to right, ${colors.primary}, ${colors.accent})`,
+                                WebkitBackgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent',
+                                backgroundClip: 'text'
+                              }
+                            : undefined
+                      }
                     >
                       {step.label}
                     </div>
@@ -108,11 +133,18 @@ const BookingProgressBar: React.FC<BookingProgressBarProps> = ({ currentStep }) 
                       className={`
                         text-sm transition-all duration-500
                         ${isCompleted 
-                          ? 'text-green-500' 
+                          ? '' 
                           : isCurrent
-                            ? 'text-purple-600 font-medium' 
+                            ? 'font-medium' 
                             : 'text-gray-400'}
                       `}
+                      style={
+                        isCompleted 
+                          ? { color: colors.success }
+                          : isCurrent
+                            ? { color: colors.primary }
+                            : undefined
+                      }
                     >
                       {step.description}
                     </div>
@@ -120,13 +152,13 @@ const BookingProgressBar: React.FC<BookingProgressBarProps> = ({ currentStep }) 
                     {/* Status indicator */}
                     <div className="mt-2 flex justify-center">
                       {isCompleted && (
-                        <div className="flex items-center space-x-1 text-green-600">
+                        <div className="flex items-center space-x-1" style={{ color: colors.success }}>
                           <CheckCircleIcon className="h-4 w-4" />
                           <span className="text-xs font-medium">Terminé</span>
                         </div>
                       )}
                       {isCurrent && (
-                        <div className="flex items-center space-x-1 text-purple-600">
+                        <div className="flex items-center space-x-1" style={{ color: colors.primary }}>
                           <ClockIcon className="h-4 w-4 animate-pulse" />
                           <span className="text-xs font-medium">En cours</span>
                         </div>
@@ -143,7 +175,12 @@ const BookingProgressBar: React.FC<BookingProgressBarProps> = ({ currentStep }) 
         <div className="mt-8 text-center">
           <div className="glass-card bg-white/70 p-4 rounded-xl inline-block">
             <div className="flex items-center space-x-2">
-              <div className="w-4 h-4 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full"></div>
+              <div 
+                className="w-4 h-4 rounded-full"
+                style={{
+                  background: `linear-gradient(to right, ${colors.primary}, ${colors.accent})`
+                }}
+              ></div>
               <span className="text-sm font-medium text-gray-700">
                 Progression: {Math.round((currentStepIndex / (steps.length - 1)) * 100)}%
               </span>

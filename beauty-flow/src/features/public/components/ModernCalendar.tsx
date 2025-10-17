@@ -8,6 +8,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay, isToday, isBefore, startOfToday, addDays } from 'date-fns';
 import { fr, enUS, ar } from 'date-fns/locale';
+import { useTemplateStyles } from '../../../hooks/useTemplateStyles';
 import './ModernCalendar.css';
 
 interface ModernCalendarProps {
@@ -28,6 +29,7 @@ const ModernCalendar: React.FC<ModernCalendarProps> = ({
   locale = 'fr'
 }) => {
   const { t } = useTranslation('public');
+  const { cssVariables } = useTemplateStyles();
   const [currentMonth, setCurrentMonth] = useState(selectedDate || startOfToday());
   const [viewMode, setViewMode] = useState<'month' | 'week'>('month');
 
@@ -94,7 +96,7 @@ const ModernCalendar: React.FC<ModernCalendarProps> = ({
   }, [dateLocale]);
 
   return (
-    <div className="modern-calendar">
+    <div className="modern-calendar" style={cssVariables as React.CSSProperties}>
       {/* Header avec navigation */}
       <div className="calendar-header">
         <div className="flex items-center justify-between mb-6">

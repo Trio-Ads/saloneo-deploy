@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { useInterfaceStore } from '../../interface/store';
+import { useTemplateStyles } from '../../../hooks/useTemplateStyles';
 import './AdaptiveModal.css';
 
 interface AdaptiveModalProps {
@@ -22,7 +22,7 @@ const AdaptiveModal: React.FC<AdaptiveModalProps> = ({
   size = 'lg',
   closeOnOverlayClick = true,
 }) => {
-  const settings = useInterfaceStore((state) => state.settings);
+  const { cssVariables } = useTemplateStyles();
 
   // Bloquer le scroll du body quand le modal est ouvert
   useEffect(() => {
@@ -68,7 +68,7 @@ const AdaptiveModal: React.FC<AdaptiveModalProps> = ({
   return (
     <div className="adaptive-modal-overlay" onClick={handleOverlayClick}>
       <div className={`adaptive-modal-container ${sizeClasses[size]}`}>
-        <div className="adaptive-modal-content">
+        <div className="adaptive-modal-content" style={cssVariables as React.CSSProperties}>
           {/* Header */}
           <div className="adaptive-modal-header">
             <h2 className="adaptive-modal-title">{title}</h2>

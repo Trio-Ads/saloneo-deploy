@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useInterfaceStore } from '../../interface/store';
 import { usePublicBookingStore } from '../store';
 import { PublicClientFormData } from '../types';
+import { useTemplateStyles } from '../../../hooks/useTemplateStyles';
 import Modal from './Modal';
 import BookingProgressBar from './BookingProgressBar';
 import DateTimeSelection from './DateTimeSelection';
@@ -24,6 +25,7 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
   onClose,
 }) => {
   const { t } = useTranslation('public');
+  const { colors } = useTemplateStyles();
   const settings = useInterfaceStore((state) => state.settings);
   const {
     currentStep,
@@ -137,12 +139,21 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
         <BookingProgressBar currentStep={currentStep} />
 
         {error && (
-          <div className="glass-card bg-burgundy/10 p-6 mb-6 animate-fade-in">
+          <div 
+            className="glass-card p-6 mb-6 animate-fade-in"
+            style={{ backgroundColor: `${colors.error}15` }}
+          >
             <div className="flex items-center space-x-3">
-              <svg className="w-6 h-6 text-burgundy" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg 
+                className="w-6 h-6" 
+                style={{ color: colors.error }}
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span className="text-white/90">{error.message}</span>
+              <span className="text-gray-700 dark:text-gray-200">{error.message}</span>
             </div>
           </div>
         )}
