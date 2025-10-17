@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useServiceStore } from '../store';
 import api from '../../../services/api';
 
@@ -10,6 +10,7 @@ const ServiceImageUpload: React.FC<ServiceImageUploadProps> = ({ serviceId }) =>
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { services, updateService } = useServiceStore();
   const service = services.find(s => s.id === serviceId);
+  const [uploading, setUploading] = useState(false);
 
   const handleClick = () => {
     fileInputRef.current?.click();
@@ -69,6 +70,9 @@ const ServiceImageUpload: React.FC<ServiceImageUploadProps> = ({ serviceId }) =>
               return;
             }
 
+            // Activer l'indicateur de chargement
+            setUploading(true);
+
             // Upload via FormData vers l'API upload
             const formData = new FormData();
             formData.append('image', file);
@@ -89,6 +93,9 @@ const ServiceImageUpload: React.FC<ServiceImageUploadProps> = ({ serviceId }) =>
           } catch (error) {
             console.error('Erreur lors du téléchargement de l\'image:', error);
             alert('Erreur lors du téléchargement de l\'image');
+          } finally {
+            // Désactiver l'indicateur de chargement
+            setUploading(false);
           }
         };
         
@@ -111,6 +118,8 @@ const ServiceImageUpload: React.FC<ServiceImageUploadProps> = ({ serviceId }) =>
   };
 
   const handleRemoveImage = async (imageUrl: string) => {
+    if (uploading) return; // Empêcher la suppression pendant l'upload
+    
     try {
       if (!service || service.id === 'temp-service') {
         alert('Service non trouvé');
@@ -152,9 +161,24 @@ const ServiceImageUpload: React.FC<ServiceImageUploadProps> = ({ serviceId }) =>
         <button
           type="button"
           onClick={handleClick}
-          className="px-3 py-1 text-sm font-medium text-white bg-teal-500 rounded-md hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-all duration-200 transform hover:scale-105"
+          disabled={uploading}
+          className={`px-3 py-1 text-sm font-medium text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-all duration-200 ${
+            uploading 
+              ? 'bg-gray-400 cursor-not-allowed' 
+              : 'bg-teal-500 hover:bg-teal-600 transform hover:scale-105'
+          }`}
         >
-          Ajouter une photo
+          {uploading ? (
+            <span className="flex items-center">
+              <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Upload en cours...
+            </span>
+          ) : (
+            'Ajouter une photo'
+          )}
         </button>
       </div>
 
@@ -165,6 +189,21 @@ const ServiceImageUpload: React.FC<ServiceImageUploadProps> = ({ serviceId }) =>
         accept="image/*"
         className="hidden"
       />
+
+      {uploading && (
+        <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+          <div className="flex items-center">
+            <svg className="animate-spin h-5 w-5 text-blue-500 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <div>
+              <p className="text-sm font-medium text-blue-900">Upload en cours...</p>
+              <p className="text-xs text-blue-700">Veuillez patienter pendant l'envoi de votre image</p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {service?.images && service.images.length > 0 ? (
         <div className="grid grid-cols-2 gap-4 mt-4">
@@ -177,7 +216,10 @@ const ServiceImageUpload: React.FC<ServiceImageUploadProps> = ({ serviceId }) =>
               />
               <button
                 onClick={() => handleRemoveImage(image.url)}
-                className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                disabled={uploading}
+                className={`absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full transition-opacity ${
+                  uploading ? 'opacity-50 cursor-not-allowed' : 'opacity-0 group-hover:opacity-100'
+                }`}
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
