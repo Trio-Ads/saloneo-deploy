@@ -495,5 +495,99 @@
     "clients_month": "+127 clients ce mois",
     "appointments_today": "32 RDV aujourd'hui",
     "satisfaction_rate": "Taux satisfaction 98%"
+  },
+  "premium": {
+    "nav": {
+      "features": "Fonctionnalités",
+      "faq": "FAQ",
+      "pricing": "Tarifs",
+      "login": "Connexion",
+      "signup": "S'inscrire"
+    },
+    "hero": {
+      "title": "Transformez Votre Salon en Empire Digital",
+      "subtitle": "Plateforme de gestion tout-en-un pour salons de beauté modernes. Automatisez, développez, prospérez.",
+      "free": "Compte gratuit à vie",
+      "nocard": "Sans carte bancaire",
+      "cta": {
+        "primary": "Créer mon compte gratuit",
+        "secondary": "Découvrir les offres"
+      },
+      "stats": {
+        "salons": "Salons actifs",
+        "revenue": "Augmentation CA moyenne"
+      }
+    },
+    "features": {
+      "title": "Tout ce dont vous avez besoin pour réussir",
+      "subtitle": "Une plateforme complète conçue pour les professionnels de la beauté",
+      "appointments": {
+        "title": "Gestion des Rendez-vous",
+        "desc": "Calendrier intelligent avec rappels automatiques et synchronisation temps réel"
+      },
+      "clients": {
+        "title": "Fichier Clients Complet",
+        "desc": "CRM avancé avec historique, préférences et questionnaires personnalisés"
+      },
+      "team": {
+        "title": "Gestion d'Équipe",
+        "desc": "Planning optimisé, suivi des performances et coordination parfaite"
+      },
+      "payments": {
+        "title": "Paiements Intégrés",
+        "desc": "Acceptez les paiements SATIM, cartes CIB et EDAHABIA en toute sécurité"
+      },
+      "website": {
+        "title": "Site Web Automatique",
+        "desc": "Page salon professionnelle avec réservation en ligne 24/7"
+      },
+      "analytics": {
+        "title": "Statistiques & Insights",
+        "desc": "Tableaux de bord en temps réel pour piloter votre croissance"
+      }
+    },
+    "faq": {
+      "title": "Questions Fréquentes",
+      "subtitle": "Tout ce que vous devez savoir sur Saloneo",
+      "free": {
+        "q": "Le compte gratuit est-il vraiment gratuit à vie ?",
+        "a": "Oui ! Notre compte gratuit est 100% gratuit, sans limite de temps. Vous pouvez l'utiliser aussi longtemps que vous le souhaitez. Aucune carte bancaire n'est requise pour commencer."
+      },
+      "limits": {
+        "q": "Quelles sont les limites du compte gratuit ?",
+        "a": "Le compte gratuit inclut 20 rendez-vous par mois, 10 clients maximum et 5 services. C'est parfait pour découvrir Saloneo. Vous pouvez upgrader à tout moment pour débloquer plus de fonctionnalités."
+      },
+      "upgrade": {
+        "q": "Puis-je upgrader mon compte plus tard ?",
+        "a": "Absolument ! Vous pouvez passer à un forfait supérieur à tout moment. Le changement est immédiat et vous ne payez que la différence au prorata."
+      },
+      "security": {
+        "q": "Mes données sont-elles sécurisées ?",
+        "a": "Oui, la sécurité est notre priorité. Toutes vos données sont chiffrées et hébergées sur des serveurs sécurisés. Nous sommes conformes aux normes de sécurité les plus strictes."
+      },
+      "support": {
+        "q": "Quel type de support proposez-vous ?",
+        "a": "Nous offrons un support par email pour tous les comptes. Les forfaits payants bénéficient d'un support prioritaire avec des temps de réponse plus rapides."
+      },
+      "cancel": {
+        "q": "Puis-je annuler mon abonnement à tout moment ?",
+        "a": "Oui, vous pouvez annuler votre abonnement à tout moment, sans frais ni pénalités. Votre compte restera actif jusqu'à la fin de la période payée."
+      }
+    },
+    "cta": {
+      "title": "Prêt à Transformer Votre Salon ?",
+      "subtitle": "Rejoignez les centaines de salons qui ont déjà révolutionné leur business",
+      "button": "Commencer Gratuitement"
+    },
+    "footer": {
+      "tagline": "L'infrastructure digitale des salons modernes",
+      "product": "Produit",
+      "company": "Entreprise",
+      "pricing": "Tarifs",
+      "features": "Fonctionnalités",
+      "faq": "FAQ",
+      "login": "Connexion",
+      "rights": "Tous droits réservés"
+    }
   }
 }

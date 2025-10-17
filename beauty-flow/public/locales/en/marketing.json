@@ -495,5 +495,99 @@
     "clients_month": "+127 clients this month",
     "appointments_today": "32 appointments today",
     "satisfaction_rate": "98% satisfaction rate"
+  },
+  "premium": {
+    "nav": {
+      "features": "Features",
+      "faq": "FAQ",
+      "pricing": "Pricing",
+      "login": "Login",
+      "signup": "Sign Up"
+    },
+    "hero": {
+      "title": "Transform Your Salon into a Digital Empire",
+      "subtitle": "All-in-one management platform for modern beauty salons. Automate, grow, thrive.",
+      "free": "Free account for life",
+      "nocard": "No credit card required",
+      "cta": {
+        "primary": "Create my free account",
+        "secondary": "Discover plans"
+      },
+      "stats": {
+        "salons": "Active salons",
+        "revenue": "Average revenue increase"
+      }
+    },
+    "features": {
+      "title": "Everything you need to succeed",
+      "subtitle": "A complete platform designed for beauty professionals",
+      "appointments": {
+        "title": "Appointment Management",
+        "desc": "Smart calendar with automatic reminders and real-time synchronization"
+      },
+      "clients": {
+        "title": "Complete Client Database",
+        "desc": "Advanced CRM with history, preferences and custom questionnaires"
+      },
+      "team": {
+        "title": "Team Management",
+        "desc": "Optimized scheduling, performance tracking and perfect coordination"
+      },
+      "payments": {
+        "title": "Integrated Payments",
+        "desc": "Accept SATIM payments, CIB and EDAHABIA cards securely"
+      },
+      "website": {
+        "title": "Automatic Website",
+        "desc": "Professional salon page with 24/7 online booking"
+      },
+      "analytics": {
+        "title": "Statistics & Insights",
+        "desc": "Real-time dashboards to drive your growth"
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Everything you need to know about Saloneo",
+      "free": {
+        "q": "Is the free account really free for life?",
+        "a": "Yes! Our free account is 100% free, with no time limit. You can use it as long as you want. No credit card required to start."
+      },
+      "limits": {
+        "q": "What are the limits of the free account?",
+        "a": "The free account includes 20 appointments per month, 10 clients maximum and 5 services. Perfect to discover Saloneo. You can upgrade anytime to unlock more features."
+      },
+      "upgrade": {
+        "q": "Can I upgrade my account later?",
+        "a": "Absolutely! You can upgrade to a higher plan anytime. The change is immediate and you only pay the prorated difference."
+      },
+      "security": {
+        "q": "Is my data secure?",
+        "a": "Yes, security is our priority. All your data is encrypted and hosted on secure servers. We comply with the strictest security standards."
+      },
+      "support": {
+        "q": "What type of support do you offer?",
+        "a": "We offer email support for all accounts. Paid plans benefit from priority support with faster response times."
+      },
+      "cancel": {
+        "q": "Can I cancel my subscription anytime?",
+        "a": "Yes, you can cancel your subscription anytime, without fees or penalties. Your account will remain active until the end of the paid period."
+      }
+    },
+    "cta": {
+      "title": "Ready to Transform Your Salon?",
+      "subtitle": "Join hundreds of salons that have already revolutionized their business",
+      "button": "Start Free"
+    },
+    "footer": {
+      "tagline": "The digital infrastructure of modern salons",
+      "product": "Product",
+      "company": "Company",
+      "pricing": "Pricing",
+      "features": "Features",
+      "faq": "FAQ",
+      "login": "Login",
+      "rights": "All rights reserved"
+    }
   }
 }
