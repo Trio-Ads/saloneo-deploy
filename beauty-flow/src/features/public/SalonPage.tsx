@@ -90,7 +90,7 @@ export const SalonPage: React.FC = () => {
             sunday: { closed: true, open: '', close: '' }
           },
           services: services?.map((service: any) => ({
-            id: service.id || service._id,
+            id: service._id || service.id, // Utiliser _id en priorité (MongoDB ID)
             name: service.name,
             description: service.description || '',
             price: service.price || 0,
@@ -100,7 +100,7 @@ export const SalonPage: React.FC = () => {
             image: service.images?.[0]?.url || service.image
           })) || [],
           team: team?.map((member: any) => ({
-            id: member.id || member._id,
+            id: member._id || member.id, // Utiliser _id en priorité (MongoDB ID)
             name: member.name,
             role: member.role || 'Membre de l\'équipe',
             image: member.image || member.avatar
@@ -121,8 +121,9 @@ export const SalonPage: React.FC = () => {
         const teamStore = useTeamStore.getState();
 
         // Convertir les données publiques au format des stores
+        // IMPORTANT: Utiliser les vrais MongoDB IDs (_id) pour que le backend puisse les retrouver
         const formattedServices = services?.map((service: any) => ({
-          id: service.id || service._id,
+          id: service._id || service.id, // Utiliser _id en priorité
           name: service.name,
           description: service.description || '',
           category: service.category || 'Général',
@@ -139,7 +140,7 @@ export const SalonPage: React.FC = () => {
         })) || [];
 
         const formattedTeam = team?.map((member: any) => ({
-          id: member.id || member._id,
+          id: member._id || member.id, // Utiliser _id en priorité
           firstName: member.firstName || member.name?.split(' ')[0] || member.name || '',
           lastName: member.lastName || member.name?.split(' ').slice(1).join(' ') || '',
           email: member.email || '',

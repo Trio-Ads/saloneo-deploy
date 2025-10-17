@@ -566,14 +566,42 @@ export const createPublicBooking = async (req: Request, res: Response): Promise<
       return;
     }
 
-    // For now, we'll use default values for service since we're using UUID from frontend
-    // In a full implementation, these would come from the Service model
-    const defaultDuration = 60; // 60 minutes default
-    const defaultPrice = 50; // 50€ default
+    // Verify service exists and get its details
+    const service = await Service.findOne({
+      _id: serviceId,
+      userId: matchingUser._id,
+      isActive: true
+    });
 
-    // Calculate end time
+    if (!service) {
+      logger.error('Service not found:', serviceId);
+      res.status(404).json({ error: 'Service non trouvé' });
+      return;
+    }
+
+    // Verify team member exists
+    const teamMember = await TeamMember.findOne({
+      _id: stylistId,
+      userId: matchingUser._id,
+      isActive: true
+    });
+
+    if (!teamMember) {
+      logger.error('Team member not found:', stylistId);
+      res.status(404).json({ error: 'Coiffeur non trouvé' });
+      return;
+    }
+
+    logger.info('Service and team member verified:', {
+      serviceName: service.name,
+      duration: service.duration,
+      price: service.price,
+      teamMemberName: `${teamMember.firstName} ${teamMember.lastName}`
+    });
+
+    // Calculate end time using service duration
     const [startHours, startMinutes] = startTime.split(':').map(Number);
-    const totalMinutes = startHours * 60 + startMinutes + defaultDuration;
+    const totalMinutes = startHours * 60 + startMinutes + service.duration;
     const endHours = Math.floor(totalMinutes / 60);
     const endMinutes = totalMinutes % 60;
     const endTime = `${endHours.toString().padStart(2, '0')}:${endMinutes.toString().padStart(2, '0')}`;
@@ -695,13 +723,13 @@ export const createPublicBooking = async (req: Request, res: Response): Promise<
     const appointment = new Appointment({
       userId: matchingUser._id,
       clientId: client._id,
-      serviceId: serviceId, // Store as UUID string
-      stylistId: stylistId, // Store as UUID string
+      serviceId: service._id, // Use MongoDB ObjectId
+      stylistId: teamMember._id, // Use MongoDB ObjectId
       date: new Date(date),
       startTime,
       endTime,
-      duration: defaultDuration,
-      price: defaultPrice,
+      duration: service.duration,
+      price: service.price,
       status: 'scheduled',
       notes: notes || '',
       source: 'online',
