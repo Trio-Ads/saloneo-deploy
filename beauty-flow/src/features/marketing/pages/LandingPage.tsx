@@ -54,13 +54,6 @@ const LandingPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [show3D, setShow3D] = useState(true);
 
-  // Redirection intelligente si connecté
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate('/dashboard');
-    }
-  }, [isAuthenticated, navigate]);
-
   // Track page visit
   useEffect(() => {
     api.post('/marketing/stats/visit').catch(console.error);
