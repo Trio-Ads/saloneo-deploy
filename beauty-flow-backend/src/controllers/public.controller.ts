@@ -694,7 +694,7 @@ export const createPublicBooking = async (req: Request, res: Response): Promise<
         isActive: true,
         preferences: {
           favoriteServices: [],
-          preferredStylists: [stylistId],
+          preferredStylists: [actualStylistId],
           communicationPreferences: clientData.preferences?.communicationPreferences || {
             smsReminders: true,
             emailMarketing: false,
