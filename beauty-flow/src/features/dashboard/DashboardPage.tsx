@@ -237,95 +237,95 @@ const DashboardPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
         {/* Header avec salutation personnalisée */}
-        <div className="mb-8">
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 dark:border-gray-700/20 p-8 overflow-hidden">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+        <div className="mb-6 sm:mb-8">
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-2xl border border-white/20 dark:border-gray-700/20 p-4 sm:p-6 lg:p-8 overflow-hidden">
+            <div className="flex flex-col gap-4 sm:gap-6">
               <div>
-                <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 bg-clip-text text-transparent">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 bg-clip-text text-transparent">
                   {t('welcome')} {user?.firstName || user?.establishmentName} 👋
                 </h1>
-                <p className="text-gray-600 dark:text-gray-300 mt-2 text-lg">
+                <p className="text-gray-600 dark:text-gray-300 mt-2 text-base sm:text-lg">
                   {t('overview_subtitle')}
                 </p>
-                <div className="flex items-center mt-3 space-x-4 text-sm text-gray-500 dark:text-gray-400">
+                <div className="flex flex-col sm:flex-row sm:items-center mt-3 gap-2 sm:gap-4 text-xs sm:text-sm text-gray-500 dark:text-gray-400">
                   <span className="flex items-center">
-                    <CalendarDaysIcon className="h-4 w-4 mr-1" />
-                    {format(new Date(), 'EEEE d MMMM yyyy', { locale: fr })}
+                    <CalendarDaysIcon className="h-4 w-4 mr-1 flex-shrink-0" />
+                    <span className="truncate">{format(new Date(), 'EEEE d MMMM yyyy', { locale: fr })}</span>
                   </span>
                   <span className="flex items-center">
-                    <SparklesIcon className="h-4 w-4 mr-1 text-orange-500 dark:text-orange-400" />
+                    <SparklesIcon className="h-4 w-4 mr-1 text-orange-500 dark:text-orange-400 flex-shrink-0" />
                     Plan {currentPlan}
                   </span>
                 </div>
               </div>
 
-              <div className="flex items-center space-x-4">
-                {/* Sélecteur de période */}
-                <div className="flex items-center space-x-2 bg-gray-100 rounded-xl p-1">
-                <button
-                  onClick={() => setTimeRange('day')}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
-                    timeRange === 'day'
-                      ? 'bg-white dark:bg-gray-700 text-orange-600 dark:text-orange-400 shadow-md'
-                      : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
-                  }`}
-                >
-                  {t('time_periods.day')}
-                </button>
-                <button
-                  onClick={() => setTimeRange('week')}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
-                    timeRange === 'week'
-                      ? 'bg-white dark:bg-gray-700 text-orange-600 dark:text-orange-400 shadow-md'
-                      : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
-                  }`}
-                >
-                  {t('time_periods.week')}
-                </button>
-                <button
-                  onClick={() => setTimeRange('month')}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
-                    timeRange === 'month'
-                      ? 'bg-white dark:bg-gray-700 text-orange-600 dark:text-orange-400 shadow-md'
-                      : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
-                  }`}
-                >
-                  {t('time_periods.month')}
-                </button>
+              {/* Sélecteur de période - Mobile optimisé */}
+              <div className="flex items-center justify-center sm:justify-start">
+                <div className="inline-flex items-center bg-gray-100 dark:bg-gray-700/50 rounded-xl p-1 w-full sm:w-auto">
+                  <button
+                    onClick={() => setTimeRange('day')}
+                    className={`flex-1 sm:flex-none px-4 sm:px-6 py-3 sm:py-2 rounded-lg font-medium text-sm sm:text-base transition-all duration-200 touch-manipulation ${
+                      timeRange === 'day'
+                        ? 'bg-white dark:bg-gray-700 text-orange-600 dark:text-orange-400 shadow-md'
+                        : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white active:scale-95'
+                    }`}
+                  >
+                    {t('time_periods.day')}
+                  </button>
+                  <button
+                    onClick={() => setTimeRange('week')}
+                    className={`flex-1 sm:flex-none px-4 sm:px-6 py-3 sm:py-2 rounded-lg font-medium text-sm sm:text-base transition-all duration-200 touch-manipulation ${
+                      timeRange === 'week'
+                        ? 'bg-white dark:bg-gray-700 text-orange-600 dark:text-orange-400 shadow-md'
+                        : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white active:scale-95'
+                    }`}
+                  >
+                    {t('time_periods.week')}
+                  </button>
+                  <button
+                    onClick={() => setTimeRange('month')}
+                    className={`flex-1 sm:flex-none px-4 sm:px-6 py-3 sm:py-2 rounded-lg font-medium text-sm sm:text-base transition-all duration-200 touch-manipulation ${
+                      timeRange === 'month'
+                        ? 'bg-white dark:bg-gray-700 text-orange-600 dark:text-orange-400 shadow-md'
+                        : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white active:scale-95'
+                    }`}
+                  >
+                    {t('time_periods.month')}
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Alertes et notifications */}
+        {/* Alertes et notifications - Mobile optimisé */}
         {alerts.length > 0 && (
-          <div className="mb-6 space-y-3">
+          <div className="mb-4 sm:mb-6 space-y-3">
             {alerts.map((alert, index) => (
               <div
                 key={index}
-                className={`p-4 rounded-xl flex items-center justify-between ${
+                className={`p-3 sm:p-4 rounded-xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 ${
                   alert.type === 'warning' 
-                    ? 'bg-amber-50 border border-amber-200' 
+                    ? 'bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800' 
                     : alert.type === 'success'
-                    ? 'bg-green-50 border border-green-200'
-                    : 'bg-blue-50 border border-blue-200'
+                    ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800'
+                    : 'bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800'
                 }`}
               >
-                <div className="flex items-center">
+                <div className="flex items-start sm:items-center">
                   {alert.type === 'warning' ? (
-                    <ExclamationTriangleIcon className="h-5 w-5 text-amber-600 mr-3" />
+                    <ExclamationTriangleIcon className="h-5 w-5 text-amber-600 dark:text-amber-400 mr-3 flex-shrink-0 mt-0.5 sm:mt-0" />
                   ) : alert.type === 'success' ? (
-                    <CheckCircleIcon className="h-5 w-5 text-green-600 mr-3" />
+                    <CheckCircleIcon className="h-5 w-5 text-green-600 dark:text-green-400 mr-3 flex-shrink-0 mt-0.5 sm:mt-0" />
                   ) : (
-                    <BellIcon className="h-5 w-5 text-blue-600 mr-3" />
+                    <BellIcon className="h-5 w-5 text-blue-600 dark:text-blue-400 mr-3 flex-shrink-0 mt-0.5 sm:mt-0" />
                   )}
-                  <span className={`font-medium ${
+                  <span className={`font-medium text-sm sm:text-base ${
                     alert.type === 'warning' 
-                      ? 'text-amber-800' 
+                      ? 'text-amber-800 dark:text-amber-200' 
                       : alert.type === 'success'
-                      ? 'text-green-800'
-                      : 'text-blue-800'
+                      ? 'text-green-800 dark:text-green-200'
+                      : 'text-blue-800 dark:text-blue-200'
                   }`}>
                     {alert.message}
                   </span>
@@ -333,12 +333,12 @@ const DashboardPage: React.FC = () => {
                 {alert.action && (
                   <Link
                     to={alert.action.link}
-                    className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                    className={`w-full sm:w-auto text-center px-4 py-2.5 sm:py-2 rounded-lg font-medium text-sm transition-all duration-200 touch-manipulation active:scale-95 ${
                       alert.type === 'warning' 
-                        ? 'bg-amber-600 text-white hover:bg-amber-700' 
+                        ? 'bg-amber-600 text-white hover:bg-amber-700 dark:bg-amber-500 dark:hover:bg-amber-600' 
                         : alert.type === 'success'
-                        ? 'bg-green-600 text-white hover:bg-green-700'
-                        : 'bg-blue-600 text-white hover:bg-blue-700'
+                        ? 'bg-green-600 text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600'
+                        : 'bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600'
                     }`}
                   >
                     {alert.action.label}
@@ -349,82 +349,82 @@ const DashboardPage: React.FC = () => {
           </div>
         )}
 
-        {/* KPIs principaux */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {/* Revenus du jour */}
-          <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+        {/* KPIs principaux - Mobile optimisé */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
+          {/* Revenus du jour - Mobile optimisé */}
+          <div className="group relative touch-manipulation">
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl sm:rounded-2xl blur-lg opacity-20 group-hover:opacity-30 group-active:opacity-30 transition-opacity duration-300"></div>
+            <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-xl sm:rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-4 sm:p-6 hover:shadow-2xl active:shadow-2xl transform hover:scale-105 active:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('kpis.daily_revenue')}</p>
-                  <p className="text-3xl font-bold text-gray-900 dark:text-white mt-1">{formatPrice(stats.todayRevenue, profile.currency)}</p>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide truncate">{t('kpis.daily_revenue')}</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-1 truncate">{formatPrice(stats.todayRevenue, profile.currency)}</p>
                   <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{stats.todayAppointments} {t('kpis.appointments')}</p>
                 </div>
-                <div className="p-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-lg">
-                  <CurrencyDollarIcon className="h-6 w-6 text-white" />
+                <div className="p-2.5 sm:p-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg sm:rounded-xl shadow-lg flex-shrink-0 ml-3">
+                  <CurrencyDollarIcon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Revenus du mois */}
-          <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-700 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+          {/* Revenus du mois - Mobile optimisé */}
+          <div className="group relative touch-manipulation">
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-700 rounded-xl sm:rounded-2xl blur-lg opacity-20 group-hover:opacity-30 group-active:opacity-30 transition-opacity duration-300"></div>
+            <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-xl sm:rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-4 sm:p-6 hover:shadow-2xl active:shadow-2xl transform hover:scale-105 active:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('kpis.monthly_revenue')}</p>
-                  <p className="text-3xl font-bold text-gray-900 dark:text-white mt-1">{formatPrice(stats.monthRevenue, profile.currency)}</p>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide truncate">{t('kpis.monthly_revenue')}</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-1 truncate">{formatPrice(stats.monthRevenue, profile.currency)}</p>
                   <div className="flex items-center mt-1">
                     {stats.revenueGrowth >= 0 ? (
-                      <ArrowTrendingUpIcon className="h-4 w-4 text-green-500 mr-1" />
+                      <ArrowTrendingUpIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-green-500 mr-1 flex-shrink-0" />
                     ) : (
-                      <ArrowTrendingDownIcon className="h-4 w-4 text-red-500 mr-1" />
+                      <ArrowTrendingDownIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-red-500 mr-1 flex-shrink-0" />
                     )}
                     <span className={`text-xs font-medium ${
-                      stats.revenueGrowth >= 0 ? 'text-green-600' : 'text-red-600'
+                      stats.revenueGrowth >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
                     }`}>
                       {stats.revenueGrowth >= 0 ? '+' : ''}{stats.revenueGrowth.toFixed(1)}%
                     </span>
                   </div>
                 </div>
-                <div className="p-3 bg-gradient-to-r from-orange-600 to-orange-700 rounded-xl shadow-lg">
-                  <ChartBarIcon className="h-6 w-6 text-white" />
+                <div className="p-2.5 sm:p-3 bg-gradient-to-r from-orange-600 to-orange-700 rounded-lg sm:rounded-xl shadow-lg flex-shrink-0 ml-3">
+                  <ChartBarIcon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Clients */}
-          <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-gray-500 to-gray-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+          {/* Clients - Mobile optimisé */}
+          <div className="group relative touch-manipulation">
+            <div className="absolute inset-0 bg-gradient-to-r from-gray-500 to-gray-600 rounded-xl sm:rounded-2xl blur-lg opacity-20 group-hover:opacity-30 group-active:opacity-30 transition-opacity duration-300"></div>
+            <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-xl sm:rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-4 sm:p-6 hover:shadow-2xl active:shadow-2xl transform hover:scale-105 active:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('kpis.clients')}</p>
-                  <p className="text-3xl font-bold text-gray-900 dark:text-white mt-1">{stats.totalClients}</p>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide truncate">{t('kpis.clients')}</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-1">{stats.totalClients}</p>
                   <p className="text-xs text-orange-600 dark:text-orange-400 mt-1">+{stats.newClients} {t('kpis.this_month')}</p>
                 </div>
-                <div className="p-3 bg-gradient-to-r from-gray-500 to-gray-600 rounded-xl shadow-lg">
-                  <UsersIcon className="h-6 w-6 text-white" />
+                <div className="p-2.5 sm:p-3 bg-gradient-to-r from-gray-500 to-gray-600 rounded-lg sm:rounded-xl shadow-lg flex-shrink-0 ml-3">
+                  <UsersIcon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Taux d'occupation */}
-          <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+          {/* Taux d'occupation - Mobile optimisé */}
+          <div className="group relative touch-manipulation">
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 rounded-xl sm:rounded-2xl blur-lg opacity-20 group-hover:opacity-30 group-active:opacity-30 transition-opacity duration-300"></div>
+            <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-xl sm:rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-4 sm:p-6 hover:shadow-2xl active:shadow-2xl transform hover:scale-105 active:scale-105 transition-all duration-300">
               <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('kpis.occupancy')}</p>
-                  <p className="text-3xl font-bold text-gray-900 dark:text-white mt-1">{stats.occupancyRate.toFixed(0)}%</p>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide truncate">{t('kpis.occupancy')}</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-1">{stats.occupancyRate.toFixed(0)}%</p>
                   <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{stats.upcomingAppointments} {t('kpis.upcoming')}</p>
                 </div>
-                <div className="p-3 bg-gradient-to-r from-orange-400 to-orange-500 rounded-xl shadow-lg">
-                  <ChartPieIcon className="h-6 w-6 text-white" />
+                <div className="p-2.5 sm:p-3 bg-gradient-to-r from-orange-400 to-orange-500 rounded-lg sm:rounded-xl shadow-lg flex-shrink-0 ml-3">
+                  <ChartPieIcon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                 </div>
               </div>
             </div>
@@ -434,29 +434,29 @@ const DashboardPage: React.FC = () => {
         {/* Actions rapides */}
         <QuickActions />
 
-        {/* Graphiques et widgets */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        {/* Graphiques et widgets - Mobile optimisé */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
           {/* Graphique des revenus */}
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-              <ChartBarIcon className="h-5 w-5 mr-2 text-orange-600 dark:text-orange-400" />
-              {t('charts_titles.revenue_evolution')}
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-xl sm:rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-4 sm:p-6">
+            <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4 flex items-center">
+              <ChartBarIcon className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-orange-600 dark:text-orange-400 flex-shrink-0" />
+              <span className="truncate">{t('charts_titles.revenue_evolution')}</span>
             </h3>
             <RevenueChart appointments={appointments || []} timeRange={timeRange} />
           </div>
 
           {/* Graphique des rendez-vous */}
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-              <CalendarDaysIcon className="h-5 w-5 mr-2 text-orange-600 dark:text-orange-400" />
-              {t('charts_titles.appointments_by_status')}
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-xl sm:rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-4 sm:p-6">
+            <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4 flex items-center">
+              <CalendarDaysIcon className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-orange-600 dark:text-orange-400 flex-shrink-0" />
+              <span className="truncate">{t('charts_titles.appointments_by_status')}</span>
             </h3>
             <AppointmentChart appointments={filteredAppointments} />
           </div>
         </div>
 
-        {/* Widgets secondaires */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        {/* Widgets secondaires - Mobile optimisé */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
           {/* Prochains rendez-vous */}
           <div className="lg:col-span-1">
             <UpcomingAppointments appointments={upcomingAppointments} />
@@ -464,10 +464,10 @@ const DashboardPage: React.FC = () => {
 
           {/* Services populaires */}
           <div className="lg:col-span-1">
-            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                <StarIcon className="h-5 w-5 mr-2 text-orange-600 dark:text-orange-400" />
-                {t('charts_titles.popular_services')}
+            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-xl sm:rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-4 sm:p-6">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4 flex items-center">
+                <StarIcon className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-orange-600 dark:text-orange-400 flex-shrink-0" />
+                <span className="truncate">{t('charts_titles.popular_services')}</span>
               </h3>
               <ServicePopularityChart appointments={appointments || []} services={services} />
             </div>
@@ -479,8 +479,8 @@ const DashboardPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Insights et activité récente */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Insights et activité récente - Mobile optimisé */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           {/* Business Insights */}
           <BusinessInsights 
             appointments={appointments || []} 
