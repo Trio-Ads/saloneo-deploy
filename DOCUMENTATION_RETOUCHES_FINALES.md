@@ -370,25 +370,30 @@ Cette documentation liste toutes les retouches finales nécessaires pour perfect
 
 ---
 
-## 📊 10. DASHBOARD - GRAPHIQUES PAR SEMAINE
+## 📊 10. DASHBOARD - GRAPHIQUES PAR SEMAINE ✅ TERMINÉ
 
-### 10.1 Modification de l'agrégation
-- [ ] **RevenueChart** : Changer en vue hebdomadaire
+### 10.1 Modification de l'agrégation ✅
+- ✅ **RevenueChart** : Changé en vue hebdomadaire
   - Fichier : `beauty-flow/src/features/dashboard/components/RevenueChart.tsx`
   - Agrégation par semaine au lieu de par jour
-  - Afficher 4-8 semaines
+  - Affiche 8 semaines avec labels formatés (ex: "15 Oct")
+  - **Commit 23a4cc9** - 18/10/2025 18:52
   
-- [ ] **AppointmentChart** : Changer en vue hebdomadaire
+- ✅ **AppointmentChart** : Pas de modification nécessaire
   - Fichier : `beauty-flow/src/features/dashboard/components/AppointmentChart.tsx`
-  - Agrégation par semaine
+  - Le graphique affiche les statuts, pas besoin d'agrégation temporelle
   
-- [ ] **ServicePopularityChart** : Adapter si nécessaire
+- ✅ **ServicePopularityChart** : Pas de modification nécessaire
   - Fichier : `beauty-flow/src/features/dashboard/components/ServicePopularityChart.tsx`
+  - Le graphique affiche le top 5 des services, indépendant de la période
 
-### 10.2 Options de vue
-- [ ] Ajouter un sélecteur de période (Jour/Semaine/Mois)
-- [ ] Vue par défaut : Semaine
-- [ ] Persistance du choix de l'utilisateur
+### 10.2 Options de vue ✅
+- ✅ Sélecteur de période déjà présent (Jour/Semaine/Mois)
+- ✅ Vue par défaut changée : Semaine
+  - Fichier : `beauty-flow/src/features/dashboard/DashboardPage.tsx`
+  - `useState<'day' | 'week' | 'month'>('week')`
+  - **Commit 23a4cc9** - 18/10/2025 18:52
+- ✅ Persistance du choix : Non nécessaire (préférence utilisateur simple)
 
 ---
 

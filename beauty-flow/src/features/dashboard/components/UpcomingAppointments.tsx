@@ -4,6 +4,8 @@ import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { ClockIcon, UserIcon, ScissorsIcon } from '@heroicons/react/24/outline';
 import { AppointmentWithPrice } from '../types';
+import { useProfileStore } from '../../profile/store';
+import { formatPrice } from '../../../utils/currency';
 
 interface UpcomingAppointmentsProps {
   appointments: AppointmentWithPrice[];
@@ -11,6 +13,7 @@ interface UpcomingAppointmentsProps {
 
 const UpcomingAppointments: React.FC<UpcomingAppointmentsProps> = ({ appointments }) => {
   const { t } = useTranslation('dashboard');
+  const { profile } = useProfileStore();
 
   if (appointments.length === 0) {
     return (
@@ -90,7 +93,7 @@ const UpcomingAppointments: React.FC<UpcomingAppointmentsProps> = ({ appointment
                   <span>{appointment.serviceName}</span>
                   {appointment.price && (
                     <span className="ml-auto font-medium text-gray-900 dark:text-white">
-                      {appointment.price.toFixed(2)} €
+                      {formatPrice(appointment.price, profile.currency)}
                     </span>
                   )}
                 </div>
