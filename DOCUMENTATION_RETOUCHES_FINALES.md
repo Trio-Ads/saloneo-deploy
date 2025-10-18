@@ -424,7 +424,7 @@ Cette documentation liste toutes les retouches finales nécessaires pour perfect
 
 ---
 
-## 📊 12. DASHBOARD - CORRECTION DES DONNÉES
+## 📊 12. DASHBOARD - CORRECTION DES DONNÉES ✅ TERMINÉ
 
 ### 12.1 Performance de l'équipe - "undefined undefined" ✅ TERMINÉ
 - ✅ **Correction de l'affichage des noms dans TeamPerformanceWidget**
@@ -434,18 +434,32 @@ Cette documentation liste toutes les retouches finales nécessaires pour perfect
   - Fichier traductions : `beauty-flow/public/locales/fr/dashboard.json`
   - **Commit 68978eb** - 18/10/2025 16:18
 
-### 12.2 Vérification de toutes les cards du dashboard
-- [ ] **UpcomingAppointments** : Vérifier les données affichées
+### 12.2 Vérification de toutes les cards du dashboard ✅ TERMINÉ
+- ✅ **UpcomingAppointments** : Corrigé - Affichage prix avec monnaie du profil
   - Fichier : `beauty-flow/src/features/dashboard/components/UpcomingAppointments.tsx`
-  - Vérifier client name, service name, team member name
+  - Ajout imports : useProfileStore, formatPrice
+  - Remplacement du prix hardcodé en euros par formatPrice(price, profile.currency)
+  - Les noms des clients et services s'affichent correctement via clientInfo et serviceName
+  - **Commit fc3fb60** - 18/10/2025 18:56
   
-- [ ] **RecentActivity** : Vérifier les données affichées
+- ✅ **RecentActivity** : Vérifié - Aucune correction nécessaire
   - Fichier : `beauty-flow/src/features/dashboard/components/RecentActivity.tsx`
-  - Vérifier toutes les données d'activité
+  - Utilise correctement clientInfo pour les noms des clients
+  - Utilise correctement serviceName enrichi
+  - Gestion des traductions et fallbacks déjà en place
   
-- [ ] **BusinessInsights** : Vérifier les calculs et données
+- ✅ **BusinessInsights** : Vérifié - Aucune correction nécessaire
   - Fichier : `beauty-flow/src/features/dashboard/components/BusinessInsights.tsx`
-  - Vérifier les statistiques affichées
+  - Utilise déjà formatPrice avec profile.currency
+  - Calculs et statistiques corrects
+  - Gestion des services et clients appropriée
+
+### 12.3 Résumé des corrections ✅
+Tous les composants du dashboard affichent maintenant correctement :
+- ✅ Les noms des clients (via clientInfo enrichi)
+- ✅ Les noms des services (via serviceName enrichi)
+- ✅ Les prix avec la bonne monnaie (via formatPrice + profile.currency)
+- ✅ Les noms des membres d'équipe (avec fallbacks appropriés)
 
 ---
 
