@@ -30,11 +30,11 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onTemplateSele
   }, [selectedTemplateId, selectedTemplate]);
 
   const categories = [
-    { id: 'all', name: 'Tous les thèmes', icon: SparklesIcon, color: 'from-purple-500 to-pink-600' },
-    { id: 'minimal', name: 'Minimaliste', icon: SwatchIcon, color: 'from-blue-500 to-cyan-600' },
-    { id: 'classic', name: 'Classique', icon: StarIcon, color: 'from-green-500 to-emerald-600' },
-    { id: 'modern', name: 'Moderne', icon: BeakerIcon, color: 'from-indigo-500 to-purple-600' },
-    { id: 'creative', name: 'Créatif', icon: PaintBrushIcon, color: 'from-orange-500 to-red-600' }
+    { id: 'all', name: 'Tous les thèmes', icon: SparklesIcon, color: 'from-orange-500 to-orange-600' },
+    { id: 'minimal', name: 'Minimaliste', icon: SwatchIcon, color: 'from-gray-400 to-gray-500' },
+    { id: 'classic', name: 'Classique', icon: StarIcon, color: 'from-gray-500 to-gray-600' },
+    { id: 'modern', name: 'Moderne', icon: BeakerIcon, color: 'from-orange-400 to-orange-500' },
+    { id: 'creative', name: 'Créatif', icon: PaintBrushIcon, color: 'from-orange-600 to-orange-700' }
   ];
 
   const filteredTemplates = selectedCategory === 'all' 
@@ -56,22 +56,22 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onTemplateSele
   return (
     <div className="space-y-8 animate-fadeIn">
       {/* Header */}
-      <div className="text-center glass-card p-8 bg-gradient-to-r from-purple-50/50 to-pink-50/50 border border-purple-200/50">
-        <div className="mx-auto w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full flex items-center justify-center mb-4 shadow-lg">
+      <div className="text-center glass-card p-8 bg-gradient-to-r from-orange-50/50 to-orange-100/50 dark:from-orange-900/10 dark:to-orange-800/10 border border-orange-200/50 dark:border-orange-500/20">
+        <div className="mx-auto w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center mb-4 shadow-lg shadow-orange-500/20">
           <SparklesIcon className="h-8 w-8 text-white" />
         </div>
-        <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-3">
+        <h2 className="text-3xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent mb-3">
           Galerie de Thèmes
         </h2>
-        <p className="text-gray-600 text-lg">
+        <p className="text-gray-600 dark:text-gray-400 text-lg">
           Choisissez un thème pour personnaliser l'apparence de votre salon
         </p>
       </div>
 
       {/* Category Filter */}
-      <div className="glass-card p-6">
-        <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
-          <SwatchIcon className="h-5 w-5 text-purple-600" />
+      <div className="glass-card p-6 bg-white/80 dark:bg-gray-800/80 border border-white/20 dark:border-gray-700/20">
+        <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center space-x-2">
+          <SwatchIcon className="h-5 w-5 text-orange-600 dark:text-orange-500" />
           <span>Catégories</span>
         </h3>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
@@ -83,10 +83,10 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onTemplateSele
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`glass-card p-4 transition-all duration-300 transform hover:scale-105 border border-white/20 ${
+                className={`glass-card p-4 transition-all duration-300 transform hover:scale-105 border border-white/20 dark:border-gray-700/20 ${
                   isSelected
-                    ? 'bg-gradient-to-r from-purple-500/20 to-pink-500/20 shadow-lg ring-2 ring-purple-500/50'
-                    : 'hover:bg-white/5 hover:shadow-lg'
+                    ? 'bg-gradient-to-r from-orange-500/20 to-orange-600/20 dark:from-orange-500/30 dark:to-orange-600/30 shadow-lg ring-2 ring-orange-500/50'
+                    : 'hover:bg-white/5 dark:hover:bg-gray-700/20 hover:shadow-lg'
                 }`}
               >
                 <div className="text-center">
@@ -96,7 +96,7 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onTemplateSele
                     <IconComponent className="h-6 w-6 text-white mx-auto" />
                   </div>
                   <span className={`text-sm font-medium ${
-                    isSelected ? 'text-purple-600' : 'text-gray-700'
+                    isSelected ? 'text-orange-600 dark:text-orange-400' : 'text-gray-700 dark:text-gray-300'
                   }`}>
                     {category.name}
                   </span>
@@ -112,9 +112,9 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onTemplateSele
         {filteredTemplates.map((template) => (
           <div
             key={template.id}
-            className={`glass-card overflow-hidden transition-all duration-300 transform hover:scale-105 cursor-pointer border border-white/20 ${
+            className={`glass-card overflow-hidden transition-all duration-300 transform hover:scale-105 cursor-pointer border border-white/20 dark:border-gray-700/20 bg-white/80 dark:bg-gray-800/80 ${
               selectedTemplate === template.id
-                ? 'ring-2 ring-purple-500/50 shadow-xl'
+                ? 'ring-2 ring-orange-500/50 shadow-xl'
                 : 'hover:shadow-lg'
             }`}
             onClick={() => handleTemplateSelect(template)}
@@ -188,15 +188,15 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onTemplateSele
             <div className="p-6">
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <h3 className="font-bold text-gray-900 text-lg mb-1">
+                  <h3 className="font-bold text-gray-900 dark:text-gray-100 text-lg mb-1">
                     {template.name}
                   </h3>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
                     {template.description}
                   </p>
                 </div>
-                <div className="p-2 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg">
-                  <EyeIcon className="h-4 w-4 text-purple-600" />
+                <div className="p-2 bg-gradient-to-r from-orange-100 to-orange-200 dark:from-orange-900/30 dark:to-orange-800/30 rounded-lg">
+                  <EyeIcon className="h-4 w-4 text-orange-600 dark:text-orange-400" />
                 </div>
               </div>
               
@@ -226,7 +226,7 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onTemplateSele
                 </div>
                 
                 {selectedTemplate === template.id && (
-                  <div className="flex items-center space-x-1 text-green-600">
+                  <div className="flex items-center space-x-1 text-orange-600 dark:text-orange-400">
                     <CheckCircleIcon className="h-4 w-4" />
                     <span className="text-xs font-medium">Sélectionné</span>
                   </div>
@@ -239,7 +239,7 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onTemplateSele
 
       {/* Selected Template Details */}
       {selectedTemplate && (
-        <div className="glass-card p-8 bg-gradient-to-r from-indigo-50/50 to-purple-50/50 border border-indigo-200/50">
+        <div className="glass-card p-8 bg-gradient-to-r from-orange-50/50 to-orange-100/50 dark:from-orange-900/10 dark:to-orange-800/10 border border-orange-200/50 dark:border-orange-500/20">
           {(() => {
             const template = allTemplates.find(t => t.id === selectedTemplate);
             if (!template) return null;
@@ -247,47 +247,47 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onTemplateSele
             return (
               <div>
                 <div className="flex items-center space-x-3 mb-6">
-                  <div className="p-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl shadow-lg">
+                  <div className="p-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-lg shadow-orange-500/20">
                     <EyeIcon className="h-6 w-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                    <h3 className="text-2xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
                       {template.name}
                     </h3>
-                    <p className="text-gray-600 text-lg">
+                    <p className="text-gray-600 dark:text-gray-400 text-lg">
                       {template.description}
                     </p>
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                  <div className="glass-card bg-white/70 p-6 rounded-xl">
-                    <h4 className="font-bold text-gray-900 mb-4 flex items-center space-x-2">
-                      <PaintBrushIcon className="h-5 w-5 text-indigo-600" />
+                  <div className="glass-card bg-white/70 dark:bg-gray-800/70 p-6 rounded-xl border border-white/20 dark:border-gray-700/20">
+                    <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center space-x-2">
+                      <PaintBrushIcon className="h-5 w-5 text-orange-600 dark:text-orange-500" />
                       <span>Typographie</span>
                     </h4>
                     <div className="space-y-3">
                       <div>
-                        <span className="text-sm font-medium text-gray-700">Titres:</span>
-                        <p className="text-indigo-600 font-bold">{template.theme.typography.headingFont}</p>
+                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Titres:</span>
+                        <p className="text-orange-600 dark:text-orange-400 font-bold">{template.theme.typography.headingFont}</p>
                       </div>
                       <div>
-                        <span className="text-sm font-medium text-gray-700">Texte:</span>
-                        <p className="text-indigo-600 font-medium">{template.theme.typography.bodyFont}</p>
+                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Texte:</span>
+                        <p className="text-orange-600 dark:text-orange-400 font-medium">{template.theme.typography.bodyFont}</p>
                       </div>
                     </div>
                   </div>
                   
-                  <div className="glass-card bg-white/70 p-6 rounded-xl">
-                    <h4 className="font-bold text-gray-900 mb-4 flex items-center space-x-2">
-                      <SparklesIcon className="h-5 w-5 text-purple-600" />
+                  <div className="glass-card bg-white/70 dark:bg-gray-800/70 p-6 rounded-xl border border-white/20 dark:border-gray-700/20">
+                    <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center space-x-2">
+                      <SparklesIcon className="h-5 w-5 text-orange-600 dark:text-orange-500" />
                       <span>Effets visuels</span>
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {template.theme.effects.animations.map((animation, index) => (
                         <span 
                           key={index}
-                          className="glass-card bg-gradient-to-r from-purple-100 to-pink-100 text-purple-800 px-3 py-1 rounded-full text-xs font-medium"
+                          className="glass-card bg-gradient-to-r from-orange-100 to-orange-200 dark:from-orange-900/30 dark:to-orange-800/30 text-orange-800 dark:text-orange-300 px-3 py-1 rounded-full text-xs font-medium border border-orange-200 dark:border-orange-700/30"
                         >
                           {animation}
                         </span>
@@ -299,7 +299,7 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onTemplateSele
                 <div className="flex justify-end">
                   <button
                     onClick={() => handleApplyTemplate(template)}
-                    className="glass-button bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white border-0 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 px-8 py-3"
+                    className="glass-button bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white border-0 shadow-lg shadow-orange-500/20 hover:shadow-xl hover:shadow-orange-500/30 transform hover:scale-105 transition-all duration-200 px-8 py-3"
                   >
                     <div className="flex items-center space-x-2">
                       <CheckCircleIcon className="h-5 w-5" />
@@ -314,14 +314,14 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onTemplateSele
       )}
 
       {/* Information */}
-      <div className="glass-card p-6 bg-gradient-to-r from-blue-50/50 to-cyan-50/50 border border-blue-200/50">
+      <div className="glass-card p-6 bg-gradient-to-r from-orange-50/50 to-orange-100/50 dark:from-orange-900/10 dark:to-orange-800/10 border border-orange-200/50 dark:border-orange-500/20">
         <div className="flex items-start space-x-3">
-          <div className="p-2 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-lg">
+          <div className="p-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg shadow-lg shadow-orange-500/20">
             <SparklesIcon className="h-5 w-5 text-white" />
           </div>
           <div>
-            <h4 className="text-sm font-medium text-blue-800 mb-2">À propos des thèmes</h4>
-            <div className="space-y-2 text-sm text-blue-700">
+            <h4 className="text-sm font-medium text-orange-800 dark:text-orange-300 mb-2">À propos des thèmes</h4>
+            <div className="space-y-2 text-sm text-orange-700 dark:text-orange-400">
               <p>• Chaque thème modifie l'apparence complète de votre salon</p>
               <p>• Les couleurs, polices et effets sont personnalisables après application</p>
               <p>• Vous pouvez changer de thème à tout moment sans perdre vos données</p>
