@@ -116,7 +116,13 @@ const MainLayout: React.FC = () => {
     const mediaQuery = window.matchMedia('(max-width: 768px)');
     
     const handleMediaChange = (e: MediaQueryListEvent | MediaQueryList) => {
-      setIsMobile(e.matches);
+      const newIsMobile = e.matches;
+      setIsMobile(newIsMobile);
+      console.log('📱 Device detection:', {
+        isMobile: newIsMobile,
+        width: window.innerWidth,
+        breakpoint: newIsMobile ? 'Mobile' : 'Tablette/Desktop'
+      });
     };
     
     // Vérification initiale
@@ -129,6 +135,15 @@ const MainLayout: React.FC = () => {
       mediaQuery.removeEventListener('change', handleMediaChange);
     };
   }, []);
+
+  // Debug: Log quand isOpen change
+  useEffect(() => {
+    console.log('🔔 Menu state changed:', {
+      isOpen,
+      isMobile,
+      shouldShowMenu: isOpen && !isMobile
+    });
+  }, [isOpen, isMobile]);
 
   // Charger toutes les données au démarrage
   useEffect(() => {
