@@ -110,23 +110,34 @@ const MainLayout: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Détecter si on est sur mobile avec matchMedia (plus fiable)
+  // Détecter si on est sur mobile ou tablette avec matchMedia (plus fiable)
+  const [isTablet, setIsTablet] = useState(false);
+  
   useEffect(() => {
-    // Utiliser matchMedia pour synchroniser avec les breakpoints Tailwind
-    const mediaQuery = window.matchMedia('(max-width: 768px)');
+    // Mobile : < 768px
+    const mobileQuery = window.matchMedia('(max-width: 768px)');
+    // Tablette : 768px - 1024px
+    const tabletQuery = window.matchMedia('(min-width: 768px) and (max-width: 1024px)');
     
-    const handleMediaChange = (e: MediaQueryListEvent | MediaQueryList) => {
+    const handleMobileChange = (e: MediaQueryListEvent | MediaQueryList) => {
       setIsMobile(e.matches);
     };
     
+    const handleTabletChange = (e: MediaQueryListEvent | MediaQueryList) => {
+      setIsTablet(e.matches);
+    };
+    
     // Vérification initiale
-    handleMediaChange(mediaQuery);
+    handleMobileChange(mobileQuery);
+    handleTabletChange(tabletQuery);
     
     // Écouter les changements
-    mediaQuery.addEventListener('change', handleMediaChange);
+    mobileQuery.addEventListener('change', handleMobileChange);
+    tabletQuery.addEventListener('change', handleTabletChange);
     
     return () => {
-      mediaQuery.removeEventListener('change', handleMediaChange);
+      mobileQuery.removeEventListener('change', handleMobileChange);
+      tabletQuery.removeEventListener('change', handleTabletChange);
     };
   }, []);
 
@@ -199,9 +210,53 @@ const MainLayout: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+      {/* Sidebar tablette (768px - 1024px) */}
+      {isTablet && (
+        <aside className="fixed left-0 top-0 bottom-0 w-64 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl shadow-2xl border-r border-gray-200 dark:border-gray-700 z-40 overflow-y-auto overflow-x-hidden">
+          {/* Logo */}
+          <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+            <Link to="/" className="flex items-center space-x-3">
+              <SaloneoLogo variant="auto" size="md" />
+            </Link>
+          </div>
+
+          {/* Navigation */}
+          <nav className="p-3 space-y-1">
+            {navigation.map((item) => {
+              const Icon = item.icon;
+              const isActive = isActiveRoute(item.href);
+              
+              return (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  className={`
+                    flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95
+                    ${isActive 
+                      ? `bg-gradient-to-r ${item.color} text-white shadow-lg shadow-orange-500/25` 
+                      : 'text-gray-600 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/10 hover:shadow-md'
+                    }
+                  `}
+                >
+                  <Icon />
+                  <span className="font-medium font-body text-sm">
+                    {item.name}
+                  </span>
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Menu utilisateur en bas */}
+          <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-900/95">
+            <UserMenu />
+          </div>
+        </aside>
+      )}
+
       {/* Navigation principale */}
       <nav className={`
-        fixed top-0 left-0 right-0 z-50 transition-all duration-500
+        fixed top-0 ${isTablet ? 'left-64' : 'left-0'} right-0 z-50 transition-all duration-500
         ${scrolled 
           ? 'navbar-2025-scrolled backdrop-blur-xl bg-white/80 dark:bg-gray-900/80 shadow-glass-lg' 
           : 'navbar-2025 backdrop-blur-sm bg-white/60 dark:bg-gray-900/60'
@@ -348,7 +403,7 @@ const MainLayout: React.FC = () => {
 
       {/* Contenu principal */}
       <main 
-        className={`main-content-2025 pt-24 ${isMobile ? 'pb-20' : 'pb-8'}`}
+        className={`main-content-2025 pt-24 ${isMobile ? 'pb-20' : 'pb-8'} ${isTablet ? 'ml-64' : ''}`}
         style={isMobile ? { paddingBottom: 'calc(5rem + env(safe-area-inset-bottom))' } : undefined}
       >
         <div className="container-2025">
