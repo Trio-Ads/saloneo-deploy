@@ -1,4 +1,4 @@
-import React, { useReducer, useMemo, useEffect } from 'react';
+import React, { useReducer, useMemo, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { format, addMinutes, parse } from 'date-fns';
 import { fr } from 'date-fns/locale';
@@ -9,11 +9,23 @@ import {
   SparklesIcon,
   DocumentTextIcon,
   CheckCircleIcon,
-  ExclamationTriangleIcon
+  ExclamationTriangleIcon,
+  PlusCircleIcon
 } from '@heroicons/react/24/outline';
 import { AppointmentFormData, TimeSlot } from '../types';
 import { Service } from '../../services/types';
 import { useAppointmentForm } from '../hooks/useAppointmentForm';
+import { useClientStore } from '../../clients/store';
+import { useServiceStore } from '../../services/store';
+import { useTeamStore } from '../../team/store';
+import { ClientFormData } from '../../clients/types';
+import { ServiceFormData } from '../../services/types';
+import { TeamMemberFormData } from '../../team/types';
+import { 
+  QuickCreateClientModal, 
+  QuickCreateServiceModal, 
+  QuickCreateTeamModal 
+} from './QuickCreateModals';
 
 interface AppointmentFormProps {
   initialData?: Partial<AppointmentFormData>;
@@ -93,7 +105,51 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   const { formData, availableTimeSlots } = state;
   const [preBookingId, setPreBookingId] = React.useState<string | null>(null);
 
-  const selectedService = useMemo(() => 
+  // États pour les modales de création rapide
+  const [showClientModal, setShowClientModal] = useState(false);
+  const [showServiceModal, setShowServiceModal] = useState(false);
+  const [showTeamModal, setShowTeamModal] = useState(false);
+  
+  // Stores pour la création rapide
+  const { addClient, fetchClients } = useClientStore();
+  const { addService, fetchServices, categories } = useServiceStore();
+  const { addMember, fetchMembers } = useTeamStore();
+
+  // Handlers pour la création rapide
+  const handleQuickCreateClient = async (clientData: ClientFormData) => {
+    try {
+      const newClient = await addClient(clientData);
+      await fetchClients(); // Rafraîchir la liste
+      dispatch({ type: 'SET_FIELD', field: 'clientId', value: newClient.id }); // Sélectionner automatiquement
+      setShowClientModal(false);
+    } catch (error) {
+      console.error('Error creating client:', error);
+    }
+  };
+
+  const handleQuickCreateService = async (serviceData: ServiceFormData) => {
+    try {
+      const newService = await addService(serviceData);
+      await fetchServices(); // Rafraîchir la liste
+      dispatch({ type: 'SET_SERVICE', service: newService }); // Sélectionner automatiquement
+      setShowServiceModal(false);
+    } catch (error) {
+      console.error('Error creating service:', error);
+    }
+  };
+
+  const handleQuickCreateTeam = async (teamData: TeamMemberFormData) => {
+    try {
+      const newMember = await addMember(teamData);
+      await fetchMembers(); // Rafraîchir la liste
+      dispatch({ type: 'SET_FIELD', field: 'stylistId', value: newMember.id }); // Sélectionner automatiquement
+      setShowTeamModal(false);
+    } catch (error) {
+      console.error('Error creating team member:', error);
+    }
+  };
+
+  const selectedService = useMemo(() =>
     services.find((s: Service) => s.id === formData.serviceId),
     [services, formData.serviceId]
   );
@@ -224,10 +280,20 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           </div>
           
           <div>
-            <label htmlFor="clientId" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              <UserIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-400" />
-              {t('appointment_form.labels.select_client')}
-            </label>
+            <div className="flex items-center justify-between mb-2">
+              <label htmlFor="clientId" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <UserIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-400" />
+                {t('appointment_form.labels.select_client')}
+              </label>
+              <button
+                type="button"
+                onClick={() => setShowClientModal(true)}
+                className="flex items-center space-x-1 px-3 py-1 text-xs font-medium text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 bg-orange-50 dark:bg-orange-900/20 hover:bg-orange-100 dark:hover:bg-orange-900/30 rounded-lg transition-colors"
+              >
+                <PlusCircleIcon className="h-4 w-4" />
+                <span>Nouveau</span>
+              </button>
+            </div>
             <select
               id="clientId"
               name="clientId"
@@ -264,10 +330,20 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           </div>
           
           <div>
-            <label htmlFor="serviceId" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              <SparklesIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-400" />
-              {t('appointment_form.labels.select_service')}
-            </label>
+            <div className="flex items-center justify-between mb-2">
+              <label htmlFor="serviceId" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <SparklesIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-400" />
+                {t('appointment_form.labels.select_service')}
+              </label>
+              <button
+                type="button"
+                onClick={() => setShowServiceModal(true)}
+                className="flex items-center space-x-1 px-3 py-1 text-xs font-medium text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 bg-orange-50 dark:bg-orange-900/20 hover:bg-orange-100 dark:hover:bg-orange-900/30 rounded-lg transition-colors"
+              >
+                <PlusCircleIcon className="h-4 w-4" />
+                <span>Nouveau</span>
+              </button>
+            </div>
             <select
               id="serviceId"
               name="serviceId"
@@ -305,10 +381,20 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           </div>
           
           <div>
-            <label htmlFor="stylistId" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              <UserIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-400" />
-              Sélectionner un coiffeur *
-            </label>
+            <div className="flex items-center justify-between mb-2">
+              <label htmlFor="stylistId" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <UserIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-400" />
+                Sélectionner un coiffeur *
+              </label>
+              <button
+                type="button"
+                onClick={() => setShowTeamModal(true)}
+                className="flex items-center space-x-1 px-3 py-1 text-xs font-medium text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 bg-orange-50 dark:bg-orange-900/20 hover:bg-orange-100 dark:hover:bg-orange-900/30 rounded-lg transition-colors"
+              >
+                <PlusCircleIcon className="h-4 w-4" />
+                <span>Nouveau</span>
+              </button>
+            </div>
             <select
               id="stylistId"
               name="stylistId"
@@ -469,6 +555,26 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           </button>
         </div>
       </form>
+
+      {/* Modales de création rapide */}
+      <QuickCreateClientModal
+        isOpen={showClientModal}
+        onClose={() => setShowClientModal(false)}
+        onCreate={handleQuickCreateClient}
+      />
+      
+      <QuickCreateServiceModal
+        isOpen={showServiceModal}
+        onClose={() => setShowServiceModal(false)}
+        onCreate={handleQuickCreateService}
+        categories={categories}
+      />
+      
+      <QuickCreateTeamModal
+        isOpen={showTeamModal}
+        onClose={() => setShowTeamModal(false)}
+        onCreate={handleQuickCreateTeam}
+      />
     </div>
   );
 };
