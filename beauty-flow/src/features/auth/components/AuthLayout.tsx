@@ -57,20 +57,14 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title }) => {
       {/* Contenu principal */}
       <div className="auth-container">
         <div className="auth-content">
-          {/* Logo et branding Saloneo */}
+          {/* Logo Saloneo vertical */}
           <div className="auth-header">
             <div className="auth-logo">
-              <div className="auth-logo-icon">
-                <SaloneoLogo iconOnly size="lg" />
-              </div>
-              <div className="auth-logo-text">
-                <h1 className="text-2xl font-display font-bold text-white">
-                  Saloneo
-                </h1>
-                <p className="text-sm text-white/70 font-body">
-                  Gestion de salon moderne
-                </p>
-              </div>
+              <img 
+                src="/images/logos/Salonéo Logo - White.webp" 
+                alt="Saloneo" 
+                className="auth-logo-image"
+              />
             </div>
           </div>
 
@@ -193,22 +187,15 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title }) => {
 
           .auth-logo {
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            gap: 1rem;
           }
 
-          .auth-logo-icon {
-            padding: 1rem;
-            background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(251, 146, 60, 0.1));
-            border-radius: 1.5rem;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(249, 115, 22, 0.3);
+          .auth-logo-image {
+            height: 80px;
+            width: auto;
+            filter: drop-shadow(0 4px 12px rgba(249, 115, 22, 0.3));
             animation: glow 2s ease-in-out infinite alternate;
-          }
-
-          .auth-logo-text {
-            text-align: center;
           }
 
           .auth-card {

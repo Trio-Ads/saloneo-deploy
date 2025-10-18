@@ -1,4 +1,6 @@
 import React from 'react';
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
 import { useInterfaceStore } from '../../../interface/store';
 
 interface PersonalInfoSectionProps {
@@ -20,6 +22,23 @@ const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
   errors,
 }) => {
   const settings = useInterfaceStore((state) => state.settings);
+  const [defaultCountry, setDefaultCountry] = React.useState<string>('DZ');
+
+  // Détecter le pays basé sur l'IP de l'utilisateur
+  React.useEffect(() => {
+    const detectCountry = async () => {
+      try {
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
+        if (data.country_code) {
+          setDefaultCountry(data.country_code);
+        }
+      } catch (error) {
+        console.log('Impossible de détecter le pays, utilisation de DZ par défaut');
+      }
+    };
+    detectCountry();
+  }, []);
 
   return (
     <div className="space-y-6">
@@ -105,14 +124,18 @@ const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
           <label className="block text-sm font-medium text-gray-700 dark:text-white mb-2">
             Téléphone <span className="text-orange-600 dark:text-orange-400">*</span>
           </label>
-          <input
-            type="tel"
+          <PhoneInput
+            international
+            defaultCountry={defaultCountry as any}
             value={values.phone}
-            onChange={(e) => onChange('phone', e.target.value)}
-            className={`glass-input w-full transition-all duration-300 ${
-              errors.phone ? 'border-orange-600 ring-1 ring-orange-600' : 'hover:bg-orange-50 dark:hover:bg-white/10'
+            onChange={(value) => onChange('phone', value || '')}
+            className={`glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 backdrop-blur-sm shadow-lg focus-within:ring-2 focus-within:ring-orange-500 focus-within:bg-white dark:focus-within:bg-gray-600 transition-all duration-200 ${
+              errors.phone ? 'ring-2 ring-orange-600' : ''
             }`}
-            required
+            numberInputProps={{
+              className: 'w-full bg-transparent border-0 focus:outline-none focus:ring-0 text-gray-900 dark:text-gray-100 px-3 py-2',
+              required: true
+            }}
           />
           {errors.phone && (
             <div className="flex items-center space-x-1 mt-1 text-orange-600 dark:text-orange-400 animate-fade-in">

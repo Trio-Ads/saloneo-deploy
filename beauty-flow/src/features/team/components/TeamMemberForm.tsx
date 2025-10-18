@@ -1,5 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
 import { 
   UserIcon,
   EnvelopeIcon,
@@ -26,6 +28,7 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
 }) => {
   const { t } = useTranslation('team');
   const services = useServiceStore((state) => state.services);
+  const [defaultCountry, setDefaultCountry] = React.useState<string>('DZ');
   const [formData, setFormData] = React.useState<TeamMemberFormData>(
     initialData || {
       firstName: '',
@@ -46,6 +49,22 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
       isActive: true
     }
   );
+
+  // Détecter le pays basé sur l'IP de l'utilisateur
+  React.useEffect(() => {
+    const detectCountry = async () => {
+      try {
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
+        if (data.country_code) {
+          setDefaultCountry(data.country_code);
+        }
+      } catch (error) {
+        console.log('Impossible de détecter le pays, utilisation de DZ par défaut');
+      }
+    };
+    detectCountry();
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -175,15 +194,16 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
                 <PhoneIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
                 {t('team_member_form.labels.phone_required')}
               </label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
+              <PhoneInput
+                international
+                defaultCountry={defaultCountry as any}
                 value={formData.phone}
-                onChange={handleChange}
-                required
-                className="glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 focus:bg-white dark:focus:bg-gray-600 transition-all duration-200"
-                placeholder={t('team_member_form.placeholders.phone_example')}
+                onChange={(value) => setFormData(prev => ({ ...prev, phone: value || '' }))}
+                className="glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 backdrop-blur-sm shadow-lg focus-within:ring-2 focus-within:ring-orange-500 focus-within:bg-white dark:focus-within:bg-gray-600 transition-all duration-200"
+                numberInputProps={{
+                  className: 'w-full bg-transparent border-0 focus:outline-none focus:ring-0 text-gray-900 dark:text-gray-100 px-3 py-2',
+                  required: true
+                }}
               />
             </div>
 
