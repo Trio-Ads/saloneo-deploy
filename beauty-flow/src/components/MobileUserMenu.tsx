@@ -36,7 +36,7 @@ const MobileUserMenu: React.FC = () => {
   ];
 
   return (
-    <div className="relative">
+    <>
       {/* Bouton menu utilisateur */}
       <button
         onClick={() => setIsOpen(!isOpen)}
@@ -58,17 +58,20 @@ const MobileUserMenu: React.FC = () => {
         </span>
       </button>
 
-      {/* Menu déroulant */}
+      {/* Menu déroulant - Rendu au niveau du body avec portal */}
       {isOpen && (
         <>
-          {/* Overlay */}
+          {/* Overlay plein écran */}
           <div 
-            className="fixed inset-0 z-40 bg-black/20 dark:bg-black/40 backdrop-blur-sm"
+            className="fixed inset-0 z-[60] bg-black/20 dark:bg-black/40 backdrop-blur-sm"
             onClick={() => setIsOpen(false)}
           />
           
-          {/* Menu avec glassmorphism - S'ouvre vers le HAUT depuis la bottom nav */}
-          <div className="absolute bottom-full right-0 mb-2 w-56 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-[0_8px_32px_rgba(249,115,22,0.15)] dark:shadow-[0_8px_32px_rgba(251,146,60,0.2)] border border-orange-500/20 dark:border-orange-400/20 z-50 max-h-[70vh] overflow-hidden animate-slide-up">
+          {/* Menu avec glassmorphism - Positionné en bas à droite */}
+          <div 
+            className="fixed bottom-20 right-4 w-56 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-[0_8px_32px_rgba(249,115,22,0.15)] dark:shadow-[0_8px_32px_rgba(251,146,60,0.2)] border border-orange-500/20 dark:border-orange-400/20 z-[70] max-h-[70vh] overflow-hidden animate-slide-up"
+            style={{ marginBottom: 'env(safe-area-inset-bottom)' }}
+          >
             <div className="py-2 max-h-[70vh] overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-orange-300 dark:scrollbar-thumb-orange-600 scrollbar-track-transparent">
               {menuItems.map((item) => (
                 <button
@@ -92,7 +95,7 @@ const MobileUserMenu: React.FC = () => {
           </div>
         </>
       )}
-    </div>
+    </>
   );
 };
 
