@@ -697,6 +697,7 @@ Cette documentation liste toutes les retouches finales nécessaires pour perfect
 
 ### ✅ Corrections effectuées aujourd'hui :
 
+#### Commit 68978eb - 16:18
 1. **INTÉGRATION DES LOGOS** ✅
    - Tous les logos copiés dans `beauty-flow/public/images/logos/`
    - Composant `SaloneoLogo.tsx` créé et configuré
@@ -714,12 +715,27 @@ Cette documentation liste toutes les retouches finales nécessaires pour perfect
    - Traductions existantes et correctes
    - Aucune modification nécessaire
 
+4. **DASHBOARD - TeamPerformanceWidget** ✅
+   - Correction du bug "undefined undefined"
+   - Ajout de fallbacks pour firstName, lastName, role
+   - Traductions FR ajoutées : unknown_member, no_role
+   - Fichier modifié : `beauty-flow/src/features/dashboard/components/TeamPerformanceWidget.tsx`
+   - Fichier modifié : `beauty-flow/public/locales/fr/dashboard.json`
+
+5. **DOCUMENTATION** ✅
+   - Mise à jour complète avec statuts réalistes
+   - Résumé détaillé de la session
+   - Version 1.2
+
+### 🔄 En cours :
+- Formulaires : Suppression des zéros au focus/typing
+
 ### 📋 Prochaines priorités :
 
 **HAUTE PRIORITÉ :**
-- Dashboard : Corriger "undefined undefined" dans TeamPerformanceWidget
-- Formulaires : Supprimer les zéros au focus/typing
+- Formulaires : Supprimer les zéros au focus/typing (EN COURS)
 - Téléphone international : Intégrer react-phone-input-2
+- Formulaire RDV : Modales de création rapide
 
 **MOYENNE PRIORITÉ :**
 - Interface : Menu fixe sur mobile
@@ -729,6 +745,6 @@ Cette documentation liste toutes les retouches finales nécessaires pour perfect
 ---
 
 *Document créé le : 18/10/2025*
-*Dernière mise à jour : 18/10/2025 - 16:11*
-*Version : 1.1*
-*Dernières modifications : Ajout du résumé de session et mise à jour des statuts*
+*Dernière mise à jour : 18/10/2025 - 16:21*
+*Version : 1.2*
+*Dernières modifications : Ajout commit 68978eb et début des formulaires*

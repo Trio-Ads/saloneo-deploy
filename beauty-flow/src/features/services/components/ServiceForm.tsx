@@ -78,6 +78,25 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
     }));
   };
 
+  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    // Si le champ contient 0, on le vide pour faciliter la saisie
+    if ((name === 'duration' || name === 'price') && (value === '0' || Number(value) === 0)) {
+      e.target.value = '';
+    }
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    // Si le champ est vide au blur, on remet 0
+    if ((name === 'duration' || name === 'price') && value === '') {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: 0
+      }));
+    }
+  };
+
   return (
     <div className="max-w-4xl mx-auto">
       <form onSubmit={handleSubmit} className="space-y-8">
@@ -148,6 +167,8 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
                     name="duration"
                     value={formData.duration}
                     onChange={handleChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
                     min="5"
                     step="5"
                     required
@@ -171,6 +192,8 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
                     name="price"
                     value={formData.price}
                     onChange={handleChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
                     min="0"
                     step="0.01"
                     required

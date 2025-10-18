@@ -51,6 +51,25 @@ const ProductForm: React.FC<ProductFormProps> = ({
     }));
   };
 
+  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    // Si le champ contient 0, on le vide pour faciliter la saisie
+    if ((name === 'quantity' || name === 'minQuantity') && (value === '0' || Number(value) === 0)) {
+      e.target.value = '';
+    }
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    // Si le champ est vide au blur, on remet 0
+    if ((name === 'quantity' || name === 'minQuantity') && value === '') {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: 0
+      }));
+    }
+  };
+
   const isLowStock = formData.quantity <= formData.minQuantity && formData.minQuantity > 0;
 
   return (
@@ -132,6 +151,8 @@ const ProductForm: React.FC<ProductFormProps> = ({
                   name="quantity"
                   value={formData.quantity}
                   onChange={handleChange}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
                   min="0"
                   required
                   className={`glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:bg-white transition-all duration-200 pr-16 ${
@@ -163,6 +184,8 @@ const ProductForm: React.FC<ProductFormProps> = ({
                   name="minQuantity"
                   value={formData.minQuantity}
                   onChange={handleChange}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
                   min="0"
                   required
                   className="glass-input w-full rounded-xl border-0 bg-white/70 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all duration-200 pr-16"
