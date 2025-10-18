@@ -70,7 +70,9 @@ export const register = async (req: Request, res: Response): Promise<void> => {
         establishmentName: user.establishmentName,
         phone: user.phone,
         address: user.address,
+        settings: user.settings,
         subscription: user.subscription,
+        createdAt: user.createdAt,
       },
     });
   } catch (error) {
@@ -159,7 +161,11 @@ export const login = async (req: Request, res: Response): Promise<void> => {
         firstName: user.firstName,
         lastName: user.lastName,
         establishmentName: user.establishmentName,
+        address: user.address,
+        phone: user.phone,
+        settings: user.settings,
         subscription: user.subscription,
+        createdAt: user.createdAt,
       },
     });
   } catch (error) {

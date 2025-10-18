@@ -13,21 +13,72 @@ interface AuthStore extends AuthState {
   clearError: () => void;
 }
 
-const mapUserFromAPI = (apiUser: any): UserProfile => ({
-  id: apiUser.id || apiUser._id,
-  email: apiUser.email,
-  firstName: apiUser.firstName || '',
-  lastName: apiUser.lastName || '',
-  establishmentName: apiUser.establishmentName,
-  address: apiUser.address || '',
-  language: apiUser.settings?.language || 'fr',
-  currency: apiUser.settings?.currency || { code: 'EUR', symbol: '€', name: 'Euro' },
-  createdAt: apiUser.createdAt,
-  subscription: {
-    planType: apiUser.subscription?.plan || 'FREE',
-    expiresAt: apiUser.subscription?.endDate || apiUser.subscription?.expiresAt
-  }
-});
+const mapUserFromAPI = (apiUser: any): UserProfile => {
+  // Helper function to convert currency string to object
+  const getCurrencyObject = (currencyCode: string) => {
+    const currencies: Record<string, { code: string; symbol: string; name: string }> = {
+      'EUR': { code: 'EUR', symbol: '€', name: 'Euro' },
+      'USD': { code: 'USD', symbol: '$', name: 'US Dollar' },
+      'GBP': { code: 'GBP', symbol: '£', name: 'British Pound' },
+      'JPY': { code: 'JPY', symbol: '¥', name: 'Japanese Yen' },
+      'CAD': { code: 'CAD', symbol: 'C$', name: 'Canadian Dollar' },
+      'AUD': { code: 'AUD', symbol: 'A$', name: 'Australian Dollar' },
+      'CHF': { code: 'CHF', symbol: 'CHF', name: 'Swiss Franc' },
+      'CNY': { code: 'CNY', symbol: '¥', name: 'Chinese Yuan' },
+      'SEK': { code: 'SEK', symbol: 'kr', name: 'Swedish Krona' },
+      'NOK': { code: 'NOK', symbol: 'kr', name: 'Norwegian Krone' },
+      'DKK': { code: 'DKK', symbol: 'kr', name: 'Danish Krone' },
+      'PLN': { code: 'PLN', symbol: 'zł', name: 'Polish Zloty' },
+      'CZK': { code: 'CZK', symbol: 'Kč', name: 'Czech Koruna' },
+      'HUF': { code: 'HUF', symbol: 'Ft', name: 'Hungarian Forint' },
+      'RUB': { code: 'RUB', symbol: '₽', name: 'Russian Ruble' },
+      'BRL': { code: 'BRL', symbol: 'R$', name: 'Brazilian Real' },
+      'INR': { code: 'INR', symbol: '₹', name: 'Indian Rupee' },
+      'KRW': { code: 'KRW', symbol: '₩', name: 'South Korean Won' },
+      'SGD': { code: 'SGD', symbol: 'S$', name: 'Singapore Dollar' },
+      'HKD': { code: 'HKD', symbol: 'HK$', name: 'Hong Kong Dollar' },
+      'NZD': { code: 'NZD', symbol: 'NZ$', name: 'New Zealand Dollar' },
+      'MXN': { code: 'MXN', symbol: '$', name: 'Mexican Peso' },
+      'ZAR': { code: 'ZAR', symbol: 'R', name: 'South African Rand' },
+      'TRY': { code: 'TRY', symbol: '₺', name: 'Turkish Lira' },
+      'AED': { code: 'AED', symbol: 'د.إ', name: 'UAE Dirham' },
+      'SAR': { code: 'SAR', symbol: '﷼', name: 'Saudi Riyal' },
+      'QAR': { code: 'QAR', symbol: 'ر.ق', name: 'Qatari Riyal' },
+      'KWD': { code: 'KWD', symbol: 'د.ك', name: 'Kuwaiti Dinar' },
+      'BHD': { code: 'BHD', symbol: '.د.ب', name: 'Bahraini Dinar' },
+      'OMR': { code: 'OMR', symbol: 'ر.ع.', name: 'Omani Rial' },
+      'JOD': { code: 'JOD', symbol: 'د.ا', name: 'Jordanian Dinar' },
+      'LBP': { code: 'LBP', symbol: 'ل.ل', name: 'Lebanese Pound' },
+      'EGP': { code: 'EGP', symbol: 'ج.م', name: 'Egyptian Pound' },
+      'MAD': { code: 'MAD', symbol: 'د.م.', name: 'Moroccan Dirham' },
+      'TND': { code: 'TND', symbol: 'د.ت', name: 'Tunisian Dinar' },
+      'DZD': { code: 'DZD', symbol: 'د.ج', name: 'Algerian Dinar' },
+      'LYD': { code: 'LYD', symbol: 'ل.د', name: 'Libyan Dinar' },
+    };
+    return currencies[currencyCode] || currencies['EUR'];
+  };
+
+  const currencyCode = apiUser.settings?.currency || 'EUR';
+  const currencyObject = typeof currencyCode === 'string' 
+    ? getCurrencyObject(currencyCode)
+    : currencyCode;
+
+  return {
+    id: apiUser.id || apiUser._id,
+    email: apiUser.email,
+    firstName: apiUser.firstName || '',
+    lastName: apiUser.lastName || '',
+    establishmentName: apiUser.establishmentName,
+    address: apiUser.address || '',
+    language: apiUser.settings?.language || 'fr',
+    currency: currencyObject,
+    createdAt: apiUser.createdAt,
+    subscription: {
+      planType: apiUser.subscription?.plan || 'FREE',
+      expiresAt: apiUser.subscription?.endDate || apiUser.subscription?.expiresAt
+    }
+  };
+};
 
 export const useAuthStore = create<AuthStore>()(
   persist(
