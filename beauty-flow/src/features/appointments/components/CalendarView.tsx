@@ -77,10 +77,10 @@ const CalendarView: React.FC<CalendarViewProps> = ({ appointments, onEdit }) => 
         };
       case 'confirmed':
         return {
-          color: 'from-green-500 to-emerald-500 dark:from-green-400 dark:to-emerald-400',
-          bgColor: 'bg-green-50 dark:bg-green-900/20',
-          textColor: 'text-green-800 dark:text-green-300',
-          borderColor: 'border-green-300 dark:border-green-500',
+          color: 'from-orange-600 to-orange-700 dark:from-orange-500 dark:to-orange-600',
+          bgColor: 'bg-orange-50 dark:bg-orange-900/20',
+          textColor: 'text-orange-800 dark:text-orange-300',
+          borderColor: 'border-orange-400 dark:border-orange-500',
           icon: CheckCircleIcon,
           label: t('appointment_list.status_labels.confirmed')
         };
@@ -217,11 +217,11 @@ const CalendarView: React.FC<CalendarViewProps> = ({ appointments, onEdit }) => 
             </div>
           </div>
           
-          <div className="flex items-center space-x-3 p-3 bg-green-50 dark:bg-green-900/20 backdrop-blur-sm rounded-xl border border-green-500/20">
-            <CheckCircleIcon className="h-5 w-5 text-green-600 dark:text-green-400" />
+          <div className="flex items-center space-x-3 p-3 bg-orange-50 dark:bg-orange-900/20 backdrop-blur-sm rounded-xl border border-orange-500/20">
+            <CheckCircleIcon className="h-5 w-5 text-orange-600 dark:text-orange-400" />
             <div>
               <p className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('calendar_view.stats.confirmed')}</p>
-              <p className="text-lg font-bold text-green-600 dark:text-green-400">
+              <p className="text-lg font-bold text-orange-600 dark:text-orange-400">
                 {appointments.filter(a => a.status === 'confirmed').length}
               </p>
             </div>
@@ -337,7 +337,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ appointments, onEdit }) => 
 
                           {/* Coiffeur */}
                           <div className="flex items-center space-x-2">
-                            <UserIcon className="h-3 w-3 text-green-600 dark:text-green-400" />
+                            <UserIcon className="h-3 w-3 text-orange-600 dark:text-orange-400" />
                             <span className="text-xs text-gray-600 dark:text-gray-400 truncate">
                               {getStylistName(appointment.stylistId)}
                             </span>
