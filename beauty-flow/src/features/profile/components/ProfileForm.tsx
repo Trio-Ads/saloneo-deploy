@@ -246,12 +246,12 @@ const ProfileForm: React.FC = () => {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         
         {/* SECTION 1: Informations de connexion */}
-        <div className="bg-white/80 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6">
+        <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 dark:border-gray-700/20 p-6">
           <div className="flex items-center space-x-3 mb-6">
             <div className="p-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-lg">
               <EnvelopeIcon className="h-5 w-5 text-white" />
             </div>
-            <h3 className="text-lg font-semibold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               {t('profile_form.sections.login_info')}
             </h3>
           </div>
@@ -381,12 +381,12 @@ const ProfileForm: React.FC = () => {
         </div>
 
         {/* SECTION 2: Informations personnelles */}
-        <div className="bg-white/80 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6">
+        <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 dark:border-gray-700/20 p-6">
           <div className="flex items-center space-x-3 mb-6">
             <div className="p-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-lg">
               <UserIcon className="h-5 w-5 text-white" />
             </div>
-            <h3 className="text-lg font-semibold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               {t('profile_form.sections.personal_info')}
             </h3>
           </div>
@@ -437,12 +437,12 @@ const ProfileForm: React.FC = () => {
         </div>
 
         {/* SECTION 3: Informations du salon */}
-        <div className="bg-white/80 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6">
+        <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 dark:border-gray-700/20 p-6">
           <div className="flex items-center space-x-3 mb-6">
             <div className="p-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-lg">
               <BuildingStorefrontIcon className="h-5 w-5 text-white" />
             </div>
-            <h3 className="text-lg font-semibold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               {t('profile_form.sections.salon_info')}
             </h3>
           </div>
@@ -493,12 +493,12 @@ const ProfileForm: React.FC = () => {
         </div>
 
         {/* SECTION 4: Préférences */}
-        <div className="bg-white/80 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6">
+        <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 dark:border-gray-700/20 p-6">
           <div className="flex items-center space-x-3 mb-6">
             <div className="p-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-lg">
               <LanguageIcon className="h-5 w-5 text-white" />
             </div>
-            <h3 className="text-lg font-semibold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               {t('profile_form.sections.preferences')}
             </h3>
           </div>
@@ -612,7 +612,7 @@ const ProfileForm: React.FC = () => {
             <div className="p-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-lg">
               <LinkIcon className="h-5 w-5 text-white" />
             </div>
-            <h3 className="text-lg font-semibold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               {t('profile_form.sections.public_link')}
             </h3>
           </div>
@@ -644,7 +644,7 @@ const ProfileForm: React.FC = () => {
                 </div>
               </div>
             </div>
-            <p className={`mt-2 text-sm text-gray-600 ${isRTL ? 'text-right' : 'text-left'}`}>
+            <p className={`mt-2 text-sm text-gray-600 dark:text-gray-400 ${isRTL ? 'text-right' : 'text-left'}`}>
               {t('profile_form.messages.public_link_description')}
             </p>
           </div>
