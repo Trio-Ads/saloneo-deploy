@@ -7,7 +7,6 @@ export interface IService extends Document {
   category: string;
   duration: number; // in minutes
   price: number;
-  currency: string;
   isActive: boolean;
   isPublic?: boolean;
   buffer?: {
@@ -71,11 +70,6 @@ const serviceSchema = new Schema<IService>(
       type: Number,
       required: [true, 'Price is required'],
       min: [0, 'Price cannot be negative'],
-    },
-    currency: {
-      type: String,
-      default: 'EUR',
-      uppercase: true,
     },
     isActive: {
       type: Boolean,
@@ -169,13 +163,7 @@ serviceSchema.index({ userId: 1, name: 'text' });
 serviceSchema.index({ userId: 1, displayOrder: 1 });
 serviceSchema.index({ 'settings.isOnline': 1, isActive: 1 });
 
-// Virtual for formatted price
-serviceSchema.virtual('formattedPrice').get(function () {
-  return new Intl.NumberFormat('fr-DZ', {
-    style: 'currency',
-    currency: this.currency,
-  }).format(this.price);
-});
+// Note: formattedPrice virtual removed - currency should come from user profile, not service
 
 // Virtual for duration in hours
 serviceSchema.virtual('durationInHours').get(function () {

@@ -173,31 +173,43 @@ Cette documentation liste toutes les retouches finales nécessaires pour perfect
 
 ---
 
-## 🖥️ 5. INTERFACE - MENU FIXE (MOBILE)
+## 🖥️ 5. INTERFACE - MENU FIXE (MOBILE) ✅ TERMINÉ
 
-### 5.1 Correction du menu flottant
-- [ ] **InterfacePage** : Implémenter un menu sticky
+### 5.1 Correction du menu flottant ✅
+- [x] **InterfacePage** : Menu sticky implémenté
   - Fichier : `beauty-flow/src/features/interface/InterfacePage.tsx`
-  - Menu fixe en haut sur mobile
-  - Scroll horizontal si nécessaire
+  - Menu fixe en haut sur mobile avec `sticky top-0 z-40`
+  - Scroll horizontal avec `overflow-x-auto scrollbar-hide`
+  - Statique sur desktop avec `lg:static`
+  - **Commit [EN ATTENTE]** - 18/10/2025 17:11
   
-- [ ] **CSS Mobile** : Améliorer la présentation
-  - Fichier : CSS associé à InterfacePage
-  - Menu compact et accessible
-  - Icônes + texte sur mobile
+- [x] **CSS Mobile** : Présentation améliorée
+  - Fichier : `beauty-flow/src/index.css`
+  - Classe `.scrollbar-hide` ajoutée pour cacher la scrollbar
+  - Support multi-navigateurs (Chrome, Firefox, IE/Edge)
+  - Menu compact avec boutons `flex-shrink-0`
+  - Texte adaptatif : complet sur desktop, abrégé sur mobile
+  - **Commit [EN ATTENTE]** - 18/10/2025 17:11
 
-### 5.2 Sous-sections du menu
-- [ ] Templates
-- [ ] Couleurs
-- [ ] Images
-- [ ] Contenu
-- [ ] Paramètres
+### 5.2 Sous-sections du menu ✅
+- [x] Templates - Icône SparklesIcon
+- [x] Couleurs - Icône SwatchIcon
+- [x] Images - Icône PhotoIcon
+- [x] Contenu - Icône DocumentTextIcon
+- [x] Paramètres - Icône Cog6ToothIcon
+
+### 5.3 Améliorations UX
+- [x] Fond semi-transparent avec backdrop-blur
+- [x] Support du dark mode
+- [x] Transitions fluides entre onglets
+- [x] Boutons avec effet scale au hover
+- [x] Gradient orange pour l'onglet actif
 
 ---
 
 ## 👤 6. SECTION PROFIL - PERSISTANCE DES DONNÉES ✅ TERMINÉ
 
-### 6.1 Problème de la monnaie
+### 6.1 Problème de la monnaie ✅ RÉSOLU
 - ✅ **Persistance de la monnaie corrigée**
   - Fichier frontend : `beauty-flow/src/features/profile/store.ts` (déjà correct)
   - Fichier backend : `beauty-flow-backend/src/controllers/profile.controller.ts` (corrigé)
@@ -205,12 +217,14 @@ Cette documentation liste toutes les retouches finales nécessaires pour perfect
   - Au lieu de `settings: { currency: 'EUR' }`, on utilise `'settings.currency': 'EUR'`
   - Les settings ne sont plus écrasés mais mergés correctement
   
-- [ ] **Afficher la monnaie sur la page publique**
-  - Fichier : `beauty-flow/src/features/public/SalonPage.tsx`
-  - **À FAIRE** : Récupérer la monnaie du profil du salon
-  - **À FAIRE** : Afficher les prix avec la bonne monnaie
+- ✅ **Cohérence de la monnaie dans toute l'application**
+  - **SalonPage.tsx** : Corrigé pour utiliser `profile.settings?.currency` partout
+  - **ServiceBookingCard.tsx** : Corrigé pour utiliser `profile.currency` au lieu de l'icône hardcodée
+  - **Service Model (Backend)** : Champ `currency` SUPPRIMÉ du modèle
+  - **Principe** : La monnaie vient TOUJOURS du profil utilisateur, JAMAIS des services individuels
+  - **Commit [EN ATTENTE]** - 18/10/2025 17:17
 
-### 6.2 Problème de l'adresse du salon
+### 6.2 Problème de l'adresse du salon ✅
 - ✅ **Persistance de l'adresse corrigée**
   - Fichier backend : `beauty-flow-backend/src/controllers/profile.controller.ts`
   - **Solution** : Même correction que pour la monnaie (dot notation)
@@ -218,6 +232,7 @@ Cette documentation liste toutes les retouches finales nécessaires pour perfect
 
 ### 6.3 Tests de persistance
 - ✅ Correction appliquée avec dot notation
+- ✅ Cohérence de la monnaie assurée dans toute l'application
 - [ ] **À TESTER** : Vérifier la sauvegarde de la monnaie en production
 - [ ] **À TESTER** : Vérifier la sauvegarde de l'adresse en production
 - [ ] **À TESTER** : Tester le rechargement de la page

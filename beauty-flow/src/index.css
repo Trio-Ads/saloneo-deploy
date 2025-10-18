@@ -673,3 +673,14 @@ body {
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
   z-index: 1001;
 }
+
+/* ===== SCROLLBAR HIDE UTILITY ===== */
+/* Utilisé pour cacher la scrollbar tout en gardant le scroll fonctionnel */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
+}

@@ -95,7 +95,7 @@ export const SalonPage: React.FC = () => {
             description: service.description || '',
             price: service.price || 0,
             duration: service.duration || 60,
-            currency: service.currency || profile.settings?.currency || 'EUR',
+            currency: profile.settings?.currency || 'EUR', // Toujours utiliser la monnaie du profil
             images: service.images || [],
             image: service.images?.[0]?.url || service.image
           })) || [],
@@ -344,7 +344,8 @@ export const SalonPage: React.FC = () => {
                 return symbols[currency] || currency;
               };
 
-              const currencySymbol = getCurrencySymbol(service.currency || salon.currency || 'EUR');
+              // Toujours utiliser la monnaie du salon (pas celle du service individuel)
+              const currencySymbol = getCurrencySymbol(salon.currency || 'EUR');
 
               return (
                 <div 

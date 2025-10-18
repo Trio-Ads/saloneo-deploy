@@ -414,10 +414,10 @@ const InterfacePage: React.FC = () => {
           </div>
         </div>
 
-        {/* NAVIGATION PAR ONGLETS */}
-        <div className="mb-8">
-          <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-2">
-            <nav className="flex space-x-2 overflow-x-auto">
+        {/* NAVIGATION PAR ONGLETS - Sticky sur mobile */}
+        <div className="mb-8 sticky top-0 z-40 lg:static">
+          <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-2">
+            <nav className="flex space-x-2 overflow-x-auto scrollbar-hide">
               {tabs.map((tab) => {
                 const Icon = tab.icon;
                 const isActive = activeTab === tab.id;
@@ -427,15 +427,16 @@ const InterfacePage: React.FC = () => {
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
                     className={`
-                      flex items-center space-x-2 px-4 py-3 rounded-xl font-medium transition-all duration-300 whitespace-nowrap
+                      flex items-center space-x-2 px-4 py-3 rounded-xl font-medium transition-all duration-300 whitespace-nowrap flex-shrink-0
                       ${isActive 
                         ? `bg-gradient-to-r ${tab.gradient} text-white shadow-lg transform scale-105` 
                         : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-100/50 dark:hover:bg-gray-700/50'
                       }
                     `}
                   >
-                    <Icon className="h-5 w-5" />
-                    <span>{tab.label}</span>
+                    <Icon className="h-5 w-5 flex-shrink-0" />
+                    <span className="hidden sm:inline">{tab.label}</span>
+                    <span className="sm:hidden text-xs">{tab.label.split(' ')[0]}</span>
                   </button>
                 );
               })}

@@ -1,13 +1,15 @@
 import React from 'react';
 import { 
   ClockIcon,
-  CurrencyEuroIcon,
+  CurrencyDollarIcon,
   SparklesIcon,
   CalendarDaysIcon
 } from '@heroicons/react/24/outline';
 import { Service } from '../../services/types';
 import ServiceGallery from './ServiceGallery';
 import { useInterfaceStore } from '../../interface/store';
+import { useProfileStore } from '../../profile/store';
+import { getCurrencySymbol } from '../../../utils/currency';
 
 interface ServiceBookingCardProps {
   service: Service;
@@ -16,6 +18,8 @@ interface ServiceBookingCardProps {
 
 const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({ service, onBookingClick }) => {
   const settings = useInterfaceStore((state) => state.settings);
+  const { profile } = useProfileStore();
+  const currencySymbol = getCurrencySymbol(profile.currency);
 
   return (
     <div className="glass-card p-6 group relative overflow-hidden backdrop-blur-xl border border-white/20
@@ -64,12 +68,12 @@ const ServiceBookingCard: React.FC<ServiceBookingCardProps> = ({ service, onBook
         
         <div className="flex items-center space-x-3">
           <div className="p-2 rounded-full bg-gradient-to-r from-green-500 to-emerald-600 shadow-lg">
-            <CurrencyEuroIcon className="h-4 w-4 text-white" />
+            <CurrencyDollarIcon className="h-4 w-4 text-white" />
           </div>
           <div className="text-right">
             <span className="text-xs font-medium text-gray-500 block">Prix</span>
             <span className="text-xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
-              {service.price.toFixed(2)} €
+              {service.price.toFixed(2)} {currencySymbol}
             </span>
           </div>
         </div>
