@@ -58,17 +58,37 @@ export const useThemeColors = () => {
     return themeMode;
   }, [isSystemDark]);
 
-  // Basculer le thème
+  // Basculer le thème (synchronisé avec useTheme)
   const toggleTheme = useCallback(() => {
     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
     setCurrentTheme(newTheme);
     localStorage.setItem('saloneo-theme', newTheme);
+    
+    // Émettre un événement pour synchroniser avec useTheme
+    window.dispatchEvent(new CustomEvent('saloneo-theme-change', { detail: { theme: newTheme } }));
   }, [currentTheme]);
 
-  // Définir un thème spécifique
+  // Définir un thème spécifique (synchronisé avec useTheme)
   const setTheme = useCallback((theme: ThemeMode) => {
     setCurrentTheme(theme);
     localStorage.setItem('saloneo-theme', theme);
+    
+    // Émettre un événement pour synchroniser avec useTheme
+    window.dispatchEvent(new CustomEvent('saloneo-theme-change', { detail: { theme } }));
+  }, []);
+
+  // Écouter les changements de thème depuis useTheme
+  useEffect(() => {
+    const handleThemeChange = (e: CustomEvent<{ theme: string }>) => {
+      const newTheme = e.detail.theme as ThemeMode;
+      setCurrentTheme(newTheme);
+    };
+
+    window.addEventListener('saloneo-theme-change', handleThemeChange as EventListener);
+    
+    return () => {
+      window.removeEventListener('saloneo-theme-change', handleThemeChange as EventListener);
+    };
   }, []);
 
   // Appliquer les variables CSS

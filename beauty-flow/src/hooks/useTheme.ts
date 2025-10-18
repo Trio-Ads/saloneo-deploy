@@ -1,24 +1,31 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export type Theme = 'light' | 'dark';
 
+// Clé unifiée pour le localStorage (compatible avec useThemeColors)
+const THEME_STORAGE_KEY = 'saloneo-theme';
+
+// Événement custom pour synchroniser le thème entre composants
+const THEME_CHANGE_EVENT = 'saloneo-theme-change';
+
 /**
- * Hook personnalisé pour gérer le thème de l'application (Light/Dark Mode)
+ * Hook personnalisé unifié pour gérer le thème de l'application (Light/Dark Mode)
  * 
  * Fonctionnalités :
  * - Détecte la préférence système au premier chargement
- * - Sauvegarde la préférence dans localStorage
+ * - Sauvegarde la préférence dans localStorage (clé unifiée)
  * - Applique le thème via l'attribut data-theme sur <html>
  * - Ajoute la classe 'dark' pour Tailwind CSS
  * - Fournit une fonction toggle pour basculer entre les thèmes
- * - Transitions fluides entre les thèmes
+ * - Transitions fluides et instantanées
+ * - Synchronisation entre tous les composants via événements custom
  * 
  * @returns {Object} - { theme, toggleTheme, setTheme, isDark, isLight }
  */
 export const useTheme = () => {
-  const [theme, setTheme] = useState<Theme>(() => {
+  const [theme, setThemeState] = useState<Theme>(() => {
     // 1. Vérifier si une préférence est sauvegardée dans localStorage
-    const savedTheme = localStorage.getItem('theme');
+    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
     if (savedTheme === 'light' || savedTheme === 'dark') {
       return savedTheme;
     }
@@ -28,33 +35,33 @@ export const useTheme = () => {
     return prefersDark ? 'dark' : 'light';
   });
 
+  // Fonction pour appliquer le thème au DOM (optimisée avec requestAnimationFrame)
+  const applyTheme = useCallback((newTheme: Theme) => {
+    requestAnimationFrame(() => {
+      const root = document.documentElement;
+      
+      // Appliquer le thème immédiatement
+      root.setAttribute('data-theme', newTheme);
+      
+      // Ajouter/retirer la classe 'dark' pour Tailwind CSS
+      if (newTheme === 'dark') {
+        root.classList.add('dark');
+      } else {
+        root.classList.remove('dark');
+      }
+      
+      // Sauvegarder dans localStorage
+      localStorage.setItem(THEME_STORAGE_KEY, newTheme);
+      
+      // Émettre un événement custom pour synchroniser les autres composants
+      window.dispatchEvent(new CustomEvent(THEME_CHANGE_EVENT, { detail: { theme: newTheme } }));
+    });
+  }, []);
+
+  // Appliquer le thème au montage et à chaque changement
   useEffect(() => {
-    // Appliquer le thème au document avec transition fluide
-    const root = document.documentElement;
-    
-    // Ajouter une classe de transition temporaire
-    root.style.transition = 'background-color 0.3s ease, color 0.3s ease';
-    
-    // Appliquer le thème
-    root.setAttribute('data-theme', theme);
-    
-    // Sauvegarder dans localStorage
-    localStorage.setItem('theme', theme);
-    
-    // Ajouter/retirer la classe 'dark' pour Tailwind CSS
-    if (theme === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
-    
-    // Retirer la transition après l'animation
-    const timeoutId = setTimeout(() => {
-      root.style.transition = '';
-    }, 300);
-    
-    return () => clearTimeout(timeoutId);
-  }, [theme]);
+    applyTheme(theme);
+  }, [theme, applyTheme]);
 
   // Écouter les changements de préférence système
   useEffect(() => {
@@ -62,9 +69,9 @@ export const useTheme = () => {
     
     const handleChange = (e: MediaQueryListEvent) => {
       // Ne changer que si l'utilisateur n'a pas de préférence sauvegardée
-      const savedTheme = localStorage.getItem('theme');
+      const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
       if (!savedTheme) {
-        setTheme(e.matches ? 'dark' : 'light');
+        setThemeState(e.matches ? 'dark' : 'light');
       }
     };
 
@@ -85,16 +92,36 @@ export const useTheme = () => {
     };
   }, []);
 
+  // Écouter les changements de thème depuis d'autres composants
+  useEffect(() => {
+    const handleThemeChange = (e: CustomEvent<{ theme: Theme }>) => {
+      setThemeState(e.detail.theme);
+    };
+
+    window.addEventListener(THEME_CHANGE_EVENT, handleThemeChange as EventListener);
+    
+    return () => {
+      window.removeEventListener(THEME_CHANGE_EVENT, handleThemeChange as EventListener);
+    };
+  }, []);
+
   /**
-   * Bascule entre light et dark mode avec animation
+   * Bascule entre light et dark mode instantanément
    */
-  const toggleTheme = () => {
-    setTheme(prevTheme => {
+  const toggleTheme = useCallback(() => {
+    setThemeState(prevTheme => {
       const newTheme = prevTheme === 'light' ? 'dark' : 'light';
       console.log(`🎨 Theme changed: ${prevTheme} → ${newTheme}`);
       return newTheme;
     });
-  };
+  }, []);
+
+  /**
+   * Définir un thème spécifique
+   */
+  const setTheme = useCallback((newTheme: Theme) => {
+    setThemeState(newTheme);
+  }, []);
 
   return {
     theme,
