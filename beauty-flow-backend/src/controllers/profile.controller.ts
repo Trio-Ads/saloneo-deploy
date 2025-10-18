@@ -62,20 +62,18 @@ export const updateProfile = async (req: AuthRequest, res: Response): Promise<vo
     if (updates.businessHours !== undefined) updateData.businessHours = updates.businessHours;
     if (updates.showTeamOnPublicPage !== undefined) updateData.showTeamOnPublicPage = updates.showTeamOnPublicPage;
     
-    // Handle settings object
+    // Handle settings object - use dot notation to preserve other settings
     if (updates.settings) {
-      updateData.settings = {};
-      if (updates.settings.language !== undefined) updateData.settings.language = updates.settings.language;
-      if (updates.settings.currency !== undefined) updateData.settings.currency = updates.settings.currency;
-      if (updates.settings.timezone !== undefined) updateData.settings.timezone = updates.settings.timezone;
+      if (updates.settings.language !== undefined) updateData['settings.language'] = updates.settings.language;
+      if (updates.settings.currency !== undefined) updateData['settings.currency'] = updates.settings.currency;
+      if (updates.settings.timezone !== undefined) updateData['settings.timezone'] = updates.settings.timezone;
     }
     
-    // Handle preferences (legacy support - map to settings)
+    // Handle preferences (legacy support - map to settings) - use dot notation
     if (updates.preferences) {
-      if (!updateData.settings) updateData.settings = {};
-      if (updates.preferences.language !== undefined) updateData.settings.language = updates.preferences.language;
-      if (updates.preferences.currency !== undefined) updateData.settings.currency = updates.preferences.currency;
-      if (updates.preferences.timezone !== undefined) updateData.settings.timezone = updates.preferences.timezone;
+      if (updates.preferences.language !== undefined) updateData['settings.language'] = updates.preferences.language;
+      if (updates.preferences.currency !== undefined) updateData['settings.currency'] = updates.preferences.currency;
+      if (updates.preferences.timezone !== undefined) updateData['settings.timezone'] = updates.preferences.timezone;
     }
 
     logger.info('Updating user profile:', { userId, updateData });
