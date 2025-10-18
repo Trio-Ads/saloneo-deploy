@@ -9,6 +9,7 @@ import { useAppointmentStore } from '../features/appointments/store';
 import UserMenu from '../components/UserMenu';
 import NavbarLanguageSelector from '../components/NavbarLanguageSelector';
 import MobileBottomNav from '../components/MobileBottomNav';
+import SaloneoLogo from '../components/SaloneoLogo';
 import './MainLayout.css';
 
 // Icons Saloneo 2025
@@ -219,26 +220,9 @@ const MainLayout: React.FC = () => {
             <div className="flex items-center space-x-4">
               <Link 
                 to="/" 
-                className="flex items-center space-x-3 group"
+                className="flex items-center space-x-3 group transition-transform duration-300 hover:scale-105"
               >
-                <div className="logo-saloneo-2025">
-                  <svg
-                    viewBox="0 0 40 40"
-                    className="w-10 h-10 text-orange-500 dark:text-orange-400"
-                    fill="currentColor"
-                  >
-                    <path d="M20 4C11.163 4 4 11.163 4 20s7.163 16 16 16 16-7.163 16-16S28.837 4 20 4zm0 28c-6.627 0-12-5.373-12-12S13.373 8 20 8s12 5.373 12 12-5.373 12-12 12z"/>
-                    <circle cx="20" cy="20" r="6"/>
-                  </svg>
-                </div>
-                <div className="hidden sm:block">
-                  <h1 className="text-2xl font-display font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
-                    Saloneo
-                  </h1>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 font-body">
-                    {t('common.app_subtitle', 'Gestion moderne')}
-                  </p>
-                </div>
+                <SaloneoLogo variant="auto" size="md" />
               </Link>
             </div>
 
