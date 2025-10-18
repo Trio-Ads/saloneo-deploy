@@ -310,8 +310,13 @@ const MainLayout: React.FC = () => {
               {/* Bouton menu mobile/tablette */}
               <button
                 type="button"
-                className="lg:hidden mobile-menu-btn-2025 p-2.5 rounded-xl transition-all duration-300"
-                onClick={() => setIsOpen(!isOpen)}
+                className="lg:hidden mobile-menu-btn-2025 p-2.5 rounded-xl transition-all duration-300 relative z-[100]"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  console.log('🍔 Hamburger clicked!', { currentState: isOpen, willBe: !isOpen });
+                  setIsOpen(!isOpen);
+                }}
                 aria-label="Menu principal"
               >
                 {isOpen ? <CloseIcon /> : <MenuIcon />}
