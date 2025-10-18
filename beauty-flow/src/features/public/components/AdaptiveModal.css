@@ -8,9 +8,9 @@
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
   animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -202,6 +202,12 @@
 }
 
 /* Support du mode sombre */
+[data-theme="dark"] .adaptive-modal-overlay {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+}
+
 [data-theme="dark"] .adaptive-modal-content {
   box-shadow: 
     0 25px 50px -12px rgba(0, 0, 0, 0.5),
