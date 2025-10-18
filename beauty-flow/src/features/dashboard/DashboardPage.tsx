@@ -53,7 +53,7 @@ const DashboardPage: React.FC = () => {
   const { members } = useTeamStore();
   const { currentPlan, checkAppointmentLimit } = useSubscriptionLimits();
   
-  const [timeRange, setTimeRange] = useState<'day' | 'week' | 'month'>('day');
+  const [timeRange, setTimeRange] = useState<'day' | 'week' | 'month'>('week');
   const [isLoading, setIsLoading] = useState(true);
 
   // Enrichir les rendez-vous avec les prix et les informations client

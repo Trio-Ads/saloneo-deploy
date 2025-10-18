@@ -31,14 +31,17 @@ const RevenueChart: React.FC<RevenueChartProps> = ({ appointments, timeRange }) 
         break;
       
       case 'week':
-        // 7 derniers jours
-        interval = Array.from({ length: 7 }, (_, i) => {
+        // 8 dernières semaines
+        interval = Array.from({ length: 8 }, (_, i) => {
           const date = new Date(now);
-          date.setDate(now.getDate() - (6 - i));
-          return startOfDay(date);
+          date.setDate(now.getDate() - (7 - i) * 7); // Reculer de 7 semaines, puis avancer semaine par semaine
+          return startOfWeek(date, { locale: fr });
         });
-        groupBy = (date) => format(date, 'yyyy-MM-dd');
-        formatLabel = (date) => format(date, 'EEE', { locale: fr });
+        groupBy = (date) => format(startOfWeek(date, { locale: fr }), 'yyyy-MM-dd');
+        formatLabel = (date) => {
+          const weekStart = startOfWeek(date, { locale: fr });
+          return format(weekStart, 'd MMM', { locale: fr });
+        };
         break;
       
       case 'month':
