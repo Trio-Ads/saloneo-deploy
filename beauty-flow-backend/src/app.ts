@@ -22,6 +22,7 @@ import subscriptionRoutes from './routes/subscription.routes';
 import marketingRoutes from './routes/marketing.routes';
 import affiliationRoutes from './routes/affiliation.routes';
 import emailRoutes from './routes/email.routes';
+import statsRoutes from './routes/stats.routes';
 import { emailService } from './services/emailService';
 
 // Load environment variables
@@ -155,6 +156,7 @@ app.use('/api/email', emailRoutes);
 // Public routes (no authentication required)
 app.use('/api/public', publicRoutes);
 app.use('/api/marketing', marketingRoutes);
+app.use('/api/stats', statsRoutes);
 
 // Serve static files from React build (production only)
 if (process.env.NODE_ENV === 'production') {
