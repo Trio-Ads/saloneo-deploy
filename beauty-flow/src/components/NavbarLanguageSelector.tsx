@@ -8,14 +8,33 @@ const NavbarLanguageSelector: React.FC = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const languages = [
-    { code: 'fr', name: 'Français', flag: '🇫🇷' },
-    { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'ar', name: 'العربية', flag: '🇸🇦' },
-    { code: 'es', name: 'Español', flag: '🇪🇸' },
-    { code: 'pt', name: 'Português', flag: '🇵🇹' },
-    { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
-    { code: 'ber', name: 'Tamazight', flag: '🏴' }
+    { code: 'fr', name: 'Français', flag: '🇫🇷', isImage: false },
+    { code: 'en', name: 'English', flag: '🇺🇸', isImage: false },
+    { code: 'ar', name: 'العربية', flag: '🇸🇦', isImage: false },
+    { code: 'es', name: 'Español', flag: '🇪🇸', isImage: false },
+    { code: 'pt', name: 'Português', flag: '🇵🇹', isImage: false },
+    { code: 'tr', name: 'Türkçe', flag: '🇹🇷', isImage: false },
+    { code: 'ber', name: 'Tamazight', flag: '/images/flags/berber-flag.webp', isImage: true }
   ];
+
+  // Fonction pour rendre le drapeau (émoji ou image)
+  const renderFlag = (language: typeof languages[0], size: 'sm' | 'md' = 'md') => {
+    const sizeClasses = {
+      sm: 'w-4 h-4',
+      md: 'w-5 h-5'
+    };
+
+    if (language.isImage) {
+      return (
+        <img 
+          src={language.flag} 
+          alt={`${language.name} flag`}
+          className={`${sizeClasses[size]} object-cover rounded`}
+        />
+      );
+    }
+    return <span className={size === 'sm' ? 'text-base' : 'text-lg'}>{language.flag}</span>;
+  };
 
   const currentLang = i18n.language || 'fr';
   const selectedLanguage = languages.find(lang => lang.code === currentLang) || languages[0];
@@ -71,7 +90,7 @@ const NavbarLanguageSelector: React.FC = () => {
         className="flex items-center space-x-2 px-3 py-2 rounded-xl bg-white/10 dark:bg-white/5 backdrop-blur-sm border border-orange-500/20 dark:border-orange-400/20 hover:bg-orange-50/10 dark:hover:bg-orange-900/10 hover:border-orange-500/30 dark:hover:border-orange-400/30 transition-all duration-300 hover:scale-105 active:scale-95"
         aria-label="Changer de langue"
       >
-        <span className="text-lg">{selectedLanguage.flag}</span>
+        {renderFlag(selectedLanguage, 'md')}
         <span className="hidden sm:block text-sm font-medium text-gray-700 dark:text-gray-200">
           {selectedLanguage.code.toUpperCase()}
         </span>
@@ -99,7 +118,7 @@ const NavbarLanguageSelector: React.FC = () => {
                   }
                 `}
               >
-                <span className="text-lg">{language.flag}</span>
+                {renderFlag(language, 'md')}
                 <div className="flex-1">
                   <div className={`font-medium text-sm ${currentLang === language.code ? 'font-semibold' : ''}`}>
                     {language.name}

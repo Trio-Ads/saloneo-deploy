@@ -325,14 +325,14 @@ const ProfileForm: React.FC = () => {
 
                   {/* Nouveau mot de passe */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       {t('profile_form.fields.new_password')}
                     </label>
                     <div className="relative">
                       <input
                         type={showNewPassword ? 'text' : 'password'}
                         {...register('newPassword')}
-                        className="w-full px-4 py-3 pr-12 rounded-xl border border-gray-200 bg-white/70 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+                        className="w-full px-4 py-3 pr-12 rounded-xl border border-gray-200 dark:border-gray-600 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
                         placeholder="••••••••"
                       />
                       <button
@@ -351,14 +351,14 @@ const ProfileForm: React.FC = () => {
 
                   {/* Confirmer le mot de passe */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       {t('profile_form.fields.confirm_password')}
                     </label>
                     <div className="relative">
                       <input
                         type={showConfirmPassword ? 'text' : 'password'}
                         {...register('confirmPassword')}
-                        className="w-full px-4 py-3 pr-12 rounded-xl border border-gray-200 bg-white/70 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+                        className="w-full px-4 py-3 pr-12 rounded-xl border border-gray-200 dark:border-gray-600 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
                         placeholder="••••••••"
                       />
                       <button
@@ -414,14 +414,14 @@ const ProfileForm: React.FC = () => {
             </div>
 
             <div>
-              <label className={`block text-sm font-medium text-gray-700 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
-                <UserIcon className="h-4 w-4 inline mr-2 text-blue-600" />
+              <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
+                <UserIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
                 {t('lastName')} *
               </label>
               <input
                 type="text"
                 {...register('lastName', { required: true })}
-                className={`w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/70 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 ${
+                className={`w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 ${
                   isRTL ? 'text-right' : 'text-left'
                 } ${errors.lastName ? 'ring-2 ring-red-300 focus:ring-red-500' : ''}`}
                 dir={isRTL ? 'rtl' : 'ltr'}
@@ -477,7 +477,7 @@ const ProfileForm: React.FC = () => {
               <textarea
                 {...register('address', { required: true })}
                 rows={3}
-                className={`w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/70 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all duration-200 ${
+                className={`w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 ${
                   isRTL ? 'text-right' : 'text-left'
                 } ${errors.address ? 'ring-2 ring-red-300 focus:ring-red-500' : ''}`}
                 dir={isRTL ? 'rtl' : 'ltr'}
@@ -509,7 +509,7 @@ const ProfileForm: React.FC = () => {
                 <LanguageIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
                 {t('language')}
               </label>
-              <div className="bg-white/50 p-3 rounded-xl border border-gray-200">
+              <div className="bg-white/50 dark:bg-gray-700/50 p-3 rounded-xl border border-gray-200 dark:border-gray-600">
                 <LanguageSelector />
               </div>
             </div>
@@ -519,7 +519,7 @@ const ProfileForm: React.FC = () => {
                 <CurrencyDollarIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
                 {t('currency')}
               </label>
-              <div className="bg-white/50 p-3 rounded-xl border border-gray-200">
+              <div className="bg-white/50 dark:bg-gray-700/50 p-3 rounded-xl border border-gray-200 dark:border-gray-600">
                 <CurrencySelector
                   value={typeof profile.currency === 'string' ? profile.currency : profile.currency?.code}
                   currencies={availableCurrencies}

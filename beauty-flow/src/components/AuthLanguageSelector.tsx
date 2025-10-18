@@ -11,14 +11,33 @@ const AuthLanguageSelector: React.FC = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const languages = [
-    { code: 'fr', name: 'Français', flag: '🇫🇷' },
-    { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'ar', name: 'العربية', flag: '🇸🇦' },
-    { code: 'es', name: 'Español', flag: '🇪🇸' },
-    { code: 'pt', name: 'Português', flag: '🇵🇹' },
-    { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
-    { code: 'ber', name: 'Tamazight', flag: '🏴' }
+    { code: 'fr', name: 'Français', flag: '🇫🇷', isImage: false },
+    { code: 'en', name: 'English', flag: '🇺🇸', isImage: false },
+    { code: 'ar', name: 'العربية', flag: '🇸🇦', isImage: false },
+    { code: 'es', name: 'Español', flag: '🇪🇸', isImage: false },
+    { code: 'pt', name: 'Português', flag: '🇵🇹', isImage: false },
+    { code: 'tr', name: 'Türkçe', flag: '🇹🇷', isImage: false },
+    { code: 'ber', name: 'Tamazight', flag: '/images/flags/berber-flag.webp', isImage: true }
   ];
+
+  // Fonction pour rendre le drapeau (émoji ou image)
+  const renderFlag = (language: typeof languages[0], size: 'sm' | 'md' = 'sm') => {
+    const sizeClasses = {
+      sm: 'w-4 h-4',
+      md: 'w-5 h-5'
+    };
+
+    if (language.isImage) {
+      return (
+        <img 
+          src={language.flag} 
+          alt={`${language.name} flag`}
+          className={`${sizeClasses[size]} object-cover rounded`}
+        />
+      );
+    }
+    return <span className={size === 'sm' ? 'text-base' : 'text-lg'}>{language.flag}</span>;
+  };
 
   // Charger la langue depuis localStorage au démarrage
   useEffect(() => {
@@ -94,7 +113,7 @@ const AuthLanguageSelector: React.FC = () => {
           onClick={toggleDropdown}
           className="flex items-center gap-2 px-3 py-2 bg-white/10 dark:bg-white/5 backdrop-blur-lg border border-white/20 dark:border-white/10 rounded-lg hover:bg-white/15 dark:hover:bg-white/10 hover:border-white/30 dark:hover:border-white/20 hover:-translate-y-0.5 transition-all duration-300 text-sm font-medium text-white z-[99999] relative shadow-lg hover:shadow-xl"
         >
-          <span className="text-base">{selectedLanguage.flag}</span>
+          {renderFlag(selectedLanguage, 'sm')}
           <span>{selectedLanguage.code.toUpperCase()}</span>
           <ChevronDownIcon className={`h-3.5 w-3.5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
         </button>
@@ -131,7 +150,7 @@ const AuthLanguageSelector: React.FC = () => {
                     : 'text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/10'
                 }`}
               >
-                <span className="text-lg">{language.flag}</span>
+                {renderFlag(language, 'md')}
                 <span className={currentLang === language.code ? 'font-semibold' : ''}>
                   {language.name}
                 </span>

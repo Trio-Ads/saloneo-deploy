@@ -149,57 +149,25 @@ export const SubscriptionPage: React.FC = () => {
       )}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
-        {/* SPECTACULAR HERO HEADER */}
-        <div className="relative mb-16">
-          <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-12 overflow-hidden">
-            {/* Floating particles */}
-            <div className="absolute inset-0 overflow-hidden">
-              <div className="absolute top-10 left-10 w-2 h-2 bg-orange-400 rounded-full animate-pulse"></div>
-              <div className="absolute top-20 right-20 w-1 h-1 bg-orange-300 rounded-full animate-bounce"></div>
-              <div className="absolute bottom-20 left-20 w-1.5 h-1.5 bg-orange-500 rounded-full animate-ping"></div>
-              <div className="absolute bottom-10 right-10 w-2 h-2 bg-orange-400 rounded-full animate-pulse"></div>
-            </div>
-
-            <div className="relative text-center">
-              {/* Main icon with animation */}
-              <div className="flex justify-center mb-8">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 rounded-3xl blur-2xl opacity-30 animate-pulse"></div>
-                  <div className="relative bg-gradient-to-r from-orange-500 to-orange-600 p-6 rounded-3xl shadow-2xl transform hover:scale-110 transition-all duration-500">
-                    <CurrencyDollarIcon className="h-12 w-12 text-white animate-bounce" />
-                  </div>
+        {/* HEADER SIMPLIFIÉ */}
+        <div className="relative mb-12">
+          <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-orange-lg dark:shadow-gray-lg border border-orange-500/20 dark:border-orange-500/20 p-8">
+            <div className="text-center">
+              {/* Icône simple */}
+              <div className="flex justify-center mb-6">
+                <div className="bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 p-4 rounded-2xl shadow-orange-lg">
+                  <CurrencyDollarIcon className="h-10 w-10 text-white dark:text-gray-900" />
                 </div>
               </div>
 
-              {/* Title with animated gradient effect */}
-              <h1 className="text-6xl font-bold mb-6 bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 bg-clip-text text-transparent animate-pulse">
+              {/* Titre simple */}
+              <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 bg-clip-text text-transparent">
                 {t('page.title')}
               </h1>
               
-              <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
                 {t('page.subtitle')}
               </p>
-
-              {/* Trust badges */}
-              <div className="flex flex-wrap justify-center items-center gap-6 mb-8">
-                <div className="flex items-center bg-green-50 dark:bg-green-900/20 px-4 py-2 rounded-full border border-green-200 dark:border-green-700">
-                  <CheckCircleIcon className="h-5 w-5 text-green-500 mr-2" />
-                  <span className="text-green-700 dark:text-green-300 font-medium">{t('badges.free_trial')}</span>
-                </div>
-                <div className="flex items-center bg-orange-50 dark:bg-orange-900/20 px-4 py-2 rounded-full border border-orange-200 dark:border-orange-700">
-                  <ShieldCheckIcon className="h-5 w-5 text-orange-500 mr-2" />
-                  <span className="text-orange-700 dark:text-orange-300 font-medium">{t('badges.no_commitment')}</span>
-                </div>
-                <div className="flex items-center bg-orange-50 dark:bg-orange-900/20 px-4 py-2 rounded-full border border-orange-200 dark:border-orange-700">
-                  <StarIcon className="h-5 w-5 text-orange-500 mr-2" />
-                  <span className="text-orange-700 dark:text-orange-300 font-medium">{t('badges.premium_support')}</span>
-                </div>
-              </div>
-
-              {/* Flash promotion */}
-              <div className="inline-block bg-gradient-to-r from-orange-500 to-orange-600 text-white px-8 py-3 rounded-full font-bold text-lg shadow-xl animate-pulse">
-                {t('promotion.limited_offer')}
-              </div>
             </div>
           </div>
         </div>
@@ -222,14 +190,14 @@ export const SubscriptionPage: React.FC = () => {
         </div>
 
         {/* FAQ SECTION */}
-        <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-12">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
+        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-orange-lg dark:shadow-gray-lg border border-orange-500/20 dark:border-orange-500/20 p-8">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold mb-2 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 bg-clip-text text-transparent">
               {t('faq.title')}
             </h2>
           </div>
 
-          <div className="max-w-4xl mx-auto space-y-6">
+          <div className="max-w-3xl mx-auto space-y-4">
             {[
               {
                 q: t('faq.change_plan.q'),
@@ -244,9 +212,9 @@ export const SubscriptionPage: React.FC = () => {
                 a: t('faq.cancel.a')
               }
             ].map((faq, index) => (
-              <div key={index} className="bg-white/50 dark:bg-gray-800/50 rounded-2xl p-6 hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all duration-300">
-                <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">{faq.q}</h3>
-                <p className="text-gray-600 dark:text-gray-400">{faq.a}</p>
+              <div key={index} className="bg-white/70 dark:bg-gray-700/70 rounded-xl p-5 hover:bg-white/90 dark:hover:bg-gray-700/90 transition-all duration-200 border border-gray-200 dark:border-gray-600">
+                <h3 className="text-base font-bold text-gray-900 dark:text-gray-100 mb-2">{faq.q}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{faq.a}</p>
               </div>
             ))}
           </div>
