@@ -75,8 +75,15 @@ const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ className = '' }) => 
   };
 
   return (
-    <nav className={`fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-t border-orange-500/20 dark:border-orange-400/20 shadow-[0_-4px_16px_rgba(249,115,22,0.08)] dark:shadow-[0_-4px_16px_rgba(251,146,60,0.12)] ${className}`}>
-      <div className="grid grid-cols-5 h-16">
+    <nav 
+      className={`fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-t border-orange-500/20 dark:border-orange-400/20 shadow-[0_-4px_16px_rgba(249,115,22,0.08)] dark:shadow-[0_-4px_16px_rgba(251,146,60,0.12)] ${className}`}
+      style={{
+        paddingBottom: 'env(safe-area-inset-bottom)',
+        willChange: 'transform',
+        contain: 'layout style paint'
+      }}
+    >
+      <div className="grid grid-cols-5 h-16" style={{ minHeight: '64px' }}>
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = isActiveRoute(item.href);

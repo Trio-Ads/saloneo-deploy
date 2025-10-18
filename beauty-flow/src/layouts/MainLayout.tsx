@@ -76,9 +76,9 @@ const MainLayout: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Gérer le blocage du scroll du body sur mobile
+  // Gérer le blocage du scroll du body quand le menu mobile est ouvert
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && !isMobile) {
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.width = '100%';
@@ -93,7 +93,7 @@ const MainLayout: React.FC = () => {
       document.body.style.position = '';
       document.body.style.width = '';
     };
-  }, [isOpen]);
+  }, [isOpen, isMobile]);
 
   // Charger les stores au démarrage
   const fetchClients = useClientStore((state) => state.fetchClients);
@@ -110,30 +110,23 @@ const MainLayout: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Détecter si on est sur mobile
+  // Détecter si on est sur mobile avec matchMedia (plus fiable)
   useEffect(() => {
-    const checkMobile = () => {
-      const width = window.innerWidth;
-      const isMobileDevice = width <= 768;
-      console.log('🔍 Détection mobile:', { width, isMobileDevice });
-      setIsMobile(isMobileDevice);
+    // Utiliser matchMedia pour synchroniser avec les breakpoints Tailwind
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+    
+    const handleMediaChange = (e: MediaQueryListEvent | MediaQueryList) => {
+      setIsMobile(e.matches);
     };
     
     // Vérification initiale
-    checkMobile();
+    handleMediaChange(mediaQuery);
     
-    // Écouter les changements de taille
-    window.addEventListener('resize', checkMobile);
-    
-    // Vérification supplémentaire après le chargement complet
-    window.addEventListener('load', checkMobile);
-    
-    // Vérification après un court délai pour s'assurer que tout est chargé
-    setTimeout(checkMobile, 100);
+    // Écouter les changements
+    mediaQuery.addEventListener('change', handleMediaChange);
     
     return () => {
-      window.removeEventListener('resize', checkMobile);
-      window.removeEventListener('load', checkMobile);
+      mediaQuery.removeEventListener('change', handleMediaChange);
     };
   }, []);
 
@@ -354,7 +347,10 @@ const MainLayout: React.FC = () => {
       </nav>
 
       {/* Contenu principal */}
-      <main className={`main-content-2025 pt-24 ${isMobile ? 'pb-20' : 'pb-8'}`}>
+      <main 
+        className={`main-content-2025 pt-24 ${isMobile ? 'pb-20' : 'pb-8'}`}
+        style={isMobile ? { paddingBottom: 'calc(5rem + env(safe-area-inset-bottom))' } : undefined}
+      >
         <div className="container-2025">
           <div className="animate-fade-in">
             <Outlet />
