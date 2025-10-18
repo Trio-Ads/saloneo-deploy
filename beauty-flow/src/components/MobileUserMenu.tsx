@@ -67,9 +67,9 @@ const MobileUserMenu: React.FC = () => {
             onClick={() => setIsOpen(false)}
           />
           
-          {/* Menu avec glassmorphism */}
-          <div className="absolute bottom-full right-0 mb-2 w-56 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-[0_8px_32px_rgba(249,115,22,0.15)] dark:shadow-[0_8px_32px_rgba(251,146,60,0.2)] border border-orange-500/20 dark:border-orange-400/20 z-50 max-h-[60vh] overflow-hidden animate-slide-down">
-            <div className="py-2 max-h-[60vh] overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-orange-300 dark:scrollbar-thumb-orange-600 scrollbar-track-transparent">
+          {/* Menu avec glassmorphism - S'ouvre vers le HAUT depuis la bottom nav */}
+          <div className="absolute bottom-full right-0 mb-2 w-56 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-[0_8px_32px_rgba(249,115,22,0.15)] dark:shadow-[0_8px_32px_rgba(251,146,60,0.2)] border border-orange-500/20 dark:border-orange-400/20 z-50 max-h-[70vh] overflow-hidden animate-slide-up">
+            <div className="py-2 max-h-[70vh] overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-orange-300 dark:scrollbar-thumb-orange-600 scrollbar-track-transparent">
               {menuItems.map((item) => (
                 <button
                   key={item.path}

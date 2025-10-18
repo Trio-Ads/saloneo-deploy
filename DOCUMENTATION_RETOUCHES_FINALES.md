@@ -684,23 +684,46 @@ Tous les composants du dashboard affichent maintenant correctement :
 
 ---
 
-## 🌍 19. INTERNATIONALISATION - TRADUCTIONS MANQUANTES
+## 🌍 19. INTERNATIONALISATION - TRADUCTIONS MANQUANTES ⏳ EN COURS
 
-### 19.1 Clés de traduction à ajouter
+### 19.1 Traductions online_settings pour services ✅ TERMINÉ
+- ✅ **FR** - `beauty-flow/public/locales/fr/services.json`
+  - `form.online_settings.available_online` : "Disponible en ligne"
+  - `form.online_settings.minimum_booking_time` : "Délai minimum de réservation"
+  - `form.online_settings.booking_times` : 6 options (1h, 2h, 4h, 12h, 24h, 48h)
+  - **Commit b2d544e** - 18/10/2025 19:45
+
+- ✅ **EN** - `beauty-flow/public/locales/en/services.json`
+  - Traductions complètes + correction duplication
+  - **Commit b2d544e** - 18/10/2025 19:45
+
+- ✅ **AR** - `beauty-flow/public/locales/ar/services.json`
+  - Traductions en arabe avec support RTL
+  - **Commit b2d544e** - 18/10/2025 19:45
+
+- ✅ **ES** - `beauty-flow/public/locales/es/services.json`
+  - Traductions en espagnol
+  - **Commit b2d544e** - 18/10/2025 19:45
+
+- ✅ **PT** - `beauty-flow/public/locales/pt/services.json`
+  - Traductions en portugais
+  - **Commit b2d544e** - 18/10/2025 19:45
+
+- ✅ **TR** - `beauty-flow/public/locales/tr/services.json`
+  - Traductions en turc
+  - **Commit b2d544e** - 18/10/2025 19:45
+
+### 19.2 Autres clés de traduction à ajouter
 
 #### Français (FR)
 - [ ] `beauty-flow/public/locales/fr/common.json`
   - `form.personal_info.specialities`
-  - `form.online_settings.available_online`
   
 - [ ] `beauty-flow/public/locales/fr/profile.json`
   - Menu contextuel : "Mon Profil", "Mon Interface", "Abonnement", "Stocks", "Équipe"
   
 - [ ] `beauty-flow/public/locales/fr/team.json`
   - Traductions manquantes pour les spécialités
-  
-- [ ] `beauty-flow/public/locales/fr/services.json`
-  - Traductions pour les paramètres en ligne
 
 #### Anglais (EN)
 - [ ] `beauty-flow/public/locales/en/common.json`
@@ -711,9 +734,6 @@ Tous les composants du dashboard affichent maintenant correctement :
   
 - [ ] `beauty-flow/public/locales/en/team.json`
   - Traductions des spécialités
-  
-- [ ] `beauty-flow/public/locales/en/services.json`
-  - Traductions des paramètres en ligne
 
 #### Arabe (AR)
 - [ ] `beauty-flow/public/locales/ar/common.json`
@@ -724,11 +744,8 @@ Tous les composants du dashboard affichent maintenant correctement :
   
 - [ ] `beauty-flow/public/locales/ar/team.json`
   - Traductions des spécialités
-  
-- [ ] `beauty-flow/public/locales/ar/services.json`
-  - Traductions des paramètres en ligne
 
-### 11.2 Vérification complète
+### 19.3 Vérification complète
 - [ ] Parcourir toute l'application en FR
 - [ ] Parcourir toute l'application en EN
 - [ ] Parcourir toute l'application en AR
@@ -1049,7 +1066,72 @@ Tous les composants du dashboard affichent maintenant correctement :
 
 ---
 
+#### Commit b2d544e - 19:45
+15. **INTERNATIONALISATION - ONLINE_SETTINGS** ✅
+   - Ajout traductions `form.online_settings` dans services.json
+   - 6 langues complétées : FR, EN, AR, ES, PT, TR
+   - Clés ajoutées :
+     * `available_online` : "Disponible en ligne" (et équivalents)
+     * `minimum_booking_time` : "Délai minimum de réservation" (et équivalents)
+     * `booking_times` : 6 options (1h, 2h, 4h, 12h, 24h, 48h)
+   - Correction duplication dans EN services.json
+   - Fichiers modifiés : 6 fichiers services.json
+
+### 📊 Bilan de la session :
+
+**Commits réalisés :** 6
+- Commit 68978eb (16:18) : Logos + Profil + Dashboard
+- Commit 8813d58 (16:32) : Formulaires UX (zéros)
+- Commit fc3eade (16:42) : Auto-scroll + Téléphone international (ClientForm)
+- Commit 49e278d (16:49) : Téléphone international (PublicClientForm + TeamMemberForm) + Logo Auth
+- Commit c128402 (19:12) : Dark Mode ProfileForm + Simplification SubscriptionPage + Drapeau berbère
+- Commit b2d544e (19:45) : Internationalisation online_settings (6 langues)
+
+**Fichiers modifiés :** 32
+1-26. (Fichiers précédents)
+27. `beauty-flow/public/locales/fr/services.json` (online_settings)
+28. `beauty-flow/public/locales/en/services.json` (online_settings + correction)
+29. `beauty-flow/public/locales/ar/services.json` (online_settings)
+30. `beauty-flow/public/locales/es/services.json` (online_settings)
+31. `beauty-flow/public/locales/pt/services.json` (online_settings)
+32. `beauty-flow/public/locales/tr/services.json` (online_settings)
+
+**Bugs corrigés :** 3 critiques + 4 améliorations majeures
+- Persistance de la monnaie et de l'adresse
+- Dashboard "undefined undefined"
+- Formulaires avec zéros pré-remplis
+
+**UX améliorée :** 
+- Formulaires beaucoup plus intuitifs (zéros + scroll)
+- Téléphone international avec détection IP automatique
+- Logo Auth épuré et professionnel
+- Dark mode complet dans ProfileForm
+- Page abonnement simplifiée et professionnelle
+- Drapeau berbère avec image de qualité
+- Internationalisation complète pour online_settings (6 langues)
+
+**Fonctionnalités ajoutées :**
+- Support hybride émoji/image pour les drapeaux
+- Dark mode ProfileForm (mots de passe, nom/prénom, adresse, sélecteurs)
+- Page abonnement épurée (suppression marketing)
+- Favicon Saloneo officiel avec icône 512x512
+- Traductions online_settings pour 6 langues (FR, EN, AR, ES, PT, TR)
+
+### 📋 Prochaines priorités :
+
+**HAUTE PRIORITÉ :**
+- Internationalisation : Compléter les autres clés manquantes
+- Dark mode : Corrections dans Interface et Abonnement
+- Tests : Vérifier toutes les fonctionnalités
+
+**MOYENNE PRIORITÉ :**
+- Mobile : Optimisations et tests
+- Performance : Lighthouse score
+- Documentation : Finaliser
+
+---
+
 *Document créé le : 18/10/2025*
-*Dernière mise à jour : 18/10/2025 - 19:22*
-*Version : 1.6*
-*Dernières modifications : Étape 17 TERMINÉE - Favicon Saloneo configuré*
+*Dernière mise à jour : 18/10/2025 - 19:47*
+*Version : 1.7*
+*Dernières modifications : Étape 19 PARTIELLEMENT TERMINÉE - Traductions online_settings (6 langues)*
