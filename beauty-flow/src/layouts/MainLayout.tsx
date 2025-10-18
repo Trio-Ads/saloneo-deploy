@@ -305,26 +305,25 @@ const MainLayout: React.FC = () => {
           </div>
 
           {/* Menu mobile/tablette - descend depuis le haut sur tablette, monte depuis le bas sur mobile */}
-          <div className={`
-            lg:hidden fixed left-0 right-0 z-[9999] transition-all duration-300 ease-smooth
-            ${isMobile ? 'bottom-0' : 'top-20'}
-            ${isOpen 
-              ? 'translate-y-0 opacity-100' 
-              : isMobile ? 'translate-y-full opacity-0' : '-translate-y-full opacity-0'
-            }
-          `}
-          style={{ paddingBottom: isMobile ? 'calc(5rem + env(safe-area-inset-bottom))' : '0' }}
-          >
-            {/* Overlay sombre */}
-            <div 
-              className={`fixed inset-0 bg-black/20 dark:bg-black/40 backdrop-blur-sm transition-opacity duration-300 z-[9998] ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-              onClick={() => setIsOpen(false)}
-            />
-            
-            {/* Menu content */}
-            <div className={`relative mobile-menu-2025 py-4 space-y-2 max-h-[60vh] overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-orange-300 dark:scrollbar-thumb-orange-600 scrollbar-track-transparent mx-4 z-[9999] ${
-              isMobile ? 'mb-4 rounded-t-2xl' : 'mt-0 rounded-b-2xl'
-            }`}>
+          {isOpen && (
+            <>
+              {/* Overlay sombre */}
+              <div 
+                className="lg:hidden fixed inset-0 bg-black/20 dark:bg-black/40 backdrop-blur-sm transition-opacity duration-300 z-[9998]"
+                onClick={() => setIsOpen(false)}
+              />
+              
+              {/* Menu content */}
+              <div className={`
+                lg:hidden fixed left-0 right-0 z-[9999] transition-all duration-300 ease-smooth
+                ${isMobile ? 'bottom-0' : 'top-20'}
+                animate-slide-in
+              `}
+              style={{ paddingBottom: isMobile ? 'calc(5rem + env(safe-area-inset-bottom))' : '0' }}
+              >
+                <div className={`mobile-menu-2025 py-4 space-y-2 max-h-[60vh] overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-orange-300 dark:scrollbar-thumb-orange-600 scrollbar-track-transparent mx-4 ${
+                  isMobile ? 'mb-4 rounded-t-2xl' : 'mt-0 rounded-b-2xl'
+                }`}>
               {navigation.map((item) => {
                 const Icon = item.icon;
                 const isActive = isActiveRoute(item.href);
@@ -349,8 +348,10 @@ const MainLayout: React.FC = () => {
                   </Link>
                 );
               })}
-            </div>
-          </div>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </nav>
 
