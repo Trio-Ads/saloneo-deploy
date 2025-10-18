@@ -26,13 +26,14 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
         </h3>
 
         <div className="space-y-6 mb-8">
-          <label className="flex items-center group hover-lift transition-all duration-300 cursor-pointer">
+          <label className="flex items-center group transition-all duration-300 cursor-pointer hover:scale-105">
             <input
               type="checkbox"
               checked={values.smsReminders}
               onChange={(e) => onChange('smsReminders', e.target.checked)}
-              className="rounded border-gray-300 dark:border-white/20 bg-white dark:bg-white/5 focus:ring-2 transition-colors duration-300 cursor-pointer"
+              className="w-5 h-5 rounded border-2 transition-all duration-300 cursor-pointer"
               style={{
+                borderColor: colors.primary,
                 accentColor: colors.primary,
                 '--tw-ring-color': colors.primary
               } as any}
@@ -42,13 +43,14 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
             </span>
           </label>
 
-          <label className="flex items-center group hover-lift transition-all duration-300 cursor-pointer">
+          <label className="flex items-center group transition-all duration-300 cursor-pointer hover:scale-105">
             <input
               type="checkbox"
               checked={values.emailMarketing}
               onChange={(e) => onChange('emailMarketing', e.target.checked)}
-              className="rounded border-gray-300 dark:border-white/20 bg-white dark:bg-white/5 focus:ring-2 transition-colors duration-300 cursor-pointer"
+              className="w-5 h-5 rounded border-2 transition-all duration-300 cursor-pointer"
               style={{
+                borderColor: colors.primary,
                 accentColor: colors.primary,
                 '--tw-ring-color': colors.primary
               } as any}
@@ -58,13 +60,14 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
             </span>
           </label>
 
-          <label className="flex items-center group hover-lift transition-all duration-300 cursor-pointer">
+          <label className="flex items-center group transition-all duration-300 cursor-pointer hover:scale-105">
             <input
               type="checkbox"
               checked={values.birthdayOffers}
               onChange={(e) => onChange('birthdayOffers', e.target.checked)}
-              className="rounded border-gray-300 dark:border-white/20 bg-white dark:bg-white/5 focus:ring-2 transition-colors duration-300 cursor-pointer"
+              className="w-5 h-5 rounded border-2 transition-all duration-300 cursor-pointer"
               style={{
+                borderColor: colors.primary,
                 accentColor: colors.primary,
                 '--tw-ring-color': colors.primary
               } as any}

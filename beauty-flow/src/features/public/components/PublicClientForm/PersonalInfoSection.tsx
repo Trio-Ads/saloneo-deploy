@@ -28,10 +28,11 @@ const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
   React.useEffect(() => {
     const detectCountry = async () => {
       try {
-        const response = await fetch('https://ipapi.co/json/');
+        // Utiliser ip-api.com qui supporte CORS (gratuit, pas de clé API requise)
+        const response = await fetch('http://ip-api.com/json/?fields=countryCode');
         const data = await response.json();
-        if (data.country_code) {
-          setDefaultCountry(data.country_code);
+        if (data.countryCode) {
+          setDefaultCountry(data.countryCode);
         }
       } catch (error) {
         console.log('Impossible de détecter le pays, utilisation de DZ par défaut');
