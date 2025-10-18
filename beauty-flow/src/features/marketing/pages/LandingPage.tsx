@@ -5,6 +5,7 @@ import { useStabilityAI } from '../hooks/useStabilityAI';
 import { use3DModels } from '../hooks/use3DModels';
 import '../styles/marketing.css';
 import api from '../../../services/api';
+import SaloneoLogo from '../../../components/SaloneoLogo';
 
 // Hook pour vérifier l'authentification
 const useAuth = () => {
@@ -36,7 +37,9 @@ import {
   Check,
   Star,
   ArrowRight,
-  Play
+  Play,
+  Menu,
+  X
 } from 'lucide-react';
 
 const LandingPage: React.FC = () => {
@@ -49,6 +52,7 @@ const LandingPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [show3D, setShow3D] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Track page visit
   useEffect(() => {
@@ -79,6 +83,125 @@ const LandingPage: React.FC = () => {
 
   return (
     <div className="landing-page">
+      {/* Navbar */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl border-b border-orange-500/10 shadow-lg">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center justify-between h-20">
+            {/* Logo */}
+            <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+              <SaloneoLogo size="md" variant="auto" />
+            </Link>
+
+            {/* Desktop Menu */}
+            <div className="hidden md:flex items-center gap-8">
+              <a href="#features" className="text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-500 font-medium transition-colors">
+                {t('nav.features', 'Fonctionnalités')}
+              </a>
+              <a href="#pricing" className="text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-500 font-medium transition-colors">
+                {t('nav.pricing', 'Tarifs')}
+              </a>
+              <a href="#testimonials" className="text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-500 font-medium transition-colors">
+                {t('nav.testimonials', 'Témoignages')}
+              </a>
+            </div>
+
+            {/* Auth Buttons - Desktop */}
+            <div className="hidden md:flex items-center gap-4">
+              {isAuthenticated ? (
+                <Link 
+                  to="/dashboard" 
+                  className="px-6 py-2.5 bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800 text-white font-semibold rounded-lg shadow-orange-md hover:shadow-orange-lg transform hover:scale-105 transition-all duration-300"
+                >
+                  {t('nav.dashboard', 'Tableau de bord')}
+                </Link>
+              ) : (
+                <>
+                  <Link 
+                    to="/login" 
+                    className="px-6 py-2.5 text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-500 font-semibold transition-colors"
+                  >
+                    {t('nav.login', 'Connexion')}
+                  </Link>
+                  <Link 
+                    to="/register" 
+                    className="px-6 py-2.5 bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800 text-white font-semibold rounded-lg shadow-orange-md hover:shadow-orange-lg transform hover:scale-105 transition-all duration-300"
+                  >
+                    {t('nav.signup', 'Inscription')}
+                  </Link>
+                </>
+              )}
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-500 transition-colors"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <div className="md:hidden py-4 border-t border-orange-500/10">
+              <div className="flex flex-col gap-4">
+                <a 
+                  href="#features" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-500 hover:bg-orange-50 dark:hover:bg-gray-800 rounded-lg font-medium transition-all"
+                >
+                  {t('nav.features', 'Fonctionnalités')}
+                </a>
+                <a 
+                  href="#pricing" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-500 hover:bg-orange-50 dark:hover:bg-gray-800 rounded-lg font-medium transition-all"
+                >
+                  {t('nav.pricing', 'Tarifs')}
+                </a>
+                <a 
+                  href="#testimonials" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-500 hover:bg-orange-50 dark:hover:bg-gray-800 rounded-lg font-medium transition-all"
+                >
+                  {t('nav.testimonials', 'Témoignages')}
+                </a>
+                
+                <div className="border-t border-orange-500/10 pt-4 mt-2">
+                  {isAuthenticated ? (
+                    <Link 
+                      to="/dashboard" 
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block px-4 py-2.5 bg-gradient-to-r from-orange-600 to-orange-700 text-white font-semibold rounded-lg text-center shadow-orange-md"
+                    >
+                      {t('nav.dashboard', 'Tableau de bord')}
+                    </Link>
+                  ) : (
+                    <>
+                      <Link 
+                        to="/login" 
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-800 rounded-lg font-semibold text-center transition-all mb-2"
+                      >
+                        {t('nav.login', 'Connexion')}
+                      </Link>
+                      <Link 
+                        to="/register" 
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="block px-4 py-2.5 bg-gradient-to-r from-orange-600 to-orange-700 text-white font-semibold rounded-lg text-center shadow-orange-md"
+                      >
+                        {t('nav.signup', 'Inscription')}
+                      </Link>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </nav>
+
       {/* Hero Section */}
       <section className="hero-section-3d" style={{ paddingTop: '120px', position: 'relative', minHeight: '100vh', background: 'linear-gradient(135deg, #F97316 0%, #EA580C 50%, #C2410C 100%)' }}>
         {/* Contenu Hero au premier plan */}
