@@ -23,9 +23,12 @@ Cette documentation liste toutes les retouches finales nécessaires pour perfect
   - Fichier : `beauty-flow/src/components/SaloneoLogo.tsx`
   - Mode auto qui s'adapte au thème
   
-- ✅ **Pages Login/Signup** : Utiliser `Salonéo Logo - Icon.webp`
+- ✅ **Pages Login/Signup** : Utiliser `Salonéo Logo - White.webp` (logo vertical)
   - Fichier : `beauty-flow/src/features/auth/components/AuthLayout.tsx`
-  - Utilisation : `<SaloneoLogo iconOnly size="lg" />`
+  - Logo vertical white affiché directement (image)
+  - Suppression du texte "Saloneo" et "Gestion de salon moderne"
+  - Design épuré et professionnel avec animation glow
+  - **Commit 49e278d** - 18/10/2025 16:49
   
 - [ ] **Factures d'abonnement** : Utiliser `Salonéo Logo - Dark.webp`
   - Fichier : Backend email templates
@@ -110,24 +113,29 @@ Cette documentation liste toutes les retouches finales nécessaires pour perfect
   - 46 packages ajoutés
   - **Commit [EN ATTENTE]** - 18/10/2025 16:39
 
-### 3.2 Implémentation dans les formulaires ✅
-- ✅ **ClientForm** : Sélecteur de pays ajouté
+### 3.2 Implémentation dans les formulaires ✅ TERMINÉ
+- ✅ **ClientForm** : Sélecteur de pays ajouté avec détection IP
   - Fichier : `beauty-flow/src/features/clients/components/ClientForm.tsx`
   - Composant PhoneInput de react-phone-number-input intégré
   - Support de tous les pays avec drapeaux
+  - **Détection automatique du pays par IP** (API ipapi.co)
   - Validation automatique du format selon le pays
-  - Code pays par défaut : DZ (Algérie)
+  - Fallback sur DZ (Algérie) si erreur
   - Styles adaptés au design de l'application (glass-input)
-  - **Commit [EN ATTENTE]** - 18/10/2025 16:40
+  - **Commit fc3eade** - 18/10/2025 16:42
   
-- [ ] **PublicClientForm** : À ajouter (optionnel)
+- ✅ **PublicClientForm** : Sélecteur de pays ajouté avec détection IP
   - Fichier : `beauty-flow/src/features/public/components/PublicClientForm/PersonalInfoSection.tsx`
+  - Même implémentation que ClientForm
+  - Détection automatique du pays par IP
   - Validation du format selon le pays
-  - Code pays par défaut : +213 (Algérie)
+  - **Commit 49e278d** - 18/10/2025 16:49
   
-- [ ] **TeamMemberForm** : À ajouter (optionnel)
+- ✅ **TeamMemberForm** : Sélecteur de pays ajouté avec détection IP
   - Fichier : `beauty-flow/src/features/team/components/TeamMemberForm.tsx`
-  - Validation du format selon le pays
+  - Même implémentation que ClientForm
+  - Détection automatique du pays par IP
+  - **Commit 49e278d** - 18/10/2025 16:49
 
 ### 3.3 Validation backend ✅
 - ✅ Backend compatible avec les numéros internationaux
@@ -720,6 +728,33 @@ Cette documentation liste toutes les retouches finales nécessaires pour perfect
 
 ### ✅ Corrections effectuées aujourd'hui :
 
+#### Commit fc3eade - 16:42
+7. **AUTO-SCROLL VERS LES FORMULAIRES** ✅
+   - **5 pages modifiées** avec scroll automatique fluide
+   - ClientsPage, ServicesPage, ProductsPage, TeamPage, AppointmentsPage
+   - useRef + useEffect implémentés
+   - Amélioration UX majeure
+
+8. **TÉLÉPHONE INTERNATIONAL - PARTIE 1** ✅
+   - Installation de react-phone-number-input (46 packages)
+   - Implémentation dans ClientForm avec détection IP
+   - Support de tous les pays avec drapeaux
+   - Détection automatique du pays par IP (ipapi.co)
+   - Fallback sur Algérie (DZ) si erreur
+
+#### Commit 49e278d - 16:49
+9. **TÉLÉPHONE INTERNATIONAL - PARTIE 2** ✅
+   - Implémentation dans PublicClientForm/PersonalInfoSection
+   - Implémentation dans TeamMemberForm
+   - Détection IP dans les 3 formulaires
+   - Format standardisé E.164 pour SMS
+
+10. **PAGE AUTH - LOGO VERTICAL WHITE** ✅
+   - Logo vertical white copié dans public/images/logos/
+   - AuthLayout modifié pour utiliser le logo directement
+   - Suppression du texte "Saloneo" et "Gestion de salon moderne"
+   - Design épuré et professionnel avec animation glow
+
 #### Commit 68978eb - 16:18
 1. **INTÉGRATION DES LOGOS** ✅
    - Tous les logos copiés dans `beauty-flow/public/images/logos/`
@@ -769,12 +804,14 @@ Cette documentation liste toutes les retouches finales nécessaires pour perfect
 
 ### 📊 Bilan de la session :
 
-**Commits réalisés :** 2
+**Commits réalisés :** 4
 - Commit 68978eb (16:18) : Logos + Profil + Dashboard
-- Commit 8813d58 (16:32) : Formulaires UX
+- Commit 8813d58 (16:32) : Formulaires UX (zéros)
+- Commit fc3eade (16:42) : Auto-scroll + Téléphone international (ClientForm)
+- Commit 49e278d (16:49) : Téléphone international (PublicClientForm + TeamMemberForm) + Logo Auth
 
-**Fichiers modifiés :** 9
-1. `beauty-flow/public/images/logos/` (5 logos)
+**Fichiers modifiés :** 17
+1. `beauty-flow/public/images/logos/` (7 logos dont saloneo-vertical-white.webp)
 2. `beauty-flow/src/components/SaloneoLogo.tsx`
 3. `beauty-flow/src/features/auth/components/AuthLayout.tsx`
 4. `beauty-flow-backend/src/controllers/profile.controller.ts`
@@ -782,14 +819,26 @@ Cette documentation liste toutes les retouches finales nécessaires pour perfect
 6. `beauty-flow/public/locales/fr/dashboard.json`
 7. `beauty-flow/src/features/services/components/ServiceForm.tsx`
 8. `beauty-flow/src/features/services/components/ProductForm.tsx`
-9. `DOCUMENTATION_RETOUCHES_FINALES.md`
+9. `beauty-flow/src/features/clients/ClientsPage.tsx`
+10. `beauty-flow/src/features/services/ServicesPage.tsx`
+11. `beauty-flow/src/features/services/ProductsPage.tsx`
+12. `beauty-flow/src/features/team/TeamPage.tsx`
+13. `beauty-flow/src/features/appointments/AppointmentsPage.tsx`
+14. `beauty-flow/src/features/clients/components/ClientForm.tsx`
+15. `beauty-flow/src/features/public/components/PublicClientForm/PersonalInfoSection.tsx`
+16. `beauty-flow/src/features/team/components/TeamMemberForm.tsx`
+17. `beauty-flow/package.json` (ajout react-phone-number-input)
+18. `DOCUMENTATION_RETOUCHES_FINALES.md`
 
 **Bugs corrigés :** 3 critiques
 - Persistance de la monnaie et de l'adresse
 - Dashboard "undefined undefined"
 - Formulaires avec zéros pré-remplis
 
-**UX améliorée :** Formulaires beaucoup plus intuitifs
+**UX améliorée :** 
+- Formulaires beaucoup plus intuitifs (zéros + scroll)
+- Téléphone international avec détection IP automatique
+- Logo Auth épuré et professionnel
 
 ### 📋 Prochaines priorités :
 
@@ -806,6 +855,6 @@ Cette documentation liste toutes les retouches finales nécessaires pour perfect
 ---
 
 *Document créé le : 18/10/2025*
-*Dernière mise à jour : 18/10/2025 - 16:33*
-*Version : 1.3*
-*Dernières modifications : Ajout commit 8813d58 - Formulaires UX*
+*Dernière mise à jour : 18/10/2025 - 16:52*
+*Version : 1.4*
+*Dernières modifications : Session complète - Auto-scroll + Téléphone international + Logo Auth*
