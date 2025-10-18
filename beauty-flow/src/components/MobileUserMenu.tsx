@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '../features/auth/store';
@@ -35,6 +36,76 @@ const MobileUserMenu: React.FC = () => {
     { label: t('navigation.team'), path: '/team' },
   ];
 
+  // Rendu du menu avec Portal pour échapper aux contraintes z-index du parent
+  const menuPortal = isOpen && createPortal(
+    <>
+      {/* Overlay plein écran */}
+      <div 
+        className="fixed inset-0 z-[9998] bg-black/20 dark:bg-black/40 backdrop-blur-sm transition-opacity duration-300"
+        onClick={() => setIsOpen(false)}
+        style={{ 
+          animation: 'fadeIn 0.3s ease-out'
+        }}
+      />
+      
+      {/* Menu avec glassmorphism - Positionné en bas à droite */}
+      <div 
+        className="fixed bottom-20 right-4 w-64 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-[0_8px_32px_rgba(249,115,22,0.15)] dark:shadow-[0_8px_32px_rgba(251,146,60,0.2)] border border-orange-500/20 dark:border-orange-400/20 z-[9999] max-h-[70vh] overflow-hidden"
+        style={{ 
+          marginBottom: 'env(safe-area-inset-bottom)',
+          animation: 'slideUp 0.3s ease-out'
+        }}
+      >
+        <div className="py-2 max-h-[70vh] overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-orange-300 dark:scrollbar-thumb-orange-600 scrollbar-track-transparent">
+          {menuItems.map((item) => (
+            <button
+              key={item.path}
+              onClick={() => handleNavigation(item.path)}
+              className="w-full text-left px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 transition-all duration-200 active:scale-95"
+            >
+              {item.label}
+            </button>
+          ))}
+          
+          <div className="border-t border-orange-500/20 dark:border-orange-400/20 my-2" />
+          
+          <button
+            onClick={handleLogout}
+            className="w-full text-left px-4 py-3 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-200 active:scale-95"
+          >
+            {t('auth.logout')}
+          </button>
+        </div>
+      </div>
+
+      {/* Styles pour les animations */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
+            }
+            to {
+              opacity: 1;
+            }
+          }
+          
+          @keyframes slideUp {
+            from {
+              opacity: 0;
+              transform: translateY(20px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+        `
+      }} />
+    </>,
+    document.body
+  );
+
   return (
     <>
       {/* Bouton menu utilisateur */}
@@ -50,6 +121,9 @@ const MobileUserMenu: React.FC = () => {
           isOpen ? 'bg-orange-50 dark:bg-orange-900/20' : ''
         }`}>
           <UserIcon />
+          {isOpen && (
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 opacity-20 dark:opacity-30 blur-xl rounded-lg" />
+          )}
         </div>
         <span className={`text-[10px] leading-tight font-medium transition-all duration-300 ${
           isOpen ? 'font-semibold' : ''
@@ -58,43 +132,8 @@ const MobileUserMenu: React.FC = () => {
         </span>
       </button>
 
-      {/* Menu déroulant - Rendu au niveau du body avec portal */}
-      {isOpen && (
-        <>
-          {/* Overlay plein écran */}
-          <div 
-            className="fixed inset-0 z-[60] bg-black/20 dark:bg-black/40 backdrop-blur-sm"
-            onClick={() => setIsOpen(false)}
-          />
-          
-          {/* Menu avec glassmorphism - Positionné en bas à droite */}
-          <div 
-            className="fixed bottom-20 right-4 w-56 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-[0_8px_32px_rgba(249,115,22,0.15)] dark:shadow-[0_8px_32px_rgba(251,146,60,0.2)] border border-orange-500/20 dark:border-orange-400/20 z-[70] max-h-[70vh] overflow-hidden animate-slide-up"
-            style={{ marginBottom: 'env(safe-area-inset-bottom)' }}
-          >
-            <div className="py-2 max-h-[70vh] overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-orange-300 dark:scrollbar-thumb-orange-600 scrollbar-track-transparent">
-              {menuItems.map((item) => (
-                <button
-                  key={item.path}
-                  onClick={() => handleNavigation(item.path)}
-                  className="w-full text-left px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 transition-all duration-200 active:scale-95"
-                >
-                  {item.label}
-                </button>
-              ))}
-              
-              <div className="border-t border-orange-500/20 dark:border-orange-400/20 my-2" />
-              
-              <button
-                onClick={handleLogout}
-                className="w-full text-left px-4 py-3 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-200 transition-all duration-200 active:scale-95"
-              >
-                {t('auth.logout')}
-              </button>
-            </div>
-          </div>
-        </>
-      )}
+      {/* Menu rendu via Portal */}
+      {menuPortal}
     </>
   );
 };

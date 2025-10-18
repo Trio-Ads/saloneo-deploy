@@ -343,11 +343,6 @@ const MainLayout: React.FC = () => {
                   </Link>
                 );
               })}
-              
-              {/* Menu utilisateur mobile */}
-              <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
-                <UserMenu />
-              </div>
             </div>
           </div>
         </div>
