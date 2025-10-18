@@ -166,7 +166,9 @@
     "team_performance": {
       "title": "Performance de l'équipe",
       "no_members": "Aucun membre d'équipe",
-      "completed": "terminés"
+      "completed": "terminés",
+      "unknown_member": "Membre inconnu",
+      "no_role": "Aucun rôle"
     }
   }
 }

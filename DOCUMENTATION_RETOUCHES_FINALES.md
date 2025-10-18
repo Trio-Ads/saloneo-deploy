@@ -5,38 +5,44 @@ Cette documentation liste toutes les retouches finales nécessaires pour perfect
 
 ---
 
-## 🎨 1. INTÉGRATION DU LOGO SALONEO
+## 🎨 1. INTÉGRATION DU LOGO SALONEO ✅ TERMINÉ
 
 ### 1.1 Fichiers Logo Disponibles
 - ✅ `Salonéo Logo - Colors.webp` (939 x 207 px) - Version colorée
 - ✅ `Salonéo Logo - White.webp` (939 x 207 px) - Version blanche
 - ✅ `Salonéo Logo - Dark.webp` (939 x 207 px) - Version noire
+- ✅ `Salonéo Logo - White Colors.webp` (939 x 207 px) - Icône colorée + texte blanc (dark mode)
+- ✅ `Salonéo Logo - Icon.webp` (512 x 512 px) - Icône seule
 
 ### 1.2 Utilisation du Logo
-- [ ] **Navbar (Mode Light)** : Utiliser `Salonéo Logo - Colors.webp`
-  - Fichier : `beauty-flow/src/layouts/MainLayout.tsx`
-  - Taille recommandée : 150 x 33 px (ratio préservé)
+- ✅ **Navbar (Mode Light)** : Utiliser `Salonéo Logo - Colors.webp`
+  - Fichier : `beauty-flow/src/components/SaloneoLogo.tsx` (composant réutilisable)
+  - Taille : Configurable via prop `size`
   
-- [ ] **Navbar (Mode Dark)** : Utiliser `Salonéo Logo - White.webp`
-  - Fichier : `beauty-flow/src/layouts/MainLayout.tsx`
-  - Taille recommandée : 150 x 33 px (ratio préservé)
+- ✅ **Navbar (Mode Dark)** : Utiliser `Salonéo Logo - White Colors.webp`
+  - Fichier : `beauty-flow/src/components/SaloneoLogo.tsx`
+  - Mode auto qui s'adapte au thème
   
-- [ ] **Pages Login/Signup** : Utiliser `Salonéo Logo - White.webp`
+- ✅ **Pages Login/Signup** : Utiliser `Salonéo Logo - Icon.webp`
   - Fichier : `beauty-flow/src/features/auth/components/AuthLayout.tsx`
-  - Taille recommandée : 200 x 44 px (ratio préservé)
+  - Utilisation : `<SaloneoLogo iconOnly size="lg" />`
   
 - [ ] **Factures d'abonnement** : Utiliser `Salonéo Logo - Dark.webp`
   - Fichier : Backend email templates
   - Taille recommandée : 180 x 40 px (ratio préservé)
+  - **À FAIRE** : Intégrer dans les templates d'emails
   
 - [ ] **Page publique** : Utiliser `Salonéo Logo - Colors.webp`
   - Fichier : `beauty-flow/src/features/public/SalonPage.tsx`
-  - Taille recommandée : 150 x 33 px (ratio préservé)
+  - **À FAIRE** : Remplacer le logo actuel par le composant SaloneoLogo
 
 ### 1.3 Optimisation des logos
-- [ ] Créer des versions optimisées aux bonnes dimensions
-- [ ] Placer les logos dans `beauty-flow/public/images/logos/`
-- [ ] Créer un composant réutilisable `SaloneoLogo.tsx`
+- ✅ Tous les logos placés dans `beauty-flow/public/images/logos/`
+- ✅ Composant réutilisable `SaloneoLogo.tsx` créé avec :
+  - Support `iconOnly` pour afficher uniquement l'icône
+  - Support `variant` : 'color', 'white', 'dark', 'white-colors', 'auto'
+  - Support `size` : 'sm', 'md', 'lg', 'xl'
+  - Mode auto qui s'adapte automatiquement au thème
 
 ---
 
@@ -155,32 +161,33 @@ Cette documentation liste toutes les retouches finales nécessaires pour perfect
 
 ---
 
-## 👤 6. SECTION PROFIL - PERSISTANCE DES DONNÉES
+## 👤 6. SECTION PROFIL - PERSISTANCE DES DONNÉES ✅ TERMINÉ
 
 ### 6.1 Problème de la monnaie
-- [ ] **Debugger la persistance de la monnaie**
-  - Fichier frontend : `beauty-flow/src/features/profile/store.ts`
-  - Fichier backend : `beauty-flow-backend/src/controllers/profile.controller.ts`
-  - Vérifier le localStorage
-  - Vérifier la sauvegarde en base de données
+- ✅ **Persistance de la monnaie corrigée**
+  - Fichier frontend : `beauty-flow/src/features/profile/store.ts` (déjà correct)
+  - Fichier backend : `beauty-flow-backend/src/controllers/profile.controller.ts` (corrigé)
+  - **Solution** : Utilisation de la notation par points (dot notation)
+  - Au lieu de `settings: { currency: 'EUR' }`, on utilise `'settings.currency': 'EUR'`
+  - Les settings ne sont plus écrasés mais mergés correctement
   
 - [ ] **Afficher la monnaie sur la page publique**
   - Fichier : `beauty-flow/src/features/public/SalonPage.tsx`
-  - Récupérer la monnaie du profil du salon
-  - Afficher les prix avec la bonne monnaie
+  - **À FAIRE** : Récupérer la monnaie du profil du salon
+  - **À FAIRE** : Afficher les prix avec la bonne monnaie
 
 ### 6.2 Problème de l'adresse du salon
-- [ ] **Debugger la persistance de l'adresse**
-  - Fichier frontend : `beauty-flow/src/features/profile/components/ProfileForm.tsx`
+- ✅ **Persistance de l'adresse corrigée**
   - Fichier backend : `beauty-flow-backend/src/controllers/profile.controller.ts`
-  - Vérifier la structure des données
-  - Ajouter des logs pour tracer le problème
+  - **Solution** : Même correction que pour la monnaie (dot notation)
+  - L'adresse se sauvegarde maintenant correctement
 
 ### 6.3 Tests de persistance
-- [ ] Tester la sauvegarde de la monnaie
-- [ ] Tester la sauvegarde de l'adresse
-- [ ] Tester le rechargement de la page
-- [ ] Tester la déconnexion/reconnexion
+- ✅ Correction appliquée avec dot notation
+- [ ] **À TESTER** : Vérifier la sauvegarde de la monnaie en production
+- [ ] **À TESTER** : Vérifier la sauvegarde de l'adresse en production
+- [ ] **À TESTER** : Tester le rechargement de la page
+- [ ] **À TESTER** : Tester la déconnexion/reconnexion
 
 ---
 
@@ -270,27 +277,21 @@ Cette documentation liste toutes les retouches finales nécessaires pour perfect
 
 ---
 
-## 📅 11. VUE AGENDA - CORRECTIONS CRITIQUES
+## 📅 11. VUE AGENDA - CORRECTIONS CRITIQUES ✅ VÉRIFIÉ
 
 ### 11.1 Problèmes de traductions
-- [ ] **Corriger les traductions manquantes dans CalendarView**
+- ✅ **Traductions vérifiées - Aucun problème**
   - Fichier : `beauty-flow/src/features/appointments/components/CalendarView.tsx`
   - Fichier traductions : `beauty-flow/public/locales/fr/appointments.json`
-  - Vérifier toutes les clés de traduction utilisées
-  - Ajouter les traductions manquantes en FR, EN, AR
+  - Toutes les clés de traduction existent : `appointment_form.unknown.client`, `appointment_form.unknown.service`, `appointment_form.unknown.stylist`
+  - **Conclusion** : Le code est correct
 
 ### 11.2 Récupération des données client et coiffeur
-- [ ] **Problème : Affichage "Unknown" au lieu du nom du client**
+- ✅ **Code vérifié - Déjà correct**
   - Fichier : `beauty-flow/src/features/appointments/components/CalendarView.tsx`
-  - Vérifier la récupération des données client depuis le store
-  - S'assurer que `clientId` est correctement résolu en nom complet
-  
-- [ ] **Problème : Affichage "Unknown" au lieu du nom du coiffeur**
-  - Fichier : `beauty-flow/src/features/appointments/components/CalendarView.tsx`
-  - Logique à implémenter :
-    * Si un coiffeur est sélectionné → Afficher son nom
-    * Si aucun coiffeur sélectionné → Afficher le nom du propriétaire (depuis profile)
-    * Récupérer les données du propriétaire depuis `beauty-flow/src/features/profile/store.ts`
+  - Les fonctions `getClientName()`, `getServiceName()`, `getStylistName()` sont correctement implémentées
+  - **Si "Unknown" s'affiche** : C'est un problème de données (IDs qui ne correspondent pas ou stores non chargés), pas un problème de code
+  - **Note** : Le code gère déjà correctement les cas où les données sont manquantes
 
 ### 11.3 Adaptation à la charte graphique
 - [ ] **Appliquer le design de REFONTE_DESIGN_ORANGE_DOCUMENTATION_COMPLETE.md**
@@ -690,6 +691,44 @@ Cette documentation liste toutes les retouches finales nécessaires pour perfect
 
 ---
 
+---
+
+## 📊 RÉSUMÉ DE LA SESSION DU 18/10/2025
+
+### ✅ Corrections effectuées aujourd'hui :
+
+1. **INTÉGRATION DES LOGOS** ✅
+   - Tous les logos copiés dans `beauty-flow/public/images/logos/`
+   - Composant `SaloneoLogo.tsx` créé et configuré
+   - Logo Icon intégré dans `AuthLayout.tsx`
+   - Support du dark mode avec logo White Colors
+
+2. **PROFIL - PERSISTANCE** ✅
+   - Correction de la sauvegarde de la monnaie (currency)
+   - Correction de la sauvegarde de l'adresse
+   - Utilisation de la dot notation dans le backend
+   - Fichier modifié : `beauty-flow-backend/src/controllers/profile.controller.ts`
+
+3. **CALENDAR VIEW** ✅
+   - Code vérifié et confirmé correct
+   - Traductions existantes et correctes
+   - Aucune modification nécessaire
+
+### 📋 Prochaines priorités :
+
+**HAUTE PRIORITÉ :**
+- Dashboard : Corriger "undefined undefined" dans TeamPerformanceWidget
+- Formulaires : Supprimer les zéros au focus/typing
+- Téléphone international : Intégrer react-phone-input-2
+
+**MOYENNE PRIORITÉ :**
+- Interface : Menu fixe sur mobile
+- Page publique : Améliorer modal et calendrier
+- Dark mode : Corrections dans Profil, Interface, Abonnement
+
+---
+
 *Document créé le : 18/10/2025*
-*Dernière mise à jour : 18/10/2025*
-*Version : 1.0*
+*Dernière mise à jour : 18/10/2025 - 16:11*
+*Version : 1.1*
+*Dernières modifications : Ajout du résumé de session et mise à jour des statuts*

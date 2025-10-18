@@ -21,11 +21,16 @@ const TeamPerformanceWidget: React.FC<TeamPerformanceWidgetProps> = ({ appointme
       const completedAppointments = memberAppointments.filter(apt => apt.status === 'completed');
       const revenue = completedAppointments.reduce((sum, apt) => sum + (apt.price || 0), 0);
       
+      // Construire le nom avec fallback pour éviter "undefined undefined"
+      const firstName = member.firstName || '';
+      const lastName = member.lastName || '';
+      const fullName = `${firstName} ${lastName}`.trim() || t('components.team_performance.unknown_member');
+      
       return {
         id: member.id,
-        name: `${member.firstName} ${member.lastName}`,
+        name: fullName,
         avatar: member.avatar,
-        role: member.role,
+        role: member.role || t('components.team_performance.no_role'),
         appointmentsCount: memberAppointments.length,
         completedCount: completedAppointments.length,
         revenue,
