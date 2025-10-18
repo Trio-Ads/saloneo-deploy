@@ -93,6 +93,14 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
   const stylists = useStylists();
 
   const [availableSlots, setAvailableSlots] = useState<Record<string, DaySchedule>>({});
+  
+  // Calculer les dates disponibles pour le calendrier
+  const availableDatesForCalendar = useMemo(() => {
+    return Object.keys(availableSlots)
+      .filter(date => availableSlots[date]?.timeSlots.some(slot => slot.available))
+      .map(date => new Date(date));
+  }, [availableSlots]);
+  
   const [isLoadingSlots, setIsLoadingSlots] = useState(false);
   const [selectedStylistId, setSelectedStylistId] = useState(stylistId || '');
   const [internalSelectedDate, setInternalSelectedDate] = useState(selectedDate);
@@ -301,11 +309,7 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
                   setShowCalendarModal(false);
                 }
               }}
-              availableDates={useMemo(() => {
-                return Object.keys(availableSlots)
-                  .filter(date => availableSlots[date]?.timeSlots.some(slot => slot.available))
-                  .map(date => new Date(date));
-              }, [availableSlots])}
+              availableDates={availableDatesForCalendar}
               minDate={new Date()}
               maxDate={new Date(new Date().setFullYear(new Date().getFullYear() + 1))}
               locale={i18n.language}
