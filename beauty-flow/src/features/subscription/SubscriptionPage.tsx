@@ -221,77 +221,6 @@ export const SubscriptionPage: React.FC = () => {
           ))}
         </div>
 
-        {/* WHY SALONEO SECTION */}
-        <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-12 mb-16">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
-              {t('page.why_choose')}
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400">
-              {t('page.why_subtitle')}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <div 
-                key={index}
-                className="group relative bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all duration-300 hover:scale-105 hover:shadow-xl"
-              >
-                <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <feature.icon className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">{feature.title}</h3>
-                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{feature.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* TESTIMONIALS */}
-        <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-3xl shadow-2xl p-12 text-white mb-16">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">{t('testimonials.title')}</h2>
-            <p className="text-xl opacity-90">{t('testimonials.subtitle')}</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                name: t('testimonials.marie.name'),
-                salon: t('testimonials.marie.salon'),
-                text: t('testimonials.marie.text'),
-                rating: 5
-              },
-              {
-                name: t('testimonials.sophie.name'),
-                salon: t('testimonials.sophie.salon'),
-                text: t('testimonials.sophie.text'),
-                rating: 5
-              },
-              {
-                name: t('testimonials.amelie.name'),
-                salon: t('testimonials.amelie.salon'),
-                text: t('testimonials.amelie.text'),
-                rating: 5
-              }
-            ].map((testimonial, index) => (
-              <div key={index} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300">
-                <div className="flex mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <StarIcon key={i} className="h-5 w-5 text-yellow-400 fill-current" />
-                  ))}
-                </div>
-                <p className="text-lg mb-4 italic">"{testimonial.text}"</p>
-                <div>
-                  <p className="font-bold">{testimonial.name}</p>
-                  <p className="opacity-80">{testimonial.salon}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* FAQ SECTION */}
         <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-12">
           <div className="text-center mb-12">
@@ -320,17 +249,6 @@ export const SubscriptionPage: React.FC = () => {
                 <p className="text-gray-600 dark:text-gray-400">{faq.a}</p>
               </div>
             ))}
-          </div>
-        </div>
-
-        {/* FINAL CTA */}
-        <div className="text-center mt-16">
-            <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-3xl p-8 text-white">
-              <h2 className="text-3xl font-bold mb-4">{t('cta.title')}</h2>
-              <p className="text-xl mb-6 opacity-90">{t('cta.subtitle')}</p>
-              <button className="bg-white text-orange-600 px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 shadow-xl">
-              {t('cta.button')}
-            </button>
           </div>
         </div>
       </div>
