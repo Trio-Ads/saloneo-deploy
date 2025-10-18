@@ -32,7 +32,19 @@
     "add_image": "Ajouter une image",
     "remove_image": "Supprimer l'image",
     "save": "Sekles",
-    "cancel": "Sefsex"
+    "cancel": "Sefsex",
+    "online_settings": {
+      "available_online": "Disponible en línea",
+      "minimum_booking_time": "Tiempo mínimo de reserva",
+      "booking_times": {
+        "1": "1 hora de antelación",
+        "2": "2 horas de antelación",
+        "4": "4 horas de antelación",
+        "12": "12 horas de antelación",
+        "24": "24 horas de antelación (1 día)",
+        "48": "48 horas de antelación (2 días)"
+      }
+    }
   },
   "placeholders": {
     "name": "Ej: Corte y peinado",

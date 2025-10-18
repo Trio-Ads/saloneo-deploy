@@ -26,7 +26,19 @@
     "commission": "Commission",
     "discount": "Discount",
     "add_image": "Add Image",
-    "remove_image": "Remove Image"
+    "remove_image": "Remove Image",
+    "online_settings": {
+      "available_online": "Available Online",
+      "minimum_booking_time": "Minimum Booking Time",
+      "booking_times": {
+        "1": "1 hour in advance",
+        "2": "2 hours in advance",
+        "4": "4 hours in advance",
+        "12": "12 hours in advance",
+        "24": "24 hours in advance (1 day)",
+        "48": "48 hours in advance (2 days)"
+      }
+    }
   },
   "categories": {
     "haircut": "Haircut",

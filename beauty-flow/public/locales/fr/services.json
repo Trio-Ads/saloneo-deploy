@@ -26,7 +26,19 @@
     "commission": "Commission",
     "discount": "Remise",
     "add_image": "Ajouter une image",
-    "remove_image": "Supprimer l'image"
+    "remove_image": "Supprimer l'image",
+    "online_settings": {
+      "available_online": "Disponible en ligne",
+      "minimum_booking_time": "Délai minimum de réservation",
+      "booking_times": {
+        "1": "1 heure à l'avance",
+        "2": "2 heures à l'avance",
+        "4": "4 heures à l'avance",
+        "12": "12 heures à l'avance",
+        "24": "24 heures à l'avance (1 jour)",
+        "48": "48 heures à l'avance (2 jours)"
+      }
+    }
   },
   "categories": {
     "haircut": "Coupe",

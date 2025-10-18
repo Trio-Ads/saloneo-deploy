@@ -32,7 +32,19 @@
     "add_image": "Ajouter une image",
     "remove_image": "Supprimer l'image",
     "save": "Sekles",
-    "cancel": "Sefsex"
+    "cancel": "Sefsex",
+    "online_settings": {
+      "available_online": "Çevrimiçi mevcut",
+      "minimum_booking_time": "Minimum rezervasyon süresi",
+      "booking_times": {
+        "1": "1 saat önceden",
+        "2": "2 saat önceden",
+        "4": "4 saat önceden",
+        "12": "12 saat önceden",
+        "24": "24 saat önceden (1 gün)",
+        "48": "48 saat önceden (2 gün)"
+      }
+    }
   },
   "placeholders": {
     "name": "Örn: Kesim ve fön",
