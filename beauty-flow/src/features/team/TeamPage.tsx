@@ -29,6 +29,7 @@ const TeamPage: React.FC = () => {
   const [editingMember, setEditingMember] = useState<TeamMember | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRole, setSelectedRole] = useState<string>('all');
+  const formRef = React.useRef<HTMLDivElement>(null);
   
   // Enable real-time updates
   useSocket();
@@ -112,6 +113,13 @@ const TeamPage: React.FC = () => {
     setIsFormOpen(false);
     setEditingMember(null);
   };
+
+  // Auto-scroll vers le formulaire quand il s'ouvre
+  React.useEffect(() => {
+    if (isFormOpen && formRef.current) {
+      formRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [isFormOpen]);
 
   const handleDeleteClick = (memberId: string) => {
     if (window.confirm(t('messages.delete_confirmation'))) {
@@ -307,7 +315,7 @@ const TeamPage: React.FC = () => {
         )}
 
         {/* Contenu principal */}
-        <div className="bg-white/80 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6 min-h-[600px]">
+        <div ref={formRef} className="bg-white/80 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6 min-h-[600px]">
           {isFormOpen ? (
             <div className="animate-fadeIn">
               <TeamMemberFormWithLimits

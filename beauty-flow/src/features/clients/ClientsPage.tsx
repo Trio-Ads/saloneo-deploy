@@ -26,6 +26,7 @@ const ClientsPage: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
   const [selectedClient, setSelectedClient] = useState<Client | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const formRef = React.useRef<HTMLDivElement>(null);
   
   // Store state
   const clients = useClientStore((state) => state.clients);
@@ -127,6 +128,13 @@ const ClientsPage: React.FC = () => {
     setSelectedClient(null);
     setShowForm(true);
   };
+
+  // Auto-scroll vers le formulaire quand il s'ouvre
+  React.useEffect(() => {
+    if (showForm && formRef.current) {
+      formRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [showForm]);
 
   // Afficher un état de chargement si les données ne sont pas encore disponibles
   if (!clients && loading) {
@@ -323,7 +331,7 @@ const ClientsPage: React.FC = () => {
         )}
 
         {/* Contenu principal */}
-        <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-orange-500/20 dark:border-orange-500/20 p-6 min-h-[600px] transition-colors duration-300">
+        <div ref={formRef} className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-orange-500/20 dark:border-orange-500/20 p-6 min-h-[600px] transition-colors duration-300">
           {showForm ? (
             <div className="animate-fadeIn">
               <ClientFormWithLimits

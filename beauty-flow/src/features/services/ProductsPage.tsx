@@ -32,6 +32,7 @@ const ProductsPage: React.FC = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const formRef = React.useRef<HTMLDivElement>(null);
 
   // Charger les produits au montage du composant
   useEffect(() => {
@@ -125,6 +126,13 @@ const ProductsPage: React.FC = () => {
     setShowForm(false);
     setEditingProduct(null);
   };
+
+  // Auto-scroll vers le formulaire quand il s'ouvre
+  React.useEffect(() => {
+    if (showForm && formRef.current) {
+      formRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [showForm]);
 
   const handleDeleteClick = (productId: string) => {
     if (window.confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')) {
@@ -389,7 +397,7 @@ const ProductsPage: React.FC = () => {
         </div>
 
         {/* Contenu principal */}
-        <div className="bg-white/80 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6 min-h-[600px]">
+        <div ref={formRef} className="bg-white/80 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6 min-h-[600px]">
           {showForm ? (
             <div className="animate-fadeIn">
               <ProductFormWithLimits

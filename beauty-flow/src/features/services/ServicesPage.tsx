@@ -46,6 +46,7 @@ const ServicesPage: React.FC = () => {
   const [editingService, setEditingService] = useState<Service | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const formRef = React.useRef<HTMLDivElement>(null);
 
   // Filtrer les services et calculer les statistiques
   const filteredServices = useMemo(() => {
@@ -118,6 +119,13 @@ const ServicesPage: React.FC = () => {
     setIsFormOpen(false);
     setEditingService(null);
   };
+
+  // Auto-scroll vers le formulaire quand il s'ouvre
+  React.useEffect(() => {
+    if (isFormOpen && formRef.current) {
+      formRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [isFormOpen]);
 
   const handleDeleteClick = (serviceId: string) => {
     if (window.confirm(t('messages.delete_confirmation'))) {
@@ -312,7 +320,7 @@ const ServicesPage: React.FC = () => {
         )}
 
         {/* Contenu principal */}
-        <div className="glass-card p-6 min-h-[600px] bg-white/90 dark:bg-gray-800/70 backdrop-blur-xl border border-orange-500/20 shadow-orange-md">
+        <div ref={formRef} className="glass-card p-6 min-h-[600px] bg-white/90 dark:bg-gray-800/70 backdrop-blur-xl border border-orange-500/20 shadow-orange-md">
           {isFormOpen ? (
             <div className="animate-fadeIn">
               <ServiceFormWithLimits

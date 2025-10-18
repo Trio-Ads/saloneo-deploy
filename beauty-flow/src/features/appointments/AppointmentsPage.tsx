@@ -59,6 +59,7 @@ const AppointmentsPage: React.FC = () => {
   const [viewMode, setViewMode] = useState<'list' | 'calendar'>('list');
   const [pastAppointmentsCount, setPastAppointmentsCount] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
+  const formRef = React.useRef<HTMLDivElement>(null);
   
   // Charger toutes les données nécessaires au démarrage
   useEffect(() => {
@@ -178,6 +179,13 @@ const AppointmentsPage: React.FC = () => {
     setShowForm(false);
     setEditingAppointment(null);
   };
+
+  // Auto-scroll vers le formulaire quand il s'ouvre
+  React.useEffect(() => {
+    if (showForm && formRef.current) {
+      formRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [showForm]);
 
   const handleCancelAppointment = (appointmentId: string) => {
     if (window.confirm(t('messages.confirm_cancel'))) {
@@ -452,7 +460,7 @@ const AppointmentsPage: React.FC = () => {
         )}
 
         {/* Contenu principal */}
-        <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-lg dark:shadow-gray-lg border border-orange-500/20 dark:border-orange-500/20 p-6 min-h-[600px] transition-colors duration-300">
+        <div ref={formRef} className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-lg dark:shadow-gray-lg border border-orange-500/20 dark:border-orange-500/20 p-6 min-h-[600px] transition-colors duration-300">
           {showForm ? (
             <div className="animate-fadeIn">
               <AppointmentForm
