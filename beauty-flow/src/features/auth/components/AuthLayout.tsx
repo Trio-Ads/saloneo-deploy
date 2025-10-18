@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useThemeColors } from '../../../hooks/useThemeColors';
 import AuthLanguageSelector from '../../../components/AuthLanguageSelector';
+import { SaloneoLogo } from '../../../components/SaloneoLogo';
 
 interface AuthLayoutProps {
   children: React.ReactNode;
@@ -60,14 +61,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title }) => {
           <div className="auth-header">
             <div className="auth-logo">
               <div className="auth-logo-icon">
-                <svg
-                  viewBox="0 0 40 40"
-                  className="w-10 h-10 text-white"
-                  fill="currentColor"
-                >
-                  <path d="M20 4C11.163 4 4 11.163 4 20s7.163 16 16 16 16-7.163 16-16S28.837 4 20 4zm0 28c-6.627 0-12-5.373-12-12S13.373 8 20 8s12 5.373 12 12-5.373 12-12 12z"/>
-                  <circle cx="20" cy="20" r="6"/>
-                </svg>
+                <SaloneoLogo iconOnly size="lg" />
               </div>
               <div className="auth-logo-text">
                 <h1 className="text-2xl font-display font-bold text-white">
