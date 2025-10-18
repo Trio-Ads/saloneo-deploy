@@ -24,7 +24,7 @@ import { LoginPage } from './features/auth/pages/LoginPage';
 import { RegisterPage } from './features/auth/pages/RegisterPage';
 import { AuthGuard, PublicOnlyGuard } from './features/auth/components/AuthGuard';
 import ErrorBoundary from './components/ErrorBoundary';
-import LandingPagePremium from './features/marketing/pages/LandingPagePremium';
+import LandingPage from './features/marketing/pages/LandingPage';
 import PricingPage from './features/marketing/pages/PricingPage';
 
 export const App: React.FC = () => {
@@ -46,7 +46,7 @@ export const App: React.FC = () => {
       <Router>
         <Routes>
         {/* Marketing routes - MUST BE FIRST to catch "/" */}
-        <Route path="/" element={<LandingPagePremium />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/login" element={<Navigate to="/auth/login" replace />} />
         <Route path="/register" element={<Navigate to="/auth/register" replace />} />

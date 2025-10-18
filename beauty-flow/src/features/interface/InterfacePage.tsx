@@ -142,28 +142,28 @@ const InterfacePage: React.FC = () => {
               <p className="text-gray-600 dark:text-gray-400">{t('sections.colors.description')}</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
+              <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6">
                 <ColorPicker
                   label={t('colors.primary')}
                   value={settings.colors.primary}
                   onChange={handleColorChange('primary')}
                 />
               </div>
-              <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
+              <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6">
                 <ColorPicker
                   label={t('colors.secondary')}
                   value={settings.colors.secondary}
                   onChange={handleColorChange('secondary')}
                 />
               </div>
-              <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
+              <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6">
                 <ColorPicker
                   label={t('colors.accent')}
                   value={settings.colors.accent}
                   onChange={handleColorChange('accent')}
                 />
               </div>
-              <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
+              <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6">
                 <ColorPicker
                   label={t('colors.background')}
                   value={settings.colors.background}
@@ -184,7 +184,7 @@ const InterfacePage: React.FC = () => {
               <p className="text-gray-600 dark:text-gray-400">{t('sections.images.description')}</p>
             </div>
             <div className="space-y-6">
-              <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
+              <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6">
                 <ImageUpload
                   label={t('images.logo_label')}
                   imageUrl={settings.logo.url}
@@ -199,7 +199,7 @@ const InterfacePage: React.FC = () => {
                   </p>
                 </div>
               </div>
-              <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
+              <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6">
                 <ImageUpload
                   label={t('images.banner_label')}
                   imageUrl={settings.banner.url}
@@ -229,7 +229,7 @@ const InterfacePage: React.FC = () => {
             </div>
             <div className="space-y-6">
               {/* Présentation */}
-              <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
+              <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6">
                 <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">{t('forms.presentation.label')}</h4>
                 <textarea
                   value={settings.presentation}
@@ -241,7 +241,7 @@ const InterfacePage: React.FC = () => {
               </div>
               
               {/* Affichage des Services */}
-              <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
+              <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6">
                 <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">{t('forms.services_display')}</h4>
                 <DisplaySettings
                   settings={settings.serviceDisplay}
@@ -263,14 +263,14 @@ const InterfacePage: React.FC = () => {
             </div>
             <div className="space-y-6">
               {/* Paramètres des Rendez-vous */}
-              <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
-                <h4 className="text-lg font-semibold text-gray-800 mb-4">{t('forms.appointments_settings')}</h4>
+              <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6">
+                <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">{t('forms.appointments_settings')}</h4>
                 <AppointmentSettings />
               </div>
               
               {/* {t('forms.team_display')} */}
-              <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
-                <h4 className="text-lg font-semibold text-gray-800 mb-4">{t('forms.team_display')}</h4>
+              <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6">
+                <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">{t('forms.team_display')}</h4>
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
@@ -314,8 +314,8 @@ const InterfacePage: React.FC = () => {
               </div>
 
               {/* Lien de Partage */}
-              <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6">
-                <h4 className="text-lg font-semibold text-gray-800 mb-4">{t('forms.share_link')}</h4>
+              <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6">
+                <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">{t('forms.share_link')}</h4>
                 <ShareableLink />
               </div>
             </div>
@@ -368,7 +368,7 @@ const InterfacePage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-orange-50 to-orange-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
         {/* HERO HEADER - Design spectaculaire */}
@@ -379,7 +379,7 @@ const InterfacePage: React.FC = () => {
               {/* Titre avec icône spectaculaire */}
               <div className="flex items-center space-x-6">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-2xl blur-lg opacity-30 animate-pulse"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl blur-lg opacity-30 animate-pulse"></div>
                   <div className="relative bg-gradient-to-r from-orange-500 to-orange-600 p-4 rounded-2xl shadow-xl transform hover:scale-110 transition-all duration-300">
                     <PaintBrushIcon className="h-8 w-8 text-white" />
                   </div>
