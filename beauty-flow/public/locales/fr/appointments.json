@@ -269,5 +269,29 @@
       "days": "jours",
       "hours_before": "heures avant le rendez-vous"
     }
+  },
+  "bookingConfirmed": "Réservation Confirmée !",
+  "bookingSuccessMessage": "Votre rendez-vous a été confirmé avec succès",
+  "modificationLinkInfo": "Utilisez ce lien pour modifier ou annuler votre rendez-vous",
+  "modificationLinkWarning": "Conservez ce lien précieusement, il vous permettra de gérer votre rendez-vous",
+  "yourAppointments": "Vos Rendez-vous",
+  "noAppointments": "Aucun rendez-vous trouvé",
+  "bookNew": "Prendre un nouveau rendez-vous",
+  "modify": "Modifier",
+  "cancel": "Annuler",
+  "modifyAppointment": "Modifier le rendez-vous",
+  "cancelAppointment": "Annuler le rendez-vous",
+  "cancelConfirmation": "Êtes-vous sûr de vouloir annuler ce rendez-vous ?",
+  "cancelReasonPlaceholder": "Raison de l'annulation (optionnel)",
+  "confirmModification": "Confirmer la modification",
+  "confirmCancellation": "Confirmer l'annulation",
+  "date": "Date",
+  "time": "Heure",
+  "errors": {
+    "selectDateTime": "Veuillez sélectionner une date et une heure",
+    "modificationNotAllowed": "Modification non autorisée",
+    "modificationFailed": "Échec de la modification",
+    "cancellationFailed": "Échec de l'annulation",
+    "reasonRequired": "Veuillez fournir une raison"
   }
 }
