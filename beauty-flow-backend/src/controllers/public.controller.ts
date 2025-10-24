@@ -25,7 +25,7 @@ export const getSalonBySlug = async (req: Request, res: Response): Promise<void>
     // Récupérer TOUS les utilisateurs actifs
     const users = await User.find({ 
       isActive: true 
-    }).select('firstName lastName establishmentName address phone email businessHours theme settings logo banner presentation serviceDisplay showTeamOnPublicPage');
+    }).select('firstName lastName establishmentName address phone email businessHours theme settings logo banner presentation publicPhone serviceDisplay showTeamOnPublicPage');
 
     if (!users || users.length === 0) {
       res.status(404).json({ error: 'No active salons found' });
