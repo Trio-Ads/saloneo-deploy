@@ -7,13 +7,214 @@ import {
   MagnifyingGlassIcon,
   FunnelIcon,
   PencilSquareIcon,
-  EyeIcon
+  EyeIcon,
+  XMarkIcon,
+  CheckIcon
 } from '@heroicons/react/24/outline';
 import { useAdminStore } from './store';
 import { useAuthStore } from '../auth/store';
-import { AdminUser, PlanType } from './types';
-import { format } from 'date-fns';
+import { AdminUser, PlanType, SubscriptionDuration } from './types';
+import { format, addMonths, addYears } from 'date-fns';
 import { fr } from 'date-fns/locale';
+
+// SubscriptionEditor Component
+interface SubscriptionEditorProps {
+  user: AdminUser;
+  onClose: () => void;
+  onSuccess: () => void;
+}
+
+const SubscriptionEditor: React.FC<SubscriptionEditorProps> = ({ user, onClose, onSuccess }) => {
+  const { t } = useTranslation('admin');
+  const { updateUserSubscription } = useAdminStore();
+  
+  const [formData, setFormData] = useState({
+    plan: user.subscription.plan,
+    duration: user.subscription.duration || SubscriptionDuration.MONTHLY,
+    isActive: user.subscription.isActive,
+    expiresAt: user.subscription.expiresAt ? format(new Date(user.subscription.expiresAt), 'yyyy-MM-dd') : ''
+  });
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      // Calculate expiry date based on duration if not manually set
+      let expiresAt = formData.expiresAt;
+      if (!expiresAt && formData.plan !== 'FREE') {
+        const now = new Date();
+        switch (formData.duration) {
+          case 'MONTHLY':
+            expiresAt = format(addMonths(now, 1), 'yyyy-MM-dd');
+            break;
+          case 'YEARLY':
+            expiresAt = format(addYears(now, 1), 'yyyy-MM-dd');
+            break;
+          case 'BIENNIAL':
+            expiresAt = format(addYears(now, 2), 'yyyy-MM-dd');
+            break;
+          case 'TRIENNIAL':
+            expiresAt = format(addYears(now, 3), 'yyyy-MM-dd');
+            break;
+        }
+      }
+
+      await updateUserSubscription(user._id, {
+        plan: formData.plan as PlanType,
+        duration: formData.duration as SubscriptionDuration,
+        isActive: formData.isActive,
+        expiresAt: expiresAt || undefined
+      });
+
+      alert(t('edit_modal.success'));
+      onSuccess();
+    } catch (error) {
+      alert(t('edit_modal.error'));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 overflow-y-auto">
+      <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+        <div
+          className="fixed inset-0 transition-opacity bg-gray-900/75 dark:bg-black/80 backdrop-blur-sm"
+          onClick={onClose}
+        />
+        <div className="inline-block align-bottom bg-white dark:bg-gray-800 rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full border border-orange-500/20">
+          <form onSubmit={handleSubmit}>
+            {/* Header */}
+            <div className="bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-4 flex items-center justify-between">
+              <h3 className="text-lg font-semibold text-white">
+                {t('edit_modal.title')}
+              </h3>
+              <button
+                type="button"
+                onClick={onClose}
+                className="text-white/80 hover:text-white transition-colors"
+              >
+                <XMarkIcon className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Body */}
+            <div className="px-6 py-4 space-y-4">
+              {/* User Info */}
+              <div className="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
+                <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                  {user.establishmentName}
+                </p>
+                <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                  {user.email}
+                </p>
+              </div>
+
+              {/* Plan Selection */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  {t('edit_modal.plan')}
+                </label>
+                <select
+                  value={formData.plan}
+                  onChange={(e) => setFormData({ ...formData, plan: e.target.value as PlanType })}
+                  className="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-gray-900 dark:text-gray-100 transition-all"
+                >
+                  <option value="FREE">FREE</option>
+                  <option value="STARTER">STARTER</option>
+                  <option value="PRO">PRO</option>
+                  <option value="ENTERPRISE">ENTERPRISE</option>
+                </select>
+              </div>
+
+              {/* Duration Selection */}
+              {formData.plan !== 'FREE' && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    {t('edit_modal.duration')}
+                  </label>
+                  <select
+                    value={formData.duration}
+                    onChange={(e) => setFormData({ ...formData, duration: e.target.value as SubscriptionDuration })}
+                    className="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-gray-900 dark:text-gray-100 transition-all"
+                  >
+                    <option value="MONTHLY">{t('edit_modal.monthly')}</option>
+                    <option value="YEARLY">{t('edit_modal.yearly')}</option>
+                    <option value="BIENNIAL">{t('edit_modal.biennial')}</option>
+                    <option value="TRIENNIAL">{t('edit_modal.triennial')}</option>
+                  </select>
+                </div>
+              )}
+
+              {/* Expiry Date */}
+              {formData.plan !== 'FREE' && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    {t('edit_modal.expiry_date')}
+                  </label>
+                  <input
+                    type="date"
+                    value={formData.expiresAt}
+                    onChange={(e) => setFormData({ ...formData, expiresAt: e.target.value })}
+                    className="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-gray-900 dark:text-gray-100 transition-all"
+                  />
+                  <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                    {t('edit_modal.expiry_help')}
+                  </p>
+                </div>
+              )}
+
+              {/* Active Status */}
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  id="isActive"
+                  checked={formData.isActive}
+                  onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
+                  className="w-4 h-4 text-orange-600 bg-gray-100 dark:bg-gray-900 border-gray-300 dark:border-gray-700 rounded focus:ring-orange-500 focus:ring-2"
+                />
+                <label htmlFor="isActive" className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                  {t('edit_modal.active')}
+                </label>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="px-6 py-4 bg-gray-50 dark:bg-gray-900/50 flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={onClose}
+                disabled={loading}
+                className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                {t('edit_modal.cancel')}
+              </button>
+              <button
+                type="submit"
+                disabled={loading}
+                className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg hover:from-orange-600 hover:to-orange-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2"
+              >
+                {loading ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                    {t('edit_modal.saving')}
+                  </>
+                ) : (
+                  <>
+                    <CheckIcon className="w-4 h-4" />
+                    {t('edit_modal.save')}
+                  </>
+                )}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const AdminPage: React.FC = () => {
   const { t } = useTranslation('admin');
@@ -256,7 +457,7 @@ const AdminPage: React.FC = () => {
             <div className="flex items-center gap-2">
               <FunnelIcon className="w-5 h-5 text-gray-400 dark:text-gray-500" />
               <select
-                value={filters.planFilter}
+                value={filters.planFilter || ''}
                 onChange={(e) => handleFilterChange('planFilter', e.target.value)}
                 className="px-4 py-2.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-gray-900 dark:text-gray-100 transition-all"
               >
@@ -270,7 +471,7 @@ const AdminPage: React.FC = () => {
 
             {/* Status Filter */}
             <select
-              value={filters.statusFilter}
+              value={filters.statusFilter || ''}
               onChange={(e) => handleFilterChange('statusFilter', e.target.value)}
               className="px-4 py-2.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-gray-900 dark:text-gray-100 transition-all"
             >
@@ -417,36 +618,20 @@ const AdminPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Edit Modal - TODO: Create SubscriptionEditor component */}
+      {/* Edit Modal - SubscriptionEditor */}
       {showEditModal && selectedUser && (
-        <div className="fixed inset-0 z-50 overflow-y-auto">
-          <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
-            <div
-              className="fixed inset-0 transition-opacity bg-gray-900/75 dark:bg-black/80 backdrop-blur-sm"
-              onClick={() => setShowEditModal(false)}
-            />
-            <div className="inline-block align-bottom bg-white dark:bg-gray-800 rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full border border-orange-500/20">
-              <div className="bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-4">
-                <h3 className="text-lg font-semibold text-white">
-                  {t('edit_modal.title')}
-                </h3>
-              </div>
-              <div className="px-6 py-4">
-                <p className="text-gray-600 dark:text-gray-400">
-                  {t('edit_modal.coming_soon')}
-                </p>
-              </div>
-              <div className="px-6 py-4 bg-gray-50 dark:bg-gray-900/50 flex justify-end gap-3">
-                <button
-                  onClick={() => setShowEditModal(false)}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-                >
-                  {t('edit_modal.close')}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <SubscriptionEditor
+          user={selectedUser}
+          onClose={() => {
+            setShowEditModal(false);
+            setSelectedUser(null);
+          }}
+          onSuccess={() => {
+            setShowEditModal(false);
+            setSelectedUser(null);
+            fetchUsers();
+          }}
+        />
       )}
     </div>
   );

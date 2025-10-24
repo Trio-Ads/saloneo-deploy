@@ -48,7 +48,19 @@
   "no_users": "Aucun utilisateur trouvé",
   "edit_modal": {
     "title": "Modifier l'abonnement",
-    "coming_soon": "Fonctionnalité en cours de développement",
-    "close": "Fermer"
+    "plan": "Plan d'abonnement",
+    "duration": "Durée",
+    "monthly": "Mensuel",
+    "yearly": "Annuel",
+    "biennial": "Biennal (2 ans)",
+    "triennial": "Triennal (3 ans)",
+    "expiry_date": "Date d'expiration",
+    "expiry_help": "Laissez vide pour calculer automatiquement selon la durée",
+    "active": "Abonnement actif",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "saving": "Enregistrement...",
+    "success": "Abonnement modifié avec succès",
+    "error": "Erreur lors de la modification de l'abonnement"
   }
 }

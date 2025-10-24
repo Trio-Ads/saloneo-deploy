@@ -48,7 +48,19 @@
   "no_users": "No users found",
   "edit_modal": {
     "title": "Edit Subscription",
-    "coming_soon": "Feature under development",
-    "close": "Close"
+    "plan": "Subscription Plan",
+    "duration": "Duration",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "biennial": "Biennial (2 years)",
+    "triennial": "Triennial (3 years)",
+    "expiry_date": "Expiration Date",
+    "expiry_help": "Leave empty to calculate automatically based on duration",
+    "active": "Active Subscription",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving...",
+    "success": "Subscription updated successfully",
+    "error": "Error updating subscription"
   }
 }
