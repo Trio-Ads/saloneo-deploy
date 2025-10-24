@@ -1284,7 +1284,61 @@ Tous les composants respectent parfaitement la charte orange/blanc/gris/noir ave
 
 ---
 
+## 🌐 21. PAGE PUBLIQUE - RETOUCHES FINALES ✅ EN COURS
+
+### 21.1 Adaptation aux templates ✅ TERMINÉ
+- ✅ **AppointmentSearchForm** : Adapté aux templates
+  - Fichier : `beauty-flow/src/features/public/components/AppointmentSearchForm.tsx`
+  - Remplacement des classes glass-input/glass-button par styles dynamiques
+  - Utilisation de useTemplateStyles() pour les couleurs
+  - Gradient purple/pink → Gradient orange dynamique du template
+  - Support complet du dark mode
+  - **Commit fd5cba7** - 24/10/2025 16:30
+  
+- ✅ **PublicAppointmentList** : Adapté aux templates
+  - Fichier : `beauty-flow/src/features/public/components/PublicAppointmentList.tsx`
+  - Même traitement que AppointmentSearchForm
+  - Affichage des rendez-vous avec couleurs du template
+  - Boutons Modifier/Annuler adaptés
+  - Modal de modification/annulation stylé
+  - **Commit fd5cba7** - 24/10/2025 16:30
+
+### 21.2 Amélioration UX formulaires ✅ TERMINÉ
+- ✅ **PersonalInfoSection** : Adapté aux templates
+  - Fichier : `beauty-flow/src/features/public/components/PublicClientForm/PersonalInfoSection.tsx`
+  - Remplacement glass-input par styles dynamiques
+  - Bordures, focus states, et gestion d'erreurs améliorés
+  - Tous les inputs adaptés aux couleurs du template
+  - **Commit bbd1b7e** - 24/10/2025 16:32
+  
+- ✅ **PreferencesSection** : Checkboxes en cartes cliquables
+  - Fichier : `beauty-flow/src/features/public/components/PublicClientForm/PreferencesSection.tsx`
+  - Transformation des checkboxes en cartes avec padding
+  - Zone cliquable beaucoup plus grande (meilleure UX mobile)
+  - Effets hover et transitions fluides
+  - Adaptation complète aux couleurs du template
+  - **Commit bbd1b7e** - 24/10/2025 16:32
+
+### 21.3 Tâches restantes ⏳
+- [ ] **Ajouter "Hosted by Saloneo" dans le footer** (plan gratuit uniquement)
+  - Fichier : `beauty-flow/src/features/public/SalonPage.tsx`
+  - Afficher uniquement si l'utilisateur est en plan gratuit
+  - Design discret mais visible
+  
+- [ ] **Corriger la sélection de dates** (débloquer toutes les dates)
+  - Fichier : `beauty-flow/src/features/public/components/ModernCalendar.tsx`
+  - Actuellement limité à 30 jours
+  - Permettre la navigation sur plusieurs mois
+  
+- [ ] **Implémenter l'envoi d'emails automatiques**
+  - Fichier backend : `beauty-flow-backend/src/controllers/public.controller.ts`
+  - Ajouter envoi d'email dans `createPublicBooking`
+  - Email de confirmation au client
+  - Email de notification au salon
+
+---
+
 *Document créé le : 18/10/2025*
-*Dernière mise à jour : 18/10/2025 - 22:03*
-*Version : 1.9*
-*Dernières modifications : Étape 20 TERMINÉE - Navbar landing page avec menu et auth (commit a018659)*
+*Dernière mise à jour : 24/10/2025 - 16:33*
+*Version : 2.0*
+*Dernières modifications : Étape 21 EN COURS - Retouches finales page publique (commits fd5cba7, bbd1b7e)*
