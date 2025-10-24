@@ -1564,7 +1564,7 @@ Le panel admin suivra la charte graphique orange/gris de l'application :
   - L'email de confirmation affiche `[object Object]` au lieu du symbole de la devise
   - Cause : La devise n'était pas passée correctement au template d'email
   
-- ✅ **Solution implémentée**
+- ✅ **Solution implémentée - Partie 1 : Backend**
   - Fichier : `beauty-flow-backend/src/controllers/public.controller.ts`
   - Ajout de la devise dans les données de l'email :
     ```typescript
@@ -1572,7 +1572,21 @@ Le panel admin suivra la charte graphique orange/gris de l'application :
     ```
   - La devise est maintenant récupérée depuis le service ou le profil du salon
   - Fallback sur 'DZD' si aucune devise n'est définie
-  - **Commit [EN ATTENTE]** - 24/10/2025 19:43
+  - **Commit f35ee50** - 24/10/2025 19:43
+  
+- ✅ **Solution implémentée - Partie 2 : Template**
+  - Fichier : `beauty-flow-backend/src/services/emailTemplates.ts`
+  - Correction du template d'email de confirmation :
+    ```html
+    <!-- AVANT -->
+    <p><strong>💰 Prix:</strong> {{formatCurrency servicePrice}}</p>
+    
+    <!-- APRÈS -->
+    <p><strong>💰 Prix:</strong> {{formatCurrency servicePrice currency}}</p>
+    ```
+  - Le helper `formatCurrency` reçoit maintenant les deux paramètres (prix + devise)
+  - La devise s'affiche correctement : "49.95 DZD" au lieu de "49.95 [object Object]"
+  - **Commit [EN ATTENTE]** - 24/10/2025 19:54
 
 ### 23.3 Bug du nom du client dans les rendez-vous ✅ ANALYSÉ
 - ✅ **Problème identifié**

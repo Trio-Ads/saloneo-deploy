@@ -66,7 +66,7 @@ export class EmailTemplates {
         <p><strong>💇 Service:</strong> {{serviceName}}</p>
         <p><strong>⏱️ Durée:</strong> {{serviceDuration}} minutes</p>
         <p><strong>👤 Avec:</strong> {{staffName}}</p>
-        <p><strong>💰 Prix:</strong> {{formatCurrency servicePrice}}</p>
+        <p><strong>💰 Prix:</strong> {{formatCurrency servicePrice currency}}</p>
       </div>
       <p>Nous avons hâte de vous accueillir !</p>
       <p style="text-align: center;">
