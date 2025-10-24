@@ -1,8 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate, useParams } from 'react-router-dom';
 import { format, parseISO, addMinutes } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import { 
+  CalendarDaysIcon, 
+  ClockIcon, 
+  UserIcon,
+  PencilSquareIcon,
+  XMarkIcon,
+  SparklesIcon,
+  CheckCircleIcon
+} from '@heroicons/react/24/outline';
 import { useAppointmentStore } from '../../appointments/store';
 import { useServiceStore } from '../../services/store';
 import { useTemplateStyles } from '../../../hooks/useTemplateStyles';
@@ -16,6 +25,7 @@ const PublicAppointmentList: React.FC = () => {
   const { t } = useTranslation(['appointments', 'common']);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { slug } = useParams<{ slug: string }>();
   const { colors } = useTemplateStyles();
 
   const [loading, setLoading] = useState(true);
@@ -41,7 +51,6 @@ const PublicAppointmentList: React.FC = () => {
     const firstName = searchParams.get('firstName');
     const lastName = searchParams.get('lastName');
 
-    // Vérifier qu'au moins un mode de recherche est fourni
     if (!email && !phone && (!firstName || !lastName)) {
       setError('Paramètres de recherche invalides');
       setLoading(false);
@@ -50,9 +59,8 @@ const PublicAppointmentList: React.FC = () => {
 
     const fetchAppointments = async () => {
       try {
-        // Construire l'URL de recherche avec les paramètres
         const searchUrl = new URL(window.location.href);
-        const slug = searchUrl.pathname.split('/')[2] || 'default-salon';
+        const currentSlug = searchUrl.pathname.split('/')[2] || slug || 'default-salon';
         
         const queryParams = new URLSearchParams();
         if (email) queryParams.set('email', email);
@@ -60,7 +68,7 @@ const PublicAppointmentList: React.FC = () => {
         if (firstName) queryParams.set('firstName', firstName);
         if (lastName) queryParams.set('lastName', lastName);
 
-        const response = await fetch(`/api/public/appointments/search/${slug}?${queryParams.toString()}`);
+        const response = await fetch(`/api/public/appointments/search/${currentSlug}?${queryParams.toString()}`);
         
         if (!response.ok) {
           throw new Error('Erreur lors de la recherche des rendez-vous');
@@ -76,7 +84,7 @@ const PublicAppointmentList: React.FC = () => {
     };
 
     fetchAppointments();
-  }, [searchParams, t]);
+  }, [searchParams, slug, t]);
 
   const handleModify = async () => {
     if (!selectedAppointment || !newDate || !newTime) {
@@ -90,7 +98,6 @@ const PublicAppointmentList: React.FC = () => {
         throw new Error(t('appointments:errors.modificationNotAllowed'));
       }
 
-      // Récupérer le service
       const service = useServiceStore.getState().services.find(
         (s: Service) => s.id === selectedAppointment.serviceId
       );
@@ -99,7 +106,6 @@ const PublicAppointmentList: React.FC = () => {
         throw new Error("Service non trouvé");
       }
 
-      // Calculer l'heure de fin
       const endTime = format(
         addMinutes(
           new Date(`2000-01-01 ${newTime}`),
@@ -115,7 +121,6 @@ const PublicAppointmentList: React.FC = () => {
       };
       await modifyAppointment(selectedAppointment.modificationToken, changes);
       
-      // Rafraîchir la liste
       const updatedAppointments = appointments.map(apt =>
         apt.id === selectedAppointment.id
           ? { 
@@ -154,7 +159,6 @@ const PublicAppointmentList: React.FC = () => {
       }
       await cancelAppointmentPublic(selectedAppointment.modificationToken, cancellationReason);
       
-      // Retirer le rendez-vous annulé de la liste
       setAppointments(appointments.filter(apt => apt.id !== selectedAppointment.id));
       setShowCancelModal(false);
     } catch (err) {
@@ -164,147 +168,293 @@ const PublicAppointmentList: React.FC = () => {
     }
   };
 
+  const handleBookNew = () => {
+    const searchUrl = new URL(window.location.href);
+    const currentSlug = searchUrl.pathname.split('/')[2] || slug || 'default-salon';
+    navigate(`/salon/${currentSlug}`);
+  };
+
   if (loading) {
     return <LoadingSpinner />;
   }
 
   if (error) {
     return (
-      <div className="p-6 text-center">
-        <h2 
-          className="text-xl font-semibold mb-4"
-          style={{ color: colors.error }}
-        >
-          {error}
-        </h2>
-        <button
-          onClick={() => navigate('/')}
-          className="font-medium transition-colors duration-300 hover:opacity-80"
-          style={{ 
-            color: colors.primary
-          }}
-        >
-          {t('common:backToHome')}
-        </button>
+      <div className="min-h-screen flex items-center justify-center p-6" style={{ backgroundColor: colors.background }}>
+        <div className="max-w-md w-full text-center glass-card p-8 rounded-2xl">
+          <div className="mx-auto w-16 h-16 bg-gradient-to-r rounded-full flex items-center justify-center mb-4" style={{ 
+            backgroundImage: `linear-gradient(to right, ${colors.error}, ${colors.error}dd)` 
+          }}>
+            <XMarkIcon className="h-8 w-8 text-white" />
+          </div>
+          <h2 className="text-xl font-semibold mb-4" style={{ color: colors.error }}>
+            {error}
+          </h2>
+          <button
+            onClick={handleBookNew}
+            className="font-medium transition-all duration-300 transform hover:scale-105 px-6 py-3 rounded-lg"
+            style={{ 
+              background: `linear-gradient(to right, ${colors.primary}, ${colors.primaryDark})`,
+              color: '#FFFFFF',
+              boxShadow: `0 4px 15px ${colors.primary}40`
+            }}
+          >
+            {t('common:backToHome')}
+          </button>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 
-        className="text-2xl font-bold mb-6 bg-clip-text text-transparent"
-        style={{
-          backgroundImage: `linear-gradient(to right, ${colors.primary}, ${colors.primaryDark})`
-        }}
-      >
-        {t('appointments:yourAppointments')}
-      </h1>
-
-      {appointments.length === 0 ? (
-        <div className="text-center py-8">
-          <p style={{ color: colors.textSecondary }}>
-            {t('appointments:noAppointments')}
-          </p>
-          <button
-            onClick={() => navigate('/')}
-            className="mt-4 font-medium transition-all duration-300 transform hover:scale-105"
-            style={{ color: colors.primary }}
+    <div className="min-h-screen py-12 px-4" style={{ backgroundColor: colors.background }}>
+      <div className="max-w-4xl mx-auto">
+        {/* Header avec gradient */}
+        <div className="text-center mb-12 animate-fade-in">
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-6 shadow-lg" style={{
+            background: `linear-gradient(135deg, ${colors.primary}, ${colors.primaryDark})`
+          }}>
+            <CalendarDaysIcon className="h-10 w-10 text-white" />
+          </div>
+          <h1 
+            className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent"
+            style={{
+              backgroundImage: `linear-gradient(to right, ${colors.primary}, ${colors.primaryDark})`
+            }}
           >
-            {t('appointments:bookNew')}
-          </button>
+            {t('appointments:yourAppointments')}
+          </h1>
+          <p className="text-lg" style={{ color: colors.textSecondary }}>
+            Gérez vos rendez-vous en toute simplicité
+          </p>
         </div>
-      ) : (
-        <div className="space-y-4">
-          {appointments.map(appointment => (
-            <div
-              key={appointment.id}
-              className="p-6 rounded-lg transition-all duration-300 hover:scale-[1.02]"
-              style={{
-                backgroundColor: `${colors.surface}`,
-                border: `2px solid ${colors.primary}20`,
-                boxShadow: `0 4px 15px ${colors.primary}10`
+
+        {appointments.length === 0 ? (
+          <div className="text-center py-16 glass-card rounded-2xl animate-fade-in">
+            <div className="mx-auto w-24 h-24 bg-gradient-to-r rounded-full flex items-center justify-center mb-6" style={{
+              backgroundImage: `linear-gradient(to right, ${colors.primary}20, ${colors.primaryDark}20)`
+            }}>
+              <CalendarDaysIcon className="h-12 w-12" style={{ color: colors.primary }} />
+            </div>
+            <h3 className="text-2xl font-bold mb-4" style={{ color: colors.textPrimary }}>
+              {t('appointments:noAppointments')}
+            </h3>
+            <p className="mb-8 text-lg" style={{ color: colors.textSecondary }}>
+              Vous n'avez aucun rendez-vous à venir
+            </p>
+            <button
+              onClick={handleBookNew}
+              className="inline-flex items-center space-x-2 font-medium transition-all duration-300 transform hover:scale-105 px-8 py-4 rounded-xl text-lg"
+              style={{ 
+                background: `linear-gradient(to right, ${colors.primary}, ${colors.primaryDark})`,
+                color: '#FFFFFF',
+                boxShadow: `0 4px 20px ${colors.primary}40`
               }}
             >
-              <div className="flex justify-between items-center">
-                <div>
-                  <h3 
-                    className="text-lg font-semibold mb-2"
-                    style={{ color: colors.textPrimary }}
-                  >
-                    {appointment.serviceName}
-                  </h3>
-                  <p style={{ color: colors.textSecondary }}>
-                    {format(parseISO(appointment.date), 'EEEE d MMMM yyyy', { locale: fr })}
-                  </p>
-                  <p 
-                    className="font-medium"
-                    style={{ color: colors.primary }}
-                  >
-                    {appointment.startTime}
-                  </p>
-                </div>
-                
-                {canModifyAppointment(appointment.id) && (
-                  <div className="flex gap-3">
-                    <button
-                      onClick={() => {
-                        setSelectedAppointment(appointment);
-                        setShowModifyModal(true);
-                      }}
-                      className="px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
-                      style={{
-                        background: `linear-gradient(135deg, ${colors.primary}, ${colors.primaryDark})`,
-                        color: '#FFFFFF',
-                        boxShadow: `0 4px 15px ${colors.primary}40`
-                      }}
-                    >
-                      {t('appointments:modify')}
-                    </button>
-                    <button
-                      onClick={() => {
-                        setSelectedAppointment(appointment);
-                        setShowCancelModal(true);
-                      }}
-                      className="px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
-                      style={{
-                        backgroundColor: `${colors.surface}`,
-                        color: colors.error,
-                        border: `2px solid ${colors.error}`,
-                        boxShadow: `0 4px 15px ${colors.error}20`
-                      }}
-                    >
-                      {t('appointments:cancel')}
-                    </button>
+              <SparklesIcon className="h-6 w-6" />
+              <span>{t('appointments:bookNew')}</span>
+            </button>
+          </div>
+        ) : (
+          <>
+            <div className="grid gap-6 mb-8">
+              {appointments.map((appointment, index) => (
+                <div
+                  key={appointment.id}
+                  className={`glass-card p-6 rounded-2xl transition-all duration-300 hover:scale-[1.02] animate-fade-in`}
+                  style={{
+                    border: `2px solid ${colors.primary}20`,
+                    boxShadow: `0 4px 20px ${colors.primary}10`,
+                    animationDelay: `${index * 100}ms`
+                  }}
+                >
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                    <div className="flex-1 space-y-4">
+                      {/* Service */}
+                      <div className="flex items-start space-x-3">
+                        <div className="p-2 rounded-lg" style={{ backgroundColor: `${colors.primary}20` }}>
+                          <SparklesIcon className="h-5 w-5" style={{ color: colors.primary }} />
+                        </div>
+                        <div>
+                          <p className="text-sm font-medium" style={{ color: colors.textSecondary }}>
+                            Service
+                          </p>
+                          <h3 className="text-xl font-bold" style={{ color: colors.textPrimary }}>
+                            {appointment.serviceName}
+                          </h3>
+                        </div>
+                      </div>
+
+                      {/* Date et heure */}
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="flex items-center space-x-3">
+                          <div className="p-2 rounded-lg" style={{ backgroundColor: `${colors.accent}20` }}>
+                            <CalendarDaysIcon className="h-5 w-5" style={{ color: colors.accent }} />
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium" style={{ color: colors.textSecondary }}>
+                              Date
+                            </p>
+                            <p className="font-semibold" style={{ color: colors.textPrimary }}>
+                              {format(parseISO(appointment.date), 'EEEE d MMMM', { locale: fr })}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center space-x-3">
+                          <div className="p-2 rounded-lg" style={{ backgroundColor: `${colors.accent}20` }}>
+                            <ClockIcon className="h-5 w-5" style={{ color: colors.accent }} />
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium" style={{ color: colors.textSecondary }}>
+                              Heure
+                            </p>
+                            <p className="font-semibold" style={{ color: colors.textPrimary }}>
+                              {appointment.startTime}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {canModifyAppointment(appointment.id) && (
+                      <div className="flex flex-col gap-3">
+                        <button
+                          onClick={() => {
+                            setSelectedAppointment(appointment);
+                            setShowModifyModal(true);
+                          }}
+                          className="flex items-center justify-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 transform hover:scale-105"
+                          style={{
+                            background: `linear-gradient(135deg, ${colors.primary}, ${colors.primaryDark})`,
+                            color: '#FFFFFF',
+                            boxShadow: `0 4px 15px ${colors.primary}40`
+                          }}
+                        >
+                          <PencilSquareIcon className="h-5 w-5" />
+                          <span>{t('appointments:modify')}</span>
+                        </button>
+                        <button
+                          onClick={() => {
+                            setSelectedAppointment(appointment);
+                            setShowCancelModal(true);
+                          }}
+                          className="flex items-center justify-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 transform hover:scale-105"
+                          style={{
+                            backgroundColor: `${colors.surface}`,
+                            color: colors.error,
+                            border: `2px solid ${colors.error}`,
+                            boxShadow: `0 4px 15px ${colors.error}20`
+                          }}
+                        >
+                          <XMarkIcon className="h-5 w-5" />
+                          <span>{t('appointments:cancel')}</span>
+                        </button>
+                      </div>
+                    )}
                   </div>
-                )}
+                </div>
+              ))}
+            </div>
+
+            {/* Bouton pour nouveau rendez-vous */}
+            <div className="text-center glass-card p-8 rounded-2xl">
+              <h3 className="text-xl font-bold mb-4" style={{ color: colors.textPrimary }}>
+                Besoin d'un autre rendez-vous ?
+              </h3>
+              <button
+                onClick={handleBookNew}
+                className="inline-flex items-center space-x-2 font-medium transition-all duration-300 transform hover:scale-105 px-8 py-4 rounded-xl"
+                style={{ 
+                  background: `linear-gradient(to right, ${colors.primary}, ${colors.primaryDark})`,
+                  color: '#FFFFFF',
+                  boxShadow: `0 4px 20px ${colors.primary}40`
+                }}
+              >
+                <SparklesIcon className="h-6 w-6" />
+                <span>Prendre un nouveau rendez-vous</span>
+              </button>
+            </div>
+          </>
+        )}
+
+        {/* Modal de modification */}
+        <Modal
+          isOpen={showModifyModal}
+          onClose={() => setShowModifyModal(false)}
+          title={t('appointments:modifyAppointment')}
+        >
+          {selectedAppointment && (
+            <div className="space-y-6">
+              <DateTimeSelection
+                serviceId={selectedAppointment.serviceId}
+                selectedDate={newDate || undefined}
+                selectedTime={newTime || undefined}
+                stylistId={selectedAppointment.stylistId}
+                onSelect={(date, time, stylistId) => {
+                  setNewDate(date);
+                  setNewTime(time);
+                }}
+              />
+              <div className="flex justify-end gap-4">
+                <button
+                  onClick={() => setShowModifyModal(false)}
+                  className="px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
+                  style={{
+                    backgroundColor: `${colors.surface}`,
+                    color: colors.textSecondary,
+                    border: `2px solid ${colors.primary}40`
+                  }}
+                >
+                  {t('common:cancel')}
+                </button>
+                <button
+                  onClick={handleModify}
+                  disabled={loading}
+                  className="px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  style={{
+                    background: loading 
+                      ? '#9CA3AF'
+                      : `linear-gradient(135deg, ${colors.primary}, ${colors.primaryDark})`,
+                    color: '#FFFFFF',
+                    boxShadow: loading ? 'none' : `0 4px 15px ${colors.primary}40`
+                  }}
+                >
+                  {t('appointments:confirmModification')}
+                </button>
               </div>
             </div>
-          ))}
-        </div>
-      )}
+          )}
+        </Modal>
 
-      {/* Modal de modification */}
-      <Modal
-        isOpen={showModifyModal}
-        onClose={() => setShowModifyModal(false)}
-        title={t('appointments:modifyAppointment')}
-      >
-        {selectedAppointment && (
-          <div className="space-y-6">
-            <DateTimeSelection
-              serviceId={selectedAppointment.serviceId}
-              selectedDate={newDate || undefined}
-              selectedTime={newTime || undefined}
-              stylistId={selectedAppointment.stylistId}
-              onSelect={(date, time, stylistId) => {
-                setNewDate(date);
-                setNewTime(time);
-              }}
+        {/* Modal d'annulation */}
+        <Modal
+          isOpen={showCancelModal}
+          onClose={() => setShowCancelModal(false)}
+          title={t('appointments:cancelAppointment')}
+        >
+          <div className="space-y-4">
+            <p style={{ color: colors.textSecondary }}>
+              {t('appointments:cancelConfirmation')}
+            </p>
+            <textarea
+              value={cancellationReason}
+              onChange={(e) => setCancellationReason(e.target.value)}
+              placeholder={t('appointments:cancelReasonPlaceholder')}
+              className="w-full p-3 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2"
+              style={{
+                backgroundColor: `${colors.surface}`,
+                color: colors.textPrimary,
+                borderWidth: '2px',
+                borderStyle: 'solid',
+                borderColor: `${colors.primary}40`,
+                '--tw-ring-color': colors.primary
+              } as any}
+              rows={3}
             />
             <div className="flex justify-end gap-4">
               <button
-                onClick={() => setShowModifyModal(false)}
+                onClick={() => setShowCancelModal(false)}
                 className="px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
                 style={{
                   backgroundColor: `${colors.surface}`,
@@ -312,80 +462,25 @@ const PublicAppointmentList: React.FC = () => {
                   border: `2px solid ${colors.primary}40`
                 }}
               >
-                {t('common:cancel')}
+                {t('common:back')}
               </button>
               <button
-                onClick={handleModify}
+                onClick={handleCancel}
                 disabled={loading}
                 className="px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 style={{
-                  background: loading 
-                    ? '#9CA3AF'
-                    : `linear-gradient(135deg, ${colors.primary}, ${colors.primaryDark})`,
-                  color: '#FFFFFF',
-                  boxShadow: loading ? 'none' : `0 4px 15px ${colors.primary}40`
+                  backgroundColor: loading ? '#9CA3AF' : `${colors.surface}`,
+                  color: colors.error,
+                  border: `2px solid ${colors.error}`,
+                  boxShadow: loading ? 'none' : `0 4px 15px ${colors.error}20`
                 }}
               >
-                {t('appointments:confirmModification')}
+                {t('appointments:confirmCancellation')}
               </button>
             </div>
           </div>
-        )}
-      </Modal>
-
-      {/* Modal d'annulation */}
-      <Modal
-        isOpen={showCancelModal}
-        onClose={() => setShowCancelModal(false)}
-        title={t('appointments:cancelAppointment')}
-      >
-        <div className="space-y-4">
-          <p style={{ color: colors.textSecondary }}>
-            {t('appointments:cancelConfirmation')}
-          </p>
-          <textarea
-            value={cancellationReason}
-            onChange={(e) => setCancellationReason(e.target.value)}
-            placeholder={t('appointments:cancelReasonPlaceholder')}
-            className="w-full p-3 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2"
-            style={{
-              backgroundColor: `${colors.surface}`,
-              color: colors.textPrimary,
-              borderWidth: '2px',
-              borderStyle: 'solid',
-              borderColor: `${colors.primary}40`,
-              '--tw-ring-color': colors.primary
-            } as any}
-            rows={3}
-          />
-          <div className="flex justify-end gap-4">
-            <button
-              onClick={() => setShowCancelModal(false)}
-              className="px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
-              style={{
-                backgroundColor: `${colors.surface}`,
-                color: colors.textSecondary,
-                border: `2px solid ${colors.primary}40`
-              }}
-            >
-              {t('common:back')}
-            </button>
-            <button
-              onClick={handleCancel}
-              disabled={loading}
-              className="px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-              style={{
-                backgroundColor: loading ? '#9CA3AF' : `${colors.surface}`,
-                color: colors.error,
-                border: `2px solid ${colors.error}`,
-                boxShadow: loading ? 'none' : `0 4px 15px ${colors.error}20`
-              }}
-            >
-              {t('appointments:confirmCancellation')}
-            </button>
-          </div>
-        </div>
-      </Modal>
+        </Modal>
+      </div>
     </div>
   );
 };

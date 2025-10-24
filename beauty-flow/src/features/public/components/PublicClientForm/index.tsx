@@ -73,7 +73,8 @@ const PublicClientForm: React.FC<PublicClientFormProps> = ({
     }
     if (!formData.phone) {
       newErrors.phone = 'Le téléphone est requis';
-    } else if (!/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/.test(formData.phone)) {
+    } else if (formData.phone.length < 8) {
+      // Validation minimale : au moins 8 chiffres (sans compter les espaces, +, etc.)
       newErrors.phone = 'Le numéro de téléphone n\'est pas valide';
     }
 
