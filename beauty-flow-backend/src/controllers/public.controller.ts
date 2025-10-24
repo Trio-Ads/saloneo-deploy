@@ -794,6 +794,7 @@ export const createPublicBooking = async (req: Request, res: Response): Promise<
         appointmentTime: startTime,
         serviceDuration: service.duration.toString(),
         servicePrice: service.price.toString(),
+        currency: (service as any).currency || (matchingUser as any).currency || 'DZD',
         staffName: stylistName,
         salonAddress: matchingUser.address || '',
         salonPhone: matchingUser.phone || '',

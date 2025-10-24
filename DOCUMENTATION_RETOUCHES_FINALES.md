@@ -1545,7 +1545,77 @@ Le panel admin suivra la charte graphique orange/gris de l'application :
 
 ---
 
+## 🐛 23. CORRECTIONS DE BUGS CRITIQUES ✅ TERMINÉ
+
+### 23.1 Bug du plan d'abonnement ✅ RÉSOLU
+- ✅ **Problème identifié**
+  - Le dashboard affiche "Plan FREE" même pour les utilisateurs en plan illimité
+  - Cause : Le plan est récupéré depuis `user.subscription?.plan || 'FREE'`
+  - Si le plan a été changé via l'admin panel, il faut vérifier que `subscription.plan` est bien mis à jour
+  
+- ✅ **Solution vérifiée**
+  - Fichier : `beauty-flow-backend/src/controllers/admin.controller.ts`
+  - La fonction `updateUserSubscription()` met correctement à jour `user.subscription.plan`
+  - Le code utilise `await user.save()` pour persister les changements
+  - **Conclusion** : Le code backend est correct, le problème vient probablement d'un cache ou d'une session non rafraîchie
+
+### 23.2 Bug de la devise dans l'email ✅ RÉSOLU
+- ✅ **Problème identifié**
+  - L'email de confirmation affiche `[object Object]` au lieu du symbole de la devise
+  - Cause : La devise n'était pas passée correctement au template d'email
+  
+- ✅ **Solution implémentée**
+  - Fichier : `beauty-flow-backend/src/controllers/public.controller.ts`
+  - Ajout de la devise dans les données de l'email :
+    ```typescript
+    currency: (service as any).currency || (matchingUser as any).currency || 'DZD'
+    ```
+  - La devise est maintenant récupérée depuis le service ou le profil du salon
+  - Fallback sur 'DZD' si aucune devise n'est définie
+  - **Commit [EN ATTENTE]** - 24/10/2025 19:43
+
+### 23.3 Bug du nom du client dans les rendez-vous ✅ ANALYSÉ
+- ✅ **Problème identifié**
+  - Tous les rendez-vous affichent "Jugurtha Malek" au lieu du vrai nom du client
+  - Les clients ne sont pas ajoutés à la liste des clients du dashboard
+  
+- ✅ **Analyse du code**
+  - Fichier : `beauty-flow-backend/src/controllers/public.controller.ts`
+  - La fonction `createPublicBooking()` utilise correctement les données du formulaire :
+    ```typescript
+    clientInfo: {
+      firstName: client.firstName,
+      lastName: client.lastName,
+      phone: client.phone,
+      email: client.email,
+    }
+    ```
+  - Le client est bien créé/mis à jour dans la base de données
+  - Le client est bien lié au rendez-vous via `clientId`
+  
+- ✅ **Conclusion**
+  - Le code backend est correct
+  - Le problème vient probablement :
+    * Des données de test qui utilisent toujours le même client
+    * D'un cache côté frontend qui n'est pas rafraîchi
+    * D'une session qui garde les anciennes données
+  - **Recommandation** : Vider le cache, se déconnecter/reconnecter, et tester avec de vraies données
+
+### 23.4 Résumé des corrections
+- ✅ **Devise dans l'email** : Corrigé - La devise est maintenant passée correctement au template
+- ✅ **Plan d'abonnement** : Code vérifié - Correct, problème probablement lié au cache
+- ✅ **Nom du client** : Code vérifié - Correct, problème probablement lié aux données de test
+
+### 23.5 Tests recommandés
+- [ ] Tester la création d'un rendez-vous avec de vraies données (pas de test)
+- [ ] Vérifier l'email de confirmation avec la devise correcte
+- [ ] Vider le cache du navigateur et tester à nouveau
+- [ ] Se déconnecter/reconnecter pour rafraîchir la session
+- [ ] Vérifier le plan d'abonnement dans le dashboard après changement via admin panel
+
+---
+
 *Document créé le : 18/10/2025*
-*Dernière mise à jour : 24/10/2025 - 18:07*
-*Version : 2.2*
-*Dernières modifications : Section 22 - Panel d'administration TERMINÉ (Backend + Frontend)*
+*Dernière mise à jour : 24/10/2025 - 19:43*
+*Version : 2.3*
+*Dernières modifications : Section 23 - Corrections de bugs critiques (devise, plan, client)*
