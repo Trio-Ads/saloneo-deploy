@@ -147,7 +147,9 @@ class EmailService {
         'loyalty-program-welcome',
         'loyalty-program-update',
         'reward-earned',
-        're-engagement'
+        're-engagement',
+        // Admin
+        'admin-subscription-modification'
       ];
 
       for (const templateName of templateFiles) {
@@ -203,7 +205,8 @@ class EmailService {
       'loyalty-program-welcome': EmailTemplates.getLoyaltyProgramWelcomeTemplate(),
       'loyalty-program-update': EmailTemplates.getLoyaltyProgramUpdateTemplate(),
       'reward-earned': EmailTemplates.getRewardEarnedTemplate(),
-      're-engagement': EmailTemplates.getReEngagementTemplate()
+      're-engagement': EmailTemplates.getReEngagementTemplate(),
+      'admin-subscription-modification': EmailTemplates.getAdminSubscriptionModificationTemplate()
     };
 
     return templates[templateName] || this.getGenericTemplate();
@@ -359,7 +362,8 @@ class EmailService {
       'password-reset': 'Réinitialisation de votre mot de passe',
       'email-verification': 'Vérifiez votre adresse email',
       'commission-earned': `💰 Nouvelle commission: ${data.commissionAmount}`,
-      'newsletter': data.promotionTitle || 'Newsletter Saloneo'
+      'newsletter': data.promotionTitle || 'Newsletter Saloneo',
+      'admin-subscription-modification': `🎁 Mise à jour de votre abonnement ${data.planName}`
     };
 
     return subjects[template] || 'Notification Saloneo';

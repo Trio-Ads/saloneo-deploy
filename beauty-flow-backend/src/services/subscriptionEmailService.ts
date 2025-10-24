@@ -602,6 +602,41 @@ class SubscriptionEmailService {
     }
   }
 
+  // Send admin subscription modification email
+  async sendAdminSubscriptionModification(userId: string, changes: {
+    plan?: string;
+    duration?: string;
+    expiresAt?: Date;
+    isActive?: boolean;
+  }) {
+    try {
+      const user = await User.findById(userId);
+      if (!user) return;
+
+      const templateData: EmailTemplateData = {
+        userName: `${user.firstName} ${user.lastName}`,
+        salonName: user.establishmentName,
+        salonAddress: user.address,
+        salonPhone: user.phone,
+        salonEmail: user.email,
+        planName: this.getPlanDisplayName(changes.plan || user.subscription.plan),
+        planDuration: this.getPlanDuration(changes.duration || user.subscription.duration),
+        expiryDate: (changes.expiresAt || user.subscription.expiresAt || new Date()).toISOString(),
+        isActive: changes.isActive !== undefined ? changes.isActive : user.subscription.isActive
+      };
+
+      await emailService.sendTemplateEmail(
+        'admin-subscription-modification',
+        user.email,
+        templateData
+      );
+
+      logger.info(`Sent admin subscription modification email to ${user.email}`);
+    } catch (error) {
+      logger.error('Error sending admin subscription modification email:', error);
+    }
+  }
+
   // Send account suspended email
   async sendAccountSuspended(userId: string, reason: string = 'payment_failed') {
     try {

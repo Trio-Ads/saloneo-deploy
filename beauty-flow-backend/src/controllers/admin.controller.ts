@@ -5,6 +5,7 @@ import { Client } from '../models/Client';
 import { Service } from '../models/Service';
 import { AuthRequest } from '../middleware/adminAuth';
 import { logger } from '../utils/logger';
+import { subscriptionEmailService } from '../services/subscriptionEmailService';
 
 /**
  * Get all users with pagination, search, and filters
@@ -182,6 +183,19 @@ export const updateUserSubscription = async (req: AuthRequest, res: Response): P
     }
 
     await user.save();
+
+    // Send email notification to user
+    try {
+      await subscriptionEmailService.sendAdminSubscriptionModification(id, {
+        plan,
+        duration,
+        expiresAt: expiresAt ? new Date(expiresAt) : undefined,
+        isActive
+      });
+    } catch (emailError) {
+      logger.error('Failed to send subscription modification email:', emailError);
+      // Continue even if email fails
+    }
 
     // Log the action
     logger.info('Admin updated user subscription', {
