@@ -28,7 +28,8 @@ export const useSubscriptionLimits = () => {
   const appointments = useAppointmentStore((state) => state.appointments);
   const products = useServiceStore((state) => state.products);
 
-  const currentPlan = subscription.currentPlan;
+  // Utiliser le plan depuis usageStats (backend) si disponible, sinon fallback sur le store
+  const currentPlan = (usageStats?.plan as keyof typeof PLAN_LIMITS) || subscription.currentPlan;
   const limits = PLAN_LIMITS[currentPlan];
 
   // Charger les statistiques d'utilisation depuis le backend

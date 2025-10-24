@@ -780,30 +780,36 @@ export const createPublicBooking = async (req: Request, res: Response): Promise<
 
     // Envoyer les emails de confirmation
     try {
+      // Préparer les données communes pour l'email
+      const emailData = {
+        clientName: `${client.firstName} ${client.lastName}`,
+        salonName: matchingUser.establishmentName || `${matchingUser.firstName} ${matchingUser.lastName}`,
+        serviceName: service.name,
+        appointmentDate: new Date(date).toLocaleDateString('fr-FR', { 
+          weekday: 'long', 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric' 
+        }),
+        appointmentTime: startTime,
+        serviceDuration: service.duration.toString(),
+        servicePrice: service.price.toString(),
+        staffName: stylistName,
+        salonAddress: matchingUser.address || '',
+        salonPhone: matchingUser.phone || '',
+        salonEmail: matchingUser.email || '',
+        salonLogo: matchingUser.logo || '',
+        bookingUrl: `${process.env.FRONTEND_URL || 'https://saloneo.com'}/modify-appointment/${appointment.tokens.modification}`,
+        modificationLink: `${process.env.FRONTEND_URL || 'https://saloneo.com'}/modify-appointment/${appointment.tokens.modification}`,
+        confirmationToken: appointment.confirmationToken
+      };
+
       // Email au client (seulement si l'email existe)
       if (client.email) {
         await emailService.sendTemplateEmail(
           'appointment-confirmation',
           client.email,
-          {
-          clientName: `${client.firstName} ${client.lastName}`,
-          salonName: matchingUser.establishmentName || `${matchingUser.firstName} ${matchingUser.lastName}`,
-          serviceName: service.name,
-          date: new Date(date).toLocaleDateString('fr-FR', { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-          }),
-          time: startTime,
-          duration: service.duration,
-          price: service.price,
-          stylistName: stylistName,
-          salonAddress: matchingUser.address || '',
-          salonPhone: matchingUser.phone || '',
-          modificationLink: `${process.env.FRONTEND_URL || 'https://saloneo.com'}/modify-appointment/${appointment.tokens.modification}`,
-            confirmationToken: appointment.confirmationToken
-          }
+          emailData
         );
         logger.info('Confirmation email sent to client:', client.email);
       }
@@ -814,22 +820,10 @@ export const createPublicBooking = async (req: Request, res: Response): Promise<
           'appointment-confirmation',
           matchingUser.email,
           {
-          salonName: matchingUser.establishmentName || `${matchingUser.firstName} ${matchingUser.lastName}`,
-          clientName: `${client.firstName} ${client.lastName}`,
-          clientPhone: client.phone,
-          clientEmail: client.email,
-          serviceName: service.name,
-          date: new Date(date).toLocaleDateString('fr-FR', { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-          }),
-          time: startTime,
-          duration: service.duration,
-          price: service.price,
-          stylistName: stylistName,
-          notes: notes || 'Aucune note',
+            ...emailData,
+            clientPhone: client.phone,
+            clientEmail: client.email,
+            notes: notes || 'Aucune note',
             appointmentId: (appointment._id as any).toString()
           }
         );
