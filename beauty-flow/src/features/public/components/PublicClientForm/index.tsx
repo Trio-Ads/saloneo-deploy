@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useInterfaceStore } from '../../../interface/store';
 import { useServiceStore } from '../../../services/store';
 import { PublicClientFormData } from '../../types';
+import { useTemplateStyles } from '../../../../hooks/useTemplateStyles';
 import PersonalInfoSection from './PersonalInfoSection';
 import HairQuestionnaireSection from './HairQuestionnaireSection';
 import SkinQuestionnaireSection from './SkinQuestionnaireSection';
@@ -134,11 +135,20 @@ const PublicClientForm: React.FC<PublicClientFormProps> = ({
     }));
   };
 
+  const { colors } = useTemplateStyles();
+
   if (!service) return null;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
-      <div className="glass-card p-6 animate-fade-in">
+      <div 
+        className="p-6 rounded-xl animate-fade-in transition-all duration-300"
+        style={{
+          backgroundColor: `${colors.surface}`,
+          border: `2px solid ${colors.primary}20`,
+          boxShadow: `0 4px 20px ${colors.primary}10`
+        }}
+      >
         <PersonalInfoSection
           values={{
             firstName: formData.firstName,
@@ -154,7 +164,14 @@ const PublicClientForm: React.FC<PublicClientFormProps> = ({
       </div>
 
       {service.category.toLowerCase().includes('cheveux') && formData.hairQuestionnaire && (
-        <div className="glass-card p-6 animate-fade-in">
+        <div 
+          className="p-6 rounded-xl animate-fade-in transition-all duration-300"
+          style={{
+            backgroundColor: `${colors.surface}`,
+            border: `2px solid ${colors.primary}20`,
+            boxShadow: `0 4px 20px ${colors.primary}10`
+          }}
+        >
           <HairQuestionnaireSection
             values={formData.hairQuestionnaire as any}
             onChange={handleHairQuestionnaireChange}
@@ -163,7 +180,14 @@ const PublicClientForm: React.FC<PublicClientFormProps> = ({
       )}
 
       {service.category.toLowerCase().includes('soin') && formData.skinQuestionnaire && (
-        <div className="glass-card p-6 animate-fade-in">
+        <div 
+          className="p-6 rounded-xl animate-fade-in transition-all duration-300"
+          style={{
+            backgroundColor: `${colors.surface}`,
+            border: `2px solid ${colors.primary}20`,
+            boxShadow: `0 4px 20px ${colors.primary}10`
+          }}
+        >
           <SkinQuestionnaireSection
             values={formData.skinQuestionnaire as any}
             onChange={handleSkinQuestionnaireChange}
@@ -171,7 +195,14 @@ const PublicClientForm: React.FC<PublicClientFormProps> = ({
         </div>
       )}
 
-      <div className="glass-card p-6 animate-fade-in">
+      <div 
+        className="p-6 rounded-xl animate-fade-in transition-all duration-300"
+        style={{
+          backgroundColor: `${colors.surface}`,
+          border: `2px solid ${colors.primary}20`,
+          boxShadow: `0 4px 20px ${colors.primary}10`
+        }}
+      >
         <PreferencesSection
           values={formData.preferences.communicationPreferences}
           onChange={handlePreferencesChange}
@@ -182,18 +213,24 @@ const PublicClientForm: React.FC<PublicClientFormProps> = ({
         <button
           type="button"
           onClick={onBack}
-          className="glass-button px-6 py-3 text-white/80 hover:text-white transition-all duration-300"
+          className="px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105"
+          style={{
+            backgroundColor: `${colors.surface}`,
+            color: colors.textSecondary,
+            border: `2px solid ${colors.primary}40`,
+            boxShadow: `0 2px 8px ${colors.primary}10`
+          }}
         >
           Retour
         </button>
 
         <button
           type="submit"
-          className="glass-button px-8 py-3 text-white font-medium
-                   bg-gradient-to-r from-burgundy to-purple
-                   hover:from-burgundy-light hover:to-purple-light
-                   transform transition-all duration-300 hover:scale-[1.02]
-                   shadow-neon hover:shadow-glass-lg"
+          className="px-8 py-3 rounded-lg font-medium text-white transform transition-all duration-300 hover:scale-105"
+          style={{
+            backgroundImage: `linear-gradient(to right, ${colors.primary}, ${colors.primaryDark})`,
+            boxShadow: `0 4px 20px ${colors.primary}40`
+          }}
         >
           Continuer
         </button>

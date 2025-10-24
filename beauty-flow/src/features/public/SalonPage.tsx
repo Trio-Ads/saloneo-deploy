@@ -563,6 +563,26 @@ export const SalonPage: React.FC = () => {
             <div className="copyright">
               © 2025 {salon.name}. Tous droits réservés.
             </div>
+            
+            {/* Hosted by Saloneo - Affichage uniquement pour le plan gratuit */}
+            {profileData?.subscription?.plan === 'starter' && (
+              <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                <a 
+                  href="https://saloneo.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-2 text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors duration-200"
+                >
+                  <span>Propulsé par</span>
+                  <span className="font-semibold" style={{ color: template.theme.colors.primary }}>
+                    Saloneo
+                  </span>
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              </div>
+            )}
           </div>
         </div>
       </footer>

@@ -6,6 +6,7 @@ import { TeamMember } from '../models/Team';
 import { Appointment, AppointmentStatus } from '../models/Appointment';
 import { Client } from '../models/Client';
 import { logger } from '../utils/logger';
+import { emailService } from '../services/emailService';
 import crypto from 'crypto';
 
 // Helper function to generate slug
@@ -777,7 +778,69 @@ export const createPublicBooking = async (req: Request, res: Response): Promise<
     await appointment.save();
     logger.info('Appointment created successfully:', appointment._id);
 
-    res.status(201).json({ 
+    // Envoyer les emails de confirmation
+    try {
+      // Email au client (seulement si l'email existe)
+      if (client.email) {
+        await emailService.sendTemplateEmail(
+          'appointment-confirmation',
+          client.email,
+          {
+          clientName: `${client.firstName} ${client.lastName}`,
+          salonName: matchingUser.establishmentName || `${matchingUser.firstName} ${matchingUser.lastName}`,
+          serviceName: service.name,
+          date: new Date(date).toLocaleDateString('fr-FR', { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+          }),
+          time: startTime,
+          duration: service.duration,
+          price: service.price,
+          stylistName: stylistName,
+          salonAddress: matchingUser.address || '',
+          salonPhone: matchingUser.phone || '',
+          modificationLink: `${process.env.FRONTEND_URL || 'https://saloneo.com'}/modify-appointment/${appointment.tokens.modification}`,
+            confirmationToken: appointment.confirmationToken
+          }
+        );
+        logger.info('Confirmation email sent to client:', client.email);
+      }
+
+      // Email au salon (notification de nouvelle réservation)
+      if (matchingUser.email) {
+        await emailService.sendTemplateEmail(
+          'appointment-confirmation',
+          matchingUser.email,
+          {
+          salonName: matchingUser.establishmentName || `${matchingUser.firstName} ${matchingUser.lastName}`,
+          clientName: `${client.firstName} ${client.lastName}`,
+          clientPhone: client.phone,
+          clientEmail: client.email,
+          serviceName: service.name,
+          date: new Date(date).toLocaleDateString('fr-FR', { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+          }),
+          time: startTime,
+          duration: service.duration,
+          price: service.price,
+          stylistName: stylistName,
+          notes: notes || 'Aucune note',
+            appointmentId: (appointment._id as any).toString()
+          }
+        );
+        logger.info('Notification email sent to salon:', matchingUser.email);
+      }
+    } catch (emailError) {
+      // Ne pas bloquer la création du rendez-vous si l'email échoue
+      logger.error('Failed to send confirmation emails:', emailError);
+    }
+
+    res.status(201).json({
       success: true,
       appointment: {
         id: appointment._id,

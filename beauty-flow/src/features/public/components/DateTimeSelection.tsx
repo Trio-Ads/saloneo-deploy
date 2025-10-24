@@ -125,7 +125,8 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
     try {
       const newSlots: Record<string, DaySchedule> = {};
       
-      for (let i = 0; i < 30; i++) {
+      // Charger les créneaux pour les 6 prochains mois (180 jours)
+      for (let i = 0; i < 180; i++) {
         const date = new Date();
         date.setDate(date.getDate() + i);
         const formattedDate = format(date, 'yyyy-MM-dd');
