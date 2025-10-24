@@ -5,6 +5,7 @@ import { format, parseISO, addMinutes } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { useAppointmentStore } from '../../appointments/store';
 import { useServiceStore } from '../../services/store';
+import { useTemplateStyles } from '../../../hooks/useTemplateStyles';
 import { Appointment, AppointmentFormData } from '../../appointments/types';
 import { Service } from '../../services/types';
 import LoadingSpinner from './LoadingSpinner';
@@ -15,6 +16,7 @@ const PublicAppointmentList: React.FC = () => {
   const { t } = useTranslation(['appointments', 'common']);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { colors } = useTemplateStyles();
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -50,7 +52,7 @@ const PublicAppointmentList: React.FC = () => {
       try {
         // Construire l'URL de recherche avec les paramètres
         const searchUrl = new URL(window.location.href);
-        const slug = searchUrl.pathname.split('/')[2] || 'default-salon'; // Extraire le slug de l'URL
+        const slug = searchUrl.pathname.split('/')[2] || 'default-salon';
         
         const queryParams = new URLSearchParams();
         if (email) queryParams.set('email', email);
@@ -169,12 +171,18 @@ const PublicAppointmentList: React.FC = () => {
   if (error) {
     return (
       <div className="p-6 text-center">
-        <h2 className="text-xl font-semibold text-red-600 mb-4">
+        <h2 
+          className="text-xl font-semibold mb-4"
+          style={{ color: colors.error }}
+        >
           {error}
         </h2>
         <button
           onClick={() => navigate('/')}
-          className="text-purple-600 hover:text-purple-800"
+          className="font-medium transition-colors duration-300 hover:opacity-80"
+          style={{ 
+            color: colors.primary
+          }}
         >
           {t('common:backToHome')}
         </button>
@@ -184,16 +192,24 @@ const PublicAppointmentList: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-6 text-white">
+      <h1 
+        className="text-2xl font-bold mb-6 bg-clip-text text-transparent"
+        style={{
+          backgroundImage: `linear-gradient(to right, ${colors.primary}, ${colors.primaryDark})`
+        }}
+      >
         {t('appointments:yourAppointments')}
       </h1>
 
       {appointments.length === 0 ? (
         <div className="text-center py-8">
-          <p className="text-white/80">{t('appointments:noAppointments')}</p>
+          <p style={{ color: colors.textSecondary }}>
+            {t('appointments:noAppointments')}
+          </p>
           <button
             onClick={() => navigate('/')}
-            className="mt-4 text-purple-400 hover:text-purple-300"
+            className="mt-4 font-medium transition-all duration-300 transform hover:scale-105"
+            style={{ color: colors.primary }}
           >
             {t('appointments:bookNew')}
           </button>
@@ -203,27 +219,45 @@ const PublicAppointmentList: React.FC = () => {
           {appointments.map(appointment => (
             <div
               key={appointment.id}
-              className="glass-card p-6 rounded-lg hover:bg-white/5 transition-colors"
+              className="p-6 rounded-lg transition-all duration-300 hover:scale-[1.02]"
+              style={{
+                backgroundColor: `${colors.surface}`,
+                border: `2px solid ${colors.primary}20`,
+                boxShadow: `0 4px 15px ${colors.primary}10`
+              }}
             >
               <div className="flex justify-between items-center">
                 <div>
-                  <h3 className="text-lg font-semibold text-white">
+                  <h3 
+                    className="text-lg font-semibold mb-2"
+                    style={{ color: colors.textPrimary }}
+                  >
                     {appointment.serviceName}
                   </h3>
-                  <p className="text-white/80">
+                  <p style={{ color: colors.textSecondary }}>
                     {format(parseISO(appointment.date), 'EEEE d MMMM yyyy', { locale: fr })}
                   </p>
-                  <p className="text-white/80">{appointment.startTime}</p>
+                  <p 
+                    className="font-medium"
+                    style={{ color: colors.primary }}
+                  >
+                    {appointment.startTime}
+                  </p>
                 </div>
                 
                 {canModifyAppointment(appointment.id) && (
-                  <div className="flex gap-3 z-10">
+                  <div className="flex gap-3">
                     <button
                       onClick={() => {
                         setSelectedAppointment(appointment);
                         setShowModifyModal(true);
                       }}
-                      className="glass-button"
+                      className="px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
+                      style={{
+                        background: `linear-gradient(135deg, ${colors.primary}, ${colors.primaryDark})`,
+                        color: '#FFFFFF',
+                        boxShadow: `0 4px 15px ${colors.primary}40`
+                      }}
                     >
                       {t('appointments:modify')}
                     </button>
@@ -232,7 +266,13 @@ const PublicAppointmentList: React.FC = () => {
                         setSelectedAppointment(appointment);
                         setShowCancelModal(true);
                       }}
-                      className="glass-button border-red-500 text-red-500 hover:bg-red-500/10"
+                      className="px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
+                      style={{
+                        backgroundColor: `${colors.surface}`,
+                        color: colors.error,
+                        border: `2px solid ${colors.error}`,
+                        boxShadow: `0 4px 15px ${colors.error}20`
+                      }}
                     >
                       {t('appointments:cancel')}
                     </button>
@@ -265,14 +305,26 @@ const PublicAppointmentList: React.FC = () => {
             <div className="flex justify-end gap-4">
               <button
                 onClick={() => setShowModifyModal(false)}
-                className="glass-button"
+                className="px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
+                style={{
+                  backgroundColor: `${colors.surface}`,
+                  color: colors.textSecondary,
+                  border: `2px solid ${colors.primary}40`
+                }}
               >
                 {t('common:cancel')}
               </button>
               <button
                 onClick={handleModify}
-                className="glass-button"
                 disabled={loading}
+                className="px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                style={{
+                  background: loading 
+                    ? '#9CA3AF'
+                    : `linear-gradient(135deg, ${colors.primary}, ${colors.primaryDark})`,
+                  color: '#FFFFFF',
+                  boxShadow: loading ? 'none' : `0 4px 15px ${colors.primary}40`
+                }}
               >
                 {t('appointments:confirmModification')}
               </button>
@@ -288,25 +340,46 @@ const PublicAppointmentList: React.FC = () => {
         title={t('appointments:cancelAppointment')}
       >
         <div className="space-y-4">
-          <p className="text-white/80">{t('appointments:cancelConfirmation')}</p>
+          <p style={{ color: colors.textSecondary }}>
+            {t('appointments:cancelConfirmation')}
+          </p>
           <textarea
             value={cancellationReason}
             onChange={(e) => setCancellationReason(e.target.value)}
             placeholder={t('appointments:cancelReasonPlaceholder')}
-            className="glass-input w-full p-3 rounded"
+            className="w-full p-3 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2"
+            style={{
+              backgroundColor: `${colors.surface}`,
+              color: colors.textPrimary,
+              borderWidth: '2px',
+              borderStyle: 'solid',
+              borderColor: `${colors.primary}40`,
+              '--tw-ring-color': colors.primary
+            } as any}
             rows={3}
           />
           <div className="flex justify-end gap-4">
             <button
               onClick={() => setShowCancelModal(false)}
-              className="glass-button"
+              className="px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
+              style={{
+                backgroundColor: `${colors.surface}`,
+                color: colors.textSecondary,
+                border: `2px solid ${colors.primary}40`
+              }}
             >
               {t('common:back')}
             </button>
             <button
               onClick={handleCancel}
-              className="glass-button border-red-500 text-red-500 hover:bg-red-500/10"
               disabled={loading}
+              className="px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              style={{
+                backgroundColor: loading ? '#9CA3AF' : `${colors.surface}`,
+                color: colors.error,
+                border: `2px solid ${colors.error}`,
+                boxShadow: loading ? 'none' : `0 4px 15px ${colors.error}20`
+              }}
             >
               {t('appointments:confirmCancellation')}
             </button>

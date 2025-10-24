@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { useTemplateStyles } from '../../../hooks/useTemplateStyles';
 import Modal from './Modal';
 
 type SearchMode = 'email' | 'phone' | 'name';
@@ -24,6 +25,7 @@ const AppointmentSearchForm: React.FC<AppointmentSearchFormProps> = ({
 }) => {
   const { t } = useTranslation(['appointments', 'common']);
   const navigate = useNavigate();
+  const { colors } = useTemplateStyles();
   const [formData, setFormData] = useState<AppointmentSearchFormData>({
     searchMode: 'email',
     email: '',
@@ -105,7 +107,8 @@ const AppointmentSearchForm: React.FC<AppointmentSearchFormProps> = ({
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-white/90 mb-1"
+              className="block text-sm font-medium mb-2"
+              style={{ color: colors.textPrimary }}
             >
               Adresse email
             </label>
@@ -115,7 +118,15 @@ const AppointmentSearchForm: React.FC<AppointmentSearchFormProps> = ({
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="glass-input w-full px-4 py-2 rounded text-white"
+              className="w-full px-4 py-3 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2"
+              style={{
+                backgroundColor: `${colors.surface}`,
+                color: colors.textPrimary,
+                borderWidth: '2px',
+                borderStyle: 'solid',
+                borderColor: `${colors.primary}40`,
+                '--tw-ring-color': colors.primary
+              } as any}
               placeholder="votre@email.com"
               autoComplete="email"
             />
@@ -127,7 +138,8 @@ const AppointmentSearchForm: React.FC<AppointmentSearchFormProps> = ({
           <div>
             <label
               htmlFor="phone"
-              className="block text-sm font-medium text-white/90 mb-1"
+              className="block text-sm font-medium mb-2"
+              style={{ color: colors.textPrimary }}
             >
               Numéro de téléphone
             </label>
@@ -137,7 +149,15 @@ const AppointmentSearchForm: React.FC<AppointmentSearchFormProps> = ({
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              className="glass-input w-full px-4 py-2 rounded text-white"
+              className="w-full px-4 py-3 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2"
+              style={{
+                backgroundColor: `${colors.surface}`,
+                color: colors.textPrimary,
+                borderWidth: '2px',
+                borderStyle: 'solid',
+                borderColor: `${colors.primary}40`,
+                '--tw-ring-color': colors.primary
+              } as any}
               placeholder="06 12 34 56 78"
               autoComplete="tel"
             />
@@ -150,7 +170,8 @@ const AppointmentSearchForm: React.FC<AppointmentSearchFormProps> = ({
             <div>
               <label
                 htmlFor="firstName"
-                className="block text-sm font-medium text-white/90 mb-1"
+                className="block text-sm font-medium mb-2"
+                style={{ color: colors.textPrimary }}
               >
                 Prénom
               </label>
@@ -160,7 +181,15 @@ const AppointmentSearchForm: React.FC<AppointmentSearchFormProps> = ({
                 name="firstName"
                 value={formData.firstName}
                 onChange={handleChange}
-                className="glass-input w-full px-4 py-2 rounded text-white"
+                className="w-full px-4 py-3 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2"
+                style={{
+                  backgroundColor: `${colors.surface}`,
+                  color: colors.textPrimary,
+                  borderWidth: '2px',
+                  borderStyle: 'solid',
+                  borderColor: `${colors.primary}40`,
+                  '--tw-ring-color': colors.primary
+                } as any}
                 placeholder="Votre prénom"
                 autoComplete="given-name"
               />
@@ -168,7 +197,8 @@ const AppointmentSearchForm: React.FC<AppointmentSearchFormProps> = ({
             <div>
               <label
                 htmlFor="lastName"
-                className="block text-sm font-medium text-white/90 mb-1"
+                className="block text-sm font-medium mb-2"
+                style={{ color: colors.textPrimary }}
               >
                 Nom de famille
               </label>
@@ -178,7 +208,15 @@ const AppointmentSearchForm: React.FC<AppointmentSearchFormProps> = ({
                 name="lastName"
                 value={formData.lastName}
                 onChange={handleChange}
-                className="glass-input w-full px-4 py-2 rounded text-white"
+                className="w-full px-4 py-3 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2"
+                style={{
+                  backgroundColor: `${colors.surface}`,
+                  color: colors.textPrimary,
+                  borderWidth: '2px',
+                  borderStyle: 'solid',
+                  borderColor: `${colors.primary}40`,
+                  '--tw-ring-color': colors.primary
+                } as any}
                 placeholder="Votre nom"
                 autoComplete="family-name"
               />
@@ -200,38 +238,52 @@ const AppointmentSearchForm: React.FC<AppointmentSearchFormProps> = ({
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Sélecteur de mode de recherche */}
         <div className="space-y-3">
-          <h3 className="text-sm font-medium text-white/90">Comment souhaitez-vous rechercher vos rendez-vous ?</h3>
+          <h3 
+            className="text-sm font-medium"
+            style={{ color: colors.textPrimary }}
+          >
+            Comment souhaitez-vous rechercher vos rendez-vous ?
+          </h3>
           <div className="grid grid-cols-3 gap-2">
             <button
               type="button"
               onClick={() => handleModeChange('email')}
-              className={`px-3 py-2 rounded text-sm transition-colors ${
-                formData.searchMode === 'email'
-                  ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white'
-                  : 'glass-button text-white/80 hover:text-white'
-              }`}
+              className="px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105"
+              style={{
+                background: formData.searchMode === 'email' 
+                  ? `linear-gradient(135deg, ${colors.primary}, ${colors.primaryDark})`
+                  : `${colors.surface}`,
+                color: formData.searchMode === 'email' ? '#FFFFFF' : colors.textPrimary,
+                border: `2px solid ${formData.searchMode === 'email' ? colors.primary : `${colors.primary}40`}`
+              }}
             >
               📧 Email
             </button>
             <button
               type="button"
               onClick={() => handleModeChange('phone')}
-              className={`px-3 py-2 rounded text-sm transition-colors ${
-                formData.searchMode === 'phone'
-                  ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white'
-                  : 'glass-button text-white/80 hover:text-white'
-              }`}
+              className="px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105"
+              style={{
+                background: formData.searchMode === 'phone' 
+                  ? `linear-gradient(135deg, ${colors.primary}, ${colors.primaryDark})`
+                  : `${colors.surface}`,
+                color: formData.searchMode === 'phone' ? '#FFFFFF' : colors.textPrimary,
+                border: `2px solid ${formData.searchMode === 'phone' ? colors.primary : `${colors.primary}40`}`
+              }}
             >
               📱 Téléphone
             </button>
             <button
               type="button"
               onClick={() => handleModeChange('name')}
-              className={`px-3 py-2 rounded text-sm transition-colors ${
-                formData.searchMode === 'name'
-                  ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white'
-                  : 'glass-button text-white/80 hover:text-white'
-              }`}
+              className="px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105"
+              style={{
+                background: formData.searchMode === 'name' 
+                  ? `linear-gradient(135deg, ${colors.primary}, ${colors.primaryDark})`
+                  : `${colors.surface}`,
+                color: formData.searchMode === 'name' ? '#FFFFFF' : colors.textPrimary,
+                border: `2px solid ${formData.searchMode === 'name' ? colors.primary : `${colors.primary}40`}`
+              }}
             >
               👤 Nom
             </button>
@@ -244,7 +296,13 @@ const AppointmentSearchForm: React.FC<AppointmentSearchFormProps> = ({
         </div>
 
         {error && (
-          <div className="text-red-400 text-sm text-center">
+          <div 
+            className="text-sm text-center p-3 rounded-lg"
+            style={{
+              backgroundColor: '#FEE2E2',
+              color: '#991B1B'
+            }}
+          >
             {error}
           </div>
         )}
@@ -253,18 +311,26 @@ const AppointmentSearchForm: React.FC<AppointmentSearchFormProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 rounded text-white/80 hover:text-white transition-colors glass-button"
+            className="px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
+            style={{
+              backgroundColor: `${colors.surface}`,
+              color: colors.textSecondary,
+              border: `2px solid ${colors.primary}40`
+            }}
           >
             Annuler
           </button>
           <button
             type="submit"
             disabled={!validateForm()}
-            className={`px-6 py-2 rounded text-white transition-colors ${
-              !validateForm()
-                ? 'bg-gray-400 cursor-not-allowed'
-                : 'glass-button bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700'
-            }`}
+            className="px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+            style={{
+              background: validateForm() 
+                ? `linear-gradient(135deg, ${colors.primary}, ${colors.primaryDark})`
+                : '#9CA3AF',
+              color: '#FFFFFF',
+              boxShadow: validateForm() ? `0 4px 15px ${colors.primary}40` : 'none'
+            }}
           >
             Rechercher mes rendez-vous
           </button>
