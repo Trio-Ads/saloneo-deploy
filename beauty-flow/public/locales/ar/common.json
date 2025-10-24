@@ -4,11 +4,12 @@
     "appointments": "المواعيد",
     "clients": "العملاء",
     "services": "الخدمات",
-    "products": "المخزون",
+    "products": "المنتجات",
     "team": "الفريق",
-    "interface": "واجهتي",
     "profile": "ملفي الشخصي",
-    "subscription": "الاشتراك"
+    "interface": "واجهتي",
+    "subscription": "الاشتراك",
+    "admin": "الإدارة"
   },
   "actions": {
     "cancel": "إلغاء",

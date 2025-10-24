@@ -4,11 +4,12 @@
     "appointments": "Appointments",
     "clients": "Clients",
     "services": "Services",
-    "products": "Inventory",
+    "products": "Products",
     "team": "Team",
-    "interface": "My Interface",
     "profile": "My Profile",
-    "subscription": "Subscription"
+    "interface": "My Interface",
+    "subscription": "Subscription",
+    "admin": "Administration"
   },
   "actions": {
     "cancel": "Cancel",

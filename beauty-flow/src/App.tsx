@@ -26,6 +26,7 @@ import { AuthGuard, PublicOnlyGuard } from './features/auth/components/AuthGuard
 import ErrorBoundary from './components/ErrorBoundary';
 import LandingPage from './features/marketing/pages/LandingPage';
 import PricingPage from './features/marketing/pages/PricingPage';
+import AdminPage from './features/admin/AdminPage';
 
 export const App: React.FC = () => {
   const { t } = useTranslation('common');
@@ -77,6 +78,7 @@ export const App: React.FC = () => {
             <Route path="interface" element={<InterfacePage />} />
             <Route path="profile" element={<ProfilePage />} />
             <Route path="subscription" element={<SubscriptionPage />} />
+            <Route path="admin" element={<AdminPage />} />
           </Route>
         </Route>
 

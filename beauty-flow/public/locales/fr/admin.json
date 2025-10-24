@@ -1,0 +1,54 @@
+{
+  "title": "Administration",
+  "subtitle": "Gestion des utilisateurs et abonnements",
+  "access_denied": {
+    "title": "Accès refusé",
+    "message": "Vous n'avez pas les permissions nécessaires pour accéder à cette page."
+  },
+  "stats": {
+    "total_users": "Total utilisateurs",
+    "active_users": "Utilisateurs actifs",
+    "recent_users": "Nouveaux utilisateurs",
+    "last_30_days": "30 derniers jours",
+    "by_plan": "Par plan"
+  },
+  "search": {
+    "placeholder": "Rechercher par nom ou email..."
+  },
+  "filters": {
+    "all_plans": "Tous les plans",
+    "all_status": "Tous les statuts",
+    "active": "Actifs",
+    "expired": "Expirés"
+  },
+  "table": {
+    "salon": "Salon",
+    "email": "Email",
+    "plan": "Plan",
+    "status": "Statut",
+    "expiry": "Expiration",
+    "actions": "Actions",
+    "no_expiry": "Aucune"
+  },
+  "status": {
+    "active": "Actif",
+    "inactive": "Inactif",
+    "expired": "Expiré",
+    "expiring_soon": "Expire bientôt"
+  },
+  "actions": {
+    "edit": "Modifier",
+    "view": "Voir détails"
+  },
+  "pagination": {
+    "showing": "Affichage de {{from}} à {{to}} sur {{total}} résultats",
+    "previous": "Précédent",
+    "next": "Suivant"
+  },
+  "no_users": "Aucun utilisateur trouvé",
+  "edit_modal": {
+    "title": "Modifier l'abonnement",
+    "coming_soon": "Fonctionnalité en cours de développement",
+    "close": "Fermer"
+  }
+}

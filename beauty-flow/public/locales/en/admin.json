@@ -1,0 +1,54 @@
+{
+  "title": "Administration",
+  "subtitle": "User and subscription management",
+  "access_denied": {
+    "title": "Access Denied",
+    "message": "You don't have the necessary permissions to access this page."
+  },
+  "stats": {
+    "total_users": "Total Users",
+    "active_users": "Active Users",
+    "recent_users": "New Users",
+    "last_30_days": "Last 30 days",
+    "by_plan": "By Plan"
+  },
+  "search": {
+    "placeholder": "Search by name or email..."
+  },
+  "filters": {
+    "all_plans": "All Plans",
+    "all_status": "All Status",
+    "active": "Active",
+    "expired": "Expired"
+  },
+  "table": {
+    "salon": "Salon",
+    "email": "Email",
+    "plan": "Plan",
+    "status": "Status",
+    "expiry": "Expiry",
+    "actions": "Actions",
+    "no_expiry": "None"
+  },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive",
+    "expired": "Expired",
+    "expiring_soon": "Expiring Soon"
+  },
+  "actions": {
+    "edit": "Edit",
+    "view": "View Details"
+  },
+  "pagination": {
+    "showing": "Showing {{from}} to {{to}} of {{total}} results",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "no_users": "No users found",
+  "edit_modal": {
+    "title": "Edit Subscription",
+    "coming_soon": "Feature under development",
+    "close": "Close"
+  }
+}

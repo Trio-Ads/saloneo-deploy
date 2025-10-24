@@ -18,6 +18,8 @@ export interface UserProfile extends Profile {
   email: string;
   id: string;
   createdAt: string;
+  role?: 'owner' | 'admin';
+  isAdmin?: boolean;
   subscription: {
     planType: PlanType;
     expiresAt: string;

@@ -15,9 +15,16 @@ export enum SubscriptionDuration {
   TRIENNIAL = 'TRIENNIAL'
 }
 
+export enum UserRole {
+  OWNER = 'owner',
+  ADMIN = 'admin'
+}
+
 export interface IUser extends Document {
   email: string;
   password: string;
+  role: UserRole;
+  isAdmin: boolean;
   firstName?: string;
   lastName?: string;
   establishmentName: string;
@@ -141,6 +148,15 @@ const userSchema = new Schema<IUser>(
     address: {
       type: String,
       trim: true,
+    },
+    role: {
+      type: String,
+      enum: Object.values(UserRole),
+      default: UserRole.OWNER,
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false,
     },
     subscription: {
       plan: {
@@ -312,6 +328,8 @@ const userSchema = new Schema<IUser>(
 
 // Indexes
 userSchema.index({ email: 1 });
+userSchema.index({ role: 1 });
+userSchema.index({ isAdmin: 1 });
 userSchema.index({ 'subscription.plan': 1, 'subscription.isActive': 1 });
 userSchema.index({ 'affiliation.affiliateCode': 1 });
 userSchema.index({ 'affiliation.referredBy': 1 });

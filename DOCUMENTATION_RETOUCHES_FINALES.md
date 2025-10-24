@@ -1338,7 +1338,214 @@ Tous les composants respectent parfaitement la charte orange/blanc/gris/noir ave
 
 ---
 
+## 🔐 22. PANEL D'ADMINISTRATION ✅ TERMINÉ
+
+### 22.1 Vue d'ensemble
+Un panel d'administration simple pour gérer tous les utilisateurs (salons) inscrits sur la plateforme Saloneo. Le panel permet de visualiser tous les comptes et de modifier leurs abonnements.
+
+### 22.2 Backend - Modifications du modèle User ✅ TERMINÉ
+- ✅ **Champ role ajouté au modèle User**
+  - Fichier : `beauty-flow-backend/src/models/User.ts`
+  - Enum `UserRole` avec les valeurs : 'owner' (défaut), 'admin'
+  - Champ `role` au schéma avec valeur par défaut 'owner'
+  - Champ `isAdmin` (boolean) pour identification rapide
+  - Index sur le champ role pour optimisation des requêtes
+  - **Commit [EN ATTENTE]** - 24/10/2025 18:07
+
+### 22.3 Backend - Middleware d'authentification admin ✅ TERMINÉ
+- ✅ **Middleware adminAuth créé**
+  - Fichier : `beauty-flow-backend/src/middleware/adminAuth.ts`
+  - Vérifier que l'utilisateur est authentifié
+  - Vérifier que `user.role === 'admin'` ou `user.isAdmin === true`
+  - Retourner une erreur 403 (Forbidden) si non autorisé
+  - Logger toutes les tentatives d'accès admin
+
+### 22.4 Backend - Routes admin ✅ TERMINÉ
+- ✅ **Routes d'administration créées**
+  - Fichier : `beauty-flow-backend/src/routes/admin.routes.ts`
+  - Routes à implémenter :
+    * `GET /api/admin/users` - Liste paginée de tous les utilisateurs
+      - Paramètres : page, limit, search, planFilter, statusFilter
+      - Retourne : users[], total, page, totalPages
+    * `GET /api/admin/users/:id` - Détails d'un utilisateur spécifique
+    * `PATCH /api/admin/users/:id/subscription` - Modifier l'abonnement
+      - Body : { plan, duration, expiresAt, isActive }
+    * `GET /api/admin/stats` - Statistiques globales de la plateforme
+  - Toutes les routes protégées par le middleware adminAuth
+
+### 22.5 Backend - Controller admin ✅ TERMINÉ
+- ✅ **Controller d'administration créé**
+  - Fichier : `beauty-flow-backend/src/controllers/admin.controller.ts`
+  - Méthodes à implémenter :
+    * `getAllUsers()` - Liste avec pagination, recherche et filtres
+    * `getUserById()` - Détails complets d'un utilisateur
+    * `updateUserSubscription()` - Modification de l'abonnement
+    * `getPlatformStats()` - Statistiques (total users, par plan, revenus, etc.)
+  - Logging de toutes les actions administratives
+  - Validation des données avec Joi ou Zod
+
+### 22.6 Backend - Intégration dans app.ts ✅ TERMINÉ
+- ✅ **Routes admin ajoutées à l'application**
+  - Fichier : `beauty-flow-backend/src/app.ts`
+  - Importer et monter les routes : `app.use('/api/admin', adminRoutes)`
+  - Placer après les routes d'authentification
+
+### 22.7 Frontend - Structure des fichiers ✅ TERMINÉ
+- ✅ **Structure du module admin créée**
+  - Dossier : `beauty-flow/src/features/admin/`
+  - Fichiers créés :
+    * `AdminPage.tsx` - Page principale complète avec tableau intégré
+    * `types.ts` - Types TypeScript pour l'admin
+    * `store.ts` - Store Zustand pour l'état admin
+  - **Commit [EN ATTENTE]** - 24/10/2025 18:07
+
+### 22.8 Frontend - Page AdminPage ✅ TERMINÉ
+- ✅ **Page principale implémentée**
+  - Fichier : `beauty-flow/src/features/admin/AdminPage.tsx`
+  - Design avec charte orange/gris
+  - Header avec titre "Administration" et statistiques rapides
+  - Deux sections principales :
+    1. **Liste des utilisateurs** (UsersList)
+    2. **Statistiques** (AdminStats) - optionnel, peut être en sidebar
+  - Support dark mode complet
+  - Responsive design (desktop prioritaire)
+
+### 22.9 Frontend - Composant UsersList ⏳
+- [ ] **Créer le tableau des utilisateurs**
+  - Fichier : `beauty-flow/src/features/admin/components/UsersList.tsx`
+  - Tableau avec colonnes :
+    * Nom du salon (establishmentName)
+    * Email
+    * Plan actuel (FREE/STARTER/PRO/ENTERPRISE)
+    * Durée (MONTHLY/YEARLY/etc.)
+    * Date d'expiration
+    * Statut (Actif/Expiré)
+    * Actions (Modifier, Voir détails)
+  - Fonctionnalités :
+    * Pagination (10/25/50 par page)
+    * Recherche par nom ou email
+    * Filtres par plan et statut
+    * Tri par colonne
+  - Design moderne avec glassmorphism
+  - Badges colorés pour les plans et statuts
+
+### 22.10 Frontend - Composant SubscriptionEditor ⏳
+- [ ] **Créer le formulaire de modification**
+  - Fichier : `beauty-flow/src/features/admin/components/SubscriptionEditor.tsx`
+  - Modal ou panneau latéral
+  - Champs du formulaire :
+    * Sélecteur de plan (FREE, STARTER, PRO, ENTERPRISE)
+    * Sélecteur de durée (MONTHLY, YEARLY, BIENNIAL, TRIENNIAL)
+    * Date picker pour date d'expiration personnalisée
+    * Toggle pour statut actif/inactif
+    * Zone de notes/commentaires (optionnel)
+  - Validation des données
+  - Confirmation avant sauvegarde
+  - Toast de succès/erreur
+
+### 22.11 Frontend - Routes et navigation ✅ TERMINÉ
+- ✅ **Routes admin ajoutées**
+  - Fichier : `beauty-flow/src/App.tsx`
+  - Route `/admin` ajoutée dans les routes protégées
+  - Import AdminPage effectué
+  - **Commit [EN ATTENTE]** - 24/10/2025 18:07
+
+- ✅ **Lien dans la navigation ajouté**
+  - Fichier : `beauty-flow/src/layouts/MainLayout.tsx`
+  - Lien "Administration" visible uniquement pour les admins
+  - Icône : ShieldIcon (lucide-react)
+  - Couleur : Gradient rouge (from-red-500 to-red-600) pour distinction
+  - Placement : Dans la navigation principale (après Team)
+  - Détection admin : `user?.isAdmin || user?.role === 'admin'`
+  - **Commit [EN ATTENTE]** - 24/10/2025 18:07
+
+### 22.12 Frontend - Store admin ✅ TERMINÉ
+- ✅ **Store Zustand créé**
+  - Fichier : `beauty-flow/src/features/admin/store.ts`
+  - État à gérer :
+    * users: User[]
+    * selectedUser: User | null
+    * filters: { search, plan, status }
+    * pagination: { page, limit, total }
+    * loading: boolean
+    * error: string | null
+  - Actions :
+    * fetchUsers()
+    * fetchUserById()
+    * updateUserSubscription()
+    * setFilters()
+    * setPagination()
+
+### 22.13 Frontend - Types TypeScript ✅ TERMINÉ
+- ✅ **Types définis**
+  - Fichier : `beauty-flow/src/features/admin/types.ts`
+  - Interfaces à créer :
+    * `AdminUser` - Utilisateur avec infos complètes
+    * `SubscriptionUpdate` - Données de mise à jour d'abonnement
+    * `AdminFilters` - Filtres de recherche
+    * `AdminPagination` - Pagination
+    * `PlatformStats` - Statistiques globales
+
+### 22.14 Traductions ✅ TERMINÉ
+- ✅ **Traductions ajoutées**
+  - Créé : `beauty-flow/public/locales/fr/admin.json`
+  - Créé : `beauty-flow/public/locales/en/admin.json`
+  - Créé : `beauty-flow/public/locales/ar/admin.json`
+  - Ajouté : `navigation.admin` dans common.json (FR, EN, AR)
+  - Clés nécessaires :
+    * Titres et labels du panel
+    * Noms des plans et durées
+    * Messages de confirmation
+    * Messages d'erreur
+    * Tooltips et aide
+
+### 22.15 Sécurité et logging ⏳
+- [ ] **Implémenter les mesures de sécurité**
+  - Vérification du rôle admin à chaque requête
+  - Logging de toutes les actions admin dans la base de données
+  - Rate limiting spécifique pour les routes admin
+  - Validation stricte des données côté backend
+  - Audit trail des modifications d'abonnement
+
+### 22.16 Tests ⏳
+- [ ] **Tester le panel admin**
+  - Créer un compte admin de test
+  - Tester la liste des utilisateurs
+  - Tester la recherche et les filtres
+  - Tester la modification d'abonnement
+  - Tester les permissions (accès refusé pour non-admin)
+  - Tester sur mobile et desktop
+  - Vérifier les logs
+
+### 22.17 Documentation ⏳
+- [ ] **Documenter le système admin**
+  - Créer un guide d'utilisation du panel admin
+  - Documenter les endpoints API
+  - Documenter la structure des données
+  - Ajouter des commentaires dans le code
+  - Mettre à jour cette documentation
+
+### 22.18 Design du panel
+Le panel admin suivra la charte graphique orange/gris de l'application :
+- **Couleurs** : Orange (#F97316) pour les accents, gris pour le fond
+- **Style** : Glassmorphism moderne avec backdrop-blur
+- **Typographie** : Inter ou système par défaut
+- **Composants** : Réutilisation des composants existants (Modal, Toast, etc.)
+- **Dark mode** : Support complet avec couleurs adaptées
+- **Responsive** : Desktop prioritaire, mais fonctionnel sur mobile
+
+### 22.19 Fonctionnalités futures (optionnelles)
+- [ ] Export des données utilisateurs en CSV/Excel
+- [ ] Graphiques d'évolution des abonnements
+- [ ] Notifications par email aux utilisateurs lors de modifications
+- [ ] Historique des modifications d'abonnement
+- [ ] Gestion des remboursements
+- [ ] Support chat intégré
+- [ ] Tableau de bord avec métriques avancées
+
+---
+
 *Document créé le : 18/10/2025*
-*Dernière mise à jour : 24/10/2025 - 16:33*
-*Version : 2.0*
-*Dernières modifications : Étape 21 EN COURS - Retouches finales page publique (commits fd5cba7, bbd1b7e)*
+*Dernière mise à jour : 24/10/2025 - 18:07*
+*Version : 2.2*
+*Dernières modifications : Section 22 - Panel d'administration TERMINÉ (Backend + Frontend)*

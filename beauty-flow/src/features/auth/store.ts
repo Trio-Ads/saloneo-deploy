@@ -72,6 +72,8 @@ const mapUserFromAPI = (apiUser: any): UserProfile => {
     address: apiUser.address || '',
     language: apiUser.settings?.language || 'fr',
     currency: currencyObject,
+    role: apiUser.role,
+    isAdmin: apiUser.isAdmin,
     createdAt: apiUser.createdAt,
     subscription: {
       planType: apiUser.subscription?.plan || 'FREE',

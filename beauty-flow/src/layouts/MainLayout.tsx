@@ -6,6 +6,7 @@ import { useClientStore } from '../features/clients/store';
 import { useServiceStore } from '../features/services/store';
 import { useTeamStore } from '../features/team/store';
 import { useAppointmentStore } from '../features/appointments/store';
+import { useAuthStore } from '../features/auth/store';
 import UserMenu from '../components/UserMenu';
 import NavbarLanguageSelector from '../components/NavbarLanguageSelector';
 import MobileBottomNav from '../components/MobileBottomNav';
@@ -68,10 +69,18 @@ const UserGroupIcon = () => (
   </svg>
 );
 
+const ShieldIcon = () => (
+  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+  </svg>
+);
+
 const MainLayout: React.FC = () => {
   const location = useLocation();
   const { t } = useTranslation();
   const { currentTheme, toggleTheme } = useThemeColors();
+  const user = useAuthStore((state) => state.user);
+  const isAdmin = user?.isAdmin || user?.role === 'admin';
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -204,7 +213,13 @@ const MainLayout: React.FC = () => {
       href: 'team', 
       icon: UserGroupIcon,
       color: 'from-orange-500 to-orange-600'
-    }
+    },
+    ...(isAdmin ? [{
+      name: t('navigation.admin') || 'Administration',
+      href: 'admin',
+      icon: ShieldIcon,
+      color: 'from-red-500 to-red-600'
+    }] : [])
   ];
 
   const isActiveRoute = (href: string) => {

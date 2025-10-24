@@ -23,6 +23,7 @@ import marketingRoutes from './routes/marketing.routes';
 import affiliationRoutes from './routes/affiliation.routes';
 import emailRoutes from './routes/email.routes';
 import statsRoutes from './routes/stats.routes';
+import adminRoutes from './routes/admin.routes';
 import { emailService } from './services/emailService';
 
 // Load environment variables
@@ -152,6 +153,7 @@ app.use('/api/payment', paymentRoutes);
 app.use('/api/subscription', subscriptionRoutes);
 app.use('/api/affiliation', affiliationRoutes);
 app.use('/api/email', emailRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Public routes (no authentication required)
 app.use('/api/public', publicRoutes);
