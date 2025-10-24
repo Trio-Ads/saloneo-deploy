@@ -174,6 +174,12 @@
       "label": "Présentation du salon",
       "placeholder": "Présentez votre salon, vos spécialités, votre équipe..."
     },
+    "public_phone": {
+      "label": "Numéro de téléphone public",
+      "placeholder": "Ex: 06 12 34 56 78",
+      "tip": "💡 Conseil :",
+      "description": "Ce numéro sera affiché sur votre page publique pour que vos clients puissent vous contacter facilement"
+    },
     "services_display": "Affichage des services",
     "appointments_settings": "Paramètres des rendez-vous",
     "team_display": "Affichage de l'équipe",

@@ -77,6 +77,7 @@ export interface IUser extends Document {
   logo?: string;
   banner?: string;
   presentation?: string;
+  publicPhone?: string;
   theme?: any;
   showTeamOnPublicPage?: boolean;
   showAsTeamMember?: boolean;
@@ -241,6 +242,7 @@ const userSchema = new Schema<IUser>(
     logo: String,
     banner: String,
     presentation: String,
+    publicPhone: String,
     theme: Schema.Types.Mixed,
     showTeamOnPublicPage: {
       type: Boolean,

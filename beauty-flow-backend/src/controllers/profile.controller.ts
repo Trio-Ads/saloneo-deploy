@@ -55,6 +55,7 @@ export const updateProfile = async (req: AuthRequest, res: Response): Promise<vo
     if (updates.logo !== undefined) updateData.logo = updates.logo;
     if (updates.banner !== undefined) updateData.banner = updates.banner;
     if (updates.presentation !== undefined) updateData.presentation = updates.presentation;
+    if (updates.publicPhone !== undefined) updateData.publicPhone = updates.publicPhone;
     if (updates.serviceDisplay !== undefined) {
       updateData.serviceDisplay = updates.serviceDisplay;
       logger.info('🔍 ServiceDisplay being saved:', updates.serviceDisplay);

@@ -239,6 +239,23 @@ const InterfacePage: React.FC = () => {
                   placeholder={t('forms.presentation.placeholder')}
                 />
               </div>
+
+              {/* Numéro de téléphone public */}
+              <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6">
+                <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">{t('forms.public_phone.label')}</h4>
+                <input
+                  type="tel"
+                  value={settings.publicPhone || ''}
+                  onChange={(e) => updateSettings({ publicPhone: e.target.value })}
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white/70 dark:bg-gray-700/70 dark:text-gray-200 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
+                  placeholder={t('forms.public_phone.placeholder')}
+                />
+                <div className="mt-4 p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-700">
+                  <p className="text-sm text-orange-700 dark:text-orange-300">
+                    <span className="font-medium">{t('forms.public_phone.tip')}</span> {t('forms.public_phone.description')}
+                  </p>
+                </div>
+              </div>
               
               {/* Affichage des Services */}
               <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6">

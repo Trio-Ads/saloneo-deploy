@@ -8,6 +8,7 @@ import { useTeamStore } from '../team/store';
 import ServiceGallery from './components/ServiceGallery';
 import PublicBookingFlow from './components/PublicBookingFlow';
 import AppointmentSearchForm from './components/AppointmentSearchForm';
+import { SaloneoLogo } from '../../components/SaloneoLogo';
 import api from '../../services/api';
 
 interface SalonData {
@@ -508,7 +509,7 @@ export const SalonPage: React.FC = () => {
                   <div className="contact-icon">📞</div>
                   <div>
                     <div className="font-medium">Téléphone</div>
-                    <div className="text-gray-600">{salon.phone}</div>
+                    <div className="text-gray-600">{profileData?.publicPhone || salon.phone || 'Non renseigné'}</div>
                   </div>
                 </div>
                 <div className="contact-item">
@@ -537,7 +538,7 @@ export const SalonPage: React.FC = () => {
               </button>
               <div className="text-center">
                 <p className="text-sm text-gray-500">
-                  Ou appelez-nous au {salon.phone}
+                  Ou appelez-nous au {profileData?.publicPhone || salon.phone || 'Non renseigné'}
                 </p>
               </div>
             </div>
@@ -550,28 +551,20 @@ export const SalonPage: React.FC = () => {
         <div className="max-w-6xl mx-auto px-4">
           <div className="footer-content">
             <div className="footer-logo">
-              {profileData?.logo ? (
-                <img 
-                  src={profileData.logo} 
-                  alt={`Logo ${salon.name}`}
-                  className="h-10 w-auto object-contain mb-4"
-                />
-              ) : (
-                salon.name
-              )}
+              <SaloneoLogo size="md" variant="auto" className="mb-4" />
             </div>
             <p className="footer-text">
               Votre salon de beauté de confiance depuis toujours
             </p>
             
             {/* Contact rapide */}
-            {salon.phone && (
+            {(profileData?.publicPhone || salon.phone) && (
               <div className="flex items-center justify-center space-x-2 my-4 text-sm" style={{ color: template.theme.colors.textSecondary }}>
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
-                <a href={`tel:${salon.phone}`} className="hover:underline">
-                  {salon.phone}
+                <a href={`tel:${profileData?.publicPhone || salon.phone}`} className="hover:underline">
+                  {profileData?.publicPhone || salon.phone}
                 </a>
               </div>
             )}

@@ -15,8 +15,9 @@ export interface InterfaceSettings {
   };
   presentation: string;
   salonSlug: string;
+  publicPhone?: string;
   serviceDisplay: {
-    defaultView: 'category' | 'price' | 'duration' | 'popularity';
+    defaultView: 'grid' | 'list' | 'category';
     priceDisplay: 'fixed' | 'from' | 'range' | 'hidden';
   };
   showTeamOnPublicPage: boolean;

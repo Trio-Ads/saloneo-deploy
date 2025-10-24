@@ -167,6 +167,7 @@ export const useInterfaceStore = create<InterfaceStore>()(
             logo: state.settings.logo.url,
             banner: state.settings.banner.url,
             presentation: state.settings.presentation,
+            publicPhone: state.settings.publicPhone,
             serviceDisplay: state.settings.serviceDisplay,
             showTeamOnPublicPage: state.settings.showTeamOnPublicPage
           });
@@ -225,6 +226,11 @@ export const useInterfaceStore = create<InterfaceStore>()(
             
             if (profile.serviceDisplay) {
               newSettings.serviceDisplay = profile.serviceDisplay;
+            }
+
+            // Charger le numéro de téléphone public
+            if (profile.publicPhone) {
+              newSettings.publicPhone = profile.publicPhone;
             }
 
             // Charger le paramètre d'affichage de l'équipe
