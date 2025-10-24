@@ -62,13 +62,17 @@ const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
             type="text"
             value={values.firstName}
             onChange={(e) => onChange('firstName', e.target.value)}
-            className={`glass-input w-full transition-all duration-300 ${
-              errors.firstName ? 'ring-1' : ''
+            className={`w-full px-4 py-3 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 ${
+              errors.firstName ? 'ring-2' : ''
             }`}
-            style={errors.firstName ? {
-              borderColor: colors.primary,
-              '--tw-ring-color': colors.primary
-            } as any : {}}
+            style={{
+              backgroundColor: `${colors.surface}`,
+              color: colors.textPrimary,
+              borderWidth: '2px',
+              borderStyle: 'solid',
+              borderColor: errors.firstName ? colors.error : `${colors.primary}40`,
+              '--tw-ring-color': errors.firstName ? colors.error : colors.primary
+            } as any}
             required
           />
           {errors.firstName && (
@@ -90,13 +94,17 @@ const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
             type="text"
             value={values.lastName}
             onChange={(e) => onChange('lastName', e.target.value)}
-            className={`glass-input w-full transition-all duration-300 ${
-              errors.lastName ? 'ring-1' : ''
+            className={`w-full px-4 py-3 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 ${
+              errors.lastName ? 'ring-2' : ''
             }`}
-            style={errors.lastName ? {
-              borderColor: colors.primary,
-              '--tw-ring-color': colors.primary
-            } as any : {}}
+            style={{
+              backgroundColor: `${colors.surface}`,
+              color: colors.textPrimary,
+              borderWidth: '2px',
+              borderStyle: 'solid',
+              borderColor: errors.lastName ? colors.error : `${colors.primary}40`,
+              '--tw-ring-color': errors.lastName ? colors.error : colors.primary
+            } as any}
             required
           />
           {errors.lastName && (
@@ -118,13 +126,17 @@ const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
             type="email"
             value={values.email}
             onChange={(e) => onChange('email', e.target.value)}
-            className={`glass-input w-full transition-all duration-300 ${
-              errors.email ? 'ring-1' : ''
+            className={`w-full px-4 py-3 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 ${
+              errors.email ? 'ring-2' : ''
             }`}
-            style={errors.email ? {
-              borderColor: colors.primary,
-              '--tw-ring-color': colors.primary
-            } as any : {}}
+            style={{
+              backgroundColor: `${colors.surface}`,
+              color: colors.textPrimary,
+              borderWidth: '2px',
+              borderStyle: 'solid',
+              borderColor: errors.email ? colors.error : `${colors.primary}40`,
+              '--tw-ring-color': errors.email ? colors.error : colors.primary
+            } as any}
             required
           />
           {errors.email && (
@@ -147,15 +159,20 @@ const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
             defaultCountry={defaultCountry as any}
             value={values.phone}
             onChange={(value) => onChange('phone', value || '')}
-            className={`glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 backdrop-blur-sm shadow-lg transition-all duration-200 ${
+            className={`w-full rounded-lg transition-all duration-200 ${
               errors.phone ? 'ring-2' : 'focus-within:ring-2'
             }`}
             style={{
-              '--tw-ring-color': colors.primary
+              backgroundColor: `${colors.surface}`,
+              borderWidth: '2px',
+              borderStyle: 'solid',
+              borderColor: errors.phone ? colors.error : `${colors.primary}40`,
+              '--tw-ring-color': errors.phone ? colors.error : colors.primary
             } as any}
             numberInputProps={{
-              className: 'w-full bg-transparent border-0 focus:outline-none focus:ring-0 text-gray-900 dark:text-gray-100 px-3 py-2',
-              required: false // Retirer required pour éviter les problèmes de validation
+              className: 'w-full bg-transparent border-0 focus:outline-none focus:ring-0 px-3 py-2',
+              style: { color: colors.textPrimary },
+              required: false
             }}
           />
           {errors.phone && (
@@ -177,7 +194,15 @@ const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
             type="date"
             value={values.birthDate || ''}
             onChange={(e) => onChange('birthDate', e.target.value)}
-            className="glass-input w-full transition-all duration-300"
+            className="w-full px-4 py-3 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2"
+            style={{
+              backgroundColor: `${colors.surface}`,
+              color: colors.textPrimary,
+              borderWidth: '2px',
+              borderStyle: 'solid',
+              borderColor: `${colors.primary}40`,
+              '--tw-ring-color': colors.primary
+            } as any}
           />
         </div>
 
@@ -190,7 +215,15 @@ const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
             type="text"
             value={values.address || ''}
             onChange={(e) => onChange('address', e.target.value)}
-            className="glass-input w-full transition-all duration-300"
+            className="w-full px-4 py-3 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2"
+            style={{
+              backgroundColor: `${colors.surface}`,
+              color: colors.textPrimary,
+              borderWidth: '2px',
+              borderStyle: 'solid',
+              borderColor: `${colors.primary}40`,
+              '--tw-ring-color': colors.primary
+            } as any}
           />
         </div>
       </div>
