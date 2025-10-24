@@ -472,25 +472,28 @@ export const SalonPage: React.FC = () => {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Horaires */}
-            <div className="contact-info fade-in-up stagger-1">
-              <div className="contact-title">
-                Horaires d'ouverture
-              </div>
-              <div className="space-y-3">
-                {Object.entries(salon.hours).map(([day, hours]) => (
-                  <div key={day} className="hours-item">
-                    <span className="hours-day">
-                      {t(`days.${day}`, day)}
-                    </span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Horaires - Affichage simplifié */}
+            {profileData?.businessHours && (profileData.businessHours.start || profileData.businessHours.end) && (
+              <div className="contact-info fade-in-up stagger-1">
+                <div className="contact-title">
+                  Horaires d'ouverture
+                </div>
+                <div className="space-y-3">
+                  <div className="hours-item">
+                    <span className="hours-day">Lundi - Vendredi</span>
                     <span className="hours-time">
-                      {hours.closed ? 'Fermé' : `${hours.open} - ${hours.close}`}
+                      {profileData.businessHours.start || '09:00'} - {profileData.businessHours.end || '19:00'}
                     </span>
                   </div>
-                ))}
+                  {profileData.businessHours.lunchBreak?.enabled && (
+                    <div className="text-sm text-gray-600">
+                      Pause déjeuner: {profileData.businessHours.lunchBreak.start} - {profileData.businessHours.lunchBreak.end}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Contact */}
             <div className="contact-info fade-in-up stagger-2">
@@ -523,7 +526,7 @@ export const SalonPage: React.FC = () => {
             </div>
 
             {/* Réservation rapide */}
-            <div className="contact-info fade-in-up stagger-3">
+            <div className="contact-info fade-in-up stagger-2">
               <div className="contact-title">
                 Réservation rapide
               </div>
