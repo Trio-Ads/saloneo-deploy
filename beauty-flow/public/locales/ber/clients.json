@@ -1,0 +1,35 @@
+{
+  "title": "Imsaɣen",
+  "addClient": "Rnu amsaɣ",
+  "editClient": "Ẓreg amsaɣ",
+  "deleteClient": "Kkes amsaɣ",
+  "clientName": "Isem n umsaɣ",
+  "firstName": "Isem amezwaru",
+  "lastName": "Isem n tawacult",
+  "email": "Imayl",
+  "phone": "Tiliɣri",
+  "address": "Tansa",
+  "birthDate": "Azemz n tlalit",
+  "gender": {
+    "male": "Argaz",
+    "female": "Tameṭṭut",
+    "other": "Wayeḍ"
+  },
+  "notes": "Tizmilin",
+  "noClients": "Ulac imsaɣen",
+  "searchClients": "Nadi imsaɣen",
+  "totalClients": "Amḍan n imsaɣen",
+  "newClients": "Imsaɣen imaynuten",
+  "activeClients": "Imsaɣen urmiden",
+  "clientHistory": "Amazray n umsaɣ",
+  "appointments": "Isuraf",
+  "lastVisit": "Tirza taneggarut",
+  "totalSpent": "Amḍan yettwaxelṣen",
+  "form": {
+    "personalInfo": "Talɣut tudmawant",
+    "contactInfo": "Talɣut n unermis",
+    "additionalInfo": "Talɣut-nniḍen",
+    "save": "Sekles",
+    "cancel": "Sefsex"
+  }
+}

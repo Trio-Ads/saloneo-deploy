@@ -1,0 +1,144 @@
+{
+  "booking": {
+    "title": "الحجز عبر الإنترنت",
+    "steps": {
+      "service": "اختر خدمة",
+      "datetime": "اختر التاريخ والوقت",
+      "information": "معلوماتك",
+      "confirmation": "التأكيد"
+    },
+    "progress": {
+      "step": "الخطوة {{current}} من {{total}}",
+      "next": "التالي",
+      "previous": "السابق",
+      "finish": "إنهاء"
+    },
+    "flow": {
+      "choose_slot": "اختر موعدك",
+      "your_info": "معلوماتك",
+      "choose_stylist": "اختر مصفف الشعر",
+      "choose_date": "اختر تاريخاً",
+      "choose_time": "اختر وقتاً",
+      "your_selection": "اختيارك",
+      "selected": "محدد",
+      "chosen": "مختار",
+      "no_slots": "لا توجد مواعيد",
+      "no_slots_available": "لا توجد مواعيد متاحة لهذا التاريخ",
+      "choose_another_date": "يرجى اختيار تاريخ آخر",
+      "stylist": "مصفف الشعر",
+      "date": "التاريخ",
+      "time": "الوقت"
+    }
+  },
+  "salon": {
+    "about": "حول",
+    "services": "خدماتنا",
+    "team": "فريقنا",
+    "contact": "اتصل بنا",
+    "book_now": "احجز الآن",
+    "location": "الموقع",
+    "hours": "ساعات العمل",
+    "page": {
+      "services_title": "الخدمات",
+      "team_title": "الفريق",
+      "contact_title": "اتصل بنا",
+      "book_button": "احجز",
+      "discover_services": "اكتشف مجموعتنا الكاملة من خدمات الجمال والعافية،",
+      "professional_team": "محترفون شغوفون في خدمتك",
+      "opening_hours": "ساعات العمل",
+      "information": "معلومات",
+      "quick_booking": "حجز سريع",
+      "quick_booking_desc": "احجز موعداً بنقرات قليلة",
+      "call_us": "أو اتصل بنا على",
+      "address": "العنوان",
+      "phone": "الهاتف",
+      "email": "البريد الإلكتروني",
+      "footer_text": "صالون الجمال الموثوق منذ الأزل",
+      "all_rights": "جميع الحقوق محفوظة",
+      "closed": "مغلق",
+      "professional_service": "خدمة احترافية عالية الجودة"
+    }
+  },
+  "datetime": {
+    "select_date": "اختر تاريخاً",
+    "select_time": "اختر وقتاً",
+    "morning": "الصباح",
+    "afternoon": "بعد الظهر",
+    "evening": "المساء",
+    "no_slots": "لا توجد مواعيد متاحة",
+    "available_slots": "المواعيد المتاحة"
+  },
+  "service_card": {
+    "duration": "المدة",
+    "price": "السعر",
+    "book": "احجز",
+    "minutes": "دقيقة",
+    "description": "الوصف",
+    "book_now": "احجز الآن",
+    "popular": "شائع"
+  },
+  "confirmation": {
+    "success": {
+      "title": "تم تأكيد الحجز",
+      "message": "تم تأكيد موعدك",
+      "details": "تفاصيل الحجز",
+      "email_sent": "تم إرسال بريد إلكتروني للتأكيد"
+    },
+    "error": {
+      "title": "خطأ في الحجز",
+      "message": "حدث خطأ",
+      "try_again": "يرجى المحاولة مرة أخرى"
+    },
+    "pending": {
+      "title": "الحجز في الانتظار",
+      "message": "طلبك قيد المعالجة"
+    }
+  },
+  "loading": {
+    "message": "جاري التحميل...",
+    "please_wait": "يرجى الانتظار"
+  },
+  "modal": {
+    "close": "إغلاق",
+    "cancel": "إلغاء",
+    "confirm": "تأكيد"
+  },
+  "search": {
+    "title": "إدارة حجوزاتي",
+    "how_search": "كيف تريد البحث عن مواعيدك؟",
+    "by_email": "البريد الإلكتروني",
+    "by_phone": "الهاتف",
+    "by_name": "الاسم",
+    "email_label": "البريد الإلكتروني",
+    "phone_label": "الهاتف",
+    "first_name_label": "الاسم الأول",
+    "last_name_label": "اسم العائلة",
+    "email_placeholder": "your@email.com",
+    "phone_placeholder": "06 12 34 56 78",
+    "first_name_placeholder": "اسمك الأول",
+    "last_name_placeholder": "اسم عائلتك",
+    "search_button": "بحث"
+  },
+  "appointments": {
+    "your_appointments": "مواعيدك",
+    "no_appointments": "لم يتم العثور على مواعيد",
+    "back_home": "العودة للرئيسية",
+    "modify": "تعديل",
+    "cancel": "إلغاء",
+    "cancel_confirmation": "هل أنت متأكد من إلغاء هذا الموعد؟",
+    "cancel_reason_placeholder": "سبب الإلغاء (اختياري)"
+  },
+  "gallery": {
+    "previous": "الصورة السابقة",
+    "next": "الصورة التالية"
+  },
+  "days": {
+    "monday": "الاثنين",
+    "tuesday": "الثلاثاء", 
+    "wednesday": "الأربعاء",
+    "thursday": "الخميس",
+    "friday": "الجمعة",
+    "saturday": "السبت",
+    "sunday": "الأحد"
+  }
+}

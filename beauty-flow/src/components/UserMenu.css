@@ -1,0 +1,114 @@
+/* Styles pour améliorer le défilement sur mobile */
+@media (max-width: 768px) {
+  /* Empêcher le défilement du body quand le menu est ouvert */
+  body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+  }
+
+  /* Améliorer le menu déroulant sur mobile */
+  .user-menu-dropdown {
+    position: fixed !important;
+    top: 80px !important;
+    right: 10px !important;
+    left: 10px !important;
+    width: auto !important;
+    max-width: 400px !important;
+    margin: 0 auto !important;
+    max-height: calc(100vh - 100px) !important;
+    max-height: calc(100dvh - 100px) !important; /* Pour iOS */
+  }
+
+  /* Améliorer le défilement */
+  .user-menu-dropdown::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .user-menu-dropdown::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .user-menu-dropdown::-webkit-scrollbar-thumb {
+    background: rgba(249, 115, 22, 0.3);
+    border-radius: 3px;
+  }
+
+  .user-menu-dropdown::-webkit-scrollbar-thumb:hover {
+    background: rgba(249, 115, 22, 0.5);
+  }
+
+  /* Dark mode */
+  [data-theme="dark"] .user-menu-dropdown::-webkit-scrollbar-thumb {
+    background: rgba(251, 146, 60, 0.4);
+  }
+
+  [data-theme="dark"] .user-menu-dropdown::-webkit-scrollbar-thumb:hover {
+    background: rgba(251, 146, 60, 0.6);
+  }
+
+  /* Support pour iOS */
+  .user-menu-dropdown {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  /* Overlay mobile optimisé */
+  .user-menu-overlay {
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+  }
+}
+
+/* Animation slide-down */
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-down {
+  animation: slide-down 0.3s ease-out;
+}
+
+/* Scrollbar personnalisée pour tous les navigateurs - ORANGE */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(249, 115, 22, 0.3) transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: rgba(249, 115, 22, 0.3);
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(249, 115, 22, 0.5);
+}
+
+/* Dark mode scrollbar */
+[data-theme="dark"] .scrollbar-thin {
+  scrollbar-color: rgba(251, 146, 60, 0.4) transparent;
+}
+
+[data-theme="dark"] .scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: rgba(251, 146, 60, 0.4);
+}
+
+[data-theme="dark"] .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(251, 146, 60, 0.6);
+}

@@ -1,0 +1,171 @@
+{
+  "title": "الخدمات",
+  "subtitle": "إنشاء وإدارة خدمات الجمال الخاصة بك",
+  "new_service": "خدمة جديدة",
+  "edit_service": "تعديل الخدمة",
+  "service_details": "تفاصيل الخدمة",
+  "all_services": "جميع الخدمات",
+  "active_services": "الخدمات النشطة",
+  "inactive_services": "الخدمات غير النشطة",
+  "popular_services": "الخدمات الشائعة",
+  "form": {
+    "name": "اسم الخدمة",
+    "description": "الوصف",
+    "category": "الفئة",
+    "duration": "المدة",
+    "price": "السعر",
+    "image": "الصورة",
+    "status": "الحالة",
+    "tags": "العلامات",
+    "instructions": "التعليمات",
+    "preparation": "التحضير",
+    "aftercare": "العناية اللاحقة",
+    "equipment": "المعدات المطلوبة",
+    "products": "المنتجات المستخدمة",
+    "skill_level": "مستوى المهارة",
+    "commission": "العمولة",
+    "discount": "الخصم",
+    "add_image": "إضافة صورة",
+    "remove_image": "إزالة الصورة",
+    "online_settings": {
+      "available_online": "متاح عبر الإنترنت",
+      "minimum_booking_time": "الحد الأدنى لوقت الحجز",
+      "booking_times": {
+        "1": "قبل ساعة واحدة",
+        "2": "قبل ساعتين",
+        "4": "قبل 4 ساعات",
+        "12": "قبل 12 ساعة",
+        "24": "قبل 24 ساعة (يوم واحد)",
+        "48": "قبل 48 ساعة (يومان)"
+      }
+    }
+  },
+  "categories": {
+    "haircut": "قص الشعر",
+    "coloring": "صبغ الشعر",
+    "styling": "تصفيف الشعر",
+    "treatment": "علاج",
+    "manicure": "عناية الأظافر",
+    "pedicure": "عناية القدمين",
+    "facial": "عناية الوجه",
+    "massage": "تدليك",
+    "waxing": "إزالة الشعر",
+    "makeup": "مكياج",
+    "eyebrows": "الحواجب",
+    "eyelashes": "الرموش"
+  },
+  "duration": {
+    "minutes": "دقائق",
+    "hours": "ساعات",
+    "min": "د",
+    "h": "س"
+  },
+  "actions": {
+    "add_service": "إضافة خدمة",
+    "new_service": "خدمة جديدة",
+    "create_service": "إنشاء خدمة",
+    "limit_reached": "تم الوصول للحد الأقصى",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "duplicate": "نسخ",
+    "activate": "تفعيل",
+    "deactivate": "إلغاء التفعيل",
+    "view_bookings": "عرض الحجوزات",
+    "set_price": "تحديد السعر",
+    "upload_image": "رفع صورة"
+  },
+  "filters": {
+    "search": "البحث عن الخدمات...",
+    "search_placeholder": "البحث عن خدمة...",
+    "all_categories": "جميع الفئات",
+    "all_status": "جميع الحالات",
+    "price_range": "نطاق السعر",
+    "duration_range": "المدة",
+    "popularity": "الشعبية"
+  },
+  "search": {
+    "placeholder": "البحث عن خدمة...",
+    "results": "خدمة/خدمات موجودة",
+    "for": "لـ",
+    "in": "في"
+  },
+  "statistics": {
+    "total_services": "إجمالي الخدمات",
+    "active_services": "الخدمات النشطة",
+    "popular_services": "الخدمات الشائعة",
+    "average_price": "متوسط السعر",
+    "average_duration": "متوسط المدة",
+    "total_bookings": "إجمالي الحجوزات",
+    "revenue": "الإيرادات"
+  },
+  "stats": {
+    "total": "الإجمالي",
+    "categories": "الفئات",
+    "service_types": "أنواع الخدمات",
+    "avg_duration": "متوسط المدة",
+    "avg_time": "متوسط الوقت",
+    "avg_price": "متوسط السعر",
+    "avg_rate": "متوسط التعرفة",
+    "all_services": "جميع الخدمات"
+  },
+  "stats_text": {
+    "total_services": "خدمة في المجموع",
+    "categories": "فئات"
+  },
+  "messages": {
+    "service_created": "تم إنشاء الخدمة بنجاح",
+    "service_updated": "تم تحديث الخدمة بنجاح",
+    "service_deleted": "تم حذف الخدمة بنجاح",
+    "service_activated": "تم تفعيل الخدمة بنجاح",
+    "service_deactivated": "تم إلغاء تفعيل الخدمة بنجاح",
+    "no_services": "لم يتم العثور على خدمات",
+    "loading": "جاري تحميل الخدمات...",
+    "confirm_delete": "هل أنت متأكد من حذف هذه الخدمة؟",
+    "delete_confirmation": "هل أنت متأكد من حذف هذه الخدمة؟",
+    "try_filters": "جرب تعديل مرشحات البحث",
+    "create_first": "ابدأ بإنشاء خدمتك الأولى",
+    "image_uploaded": "تم رفع الصورة بنجاح",
+    "image_upload_failed": "فشل في رفع الصورة"
+  },
+  "limits": {
+    "title": "حدود الخدمات"
+  },
+  "products": {
+    "title": "إدارة المخزون",
+    "subtitle": "إدارة منتجاتك وكمياتها في المخزون",
+    "add_product": "إضافة منتج",
+    "stock_report": "تقرير المخزون",
+    "stats": {
+      "total": "إجمالي المنتجات",
+      "all_products": "جميع المنتجات",
+      "units": "الوحدات",
+      "unit_types": "أنواع الوحدات",
+      "low_stock": "مخزون منخفض",
+      "stock_alerts": "تنبيهات المخزون",
+      "out_of_stock": "نفاد المخزون",
+      "stock_depleted": "المخزون منتهي"
+    },
+    "search_placeholder": "البحث عن منتج أو وصف أو وحدة...",
+    "filters": "المرشحات",
+    "unit": "الوحدة",
+    "all_units": "جميع الوحدات",
+    "stock_status": "حالة المخزون",
+    "all_stocks": "جميع المخزونات",
+    "available_stock": "مخزون متاح",
+    "low_stock": "مخزون منخفض",
+    "no_products_found": "لم يتم العثور على منتجات",
+    "no_products": "لا توجد منتجات في المخزون",
+    "modify_search": "حاول تعديل معايير البحث",
+    "add_first_products": "ابدأ بإضافة منتجاتك الأولى",
+    "stock_alerts": "تنبيهات المخزون",
+    "products_out_of_stock": "منتج(منتجات) نفد مخزونها",
+    "products_low_stock": "منتج(منتجات) بمخزون منخفض",
+    "products_found": "منتج(منتجات) موجود",
+    "with_unit": "بالوحدة",
+    "with_filter": "بالمرشح",
+    "confirm_delete": "هل أنت متأكد من حذف هذا المنتج؟"
+  },
+  "details": {
+    "available": "متاح"
+  }
+}

@@ -1,0 +1,328 @@
+{
+  "title": "Suscripción",
+  "page_title": "Planes de Suscripción",
+  "page_subtitle": "Elige el plan perfecto para tu salón",
+  "current_plan": "Plan Actual",
+  "upgrade": "Actualizar",
+  "downgrade": "Degradar",
+  "cancel": "Cancelar",
+  "renew": "Renovar",
+  "billing": {
+    "0": "F",
+    "1": "a",
+    "2": "c",
+    "3": "t",
+    "4": "u",
+    "5": "r",
+    "6": "a",
+    "7": "c",
+    "8": "i",
+    "9": "ó",
+    "10": "n"
+  },
+  "payment_method": "Método de Pago",
+  "next_billing": "Próxima Facturación",
+  "billing_history": "Historial de Facturación",
+  "plans": {
+    "free": {
+      "name": "Gratuit",
+      "description": "Parfait pour commencer",
+      "price": "Gratuit",
+      "features": [
+        "Jusqu'à 10 rendez-vous par mois",
+        "Jusqu'à 5 clients",
+        "Gestion de services de base",
+        "Support par email"
+      ]
+    },
+    "starter": {
+      "name": "Starter",
+      "description": "Idéal pour les petits salons",
+      "price": "$29",
+      "features": [
+        "Jusqu'à 100 rendez-vous par mois",
+        "Jusqu'à 50 clients",
+        "Gestion complète des services",
+        "Gestion d'équipe (jusqu'à 3 membres)",
+        "Analyses de base",
+        "Support par email"
+      ]
+    },
+    "professional": {
+      "name": "Professionnel",
+      "description": "Pour les entreprises en croissance",
+      "price": "$79",
+      "features": [
+        "Jusqu'à 500 rendez-vous par mois",
+        "Jusqu'à 200 clients",
+        "Gestion avancée des services",
+        "Gestion d'équipe (jusqu'à 10 membres)",
+        "Analyses avancées",
+        "Réservation en ligne",
+        "Support prioritaire"
+      ]
+    },
+    "enterprise": {
+      "name": "Entreprise",
+      "description": "Pour les grands salons et chaînes",
+      "price": "$199",
+      "features": [
+        "Rendez-vous illimités",
+        "Clients illimités",
+        "Accès complet aux fonctionnalités",
+        "Membres d'équipe illimités",
+        "Analyses et rapports avancés",
+        "Support multi-emplacements",
+        "Intégrations personnalisées",
+        "Support dédié"
+      ]
+    }
+  },
+  "features": {
+    "appointments": "Citas",
+    "clients": "Clientes",
+    "team_members": "Miembros del Equipo",
+    "locations": "Ubicaciones",
+    "storage": "Almacenamiento",
+    "support": {
+      "0": "S",
+      "1": "o",
+      "2": "p",
+      "3": "o",
+      "4": "r",
+      "5": "t",
+      "6": "e"
+    },
+    "analytics": "Análisis",
+    "integrations": "Integraciones",
+    "customization": "Personalización",
+    "api_access": "Acceso API",
+    "security": {
+      "title": "Sécurité Premium",
+      "description": "Vos données sont protégées avec un chiffrement de niveau bancaire"
+    },
+    "growth": {
+      "title": "Croissance Garantie",
+      "description": "Augmentez votre chiffre d'affaires de 30% en moyenne"
+    }
+  },
+  "billing_cycle": {
+    "monthly": "Mensual",
+    "yearly": "Anual",
+    "save": "Ahorra {{discount}}%"
+  },
+  "payment": {
+    "title": "Información de Pago",
+    "card_number": "Número de Tarjeta",
+    "expiry_date": "Fecha de Vencimiento",
+    "cvv": "CVV",
+    "cardholder_name": "Nombre del Titular",
+    "billing_address": "Dirección de Facturación",
+    "country": "País",
+    "city": "Ciudad",
+    "postal_code": "Código Postal",
+    "process_payment": "Procesar Pago",
+    "secure_payment": "Paiement Sécurisé",
+    "payment_methods": "Métodos de Pago Aceptados",
+    "plan": "Plan",
+    "duration": "Durée",
+    "monthly": "mois",
+    "total": "Total",
+    "discount": "de réduction",
+    "economy": "Économisez",
+    "test_mode": {
+      "title": "Mode Test Activé",
+      "description": "Vous êtes en environnement de test. Les paiements seront simulés avec des montants réduits."
+    },
+    "security_features": {
+      "satim": "Paiement sécurisé par SATIM",
+      "cards": "Compatible avec toutes les cartes CIB"
+    },
+    "info": "En cliquant sur \"Procéder au paiement\", vous serez redirigé vers la plateforme sécurisée SATIM pour finaliser votre paiement.",
+    "proceed": "Procéder au paiement",
+    "processing": "Traitement en cours..."
+  },
+  "success": {
+    "title": "Paiement Réussi !",
+    "message": "Félicitations ! Votre abonnement au plan {{planName}} a été activé avec succès.",
+    "plan_activated": "Plan {{plan}} activado",
+    "access_features": "Ahora puedes acceder a todas las funciones de tu nuevo plan",
+    "continue": "Accéder à mon tableau de bord",
+    "benefits": {
+      "title": "Vous pouvez maintenant :",
+      "premium": "Accéder à toutes les fonctionnalités premium",
+      "unlimited": "Gérer votre salon sans limites",
+      "support": "Bénéficier du support prioritaire"
+    },
+    "email_sent": "Un email de confirmation a été envoyé à votre adresse."
+  },
+  "failed": {
+    "title": "Paiement Échoué",
+    "message": "Hubo un problema procesando tu pago",
+    "try_again": "Intentar de Nuevo",
+    "contact_support": "Contactar Soporte",
+    "common_issues": "Problemas Comunes",
+    "insufficient_funds": "Fondos insuficientes",
+    "expired_card": "Tarjeta vencida",
+    "incorrect_details": "Detalles incorrectos",
+    "help": {
+      "title": "Que faire maintenant ?",
+      "check_card": "Vérifiez que votre carte est valide et dispose de fonds suffisants",
+      "check_info": "Assurez-vous d'avoir saisi correctement vos informations",
+      "try_another": "Essayez avec une autre carte si le problème persiste"
+    },
+    "retry": "Réessayer le paiement",
+    "back": "Retour aux abonnements",
+    "support": "Besoin d'aide ?"
+  },
+  "limits": {
+    "title": "Límites del Plan",
+    "current_usage": "Uso Actual",
+    "limit_reached": "Límite Alcanzado",
+    "upgrade_required": "Actualización Requerida",
+    "appointments_limit": "Has alcanzado tu límite de citas mensuales",
+    "clients_limit": "Has alcanzado tu límite de clientes",
+    "team_limit": "Has alcanzado tu límite de miembros del equipo",
+    "upgrade_now": "Actualizar Ahora",
+    "view_plans": "Ver Planes",
+    "clients_reached": "Limite de clients atteinte",
+    "team_reached": "Limite de membres d'équipe atteinte",
+    "services_reached": "Limite de services atteinte",
+    "products_reached": "Limite de produits atteinte",
+    "upgrade_plan": "Mettre à niveau votre plan"
+  },
+  "cancel_subscription": {
+    "title": "Cancelar Suscripción",
+    "confirm": "¿Estás seguro de que quieres cancelar tu suscripción?",
+    "consequences": "Consecuencias de la cancelación:",
+    "lose_access": "Perderás acceso a las funciones premium",
+    "data_retained": "Tus datos se conservarán por 30 días",
+    "can_reactivate": "Puedes reactivar en cualquier momento",
+    "cancel_now": "Cancelar Ahora",
+    "keep_subscription": "Mantener Suscripción"
+  },
+  "notifications": {
+    "payment_successful": "Pago procesado exitosamente",
+    "payment_failed": "Error en el pago",
+    "subscription_updated": "Suscripción actualizada",
+    "subscription_cancelled": "Suscripción cancelada",
+    "trial_ending": "Tu período de prueba termina pronto",
+    "payment_due": "Pago pendiente"
+  },
+  "page": {
+    "title": "Choisissez Votre Plan",
+    "subtitle": "Transformez votre salon avec Saloneo et rejoignez plus de 10,000+ professionnels qui ont révolutionné leur activité",
+    "why_choose": "Pourquoi choisir Saloneo ?",
+    "why_subtitle": "La solution complète pour faire prospérer votre salon de beauté"
+  },
+  "badges": {
+    "free_trial": "Essai gratuit 14 jours",
+    "no_commitment": "Sans engagement",
+    "premium_support": "Support premium"
+  },
+  "promotion": {
+    "limited_offer": "🔥 OFFRE LIMITÉE : -40% sur tous les plans ! 🔥"
+  },
+  "testimonials": {
+    "title": "Ce que disent nos clients",
+    "subtitle": "Plus de 10,000 professionnels nous font confiance",
+    "marie": {
+      "name": "Marie Dubois",
+      "salon": "Salon Élégance",
+      "text": "Saloneo a transformé ma façon de travailler. +50% de réservations en 3 mois !"
+    },
+    "sophie": {
+      "name": "Sophie Martin",
+      "salon": "Beauty Paradise",
+      "text": "Interface intuitive et support exceptionnel. Je recommande vivement !"
+    },
+    "amelie": {
+      "name": "Amélie Laurent",
+      "salon": "Coiffure Moderne",
+      "text": "Mes clients adorent pouvoir réserver en ligne. Un vrai plus pour mon salon !"
+    }
+  },
+  "faq": {
+    "title": "Questions Fréquentes",
+    "change_plan": {
+      "q": "Puis-je changer de plan à tout moment ?",
+      "a": "Oui, vous pouvez upgrader ou downgrader votre plan à tout moment. Les changements prennent effet immédiatement."
+    },
+    "hidden_fees": {
+      "q": "Y a-t-il des frais cachés ?",
+      "a": "Aucun frais caché ! Le prix affiché est tout compris. Pas de frais de setup, pas de commission sur les ventes."
+    },
+    "cancel": {
+      "q": "Que se passe-t-il si j'annule mon abonnement ?",
+      "a": "Vous gardez l'accès jusqu'à la fin de votre période de facturation. Vos données sont conservées 30 jours."
+    }
+  },
+  "cta": {
+    "title": "Prêt à transformer votre salon ?",
+    "subtitle": "Rejoignez des milliers de professionnels satisfaits",
+    "button": "Commencer l'essai gratuit"
+  },
+  "widget": {
+    "title": "Votre Abonnement",
+    "manage": "Gérer",
+    "unlimited": "Illimité",
+    "used": "Utilisés",
+    "remaining": "restants",
+    "limit_reached": "Limite atteinte",
+    "limit_near": "Limite proche",
+    "available": "Disponible",
+    "upgrade": "Upgrade"
+  },
+  "actions": {
+    "choose_plan": "Choisir le Plan",
+    "current_plan": "Plan Actuel",
+    "upgrade": "Mettre à niveau",
+    "downgrade": "Rétrograder",
+    "cancel": "Annuler l'Abonnement",
+    "reactivate": "Réactiver",
+    "change_plan": "Changer de Plan"
+  },
+  "status": {
+    "active": "Actif",
+    "cancelled": "Annulé",
+    "expired": "Expiré",
+    "trial": "Essai",
+    "pending": "En attente"
+  },
+  "messages": {
+    "upgrade_success": "Plan mis à niveau avec succès",
+    "downgrade_success": "Plan rétrogradé avec succès",
+    "cancellation_success": "Abonnement annulé avec succès",
+    "reactivation_success": "Abonnement réactivé avec succès",
+    "payment_updated": "Méthode de paiement mise à jour avec succès",
+    "trial_ending": "Votre essai se termine bientôt",
+    "subscription_expired": "Votre abonnement a expiré",
+    "upgrade_required": "Veuillez mettre à niveau votre plan pour continuer à utiliser cette fonctionnalité"
+  },
+  "invoice": "Tafaturt",
+  "subscription": "Ajerriḍ",
+  "trial": "Aɛeṛṛu",
+  "free": "Baṭel",
+  "premium": "Aɣalay",
+  "pro": "Aɣerfan",
+  "enterprise": "Takebbanit",
+  "monthly": "Aggur",
+  "yearly": "Aseggas",
+  "lifetime": "Tudert",
+  "usage": "Aseqdec",
+  "quota": "Azal",
+  "overage": "Azal n ufella",
+  "discount": "Aḥeṛṛi",
+  "coupon": "Takubunt",
+  "promo": "Abeṛṛani",
+  "refund": "Tuɣalin",
+  "chargeback": "Tuɣalin n uxelleṣ",
+  "dispute": "Anmegla",
+  "fraud": "Akukel",
+  "security": "Taɣellist",
+  "compliance": "Aḍfar",
+  "terms": "Tiwtilin",
+  "privacy": "Tudert tusligt",
+  "support": "Tallalt",
+  "contact": "Nermes"
+}

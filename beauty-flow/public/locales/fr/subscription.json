@@ -1,0 +1,248 @@
+{
+  "page": {
+    "title": "Choisissez Votre Plan",
+    "subtitle": "Transformez votre salon avec Saloneo et rejoignez plus de 10,000+ professionnels qui ont révolutionné leur activité",
+    "why_choose": "Pourquoi choisir Saloneo ?",
+    "why_subtitle": "La solution complète pour faire prospérer votre salon de beauté"
+  },
+  "features": {
+    "security": {
+      "title": "Sécurité Premium",
+      "description": "Vos données sont protégées avec un chiffrement de niveau bancaire"
+    },
+    "growth": {
+      "title": "Croissance Garantie",
+      "description": "Augmentez votre chiffre d'affaires de 30% en moyenne"
+    },
+    "support": {
+      "title": "Support 24/7",
+      "description": "Une équipe dédiée pour vous accompagner à chaque étape"
+    }
+  },
+  "badges": {
+    "free_trial": "Essai gratuit 14 jours",
+    "no_commitment": "Sans engagement",
+    "premium_support": "Support premium"
+  },
+  "promotion": {
+    "limited_offer": "🔥 OFFRE LIMITÉE : -40% sur tous les plans ! 🔥"
+  },
+  "testimonials": {
+    "title": "Ce que disent nos clients",
+    "subtitle": "Plus de 10,000 professionnels nous font confiance",
+    "marie": {
+      "name": "Marie Dubois",
+      "salon": "Salon Élégance",
+      "text": "Saloneo a transformé ma façon de travailler. +50% de réservations en 3 mois !"
+    },
+    "sophie": {
+      "name": "Sophie Martin",
+      "salon": "Beauty Paradise",
+      "text": "Interface intuitive et support exceptionnel. Je recommande vivement !"
+    },
+    "amelie": {
+      "name": "Amélie Laurent",
+      "salon": "Coiffure Moderne",
+      "text": "Mes clients adorent pouvoir réserver en ligne. Un vrai plus pour mon salon !"
+    }
+  },
+  "faq": {
+    "title": "Questions Fréquentes",
+    "change_plan": {
+      "q": "Puis-je changer de plan à tout moment ?",
+      "a": "Oui, vous pouvez upgrader ou downgrader votre plan à tout moment. Les changements prennent effet immédiatement."
+    },
+    "hidden_fees": {
+      "q": "Y a-t-il des frais cachés ?",
+      "a": "Aucun frais caché ! Le prix affiché est tout compris. Pas de frais de setup, pas de commission sur les ventes."
+    },
+    "cancel": {
+      "q": "Que se passe-t-il si j'annule mon abonnement ?",
+      "a": "Vous gardez l'accès jusqu'à la fin de votre période de facturation. Vos données sont conservées 30 jours."
+    }
+  },
+  "cta": {
+    "title": "Prêt à transformer votre salon ?",
+    "subtitle": "Rejoignez des milliers de professionnels satisfaits",
+    "button": "Commencer l'essai gratuit"
+  },
+  "payment": {
+    "secure_payment": "Paiement Sécurisé",
+    "plan": "Plan",
+    "duration": "Durée",
+    "monthly": "mois",
+    "total": "Total",
+    "total_amount": "Montant total",
+    "discount": "de réduction",
+    "economy": "Économisez",
+    "test_mode": {
+      "title": "Mode Test Activé",
+      "description": "Vous êtes en environnement de test. Les paiements seront simulés avec des montants réduits."
+    },
+    "security_features": {
+      "satim": "Paiement sécurisé par SATIM",
+      "cards": "Compatible avec toutes les cartes CIB"
+    },
+    "info": "En cliquant sur \"Procéder au paiement\", vous serez redirigé vers la plateforme sécurisée SATIM pour finaliser votre paiement.",
+    "proceed": "Procéder au paiement",
+    "processing": "Traitement en cours...",
+    "security_notice": "Votre paiement est sécurisé par le protocole SATIM",
+    "accept_terms": "J'accepte les conditions générales de vente et la politique de confidentialité",
+    "read_terms": "Lire les conditions",
+    "terms_title": "Conditions Générales de Vente",
+    "terms_content": "En effectuant ce paiement, vous acceptez les conditions générales de vente de Saloneo ainsi que les conditions de SATIM pour le traitement des paiements.",
+    "terms_content2": "Votre paiement est sécurisé et vos informations bancaires ne sont pas stockées sur nos serveurs.",
+    "terms_required": "Vous devez accepter les conditions générales pour continuer",
+    "captcha_required": "Veuillez valider le captcha pour continuer"
+  },
+  "limits": {
+    "clients_reached": "Limite de clients atteinte",
+    "team_reached": "Limite de membres d'équipe atteinte",
+    "services_reached": "Limite de services atteinte",
+    "products_reached": "Limite de produits atteinte",
+    "upgrade_plan": "Mettre à niveau votre plan"
+  },
+  "widget": {
+    "title": "Votre Abonnement",
+    "manage": "Gérer",
+    "unlimited": "Illimité",
+    "used": "Utilisés",
+    "remaining": "restants",
+    "limit_reached": "Limite atteinte",
+    "limit_near": "Limite proche",
+    "available": "Disponible",
+    "upgrade": "Upgrade"
+  },
+  "success": {
+    "title": "Paiement Réussi !",
+    "message": "Félicitations ! Votre abonnement au plan {{planName}} a été activé avec succès.",
+    "benefits": {
+      "title": "Vous pouvez maintenant :",
+      "premium": "Accéder à toutes les fonctionnalités premium",
+      "unlimited": "Gérer votre salon sans limites",
+      "support": "Bénéficier du support prioritaire"
+    },
+    "continue": "Accéder à mon tableau de bord",
+    "email_sent": "Un email de confirmation a été envoyé à votre adresse.",
+    "transaction": {
+      "title": "Détails de la Transaction",
+      "id": "Numéro de transaction",
+      "date": "Date",
+      "time": "Heure",
+      "method": "Méthode de paiement",
+      "amount": "Montant",
+      "disclaimer": "Cette transaction a été traitée par SATIM. Conservez ces informations pour référence future.",
+      "support": "Pour toute question concernant votre paiement, contactez le support SATIM au 3020."
+    }
+  },
+  "failed": {
+    "title": "Paiement Échoué",
+    "help": {
+      "title": "Que faire maintenant ?",
+      "check_card": "Vérifiez que votre carte est valide et dispose de fonds suffisants",
+      "check_info": "Assurez-vous d'avoir saisi correctement vos informations",
+      "try_another": "Essayez avec une autre carte si le problème persiste"
+    },
+    "retry": "Réessayer le paiement",
+    "back": "Retour aux abonnements",
+    "support": "Besoin d'aide ?",
+    "transaction": {
+      "title": "Détails de l'Erreur",
+      "id": "Numéro de transaction",
+      "error_code": "Code d'erreur",
+      "date": "Date et heure",
+      "disclaimer": "Cette transaction a été refusée par SATIM. Veuillez vérifier vos informations et réessayer.",
+      "support": "Pour toute assistance, contactez le support SATIM au 3020."
+    }
+  },
+  "plans": {
+    "free": {
+      "name": "Gratuit",
+      "description": "Parfait pour commencer",
+      "price": "Gratuit",
+      "features": [
+        "Jusqu'à 10 rendez-vous par mois",
+        "Jusqu'à 5 clients",
+        "Gestion de services de base",
+        "Support par email"
+      ]
+    },
+    "starter": {
+      "name": "Starter",
+      "description": "Idéal pour les petits salons",
+      "price": "$29",
+      "features": [
+        "Jusqu'à 100 rendez-vous par mois",
+        "Jusqu'à 50 clients",
+        "Gestion complète des services",
+        "Gestion d'équipe (jusqu'à 3 membres)",
+        "Analyses de base",
+        "Support par email"
+      ]
+    },
+    "professional": {
+      "name": "Professionnel",
+      "description": "Pour les entreprises en croissance",
+      "price": "$79",
+      "features": [
+        "Jusqu'à 500 rendez-vous par mois",
+        "Jusqu'à 200 clients",
+        "Gestion avancée des services",
+        "Gestion d'équipe (jusqu'à 10 membres)",
+        "Analyses avancées",
+        "Réservation en ligne",
+        "Support prioritaire"
+      ]
+    },
+    "enterprise": {
+      "name": "Entreprise",
+      "description": "Pour les grands salons et chaînes",
+      "price": "$199",
+      "features": [
+        "Rendez-vous illimités",
+        "Clients illimités",
+        "Accès complet aux fonctionnalités",
+        "Membres d'équipe illimités",
+        "Analyses et rapports avancés",
+        "Support multi-emplacements",
+        "Intégrations personnalisées",
+        "Support dédié"
+      ]
+    }
+  },
+  "billing": {
+    "monthly": "Mensuel",
+    "yearly": "Annuel",
+    "save_percent": "Économisez {{percent}}%",
+    "billed_monthly": "Facturé mensuellement",
+    "billed_yearly": "Facturé annuellement",
+    "per_month": "par mois",
+    "per_year": "par an"
+  },
+  "actions": {
+    "choose_plan": "Choisir le Plan",
+    "current_plan": "Plan Actuel",
+    "upgrade": "Mettre à niveau",
+    "downgrade": "Rétrograder",
+    "cancel": "Annuler l'Abonnement",
+    "reactivate": "Réactiver",
+    "change_plan": "Changer de Plan"
+  },
+  "status": {
+    "active": "Actif",
+    "cancelled": "Annulé",
+    "expired": "Expiré",
+    "trial": "Essai",
+    "pending": "En attente"
+  },
+  "messages": {
+    "upgrade_success": "Plan mis à niveau avec succès",
+    "downgrade_success": "Plan rétrogradé avec succès",
+    "cancellation_success": "Abonnement annulé avec succès",
+    "reactivation_success": "Abonnement réactivé avec succès",
+    "payment_updated": "Méthode de paiement mise à jour avec succès",
+    "trial_ending": "Votre essai se termine bientôt",
+    "subscription_expired": "Votre abonnement a expiré",
+    "upgrade_required": "Veuillez mettre à niveau votre plan pour continuer à utiliser cette fonctionnalité"
+  }
+}

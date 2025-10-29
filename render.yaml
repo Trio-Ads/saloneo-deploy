@@ -1,0 +1,49 @@
+services:
+  # Service unifié (frontend + backend)
+  - type: web
+    name: saloneo-deploy
+    env: node
+    plan: starter
+    region: oregon
+    buildCommand: chmod +x build-and-deploy.sh && ./build-and-deploy.sh
+    startCommand: node server.js
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        value: mongodb+srv://saloneo-user:s8OfObmiaiug2zOt@clustertriogeneral.hvkpnvh.mongodb.net/saloneo?retryWrites=true&w=majority&appName=ClusterTrioGeneral
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_EXPIRES_IN
+        value: 30d
+      - key: FRONTEND_URL
+        value: https://www.saloneo.app
+      - key: CORS_ORIGIN
+        value: https://www.saloneo.app,https://saloneo.app
+      - key: MAX_FILE_SIZE
+        value: 5242880
+      - key: UPLOAD_DIR
+        value: uploads
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 900000
+      - key: RATE_LIMIT_MAX_REQUESTS
+        value: 100
+      - key: LOG_LEVEL
+        value: info
+      - key: STORAGE_PROVIDER
+        value: cloudinary
+      - key: CLOUDINARY_CLOUD_NAME
+        value: dc7w17b96
+      - key: CLOUDINARY_API_KEY
+        value: 416623916388651
+      - key: CLOUDINARY_API_SECRET
+        value: 1HkTHGLvk5MnV_WKd3TYRAIctKo
+      - key: CDN_BASE_URL
+        value: https://res.cloudinary.com/dc7w17b96

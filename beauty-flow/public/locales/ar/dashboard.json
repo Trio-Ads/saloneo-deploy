@@ -1,0 +1,172 @@
+{
+  "title": "لوحة التحكم",
+  "welcome": "مرحباً",
+  "overview": "نظرة عامة",
+  "analytics": "التحليلات",
+  "reports": "التقارير",
+  "loading": "جاري تحميل لوحة التحكم...",
+  "widgets": {
+    "revenue": "الإيرادات",
+    "appointments": "المواعيد",
+    "clients": "العملاء",
+    "services": "الخدمات",
+    "team_performance": "أداء الفريق",
+    "popular_services": "الخدمات الشائعة",
+    "recent_activity": "النشاط الأخير",
+    "upcoming_appointments": "المواعيد القادمة",
+    "quick_actions": "الإجراءات السريعة",
+    "business_insights": "رؤى الأعمال"
+  },
+  "metrics": {
+    "today": "اليوم",
+    "this_week": "هذا الأسبوع",
+    "this_month": "هذا الشهر",
+    "this_year": "هذا العام",
+    "total": "الإجمالي",
+    "growth": "النمو",
+    "vs_last_period": "مقارنة بالفترة السابقة",
+    "increase": "زيادة",
+    "decrease": "انخفاض"
+  },
+  "charts": {
+    "revenue_chart": "مخطط الإيرادات",
+    "appointment_chart": "مخطط المواعيد",
+    "service_popularity": "شعبية الخدمات",
+    "client_retention": "الاحتفاظ بالعملاء",
+    "daily": "يومي",
+    "weekly": "أسبوعي",
+    "monthly": "شهري",
+    "yearly": "سنوي"
+  },
+  "quick_actions": {
+    "title": "الإجراءات السريعة",
+    "new_appointment": "موعد جديد",
+    "new_appointment_desc": "جدولة موعد",
+    "new_client": "عميل جديد",
+    "new_client_desc": "إضافة عميل",
+    "calendar": "التقويم",
+    "calendar_desc": "عرض التقويم",
+    "subscription": "الاشتراك",
+    "subscription_desc": "إدارة خطتك",
+    "statistics": "الإحصائيات",
+    "statistics_desc": "عرض التاريخ",
+    "settings": "الإعدادات",
+    "settings_desc": "التكوين",
+    "new_service": "خدمة جديدة",
+    "view_calendar": "عرض التقويم",
+    "manage_team": "إدارة الفريق",
+    "reports": "التقارير"
+  },
+  "insights": {
+    "peak_hours": "ساعات الذروة",
+    "busiest_day": "أكثر الأيام ازدحاماً",
+    "top_service": "أفضل خدمة",
+    "best_performer": "أفضل أداء",
+    "revenue_trend": "اتجاه الإيرادات",
+    "client_satisfaction": "رضا العملاء"
+  },
+  "overview_subtitle": "إليك نظرة عامة على نشاطك اليوم",
+  "demo_mode": "وضع التجريب",
+  "real_data": "البيانات الحقيقية",
+  "time_periods": {
+    "day": "يوم",
+    "week": "أسبوع",
+    "month": "شهر"
+  },
+  "kpis": {
+    "daily_revenue": "الإيرادات اليومية",
+    "monthly_revenue": "الإيرادات الشهرية",
+    "clients": "العملاء",
+    "occupancy": "الإشغال",
+    "appointments": "مواعيد",
+    "this_month": "هذا الشهر",
+    "upcoming": "قادمة"
+  },
+  "charts_titles": {
+    "revenue_evolution": "تطور الإيرادات",
+    "appointments_by_status": "المواعيد حسب الحالة",
+    "popular_services": "الخدمات الشائعة"
+  },
+  "alerts": {
+    "subscription_limit": "أنت تقترب من حد المواعيد ({{percentage}}% مستخدم)",
+    "upgrade": "ترقية",
+    "unconfirmed_appointments": "{{count}} مواعيد للتأكيد اليوم",
+    "view": "عرض",
+    "loyal_clients": "{{count}} عملاء مخلصين يستحقون مكافأة",
+    "manage": "إدارة"
+  },
+  "recent_activity": {
+    "title": "النشاط الأخير",
+    "no_activity": "لا يوجد نشاط حديث",
+    "actions": {
+      "created": "تم إنشاء موعد",
+      "confirmed": "تم تأكيد الموعد",
+      "completed": "تم إكمال الموعد",
+      "cancelled": "تم إلغاء الموعد",
+      "rescheduled": "تم إعادة جدولة الموعد",
+      "no_show": "العميل لم يحضر"
+    },
+    "time": {
+      "just_now": "الآن",
+      "minutes_ago": "منذ {{minutes}} دقيقة",
+      "hours_ago": "منذ {{hours}} ساعة",
+      "days_ago": "منذ {{days}} يوم"
+    },
+    "unknown_client": "عميل غير معروف"
+  },
+  "components": {
+    "upcoming_appointments": {
+      "title": "المواعيد القادمة",
+      "no_appointments": "لا توجد مواعيد قادمة",
+      "today": "اليوم",
+      "tomorrow": "غداً",
+      "statuses": {
+        "scheduled": "مجدول",
+        "confirmed": "مؤكد",
+        "rescheduled": "معاد جدولته"
+      }
+    },
+    "appointment_chart": {
+      "title": "المواعيد حسب الحالة",
+      "no_data": "لا توجد مواعيد لهذه الفترة",
+      "total": "المجموع",
+      "statuses": {
+        "scheduled": "مجدولة",
+        "confirmed": "مؤكدة",
+        "completed": "مكتملة",
+        "cancelled": "ملغاة",
+        "noShow": "لم يحضر",
+        "rescheduled": "معاد جدولتها"
+      }
+    },
+    "business_insights": {
+      "title": "رؤى الأعمال",
+      "insights": {
+        "high_cancellation_title": "معدل إلغاء مرتفع",
+        "high_cancellation_desc": "{{rate}}% إلغاءات هذا الشهر. فكر في إرسال تذكيرات SMS.",
+        "top_service_title": "الخدمة الأكثر ربحية",
+        "top_service_desc": "\"{{service}}\" تحقق {{revenue}}€ من الإيرادات. فكر في الترويج لها.",
+        "loyal_clients_title": "العملاء المخلصون",
+        "loyal_clients_desc": "{{rate}}% من عملائك لديهم أكثر من 50 نقطة ولاء. أنشئ برنامج مكافآت.",
+        "popular_slot_title": "الوقت الأكثر شعبية",
+        "popular_slot_desc": "{{slot}} هو وقتك الأكثر شعبية. حسن جدولك وفقاً لذلك.",
+        "low_acquisition_title": "اكتساب عملاء منخفض",
+        "low_acquisition_desc": "لا يوجد عملاء جدد هذا الأسبوع. أطلق حملة ترويجية."
+      }
+    },
+    "revenue_chart": {
+      "title": "تطور الإيرادات",
+      "tooltip": "{{value}}€"
+    },
+    "service_popularity": {
+      "no_data": "لا توجد بيانات متاحة",
+      "unknown_service": "خدمة غير معروفة",
+      "other_category": "أخرى"
+    },
+    "team_performance": {
+      "title": "أداء الفريق",
+      "no_members": "لا يوجد أعضاء فريق",
+      "completed": "مكتمل"
+    }
+  }
+}

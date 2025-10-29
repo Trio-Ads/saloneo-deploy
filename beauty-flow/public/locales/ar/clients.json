@@ -1,0 +1,230 @@
+{
+  "title": "العملاء",
+  "new_client": "عميل جديد",
+  "edit_client": "تعديل العميل",
+  "client_details": "تفاصيل العميل",
+  "client_profile": "ملف العميل",
+  "all_clients": "جميع العملاء",
+  "active_clients": "العملاء النشطون",
+  "inactive_clients": "العملاء غير النشطين",
+  "vip_clients": "عملاء VIP",
+  "form": {
+    "first_name": "الاسم الأول",
+    "last_name": "اسم العائلة",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف",
+    "date_of_birth": "تاريخ الميلاد",
+    "gender": "الجنس",
+    "address": "العنوان",
+    "city": "المدينة",
+    "postal_code": "الرمز البريدي",
+    "notes": "ملاحظات",
+    "preferences": "التفضيلات",
+    "allergies": "الحساسية",
+    "skin_type": "نوع البشرة",
+    "hair_type": "نوع الشعر",
+    "preferred_stylist": "مصفف الشعر المفضل",
+    "marketing_consent": "موافقة التسويق",
+    "emergency_contact": "جهة اتصال الطوارئ",
+    "emergency_phone": "هاتف الطوارئ"
+  },
+  "placeholders": {
+    "first_name": "أدخل الاسم الأول",
+    "last_name": "أدخل اسم العائلة",
+    "email": "example@email.com",
+    "phone": "06 12 34 56 78",
+    "address": "123 شارع السلام",
+    "city": "الجزائر",
+    "postal_code": "16000",
+    "notes": "ملاحظات حول العميل...",
+    "allergies": "الحساسية المعروفة...",
+    "preferences": "تفضيلات العميل..."
+  },
+  "gender": {
+    "male": "ذكر",
+    "female": "أنثى",
+    "other": "آخر",
+    "prefer_not_to_say": "أفضل عدم القول"
+  },
+  "skin_type": {
+    "normal": "عادية",
+    "dry": "جافة",
+    "oily": "دهنية",
+    "combination": "مختلطة",
+    "sensitive": "حساسة"
+  },
+  "hair_type": {
+    "straight": "مستقيم",
+    "wavy": "متموج",
+    "curly": "مجعد",
+    "coily": "ملفوف",
+    "fine": "ناعم",
+    "thick": "كثيف"
+  },
+  "status": {
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "vip": "VIP",
+    "new": "جديد"
+  },
+  "actions": {
+    "add_client": "إضافة عميل",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "view_history": "عرض التاريخ",
+    "book_appointment": "حجز موعد",
+    "send_message": "إرسال رسالة",
+    "mark_vip": "تسجيل VIP",
+    "export": "تصدير",
+    "import": "استيراد"
+  },
+  "filters": {
+    "search": "البحث عن العملاء...",
+    "all_status": "جميع الحالات",
+    "all_genders": "جميع الأجناس",
+    "all_stylists": "جميع المصففين",
+    "registration_date": "تاريخ التسجيل",
+    "last_visit": "آخر زيارة"
+  },
+  "statistics": {
+    "total_clients": "إجمالي العملاء",
+    "new_this_month": "جديد هذا الشهر",
+    "active_clients": "العملاء النشطون",
+    "vip_clients": "عملاء VIP",
+    "average_visits": "متوسط الزيارات",
+    "retention_rate": "معدل الاحتفاظ"
+  },
+  "history": {
+    "appointment_history": "تاريخ المواعيد",
+    "last_visit": "آخر زيارة",
+    "total_visits": "إجمالي الزيارات",
+    "total_spent": "إجمالي المبلغ المنفق",
+    "favorite_services": "الخدمات المفضلة",
+    "no_history": "لا يوجد تاريخ متاح"
+  },
+  "messages": {
+    "client_created": "تم إنشاء العميل بنجاح",
+    "client_updated": "تم تحديث العميل بنجاح",
+    "client_deleted": "تم حذف العميل بنجاح",
+    "no_clients": "لم يتم العثور على عملاء",
+    "loading": "جاري تحميل العملاء...",
+    "confirm_delete": "هل أنت متأكد من حذف هذا العميل؟",
+    "email_exists": "عنوان البريد الإلكتروني موجود بالفعل",
+    "phone_exists": "رقم الهاتف موجود بالفعل",
+    "export_success": "تم تصدير العملاء بنجاح",
+    "import_success": "تم استيراد العملاء بنجاح"
+  },
+  "import_export": {
+    "export_clients": "تصدير العملاء",
+    "import_clients": "استيراد العملاء",
+    "download_template": "تحميل النموذج",
+    "select_file": "اختيار ملف",
+    "supported_formats": "التنسيقات المدعومة: CSV، Excel"
+  },
+  "page_title": "إدارة العملاء",
+  "page_subtitle": "إدارة قاعدة عملائك وبناء علاقات دائمة",
+  "loading": {
+    "clients": "جاري تحميل عملائك...",
+    "preparing": "تحضير قاعدة بيانات العملاء"
+  },
+  "stats": {
+    "clients_total_badge": "عميل إجمالي",
+    "vip_clients_badge": "عملاء VIP",
+    "total": "الإجمالي",
+    "all_clients": "جميع العملاء",
+    "vip_title": "عملاء VIP",
+    "vip_description": "100+ نقطة ولاء",
+    "recent_title": "جديد (30ي)",
+    "recent_description": "عملاء حديثون",
+    "loyalty_title": "نقاط الولاء",
+    "loyalty_description": "نقاط متراكمة"
+  },
+  "search": {
+    "placeholder": "البحث عن عميل (الاسم، البريد الإلكتروني، الهاتف...)",
+    "results": "عميل موجود لـ"
+  },
+  "empty_state": {
+    "no_clients": "لم يتم العثور على عملاء",
+    "modify_filters": "جرب تعديل مرشحات البحث",
+    "create_first": "ابدأ بإنشاء عميلك الأول",
+    "create_client": "إنشاء عميل"
+  },
+  "errors": {
+    "saving": "خطأ في حفظ العميل:",
+    "deleting": "خطأ في حذف العميل:"
+  },
+  "client_form": {
+    "title_new": "عميل جديد",
+    "title_edit": "تعديل العميل",
+    "subtitle": "املأ معلومات العميل لتخصيص تجربته",
+    "sections": {
+      "personal_info": "المعلومات الشخصية",
+      "preferences": "التفضيلات",
+      "communication": "تفضيلات التواصل"
+    },
+    "labels": {
+      "first_name_required": "الاسم الأول *",
+      "last_name_required": "اسم العائلة *",
+      "phone_required": "الهاتف *",
+      "birth_date": "تاريخ الميلاد",
+      "favorite_services": "الخدمات المفضلة",
+      "preferred_stylists": "المصففون المفضلون",
+      "sms_reminders": "تذكيرات SMS",
+      "email_marketing": "التسويق عبر البريد الإلكتروني",
+      "birthday_offers": "عروض أعياد الميلاد"
+    },
+    "placeholders": {
+      "enter_first_name": "أدخل الاسم الأول",
+      "enter_last_name": "أدخل اسم العائلة",
+      "phone_example": "+966 50 123 4567",
+      "address_example": "123 شارع الجمال، الرياض 12345",
+      "notes_placeholder": "ملاحظات إضافية حول العميل..."
+    },
+    "buttons": {
+      "cancel": "إلغاء",
+      "add": "إضافة",
+      "modify": "تعديل"
+    },
+    "error_message": "خطأ في إرسال النموذج:"
+  },
+  "client_list": {
+    "empty_state": {
+      "title": "لا يوجد عملاء مسجلون",
+      "subtitle": "ابدأ بإضافة عملائك الأوائل",
+      "cta": "أنشئ ملف العميل الأول"
+    },
+    "loyalty_levels": {
+      "vip": "VIP",
+      "gold": "ذهبي",
+      "silver": "فضي",
+      "bronze": "برونزي"
+    },
+    "info_labels": {
+      "email": "البريد الإلكتروني",
+      "phone": "الهاتف",
+      "birth_date": "تاريخ الميلاد",
+      "last_visit": "آخر زيارة"
+    },
+    "profile_sections": {
+      "hair_profile": "ملف الشعر",
+      "loyalty_points": "نقاط الولاء",
+      "communication": "التواصل",
+      "favorite_services": "الخدمات المفضلة",
+      "preferred_stylists": "المصففون المفضلون",
+      "notes": "الملاحظات"
+    },
+    "hair_info": {
+      "type": "النوع:",
+      "thickness": "السماكة:"
+    },
+    "communication_badges": {
+      "sms": "SMS",
+      "email": "البريد الإلكتروني",
+      "birthday": "عيد الميلاد"
+    },
+    "tooltips": {
+      "edit_client": "تعديل العميل",
+      "delete_client": "حذف العميل"
+    }
+  }
+}

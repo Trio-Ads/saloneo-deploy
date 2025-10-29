@@ -1,0 +1,304 @@
+{
+  "title": "Rendez-vous",
+  "page_title": "Gestion des Rendez-vous",
+  "page_subtitle": "Planifiez et gérez vos rendez-vous avec élégance",
+  "new_appointment": "Nouveau rendez-vous",
+  "edit_appointment": "Modifier le rendez-vous",
+  "appointment_details": "Détails du rendez-vous",
+  "upcoming": "À venir",
+  "past": "Passés",
+  "today": "Aujourd'hui",
+  "this_week": "Cette semaine",
+  "this_month": "Ce mois",
+  "all": "Tous",
+  "status": {
+    "pending": "En attente",
+    "scheduled": "Agendado",
+    "confirmed": "Confirmé",
+    "in_progress": "En cours",
+    "completed": "Terminé",
+    "cancelled": "Annulé",
+    "no_show": "Absent",
+    "inProgress": "Iteddu",
+    "noShow": "Ur d-yusi ara"
+  },
+  "form": {
+    "client": "Client",
+    "service": "Service",
+    "stylist": "Coiffeur",
+    "date": "Date",
+    "time": "Heure",
+    "duration": "Durée",
+    "price": "Prix",
+    "notes": "Notes",
+    "select_client": "Sélectionner un client",
+    "select_service": "Sélectionner un service",
+    "select_stylist": "Sélectionner un coiffeur",
+    "select_date": "Sélectionner une date",
+    "select_time": "Sélectionner une heure",
+    "add_notes": "Ajouter des notes",
+    "client_phone": "Téléphone du client",
+    "client_email": "Email du client",
+    "reminder_sent": "Rappel envoyé",
+    "payment_status": "Statut du paiement",
+    "clientInfo": "Talɣut n umsaɣ",
+    "serviceInfo": "Talɣut n umeẓlu",
+    "dateTime": "Azemz d wakud",
+    "additionalInfo": "Talɣut-nniḍen",
+    "save": "Sekles",
+    "cancel": "Sefsex"
+  },
+  "actions": {
+    "book": "Réserver",
+    "reschedule": "Reprogrammer",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "complete": "Terminer",
+    "mark_no_show": "Marquer absent",
+    "send_reminder": "Envoyer un rappel",
+    "view_details": "Voir les détails",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "duplicate": "Dupliquer"
+  },
+  "filters": {
+    "all_status": "Tous les statuts",
+    "all_stylists": "Tous les coiffeurs",
+    "all_services": "Tous les services",
+    "date_range": "Plage de dates",
+    "from": "Du",
+    "to": "Au"
+  },
+  "messages": {
+    "appointment_created": "Rendez-vous créé avec succès",
+    "appointment_updated": "Rendez-vous mis à jour avec succès",
+    "appointment_cancelled": "Rendez-vous annulé avec succès",
+    "appointment_confirmed": "Rendez-vous confirmé avec succès",
+    "appointment_completed": "Rendez-vous terminé avec succès",
+    "reminder_sent": "Rappel envoyé avec succès",
+    "no_appointments": "Aucun rendez-vous trouvé",
+    "loading": "Chargement des rendez-vous...",
+    "confirm_cancel": "Êtes-vous sûr de vouloir annuler ce rendez-vous ?",
+    "confirm_delete": "Êtes-vous sûr de vouloir supprimer ce rendez-vous ?",
+    "slot_unavailable": "Ce créneau n'est plus disponible",
+    "overlap_warning": "Ce rendez-vous chevauche avec un autre"
+  },
+  "calendar": {
+    "month_view": "Vue mensuelle",
+    "week_view": "Vue hebdomadaire",
+    "day_view": "Vue journalière",
+    "agenda_view": "Vue agenda",
+    "today": "Aujourd'hui",
+    "previous": "Précédent",
+    "next": "Suivant"
+  },
+  "statistics": {
+    "total_appointments": "Total des rendez-vous",
+    "confirmed_appointments": "Rendez-vous confirmés",
+    "completed_appointments": "Rendez-vous terminés",
+    "cancelled_appointments": "Rendez-vous annulés",
+    "no_show_rate": "Taux d'absence",
+    "average_duration": "Durée moyenne",
+    "revenue": "Chiffre d'affaires"
+  },
+  "loading": {
+    "planning": "Chargement de votre planning...",
+    "interface_preparation": "Préparation de l'interface"
+  },
+  "stats": {
+    "total_appointments_badge": "rendez-vous au total",
+    "pending_badge": "en attente",
+    "total": "Total",
+    "all_appointments": "Tous les rendez-vous",
+    "scheduled": "Planifiés",
+    "awaiting_confirmation": "En attente de confirmation",
+    "confirmed": "Confirmés",
+    "ready_to_perform": "Prêts à être réalisés",
+    "completed": "Terminés",
+    "services_performed": "Services réalisés"
+  },
+  "search": {
+    "placeholder": "Rechercher un client ou service..."
+  },
+  "view_modes": {
+    "list": "Liste",
+    "calendar": "Calendrier"
+  },
+  "empty_state": {
+    "no_appointments": "Aucun rendez-vous trouvé",
+    "modify_filters": "Essayez de modifier vos filtres de recherche",
+    "create_first": "Commencez par créer votre premier rendez-vous",
+    "create_appointment": "Créer un rendez-vous"
+  },
+  "past_appointments": {
+    "complete_action": "Terminer",
+    "no_show_action": "Non présentés",
+    "found_message": "rendez-vous passés trouvés. Souhaitez-vous les marquer comme",
+    "completed_status": "Terminés",
+    "no_show_status": "Non présentés",
+    "none_to_process": "Aucun rendez-vous passé à traiter.",
+    "processed_message": "rendez-vous ont été traités.",
+    "processing_error": "Erreur lors du traitement des rendez-vous passés."
+  },
+  "limits": {
+    "title": "Limite de Rendez-vous"
+  },
+  "success_messages": {
+    "appointment_created": "Rendez-vous créé avec succès !"
+  },
+  "errors": {
+    "form_submission": "Erreur lors de la soumission du formulaire:"
+  },
+  "appointment_form": {
+    "title_new": "Nouveau Rendez-vous",
+    "title_edit": "Modifier le Rendez-vous",
+    "subtitle": "Planifiez un rendez-vous pour votre client",
+    "sections": {
+      "client": "Client",
+      "service": "Service",
+      "stylist": "Coiffeur",
+      "scheduling": "Planification",
+      "notes": "Notes",
+      "summary": "Résumé du Rendez-vous"
+    },
+    "labels": {
+      "select_client": "Sélectionner un client *",
+      "choose_client": "Choisir un client...",
+      "client_selected": "Client sélectionné:",
+      "select_service": "Sélectionner un service *",
+      "choose_service": "Choisir un service...",
+      "service_selected": "Service:",
+      "select_stylist": "Sélectionner un coiffeur *",
+      "choose_stylist": "Choisir un coiffeur...",
+      "stylist_selected": "Coiffeur:",
+      "date": "Date *",
+      "time": "Heure *",
+      "select_time": "Sélectionner une heure...",
+      "additional_notes": "Notes supplémentaires",
+      "notes_placeholder": "Ajoutez des notes sur le rendez-vous, les préférences du client..."
+    },
+    "messages": {
+      "select_service_stylist_first": "Sélectionnez d'abord un service et un coiffeur",
+      "no_slots_available": "Aucun créneau disponible pour cette date",
+      "slots_available": "créneaux disponibles",
+      "invalid_date": "Date invalide"
+    },
+    "summary_labels": {
+      "client": "Client:",
+      "service": "Service:",
+      "stylist": "Coiffeur:",
+      "date": "Date:",
+      "time": "Heure:",
+      "duration": "Durée:",
+      "price": "Prix:"
+    },
+    "buttons": {
+      "cancel": "Annuler",
+      "create": "Créer le Rendez-vous",
+      "modify": "Modifier"
+    },
+    "unknown": {
+      "client": "Client inconnu",
+      "service": "Service inconnu",
+      "stylist": "Coiffeur inconnu"
+    }
+  },
+  "appointment_list": {
+    "no_appointments": "Aucun rendez-vous",
+    "no_appointments_period": "Aucun rendez-vous prévu pour cette période",
+    "schedule_first": "Planifiez vos premiers rendez-vous",
+    "appointments_count": "rendez-vous",
+    "past_appointment": "Date passée",
+    "invalid_date": "Date invalide",
+    "tooltips": {
+      "confirm": "Confirmer le rendez-vous",
+      "edit": "Modifier le rendez-vous",
+      "complete": "Marquer comme terminé",
+      "no_show": "Marquer comme non présenté",
+      "cancel": "Annuler le rendez-vous"
+    },
+    "details": {
+      "service": "Service",
+      "stylist": "Coiffeur",
+      "notes": "Notes"
+    },
+    "status_labels": {
+      "scheduled": "Planifié",
+      "confirmed": "Confirmé",
+      "completed": "Terminé",
+      "cancelled": "Annulé",
+      "no_show": "Non présenté"
+    },
+    "overdue": "Date passée"
+  },
+  "calendar_view": {
+    "today": "Aujourd'hui",
+    "previous_week": "Semaine précédente",
+    "next_week": "Semaine suivante",
+    "week_from": "Semaine du",
+    "week_to": "au",
+    "stats": {
+      "total": "Total RDV",
+      "confirmed": "Confirmés",
+      "completed": "Terminés"
+    },
+    "appointments_abbr": "RDV",
+    "no_appointments": "Aucun RDV",
+    "free": "Libre",
+    "overdue": "Retard",
+    "legend": {
+      "title": "Légende des statuts"
+    }
+  },
+  "appointment_settings": {
+    "buffer_time": "Temps de battement entre rendez-vous",
+    "buffer_time_description": "Temps minimum entre deux rendez-vous pour permettre le nettoyage et la préparation",
+    "min_booking_time": "Délai minimum de réservation",
+    "min_booking_time_description": "Temps minimum requis entre la réservation et le rendez-vous",
+    "max_advance_booking": "Réservation maximale à l'avance",
+    "max_advance_booking_description": "Nombre maximum de jours à l'avance pour réserver un rendez-vous",
+    "cancellation_policy": "Politique d'annulation",
+    "allow_cancellation": "Autoriser l'annulation en ligne",
+    "cancellation_deadline": "Délai limite d'annulation",
+    "cancellation_deadline_description": "heures avant le rendez-vous",
+    "business_hours": "Horaires d'ouverture",
+    "opening_time": "Heure d'ouverture",
+    "closing_time": "Heure de fermeture",
+    "lunch_break": "Pause déjeuner",
+    "lunch_start": "Début de pause",
+    "lunch_end": "Fin de pause",
+    "save_settings": "Enregistrer les paramètres",
+    "saving": "Enregistrement...",
+    "success_message": "Paramètres de rendez-vous sauvegardés avec succès !",
+    "error_message": "Erreur lors de la sauvegarde des paramètres",
+    "units": {
+      "minutes": "minutes",
+      "hours_advance": "heures à l'avance",
+      "days": "jours",
+      "hours_before": "heures avant le rendez-vous"
+    }
+  },
+  "addAppointment": "Rnu asuref",
+  "editAppointment": "Ẓreg asuref",
+  "deleteAppointment": "Kkes asuref",
+  "appointmentDetails": "Talqayt n usuref",
+  "client": "Amsaɣ",
+  "service": "Ameẓlu",
+  "staff": "Axeddim",
+  "date": "Azemz",
+  "time": "Akud",
+  "duration": "Tanzagt",
+  "price": "Ssuma",
+  "notes": "Tizmilin",
+  "noAppointments": "Ulac isuraf",
+  "searchAppointments": "Nadi isuraf",
+  "filterByStatus": "Sizdeg s waddad",
+  "filterByDate": "Sizdeg s wzemz",
+  "filterByStaff": "Sizdeg s uxeddim",
+  "todayAppointments": "Isuraf n wass-a",
+  "upcomingAppointments": "Isuraf i d-iteddun",
+  "pastAppointments": "Isuraf iɛeddan",
+  "dayView": "Taskant n wass",
+  "weekView": "Taskant n dduṛt",
+  "monthView": "Taskant n waggur"
+}

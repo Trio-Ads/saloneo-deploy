@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Redirection SATIM - Succès</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+        }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .button {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .button.error {
+            background-color: #f44336;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test de Redirection SATIM - Succès</h1>
+    
+    <div class="card">
+        <h2>Instructions</h2>
+        <p>Cette page simule une redirection de SATIM après un paiement réussi. Cliquez sur le bouton ci-dessous pour simuler une redirection vers la page de succès.</p>
+        
+        <a href="/subscription?success=true&plan=PRO&transaction_id=test123456&amount=3500&payment_method=CIB&card_last4=1234" class="button">Simuler un paiement réussi</a>
+    </div>
+    
+    <div class="card">
+        <h2>Paramètres de redirection</h2>
+        <pre>
+success=true
+plan=PRO
+transaction_id=test123456
+amount=3500
+payment_method=CIB
+card_last4=1234
+        </pre>
+    </div>
+    
+    <div class="card">
+        <h2>Autres tests</h2>
+        <a href="/subscription?error=payment_failed" class="button error">Simuler un échec de paiement</a>
+        <a href="/subscription?error=payment_cancelled" class="button error">Simuler une annulation de paiement</a>
+    </div>
+    
+    <div class="card">
+        <h2>Débogage</h2>
+        <p>Si vous rencontrez des problèmes avec les redirections, vous pouvez utiliser le script de débogage suivant dans la console du navigateur après avoir été redirigé :</p>
+        <pre>
+// Exécuter ce script dans la console après redirection
+(function() {
+  console.log('=== DÉBOGAGE REDIRECTION PAIEMENT ===');
+  
+  // Afficher l'URL complète
+  console.log('URL complète:', window.location.href);
+  
+  // Analyser les paramètres d'URL
+  const params = new URLSearchParams(window.location.search);
+  console.log('Paramètres d\'URL:', Object.fromEntries(params.entries()));
+  
+  // Vérifier les paramètres spécifiques
+  console.log('- success:', params.get('success'));
+  console.log('- error:', params.get('error'));
+  console.log('- plan:', params.get('plan'));
+  console.log('- transaction_id:', params.get('transaction_id'));
+  
+  return 'Débogage terminé';
+})();
+        </pre>
+    </div>
+</body>
+</html>

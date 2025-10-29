@@ -1,0 +1,49 @@
+{
+  "name": "saloneo-app",
+  "version": "1.0.0",
+  "description": "Saloneo - Application complète de gestion de salon de beauté",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "npm run build:frontend && npm run build:backend && npm run copy:dist",
+    "build:frontend": "cd beauty-flow && npm ci && npm run build",
+    "build:backend": "cd beauty-flow-backend && npm ci && npm run build",
+    "copy:dist": "cp -r beauty-flow/dist ./dist 2>/dev/null || true",
+    "dev": "npm run build && npm start",
+    "install:all": "npm install && cd beauty-flow && npm install && cd ../beauty-flow-backend && npm install",
+    "test": "echo \"Tests à implémenter\" && exit 0"
+  },
+  "keywords": [
+    "salon",
+    "beauté",
+    "gestion",
+    "rendez-vous",
+    "saloneo"
+  ],
+  "author": "Trio Digital",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.10.0",
+    "bcryptjs": "^2.4.3",
+    "chalk": "^4.1.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.0.0",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.2",
+    "multer": "^1.4.5-lts.1",
+    "sharp": "^0.33.5",
+    "socket.io": "^4.8.1",
+    "ts-node": "^10.9.2",
+    "uuid": "^11.1.0",
+    "winston": "^3.17.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}

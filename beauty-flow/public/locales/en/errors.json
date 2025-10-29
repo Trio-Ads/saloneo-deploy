@@ -1,0 +1,72 @@
+{
+  "validation": {
+    "required": "This field is required",
+    "email": "Please enter a valid email address",
+    "phone": "Please enter a valid phone number",
+    "min_length": "Minimum {{count}} characters required",
+    "max_length": "Maximum {{count}} characters allowed",
+    "password_mismatch": "Passwords do not match",
+    "invalid_format": "Invalid format",
+    "invalid_date": "Please enter a valid date",
+    "invalid_time": "Please enter a valid time",
+    "future_date": "Date must be in the future",
+    "past_date": "Date must be in the past"
+  },
+  "network": {
+    "connection_error": "Connection error",
+    "timeout": "Request timeout",
+    "server_error": "Server error",
+    "not_found": "Resource not found",
+    "unauthorized": "Unauthorized access",
+    "forbidden": "Access forbidden",
+    "too_many_requests": "Too many requests"
+  },
+  "auth": {
+    "invalid_credentials": "Invalid credentials",
+    "account_locked": "Account locked",
+    "session_expired": "Session expired",
+    "login_required": "Login required",
+    "insufficient_permissions": "Insufficient permissions"
+  },
+  "booking": {
+    "slot_unavailable": "This time slot is no longer available",
+    "service_unavailable": "This service is not available",
+    "stylist_unavailable": "This stylist is not available",
+    "booking_failed": "Booking failed",
+    "cancellation_failed": "Cancellation failed",
+    "modification_failed": "Modification failed",
+    "error": "An error occurred while creating the booking. Please try again."
+  },
+  "payment": {
+    "payment_failed": "Payment failed",
+    "invalid_card": "Invalid card information",
+    "insufficient_funds": "Insufficient funds",
+    "payment_declined": "Payment declined",
+    "transaction_error": "Transaction error"
+  },
+  "general": {
+    "unexpected_error": "Oops! An error occurred",
+    "application_error": "The application encountered a problem. This may be due to corrupted data in the cache.",
+    "reload_page": "Reload page",
+    "reset_data": "Reset data",
+    "error_details": "Error details",
+    "close_notification": "Close notification",
+    "try_again": "Please try again",
+    "contact_support": "Please contact support if the problem persists"
+  },
+  "salon": {
+    "not_found": "Salon not found",
+    "not_found_description": "The salon you are looking for does not exist."
+  },
+  "template": {
+    "not_found": "Template not found",
+    "not_found_description": "The selected template is not available."
+  },
+  "service": {
+    "not_found": "Service not found"
+  },
+  "loading": {
+    "please_wait": "Please wait",
+    "loading": "Loading..."
+  }
+}

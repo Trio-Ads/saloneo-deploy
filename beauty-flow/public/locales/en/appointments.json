@@ -1,0 +1,273 @@
+{
+  "title": "Appointments",
+  "page_title": "Appointment Management",
+  "page_subtitle": "Schedule and manage your appointments with elegance",
+  "new_appointment": "New Appointment",
+  "edit_appointment": "Edit Appointment",
+  "appointment_details": "Appointment Details",
+  "upcoming": "Upcoming",
+  "past": "Past",
+  "today": "Today",
+  "this_week": "This Week",
+  "this_month": "This Month",
+  "all": "All",
+  "status": {
+    "pending": "Pending",
+    "scheduled": "Scheduled",
+    "confirmed": "Confirmed",
+    "in_progress": "In Progress",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
+    "no_show": "No Show"
+  },
+  "form": {
+    "client": "Client",
+    "service": "Service",
+    "stylist": "Stylist",
+    "date": "Date",
+    "time": "Time",
+    "duration": "Duration",
+    "price": "Price",
+    "notes": "Notes",
+    "select_client": "Select a client",
+    "select_service": "Select a service",
+    "select_stylist": "Select a stylist",
+    "select_date": "Select a date",
+    "select_time": "Select a time",
+    "add_notes": "Add notes",
+    "client_phone": "Client phone",
+    "client_email": "Client email",
+    "reminder_sent": "Reminder sent",
+    "payment_status": "Payment status"
+  },
+  "actions": {
+    "book": "Book",
+    "reschedule": "Reschedule",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "complete": "Complete",
+    "mark_no_show": "Mark No Show",
+    "send_reminder": "Send Reminder",
+    "view_details": "View Details",
+    "edit": "Edit",
+    "delete": "Delete",
+    "duplicate": "Duplicate"
+  },
+  "filters": {
+    "all_status": "All Status",
+    "all_stylists": "All Stylists",
+    "all_services": "All Services",
+    "date_range": "Date Range",
+    "from": "From",
+    "to": "To"
+  },
+  "messages": {
+    "appointment_created": "Appointment created successfully",
+    "appointment_updated": "Appointment updated successfully",
+    "appointment_cancelled": "Appointment cancelled successfully",
+    "appointment_confirmed": "Appointment confirmed successfully",
+    "appointment_completed": "Appointment completed successfully",
+    "reminder_sent": "Reminder sent successfully",
+    "no_appointments": "No appointments found",
+    "loading": "Loading appointments...",
+    "confirm_cancel": "Are you sure you want to cancel this appointment?",
+    "confirm_delete": "Are you sure you want to delete this appointment?",
+    "slot_unavailable": "This time slot is no longer available",
+    "overlap_warning": "This appointment overlaps with another one"
+  },
+  "calendar": {
+    "month_view": "Month View",
+    "week_view": "Week View",
+    "day_view": "Day View",
+    "agenda_view": "Agenda View",
+    "today": "Today",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "statistics": {
+    "total_appointments": "Total Appointments",
+    "confirmed_appointments": "Confirmed Appointments",
+    "completed_appointments": "Completed Appointments",
+    "cancelled_appointments": "Cancelled Appointments",
+    "no_show_rate": "No Show Rate",
+    "average_duration": "Average Duration",
+    "revenue": "Revenue"
+  },
+  "loading": {
+    "planning": "Loading your schedule...",
+    "interface_preparation": "Preparing interface"
+  },
+  "stats": {
+    "total_appointments_badge": "appointments total",
+    "pending_badge": "pending",
+    "total": "Total",
+    "all_appointments": "All appointments",
+    "scheduled": "Scheduled",
+    "awaiting_confirmation": "Awaiting confirmation",
+    "confirmed": "Confirmed",
+    "ready_to_perform": "Ready to perform",
+    "completed": "Completed",
+    "services_performed": "Services performed"
+  },
+  "search": {
+    "placeholder": "Search for a client or service..."
+  },
+  "view_modes": {
+    "list": "List",
+    "calendar": "Calendar"
+  },
+  "empty_state": {
+    "no_appointments": "No appointments found",
+    "modify_filters": "Try modifying your search filters",
+    "create_first": "Start by creating your first appointment",
+    "create_appointment": "Create appointment"
+  },
+  "past_appointments": {
+    "complete_action": "Complete",
+    "no_show_action": "No Shows",
+    "found_message": "past appointments found. Do you want to mark them as",
+    "completed_status": "Completed",
+    "no_show_status": "No Shows",
+    "none_to_process": "No past appointments to process.",
+    "processed_message": "appointments have been processed.",
+    "processing_error": "Error processing past appointments."
+  },
+  "limits": {
+    "title": "Appointment Limits"
+  },
+  "success_messages": {
+    "appointment_created": "Appointment created successfully!"
+  },
+  "errors": {
+    "form_submission": "Error submitting form:"
+  },
+  "appointment_form": {
+    "title_new": "New Appointment",
+    "title_edit": "Edit Appointment",
+    "subtitle": "Schedule an appointment for your client",
+    "sections": {
+      "client": "Client",
+      "service": "Service",
+      "stylist": "Stylist",
+      "scheduling": "Scheduling",
+      "notes": "Notes",
+      "summary": "Appointment Summary"
+    },
+    "labels": {
+      "select_client": "Select a client *",
+      "choose_client": "Choose a client...",
+      "client_selected": "Selected client:",
+      "select_service": "Select a service *",
+      "choose_service": "Choose a service...",
+      "service_selected": "Service:",
+      "select_stylist": "Select a stylist *",
+      "choose_stylist": "Choose a stylist...",
+      "stylist_selected": "Stylist:",
+      "date": "Date *",
+      "time": "Time *",
+      "select_time": "Select a time...",
+      "additional_notes": "Additional notes",
+      "notes_placeholder": "Add notes about the appointment, client preferences..."
+    },
+    "messages": {
+      "select_service_stylist_first": "Please select a service and stylist first",
+      "no_slots_available": "No time slots available for this date",
+      "slots_available": "slots available",
+      "invalid_date": "Invalid date"
+    },
+    "summary_labels": {
+      "client": "Client:",
+      "service": "Service:",
+      "stylist": "Stylist:",
+      "date": "Date:",
+      "time": "Time:",
+      "duration": "Duration:",
+      "price": "Price:"
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "create": "Create Appointment",
+      "modify": "Modify"
+    },
+    "unknown": {
+      "client": "Unknown client",
+      "service": "Unknown service",
+      "stylist": "Unknown stylist"
+    }
+  },
+  "appointment_list": {
+    "no_appointments": "No appointments",
+    "no_appointments_period": "No appointments scheduled for this period",
+    "schedule_first": "Schedule your first appointments",
+    "appointments_count": "appointments",
+    "past_appointment": "Past date",
+    "invalid_date": "Invalid date",
+    "tooltips": {
+      "confirm": "Confirm appointment",
+      "edit": "Edit appointment",
+      "complete": "Mark as completed",
+      "no_show": "Mark as no-show",
+      "cancel": "Cancel appointment"
+    },
+    "details": {
+      "service": "Service",
+      "stylist": "Stylist",
+      "notes": "Notes"
+    },
+    "status_labels": {
+      "scheduled": "Scheduled",
+      "confirmed": "Confirmed",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "no_show": "No Show"
+    },
+    "overdue": "Overdue"
+  },
+  "calendar_view": {
+    "today": "Today",
+    "previous_week": "Previous week",
+    "next_week": "Next week",
+    "week_from": "Week from",
+    "week_to": "to",
+    "stats": {
+      "total": "Total Appointments",
+      "confirmed": "Confirmed",
+      "completed": "Completed"
+    },
+    "appointments_abbr": "appointments",
+    "no_appointments": "No Appointments",
+    "free": "Free",
+    "overdue": "Overdue",
+    "legend": {
+      "title": "Status Legend"
+    }
+  },
+  "appointment_settings": {
+    "buffer_time": "Buffer time between appointments",
+    "buffer_time_description": "Minimum time between two appointments for cleaning and preparation",
+    "min_booking_time": "Minimum booking time",
+    "min_booking_time_description": "Minimum time required between booking and appointment",
+    "max_advance_booking": "Maximum advance booking",
+    "max_advance_booking_description": "Maximum number of days in advance to book an appointment",
+    "cancellation_policy": "Cancellation policy",
+    "allow_cancellation": "Allow online cancellation",
+    "cancellation_deadline": "Cancellation deadline",
+    "cancellation_deadline_description": "hours before appointment",
+    "business_hours": "Business hours",
+    "opening_time": "Opening time",
+    "closing_time": "Closing time",
+    "lunch_break": "Lunch break",
+    "lunch_start": "Break start",
+    "lunch_end": "Break end",
+    "save_settings": "Save settings",
+    "saving": "Saving...",
+    "success_message": "Appointment settings saved successfully!",
+    "error_message": "Error saving settings",
+    "units": {
+      "minutes": "minutes",
+      "hours_advance": "hours in advance",
+      "days": "days",
+      "hours_before": "hours before appointment"
+    }
+  }
+}

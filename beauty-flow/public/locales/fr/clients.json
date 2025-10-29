@@ -1,0 +1,230 @@
+{
+  "title": "Clients",
+  "new_client": "Nouveau client",
+  "edit_client": "Modifier le client",
+  "client_details": "Détails du client",
+  "client_profile": "Profil client",
+  "all_clients": "Tous les clients",
+  "active_clients": "Clients actifs",
+  "inactive_clients": "Clients inactifs",
+  "vip_clients": "Clients VIP",
+  "form": {
+    "first_name": "Prénom",
+    "last_name": "Nom",
+    "email": "Email",
+    "phone": "Téléphone",
+    "date_of_birth": "Date de naissance",
+    "gender": "Genre",
+    "address": "Adresse",
+    "city": "Ville",
+    "postal_code": "Code postal",
+    "notes": "Notes",
+    "preferences": "Préférences",
+    "allergies": "Allergies",
+    "skin_type": "Type de peau",
+    "hair_type": "Type de cheveux",
+    "preferred_stylist": "Coiffeur préféré",
+    "marketing_consent": "Consentement marketing",
+    "emergency_contact": "Contact d'urgence",
+    "emergency_phone": "Téléphone d'urgence"
+  },
+  "placeholders": {
+    "first_name": "Entrez le prénom",
+    "last_name": "Entrez le nom",
+    "email": "exemple@email.com",
+    "phone": "06 12 34 56 78",
+    "address": "123 Rue de la Paix",
+    "city": "Paris",
+    "postal_code": "75001",
+    "notes": "Notes sur le client...",
+    "allergies": "Allergies connues...",
+    "preferences": "Préférences du client..."
+  },
+  "gender": {
+    "male": "Homme",
+    "female": "Femme",
+    "other": "Autre",
+    "prefer_not_to_say": "Préfère ne pas dire"
+  },
+  "skin_type": {
+    "normal": "Normale",
+    "dry": "Sèche",
+    "oily": "Grasse",
+    "combination": "Mixte",
+    "sensitive": "Sensible"
+  },
+  "hair_type": {
+    "straight": "Lisses",
+    "wavy": "Ondulés",
+    "curly": "Bouclés",
+    "coily": "Crépus",
+    "fine": "Fins",
+    "thick": "Épais"
+  },
+  "status": {
+    "active": "Actif",
+    "inactive": "Inactif",
+    "vip": "VIP",
+    "new": "Nouveau"
+  },
+  "actions": {
+    "add_client": "Ajouter un client",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "view_history": "Voir l'historique",
+    "book_appointment": "Prendre rendez-vous",
+    "send_message": "Envoyer un message",
+    "mark_vip": "Marquer VIP",
+    "export": "Exporter",
+    "import": "Importer"
+  },
+  "filters": {
+    "search": "Rechercher des clients...",
+    "all_status": "Tous les statuts",
+    "all_genders": "Tous les genres",
+    "all_stylists": "Tous les coiffeurs",
+    "registration_date": "Date d'inscription",
+    "last_visit": "Dernière visite"
+  },
+  "statistics": {
+    "total_clients": "Total clients",
+    "new_this_month": "Nouveaux ce mois",
+    "active_clients": "Clients actifs",
+    "vip_clients": "Clients VIP",
+    "average_visits": "Visites moyennes",
+    "retention_rate": "Taux de rétention"
+  },
+  "history": {
+    "appointment_history": "Historique des rendez-vous",
+    "last_visit": "Dernière visite",
+    "total_visits": "Total des visites",
+    "total_spent": "Total dépensé",
+    "favorite_services": "Services favoris",
+    "no_history": "Aucun historique disponible"
+  },
+  "messages": {
+    "client_created": "Client créé avec succès",
+    "client_updated": "Client mis à jour avec succès",
+    "client_deleted": "Client supprimé avec succès",
+    "no_clients": "Aucun client trouvé",
+    "loading": "Chargement des clients...",
+    "confirm_delete": "Êtes-vous sûr de vouloir supprimer ce client ?",
+    "email_exists": "Cette adresse email existe déjà",
+    "phone_exists": "Ce numéro de téléphone existe déjà",
+    "export_success": "Clients exportés avec succès",
+    "import_success": "Clients importés avec succès"
+  },
+  "import_export": {
+    "export_clients": "Exporter les clients",
+    "import_clients": "Importer les clients",
+    "download_template": "Télécharger le modèle",
+    "select_file": "Sélectionner un fichier",
+    "supported_formats": "Formats supportés: CSV, Excel"
+  },
+  "page_title": "Gestion des Clients",
+  "page_subtitle": "Gérez votre base clients et fidélisez vos relations",
+  "loading": {
+    "clients": "Chargement de vos clients...",
+    "preparing": "Préparation de votre base clients"
+  },
+  "stats": {
+    "clients_total_badge": "clients au total",
+    "vip_clients_badge": "clients VIP",
+    "total": "Total",
+    "all_clients": "Tous les clients",
+    "vip_title": "Clients VIP",
+    "vip_description": "100+ points fidélité",
+    "recent_title": "Nouveaux (30j)",
+    "recent_description": "Clients récents",
+    "loyalty_title": "Points Fidélité",
+    "loyalty_description": "Points cumulés"
+  },
+  "search": {
+    "placeholder": "Rechercher un client (nom, email, téléphone...)",
+    "results": "client(s) trouvé(s) pour"
+  },
+  "empty_state": {
+    "no_clients": "Aucun client trouvé",
+    "modify_filters": "Essayez de modifier vos filtres de recherche",
+    "create_first": "Commencez par créer votre premier client",
+    "create_client": "Créer un client"
+  },
+  "errors": {
+    "saving": "Erreur lors de la sauvegarde du client:",
+    "deleting": "Erreur lors de la suppression du client:"
+  },
+  "client_form": {
+    "title_new": "Nouveau Client",
+    "title_edit": "Modifier le Client",
+    "subtitle": "Remplissez les informations du client pour personnaliser son expérience",
+    "sections": {
+      "personal_info": "Informations Personnelles",
+      "preferences": "Préférences",
+      "communication": "Préférences de Communication"
+    },
+    "labels": {
+      "first_name_required": "Prénom *",
+      "last_name_required": "Nom *",
+      "phone_required": "Téléphone *",
+      "birth_date": "Date de naissance",
+      "favorite_services": "Services préférés",
+      "preferred_stylists": "Coiffeurs préférés",
+      "sms_reminders": "Rappels SMS",
+      "email_marketing": "Emails promotionnels",
+      "birthday_offers": "Offres d'anniversaire"
+    },
+    "placeholders": {
+      "enter_first_name": "Entrez le prénom",
+      "enter_last_name": "Entrez le nom",
+      "phone_example": "+33 6 12 34 56 78",
+      "address_example": "123 Rue de la Beauté, 75001 Paris",
+      "notes_placeholder": "Notes supplémentaires sur le client..."
+    },
+    "buttons": {
+      "cancel": "Annuler",
+      "add": "Ajouter",
+      "modify": "Modifier"
+    },
+    "error_message": "Erreur lors de la soumission du formulaire:"
+  },
+  "client_list": {
+    "empty_state": {
+      "title": "Aucun client enregistré",
+      "subtitle": "Commencez par ajouter vos premiers clients",
+      "cta": "Créez votre première fiche client"
+    },
+    "loyalty_levels": {
+      "vip": "VIP",
+      "gold": "Gold",
+      "silver": "Silver",
+      "bronze": "Bronze"
+    },
+    "info_labels": {
+      "email": "Email",
+      "phone": "Téléphone",
+      "birth_date": "Date de naissance",
+      "last_visit": "Dernière visite"
+    },
+    "profile_sections": {
+      "hair_profile": "Profil capillaire",
+      "loyalty_points": "Points fidélité",
+      "communication": "Communication",
+      "favorite_services": "Services préférés",
+      "preferred_stylists": "Coiffeurs préférés",
+      "notes": "Notes"
+    },
+    "hair_info": {
+      "type": "Type:",
+      "thickness": "Épaisseur:"
+    },
+    "communication_badges": {
+      "sms": "SMS",
+      "email": "Email",
+      "birthday": "Anniversaire"
+    },
+    "tooltips": {
+      "edit_client": "Modifier le client",
+      "delete_client": "Supprimer le client"
+    }
+  }
+}

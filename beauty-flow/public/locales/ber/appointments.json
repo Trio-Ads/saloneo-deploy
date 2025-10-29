@@ -1,0 +1,43 @@
+{
+  "title": "Isuraf",
+  "addAppointment": "Rnu asuref",
+  "editAppointment": "Ẓreg asuref",
+  "deleteAppointment": "Kkes asuref",
+  "appointmentDetails": "Talqayt n usuref",
+  "client": "Amsaɣ",
+  "service": "Ameẓlu",
+  "staff": "Axeddim",
+  "date": "Azemz",
+  "time": "Akud",
+  "duration": "Tanzagt",
+  "price": "Ssuma",
+  "status": {
+    "scheduled": "Yettusbedd",
+    "confirmed": "Yettusentem",
+    "inProgress": "Iteddu",
+    "completed": "Yekfa",
+    "cancelled": "Yettusefsex",
+    "noShow": "Ur d-yusi ara"
+  },
+  "notes": "Tizmilin",
+  "noAppointments": "Ulac isuraf",
+  "searchAppointments": "Nadi isuraf",
+  "filterByStatus": "Sizdeg s waddad",
+  "filterByDate": "Sizdeg s wzemz",
+  "filterByStaff": "Sizdeg s uxeddim",
+  "todayAppointments": "Isuraf n wass-a",
+  "upcomingAppointments": "Isuraf i d-iteddun",
+  "pastAppointments": "Isuraf iɛeddan",
+  "calendar": "Awitay",
+  "dayView": "Taskant n wass",
+  "weekView": "Taskant n dduṛt",
+  "monthView": "Taskant n waggur",
+  "form": {
+    "clientInfo": "Talɣut n umsaɣ",
+    "serviceInfo": "Talɣut n umeẓlu",
+    "dateTime": "Azemz d wakud",
+    "additionalInfo": "Talɣut-nniḍen",
+    "save": "Sekles",
+    "cancel": "Sefsex"
+  }
+}

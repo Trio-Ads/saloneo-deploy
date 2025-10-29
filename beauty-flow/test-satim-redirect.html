@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Redirection SATIM</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .info {
+            background-color: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+        }
+        .warning {
+            background-color: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+        }
+        .card-info {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .card-row {
+            display: flex;
+            margin-bottom: 8px;
+        }
+        .card-label {
+            width: 150px;
+            font-weight: bold;
+        }
+        .card-value {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Redirection SATIM</h1>
+    
+    <div class="info">
+        <p>Cet outil vous permet de tester la redirection vers le formulaire de paiement SATIM et de simuler le retour après paiement.</p>
+    </div>
+
+    <div class="card">
+        <h2>1. URL du formulaire SATIM</h2>
+        <p>Collez l'URL du formulaire SATIM générée par le script <code>debug-satim-payment.js</code> :</p>
+        <label for="satimUrl">URL du formulaire SATIM :</label>
+        <input type="text" id="satimUrl" value="https://test.satim.dz/payment/merchants/merchant1/payment_fr.html?mdOrder=123456789" placeholder="https://test.satim.dz/payment/merchants/...">
+        <button onclick="openSatimForm()">Ouvrir le formulaire SATIM</button>
+    </div>
+
+    <div class="card">
+        <h2>2. Simuler le retour après paiement</h2>
+        <p>Si vous ne souhaitez pas compléter le formulaire SATIM, vous pouvez simuler le retour :</p>
+        
+        <div style="margin-bottom: 15px;">
+            <button onclick="simulateReturn('success')">Simuler un paiement réussi</button>
+        </div>
+        
+        <div>
+            <button onclick="simulateReturn('fail')" style="background-color: #e74c3c;">Simuler un échec de paiement</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>3. Informations de carte de test</h2>
+        <div class="card-info">
+            <div class="card-row">
+                <div class="card-label">Numéro de carte :</div>
+                <div class="card-value">628058061006101101</div>
+            </div>
+            <div class="card-row">
+                <div class="card-label">Date d'expiration :</div>
+                <div class="card-value">01/2027</div>
+            </div>
+            <div class="card-row">
+                <div class="card-label">CVV2 :</div>
+                <div class="card-value">992</div>
+            </div>
+            <div class="card-row">
+                <div class="card-label">Mot de passe :</div>
+                <div class="card-value">123456</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="warning">
+        <p><strong>Note :</strong> Cette page est uniquement destinée aux tests. Les URLs de retour simulées pointent directement vers <code>/subscription?success=true</code> et <code>/subscription?error=payment_failed</code> pour contourner les problèmes d'accès à l'API SATIM.</p>
+    </div>
+
+    <script>
+        function openSatimForm() {
+            const url = document.getElementById('satimUrl').value.trim();
+            if (!url) {
+                alert('Veuillez entrer une URL valide');
+                return;
+            }
+            
+            // Ouvrir dans un nouvel onglet
+            window.open(url, '_blank');
+        }
+        
+        function simulateReturn(type) {
+            // Extraire l'orderId de l'URL du formulaire SATIM
+            const satimUrl = document.getElementById('satimUrl').value.trim();
+            let orderId = '';
+            
+            try {
+                // Essayer d'extraire l'orderId de l'URL
+                const url = new URL(satimUrl);
+                const mdOrderMatch = url.search.match(/mdOrder=([^&]+)/);
+                if (mdOrderMatch && mdOrderMatch[1]) {
+                    orderId = mdOrderMatch[1];
+                }
+            } catch (e) {
+                console.error('Erreur lors de l\'analyse de l\'URL:', e);
+            }
+            
+            // Construire l'URL de retour
+            let returnUrl = '';
+            if (type === 'success') {
+                // Redirection directe vers la page de succès avec les paramètres nécessaires
+                returnUrl = `/subscription?success=true&plan=PREMIUM&transaction_id=${orderId || 'TEST-123456'}&amount=5000&payment_method=CIB&card_last4=1101`;
+            } else {
+                // Redirection directe vers la page d'erreur
+                returnUrl = `/subscription?error=payment_failed`;
+            }
+            
+            // Rediriger
+            if (confirm(`Vous allez être redirigé vers:\n${returnUrl}\n\nContinuer?`)) {
+                window.location.href = returnUrl;
+            }
+        }
+    </script>
+</body>
+</html>

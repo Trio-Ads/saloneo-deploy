@@ -1,0 +1,41 @@
+{
+  "title": "Tafelwit n usenqed",
+  "welcome": "Ansuf",
+  "overview": "Taskant",
+  "stats": {
+    "appointments": "Isuraf",
+    "clients": "Imsaɣen",
+    "revenue": "Aɣaras",
+    "services": "Imeẓla",
+    "team": "Tarbaɛt",
+    "growth": "Akker",
+    "today": "Ass-a",
+    "thisWeek": "Imalas-a",
+    "thisMonth": "Aggur-a",
+    "thisYear": "Aseggas-a"
+  },
+  "quickActions": {
+    "title": "Tigawin tiruḥin",
+    "newAppointment": "Asuref amaynut",
+    "newClient": "Amsaɣ amaynut",
+    "newService": "Ameẓlu amaynut",
+    "viewCalendar": "Ẓer awitay",
+    "viewReports": "Ẓer ineqqisen"
+  },
+  "recentActivity": {
+    "title": "Armud n melmi kan",
+    "noActivity": "Ulac armud",
+    "viewAll": "Ẓer akk"
+  },
+  "upcomingAppointments": {
+    "title": "Isuraf i d-iteddun",
+    "noAppointments": "Ulac isuraf",
+    "viewAll": "Ẓer akk isuraf"
+  },
+  "charts": {
+    "revenue": "Aɣaras",
+    "appointments": "Isuraf",
+    "clients": "Imsaɣen",
+    "services": "Imeẓla"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "navigation": {
+    "dashboard": "لوحة التحكم",
+    "appointments": "المواعيد",
+    "clients": "العملاء",
+    "services": "الخدمات",
+    "products": "المنتجات",
+    "team": "الفريق",
+    "profile": "ملفي الشخصي",
+    "interface": "واجهتي",
+    "subscription": "الاشتراك",
+    "admin": "الإدارة"
+  },
+  "actions": {
+    "cancel": "إلغاء",
+    "add": "إضافة",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "save": "حفظ",
+    "next": "التالي",
+    "back": "رجوع",
+    "close": "إغلاق",
+    "logout": "تسجيل الخروج",
+    "logging_out": "جاري تسجيل الخروج...",
+    "add_product": "إضافة منتج"
+  },
+  "form": {
+    "required": "حقل مطلوب",
+    "invalid_email": "بريد إلكتروني غير صحيح",
+    "invalid_phone": "رقم هاتف غير صحيح"
+  },
+  "common": {
+    "app_subtitle": "إدارة حديثة"
+  },
+  "modal": {
+    "close": "إغلاق"
+  },
+  "toast": {
+    "close": "إغلاق الإشعار"
+  },
+  "user_menu": {
+    "user_name": "مستخدم سالونيو",
+    "user_email": "user@saloneo.com",
+    "plan_prefix": "خطة",
+    "plans": {
+      "FREE": "مجاني",
+      "STARTER": "مبتدئ",
+      "PRO": "محترف",
+      "ENTERPRISE": "مؤسسي"
+    },
+    "menu_items": {
+      "profile": {
+        "description": "إدارة معلوماتك"
+      },
+      "interface": {
+        "description": "تخصيص صالونك"
+      },
+      "subscription": {
+        "description": "الخطط والفواتير"
+      }
+    },
+    "language_section": {
+      "title": "اللغة",
+      "current": "اللغة الحالية"
+    },
+    "version": "سالونيو الإصدار 2.0.0"
+  },
+  "service_form": {
+    "titles": {
+      "new": "خدمة جديدة",
+      "edit": "تعديل الخدمة"
+    },
+    "subtitle": "إنشاء خدمة تجميل مخصصة لعملائك",
+    "sections": {
+      "basic_info": "المعلومات الأساسية",
+      "products": "المنتجات المستخدمة",
+      "photos": "صور الخدمة"
+    },
+    "placeholders": {
+      "name": "مثال: قص وتصفيف",
+      "description": "اوصف خدمتك بالتفصيل..."
+    },
+    "labels": {
+      "product": "المنتج",
+      "quantity": "الكمية"
+    },
+    "messages": {
+      "no_products": "لا توجد منتجات متاحة. أضف منتجات في قسم المخزون لاستخدامها هنا."
+    },
+    "units": {
+      "min": "دقيقة"
+    }
+  }
+}

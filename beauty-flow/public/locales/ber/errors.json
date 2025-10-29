@@ -1,0 +1,37 @@
+{
+  "general": {
+    "unknown": "Tuccḍa ur nettwassen ara",
+    "network": "Tuccḍa n uẓeḍḍa",
+    "server": "Tuccḍa n uqeddac",
+    "timeout": "Akud yezri",
+    "unauthorized": "Ur tettalaseḍ ara",
+    "forbidden": "Yegdel",
+    "notFound": "Ur yettwaf ara",
+    "conflict": "Anmegla",
+    "validation": "Tuccḍa n usentem"
+  },
+  "auth": {
+    "invalidCredentials": "Isefka n ukcem d iḥeqqiyen",
+    "accountLocked": "Amiḍan yettwacekkel",
+    "passwordExpired": "Awal uffir yezri",
+    "sessionExpired": "Tiɣimit tezri",
+    "emailNotVerified": "Imayl ur yettusentem ara",
+    "accountNotFound": "Amiḍan ur yettwaf ara"
+  },
+  "validation": {
+    "required": "Yettwasra",
+    "email": "Imayl d aḥeqqi",
+    "phone": "Uṭṭun n tiliɣri d aḥeqqi",
+    "password": "Awal uffir d aḥeqqi",
+    "minLength": "Teḥwaǧ {min} isekkilen",
+    "maxLength": "Ur tezmireḍ ara ad tɛeddiḍ {max} isekkilen",
+    "numeric": "Yessefk ad yili d uṭṭun",
+    "alpha": "Yessefk ad yili d isekkilen kan"
+  },
+  "booking": {
+    "timeSlotTaken": "Akud-a yettwafren yakan",
+    "staffNotAvailable": "Axeddim ur yelli ara",
+    "serviceNotAvailable": "Ameẓlu ur yelli ara",
+    "pastDate": "Ur tezmireḍ ara ad tferneḍ azemz iɛeddan"
+  }
+}

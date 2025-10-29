@@ -1,0 +1,94 @@
+{
+  "navigation": {
+    "dashboard": "Tableau de bord",
+    "appointments": "Rendez-vous",
+    "clients": "Clients",
+    "services": "Services",
+    "products": "Produits",
+    "team": "Équipe",
+    "profile": "Mon Profil",
+    "interface": "Mon Interface",
+    "subscription": "Abonnement",
+    "admin": "Administration"
+  },
+  "actions": {
+    "cancel": "Annuler",
+    "add": "Ajouter",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "save": "Enregistrer",
+    "next": "Suivant",
+    "back": "Retour",
+    "close": "Fermer",
+    "logout": "Se déconnecter",
+    "logging_out": "Déconnexion...",
+    "add_product": "Ajouter un produit"
+  },
+  "form": {
+    "required": "Champ requis",
+    "invalid_email": "Email invalide",
+    "invalid_phone": "Numéro de téléphone invalide"
+  },
+  "common": {
+    "app_subtitle": "Gestion moderne"
+  },
+  "modal": {
+    "close": "Fermer"
+  },
+  "toast": {
+    "close": "Fermer la notification"
+  },
+  "user_menu": {
+    "user_name": "Utilisateur Saloneo",
+    "user_email": "user@saloneo.com",
+    "plan_prefix": "Plan",
+    "plans": {
+      "FREE": "Gratuit",
+      "STARTER": "Starter", 
+      "PRO": "Pro",
+      "ENTERPRISE": "Enterprise"
+    },
+    "menu_items": {
+      "profile": {
+        "description": "Gérer vos informations"
+      },
+      "interface": {
+        "description": "Personnaliser votre salon"
+      },
+      "subscription": {
+        "description": "Plans et facturation"
+      }
+    },
+    "language_section": {
+      "title": "Langue",
+      "current": "Langue actuelle"
+    },
+    "version": "Saloneo v2.0.0"
+  },
+  "service_form": {
+    "titles": {
+      "new": "Nouveau Service",
+      "edit": "Modifier le Service"
+    },
+    "subtitle": "Créez un service de beauté personnalisé pour vos clients",
+    "sections": {
+      "basic_info": "Informations de Base",
+      "products": "Produits utilisés",
+      "photos": "Photos du Service"
+    },
+    "placeholders": {
+      "name": "Ex: Coupe et brushing",
+      "description": "Décrivez votre service en détail..."
+    },
+    "labels": {
+      "product": "Produit",
+      "quantity": "Quantité"
+    },
+    "messages": {
+      "no_products": "Aucun produit disponible. Ajoutez des produits dans la section Stocks pour les utiliser ici."
+    },
+    "units": {
+      "min": "min"
+    }
+  }
+}

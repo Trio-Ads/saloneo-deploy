@@ -1,0 +1,244 @@
+{
+  "title": "Équipe",
+  "subtitle": "Gérez votre équipe de professionnels",
+  "new_member": "Nouveau membre",
+  "edit_member": "Modifier le membre",
+  "member_details": "Détails du membre",
+  "all_members": "Tous les membres",
+  "active_members": "Membres actifs",
+  "inactive_members": "Membres inactifs",
+  "stylists": "Coiffeurs",
+  "form": {
+    "first_name": "Prénom",
+    "last_name": "Nom",
+    "email": "Email",
+    "phone": "Téléphone",
+    "role": "Rôle",
+    "specialties": "Spécialités",
+    "bio": "Biographie",
+    "photo": "Photo",
+    "hire_date": "Date d'embauche",
+    "salary": "Salaire",
+    "commission_rate": "Taux de commission",
+    "working_hours": "Heures de travail",
+    "days_off": "Jours de congé",
+    "skills": "Compétences",
+    "certifications": "Certifications",
+    "languages": "Langues parlées",
+    "emergency_contact": "Contact d'urgence",
+    "address": "Adresse"
+  },
+  "roles": {
+    "owner": "Propriétaire",
+    "manager": "Gérant",
+    "senior_stylist": "Coiffeur senior",
+    "stylist": "Coiffeur",
+    "junior_stylist": "Coiffeur junior",
+    "apprentice": "Apprenti",
+    "receptionist": "Réceptionniste",
+    "assistant": "Assistant",
+    "cleaner": "Agent d'entretien"
+  },
+  "specialties": {
+    "haircut": "Coupe",
+    "coloring": "Coloration",
+    "styling": "Coiffage",
+    "perming": "Permanente",
+    "straightening": "Lissage",
+    "extensions": "Extensions",
+    "bridal": "Mariée",
+    "men_grooming": "Soins masculins",
+    "beard_care": "Soins de barbe",
+    "nail_art": "Nail art",
+    "massage": "Massage",
+    "facial_treatments": "Soins du visage"
+  },
+  "schedule": {
+    "monday": "Lundi",
+    "tuesday": "Mardi",
+    "wednesday": "Mercredi",
+    "thursday": "Jeudi",
+    "friday": "Vendredi",
+    "saturday": "Samedi",
+    "sunday": "Dimanche",
+    "start_time": "Heure de début",
+    "end_time": "Heure de fin",
+    "break_time": "Pause",
+    "day_off": "Jour de congé",
+    "available": "Disponible",
+    "busy": "Occupé",
+    "vacation": "Vacances"
+  },
+  "actions": {
+    "add_member": "Ajouter un membre",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "activate": "Activer",
+    "deactivate": "Désactiver",
+    "view_schedule": "Voir le planning",
+    "view_performance": "Voir les performances",
+    "assign_services": "Assigner des services",
+    "set_commission": "Définir la commission",
+    "upload_photo": "Télécharger une photo"
+  },
+  "stats": {
+    "total_team": "Total Équipe",
+    "all_members": "Tous les membres",
+    "active": "Actifs",
+    "available_members": "Membres disponibles",
+    "roles": "Rôles",
+    "position_types": "Types de postes",
+    "avg_specialties": "Spécialités Moy.",
+    "per_member": "Par membre"
+  },
+  "badges": {
+    "members": "membre(s)",
+    "active": "actif(s)"
+  },
+  "search": {
+    "placeholder": "Rechercher un membre de l'équipe...",
+    "results": "membre(s) trouvé(s)",
+    "for": "pour",
+    "with_role": "avec le rôle"
+  },
+  "limits": {
+    "title": "Limite de Membres d'Équipe",
+    "reached": "Limite atteinte"
+  },
+  "errors": {
+    "save_error": "Erreur lors de la sauvegarde:"
+  },
+  "filters": {
+    "search": "Rechercher des membres...",
+    "all_roles": "Tous les rôles",
+    "all_specialties": "Toutes les spécialités",
+    "availability": "Disponibilité",
+    "performance": "Performance"
+  },
+  "statistics": {
+    "total_members": "Total des membres",
+    "active_members": "Membres actifs",
+    "stylists_count": "Nombre de coiffeurs",
+    "average_rating": "Note moyenne",
+    "total_appointments": "Total des rendez-vous",
+    "revenue_generated": "Chiffre d'affaires généré",
+    "client_satisfaction": "Satisfaction client"
+  },
+  "performance": {
+    "appointments_completed": "Rendez-vous terminés",
+    "revenue": "Chiffre d'affaires",
+    "client_rating": "Note client",
+    "punctuality": "Ponctualité",
+    "sales": "Ventes",
+    "tips": "Pourboires",
+    "repeat_clients": "Clients fidèles",
+    "no_shows": "Absences"
+  },
+  "messages": {
+    "member_created": "Membre créé avec succès",
+    "member_updated": "Membre mis à jour avec succès",
+    "member_deleted": "Membre supprimé avec succès",
+    "member_activated": "Membre activé avec succès",
+    "member_deactivated": "Membre désactivé avec succès",
+    "no_members": "Aucun membre trouvé",
+    "loading": "Chargement des membres...",
+    "confirm_delete": "Êtes-vous sûr de vouloir supprimer ce membre ?",
+    "delete_confirmation": "Êtes-vous sûr de vouloir supprimer ce membre ?",
+    "photo_uploaded": "Photo téléchargée avec succès",
+    "schedule_updated": "Planning mis à jour avec succès"
+  },
+  "permissions": {
+    "manage_appointments": "Gérer les rendez-vous",
+    "manage_clients": "Gérer les clients",
+    "manage_services": "Gérer les services",
+    "manage_team": "Gérer l'équipe",
+    "view_reports": "Voir les rapports",
+    "manage_payments": "Gérer les paiements",
+    "manage_inventory": "Gérer l'inventaire",
+    "admin_access": "Accès administrateur"
+  },
+  "team_member_form": {
+    "title_new": "Nouveau Membre",
+    "title_edit": "Modifier le Membre",
+    "subtitle": "Ajoutez un nouveau membre à votre équipe de beauté",
+    "sections": {
+      "personal_info": "Informations Personnelles",
+      "specialties": "Spécialités",
+      "working_hours": "Horaires de Travail"
+    },
+    "labels": {
+      "first_name_required": "Prénom *",
+      "last_name_required": "Nom *",
+      "email_required": "Email *",
+      "phone_required": "Téléphone *",
+      "role_required": "Rôle *"
+    },
+    "placeholders": {
+      "first_name": "Prénom",
+      "last_name": "Nom",
+      "email_example": "exemple@email.com",
+      "phone_example": "+33 6 12 34 56 78"
+    },
+    "working_days": {
+      "monday": "Lundi",
+      "tuesday": "Mardi",
+      "wednesday": "Mercredi",
+      "thursday": "Jeudi",
+      "friday": "Vendredi",
+      "saturday": "Samedi",
+      "sunday": "Dimanche"
+    },
+    "schedule_labels": {
+      "works": "Travaille",
+      "from": "De:",
+      "to": "À:"
+    },
+    "help_messages": {
+      "specialties_help": "Maintenez Ctrl/Cmd pour sélectionner plusieurs spécialités",
+      "order_help": "L'ordre de sélection détermine la priorité d'affichage"
+    },
+    "buttons": {
+      "cancel": "Annuler",
+      "add": "Ajouter",
+      "modify": "Modifier"
+    }
+  },
+  "team_list": {
+    "empty_state": {
+      "title": "Aucun membre d'équipe",
+      "subtitle": "Commencez par ajouter vos premiers collaborateurs",
+      "cta": "Constituez votre équipe"
+    },
+    "info_labels": {
+      "email": "Email",
+      "phone": "Téléphone",
+      "working_days": "Jours travaillés",
+      "specialties": "Spécialités"
+    },
+    "sections": {
+      "specialties": "Spécialités",
+      "weekly_schedule": "Planning de la semaine"
+    },
+    "stats": {
+      "days_per_week": "jours/semaine",
+      "specialties_count": "spécialité(s)",
+      "average": "Moyenne",
+      "active": "Actif",
+      "services": "service(s)",
+      "level_of": "Niveau {{level}}/5"
+    },
+    "tooltips": {
+      "edit_member": "Modifier le membre",
+      "delete_member": "Supprimer le membre"
+    },
+    "days_short": {
+      "monday": "Lun",
+      "tuesday": "Mar",
+      "wednesday": "Mer",
+      "thursday": "Jeu",
+      "friday": "Ven",
+      "saturday": "Sam",
+      "sunday": "Dim"
+    }
+  }
+}

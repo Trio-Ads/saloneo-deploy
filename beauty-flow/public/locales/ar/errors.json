@@ -1,0 +1,72 @@
+{
+  "validation": {
+    "required": "هذا الحقل مطلوب",
+    "email": "يرجى إدخال عنوان بريد إلكتروني صحيح",
+    "phone": "يرجى إدخال رقم هاتف صحيح",
+    "min_length": "الحد الأدنى {{count}} أحرف مطلوب",
+    "max_length": "الحد الأقصى {{count}} أحرف مسموح",
+    "password_mismatch": "كلمات المرور غير متطابقة",
+    "invalid_format": "تنسيق غير صحيح",
+    "invalid_date": "يرجى إدخال تاريخ صحيح",
+    "invalid_time": "يرجى إدخال وقت صحيح",
+    "future_date": "يجب أن يكون التاريخ في المستقبل",
+    "past_date": "يجب أن يكون التاريخ في الماضي"
+  },
+  "network": {
+    "connection_error": "خطأ في الاتصال",
+    "timeout": "انتهت مهلة الطلب",
+    "server_error": "خطأ في الخادم",
+    "not_found": "المورد غير موجود",
+    "unauthorized": "وصول غير مصرح به",
+    "forbidden": "الوصول محظور",
+    "too_many_requests": "طلبات كثيرة جداً"
+  },
+  "auth": {
+    "invalid_credentials": "بيانات اعتماد غير صحيحة",
+    "account_locked": "الحساب مقفل",
+    "session_expired": "انتهت صلاحية الجلسة",
+    "login_required": "تسجيل الدخول مطلوب",
+    "insufficient_permissions": "صلاحيات غير كافية"
+  },
+  "booking": {
+    "slot_unavailable": "هذا الوقت لم يعد متاحاً",
+    "service_unavailable": "هذه الخدمة غير متاحة",
+    "stylist_unavailable": "هذا المصفف غير متاح",
+    "booking_failed": "فشل في الحجز",
+    "cancellation_failed": "فشل في الإلغاء",
+    "modification_failed": "فشل في التعديل",
+    "error": "حدث خطأ أثناء إنشاء الحجز. يرجى المحاولة مرة أخرى."
+  },
+  "payment": {
+    "payment_failed": "فشل في الدفع",
+    "invalid_card": "معلومات البطاقة غير صحيحة",
+    "insufficient_funds": "أموال غير كافية",
+    "payment_declined": "تم رفض الدفع",
+    "transaction_error": "خطأ في المعاملة"
+  },
+  "general": {
+    "unexpected_error": "عذراً! حدث خطأ",
+    "application_error": "واجه التطبيق مشكلة. قد يكون هذا بسبب بيانات تالفة في التخزين المؤقت.",
+    "reload_page": "إعادة تحميل الصفحة",
+    "reset_data": "إعادة تعيين البيانات",
+    "error_details": "تفاصيل الخطأ",
+    "close_notification": "إغلاق الإشعار",
+    "try_again": "يرجى المحاولة مرة أخرى",
+    "contact_support": "يرجى الاتصال بالدعم إذا استمرت المشكلة"
+  },
+  "salon": {
+    "not_found": "الصالون غير موجود",
+    "not_found_description": "الصالون الذي تبحث عنه غير موجود."
+  },
+  "template": {
+    "not_found": "القالب غير موجود",
+    "not_found_description": "القالب المحدد غير متاح."
+  },
+  "service": {
+    "not_found": "الخدمة غير موجودة"
+  },
+  "loading": {
+    "please_wait": "يرجى الانتظار",
+    "loading": "جاري التحميل..."
+  }
+}
