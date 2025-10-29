@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧹 Nettoyage Cache Beauty Flow</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            line-height: 1.6;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        .action-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            margin: 10px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .success {
+            background: linear-gradient(45deg, #00b894, #00cec9);
+        }
+        .info {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #74b9ff;
+        }
+        .warning {
+            background: rgba(255, 193, 7, 0.2);
+            border-left: 5px solid #fdcb6e;
+        }
+        .step {
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        #status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧹 Nettoyage Cache Beauty Flow</h1>
+        
+        <div class="info">
+            <h3>🎯 Objectif</h3>
+            <p>Nettoyer le cache pour résoudre le problème de changement de devise qui fonctionne en API mais pas dans l'interface.</p>
+        </div>
+
+        <div class="info warning">
+            <h3>⚠️ Avant de commencer</h3>
+            <p><strong>Assurez-vous que le frontend est redémarré avec les dernières modifications !</strong></p>
+            <p>Si ce n'est pas fait, fermez cette page et redémarrez d'abord le frontend.</p>
+        </div>
+
+        <div class="step">
+            <h3>🔧 Actions de nettoyage</h3>
+            <button class="action-btn" onclick="clearLocalStorage()">
+                🗑️ Vider LocalStorage
+            </button>
+            <button class="action-btn" onclick="clearSessionStorage()">
+                🗑️ Vider SessionStorage
+            </button>
+            <button class="action-btn" onclick="clearAllCaches()">
+                🧹 Nettoyage Complet
+            </button>
+        </div>
+
+        <div class="step">
+            <h3>🔄 Actions de test</h3>
+            <button class="action-btn success" onclick="testCurrencyChange()">
+                💰 Tester Changement Devise
+            </button>
+            <button class="action-btn success" onclick="checkCurrentState()">
+                🔍 Vérifier État Actuel
+            </button>
+        </div>
+
+        <div class="step">
+            <h3>🚀 Redirection</h3>
+            <button class="action-btn" onclick="goToProfile()">
+                👤 Aller au Profil
+            </button>
+            <button class="action-btn" onclick="reloadPage()">
+                🔄 Recharger la Page
+            </button>
+        </div>
+
+        <div id="status"></div>
+    </div>
+
+    <script>
+        function showStatus(message, type = 'info') {
+            const status = document.getElementById('status');
+            status.innerHTML = message;
+            status.className = type;
+        }
+
+        function clearLocalStorage() {
+            try {
+                // Sauvegarder les clés importantes
+                const authToken = localStorage.getItem('auth-token');
+                
+                // Vider tout le localStorage
+                localStorage.clear();
+                
+                // Restaurer le token d'auth si il existait
+                if (authToken) {
+                    localStorage.setItem('auth-token', authToken);
+                }
+                
+                showStatus('✅ LocalStorage vidé avec succès !<br>🔑 Token d\'authentification préservé', 'success');
+            } catch (error) {
+                showStatus('❌ Erreur lors du vidage du LocalStorage: ' + error.message, 'error');
+            }
+        }
+
+        function clearSessionStorage() {
+            try {
+                sessionStorage.clear();
+                showStatus('✅ SessionStorage vidé avec succès !', 'success');
+            } catch (error) {
+                showStatus('❌ Erreur lors du vidage du SessionStorage: ' + error.message, 'error');
+            }
+        }
+
+        function clearAllCaches() {
+            try {
+                // Vider tous les caches
+                clearLocalStorage();
+                clearSessionStorage();
+                
+                // Vider le cache du navigateur si possible
+                if ('caches' in window) {
+                    caches.keys().then(names => {
+                        names.forEach(name => {
+                            caches.delete(name);
+                        });
+                    });
+                }
+                
+                showStatus('🧹 Nettoyage complet effectué !<br>💡 Rechargez la page pour voir les effets', 'success');
+            } catch (error) {
+                showStatus('❌ Erreur lors du nettoyage: ' + error.message, 'error');
+            }
+        }
+
+        function checkCurrentState() {
+            try {
+                const profileData = localStorage.getItem('beauty-flow-profile');
+                if (profileData) {
+                    const parsed = JSON.parse(profileData);
+                    const currency = parsed.state?.profile?.currency;
+                    showStatus(`🔍 État actuel du profil:<br>💰 Devise: ${currency ? (typeof currency === 'string' ? currency : currency.code) : 'Non définie'}<br>📊 Données: ${JSON.stringify(parsed.state?.profile || {}, null, 2)}`, 'info');
+                } else {
+                    showStatus('📭 Aucune donnée de profil trouvée dans le cache', 'warning');
+                }
+            } catch (error) {
+                showStatus('❌ Erreur lors de la vérification: ' + error.message, 'error');
+            }
+        }
+
+        function testCurrencyChange() {
+            showStatus('🧪 Test de changement de devise...<br>💡 Ouvrez la console (F12) pour voir les détails', 'info');
+            
+            // Simuler un changement de devise
+            try {
+                const profileData = localStorage.getItem('beauty-flow-profile');
+                if (profileData) {
+                    const parsed = JSON.parse(profileData);
+                    if (parsed.state && parsed.state.profile) {
+                        // Changer la devise pour tester
+                        const newCurrency = parsed.state.profile.currency === 'EUR' ? 'USD' : 'EUR';
+                        parsed.state.profile.currency = newCurrency;
+                        parsed.state.lastUpdateTimestamp = Date.now();
+                        
+                        localStorage.setItem('beauty-flow-profile', JSON.stringify(parsed));
+                        showStatus(`✅ Test effectué !<br>💰 Devise changée vers: ${newCurrency}<br>🔄 Rechargez la page pour voir l'effet`, 'success');
+                    }
+                } else {
+                    showStatus('❌ Impossible de tester: aucune donnée de profil', 'error');
+                }
+            } catch (error) {
+                showStatus('❌ Erreur lors du test: ' + error.message, 'error');
+            }
+        }
+
+        function goToProfile() {
+            window.location.href = 'http://localhost:3000/profile';
+        }
+
+        function reloadPage() {
+            window.location.reload(true);
+        }
+
+        // Afficher l'état initial
+        window.onload = function() {
+            showStatus('🚀 Outil de diagnostic prêt !<br>💡 Commencez par vérifier l\'état actuel', 'info');
+        };
+    </script>
+</body>
+</html>
