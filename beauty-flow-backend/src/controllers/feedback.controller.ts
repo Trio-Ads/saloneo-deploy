@@ -36,7 +36,7 @@ export class FeedbackController {
             salonName: 'Saloneo',
             salonAddress: '',
             salonPhone: '',
-            salonEmail: process.env.SMTP_FROM || 'support@saloneo.app'
+            salonEmail: process.env.SMTP_FROM || 'donotreply@saloneo.app'
           }
         );
 
@@ -126,7 +126,7 @@ export class FeedbackController {
 
       // Send feedback to admin email
       await emailService.sendEmail({
-        to: process.env.SMTP_FROM || 'support@saloneo.app',
+        to: process.env.SMTP_FROM || 'donotreply@saloneo.app',
         subject: `Nouveau feedback utilisateur - ${establishmentName || userEmail}`,
         html: feedbackContent
       });
