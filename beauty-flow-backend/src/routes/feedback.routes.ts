@@ -40,4 +40,13 @@ router.post('/feedback/submit', async (req, res) => {
   await feedbackController.submitFeedback(req, res);
 });
 
+/**
+ * @route   GET /feedback/thank-you
+ * @desc    Thank you page after feedback submission
+ * @access  Public
+ */
+router.get('/feedback/thank-you', (req, res) => {
+  res.sendFile(require('path').join(__dirname, '../views/feedback-thank-you.html'));
+});
+
 export default router;
