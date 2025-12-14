@@ -7,7 +7,7 @@ export class FeedbackController {
   /**
    * Send feedback request email to a specific user
    */
-  async sendFeedbackToUser(req: Request, res: Response) {
+  async sendFeedbackToUser(req: Request, res: Response): Promise<void> {
     try {
       const { userId } = req.params;
 
@@ -15,10 +15,11 @@ export class FeedbackController {
       const user = await User.findById(userId, 'email establishmentName _id');
       
       if (!user) {
-        return res.status(404).json({
+        res.status(404).json({
           success: false,
           message: 'Utilisateur non trouvé'
         });
+        return;
       }
 
       const feedbackSubmitUrl = `https://saloneo.app/api/feedback/submit`;
@@ -75,7 +76,7 @@ export class FeedbackController {
   /**
    * Handle feedback submission from users
    */
-  async submitFeedback(req: Request, res: Response) {
+  async submitFeedback(req: Request, res: Response): Promise<void> {
     try {
       logger.info('Feedback submission received:', { body: req.body, headers: req.headers });
       
@@ -84,10 +85,11 @@ export class FeedbackController {
       // Validate required fields
       if (!userId || !userEmail || !satisfaction) {
         logger.error('Missing required fields:', { userId, userEmail, satisfaction });
-        return res.status(400).json({
+        res.status(400).json({
           success: false,
           message: 'Données manquantes: userId, userEmail et satisfaction sont requis'
         });
+        return;
       }
 
       // Prepare feedback content for admin email

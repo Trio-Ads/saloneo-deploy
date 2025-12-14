@@ -47,7 +47,7 @@ export class EmailTemplates {
 <body>
   <div class="container">
     <div class="header">
-      <img src="/images/logos/Salonéo Logo - Colors.webp" alt="Saloneo" class="logo">
+      <img src="https://saloneo.app/images/logos/Salonéo Logo - Colors.webp" alt="Saloneo" class="logo">
       <h1>{{salonName}}</h1>
     </div>
     <div class="content">

@@ -11,7 +11,7 @@
     "start:compiled": "node dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "tsc --noEmit",
-    "postbuild": "cp -r uploads dist/ 2>/dev/null || mkdir -p dist/uploads && cp -r src/views dist/ 2>/dev/null || mkdir -p dist/views"
+    "postbuild": "mkdir -p dist/uploads dist/views && cp -r uploads/* dist/uploads/ 2>/dev/null || true && cp -r src/views/* dist/views/ 2>/dev/null || true"
   },
   "keywords": [
     "beauty",
