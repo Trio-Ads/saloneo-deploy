@@ -234,6 +234,7 @@ const AdminPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedUser, setSelectedUser] = useState<AdminUser | null>(null);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [sendingFeedback, setSendingFeedback] = useState<string | null>(null);
 
   useEffect(() => {
     fetchUsers();
@@ -251,6 +252,32 @@ const AdminPage: React.FC = () => {
 
   const handlePageChange = (page: number) => {
     fetchUsers(page);
+  };
+
+  const handleSendFeedbackToUser = async (userId: string, establishmentName: string) => {
+    setSendingFeedback(userId);
+    try {
+      const response = await fetch(`/api/admin/feedback/send/${userId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        alert(`Email de feedback envoyé avec succès à ${establishmentName} !`);
+      } else {
+        alert(`Erreur: ${data.message}`);
+      }
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi de l\'email de feedback:', error);
+      alert('Erreur lors de l\'envoi de l\'email de feedback');
+    } finally {
+      setSendingFeedback(null);
+    }
   };
 
   const getPlanBadgeColor = (plan: PlanType | undefined) => {
@@ -329,18 +356,21 @@ const AdminPage: React.FC = () => {
       <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl border-b border-orange-500/20 dark:border-orange-500/20 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="p-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-md">
-                <ShieldCheckIcon className="w-8 h-8 text-white" />
+            <div className="flex items-center justify-between w-full">
+              <div className="flex items-center space-x-4">
+                <div className="p-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-md">
+                  <ShieldCheckIcon className="w-8 h-8 text-white" />
+                </div>
+                <div>
+                  <h1 className="text-3xl font-bold bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 bg-clip-text text-transparent">
+                    {t('title')}
+                  </h1>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    {t('subtitle')}
+                  </p>
+                </div>
               </div>
-              <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 bg-clip-text text-transparent">
-                  {t('title')}
-                </h1>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                  {t('subtitle')}
-                </p>
-              </div>
+              
             </div>
           </div>
         </div>
@@ -559,6 +589,20 @@ const AdminPage: React.FC = () => {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                           <div className="flex items-center justify-end gap-2">
+                            <button
+                              onClick={() => handleSendFeedbackToUser(user._id, user.establishmentName)}
+                              disabled={sendingFeedback === user._id}
+                              className="p-2 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                              title="Envoyer feedback"
+                            >
+                              {sendingFeedback === user._id ? (
+                                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600"></div>
+                              ) : (
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                              )}
+                            </button>
                             <button
                               onClick={() => {
                                 setSelectedUser(user);

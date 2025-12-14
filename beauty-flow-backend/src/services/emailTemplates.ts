@@ -21,6 +21,14 @@ export class EmailTemplates {
       .success-box { background: #d4edda; padding: 15px; margin: 20px 0; border-radius: 6px; border-left: 4px solid #28a745; }
       .warning-box { background: #f8d7da; padding: 15px; margin: 20px 0; border-radius: 6px; border-left: 4px solid #dc3545; }
       .admin-box { background: #FFF5F0; padding: 20px; margin: 20px 0; border-radius: 8px; border-left: 4px solid #FF6B35; border: 2px solid #FF6B35; }
+      .feedback-form { background: #FFF5F0; padding: 25px; margin: 20px 0; border-radius: 8px; border: 2px solid #FF6B35; }
+      .feedback-form h3 { color: #FF6B35; margin-top: 0; margin-bottom: 15px; }
+      .feedback-form .form-group { margin-bottom: 20px; }
+      .feedback-form label { display: block; font-weight: 600; color: #333; margin-bottom: 8px; font-size: 14px; }
+      .feedback-form textarea { width: 100%; min-height: 80px; padding: 12px; border: 2px solid #FF6B35; border-radius: 6px; font-family: inherit; font-size: 14px; resize: vertical; }
+      .feedback-form textarea:focus { outline: none; border-color: #F7931E; box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1); }
+      .feedback-form .submit-btn { background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%); color: white; padding: 14px 32px; border: none; border-radius: 6px; font-weight: 600; font-size: 16px; cursor: pointer; width: 100%; transition: all 0.3s; }
+      .feedback-form .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3); }
       ul { padding-left: 20px; }
       ul li { margin: 8px 0; }
     `;
@@ -537,6 +545,46 @@ export class EmailTemplates {
       </p>
       <p style="text-align: center; color: #666; font-size: 14px; margin-top: 30px;">
         <em>Cette modification a été effectuée par l'équipe Saloneo</em>
+      </p>
+    `);
+  }
+
+  // USER FEEDBACK TEMPLATE
+  static getUserFeedbackRequestTemplate(): string {
+    return this.wrapTemplate(`
+      <h2>Votre avis nous intéresse</h2>
+      <p>Bonjour <strong>{{userName}}</strong>,</p>
+      <p>Nous espérons que vous appréciez votre expérience avec Saloneo. Votre opinion est très importante pour nous aider à améliorer notre plateforme.</p>
+      
+      <div class="info-box">
+        <p>Pourriez-vous prendre quelques minutes pour partager votre retour d'expérience ? Cela nous permettra de continuer à développer les fonctionnalités qui vous sont utiles.</p>
+      </div>
+
+      <form action="{{feedbackSubmitUrl}}" method="POST" class="feedback-form">
+        <input type="hidden" name="userId" value="{{userId}}" />
+        <input type="hidden" name="userEmail" value="{{userEmail}}" />
+        <input type="hidden" name="establishmentName" value="{{establishmentName}}" />
+        
+        <div class="form-group">
+          <label for="satisfaction">Comment évaluez-vous votre satisfaction générale avec Saloneo ?</label>
+          <textarea name="satisfaction" id="satisfaction" placeholder="Partagez votre niveau de satisfaction et ce qui vous plaît le plus dans notre plateforme..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="missing_features">Quelles fonctionnalités aimeriez-vous voir ajoutées ?</label>
+          <textarea name="missing_features" id="missing_features" placeholder="Décrivez les fonctionnalités qui vous manquent ou qui pourraient améliorer votre expérience..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="issues">Avez-vous rencontré des problèmes ou des difficultés ?</label>
+          <textarea name="issues" id="issues" placeholder="Décrivez les problèmes techniques, bugs ou difficultés d'utilisation que vous avez pu rencontrer..."></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">Envoyer mon feedback</button>
+      </form>
+
+      <p style="margin-top: 30px; font-size: 14px; color: #666;">
+        Merci de prendre le temps de nous aider à améliorer Saloneo. Votre feedback est précieux pour nous.
       </p>
     `);
   }
