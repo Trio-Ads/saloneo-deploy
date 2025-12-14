@@ -144,6 +144,16 @@ app.get('/health', (_req: Request, res: Response) => {
   });
 });
 
+// Debug middleware for feedback routes
+app.use('/api/feedback', (req, res, next) => {
+  logger.info(`Feedback route accessed: ${req.method} ${req.path}`, {
+    body: req.body,
+    headers: req.headers,
+    contentType: req.get('Content-Type')
+  });
+  next();
+});
+
 // API routes
 app.use('/api/auth', authRoutes);
 app.use('/api/clients', clientRoutes);
