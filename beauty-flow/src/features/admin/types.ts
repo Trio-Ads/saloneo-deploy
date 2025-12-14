@@ -16,7 +16,7 @@ export interface AdminUser {
   _id: string;
   email: string;
   establishmentName: string;
-  subscription: {
+  subscription?: {
     plan: PlanType;
     duration: SubscriptionDuration;
     startDate: string;

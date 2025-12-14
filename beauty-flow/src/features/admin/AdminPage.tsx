@@ -29,10 +29,10 @@ const SubscriptionEditor: React.FC<SubscriptionEditorProps> = ({ user, onClose, 
   const { updateUserSubscription } = useAdminStore();
   
   const [formData, setFormData] = useState({
-    plan: user.subscription.plan,
-    duration: user.subscription.duration || SubscriptionDuration.MONTHLY,
-    isActive: user.subscription.isActive,
-    expiresAt: user.subscription.expiresAt ? format(new Date(user.subscription.expiresAt), 'yyyy-MM-dd') : ''
+    plan: user.subscription?.plan || PlanType.FREE,
+    duration: user.subscription?.duration || SubscriptionDuration.MONTHLY,
+    isActive: user.subscription?.isActive || false,
+    expiresAt: user.subscription?.expiresAt ? format(new Date(user.subscription.expiresAt), 'yyyy-MM-dd') : ''
   });
   const [loading, setLoading] = useState(false);
 
@@ -253,7 +253,10 @@ const AdminPage: React.FC = () => {
     fetchUsers(page);
   };
 
-  const getPlanBadgeColor = (plan: PlanType) => {
+  const getPlanBadgeColor = (plan: PlanType | undefined) => {
+    if (!plan) {
+      return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200';
+    }
     switch (plan) {
       case 'FREE':
         return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200';
@@ -540,16 +543,16 @@ const AdminPage: React.FC = () => {
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`px-3 py-1 text-xs font-semibold rounded-full ${getPlanBadgeColor(user.subscription.plan)}`}>
-                            {user.subscription.plan}
+                          <span className={`px-3 py-1 text-xs font-semibold rounded-full ${getPlanBadgeColor(user.subscription?.plan)}`}>
+                            {user.subscription?.plan || 'N/A'}
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          {getStatusBadge(user.subscription.isActive, user.subscription.expiresAt)}
+                          {getStatusBadge(user.subscription?.isActive || false, user.subscription?.expiresAt)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="text-sm text-gray-600 dark:text-gray-400">
-                            {user.subscription.expiresAt
+                            {user.subscription?.expiresAt
                               ? format(new Date(user.subscription.expiresAt), 'dd MMM yyyy', { locale: fr })
                               : t('table.no_expiry')}
                           </div>

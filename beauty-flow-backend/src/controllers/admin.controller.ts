@@ -52,13 +52,37 @@ export const getAllUsers = async (req: AuthRequest, res: Response): Promise<void
       ];
     }
 
-    // Get users with pagination
-    const users = await User.find(query)
-      .select('email establishmentName subscription createdAt isActive')
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(limitNum)
-      .lean();
+    // Get users with pagination and ensure subscription field exists
+    const users = await User.aggregate([
+      { $match: query },
+      {
+        $addFields: {
+          subscription: {
+            $ifNull: [
+              "$subscription",
+              {
+                plan: "FREE",
+                duration: "MONTHLY",
+                isActive: false,
+                startDate: new Date()
+              }
+            ]
+          }
+        }
+      },
+      {
+        $project: {
+          email: 1,
+          establishmentName: 1,
+          subscription: 1,
+          createdAt: 1,
+          isActive: 1
+        }
+      },
+      { $sort: { createdAt: -1 } },
+      { $skip: skip },
+      { $limit: limitNum }
+    ]);
 
     // Get total count
     const total = await User.countDocuments(query);
