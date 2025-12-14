@@ -47,8 +47,8 @@ router.post('/feedback/submit', async (req, res) => {
  * @access  Public
  */
 router.get('/feedback/thank-you', (req, res) => {
-  // Use absolute path to ensure file is found in production
-  const filePath = path.resolve(__dirname, './views/feedback-thank-you.html');
+  // Use absolute path from project root to ensure file is found in production
+  const filePath = path.join(process.cwd(), 'dist/views/feedback-thank-you.html');
   res.sendFile(filePath);
 });
 
