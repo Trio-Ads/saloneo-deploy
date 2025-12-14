@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { feedbackController } from '../controllers/feedback.controller';
 import { authenticate } from '../middleware/auth';
 import { adminAuth } from '../middleware/adminAuth';
+import path from 'path';
 
 const router = Router();
 
@@ -46,7 +47,9 @@ router.post('/feedback/submit', async (req, res) => {
  * @access  Public
  */
 router.get('/feedback/thank-you', (req, res) => {
-  res.sendFile(require('path').join(__dirname, '../views/feedback-thank-you.html'));
+  // Use absolute path to ensure file is found in production
+  const filePath = path.resolve(__dirname, '../views/feedback-thank-you.html');
+  res.sendFile(filePath);
 });
 
 export default router;
