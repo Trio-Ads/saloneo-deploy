@@ -65,6 +65,25 @@ const allowedOrigins = [
   process.env.FRONTEND_URL
 ].filter(Boolean);
 
+// Email client domains for feedback submissions
+const emailClientDomains = [
+  'mail.google.com',
+  'outlook.live.com',
+  'outlook.office.com',
+  'outlook.office365.com',
+  'mail.yahoo.com',
+  'mail.aol.com',
+  'icloud.com',
+  'mail.icloud.com',
+  'thunderbird.net',
+  'mail.protonmail.com',
+  'mail.tutanota.com',
+  'mail.zoho.com',
+  'webmail.1and1.com',
+  'mail.gmx.com',
+  'mail.yandex.com'
+];
+
 const isDevelopment = process.env.NODE_ENV === 'development';
 
 app.use(cors({
@@ -80,12 +99,20 @@ app.use(cors({
       }
     }
     
+    // Check if origin is in allowed origins
     if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      logger.warn(`🚫 CORS blocked origin: ${origin}`);
-      callback(new Error('Not allowed by CORS'));
+      return callback(null, true);
     }
+    
+    // Check if origin is an email client domain (for feedback submissions)
+    const originDomain = origin.replace(/^https?:\/\//, '');
+    if (emailClientDomains.some(domain => originDomain.includes(domain))) {
+      logger.info(`✅ Email client origin allowed: ${origin}`);
+      return callback(null, true);
+    }
+    
+    logger.warn(`🚫 CORS blocked origin: ${origin}`);
+    callback(new Error('Not allowed by CORS'));
   },
   credentials: true,
   optionsSuccessStatus: 200
