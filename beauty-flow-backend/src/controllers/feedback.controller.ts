@@ -134,7 +134,7 @@ export class FeedbackController {
       logger.info(`Feedback received from user ${userEmail} (${userId})`);
 
       // Return success response to user - redirect to thank you page
-      res.redirect('/feedback/thank-you');
+      res.redirect('/api/feedback/thank-you');
 
     } catch (error) {
       logger.error('Error processing feedback submission:', error);
