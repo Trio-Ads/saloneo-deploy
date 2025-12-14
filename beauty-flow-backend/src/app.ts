@@ -34,6 +34,9 @@ dotenv.config();
 const app: Application = express();
 const httpServer = createServer(app);
 
+// Trust proxy for rate limiting (required for production)
+app.set('trust proxy', 1);
+
 // Initialize Socket.io
 export const io = initializeSocket(httpServer);
 

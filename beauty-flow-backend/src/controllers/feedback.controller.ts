@@ -77,10 +77,13 @@ export class FeedbackController {
    */
   async submitFeedback(req: Request, res: Response) {
     try {
+      logger.info('Feedback submission received:', { body: req.body, headers: req.headers });
+      
       const { userId, userEmail, establishmentName, satisfaction, missing_features, issues } = req.body;
 
       // Validate required fields
       if (!userId || !userEmail || !satisfaction) {
+        logger.error('Missing required fields:', { userId, userEmail, satisfaction });
         return res.status(400).json({
           success: false,
           message: 'Données manquantes: userId, userEmail et satisfaction sont requis'
