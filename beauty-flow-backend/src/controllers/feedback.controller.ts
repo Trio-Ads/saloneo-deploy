@@ -21,7 +21,7 @@ export class FeedbackController {
         });
       }
 
-      const feedbackSubmitUrl = `${process.env.FRONTEND_URL || 'https://saloneo.app'}/api/feedback/submit`;
+      const feedbackSubmitUrl = `https://saloneo.app/api/feedback/submit`;
 
       try {
         await emailService.sendTemplateEmail(
