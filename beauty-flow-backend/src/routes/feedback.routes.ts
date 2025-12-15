@@ -3,6 +3,7 @@ import { feedbackController } from '../controllers/feedback.controller';
 import { authenticate } from '../middleware/auth';
 import { adminAuth } from '../middleware/adminAuth';
 import path from 'path';
+import fs from 'fs';
 
 const router = Router();
 
@@ -42,14 +43,341 @@ router.post('/feedback/submit', async (req, res) => {
 });
 
 /**
+ * Helper function to get the thank you page HTML content
+ */
+function getThankYouPageHTML(): string {
+  return `<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merci pour votre feedback - Saloneo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            overflow: hidden;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            padding: 40px 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .logo {
+            width: 180px;
+            height: auto;
+            margin: 0 auto 20px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.4);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(255, 107, 53, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 107, 53, 0);
+            }
+        }
+
+        .success-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: white;
+        }
+
+        .content h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .content p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(247, 147, 30, 0.1) 100%);
+            border: 2px solid rgba(255, 107, 53, 0.2);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .highlight-box h3 {
+            color: #FF6B35;
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .highlight-box p {
+            margin-bottom: 0;
+            font-size: 15px;
+        }
+
+        .features-list {
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .features-list li {
+            color: #555;
+            margin: 10px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .features-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #FF6B35;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            margin: 20px 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #eee;
+        }
+
+        .footer p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+            color: #FF6B35;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .social-links a:hover {
+            color: #F7931E;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .content h2 {
+                font-size: 20px;
+            }
+
+            .cta-button {
+                display: block;
+                margin: 15px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://saloneo.app/images/logos/Salon%C3%A9o%20Logo%20-%20White.png" alt="Saloneo" class="logo">
+        </div>
+
+        <div class="content">
+            <div class="success-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+            </div>
+
+            <h2>Votre message a été envoyé avec succès !</h2>
+            
+            <p>Nous avons bien reçu vos commentaires et nous vous remercions sincèrement pour le temps que vous avez consacré à partager votre expérience avec Saloneo.</p>
+
+            <div class="highlight-box">
+                <h3>🎯 Notre engagement envers vous</h3>
+                <p>Chez Saloneo, nous nous efforçons constamment d'améliorer notre plateforme pour mieux répondre à vos besoins. Votre feedback nous aide à :</p>
+                <ul class="features-list">
+                    <li>Développer les fonctionnalités qui vous sont vraiment utiles</li>
+                    <li>Corriger les problèmes que vous rencontrez</li>
+                    <li>Améliorer l'expérience utilisateur globale</li>
+                    <li>Créer des solutions innovantes pour votre salon</li>
+                </ul>
+            </div>
+
+            <p><strong>Nous faisons toujours de notre mieux pour vous satisfaire</strong> et votre succès est notre priorité. Chaque commentaire que vous partagez nous rapproche de notre objectif : créer la meilleure plateforme de gestion de salon au monde.</p>
+
+            <div style="margin: 30px 0;">
+                <a href="https://saloneo.app/dashboard" class="cta-button">Retour au tableau de bord</a>
+                <a href="https://saloneo.app/support" class="cta-button" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);">Contacter le support</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Saloneo</strong> - La solution complète pour votre salon</p>
+            <p>Nous transformons la gestion de votre salon en une expérience simple et efficace</p>
+            
+            <div class="social-links">
+                <a href="mailto:donotreply@saloneo.app">Contact</a>
+                <a href="https://saloneo.app/privacy">Confidentialité</a>
+                <a href="https://saloneo.app/terms">Conditions</a>
+            </div>
+            
+            <p style="margin-top: 20px; font-size: 12px; color: #999;">
+                &copy; 2025 Saloneo. Tous droits réservés.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Auto-redirect after 30 seconds
+        setTimeout(function() {
+            window.location.href = 'https://saloneo.app/dashboard';
+        }, 30000);
+
+        // Add some interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            const successIcon = document.querySelector('.success-icon');
+            successIcon.addEventListener('click', function() {
+                this.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html>`;
+}
+
+/**
  * @route   GET /feedback/thank-you
  * @desc    Thank you page after feedback submission
  * @access  Public
  */
 router.get('/feedback/thank-you', (req, res) => {
-  // Use relative path from __dirname to ensure file is found in production
-  const filePath = path.join(__dirname, '../views/feedback-thank-you.html');
-  res.sendFile(filePath);
+  try {
+    // Use absolute path from project root for production compatibility
+    const filePath = path.join(process.cwd(), 'dist', 'views', 'feedback-thank-you.html');
+    
+    // Check if file exists before trying to serve it
+    if (fs.existsSync(filePath)) {
+      res.sendFile(filePath);
+    } else {
+      // Fallback to inline HTML if file is not found
+      res.status(200).send(getThankYouPageHTML());
+    }
+  } catch (error) {
+    // Ultimate fallback in case of any error
+    res.status(200).send(getThankYouPageHTML());
+  }
 });
 
 export default router;
