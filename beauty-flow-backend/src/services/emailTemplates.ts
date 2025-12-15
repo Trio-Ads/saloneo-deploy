@@ -9,7 +9,7 @@ export class EmailTemplates {
       body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background: #f4f4f4; }
       .container { max-width: 600px; margin: 20px auto; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
       .header { background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%); color: white; padding: 30px; text-align: center; position: relative; }
-      .header .logo { width: 120px; height: auto; margin-bottom: 15px; display: block; }
+      .header .logo { width: 180px; height: auto; margin: 0 auto; display: block; }
       .header h1 { margin: 0; font-size: 28px; font-weight: 600; }
       .content { padding: 30px; background: white; }
       .content h2 { color: #FF6B35; margin-top: 0; }
@@ -48,7 +48,6 @@ export class EmailTemplates {
   <div class="container">
     <div class="header">
       <img src="https://saloneo.app/images/logos/Salon%C3%A9o%20Logo%20-%20White.png" alt="Saloneo" class="logo">
-      <h1>{{salonName}}</h1>
     </div>
     <div class="content">
       ${content}
