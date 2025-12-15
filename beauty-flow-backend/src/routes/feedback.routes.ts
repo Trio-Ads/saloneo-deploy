@@ -302,7 +302,7 @@ function getThankYouPageHTML(): string {
             <p>Nous avons bien reçu vos commentaires et nous vous remercions sincèrement pour le temps que vous avez consacré à partager votre expérience avec Saloneo.</p>
 
             <div class="highlight-box">
-                <h3>🎯 Notre engagement envers vous</h3>
+                <h3>Notre engagement envers vous</h3>
                 <p>Chez Saloneo, nous nous efforçons constamment d'améliorer notre plateforme pour mieux répondre à vos besoins. Votre feedback nous aide à :</p>
                 <ul class="features-list">
                     <li>Développer les fonctionnalités qui vous sont vraiment utiles</li>
@@ -316,7 +316,7 @@ function getThankYouPageHTML(): string {
 
             <div style="margin: 30px 0;">
                 <a href="https://saloneo.app/dashboard" class="cta-button">Retour au tableau de bord</a>
-                <a href="https://saloneo.app/support" class="cta-button" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);">Contacter le support</a>
+                <a href="mailto:donotreply@saloneo.app?subject=Demande de support - Saloneo&body=Bonjour,%0A%0AJe souhaite contacter le support concernant Saloneo.%0A%0AMerci." class="cta-button" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);">Contacter le support</a>
             </div>
         </div>
 
