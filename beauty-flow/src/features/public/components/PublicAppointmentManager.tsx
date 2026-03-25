@@ -76,15 +76,14 @@ export const PublicAppointmentManager: React.FC = () => {
 
     try {
       setLoading(true);
-      // TODO: Implémenter l'API de modification
       console.log('🔄 Modification du rendez-vous:', { newDate, newTime });
-      
-      // Pour l'instant, on simule une modification réussie
-      setAppointment({
-        ...appointment,
+
+      const response = await publicAPI.modifyAppointmentByModificationToken(token, {
         date: newDate,
-        startTime: newTime
+        startTime: newTime,
       });
+
+      setAppointment(response.data.appointment);
       
       setIsModifying(false);
       setError(null);
@@ -103,10 +102,10 @@ export const PublicAppointmentManager: React.FC = () => {
 
     try {
       setLoading(true);
-      // TODO: Implémenter l'API d'annulation
       console.log('❌ Annulation du rendez-vous:', { cancellationReason });
-      
-      // Pour l'instant, on simule une annulation réussie
+
+      await publicAPI.cancelAppointmentByModificationToken(token, { reason: cancellationReason });
+
       setAppointment({
         ...appointment,
         status: 'cancelled'

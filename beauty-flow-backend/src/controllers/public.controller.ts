@@ -509,7 +509,7 @@ export const getAppointmentByModificationToken = async (req: Request, res: Respo
       clientInfo: appointment.clientInfo,
       client: appointment.clientId,
       salon: appointment.userId,
-      canModify: appointment.status === 'scheduled' || appointment.status === 'confirmed',
+      canModify: appointment.status === 'scheduled' || appointment.status === 'confirmed' || appointment.status === 'rescheduled',
       modificationToken: appointment.tokens.modification,
       confirmationToken: appointment.confirmationToken
     };
@@ -517,6 +517,186 @@ export const getAppointmentByModificationToken = async (req: Request, res: Respo
     res.json({ appointment: response });
   } catch (error) {
     logger.error('Get appointment by modification token error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+// Modify appointment using modification token (public)
+export const modifyAppointmentByModificationToken = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.status(400).json({ errors: errors.array() });
+      return;
+    }
+
+    const { token } = req.params;
+    const { date, startTime, stylistId, reason } = req.body as {
+      date?: string;
+      startTime?: string;
+      stylistId?: string;
+      reason?: string;
+    };
+
+    const appointment = await Appointment.findOne({
+      'tokens.modification': token,
+      status: { $in: ['scheduled', 'confirmed', 'rescheduled'] }
+    });
+
+    if (!appointment) {
+      res.status(404).json({ error: 'Lien de modification invalide ou expiré' });
+      return;
+    }
+
+    // Apply changes
+    const changes: Record<string, any> = {};
+
+    // Determine effective values for conflict check / recalculation
+    const effectiveDate = date ? new Date(date) : appointment.date;
+    const effectiveStartTime = startTime || appointment.startTime;
+    const effectiveStylistId = stylistId || appointment.stylistId;
+
+    if (date) {
+      appointment.date = new Date(date);
+      changes.date = date;
+    }
+
+    if (startTime) {
+      appointment.startTime = startTime;
+      changes.startTime = startTime;
+    }
+
+    if (stylistId) {
+      appointment.stylistId = stylistId;
+      changes.stylistId = stylistId;
+    }
+
+    // Recalculate end time when startTime (or date) changes
+    // Best-effort duration: keep existing duration
+    const duration = appointment.duration || 30;
+    const startDateIso = effectiveDate.toISOString().slice(0, 10);
+    const startDateTime = new Date(`${startDateIso}T${effectiveStartTime}`);
+    const endDateTime = new Date(startDateTime.getTime() + duration * 60000);
+    const effectiveEndTime = endDateTime.toTimeString().slice(0, 5);
+
+    // Conflict check (exclude current appointment)
+    const conflicts = await Appointment.find({
+      userId: appointment.userId,
+      _id: { $ne: appointment._id },
+      date: new Date(startDateIso),
+      stylistId: effectiveStylistId,
+      status: { $ne: 'cancelled' },
+      $or: [
+        {
+          $and: [
+            { startTime: { $lte: effectiveStartTime } },
+            { endTime: { $gt: effectiveStartTime } }
+          ]
+        },
+        {
+          $and: [
+            { startTime: { $lt: effectiveEndTime } },
+            { endTime: { $gte: effectiveEndTime } }
+          ]
+        },
+        {
+          $and: [
+            { startTime: { $gte: effectiveStartTime } },
+            { endTime: { $lte: effectiveEndTime } }
+          ]
+        }
+      ]
+    });
+
+    if (conflicts.length > 0) {
+      res.status(400).json({ error: "Ce créneau n'est plus disponible" });
+      return;
+    }
+
+    appointment.endTime = effectiveEndTime;
+    changes.endTime = appointment.endTime;
+
+    // Track modification
+    appointment.modifications = appointment.modifications || [];
+    appointment.modifications.push({
+      date: new Date(),
+      modifiedBy: 'client',
+      changes,
+      reason,
+    });
+
+    // Mark as rescheduled when modified
+    if (Object.keys(changes).length > 0) {
+      appointment.status = AppointmentStatus.RESCHEDULED;
+    }
+
+    await appointment.save();
+
+    // Return updated appointment (reuse formatter)
+    const populated = await Appointment.findById(appointment._id)
+      .populate('clientId', 'firstName lastName email phone')
+      .populate('userId', 'firstName lastName establishmentName');
+
+    res.json({
+      success: true,
+      appointment: {
+        id: populated!._id,
+        date: populated!.date,
+        startTime: populated!.startTime,
+        endTime: populated!.endTime,
+        duration: populated!.duration,
+        price: populated!.price,
+        status: populated!.status,
+        notes: populated!.notes,
+        serviceId: populated!.serviceId,
+        stylistId: populated!.stylistId,
+        clientInfo: populated!.clientInfo,
+        client: populated!.clientId,
+        salon: populated!.userId,
+        canModify: populated!.status === 'scheduled' || populated!.status === 'confirmed' || populated!.status === 'rescheduled',
+        modificationToken: populated!.tokens.modification,
+        confirmationToken: populated!.confirmationToken
+      }
+    });
+  } catch (error) {
+    logger.error('Modify appointment by modification token error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+// Cancel appointment using modification token (public)
+export const cancelAppointmentByModificationToken = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.status(400).json({ errors: errors.array() });
+      return;
+    }
+
+    const { token } = req.params;
+    const { reason } = req.body as { reason?: string };
+
+    const appointment = await Appointment.findOne({
+      'tokens.modification': token,
+      status: { $in: ['scheduled', 'confirmed', 'rescheduled'] }
+    });
+
+    if (!appointment) {
+      res.status(404).json({ error: 'Lien de modification invalide ou expiré' });
+      return;
+    }
+
+    appointment.status = AppointmentStatus.CANCELLED;
+    appointment.cancellation = {
+      reason,
+      cancelledBy: 'client',
+      cancelledAt: new Date(),
+    };
+    await appointment.save();
+
+    res.json({ success: true, message: 'Appointment cancelled successfully' });
+  } catch (error) {
+    logger.error('Cancel appointment by modification token error:', error);
     res.status(500).json({ error: 'Server error' });
   }
 };
@@ -990,7 +1170,7 @@ export const searchAppointmentsByClient = async (req: Request, res: Response): P
       clientInfo: appointment.clientInfo,
       modificationToken: appointment.tokens?.modification,
       confirmationToken: appointment.confirmationToken,
-      canModify: appointment.status === 'scheduled' || appointment.status === 'confirmed'
+      canModify: appointment.status === 'scheduled' || appointment.status === 'confirmed' || appointment.status === 'rescheduled'
     }));
 
     res.json(formattedAppointments);

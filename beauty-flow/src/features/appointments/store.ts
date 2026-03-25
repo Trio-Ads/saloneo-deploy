@@ -174,7 +174,9 @@ export const useAppointmentStore = create<AppointmentStore>()((set, get) => ({
       // Mettre à jour chaque rendez-vous passé dans le backend
       const updatePromises = pastAppointments.map(appointment => {
         console.log('📤 Mise à jour rendez-vous:', { id: appointment.id, action });
-        return appointmentsAPI.updateStatus(appointment.id, action);
+        // Backend expects no_show (snake_case)
+        const apiStatus = action === 'noShow' ? 'no_show' : action;
+        return appointmentsAPI.updateStatus(appointment.id, apiStatus);
       });
       
       await Promise.all(updatePromises);
@@ -379,7 +381,8 @@ export const useAppointmentStore = create<AppointmentStore>()((set, get) => ({
 
   markAsNoShow: async (id: string) => {
     try {
-      await appointmentsAPI.updateStatus(id, 'noShow');
+      // Backend expects no_show (snake_case)
+      await appointmentsAPI.updateStatus(id, 'no_show');
       set((state) => ({
         appointments: state.appointments.map((appointment) =>
           appointment.id === id

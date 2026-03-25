@@ -271,18 +271,16 @@ export const updateAppointment = async (req: AuthRequest, res: Response): Promis
 
     // If changing time/date/team member, check for conflicts
     if (updates.date || updates.startTime || updates.teamMemberId) {
-      const service = await Service.findById(appointment.serviceId);
-      if (!service) {
-        res.status(400).json({ error: 'Service not found' });
-        return;
-      }
-
       const date = updates.date || appointment.date;
       const startTime = updates.startTime || appointment.startTime;
       const teamMemberId = updates.teamMemberId || appointment.stylistId;
-      
-      const startDateTime = new Date(`${date}T${startTime}`);
-      const endDateTime = new Date(startDateTime.getTime() + service.duration * 60000);
+
+      // Duration best-effort: keep existing appointment duration
+      const duration = appointment.duration || 30;
+
+      const startDateIso = (date instanceof Date ? date.toISOString().slice(0, 10) : new Date(date).toISOString().slice(0, 10));
+      const startDateTime = new Date(`${startDateIso}T${startTime}`);
+      const endDateTime = new Date(startDateTime.getTime() + duration * 60000);
       const endTime = endDateTime.toTimeString().slice(0, 5);
 
       const conflict = await checkAppointmentConflict(
@@ -336,12 +334,19 @@ export const updateAppointment = async (req: AuthRequest, res: Response): Promis
 export const updateAppointmentStatus = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
-    const { status } = req.body;
+    const { status } = req.body as { status: string };
     const userId = req.userId;
+
+    // Normalize legacy / UI-friendly statuses
+    const normalizedStatus = (() => {
+      if (!status) return status;
+      if (status === 'noShow') return 'no_show';
+      return status;
+    })();
 
     const appointment = await Appointment.findOneAndUpdate(
       { _id: id, userId },
-      { status },
+      { status: normalizedStatus },
       { new: true, runValidators: true }
     ).populate([
       { path: 'clientId', select: 'firstName lastName email phone' },
@@ -399,11 +404,10 @@ export const getAvailableSlots = async (req: AuthRequest, res: Response): Promis
       return;
     }
 
+    // serviceId may be a DB ObjectId or a UUID from local store.
+    // We only need duration here; if service not found, use a safe default.
     const service = await Service.findOne({ _id: serviceId, userId });
-    if (!service) {
-      res.status(404).json({ error: 'Service not found' });
-      return;
-    }
+    const serviceDuration = service?.duration || 30;
 
     // Get team member working hours
     let workingHours = {
@@ -441,7 +445,7 @@ export const getAvailableSlots = async (req: AuthRequest, res: Response): Promis
     const slots = generateAvailableSlots(
       workingHours,
       appointments,
-      service.duration,
+      serviceDuration,
       undefined // buffer will be added later when we update the Service model
     );
 

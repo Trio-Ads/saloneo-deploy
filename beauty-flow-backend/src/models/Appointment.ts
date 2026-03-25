@@ -7,7 +7,8 @@ export enum AppointmentStatus {
   IN_PROGRESS = 'in_progress',
   COMPLETED = 'completed',
   CANCELLED = 'cancelled',
-  NO_SHOW = 'no_show'
+  NO_SHOW = 'no_show',
+  RESCHEDULED = 'rescheduled'
 }
 
 export interface IAppointment extends Document {

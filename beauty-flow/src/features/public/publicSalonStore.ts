@@ -142,14 +142,15 @@ export const usePublicSalonStore = create<PublicSalonStore>((set, get) => ({
     set({ loading: true, error: null });
     
     try {
-      // Pour l'instant, utiliser l'ancien système avec token
-      // TODO: Adapter quand les nouvelles routes de réservation par slug seront prêtes
-      const response = await api.post(`/public/salon-token/demo-token/appointments`, {
+      // Nouveau système par slug (source de vérité)
+      const response = await api.post(`/public/appointments/${slug}`, {
         serviceId: bookingData.serviceId,
-        teamMemberId: bookingData.teamMemberId,
+        stylistId: bookingData.teamMemberId,
         date: bookingData.date,
         startTime: bookingData.startTime,
-        clientInfo: bookingData.clientInfo,
+        clientData: {
+          ...bookingData.clientInfo,
+        },
         notes: bookingData.notes
       });
 

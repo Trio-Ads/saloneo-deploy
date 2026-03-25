@@ -150,7 +150,8 @@ class SubscriptionEmailService {
   // Calculate current usage
   private async calculateUsage(userId: string) {
     const [appointments, clients, services] = await Promise.all([
-      Appointment.countDocuments({ userId, isActive: true }),
+      // Appointment doesn't have isActive; exclude cancelled
+      Appointment.countDocuments({ userId, status: { $ne: 'cancelled' } }),
       Client.countDocuments({ userId, isActive: true }),
       Service.countDocuments({ userId, isActive: true })
     ]);

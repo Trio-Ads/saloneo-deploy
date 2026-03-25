@@ -56,6 +56,8 @@ export const App: React.FC = () => {
         <Route path="salon/:slug" element={<SalonPage />} />
         <Route path="salon/:slug/appointments/list" element={<PublicAppointmentList />} />
         <Route path="appointment/:token" element={<PublicAppointmentManager />} />
+        {/* Alias used by emails */}
+        <Route path="modify-appointment/:token" element={<PublicAppointmentManager />} />
         <Route path="appointments/list" element={<PublicAppointmentList />} />
 
         {/* Authentication routes */}

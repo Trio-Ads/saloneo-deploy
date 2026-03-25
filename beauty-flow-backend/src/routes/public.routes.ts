@@ -70,6 +70,25 @@ router.get('/appointments/:confirmationToken', publicController.getAppointmentBy
 // Get appointment by modification token
 router.get('/appointment/:token', publicController.getAppointmentByModificationToken);
 
+// Modify appointment by modification token
+router.patch(
+  '/appointment/:token',
+  [
+    body('date').optional().isISO8601(),
+    body('startTime').optional().matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/),
+    body('stylistId').optional().isString().trim(),
+    body('reason').optional().trim().isLength({ max: 500 }),
+  ],
+  publicController.modifyAppointmentByModificationToken
+);
+
+// Cancel appointment by modification token
+router.post(
+  '/appointment/:token/cancel',
+  [body('reason').optional().trim().isLength({ max: 500 })],
+  publicController.cancelAppointmentByModificationToken
+);
+
 // Cancel appointment
 router.post(
   '/appointments/:confirmationToken/cancel',

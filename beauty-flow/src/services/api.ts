@@ -184,6 +184,12 @@ export const publicAPI = {
   // Récupérer un rendez-vous par token de modification
   getAppointmentByModificationToken: (token: string) => 
     api.get(`/public/appointment/${token}`),
+  // Modifier un rendez-vous via token de modification
+  modifyAppointmentByModificationToken: (token: string, data: { date?: string; startTime?: string; stylistId?: string; reason?: string }) =>
+    api.patch(`/public/appointment/${token}`, data),
+  // Annuler un rendez-vous via token de modification
+  cancelAppointmentByModificationToken: (token: string, data: { reason?: string }) =>
+    api.post(`/public/appointment/${token}/cancel`, data),
   getAppointment: (code: string, email: string) => 
     api.get('/public/appointment', { params: { code, email } }),
   cancelAppointment: (code: string, email: string) => 

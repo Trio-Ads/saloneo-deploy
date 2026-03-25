@@ -13,8 +13,10 @@ router.use(authenticate);
 router.get('/available-slots', 
   [
     query('date').isISO8601().toDate(),
-    query('serviceId').isMongoId(),
-    query('teamMemberId').optional().isMongoId(),
+    // serviceId can be a Mongo ObjectId (DB) or a UUID (legacy/local)
+    query('serviceId').isString().isLength({ min: 1 }),
+    // teamMemberId can be a Mongo ObjectId (DB) or a UUID (legacy/local)
+    query('teamMemberId').optional().isString().isLength({ min: 1 }),
   ],
   appointmentsController.getAvailableSlots
 );
@@ -50,8 +52,9 @@ router.put(
   [
     param('id').isMongoId(),
     body('clientId').optional().isMongoId(),
-    body('serviceId').optional().isMongoId(),
-    body('teamMemberId').optional().isMongoId(),
+    // serviceId/teamMemberId may not be MongoId depending on data source
+    body('serviceId').optional().isString().isLength({ min: 1 }),
+    body('teamMemberId').optional().isString().isLength({ min: 1 }),
     body('date').optional().isISO8601().toDate(),
     body('startTime').optional().matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/),
     body('notes').optional().trim().isLength({ max: 500 }),
@@ -64,7 +67,17 @@ router.patch(
   '/:id/status',
   [
     param('id').isMongoId(),
-    body('status').isIn(['scheduled', 'confirmed', 'in_progress', 'completed', 'cancelled', 'no_show']),
+    // NOTE: accept legacy/camelCase values too (will be normalized in controller)
+    body('status').isIn([
+      'scheduled',
+      'confirmed',
+      'in_progress',
+      'completed',
+      'cancelled',
+      'no_show',
+      'rescheduled',
+      'noShow'
+    ]),
   ],
   appointmentsController.updateAppointmentStatus
 );
