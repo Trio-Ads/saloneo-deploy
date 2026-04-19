@@ -10,7 +10,10 @@ export function useSalonPublicData(slug: string) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!slug) return;
+    if (!slug) {
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     setError(null);
 
