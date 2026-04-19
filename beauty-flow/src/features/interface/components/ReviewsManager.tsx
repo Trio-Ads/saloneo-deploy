@@ -21,7 +21,7 @@ export function ReviewsManager() {
   const load = () => {
     setLoading(true);
     setError(null);
-    api.get('/api/reviews')
+    api.get('/reviews')
       .then(r => setReviews(r.data))
       .catch(() => setError('Impossible de charger les avis.'))
       .finally(() => setLoading(false));
@@ -34,7 +34,7 @@ export function ReviewsManager() {
     setSaving(true);
     setError(null);
     try {
-      await api.post('/api/reviews', form);
+      await api.post('/reviews', form);
       setForm({ author: '', rating: 5, comment: '' });
       load();
     } catch {
@@ -46,7 +46,7 @@ export function ReviewsManager() {
 
   const toggleVisible = async (review: Review) => {
     try {
-      await api.patch(`/api/reviews/${review._id}`, { isVisible: !review.isVisible });
+      await api.patch(`/reviews/${review._id}`, { isVisible: !review.isVisible });
       load();
     } catch {
       setError("Erreur lors de la mise à jour.");
@@ -56,7 +56,7 @@ export function ReviewsManager() {
   const handleDelete = async (id: string) => {
     if (!confirm('Supprimer cet avis ?')) return;
     try {
-      await api.delete(`/api/reviews/${id}`);
+      await api.delete(`/reviews/${id}`);
       load();
     } catch {
       setError("Erreur lors de la suppression.");

@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { SalonPublicData, PublicSalonProfile, PublicService, PublicTeamMember, PublicReview } from '../types';
 
-const API_BASE = import.meta.env.VITE_API_URL || '';
+// Strip trailing /api so paths like /api/public/... don't become /api/api/public/...
+const RAW_BASE = import.meta.env.VITE_API_URL || '';
+const API_BASE = RAW_BASE.replace(/\/api\/?$/, '');
 
 export function useSalonPublicData(slug: string) {
   const [data, setData] = useState<SalonPublicData | null>(null);
