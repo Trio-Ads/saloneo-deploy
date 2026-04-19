@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useInterfaceStore } from './store';
-import { 
+import {
   PaintBrushIcon,
   SwatchIcon,
   PhotoIcon,
   DocumentTextIcon,
   Cog6ToothIcon,
-  SparklesIcon
+  SparklesIcon,
+  StarIcon
 } from '@heroicons/react/24/outline';
 import ColorPicker from './components/ColorPicker';
 import ImageUpload from './components/ImageUpload';
@@ -15,8 +16,9 @@ import DisplaySettings from './components/DisplaySettings';
 import ShareableLink from './components/ShareableLink';
 import AppointmentSettings from '../appointments/components/AppointmentSettings';
 import { TemplateGallery } from '../templates/components/TemplateGallery';
+import { ReviewsManager } from './components/ReviewsManager';
 
-type TabType = 'templates' | 'colors' | 'images' | 'content' | 'settings';
+type TabType = 'templates' | 'colors' | 'images' | 'content' | 'settings' | 'reviews';
 
 interface Tab {
   id: TabType;
@@ -58,6 +60,12 @@ const InterfacePage: React.FC = () => {
       label: t('tabs.settings'),
       icon: Cog6ToothIcon,
       gradient: 'from-orange-500 to-orange-600'
+    },
+    {
+      id: 'reviews',
+      label: 'Avis clients',
+      icon: StarIcon,
+      gradient: 'from-orange-400 to-orange-500'
     }
   ];
   const { 
@@ -335,6 +343,21 @@ const InterfacePage: React.FC = () => {
                 <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">{t('forms.share_link')}</h4>
                 <ShareableLink />
               </div>
+            </div>
+          </div>
+        );
+
+      case 'reviews':
+        return (
+          <div className="space-y-6">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent mb-2">
+                Avis clients
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400">Gérez les avis affichés sur votre page publique</p>
+            </div>
+            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 p-6">
+              <ReviewsManager />
             </div>
           </div>
         );
