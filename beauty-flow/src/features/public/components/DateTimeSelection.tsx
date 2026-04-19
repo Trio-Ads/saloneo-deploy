@@ -5,12 +5,10 @@ import {
   CalendarDaysIcon,
   ClockIcon,
   SparklesIcon,
-  CheckCircleIcon,
   XMarkIcon
 } from '@heroicons/react/24/outline';
 import ModernCalendar from './ModernCalendar';
 import AdaptiveModal from './AdaptiveModal';
-import { useInterfaceStore } from '../../interface/store';
 import { useTemplateStyles } from '../../../hooks/useTemplateStyles';
 import { useServiceStore } from '../../services/store';
 import { useTeamStore } from '../../team/store';
@@ -18,7 +16,7 @@ import { useAppointmentStore } from '../../appointments/store';
 import { useProfileStore } from '../../profile/store';
 import { useAuthStore } from '../../auth/store';
 import { TeamMember } from '../../team/types';
-import { DaySchedule, TimeSlot } from '../../appointments/types';
+import { DaySchedule } from '../../appointments/types';
 import { format, addMinutes } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -41,7 +39,6 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
   onSelect,
 }) => {
   const { t, i18n } = useTranslation('public');
-  const settings = useInterfaceStore(state => state.settings);
   const { colors } = useTemplateStyles();
   const service = useServiceStore(state => state.services.find(s => s.id === serviceId));
   const { getDaySchedule, addPreBooking, removePreBooking } = useAppointmentStore();
@@ -93,16 +90,19 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
   const stylists = useStylists();
 
   const [availableSlots, setAvailableSlots] = useState<Record<string, DaySchedule>>({});
-  
+
   // Calculer les dates disponibles pour le calendrier
   const availableDatesForCalendar = useMemo(() => {
     return Object.keys(availableSlots)
       .filter(date => availableSlots[date]?.timeSlots.some(slot => slot.available))
       .map(date => new Date(date));
   }, [availableSlots]);
-  
+
   const [isLoadingSlots, setIsLoadingSlots] = useState(false);
   const [selectedStylistId, setSelectedStylistId] = useState(stylistId || '');
+
+  // When "Tous" is selected (empty string), fall back to first available stylist for slot loading
+  const effectiveStylistId = selectedStylistId || stylists[0]?.id || '';
   const [internalSelectedDate, setInternalSelectedDate] = useState(selectedDate);
   const [preBookingId, setPreBookingId] = useState<string | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
@@ -119,19 +119,19 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
   }, [showTeamSelection, stylists, selectedStylistId, isInitialized]);
 
   const loadAvailableSlots = React.useCallback(async () => {
-    if (!selectedStylistId || !service) return;
+    if (!effectiveStylistId || !service) return;
 
     setIsLoadingSlots(true);
     try {
       const newSlots: Record<string, DaySchedule> = {};
-      
+
       // Charger les créneaux pour les 6 prochains mois (180 jours)
       for (let i = 0; i < 180; i++) {
         const date = new Date();
         date.setDate(date.getDate() + i);
         const formattedDate = format(date, 'yyyy-MM-dd');
-        
-        const schedule = getDaySchedule(formattedDate, selectedStylistId);
+
+        const schedule = getDaySchedule(formattedDate, effectiveStylistId);
         
         const filteredTimeSlots = schedule.timeSlots.map((slot, index, slots) => {
           if (!slot.available) return slot;
@@ -161,15 +161,22 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
     } finally {
       setIsLoadingSlots(false);
     }
-  }, [selectedStylistId, service, getDaySchedule]);
+  }, [effectiveStylistId, service, getDaySchedule]);
 
   useEffect(() => {
-    if (selectedStylistId && service) {
+    if (effectiveStylistId && service) {
       loadAvailableSlots();
       const interval = setInterval(loadAvailableSlots, 60000);
       return () => clearInterval(interval);
     }
-  }, [selectedStylistId, service, loadAvailableSlots]);
+  }, [effectiveStylistId, service, loadAvailableSlots]);
+
+  // Reset calendar and date when stylist changes so user sees fresh availability
+  useEffect(() => {
+    setInternalSelectedDate(undefined);
+    setCalendarSelectedDate(undefined);
+    setShowCalendarModal(true);
+  }, [selectedStylistId]);
 
   useEffect(() => {
     if (stylistId && stylistId !== selectedStylistId) {
@@ -225,24 +232,24 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
       {showTeamSelection && stylists.length > 0 && (
         <div className="px-5 mb-3">
           <p className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: colors.textSecondary }}>
-            Avec qui ?
+            {t('booking.flow.with_who', 'Avec qui ?')}
           </p>
           <div className="flex gap-2 overflow-x-auto pb-1">
             <button
               onClick={() => setSelectedStylistId('')}
-              className={`flex-shrink-0 flex flex-col items-center gap-1 p-2 rounded-lg transition-all ${!selectedStylistId ? 'ring-2' : 'opacity-60'}`}
+              className={`flex-shrink-0 flex flex-col items-center gap-1 p-2 rounded-lg transition-all ${!selectedStylistId ? '' : 'opacity-60'}`}
               style={!selectedStylistId ? { outline: `2px solid ${colors.primary}`, outlineOffset: '1px' } : {}}
             >
               <div className="w-9 h-9 rounded-full flex items-center justify-center text-sm" style={{ background: colors.surface, color: colors.textSecondary }}>
                 👤
               </div>
-              <span className="text-[9px] font-semibold" style={{ color: colors.textPrimary }}>Tous</span>
+              <span className="text-[9px] font-semibold" style={{ color: colors.textPrimary }}>{t('booking.flow.any_stylist', 'Tous')}</span>
             </button>
             {stylists.map((member: TeamMember) => (
               <button
                 key={member.id}
                 onClick={() => setSelectedStylistId(member.id)}
-                className={`flex-shrink-0 flex flex-col items-center gap-1 p-2 rounded-lg transition-all ${selectedStylistId === member.id ? 'ring-2' : 'opacity-60'}`}
+                className={`flex-shrink-0 flex flex-col items-center gap-1 p-2 rounded-lg transition-all ${selectedStylistId === member.id ? '' : 'opacity-60'}`}
                 style={selectedStylistId === member.id ? { outline: `2px solid ${colors.primary}`, outlineOffset: '1px' } : {}}
               >
                 {member.avatar
@@ -256,9 +263,9 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
         </div>
       )}
 
-      {selectedStylistId && (
+      {effectiveStylistId && (
         <>
-          {/* Modal avec calendrier complet - Affiché par défaut */}
+          {/* Modal avec calendrier complet */}
           <AdaptiveModal
             isOpen={showCalendarModal}
             onClose={() => setShowCalendarModal(false)}
@@ -272,7 +279,7 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
                 const hasAvailableSlots = availableSlots[formattedDate]?.timeSlots.some(
                   slot => slot.available
                 );
-                
+
                 if (hasAvailableSlots) {
                   setCalendarSelectedDate(date);
                   setInternalSelectedDate(formattedDate);
@@ -285,13 +292,29 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
               locale={i18n.language}
             />
           </AdaptiveModal>
+
+          {/* Show selected date with option to change */}
+          {internalSelectedDate && !showCalendarModal && (
+            <div className="px-5 mb-2 flex items-center justify-between">
+              <span className="text-sm font-semibold" style={{ color: colors.textPrimary }}>
+                {format(new Date(internalSelectedDate), 'EEEE d MMMM', { locale: fr })}
+              </span>
+              <button
+                onClick={() => setShowCalendarModal(true)}
+                className="text-xs underline"
+                style={{ color: colors.primary }}
+              >
+                {t('booking.flow.change_date', 'Changer')}
+              </button>
+            </div>
+          )}
         </>
       )}
 
-      {internalSelectedDate && selectedStylistId && (
+      {internalSelectedDate && effectiveStylistId && (
         <div className="px-5 mb-4">
           <p className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: colors.textSecondary }}>
-            {internalSelectedDate ? format(new Date(internalSelectedDate), 'EEEE d MMMM', { locale: fr }) : 'Choisir un horaire'}
+            {t('booking.flow.choose_time', 'Choisir un horaire')}
           </p>
 
           {isLoadingSlots ? (
@@ -307,15 +330,11 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
                   <button
                     key={slot.startTime}
                     disabled={isFull}
-                    onClick={() => {
-                      if (!isFull) {
-                        onSelect(internalSelectedDate, slot.startTime, selectedStylistId);
-                      }
-                    }}
-                    className="py-2 rounded-lg text-xs font-bold transition-all"
+                    onClick={() => onSelect(internalSelectedDate, slot.startTime, effectiveStylistId)}
+                    className={`py-2 rounded-lg text-xs font-bold transition-all${isFull ? ' cursor-not-allowed' : ''}`}
                     style={{
                       background: isSelected ? colors.textPrimary : isFull ? 'transparent' : colors.surface,
-                      color: isSelected ? '#fff' : isFull ? colors.surface : colors.textPrimary,
+                      color: isSelected ? '#fff' : isFull ? colors.textSecondary : colors.textPrimary,
                       textDecoration: isFull ? 'line-through' : 'none',
                       opacity: isFull ? 0.4 : 1,
                     }}
@@ -339,7 +358,7 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
         </div>
       )}
 
-      {selectedStylistId && internalSelectedDate && selectedTime && (
+      {effectiveStylistId && internalSelectedDate && selectedTime && (
         <div className="glass-card p-6 bg-gradient-to-r from-green-50/50 to-emerald-50/50 border border-green-200/50">
           <div className="flex items-center space-x-3 mb-4">
             <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl shadow-lg">
@@ -354,7 +373,7 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
               <div>
                 <p className="text-sm font-medium text-gray-700">{t('booking.flow.stylist')}</p>
                 <p className="text-green-800 font-bold">
-                  {stylists.find(s => s.id === selectedStylistId)?.firstName} {stylists.find(s => s.id === selectedStylistId)?.lastName}
+                  {stylists.find(s => s.id === effectiveStylistId)?.firstName} {stylists.find(s => s.id === effectiveStylistId)?.lastName}
                 </p>
               </div>
             </div>
