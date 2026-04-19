@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useInterfaceStore } from '../../../interface/store';
 import { useServiceStore } from '../../../services/store';
-import { PublicClientFormData } from '../../types';
+import { PublicClientFormData, PublicService } from '../../types';
 import { useTemplateStyles } from '../../../../hooks/useTemplateStyles';
 import PersonalInfoSection from './PersonalInfoSection';
 import HairQuestionnaireSection from './HairQuestionnaireSection';
@@ -10,19 +10,23 @@ import PreferencesSection from './PreferencesSection';
 
 interface PublicClientFormProps {
   serviceId: string;
+  publicService?: PublicService;
   onSubmit: (data: PublicClientFormData) => void;
   onBack: () => void;
 }
 
 const PublicClientForm: React.FC<PublicClientFormProps> = ({
   serviceId,
+  publicService,
   onSubmit,
   onBack,
 }) => {
   const settings = useInterfaceStore((state) => state.settings);
-  const service = useServiceStore((state) => 
+  const serviceFromStore = useServiceStore((state) =>
     state.services.find(s => s.id === serviceId)
   );
+  // Use admin store service if available, otherwise fall back to the public service data
+  const service = serviceFromStore ?? publicService;
 
   const [formData, setFormData] = useState<PublicClientFormData>({
     firstName: '',

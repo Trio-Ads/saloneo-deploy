@@ -8,6 +8,7 @@ import PublicClientForm from './PublicClientForm';
 import LoadingSpinner from './LoadingSpinner';
 import { BookingConfirmation } from './BookingConfirmation';
 import { DesignTemplate } from '../../templates/types';
+import { PublicTeamMember } from '../types';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
@@ -20,6 +21,7 @@ interface PublicBookingFlowProps {
   serviceId: string;
   slug: string;
   services?: PublicService[];
+  team?: PublicTeamMember[];
   onClose: () => void;
 }
 
@@ -126,6 +128,7 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
   serviceId,
   slug: _slug,
   services,
+  team,
   onClose,
 }) => {
   const { t } = useTranslation('public');
@@ -355,6 +358,7 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
             <DateTimeSelection
               serviceId={bookingData.serviceId}
               serviceDuration={currentService?.duration}
+              publicTeamMembers={team}
               selectedDate={bookingData.date}
               selectedTime={bookingData.startTime}
               stylistId={bookingData.stylistId}
@@ -368,6 +372,7 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
             <>
               <PublicClientForm
                 serviceId={bookingData.serviceId}
+                publicService={currentService}
                 onSubmit={handleClientSubmit}
                 onBack={handleBack}
               />

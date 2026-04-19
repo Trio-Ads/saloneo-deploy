@@ -39,6 +39,7 @@ export default function SalonPage() {
           serviceId={bookingServiceId}
           slug={slug || ''}
           services={data.services}
+          team={data.team}
           onClose={() => setBookingServiceId(null)}
         />
       )}

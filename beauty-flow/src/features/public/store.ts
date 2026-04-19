@@ -145,10 +145,7 @@ export const usePublicBookingStore = create<PublicBookingStore>((set, get) => ({
 
     switch (currentStep) {
       case 'datetime':
-        if (!bookingData.stylistId) {
-          state.setError({ step: 'datetime', message: "Veuillez sélectionner un coiffeur" });
-          return false;
-        }
+        // stylistId is optional — if showTeamOnPublicPage is false the client doesn't pick one
         if (!bookingData.date || !bookingData.startTime) {
           state.setError({ step: 'datetime', message: "Veuillez sélectionner une date et une heure" });
           return false;

@@ -17,6 +17,7 @@ import { useProfileStore } from '../../profile/store';
 import { useAuthStore } from '../../auth/store';
 import { TeamMember } from '../../team/types';
 import { DaySchedule } from '../../appointments/types';
+import { PublicTeamMember } from '../types';
 import { format, addMinutes } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -24,6 +25,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 interface DateTimeSelectionProps {
   serviceId: string;
   serviceDuration?: number;
+  publicTeamMembers?: PublicTeamMember[];
   selectedDate?: string;
   selectedTime?: string;
   stylistId?: string;
@@ -34,6 +36,7 @@ interface DateTimeSelectionProps {
 const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
   serviceId,
   serviceDuration,
+  publicTeamMembers,
   selectedDate,
   selectedTime,
   stylistId,
@@ -56,22 +59,74 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
     const members = useTeamStore(state => state.members);
     const profile = useProfileStore(state => state.profile);
     const user = useAuthStore(state => state.user);
-    
+
     return React.useMemo(() => {
-      const teamStylists = members.filter(member => 
-        member.isActive && 
+      const adminStylists = members.filter(member =>
+        member.isActive &&
         (member.role === 'Coiffeur(se)' || member.role === 'Coloriste')
       );
-      
-      const ownerAlreadyInTeam = teamStylists.some(member => 
-        member.email === user?.email
-      );
-      
-      if (!ownerAlreadyInTeam && profile.showAsTeamMember) {
-        const ownerAsStylist: TeamMember = {
+
+      // If admin store has stylists, use them (admin context)
+      if (adminStylists.length > 0) {
+        const ownerAlreadyInTeam = adminStylists.some(member => member.email === user?.email);
+        if (!ownerAlreadyInTeam && profile.showAsTeamMember) {
+          const ownerAsStylist: TeamMember = {
+            id: 'owner-' + (user?.id || 'default'),
+            firstName: profile.firstName || 'Propriétaire',
+            lastName: profile.lastName || (user?.establishmentName ? 'de ' + user?.establishmentName : 'du Salon'),
+            email: user?.email || '',
+            phone: '',
+            role: 'Propriétaire',
+            specialties: [],
+            workingHours: {
+              monday: { isWorking: true, start: '09:00', end: '18:00', breaks: [{ start: '12:00', end: '13:00' }] },
+              tuesday: { isWorking: true, start: '09:00', end: '18:00', breaks: [{ start: '12:00', end: '13:00' }] },
+              wednesday: { isWorking: true, start: '09:00', end: '18:00', breaks: [{ start: '12:00', end: '13:00' }] },
+              thursday: { isWorking: true, start: '09:00', end: '18:00', breaks: [{ start: '12:00', end: '13:00' }] },
+              friday: { isWorking: true, start: '09:00', end: '18:00', breaks: [{ start: '12:00', end: '13:00' }] },
+              saturday: { isWorking: true, start: '09:00', end: '18:00', breaks: [{ start: '12:00', end: '13:00' }] },
+              sunday: { isWorking: false }
+            },
+            isActive: true,
+            color: colors.primary
+          };
+          return [ownerAsStylist, ...adminStylists];
+        }
+        return adminStylists;
+      }
+
+      // Fallback: use public team members passed from the public data API
+      if (publicTeamMembers && publicTeamMembers.length > 0) {
+        const defaultWH = {
+          monday: { isWorking: true, start: '09:00', end: '18:00', breaks: [{ start: '12:00', end: '13:00' }] },
+          tuesday: { isWorking: true, start: '09:00', end: '18:00', breaks: [{ start: '12:00', end: '13:00' }] },
+          wednesday: { isWorking: true, start: '09:00', end: '18:00', breaks: [{ start: '12:00', end: '13:00' }] },
+          thursday: { isWorking: true, start: '09:00', end: '18:00', breaks: [{ start: '12:00', end: '13:00' }] },
+          friday: { isWorking: true, start: '09:00', end: '18:00', breaks: [{ start: '12:00', end: '13:00' }] },
+          saturday: { isWorking: true, start: '09:00', end: '18:00', breaks: [{ start: '12:00', end: '13:00' }] },
+          sunday: { isWorking: false }
+        };
+        return publicTeamMembers.map(m => ({
+          id: m._id,
+          firstName: m.firstName,
+          lastName: m.lastName,
+          email: '',
+          phone: '',
+          role: m.role,
+          specialties: m.specialties || [],
+          workingHours: (m.workingHours as TeamMember['workingHours']) ?? defaultWH,
+          isActive: true,
+          color: m.color || colors.primary,
+          avatar: m.avatar,
+        } as TeamMember));
+      }
+
+      // If admin store also has no owner stylist, add a synthetic one so booking still works
+      if (profile.showAsTeamMember || adminStylists.length === 0) {
+        return [{
           id: 'owner-' + (user?.id || 'default'),
-          firstName: profile.firstName || 'Propriétaire',
-          lastName: profile.lastName || (user?.establishmentName ? 'de ' + user?.establishmentName : 'du Salon'),
+          firstName: profile.firstName || 'Le salon',
+          lastName: '',
           email: user?.email || '',
           phone: '',
           role: 'Propriétaire',
@@ -86,16 +141,14 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
             sunday: { isWorking: false }
           },
           isActive: true,
-          color: colors.primary
-        };
-        
-        return [ownerAsStylist, ...teamStylists];
+          color: colors.primary,
+        } as TeamMember];
       }
-      
-      return teamStylists;
-    }, [members, profile, user]);
+
+      return [];
+    }, [members, profile, user, publicTeamMembers]);
   };
-  
+
   const stylists = useStylists();
 
   const [availableSlots, setAvailableSlots] = useState<Record<string, DaySchedule>>({});
