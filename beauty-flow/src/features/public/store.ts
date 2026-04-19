@@ -3,6 +3,7 @@ import { BookingData, BookingStep, BookingError } from './types';
 import { useAppointmentStore } from '../appointments/store';
 import { useClientStore } from '../clients/store';
 import { useServiceStore } from '../services/store';
+import { useTeamStore } from '../team/store';
 import { Client, ClientFormData } from '../clients/types';
 import { v4 as uuidv4 } from 'uuid';
 import { addMinutes, format } from 'date-fns';
@@ -20,6 +21,7 @@ interface PublicBookingStore {
     date: string;
     time: string;
     modificationLink: string;
+    stylistName?: string;
   } | null;
   
   // Actions
@@ -225,12 +227,16 @@ export const usePublicBookingStore = create<PublicBookingStore>((set, get) => ({
       console.log('✅ Réponse de l\'API:', response.data);
       
       // Mettre à jour l'état avec les informations de confirmation
+      const stylist = bookingData.stylistId
+        ? useTeamStore.getState().members.find(m => m.id === bookingData.stylistId)
+        : null;
       set({
         showConfirmation: true,
         lastBookingInfo: {
           date: bookingData.date,
           time: bookingData.startTime,
           modificationLink: response.data.appointment.modificationToken,
+          stylistName: stylist ? `${stylist.firstName} ${stylist.lastName}` : undefined,
         },
       });
 

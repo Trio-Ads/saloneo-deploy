@@ -10,10 +10,13 @@ export function BookingConfirmation({ template, bookingInfo, onClose }: {
   const [copied, setCopied] = useState(false);
   const [visible, setVisible] = useState(false);
 
-  // Trigger entry animation on mount
+  // Trigger entry animation on mount (double-RAF ensures paint happens before transition)
   useEffect(() => {
-    const id = requestAnimationFrame(() => setVisible(true));
-    return () => cancelAnimationFrame(id);
+    let id1: number;
+    const id2 = requestAnimationFrame(() => {
+      id1 = requestAnimationFrame(() => setVisible(true));
+    });
+    return () => { cancelAnimationFrame(id2); cancelAnimationFrame(id1); };
   }, []);
 
   const copyLink = async () => {
@@ -22,7 +25,7 @@ export function BookingConfirmation({ template, bookingInfo, onClose }: {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // Fallback: select text
+      // Clipboard API unavailable (non-HTTPS or older browser) — no-op
     }
   };
 
@@ -122,9 +125,7 @@ export function BookingConfirmation({ template, bookingInfo, onClose }: {
             className="text-xs font-mono truncate flex-1"
             style={{ color: colors.primary }}
           >
-            {bookingInfo.modificationLink.length > 38
-              ? `${bookingInfo.modificationLink.slice(0, 35)}…`
-              : bookingInfo.modificationLink}
+            {bookingInfo.modificationLink}
           </span>
           <button
             onClick={copyLink}
@@ -155,4 +156,3 @@ export function BookingConfirmation({ template, bookingInfo, onClose }: {
   );
 }
 
-export default BookingConfirmation;

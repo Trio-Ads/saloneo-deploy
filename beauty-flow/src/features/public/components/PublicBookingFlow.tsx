@@ -219,6 +219,7 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
           date: format(new Date(lastBookingInfo.date), 'EEEE d MMMM yyyy', { locale: fr }),
           time: lastBookingInfo.time,
           serviceName: confirmedService?.name || '',
+          stylistName: lastBookingInfo.stylistName,
           price: confirmedService?.price,
           modificationLink: lastBookingInfo.modificationLink,
         }}
