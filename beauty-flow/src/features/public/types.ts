@@ -75,3 +75,67 @@ export interface ServiceDepositInfo {
   depositPercentage?: number;
   calculatedDepositAmount: number;
 }
+
+export interface PublicService {
+  _id: string;
+  name: string;
+  description: string;
+  category: string;
+  duration: number;
+  price: number;
+  images: Array<{ url: string; alt: string; isPrimary: boolean }>;
+  settings?: {
+    isOnline: boolean;
+    minimumBookingTime: number;
+  };
+}
+
+export interface PublicTeamMember {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  role: string;
+  specialties?: string[];
+  avatar?: string;
+  color?: string;
+  workingHours?: Record<string, {
+    isWorking: boolean;
+    start: string;
+    end: string;
+    breaks: Array<{ start: string; end: string }>;
+  }>;
+}
+
+export interface PublicReview {
+  _id: string;
+  author: string;
+  rating: 1 | 2 | 3 | 4 | 5;
+  comment: string;
+  date: string;
+}
+
+export interface PublicSalonProfile {
+  _id: string;
+  establishmentName: string;
+  slug: string;
+  description?: string;
+  logo?: string;
+  banner?: string;
+  publicPhone?: string;
+  email?: string;
+  address?: string;
+  socialMedia?: { facebook?: string; instagram?: string; twitter?: string };
+  businessHours?: Record<string, { start: string; end: string; lunchBreak?: { enabled: boolean; start: string; end: string } }>;
+  theme?: { selectedTemplateId?: string };
+  serviceDisplay?: { defaultView: string; priceDisplay: 'fixed' | 'from' | 'range' | 'hidden' };
+  showTeamOnPublicPage?: boolean;
+  settings?: { currency: string };
+  subscription?: { plan: string };
+}
+
+export interface SalonPublicData {
+  profile: PublicSalonProfile;
+  services: PublicService[];
+  team: PublicTeamMember[];
+  reviews: PublicReview[];
+}
