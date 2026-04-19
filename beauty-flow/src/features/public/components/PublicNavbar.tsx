@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import type { CSSProperties } from 'react';
 import { DesignTemplate } from '../../templates/types';
 import { SalonPublicData } from '../types';
 
@@ -63,9 +64,7 @@ export function PublicNavbar({ template, data, onBook }: Props) {
   /* ── subtle backdrop blur for glassmorphism templates ── */
   const glassEnabled = template.theme.effects.glassmorphism.enabled;
   const navBg = glassEnabled
-    ? `${colors.background}e8`
-    : scrolled
-    ? colors.background
+    ? colors.background + 'E6'  // slight transparency for glass effect
     : colors.background;
 
   const boxShadow = scrolled
@@ -284,7 +283,7 @@ function HamburgerIcon({ open, color }: { open: boolean; color: string }) {
     transformOpen: string,
     transformClosed: string,
     originY: string
-  ): React.CSSProperties => ({
+  ): CSSProperties => ({
     display: 'block',
     width: '18px',
     height: '1.5px',

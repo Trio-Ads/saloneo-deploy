@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { DesignTemplate } from '../../templates/types';
 import { SalonPublicData } from '../types';
 
@@ -64,10 +65,7 @@ export function PublicFooter({ template, data }: Props) {
   const { profile } = data;
   const isStarter = profile.subscription?.plan === 'starter';
 
-  const hasSocial =
-    !!profile.socialMedia?.instagram || !!profile.socialMedia?.facebook;
-
-  const socialLinkBase: React.CSSProperties = {
+  const socialLinkBase: CSSProperties = {
     color: colors.textSecondary,
     textDecoration: 'none',
     display: 'inline-flex',
@@ -191,13 +189,6 @@ export function PublicFooter({ template, data }: Props) {
                 <FacebookIcon />
                 Facebook
               </a>
-            )}
-
-            {!hasSocial && !isStarter && (
-              <span
-                style={{ color: colors.textSecondary, fontSize: '12px' }}
-                aria-hidden="true"
-              />
             )}
 
             {isStarter && (
