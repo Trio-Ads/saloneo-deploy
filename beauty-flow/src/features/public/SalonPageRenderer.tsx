@@ -20,16 +20,16 @@ export function SalonPageRenderer({ template, data, onBook }: Props) {
   const showReviews = sections.reviews.enabled && data.reviews.length > 0;
 
   const sectionList = [
-    { key: 'hero',     order: sections.hero.order,     node: <HeroSection     key="hero"     template={template} data={data} onBook={onBook} /> },
-    { key: 'services', order: sections.services.order, node: <ServicesSection key="services" template={template} data={data} onBook={onBook} /> },
-    { key: 'team',     order: sections.team.order,     node: showTeam    ? <TeamSection    key="team"    template={template} data={data} onBook={onBook} /> : null },
-    { key: 'reviews',  order: sections.reviews.order,  node: showReviews ? <ReviewsSection key="reviews" template={template} data={data} onBook={onBook} /> : null },
-    { key: 'contact',  order: sections.contact.order,  node: <ContactSection key="contact"  template={template} data={data} onBook={onBook} /> },
+    { key: 'hero',     order: sections.hero.order,     node: <HeroSection     template={template} data={data} onBook={onBook} /> },
+    { key: 'services', order: sections.services.order, node: <ServicesSection template={template} data={data} onBook={onBook} /> },
+    { key: 'team',     order: sections.team.order,     node: showTeam    ? <TeamSection    template={template} data={data} onBook={onBook} /> : null },
+    { key: 'reviews',  order: sections.reviews.order,  node: showReviews ? <ReviewsSection template={template} data={data} onBook={onBook} /> : null },
+    { key: 'contact',  order: sections.contact.order,  node: <ContactSection template={template} data={data} onBook={onBook} /> },
   ];
 
   return (
     <>
-      {sectionList
+      {[...sectionList]
         .sort((a, b) => a.order - b.order)
         .map(({ key, node }) => node && <React.Fragment key={key}>{node}</React.Fragment>)}
     </>
