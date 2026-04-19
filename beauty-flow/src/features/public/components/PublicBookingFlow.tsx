@@ -185,8 +185,11 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
       setLoading(true);
       try {
         await submitBooking();
-      } catch (err) {
-        setError({ step: 'client', message: t('errors:booking.error') });
+      } catch (err: any) {
+        const msg = err?.message && err.message !== 'Erreur lors de la création du rendez-vous'
+          ? err.message
+          : t('errors:booking.error');
+        setError({ step: 'client', message: msg });
         setLoading(false);
       }
     },

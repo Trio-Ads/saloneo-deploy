@@ -28,10 +28,10 @@ router.post(
     body('clientData.firstName').notEmpty().trim(),
     body('clientData.lastName').notEmpty().trim(),
     body('clientData.phone').notEmpty().trim(),
-    body('clientData.email').optional().isEmail().normalizeEmail(),
-    body('clientData.birthDate').optional().isISO8601(),
+    body('clientData.email').optional({ values: 'falsy' }).isEmail().normalizeEmail(),
+    body('clientData.birthDate').optional({ values: 'falsy' }).isISO8601(),
     body('clientData.address').optional().trim(),
-    body('notes').optional().trim().isLength({ max: 500 }),
+    body('notes').optional({ values: 'falsy' }).trim().isLength({ max: 500 }),
   ],
   publicController.createPublicBooking
 );

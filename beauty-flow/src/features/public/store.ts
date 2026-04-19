@@ -209,14 +209,20 @@ export const usePublicBookingStore = create<PublicBookingStore>((set, get) => ({
         clientData: { ...bookingData.clientData, phone: '***' } // Masquer le téléphone dans les logs
       });
 
+      // Sanitize optional fields — strip falsy values so backend optional() validators
+      // don't reject empty strings (e.g. birthDate: '' would fail isISO8601())
+      const { birthDate, address, notes, ...requiredClientData } = bookingData.clientData as any;
+      const clientData: any = { ...requiredClientData };
+      if (birthDate) clientData.birthDate = birthDate;
+      if (address) clientData.address = address;
+
       // Utiliser l'API service au lieu du fetch direct
       const response = await publicAPI.createBooking(slug, {
         serviceId: bookingData.serviceId,
         stylistId: bookingData.stylistId,
         date: bookingData.date,
         startTime: bookingData.startTime,
-        clientData: bookingData.clientData,
-        notes: bookingData.clientData.notes || '',
+        clientData,
       });
 
       console.log('✅ Réponse de l\'API:', response.data);
@@ -237,16 +243,22 @@ export const usePublicBookingStore = create<PublicBookingStore>((set, get) => ({
 
     } catch (error: any) {
       console.error('❌ Erreur lors de la soumission:', error);
-      
+      console.error('❌ Réponse backend:', error.response?.data);
+
       // Gestion d'erreur améliorée
       let errorMessage = 'Erreur lors de la création du rendez-vous';
-      
+
       if (error.response?.data?.error) {
         errorMessage = error.response.data.error;
+      } else if (error.response?.data?.errors?.length) {
+        // Validation errors array from express-validator
+        const firstError = error.response.data.errors[0];
+        errorMessage = firstError.msg || firstError.message || errorMessage;
+        console.error('❌ Erreurs de validation:', error.response.data.errors);
       } else if (error.message) {
         errorMessage = error.message;
       }
-      
+
       throw new Error(errorMessage);
     }
   },
