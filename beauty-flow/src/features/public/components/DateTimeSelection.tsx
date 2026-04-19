@@ -222,65 +222,34 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
 
   return (
     <div className="space-y-8">
-      {showTeamSelection && (
-        <div className="glass-card p-6">
-          <div className="flex items-center space-x-3 mb-6">
-            <div className="p-3 rounded-xl shadow-lg" style={{ background: `linear-gradient(to right, ${colors.primary}, ${colors.primaryDark})` }}>
-              <UserIcon className="h-6 w-6 text-white" />
-            </div>
-            <h3 className="text-xl font-bold bg-clip-text text-transparent" style={{ backgroundImage: `linear-gradient(to right, ${colors.primary}, ${colors.primaryDark})` }}>
-              {t('booking.flow.choose_stylist')}
-            </h3>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {stylists.map((stylist: TeamMember) => (
+      {showTeamSelection && stylists.length > 0 && (
+        <div className="px-5 mb-3">
+          <p className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: colors.textSecondary }}>
+            Avec qui ?
+          </p>
+          <div className="flex gap-2 overflow-x-auto pb-1">
+            <button
+              onClick={() => setSelectedStylistId('')}
+              className={`flex-shrink-0 flex flex-col items-center gap-1 p-2 rounded-lg transition-all ${!selectedStylistId ? 'ring-2' : 'opacity-60'}`}
+              style={!selectedStylistId ? { outline: `2px solid ${colors.primary}`, outlineOffset: '1px' } : {}}
+            >
+              <div className="w-9 h-9 rounded-full flex items-center justify-center text-sm" style={{ background: colors.surface, color: colors.textSecondary }}>
+                👤
+              </div>
+              <span className="text-[9px] font-semibold" style={{ color: colors.textPrimary }}>Tous</span>
+            </button>
+            {stylists.map((member: TeamMember) => (
               <button
-                key={stylist.id}
-                onClick={() => setSelectedStylistId(stylist.id)}
-                className={`glass-card p-6 transition-all duration-300 transform hover:scale-105 border border-white/20 ${
-                  selectedStylistId === stylist.id
-                    ? 'shadow-lg ring-2'
-                    : 'hover:bg-white/5 hover:shadow-lg'
-                }`}
-                style={selectedStylistId === stylist.id ? {
-                  background: `linear-gradient(to right, ${colors.primary}20, ${colors.primaryDark}20)`,
-                  '--tw-ring-color': `${colors.primary}80`
-                } as any : {}}
+                key={member.id}
+                onClick={() => setSelectedStylistId(member.id)}
+                className={`flex-shrink-0 flex flex-col items-center gap-1 p-2 rounded-lg transition-all ${selectedStylistId === member.id ? 'ring-2' : 'opacity-60'}`}
+                style={selectedStylistId === member.id ? { outline: `2px solid ${colors.primary}`, outlineOffset: '1px' } : {}}
               >
-                <div className="flex items-center space-x-4">
-                  <div 
-                    className="w-12 h-12 rounded-full flex items-center justify-center"
-                    style={{
-                      background: selectedStylistId === stylist.id
-                        ? `linear-gradient(to right, ${colors.primary}, ${colors.primaryDark})`
-                        : 'linear-gradient(to right, #9CA3AF, #6B7280)'
-                    }}
-                  >
-                    <UserIcon className="h-6 w-6 text-white" />
-                  </div>
-                  <div className="text-left">
-                    <div className="text-gray-900 font-bold text-lg">
-                      {stylist.firstName} {stylist.lastName}
-                    </div>
-                    <div className="text-gray-600 text-sm">
-                      {stylist.role === 'Propriétaire' ? (
-                        <span className="flex items-center space-x-1">
-                          <SparklesIcon className="h-3 w-3" style={{ color: colors.primary }} />
-                          <span>{stylist.role}</span>
-                        </span>
-                      ) : (
-                        stylist.role
-                      )}
-                    </div>
-                    {selectedStylistId === stylist.id && (
-                      <div className="flex items-center space-x-1 mt-1">
-                        <CheckCircleIcon className="h-4 w-4 text-green-600" />
-                        <span className="text-green-600 text-xs font-medium">{t('booking.flow.selected')}</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
+                {member.avatar
+                  ? <img src={member.avatar} alt="" className="w-9 h-9 rounded-full object-cover" />
+                  : <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ background: member.color || colors.primary }}>{member.firstName[0]}{member.lastName[0]}</div>
+                }
+                <span className="text-[9px] font-semibold" style={{ color: colors.textPrimary }}>{member.firstName}</span>
               </button>
             ))}
           </div>
@@ -320,74 +289,44 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
       )}
 
       {internalSelectedDate && selectedStylistId && (
-        <div className="glass-card p-6">
-          <div className="flex items-center space-x-3 mb-6">
-            <div className="p-3 rounded-xl shadow-lg" style={{ background: `linear-gradient(to right, ${colors.accent}, ${colors.accentLight})` }}>
-              <ClockIcon className="h-6 w-6 text-white" />
-            </div>
-            <h3 className="text-xl font-bold bg-clip-text text-transparent" style={{ backgroundImage: `linear-gradient(to right, ${colors.accent}, ${colors.accentLight})` }}>
-              {t('booking.flow.choose_time')}
-            </h3>
-          </div>
-          
+        <div className="px-5 mb-4">
+          <p className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: colors.textSecondary }}>
+            {internalSelectedDate ? format(new Date(internalSelectedDate), 'EEEE d MMMM', { locale: fr }) : 'Choisir un horaire'}
+          </p>
+
           {isLoadingSlots ? (
             <div className="flex justify-center py-8">
               <LoadingSpinner fullScreen={false} />
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
-              {availableSlots[internalSelectedDate]?.timeSlots.map((slot) => (
-                <button
-                  key={slot.startTime}
-                  onClick={() => {
-                    if (slot.available) {
-                      onSelect(internalSelectedDate, slot.startTime, selectedStylistId);
-                    }
-                  }}
-                  disabled={!slot.available}
-                  className={`
-                    glass-card p-4 text-center transition-all duration-300 transform hover:scale-105 border border-white/20
-                    ${!slot.available 
-                      ? 'opacity-50 cursor-not-allowed bg-gray-50'
-                      : selectedTime === slot.startTime
-                        ? 'shadow-lg ring-2'
-                        : 'hover:bg-white/5 hover:shadow-lg'
-                    }
-                  `}
-                  style={selectedTime === slot.startTime ? {
-                    background: `linear-gradient(to right, ${colors.accent}20, ${colors.accentLight}20)`,
-                    '--tw-ring-color': `${colors.accent}80`
-                  } as any : {}}
-                >
-                  <div className="flex items-center justify-center space-x-2">
-                    <ClockIcon className={`h-4 w-4 ${
-                      !slot.available 
-                        ? 'text-gray-400'
-                        : selectedTime === slot.startTime
-                          ? ''
-                          : 'text-gray-600'
-                    }`} style={selectedTime === slot.startTime ? { color: colors.accent } : {}} />
-                    <span className={`font-medium ${
-                      !slot.available 
-                        ? 'text-gray-400'
-                        : selectedTime === slot.startTime
-                          ? ''
-                          : 'text-gray-900'
-                    }`} style={selectedTime === slot.startTime ? { color: colors.accent } : {}}>
-                      {slot.startTime}
-                    </span>
-                  </div>
-                  {selectedTime === slot.startTime && (
-                    <div className="flex items-center justify-center space-x-1 mt-2">
-                      <CheckCircleIcon className="h-3 w-3 text-green-600" />
-                      <span className="text-green-600 text-xs font-medium">{t('booking.flow.chosen')}</span>
-                    </div>
-                  )}
-                </button>
-              ))}
+            <div className="grid grid-cols-4 gap-2">
+              {availableSlots[internalSelectedDate]?.timeSlots.map((slot) => {
+                const isSelected = slot.startTime === selectedTime;
+                const isFull = !slot.available;
+                return (
+                  <button
+                    key={slot.startTime}
+                    disabled={isFull}
+                    onClick={() => {
+                      if (!isFull) {
+                        onSelect(internalSelectedDate, slot.startTime, selectedStylistId);
+                      }
+                    }}
+                    className="py-2 rounded-lg text-xs font-bold transition-all"
+                    style={{
+                      background: isSelected ? colors.textPrimary : isFull ? 'transparent' : colors.surface,
+                      color: isSelected ? '#fff' : isFull ? colors.surface : colors.textPrimary,
+                      textDecoration: isFull ? 'line-through' : 'none',
+                      opacity: isFull ? 0.4 : 1,
+                    }}
+                  >
+                    {slot.startTime}
+                  </button>
+                );
+              })}
             </div>
           )}
-          
+
           {availableSlots[internalSelectedDate]?.timeSlots.length === 0 && !isLoadingSlots && (
             <div className="text-center py-8">
               <div className="mx-auto w-16 h-16 bg-gradient-to-r from-gray-400 to-gray-600 rounded-full flex items-center justify-center mb-4">
