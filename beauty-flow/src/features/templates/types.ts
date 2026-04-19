@@ -1,9 +1,38 @@
+export type HeroVariant     = 'centered' | 'split' | 'fullbleed' | 'minimal' | 'magazine';
+export type ServicesVariant = 'grid-3col' | 'masonry' | 'list' | 'carousel' | 'featured';
+export type TeamVariant     = 'cards' | 'h-scroll' | 'spotlight' | 'minimal';
+export type ReviewsVariant  = 'carousel' | 'masonry' | 'ticker' | 'featured';
+export type ContactVariant  = 'split' | 'centered' | 'minimal';
+
+export interface TemplateSections {
+  hero:     { variant: HeroVariant;     order: number };
+  services: { variant: ServicesVariant; order: number };
+  team:     { variant: TeamVariant;     order: number; enabled: boolean };
+  reviews:  { variant: ReviewsVariant;  order: number; enabled: boolean };
+  contact:  { variant: ContactVariant;  order: number };
+}
+
+export interface ParticleConfig {
+  count: number;
+  color: string;
+  size: number;
+  speed: number;
+}
+
+export interface AnimationConfig {
+  name: string;
+  keyframes: string;
+  duration: string;
+  easing: string;
+}
+
 export interface DesignTemplate {
   id: string;
   name: string;
   category: 'minimal' | 'modern' | 'classic' | 'creative';
   description: string;
   preview: string;
+  sections: TemplateSections;
   theme: {
     colors: {
       primary: string;
@@ -13,72 +42,28 @@ export interface DesignTemplate {
       surface: string;
       text: string;
       textSecondary: string;
-      // Couleurs spécifiques au template
       custom?: Record<string, string>;
     };
     typography: {
       headingFont: string;
       bodyFont: string;
-      sizes: {
-        xs: string;
-        sm: string;
-        base: string;
-        lg: string;
-        xl: string;
-        '2xl': string;
-        '3xl': string;
-        '4xl': string;
-        '5xl'?: string;
-      };
-      weights: {
-        light: number;
-        normal: number;
-        medium: number;
-        semibold: number;
-        bold: number;
-        extrabold?: number;
-      };
+      sizes: Record<string, string>;
+      weights: Record<string, number>;
     };
     effects: {
-      glassmorphism: {
-        enabled: boolean;
-        blur: string;
-        opacity: string;
-        border: string;
-      };
+      glassmorphism: { enabled: boolean; blur: number; opacity: number; border: string };
       animations: string[];
       transitions: string[];
       specialEffects?: string[];
-      shadows: {
-        sm: string;
-        md: string;
-        lg: string;
-        xl: string;
-        neon?: string;
-      };
+      shadows: { sm: string; md: string; lg: string; xl: string; neon: string };
     };
     layout: {
-      borderRadius: {
-        sm: string;
-        md: string;
-        lg: string;
-        xl: string;
-        full: string;
-      };
-      spacing: {
-        xs: string;
-        sm: string;
-        md: string;
-        lg: string;
-        xl: string;
-      };
-      containers: {
-        maxWidth: string;
-        padding: string;
-      };
+      borderRadius: Record<string, string>;
+      spacing: Record<string, string>;
+      containers: { maxWidth: string; padding: string };
     };
   };
-  assets: {
+  assets?: {
     patterns?: string[];
     illustrations?: string[];
     textures?: string[];
@@ -86,32 +71,6 @@ export interface DesignTemplate {
   };
   customCSS?: string;
   customAnimations?: AnimationConfig[];
-}
-
-export interface ParticleConfig {
-  type: 'floating' | 'falling' | 'orbiting' | 'glitch' | 'sparkle';
-  count: number;
-  size: {
-    min: number;
-    max: number;
-  };
-  speed: {
-    min: number;
-    max: number;
-  };
-  color: string;
-  opacity: {
-    min: number;
-    max: number;
-  };
-}
-
-export interface AnimationConfig {
-  name: string;
-  keyframes: string;
-  duration: string;
-  timing: string;
-  iteration?: string;
 }
 
 export interface TemplateStore {
