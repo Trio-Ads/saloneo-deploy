@@ -17,7 +17,7 @@ export default function SalonPage() {
   if (error || !data) return <div className="min-h-screen flex items-center justify-center">{error}</div>;
 
   const templateId = data.profile.theme?.selectedTemplateId || 'saloneo-classic';
-  const template = getTemplateById(templateId);
+  const template = getTemplateById(templateId) || getTemplateById('saloneo-classic')!;
 
   return (
     <div
