@@ -43,8 +43,11 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
   const { t, i18n } = useTranslation('public');
   const { colors } = useTemplateStyles();
   const serviceFromStore = useServiceStore(state => state.services.find(s => s.id === serviceId));
-  // Use store service if available, otherwise build a minimal object from the prop
-  const service: { duration: number } | undefined = serviceFromStore ?? (serviceDuration !== undefined ? { duration: serviceDuration } : undefined);
+  // Stabilize reference — creating a new object inline every render causes infinite loops
+  // because loadAvailableSlots depends on this value via useCallback.
+  const service: { duration: number } | undefined = useMemo(() => {
+    return serviceFromStore ?? (serviceDuration !== undefined ? { duration: serviceDuration } : undefined);
+  }, [serviceFromStore, serviceDuration]);
   const { getDaySchedule, addPreBooking, removePreBooking } = useAppointmentStore();
   
   const useStylists = () => {
