@@ -1,320 +1,158 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { 
-  CheckCircleIcon,
-  CalendarDaysIcon,
-  ClockIcon,
-  LinkIcon,
-  ClipboardDocumentIcon,
-  CheckIcon,
-  SparklesIcon,
-  XMarkIcon
-} from '@heroicons/react/24/outline';
-import { useTemplateStyles } from '../../../hooks/useTemplateStyles';
-import Modal from './Modal';
+import React, { useState, useEffect } from 'react';
+import { DesignTemplate } from '../../templates/types';
 
-interface BookingConfirmationProps {
-  isOpen: boolean;
+export function BookingConfirmation({ template, bookingInfo, onClose }: {
+  template: DesignTemplate;
+  bookingInfo: { date: string; time: string; serviceName: string; stylistName?: string; price?: number; modificationLink: string };
   onClose: () => void;
-  appointmentDate: string;
-  appointmentTime: string;
-  modificationLink: string;
-}
+}) {
+  const { colors, typography } = template.theme;
+  const [copied, setCopied] = useState(false);
+  const [visible, setVisible] = useState(false);
 
-const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
-  isOpen,
-  onClose,
-  appointmentDate,
-  appointmentTime,
-  modificationLink
-}) => {
-  const { t } = useTranslation(['appointments', 'common']);
-  const { colors } = useTemplateStyles();
-  const [linkCopied, setLinkCopied] = useState(false);
+  // Trigger entry animation on mount
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setVisible(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
 
-  const fullModificationLink = `${window.location.origin}/appointment/${modificationLink}`;
-
-  const handleCopyLink = async () => {
+  const copyLink = async () => {
     try {
-      await navigator.clipboard.writeText(fullModificationLink);
-      setLinkCopied(true);
-      setTimeout(() => setLinkCopied(false), 3000);
-    } catch (error) {
-      console.error('Erreur lors de la copie:', error);
+      await navigator.clipboard.writeText(bookingInfo.modificationLink);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Fallback: select text
     }
   };
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      title=""
+    <div
+      style={{
+        background: colors.background,
+        fontFamily: typography.bodyFont,
+        transition: 'opacity 0.3s ease, transform 0.3s ease',
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(8px)',
+      }}
+      className="pb-6"
     >
-      <div className="space-y-8 p-2">
-        {/* Header avec animation de succès */}
-        <div className="text-center space-y-4">
-          <div 
-            className="mx-auto w-20 h-20 rounded-full flex items-center justify-center shadow-lg animate-bounce"
-            style={{
-              background: `linear-gradient(to right, ${colors.primary}, ${colors.primaryDark})`
-            }}
-          >
-            <CheckCircleIcon className="h-12 w-12 text-white" />
-          </div>
-          <div>
-            <h2 
-              className="text-2xl font-bold mb-2 bg-clip-text text-transparent"
-              style={{
-                backgroundImage: `linear-gradient(to right, ${colors.primary}, ${colors.primaryDark})`
-              }}
-            >
-              {t('appointments:bookingConfirmed')}
-            </h2>
-            <p className="text-lg" style={{ color: colors.textSecondary }}>
-              {t('appointments:bookingSuccessMessage')}
-            </p>
-          </div>
-        </div>
-
-        {/* Message de succès avec glassmorphism */}
-        <div 
-          className="glass-card p-6 animate-fadeIn rounded-xl"
+      {/* Success icon */}
+      <div className="flex justify-center pt-7 pb-5">
+        <div
+          className="w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl font-black shadow-lg"
           style={{
-            backgroundColor: `${colors.primary}10`,
-            border: `1px solid ${colors.primary}30`
+            background: colors.primary,
+            boxShadow: `0 6px 24px ${colors.primary}55`,
           }}
         >
-          <div className="flex items-center space-x-3">
-            <SparklesIcon className="h-6 w-6" style={{ color: colors.primary }} />
-            <div>
-              <p className="font-medium" style={{ color: colors.textPrimary }}>
-                Réservation confirmée avec succès !
-              </p>
-              <p className="text-sm" style={{ color: colors.textSecondary }}>
-                Vous recevrez un email de confirmation sous peu.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Détails du rendez-vous */}
-        <div 
-          className="glass-card p-6 rounded-xl"
-          style={{
-            backgroundColor: colors.surface,
-            border: `2px solid ${colors.primary}20`
-          }}
-        >
-          <h3 
-            className="text-lg font-bold mb-4 flex items-center space-x-2"
-            style={{ color: colors.textPrimary }}
-          >
-            <CalendarDaysIcon className="h-6 w-6" style={{ color: colors.primary }} />
-            <span>{t('appointments:appointment_details')}</span>
-          </h3>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div 
-              className="flex items-center space-x-3 p-4 rounded-xl"
-              style={{
-                backgroundColor: `${colors.primary}10`,
-                border: `1px solid ${colors.primary}20`
-              }}
-            >
-              <CalendarDaysIcon className="h-5 w-5" style={{ color: colors.primary }} />
-              <div>
-                <p className="text-sm font-medium" style={{ color: colors.textSecondary }}>
-                  {t('appointments:form.date')}
-                </p>
-                <p className="text-lg font-bold" style={{ color: colors.primary }}>
-                  {appointmentDate}
-                </p>
-              </div>
-            </div>
-            
-            <div 
-              className="flex items-center space-x-3 p-4 rounded-xl"
-              style={{
-                backgroundColor: `${colors.accent}10`,
-                border: `1px solid ${colors.accent}20`
-              }}
-            >
-              <ClockIcon className="h-5 w-5" style={{ color: colors.accent }} />
-              <div>
-                <p className="text-sm font-medium" style={{ color: colors.textSecondary }}>
-                  {t('appointments:form.time')}
-                </p>
-                <p className="text-lg font-bold" style={{ color: colors.textPrimary }}>
-                  {appointmentTime}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Lien de modification */}
-        <div 
-          className="glass-card p-6 rounded-xl"
-          style={{
-            backgroundColor: `${colors.primary}10`,
-            border: `1px solid ${colors.primary}30`
-          }}
-        >
-          <div className="flex items-center space-x-3 mb-4">
-            <LinkIcon className="h-6 w-6" style={{ color: colors.primary }} />
-            <h3 className="text-lg font-bold" style={{ color: colors.textPrimary }}>
-              Lien de modification
-            </h3>
-          </div>
-          
-          <div className="space-y-4">
-            <p style={{ color: colors.textSecondary }}>
-              {t('appointments:modificationLinkInfo')}
-            </p>
-            
-            <div 
-              className="p-4 rounded-xl"
-              style={{
-                backgroundColor: colors.surface,
-                border: `2px solid ${colors.primary}20`
-              }}
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex-1 mr-3">
-                  <p className="text-sm font-medium mb-1" style={{ color: colors.textSecondary }}>
-                    Votre lien personnel
-                  </p>
-                  <code 
-                    className="text-sm font-mono px-2 py-1 rounded break-all"
-                    style={{
-                      color: colors.primary,
-                      backgroundColor: `${colors.primary}10`
-                    }}
-                  >
-                    {fullModificationLink}
-                  </code>
-                </div>
-                <button
-                  onClick={handleCopyLink}
-                  className="p-3 transition-all duration-200 transform hover:scale-110 shadow-lg hover:shadow-xl rounded-lg"
-                  style={{
-                    backgroundColor: linkCopied ? `${colors.primary}20` : `${colors.primary}10`,
-                    color: colors.primary
-                  }}
-                  title="Copier le lien"
-                >
-                  {linkCopied ? (
-                    <CheckIcon className="h-5 w-5" />
-                  ) : (
-                    <ClipboardDocumentIcon className="h-5 w-5" />
-                  )}
-                </button>
-              </div>
-            </div>
-            
-            <div 
-              className="p-3 rounded-xl border-l-4"
-              style={{
-                backgroundColor: `${colors.primary}10`,
-                borderColor: colors.primary
-              }}
-            >
-              <p className="text-sm" style={{ color: colors.textPrimary }}>
-                <span className="font-medium">⚠️ Important :</span> {t('appointments:modificationLinkWarning')}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Prochaines étapes */}
-        <div 
-          className="glass-card p-6 rounded-xl"
-          style={{
-            backgroundColor: colors.surface,
-            border: `2px solid ${colors.primary}20`
-          }}
-        >
-          <h3 className="text-lg font-bold mb-4" style={{ color: colors.textPrimary }}>
-            Prochaines étapes
-          </h3>
-          <div className="space-y-3">
-            <div className="flex items-center space-x-3">
-              <div 
-                className="w-6 h-6 rounded-full flex items-center justify-center"
-                style={{
-                  background: `linear-gradient(to right, ${colors.primary}, ${colors.primaryDark})`
-                }}
-              >
-                <span className="text-white text-xs font-bold">1</span>
-              </div>
-              <p style={{ color: colors.textSecondary }}>
-                Vous recevrez un email de confirmation
-              </p>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div 
-                className="w-6 h-6 rounded-full flex items-center justify-center"
-                style={{
-                  backgroundColor: colors.accent
-                }}
-              >
-                <span className="text-white text-xs font-bold">2</span>
-              </div>
-              <p style={{ color: colors.textSecondary }}>
-                Conservez votre lien de modification en lieu sûr
-              </p>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div 
-                className="w-6 h-6 rounded-full flex items-center justify-center"
-                style={{
-                  background: `linear-gradient(to right, ${colors.primary}cc, ${colors.primaryDark}cc)`
-                }}
-              >
-                <span className="text-white text-xs font-bold">3</span>
-              </div>
-              <p style={{ color: colors.textSecondary }}>
-                Rendez-vous au salon à l'heure prévue
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Actions */}
-        <div className="flex justify-end space-x-3 pt-4">
-          <button
-            onClick={onClose}
-            className="transform hover:scale-105 transition-all duration-200 px-8 py-3 rounded-lg shadow-lg hover:shadow-xl"
-            style={{
-              background: `linear-gradient(to right, ${colors.primary}, ${colors.primaryDark})`,
-              color: '#FFFFFF'
-            }}
-          >
-            <div className="flex items-center space-x-2">
-              <CheckCircleIcon className="h-5 w-5" />
-              <span>Parfait !</span>
-            </div>
-          </button>
-        </div>
-
-        {/* Animation de confettis (effet visuel) */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div 
-            className="absolute top-0 left-1/4 w-2 h-2 rounded-full animate-bounce" 
-            style={{ backgroundColor: colors.primary, animationDelay: '0.1s' }} 
-          />
-          <div 
-            className="absolute top-0 right-1/4 w-2 h-2 rounded-full animate-bounce" 
-            style={{ backgroundColor: colors.primaryDark, animationDelay: '0.3s' }} 
-          />
-          <div 
-            className="absolute top-0 left-1/2 w-2 h-2 rounded-full animate-bounce" 
-            style={{ backgroundColor: colors.accent, animationDelay: '0.5s' }} 
-          />
+          ✓
         </div>
       </div>
-    </Modal>
+
+      {/* Title */}
+      <div className="text-center px-5 mb-5">
+        <h2
+          className="text-lg font-extrabold tracking-tight"
+          style={{ color: colors.text, fontFamily: typography.headingFont }}
+        >
+          Réservation confirmée !
+        </h2>
+        <p className="text-sm mt-1" style={{ color: colors.textSecondary }}>
+          Un email de confirmation vous a été envoyé
+        </p>
+      </div>
+
+      {/* RDV card */}
+      <div
+        className="mx-4 rounded-xl overflow-hidden"
+        style={{ border: `1px solid ${colors.surface}` }}
+      >
+        {/* Primary-colored header band */}
+        <div
+          className="px-4 py-3"
+          style={{ background: colors.primary }}
+        >
+          <p className="text-white/80 text-xs font-semibold uppercase tracking-widest mb-0.5">
+            Votre rendez-vous
+          </p>
+          <p className="text-white text-2xl font-extrabold leading-none" style={{ fontFamily: typography.headingFont }}>
+            {bookingInfo.time}
+          </p>
+          <p className="text-white/75 text-sm mt-1 capitalize">{bookingInfo.date}</p>
+        </div>
+
+        {/* Details rows */}
+        <div
+          className="px-4 py-3 flex flex-col gap-2.5"
+          style={{ background: colors.background }}
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-xs" style={{ color: colors.textSecondary }}>Service</span>
+            <span className="text-xs font-bold" style={{ color: colors.text }}>{bookingInfo.serviceName}</span>
+          </div>
+          {bookingInfo.stylistName && (
+            <div className="flex items-center justify-between">
+              <span className="text-xs" style={{ color: colors.textSecondary }}>Avec</span>
+              <span className="text-xs font-bold" style={{ color: colors.text }}>{bookingInfo.stylistName}</span>
+            </div>
+          )}
+          {bookingInfo.price != null && bookingInfo.price > 0 && (
+            <div className="flex items-center justify-between">
+              <span className="text-xs" style={{ color: colors.textSecondary }}>Total</span>
+              <span className="text-xs font-bold" style={{ color: colors.primary }}>{bookingInfo.price} €</span>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Modification link */}
+      <div
+        className="mx-4 mt-3 p-3 rounded-xl"
+        style={{ background: colors.surface }}
+      >
+        <p className="text-xs font-bold mb-2" style={{ color: colors.text }}>
+          🔗 Lien de modification
+        </p>
+        <div
+          className="flex items-center gap-2 p-2 rounded-lg"
+          style={{ background: colors.background }}
+        >
+          <span
+            className="text-xs font-mono truncate flex-1"
+            style={{ color: colors.primary }}
+          >
+            {bookingInfo.modificationLink.length > 38
+              ? `${bookingInfo.modificationLink.slice(0, 35)}…`
+              : bookingInfo.modificationLink}
+          </span>
+          <button
+            onClick={copyLink}
+            className="flex-shrink-0 text-base leading-none transition-transform duration-150 active:scale-90"
+            style={{ color: colors.primary }}
+            title="Copier le lien"
+          >
+            {copied ? '✓' : '⎘'}
+          </button>
+        </div>
+        <p className="text-[10px] mt-1.5 flex gap-1" style={{ color: '#f59e0b' }}>
+          <span>⚠</span> Conservez ce lien pour modifier ou annuler votre rendez-vous
+        </p>
+      </div>
+
+      {/* Close button */}
+      <button
+        onClick={onClose}
+        className="mx-4 mt-4 w-[calc(100%-2rem)] py-3 font-bold text-sm rounded-xl transition-opacity hover:opacity-90 active:opacity-75"
+        style={{
+          background: colors.text,
+          color: colors.background,
+        }}
+      >
+        Parfait ! Fermer
+      </button>
+    </div>
   );
-};
+}
 
 export default BookingConfirmation;

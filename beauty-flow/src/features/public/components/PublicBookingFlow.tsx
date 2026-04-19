@@ -6,7 +6,7 @@ import { PublicClientFormData, PublicService } from '../types';
 import DateTimeSelection from './DateTimeSelection';
 import PublicClientForm from './PublicClientForm';
 import LoadingSpinner from './LoadingSpinner';
-import BookingConfirmation from './BookingConfirmation';
+import { BookingConfirmation } from './BookingConfirmation';
 import { DesignTemplate } from '../../templates/types';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
@@ -211,17 +211,18 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
 
   // Show confirmation screen
   if (showConfirmation && lastBookingInfo) {
+    const confirmedService = services?.find(s => s._id === bookingData.serviceId) || currentService;
     return (
       <BookingConfirmation
-        isOpen={true}
+        template={template}
+        bookingInfo={{
+          date: format(new Date(lastBookingInfo.date), 'EEEE d MMMM yyyy', { locale: fr }),
+          time: lastBookingInfo.time,
+          serviceName: confirmedService?.name || '',
+          price: confirmedService?.price,
+          modificationLink: lastBookingInfo.modificationLink,
+        }}
         onClose={handleCloseConfirmation}
-        appointmentDate={format(
-          new Date(lastBookingInfo.date),
-          'EEEE d MMMM yyyy',
-          { locale: fr }
-        )}
-        appointmentTime={lastBookingInfo.time}
-        modificationLink={lastBookingInfo.modificationLink}
       />
     );
   }
