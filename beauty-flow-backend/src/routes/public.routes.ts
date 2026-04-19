@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { body } from 'express-validator';
 import * as publicController from '../controllers/public.controller';
+import { getPublicReviews } from '../controllers/review.controller';
 
 const router = Router();
 
@@ -98,5 +99,8 @@ router.post(
   publicController.cancelPublicAppointment
 );
 
+
+// Get public reviews by salon slug
+router.get('/reviews/:slug', getPublicReviews);
 
 export default router;

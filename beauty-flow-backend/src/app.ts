@@ -25,6 +25,7 @@ import emailRoutes from './routes/email.routes';
 import statsRoutes from './routes/stats.routes';
 import adminRoutes from './routes/admin.routes';
 import feedbackRoutes from './routes/feedback.routes';
+import reviewRoutes from './routes/review.routes';
 import { emailService } from './services/emailService';
 
 // Load environment variables
@@ -195,6 +196,7 @@ app.use('/api/subscription', subscriptionRoutes);
 app.use('/api/affiliation', affiliationRoutes);
 app.use('/api/email', emailRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/reviews', reviewRoutes);
 app.use('/api', feedbackRoutes);
 
 // Public routes (no authentication required)
