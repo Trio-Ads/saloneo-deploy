@@ -6,6 +6,13 @@ export const botanicalSpaTemplate: DesignTemplate = {
   category: 'classic',
   description: 'Design naturel et apaisant avec feuillages organiques, effets de rosée et animations zen pour SPAs et centres wellness',
   preview: '/templates/previews/botanical-spa.jpg',
+  sections: {
+    hero:     { variant: 'magazine', order: 0 },
+    services: { variant: 'carousel', order: 1 },
+    team:     { variant: 'cards', order: 2, enabled: true },
+    reviews:  { variant: 'masonry', order: 3, enabled: true },
+    contact:  { variant: 'minimal', order: 4 },
+  },
   theme: {
     colors: {
       primary: '#1B4332', // Vert émeraude profond
@@ -54,8 +61,8 @@ export const botanicalSpaTemplate: DesignTemplate = {
     effects: {
       glassmorphism: {
         enabled: true,
-        blur: '25px',
-        opacity: '0.08',
+        blur: 25,
+        opacity: 0.08,
         border: '1px solid rgba(143, 188, 143, 0.2)'
       },
       animations: ['leafFloat', 'dewDrop', 'organicGrow'],
@@ -94,20 +101,16 @@ export const botanicalSpaTemplate: DesignTemplate = {
     patterns: ['leaf-pattern', 'organic-texture', 'botanical-mandala'],
     particles: [
       {
-        type: 'falling',
         count: 20,
-        size: { min: 8, max: 15 },
-        speed: { min: 1, max: 2 },
+        size: 15,
+        speed: 2,
         color: '#8FBC8F',
-        opacity: { min: 0.3, max: 0.7 }
       },
       {
-        type: 'floating',
         count: 30,
-        size: { min: 2, max: 5 },
-        speed: { min: 0.5, max: 1.5 },
+        size: 5,
+        speed: 1.5,
         color: '#98FB98',
-        opacity: { min: 0.2, max: 0.5 }
       }
     ]
   },

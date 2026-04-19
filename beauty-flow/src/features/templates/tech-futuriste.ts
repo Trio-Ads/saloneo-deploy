@@ -6,6 +6,13 @@ export const techFuturisteTemplate: DesignTemplate = {
   category: 'modern',
   description: 'Design tech élégant et moderne avec interfaces épurées et animations subtiles pour instituts de beauté contemporains',
   preview: '/templates/previews/tech-futuriste.jpg',
+  sections: {
+    hero:     { variant: 'fullbleed', order: 0 },
+    services: { variant: 'grid-3col', order: 1 },
+    team:     { variant: 'h-scroll', order: 2, enabled: true },
+    reviews:  { variant: 'ticker', order: 3, enabled: true },
+    contact:  { variant: 'minimal', order: 4 },
+  },
   theme: {
     colors: {
       primary: '#007AFF', // Bleu Apple moderne
@@ -54,8 +61,8 @@ export const techFuturisteTemplate: DesignTemplate = {
     effects: {
       glassmorphism: {
         enabled: true,
-        blur: '20px',
-        opacity: '0.1',
+        blur: 20,
+        opacity: 0.1,
         border: '1px solid rgba(0, 212, 255, 0.3)'
       },
       animations: ['hologram', 'dataStream', 'cyberpunkGlow'],
@@ -94,20 +101,16 @@ export const techFuturisteTemplate: DesignTemplate = {
     patterns: ['circuit-grid', 'holographic', 'data-matrix'],
     particles: [
       {
-        type: 'floating',
         count: 40,
-        size: { min: 1, max: 4 },
-        speed: { min: 2, max: 5 },
+        size: 4,
+        speed: 5,
         color: '#00D4FF',
-        opacity: { min: 0.4, max: 0.9 }
       },
       {
-        type: 'sparkle',
         count: 25,
-        size: { min: 1, max: 3 },
-        speed: { min: 3, max: 6 },
+        size: 3,
+        speed: 6,
         color: '#FF1493',
-        opacity: { min: 0.5, max: 1 }
       }
     ]
   },

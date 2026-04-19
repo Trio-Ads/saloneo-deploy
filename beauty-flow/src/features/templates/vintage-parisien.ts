@@ -6,6 +6,13 @@ export const vintageParisienTemplate: DesignTemplate = {
   category: 'classic',
   description: 'Élégance parisienne authentique avec ornements Belle Époque, typographies raffinées et palette bordeaux-or sophistiquée',
   preview: '/templates/previews/vintage-parisien.jpg',
+  sections: {
+    hero:     { variant: 'magazine', order: 0 },
+    services: { variant: 'featured', order: 1 },
+    team:     { variant: 'cards', order: 2, enabled: true },
+    reviews:  { variant: 'carousel', order: 3, enabled: true },
+    contact:  { variant: 'split', order: 4 },
+  },
   theme: {
     colors: {
       primary: '#722F37', // Bordeaux parisien raffiné
@@ -50,8 +57,8 @@ export const vintageParisienTemplate: DesignTemplate = {
     effects: {
       glassmorphism: {
         enabled: true,
-        blur: '15px',
-        opacity: '0.1',
+        blur: 15,
+        opacity: 0.1,
         border: '1px solid rgba(218, 165, 32, 0.2)'
       },
       animations: ['vintageGlow', 'ornamentFloat', 'sepiaFade'],
@@ -90,20 +97,16 @@ export const vintageParisienTemplate: DesignTemplate = {
     patterns: ['belle-epoque', 'ornamental', 'vintage-border'],
     particles: [
       {
-        type: 'floating',
         count: 25,
-        size: { min: 3, max: 8 },
-        speed: { min: 0.3, max: 0.8 },
+        size: 8,
+        speed: 0.8,
         color: '#DAA520',
-        opacity: { min: 0.2, max: 0.5 }
       },
       {
-        type: 'sparkle',
         count: 15,
-        size: { min: 1, max: 3 },
-        speed: { min: 0.5, max: 1.2 },
+        size: 3,
+        speed: 1.2,
         color: '#CD853F',
-        opacity: { min: 0.3, max: 0.7 }
       }
     ]
   },

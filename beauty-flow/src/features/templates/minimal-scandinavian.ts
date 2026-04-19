@@ -6,6 +6,13 @@ export const minimalScandinavianTemplate: DesignTemplate = {
   category: 'minimal',
   description: 'Design épuré nordique avec espaces blancs généreux, typographie raffinée et micro-interactions subtiles',
   preview: '/templates/previews/minimal-scandinavian.jpg',
+  sections: {
+    hero:     { variant: 'minimal', order: 0 },
+    services: { variant: 'list', order: 1 },
+    team:     { variant: 'minimal', order: 2, enabled: true },
+    reviews:  { variant: 'featured', order: 3, enabled: true },
+    contact:  { variant: 'minimal', order: 4 },
+  },
   theme: {
     colors: {
       primary: '#2E3440', // Gris nordique profond
@@ -51,8 +58,8 @@ export const minimalScandinavianTemplate: DesignTemplate = {
     effects: {
       glassmorphism: {
         enabled: true,
-        blur: '20px',
-        opacity: '0.05',
+        blur: 20,
+        opacity: 0.05,
         border: '1px solid rgba(255, 255, 255, 0.1)'
       },
       animations: ['fadeInUp', 'breathe', 'parallaxScroll'],
@@ -90,12 +97,10 @@ export const minimalScandinavianTemplate: DesignTemplate = {
   assets: {
     patterns: ['nordic-lines', 'minimal-grid'],
     particles: [{
-      type: 'floating',
       count: 15,
-      size: { min: 2, max: 4 },
-      speed: { min: 0.5, max: 1 },
+      size: 4,
+      speed: 1,
       color: '#ADB5BD',
-      opacity: { min: 0.1, max: 0.3 }
     }]
   },
   customCSS: `
@@ -677,7 +682,7 @@ export const minimalScandinavianTemplate: DesignTemplate = {
         to { opacity: 1; transform: translateY(0); }
       `,
       duration: '0.8s',
-      timing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+      easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
     },
     {
       name: 'breathe',
@@ -686,7 +691,7 @@ export const minimalScandinavianTemplate: DesignTemplate = {
         50% { transform: scale(1.01); }
       `,
       duration: '6s',
-      timing: 'ease-in-out'
+      easing: 'ease-in-out'
     },
     {
       name: 'nordicAurora',
@@ -695,7 +700,7 @@ export const minimalScandinavianTemplate: DesignTemplate = {
         50% { background-position: 100% 50%; }
       `,
       duration: '8s',
-      timing: 'ease-in-out'
+      easing: 'ease-in-out'
     }
   ]
 };

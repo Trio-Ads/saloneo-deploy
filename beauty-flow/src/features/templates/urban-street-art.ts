@@ -6,6 +6,13 @@ export const urbanStreetArtTemplate: DesignTemplate = {
   category: 'creative',
   description: 'Design urbain masculin avec effets néon, style street art et esthétique barbershop moderne pour une clientèle masculine',
   preview: '/templates/previews/urban-street-art.jpg',
+  sections: {
+    hero:     { variant: 'fullbleed', order: 0 },
+    services: { variant: 'masonry', order: 1 },
+    team:     { variant: 'spotlight', order: 2, enabled: true },
+    reviews:  { variant: 'ticker', order: 3, enabled: true },
+    contact:  { variant: 'centered', order: 4 },
+  },
   theme: {
     colors: {
       primary: '#FF6B35', // Orange industriel barbershop
@@ -52,8 +59,8 @@ export const urbanStreetArtTemplate: DesignTemplate = {
     effects: {
       glassmorphism: {
         enabled: true,
-        blur: '15px',
-        opacity: '0.1',
+        blur: 15,
+        opacity: 0.1,
         border: '1px solid rgba(255, 107, 53, 0.3)'
       },
       animations: ['glitchEffect', 'neonPulse', 'urbanFade'],
@@ -92,20 +99,16 @@ export const urbanStreetArtTemplate: DesignTemplate = {
     patterns: ['urban-grid', 'neon-lines', 'barbershop-stripes'],
     particles: [
       {
-        type: 'glitch',
         count: 30,
-        size: { min: 2, max: 4 },
-        speed: { min: 1, max: 3 },
+        size: 4,
+        speed: 3,
         color: '#FF6B35',
-        opacity: { min: 0.4, max: 0.8 }
       },
       {
-        type: 'sparkle',
         count: 20,
-        size: { min: 1, max: 3 },
-        speed: { min: 2, max: 4 },
+        size: 3,
+        speed: 4,
         color: '#00D4FF',
-        opacity: { min: 0.5, max: 1 }
       }
     ]
   },

@@ -6,6 +6,13 @@ export const saloneoClassicTemplate: DesignTemplate = {
   category: 'classic',
   description: 'Template par défaut professionnel et polyvalent, optimisé pour la conversion et adapté à tous types de salons',
   preview: '/templates/previews/saloneo-classic-v2.webp',
+  sections: {
+    hero:     { variant: 'centered', order: 0 },
+    services: { variant: 'grid-3col', order: 1 },
+    team:     { variant: 'cards', order: 2, enabled: true },
+    reviews:  { variant: 'carousel', order: 3, enabled: true },
+    contact:  { variant: 'split', order: 4 },
+  },
   theme: {
     colors: {
       primary: '#6366F1',
@@ -55,8 +62,8 @@ export const saloneoClassicTemplate: DesignTemplate = {
     effects: {
       glassmorphism: {
         enabled: true,
-        blur: '16px',
-        opacity: '0.1',
+        blur: 16,
+        opacity: 0.1,
         border: '1px solid rgba(37, 99, 235, 0.1)'
       },
       animations: ['fadeInUp', 'slideInLeft', 'scaleIn', 'bounceIn'],
@@ -94,12 +101,10 @@ export const saloneoClassicTemplate: DesignTemplate = {
   assets: {
     patterns: ['grid-subtle', 'dots-pattern'],
     particles: [{
-      type: 'floating',
       count: 8,
-      size: { min: 3, max: 6 },
-      speed: { min: 0.3, max: 0.8 },
+      size: 6,
+      speed: 0.8,
       color: '#3B82F6',
-      opacity: { min: 0.1, max: 0.2 }
     }]
   },
   customCSS: `
@@ -683,7 +688,7 @@ export const saloneoClassicTemplate: DesignTemplate = {
         to { opacity: 1; transform: translateY(0); }
       `,
       duration: '0.8s',
-      timing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+      easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
     },
     {
       name: 'slideInLeft',
@@ -692,7 +697,7 @@ export const saloneoClassicTemplate: DesignTemplate = {
         to { opacity: 1; transform: translateX(0); }
       `,
       duration: '0.8s',
-      timing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+      easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
     },
     {
       name: 'scaleIn',
@@ -701,7 +706,7 @@ export const saloneoClassicTemplate: DesignTemplate = {
         to { opacity: 1; transform: scale(1); }
       `,
       duration: '0.6s',
-      timing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+      easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
     },
     {
       name: 'bounceIn',
@@ -712,7 +717,7 @@ export const saloneoClassicTemplate: DesignTemplate = {
         100% { opacity: 1; transform: scale(1); }
       `,
       duration: '1s',
-      timing: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)'
+      easing: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)'
     }
   ]
 };

@@ -6,6 +6,13 @@ export const glamourHollywoodTemplate: DesignTemplate = {
   category: 'classic',
   description: 'Design luxueux avec effets dorés, particules scintillantes et animations glamour pour salons haut de gamme',
   preview: '/templates/previews/glamour-hollywood.jpg',
+  sections: {
+    hero:     { variant: 'fullbleed', order: 0 },
+    services: { variant: 'featured', order: 1 },
+    team:     { variant: 'spotlight', order: 2, enabled: true },
+    reviews:  { variant: 'featured', order: 3, enabled: true },
+    contact:  { variant: 'centered', order: 4 },
+  },
   theme: {
     colors: {
       primary: '#D4AF37', // Or antique raffiné
@@ -54,8 +61,8 @@ export const glamourHollywoodTemplate: DesignTemplate = {
     effects: {
       glassmorphism: {
         enabled: true,
-        blur: '30px',
-        opacity: '0.15',
+        blur: 30,
+        opacity: 0.15,
         border: '1px solid rgba(255, 215, 0, 0.3)'
       },
       animations: ['goldShimmer', 'mirrorReflect', 'sparkleTrail'],
@@ -94,12 +101,10 @@ export const glamourHollywoodTemplate: DesignTemplate = {
     patterns: ['art-deco', 'ornamental-border', 'luxury-texture'],
     particles: [
       {
-        type: 'sparkle',
         count: 50,
-        size: { min: 3, max: 8 },
-        speed: { min: 0.5, max: 2 },
+        size: 8,
+        speed: 2,
         color: '#FFD700',
-        opacity: { min: 0.4, max: 0.9 }
       }
     ]
   },

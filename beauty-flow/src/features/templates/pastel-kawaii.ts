@@ -6,6 +6,13 @@ export const pastelKawaiiTemplate: DesignTemplate = {
   category: 'creative',
   description: 'Design kawaii moderne avec couleurs pastel douces, animations mignonnes et esthétique japonaise contemporaine',
   preview: '/templates/previews/pastel-kawaii.jpg',
+  sections: {
+    hero:     { variant: 'centered', order: 0 },
+    services: { variant: 'carousel', order: 1 },
+    team:     { variant: 'cards', order: 2, enabled: true },
+    reviews:  { variant: 'masonry', order: 3, enabled: true },
+    contact:  { variant: 'centered', order: 4 },
+  },
   theme: {
     colors: {
       primary: '#FF9EC7', // Rose kawaii moderne
@@ -50,8 +57,8 @@ export const pastelKawaiiTemplate: DesignTemplate = {
     effects: {
       glassmorphism: {
         enabled: true,
-        blur: '20px',
-        opacity: '0.1',
+        blur: 20,
+        opacity: 0.1,
         border: '1px solid rgba(255, 182, 193, 0.3)'
       },
       animations: ['bounce', 'wiggle', 'heartbeat'],
@@ -90,20 +97,16 @@ export const pastelKawaiiTemplate: DesignTemplate = {
     patterns: ['polka-dots', 'hearts', 'stars'],
     particles: [
       {
-        type: 'floating',
         count: 35,
-        size: { min: 10, max: 25 },
-        speed: { min: 0.5, max: 1.5 },
+        size: 25,
+        speed: 1.5,
         color: '#FFB6C1',
-        opacity: { min: 0.3, max: 0.7 }
       },
       {
-        type: 'sparkle',
         count: 25,
-        size: { min: 3, max: 8 },
-        speed: { min: 1, max: 2.5 },
+        size: 8,
+        speed: 2.5,
         color: '#E6E6FA',
-        opacity: { min: 0.4, max: 0.8 }
       }
     ]
   },

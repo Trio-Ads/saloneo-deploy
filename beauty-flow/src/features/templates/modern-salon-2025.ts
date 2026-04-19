@@ -6,6 +6,13 @@ export const modernSalon2025: DesignTemplate = {
   description: 'Design moderne et sophistiqué pour salon de coiffure avec glassmorphism et animations fluides',
   category: 'modern',
   preview: '/templates/previews/modern-salon-2025.webp',
+  sections: {
+    hero:     { variant: 'split', order: 0 },
+    services: { variant: 'masonry', order: 1 },
+    team:     { variant: 'h-scroll', order: 2, enabled: true },
+    reviews:  { variant: 'ticker', order: 3, enabled: true },
+    contact:  { variant: 'split', order: 4 },
+  },
   theme: {
     colors: {
       primary: '#FF6B6B', // Rouge corail moderne
@@ -53,8 +60,8 @@ export const modernSalon2025: DesignTemplate = {
     effects: {
       glassmorphism: {
         enabled: true,
-        blur: '20px',
-        opacity: '0.25',
+        blur: 20,
+        opacity: 0.25,
         border: '1px solid rgba(255, 255, 255, 0.18)',
       },
       animations: ['fadeInUp', 'fadeInLeft', 'fadeInRight', 'shimmer'],

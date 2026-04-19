@@ -6,6 +6,13 @@ export const industrialChicTemplate: DesignTemplate = {
   category: 'modern',
   description: 'Design industriel moderne avec textures métalliques, effets de soudure et esthétique urbaine contemporaine',
   preview: '/templates/previews/industrial-chic.jpg',
+  sections: {
+    hero:     { variant: 'split', order: 0 },
+    services: { variant: 'list', order: 1 },
+    team:     { variant: 'h-scroll', order: 2, enabled: true },
+    reviews:  { variant: 'ticker', order: 3, enabled: true },
+    contact:  { variant: 'split', order: 4 },
+  },
   theme: {
     colors: {
       primary: '#E67E22', // Orange industriel moderne
@@ -50,8 +57,8 @@ export const industrialChicTemplate: DesignTemplate = {
     effects: {
       glassmorphism: {
         enabled: true,
-        blur: '10px',
-        opacity: '0.15',
+        blur: 10,
+        opacity: 0.15,
         border: '1px solid rgba(205, 133, 63, 0.3)'
       },
       animations: ['metalShine', 'gearRotate', 'weldSpark'],
@@ -90,20 +97,16 @@ export const industrialChicTemplate: DesignTemplate = {
     patterns: ['metal-texture', 'rivets', 'industrial-grid'],
     particles: [
       {
-        type: 'sparkle',
         count: 20,
-        size: { min: 1, max: 3 },
-        speed: { min: 1, max: 2 },
+        size: 3,
+        speed: 2,
         color: '#CD853F',
-        opacity: { min: 0.4, max: 0.8 }
       },
       {
-        type: 'floating',
         count: 15,
-        size: { min: 2, max: 5 },
-        speed: { min: 0.5, max: 1.5 },
+        size: 5,
+        speed: 1.5,
         color: '#4682B4',
-        opacity: { min: 0.3, max: 0.6 }
       }
     ]
   },
