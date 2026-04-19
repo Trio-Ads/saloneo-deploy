@@ -116,8 +116,9 @@ export function HeroFullbleed({ template, data, onBook }: SectionProps) {
             </svg>
           </button>
 
-          {/* Ghost button */}
+          {/* Ghost button — scrolls to services section */}
           <button
+            onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
             className="inline-flex items-center gap-1.5 px-6 py-3.5 text-sm font-semibold rounded-lg transition-all duration-200 hover:bg-white/10"
             style={{
               color: '#fff',
