@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useInterfaceStore } from '../../interface/store';
 import { usePublicBookingStore } from '../store';
-import { PublicClientFormData } from '../types';
+import { PublicClientFormData, PublicService } from '../types';
 import DateTimeSelection from './DateTimeSelection';
 import PublicClientForm from './PublicClientForm';
 import LoadingSpinner from './LoadingSpinner';
@@ -19,6 +19,7 @@ interface PublicBookingFlowProps {
   template: DesignTemplate;
   serviceId: string;
   slug: string;
+  services?: PublicService[];
   onClose: () => void;
 }
 
@@ -124,6 +125,7 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
   template,
   serviceId,
   slug: _slug,
+  services,
   onClose,
 }) => {
   const { t } = useTranslation('public');
@@ -146,6 +148,8 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
   } = usePublicBookingStore();
 
   const { colors } = template.theme;
+
+  const currentService = services?.find(s => s._id === serviceId);
 
   // Initialise the store with the serviceId on mount (parent conditionally renders this)
   React.useEffect(() => {
@@ -235,7 +239,7 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
 
       {/* Modal sheet */}
       <div
-        className="relative w-full max-w-lg md:rounded-2xl rounded-t-2xl overflow-hidden shadow-2xl max-h-[90vh] overflow-y-auto"
+        className="relative w-full max-w-lg md:rounded-2xl rounded-t-2xl shadow-2xl max-h-[90vh] overflow-y-auto"
         style={{
           background: colors.background,
           color: colors.text,
@@ -259,9 +263,9 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
         {bookingData.serviceId && (
           <ServiceChip
             service={{
-              name: bookingData.serviceId,
-              duration: 0,
-              price: 0,
+              name: currentService?.name || 'Service',
+              duration: currentService?.duration || 0,
+              price: currentService?.price || 0,
             }}
             slot={
               bookingData.date && bookingData.startTime

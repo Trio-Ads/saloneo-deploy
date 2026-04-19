@@ -38,6 +38,7 @@ export default function SalonPage() {
           template={template}
           serviceId={bookingServiceId}
           slug={slug || ''}
+          services={data.services}
           onClose={() => setBookingServiceId(null)}
         />
       )}
