@@ -48,7 +48,9 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
   const service: { duration: number } | undefined = useMemo(() => {
     return serviceFromStore ?? (serviceDuration !== undefined ? { duration: serviceDuration } : undefined);
   }, [serviceFromStore, serviceDuration]);
-  const { getDaySchedule, addPreBooking, removePreBooking } = useAppointmentStore();
+  // Use selectors to avoid subscribing to entire store (prevents re-renders on every store update)
+  const addPreBooking = useAppointmentStore(state => state.addPreBooking);
+  const removePreBooking = useAppointmentStore(state => state.removePreBooking);
   
   const useStylists = () => {
     const members = useTeamStore(state => state.members);
@@ -130,6 +132,10 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
 
     setIsLoadingSlots(true);
     try {
+      // Use getState() to avoid adding getDaySchedule as a reactive dependency.
+      // getDaySchedule internally calls cleanupExpiredPreBookings() which calls set(),
+      // which would trigger re-renders and cause an infinite loop if used via hook.
+      const { getDaySchedule } = useAppointmentStore.getState();
       const newSlots: Record<string, DaySchedule> = {};
 
       // Charger les créneaux pour les 6 prochains mois (180 jours)
@@ -139,12 +145,12 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
         const formattedDate = format(date, 'yyyy-MM-dd');
 
         const schedule = getDaySchedule(formattedDate, effectiveStylistId);
-        
+
         const filteredTimeSlots = schedule.timeSlots.map((slot, index, slots) => {
           if (!slot.available) return slot;
 
           const slotsNeeded = Math.ceil(service.duration / 15);
-          
+
           let canBook = true;
           for (let j = 0; j < slotsNeeded; j++) {
             if (!slots[index + j] || !slots[index + j].available) {
@@ -161,14 +167,14 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
           timeSlots: filteredTimeSlots
         };
       }
-      
+
       setAvailableSlots(newSlots);
     } catch (error) {
       console.error('Error loading available slots:', error);
     } finally {
       setIsLoadingSlots(false);
     }
-  }, [effectiveStylistId, service, getDaySchedule]);
+  }, [effectiveStylistId, service]);
 
   useEffect(() => {
     if (effectiveStylistId && service) {
@@ -176,7 +182,9 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
       const interval = setInterval(loadAvailableSlots, 60000);
       return () => clearInterval(interval);
     }
-  }, [effectiveStylistId, service, loadAvailableSlots]);
+  // loadAvailableSlots already closes over effectiveStylistId and service
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadAvailableSlots]);
 
   // Reset calendar and date when stylist changes so user sees fresh availability
   useEffect(() => {
