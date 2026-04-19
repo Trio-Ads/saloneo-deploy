@@ -41,7 +41,9 @@ export const PublicAppointmentManager: React.FC = () => {
   }, [token]);
 
   const templateId = appointment?.salon?.theme?.selectedTemplateId || 'saloneo-classic';
-  const template = getTemplateById(templateId) || getTemplateById('saloneo-classic')!;
+  const template = getTemplateById(templateId) ?? getTemplateById('saloneo-classic');
+  // Graceful guard: if the registry is ever missing the classic template entirely
+  if (!template) return null;
   const { colors, typography } = template.theme;
 
   const handleModify = async () => {
@@ -119,13 +121,17 @@ export const PublicAppointmentManager: React.FC = () => {
   const formatDate = (dateStr: string) =>
     format(parseISO(dateStr), 'EEEE d MMMM yyyy', { locale: fr });
 
-  const statusConfig = {
-    confirmed:  { label: 'Confirmé',  dot: 'bg-green-500',  badge: 'bg-green-100 text-green-700' },
-    cancelled:  { label: 'Annulé',    dot: 'bg-red-500',    badge: 'bg-red-100 text-red-700' },
-    scheduled:  { label: 'Planifié',  dot: 'bg-yellow-500', badge: 'bg-yellow-100 text-yellow-700' },
-  } as const;
-  const statusKey = (appointment?.status ?? 'scheduled') as keyof typeof statusConfig;
-  const status = statusConfig[statusKey] ?? statusConfig.scheduled;
+  const statusConfig: Record<string, { label: string; dot: string; badge: string }> = {
+    confirmed: { label: 'Confirmé',  dot: 'bg-green-500',  badge: 'bg-green-100 text-green-700' },
+    cancelled: { label: 'Annulé',    dot: 'bg-red-500',    badge: 'bg-red-100 text-red-700' },
+    scheduled: { label: 'Planifié',  dot: 'bg-yellow-500', badge: 'bg-yellow-100 text-yellow-700' },
+  };
+  const fallbackStatus = { label: 'Inconnu', dot: 'bg-gray-400', badge: 'bg-gray-100 text-gray-600' };
+  const status = statusConfig[appointment?.status ?? ''] ?? fallbackStatus;
+
+  // Respect the server-side modification permission flag
+  const canModify = appointment?.canModify !== false
+    && appointment?.status !== 'cancelled';
 
   return (
     <div
@@ -147,13 +153,13 @@ export const PublicAppointmentManager: React.FC = () => {
         }}
       >
         <div>
-          <a
-            href="/"
+          <button
+            onClick={() => navigate('/')}
             className="text-sm font-bold"
             style={{ color: colors.primary }}
           >
             ← Saloneo
-          </a>
+          </button>
           <h1
             className="text-xl font-extrabold mt-0.5"
             style={{ color: colors.text, fontFamily: typography.headingFont }}
@@ -204,7 +210,7 @@ export const PublicAppointmentManager: React.FC = () => {
       )}
 
       {/* Modify mode: inline DateTimeSelection */}
-      {isModifying && appointment?.status !== 'cancelled' && (
+      {isModifying && canModify && (
         <div className="mx-4 mt-4">
           <DateTimeSelection
             serviceId={appointment.serviceId}
@@ -237,7 +243,7 @@ export const PublicAppointmentManager: React.FC = () => {
       )}
 
       {/* Actions */}
-      {!isModifying && appointment?.status !== 'cancelled' && (
+      {!isModifying && canModify && (
         <div className="mx-4 mt-4 flex flex-col gap-3">
           <button
             onClick={() => setIsModifying(true)}
