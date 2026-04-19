@@ -322,7 +322,7 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
               >
                 {member.avatar
                   ? <img src={member.avatar} alt="" className="w-9 h-9 rounded-full object-cover" />
-                  : <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ background: member.color || colors.primary }}>{member.firstName[0]}{member.lastName[0]}</div>
+                  : <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ background: member.color || colors.primary }}>{(member.firstName || '?')[0]}{(member.lastName || '')[0]}</div>
                 }
                 <span className="text-[9px] font-semibold" style={{ color: colors.textPrimary }}>{member.firstName}</span>
               </button>
