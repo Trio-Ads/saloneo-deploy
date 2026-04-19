@@ -1,15 +1,6 @@
 import { useState } from 'react';
 import { SectionProps } from '../types';
-
-function StarRating({ rating, color }: { rating: number; color: string }) {
-  return (
-    <div className="flex gap-0.5">
-      {[1, 2, 3, 4, 5].map(i => (
-        <span key={i} style={{ color: i <= rating ? color : '#d1d5db' }} className="text-base">★</span>
-      ))}
-    </div>
-  );
-}
+import { StarRating } from './StarRating';
 
 export function ReviewsCarousel({ template, data }: SectionProps) {
   const { colors, typography } = template.theme;
@@ -57,7 +48,7 @@ export function ReviewsCarousel({ template, data }: SectionProps) {
             <StarRating rating={current.rating} color={colors.primary} />
             <p
               className="text-base md:text-lg italic mt-4 leading-relaxed"
-              style={{ color: colors.text, fontFamily: typography.headingFont }}
+              style={{ color: colors.text, fontFamily: typography.bodyFont }}
             >
               "{current.comment}"
             </p>

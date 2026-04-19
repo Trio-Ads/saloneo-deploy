@@ -1,20 +1,5 @@
 import { SectionProps } from '../types';
-
-function StarRating({ rating, color, size = 'base' }: { rating: number; color: string; size?: 'sm' | 'base' }) {
-  return (
-    <div className="flex gap-0.5">
-      {[1, 2, 3, 4, 5].map(i => (
-        <span
-          key={i}
-          style={{ color: i <= rating ? color : '#d1d5db' }}
-          className={size === 'sm' ? 'text-xs' : 'text-base'}
-        >
-          ★
-        </span>
-      ))}
-    </div>
-  );
-}
+import { StarRating } from './StarRating';
 
 export function ReviewsFeatured({ template, data }: SectionProps) {
   const { colors, typography } = template.theme;

@@ -1,15 +1,6 @@
 import { SectionProps } from '../types';
 import { PublicReview } from '../../types';
-
-function StarRating({ rating, color }: { rating: number; color: string }) {
-  return (
-    <div className="flex gap-0.5">
-      {[1, 2, 3, 4, 5].map(i => (
-        <span key={i} style={{ color: i <= rating ? color : '#d1d5db' }} className="text-sm">★</span>
-      ))}
-    </div>
-  );
-}
+import { StarRating } from './StarRating';
 
 function ReviewCard({ review, colors, borderRadius }: {
   review: PublicReview;
@@ -21,7 +12,7 @@ function ReviewCard({ review, colors, borderRadius }: {
       className="p-4 mb-4 transition-shadow duration-200 hover:shadow-md"
       style={{ background: colors.background, borderRadius }}
     >
-      <StarRating rating={review.rating} color={colors.primary} />
+      <StarRating rating={review.rating} color={colors.primary} size="sm" />
       <p className="text-sm mt-2 italic leading-relaxed" style={{ color: colors.text }}>
         "{review.comment}"
       </p>

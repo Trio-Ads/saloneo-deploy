@@ -1,4 +1,5 @@
 import { SectionProps } from '../types';
+import { StarRating } from './StarRating';
 
 export function ReviewsTicker({ template, data }: SectionProps) {
   const { colors, typography } = template.theme;
@@ -45,17 +46,8 @@ export function ReviewsTicker({ template, data }: SectionProps) {
                 borderLeft: `3px solid ${colors.primary}`,
               }}
             >
-              {/* Stars */}
-              <div className="flex gap-0.5 mb-2">
-                {[1, 2, 3, 4, 5].map(j => (
-                  <span
-                    key={j}
-                    style={{ color: j <= review.rating ? colors.primary : '#d1d5db' }}
-                    className="text-xs"
-                  >
-                    ★
-                  </span>
-                ))}
+              <div className="mb-2">
+                <StarRating rating={review.rating} color={colors.primary} size="xs" />
               </div>
               <p
                 className="text-xs italic leading-relaxed line-clamp-3"
