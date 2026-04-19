@@ -1,25 +1,5 @@
 import { SectionProps } from '../types';
-import { PublicTeamMember } from '../../types';
-
-function MemberAvatar({ member }: { member: PublicTeamMember }) {
-  if (member.avatar) {
-    return (
-      <img
-        src={member.avatar}
-        alt={`${member.firstName} ${member.lastName}`}
-        className="w-14 h-14 rounded-full object-cover"
-      />
-    );
-  }
-  return (
-    <div
-      className="w-14 h-14 rounded-full flex items-center justify-center font-bold text-white text-lg flex-shrink-0"
-      style={{ background: member.color || '#6366F1' }}
-    >
-      {member.firstName[0]}{member.lastName[0]}
-    </div>
-  );
-}
+import { MemberAvatar } from './MemberAvatar';
 
 export function TeamHScroll({ template, data }: SectionProps) {
   const { colors } = template.theme;

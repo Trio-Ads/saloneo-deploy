@@ -1,35 +1,16 @@
 import { useState } from 'react';
 import { SectionProps } from '../types';
-import { PublicTeamMember } from '../../types';
-
-function MemberAvatar({ member, size }: { member: PublicTeamMember; size: string }) {
-  if (member.avatar) {
-    return (
-      <img
-        src={member.avatar}
-        alt={`${member.firstName} ${member.lastName}`}
-        className={`${size} rounded-full object-cover`}
-      />
-    );
-  }
-  return (
-    <div
-      className={`${size} rounded-full flex items-center justify-center font-bold text-white text-3xl flex-shrink-0`}
-      style={{ background: member.color || '#6366F1' }}
-    >
-      {member.firstName[0]}{member.lastName[0]}
-    </div>
-  );
-}
+import { MemberAvatar } from './MemberAvatar';
 
 export function TeamSpotlight({ template, data }: SectionProps) {
   const { colors } = template.theme;
   const { shadows } = template.theme.effects;
   const { borderRadius } = template.theme.layout;
   const [activeIndex, setActiveIndex] = useState(0);
-  const active = data.team[activeIndex] as PublicTeamMember | undefined;
 
   if (!data.team || data.team.length === 0) return null;
+
+  const active = data.team[activeIndex];
 
   return (
     <section id="team" style={{ background: colors.surface }} className="px-6 py-14 md:px-12">

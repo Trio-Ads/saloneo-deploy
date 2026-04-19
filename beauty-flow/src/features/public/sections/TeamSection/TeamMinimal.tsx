@@ -1,25 +1,5 @@
 import { SectionProps } from '../types';
-import { PublicTeamMember } from '../../types';
-
-function MemberAvatar({ member }: { member: PublicTeamMember }) {
-  if (member.avatar) {
-    return (
-      <img
-        src={member.avatar}
-        alt=""
-        className="w-8 h-8 rounded-full object-cover flex-shrink-0"
-      />
-    );
-  }
-  return (
-    <div
-      className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0"
-      style={{ background: member.color || '#6366F1' }}
-    >
-      {member.firstName[0]}{member.lastName[0]}
-    </div>
-  );
-}
+import { MemberAvatar } from './MemberAvatar';
 
 export function TeamMinimal({ template, data }: SectionProps) {
   const { colors } = template.theme;

@@ -1,29 +1,5 @@
 import { SectionProps } from '../types';
-import { PublicTeamMember } from '../../types';
-
-function MemberAvatar({ member, size = 'md' }: { member: PublicTeamMember; size?: 'sm' | 'md' | 'lg' }) {
-  const sizeClass =
-    size === 'lg' ? 'w-24 h-24 text-3xl' :
-    size === 'sm' ? 'w-10 h-10 text-base' :
-                    'w-16 h-16 text-xl';
-  if (member.avatar) {
-    return (
-      <img
-        src={member.avatar}
-        alt={`${member.firstName} ${member.lastName}`}
-        className={`${sizeClass} rounded-full object-cover`}
-      />
-    );
-  }
-  return (
-    <div
-      className={`${sizeClass} rounded-full flex items-center justify-center font-bold text-white flex-shrink-0`}
-      style={{ background: member.color || '#6366F1' }}
-    >
-      {member.firstName[0]}{member.lastName[0]}
-    </div>
-  );
-}
+import { MemberAvatar } from './MemberAvatar';
 
 export function TeamCards({ template, data }: SectionProps) {
   const { colors } = template.theme;
