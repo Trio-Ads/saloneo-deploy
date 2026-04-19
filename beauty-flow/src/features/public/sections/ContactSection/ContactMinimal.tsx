@@ -22,6 +22,9 @@ export function ContactMinimal({ template, data }: SectionProps) {
               📞 {profile.publicPhone}
             </span>
           )}
+          {profile.email && (
+            <span style={{ color: colors.textSecondary }} className="text-sm">✉ {profile.email}</span>
+          )}
         </div>
         {profile.socialMedia && (
           <div className="flex gap-3">
@@ -29,7 +32,7 @@ export function ContactMinimal({ template, data }: SectionProps) {
               <a
                 href={profile.socialMedia.instagram}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 style={{ color: colors.primary }}
                 className="text-sm hover:opacity-70"
               >
@@ -40,11 +43,17 @@ export function ContactMinimal({ template, data }: SectionProps) {
               <a
                 href={profile.socialMedia.facebook}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 style={{ color: colors.primary }}
                 className="text-sm hover:opacity-70"
               >
                 Facebook
+              </a>
+            )}
+            {profile.socialMedia.twitter && (
+              <a href={profile.socialMedia.twitter} target="_blank" rel="noopener noreferrer"
+                 style={{ color: colors.primary }} className="text-sm font-bold hover:opacity-70">
+                Twitter
               </a>
             )}
           </div>

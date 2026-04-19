@@ -34,12 +34,12 @@ export function ContactSplit({ template, data }: SectionProps) {
           )}
         </div>
         <div>
-          <h2
+          <h3
             style={{ color: colors.text, fontFamily: template.theme.typography.headingFont }}
             className="text-2xl font-extrabold mb-6"
           >
             Horaires
-          </h2>
+          </h3>
           {profile.businessHours &&
             Object.entries(profile.businessHours).map(([day, hours]) =>
               hours ? (
