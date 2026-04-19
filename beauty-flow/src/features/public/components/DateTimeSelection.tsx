@@ -23,6 +23,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 
 interface DateTimeSelectionProps {
   serviceId: string;
+  serviceDuration?: number;
   selectedDate?: string;
   selectedTime?: string;
   stylistId?: string;
@@ -32,6 +33,7 @@ interface DateTimeSelectionProps {
 
 const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
   serviceId,
+  serviceDuration,
   selectedDate,
   selectedTime,
   stylistId,
@@ -40,7 +42,9 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
 }) => {
   const { t, i18n } = useTranslation('public');
   const { colors } = useTemplateStyles();
-  const service = useServiceStore(state => state.services.find(s => s.id === serviceId));
+  const serviceFromStore = useServiceStore(state => state.services.find(s => s.id === serviceId));
+  // Use store service if available, otherwise build a minimal object from the prop
+  const service: { duration: number } | undefined = serviceFromStore ?? (serviceDuration !== undefined ? { duration: serviceDuration } : undefined);
   const { getDaySchedule, addPreBooking, removePreBooking } = useAppointmentStore();
   
   const useStylists = () => {

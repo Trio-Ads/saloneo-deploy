@@ -354,6 +354,7 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
           {currentStep === 'datetime' && (
             <DateTimeSelection
               serviceId={bookingData.serviceId}
+              serviceDuration={currentService?.duration}
               selectedDate={bookingData.date}
               selectedTime={bookingData.startTime}
               stylistId={bookingData.stylistId}

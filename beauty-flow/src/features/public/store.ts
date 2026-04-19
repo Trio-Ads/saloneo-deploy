@@ -154,31 +154,29 @@ export const usePublicBookingStore = create<PublicBookingStore>((set, get) => ({
           return false;
         }
 
-        // Vérifier la disponibilité du créneau
+        // Vérifier la disponibilité du créneau si le service est dans le store admin
+        // (sur la page publique le store admin peut être vide — le backend valide côté serveur)
         const service = useServiceStore.getState().services.find(s => s.id === bookingData.serviceId);
-        if (!service) {
-          state.setError({ step: 'datetime', message: "Service non trouvé" });
-          return false;
-        }
+        if (service) {
+          const endTime = format(
+            addMinutes(
+              new Date(`2000-01-01 ${bookingData.startTime}`),
+              service.duration
+            ),
+            'HH:mm'
+          );
 
-        const endTime = format(
-          addMinutes(
-            new Date(`2000-01-01 ${bookingData.startTime}`),
-            service.duration
-          ),
-          'HH:mm'
-        );
+          const isAvailable = useAppointmentStore.getState().isSlotAvailable({
+            date: bookingData.date,
+            startTime: bookingData.startTime,
+            endTime,
+            stylistId: bookingData.stylistId,
+          });
 
-        const isAvailable = useAppointmentStore.getState().isSlotAvailable({
-          date: bookingData.date,
-          startTime: bookingData.startTime,
-          endTime,
-          stylistId: bookingData.stylistId,
-        });
-
-        if (!isAvailable) {
-          state.setError({ step: 'datetime', message: "Ce créneau n'est plus disponible" });
-          return false;
+          if (!isAvailable) {
+            state.setError({ step: 'datetime', message: "Ce créneau n'est plus disponible" });
+            return false;
+          }
         }
 
         return true;
