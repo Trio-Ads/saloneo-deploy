@@ -132,17 +132,21 @@ export const getTeamBySlug = async (req: Request, res: Response): Promise<void> 
       return;
     }
 
-    const teamMembers = await TeamMember.find({ 
+    const teamMembers = await TeamMember.find({
       userId: matchingUser._id,
-      isActive: true 
-    }).select('firstName lastName specialties avatar role');
+      isActive: true
+    }).select('firstName lastName specialties avatar role workingHours color');
 
-    // Formater les données pour correspondre à l'interface frontend
+    // Formater les données pour correspondre à l'interface frontend PublicTeamMember
     const formattedTeam = teamMembers.map(member => ({
-      id: member._id,
-      name: `${member.firstName} ${member.lastName}`,
+      _id: (member._id as any).toString(),
+      firstName: member.firstName,
+      lastName: member.lastName,
       role: member.role || member.specialties?.join(', ') || 'Membre de l\'équipe',
-      image: member.avatar
+      specialties: member.specialties || [],
+      avatar: member.avatar,
+      color: (member as any).color,
+      workingHours: (member as any).workingHours,
     }));
 
     res.json(formattedTeam);
@@ -763,23 +767,28 @@ export const createPublicBooking = async (req: Request, res: Response): Promise<
     // Handle owner vs team member
     let actualStylistId = stylistId;
     let stylistName = '';
-    
+
+    // 'stylist-any' means "assign to the salon owner" (used when no specific stylist is selected)
+    const resolvedStylistId = stylistId === 'stylist-any'
+      ? `owner-${(matchingUser._id as any).toString()}`
+      : stylistId;
+
     // Check if stylistId has "owner-" prefix
-    if (stylistId.startsWith('owner-')) {
-      // Extract the actual user ID
-      const ownerId = stylistId.replace('owner-', '');
-      
+    if (resolvedStylistId.startsWith('owner-')) {
+      // Extract the actual user ID from resolvedStylistId (handles both original and 'stylist-any' cases)
+      const ownerId = resolvedStylistId.replace('owner-', '');
+
       // Verify it matches the salon owner
       if (ownerId !== (matchingUser._id as any).toString()) {
         logger.error('Owner ID mismatch:', { provided: ownerId, expected: matchingUser._id });
         res.status(400).json({ error: 'ID propriétaire invalide' });
         return;
       }
-      
+
       // Use the owner's ID directly
       actualStylistId = (matchingUser._id as any).toString();
       stylistName = `${matchingUser.firstName} ${matchingUser.lastName}`;
-      
+
       logger.info('Using salon owner as stylist:', {
         ownerId: actualStylistId,
         ownerName: stylistName
@@ -787,17 +796,17 @@ export const createPublicBooking = async (req: Request, res: Response): Promise<
     } else {
       // Verify team member exists
       const teamMember = await TeamMember.findOne({
-        _id: stylistId,
+        _id: resolvedStylistId,
         userId: matchingUser._id,
         isActive: true
       });
 
       if (!teamMember) {
-        logger.error('Team member not found:', stylistId);
+        logger.error('Team member not found:', resolvedStylistId);
         res.status(404).json({ error: 'Coiffeur non trouvé' });
         return;
       }
-      
+
       stylistName = `${teamMember.firstName} ${teamMember.lastName}`;
     }
 
