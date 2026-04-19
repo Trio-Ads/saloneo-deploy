@@ -1,5 +1,6 @@
 import { DesignTemplate } from '../../../templates/types';
 import { PublicService } from '../../types';
+import { formatDuration, formatPrice } from './utils';
 
 interface Props {
   service: PublicService;
@@ -7,34 +8,14 @@ interface Props {
   onBook: (serviceId: string) => void;
   priceDisplay?: 'fixed' | 'from' | 'range' | 'hidden';
   size?: 'normal' | 'large';
+  currency?: string;
 }
 
-function formatPrice(service: PublicService, mode: string, currency: string): string {
-  if (mode === 'hidden') return '';
-  const sym =
-    currency === 'EUR' ? '€'
-    : currency === 'USD' ? '$'
-    : currency === 'GBP' ? '£'
-    : currency === 'DZD' ? 'DA'
-    : currency;
-  if (mode === 'from') return `À partir de ${service.price}${sym}`;
-  return `${service.price}${sym}`;
-}
-
-function formatDuration(minutes: number): string {
-  if (minutes < 60) return `${minutes} min`;
-  const h = Math.floor(minutes / 60);
-  const m = minutes % 60;
-  return m > 0 ? `${h}h${m.toString().padStart(2, '0')}` : `${h}h`;
-}
-
-export function ServiceCard({ service, template, onBook, priceDisplay = 'fixed', size = 'normal' }: Props) {
+export function ServiceCard({ service, template, onBook, priceDisplay = 'fixed', size = 'normal', currency = 'EUR' }: Props) {
   const { colors } = template.theme;
-  const { borderRadius, shadows } = template.theme.effects
-    ? { borderRadius: template.theme.layout.borderRadius, shadows: template.theme.effects.shadows }
-    : { borderRadius: template.theme.layout.borderRadius, shadows: { sm: '', md: '', lg: '', xl: '', neon: '' } };
+  const { borderRadius } = template.theme.layout;
+  const { shadows } = template.theme.effects;
   const primaryImage = service.images.find(i => i.isPrimary) || service.images[0];
-  const currency = template.theme.colors.custom?.currency || 'EUR';
   const imageHeight = size === 'large' ? 'h-56' : 'h-40';
 
   return (

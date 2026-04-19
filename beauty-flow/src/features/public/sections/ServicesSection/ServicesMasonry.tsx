@@ -4,6 +4,7 @@ import { ServiceCard } from './ServiceCard';
 export function ServicesMasonry({ template, data, onBook }: SectionProps) {
   const { colors } = template.theme;
   const priceDisplay = data.profile.serviceDisplay?.priceDisplay || 'fixed';
+  const currency = data.profile.settings?.currency || 'EUR';
 
   // Split into two columns with alternating heights effect
   const col1 = data.services.filter((_, i) => i % 2 === 0);
@@ -47,6 +48,7 @@ export function ServicesMasonry({ template, data, onBook }: SectionProps) {
                   template={template}
                   onBook={onBook}
                   priceDisplay={priceDisplay}
+                  currency={currency}
                 />
               ))}
             </div>
@@ -59,6 +61,7 @@ export function ServicesMasonry({ template, data, onBook }: SectionProps) {
                   template={template}
                   onBook={onBook}
                   priceDisplay={priceDisplay}
+                  currency={currency}
                 />
               ))}
             </div>

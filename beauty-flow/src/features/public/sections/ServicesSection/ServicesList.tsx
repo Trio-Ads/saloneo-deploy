@@ -1,23 +1,11 @@
 import { SectionProps } from '../types';
-
-function formatDuration(minutes: number): string {
-  if (minutes < 60) return `${minutes} min`;
-  const h = Math.floor(minutes / 60);
-  const m = minutes % 60;
-  return m > 0 ? `${h}h${m.toString().padStart(2, '0')}` : `${h}h`;
-}
+import { formatDuration, formatPrice } from './utils';
 
 export function ServicesList({ template, data, onBook }: SectionProps) {
   const { colors } = template.theme;
   const { borderRadius } = template.theme.layout;
   const priceDisplay = data.profile.serviceDisplay?.priceDisplay || 'fixed';
-  const currency = template.theme.colors.custom?.currency || 'EUR';
-  const sym =
-    currency === 'EUR' ? '€'
-    : currency === 'USD' ? '$'
-    : currency === 'GBP' ? '£'
-    : currency === 'DZD' ? 'DA'
-    : currency;
+  const currency = data.profile.settings?.currency || 'EUR';
 
   return (
     <section id="services" style={{ background: colors.background }} className="px-6 py-14 md:px-12">
@@ -96,9 +84,7 @@ export function ServicesList({ template, data, onBook }: SectionProps) {
                     <div className="text-right hidden sm:block">
                       {priceDisplay !== 'hidden' && (
                         <p style={{ color: colors.primary }} className="font-extrabold text-base leading-none">
-                          {priceDisplay === 'from'
-                            ? `dès ${service.price}${sym}`
-                            : `${service.price}${sym}`}
+                          {formatPrice(service, priceDisplay, currency)}
                         </p>
                       )}
                       <p

@@ -4,6 +4,7 @@ import { ServiceCard } from './ServiceCard';
 export function ServicesGrid3col({ template, data, onBook }: SectionProps) {
   const { colors } = template.theme;
   const priceDisplay = data.profile.serviceDisplay?.priceDisplay || 'fixed';
+  const currency = data.profile.settings?.currency || 'EUR';
 
   return (
     <section id="services" style={{ background: colors.background }} className="px-6 py-14 md:px-12">
@@ -41,6 +42,7 @@ export function ServicesGrid3col({ template, data, onBook }: SectionProps) {
                 template={template}
                 onBook={onBook}
                 priceDisplay={priceDisplay}
+                currency={currency}
               />
             ))}
           </div>

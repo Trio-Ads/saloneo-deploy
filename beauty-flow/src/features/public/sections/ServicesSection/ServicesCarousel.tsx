@@ -6,6 +6,7 @@ export function ServicesCarousel({ template, data, onBook }: SectionProps) {
   const { colors } = template.theme;
   const { borderRadius } = template.theme.layout;
   const priceDisplay = data.profile.serviceDisplay?.priceDisplay || 'fixed';
+  const currency = data.profile.settings?.currency || 'EUR';
   const scrollRef = useRef<HTMLDivElement>(null);
 
   function scrollBy(direction: 'left' | 'right') {
@@ -93,6 +94,7 @@ export function ServicesCarousel({ template, data, onBook }: SectionProps) {
                 template={template}
                 onBook={onBook}
                 priceDisplay={priceDisplay}
+                currency={currency}
               />
             </div>
           ))}

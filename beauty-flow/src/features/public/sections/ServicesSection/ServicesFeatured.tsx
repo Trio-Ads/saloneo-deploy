@@ -1,20 +1,13 @@
 import { SectionProps } from '../types';
 import { ServiceCard } from './ServiceCard';
+import { formatDuration, formatPrice } from './utils';
 
 export function ServicesFeatured({ template, data, onBook }: SectionProps) {
   const { colors } = template.theme;
-  const { borderRadius, shadows } = {
-    borderRadius: template.theme.layout.borderRadius,
-    shadows: template.theme.effects?.shadows || { sm: '', md: '', lg: '', xl: '', neon: '' },
-  };
+  const { borderRadius } = template.theme.layout;
+  const { shadows } = template.theme.effects;
   const priceDisplay = data.profile.serviceDisplay?.priceDisplay || 'fixed';
-  const currency = template.theme.colors.custom?.currency || 'EUR';
-  const sym =
-    currency === 'EUR' ? '€'
-    : currency === 'USD' ? '$'
-    : currency === 'GBP' ? '£'
-    : currency === 'DZD' ? 'DA'
-    : currency;
+  const currency = data.profile.settings?.currency || 'EUR';
 
   const [featured, ...rest] = data.services;
 
@@ -110,12 +103,10 @@ export function ServicesFeatured({ template, data, onBook }: SectionProps) {
                       {priceDisplay !== 'hidden' && (
                         <div>
                           <span style={{ color: colors.primary }} className="text-2xl font-extrabold">
-                            {priceDisplay === 'from'
-                              ? `dès ${featured.price}${sym}`
-                              : `${featured.price}${sym}`}
+                            {formatPrice(featured, priceDisplay, currency)}
                           </span>
                           <span style={{ color: colors.textSecondary }} className="text-xs ml-2">
-                            · {featured.duration} min
+                            · {formatDuration(featured.duration)}
                           </span>
                         </div>
                       )}
@@ -148,6 +139,7 @@ export function ServicesFeatured({ template, data, onBook }: SectionProps) {
                     template={template}
                     onBook={onBook}
                     priceDisplay={priceDisplay}
+                    currency={currency}
                   />
                 ))}
               </div>
