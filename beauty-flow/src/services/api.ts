@@ -31,8 +31,12 @@ api.interceptors.response.use(
 
     // Handle 401 errors — skip if already retried OR if it's the refresh endpoint itself
     // (to avoid infinite refresh loop)
+    // A 401 without any stored token is an unauthenticated visitor (login/public
+    // page), not an expired session — redirecting would reload the page in a loop.
+    const hadToken = !!localStorage.getItem('token');
     if (
       error.response?.status === 401 &&
+      hadToken &&
       !originalRequest._retry &&
       !originalRequest.url?.includes('/auth/refresh')
     ) {
@@ -43,7 +47,7 @@ api.interceptors.response.use(
         if (!refreshToken) {
           // No refresh token available — redirect to login immediately
           localStorage.removeItem('token');
-          window.location.href = '/login';
+          window.location.href = '/auth/login';
           return Promise.reject(error);
         }
 
@@ -62,7 +66,7 @@ api.interceptors.response.use(
         // Refresh failed — clear tokens and redirect to login
         localStorage.removeItem('token');
         localStorage.removeItem('refreshToken');
-        window.location.href = '/login';
+        window.location.href = '/auth/login';
         return Promise.reject(refreshError);
       }
     }
