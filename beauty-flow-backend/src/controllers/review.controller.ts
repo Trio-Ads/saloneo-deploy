@@ -5,9 +5,7 @@ import { AuthRequest } from '../middleware/auth';
 
 const VALID_RATINGS = [1, 2, 3, 4, 5];
 
-// Replicates the slug resolution used across public controller endpoints
-const generateSalonSlug = (text: string): string =>
-  text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+import { findSalonBySlug } from '../services/salonLookup';
 
 // GET /api/reviews — list own reviews (authenticated)
 export async function listReviews(req: Request, res: Response): Promise<void> {
@@ -101,12 +99,7 @@ export async function getPublicReviews(req: Request, res: Response): Promise<voi
   try {
     const { slug } = req.params;
 
-    // Slug resolution mirrors public.controller.ts pattern (User has no slug field)
-    const users = await User.find({ isActive: true }).select('_id firstName lastName establishmentName');
-    const matchingUser = users.find(u => {
-      const userSlug = generateSalonSlug(u.establishmentName || `${u.firstName} ${u.lastName}`);
-      return userSlug === slug;
-    });
+    const matchingUser = await findSalonBySlug(slug, '_id');
 
     if (!matchingUser) {
       res.status(404).json({ message: 'Salon introuvable' });

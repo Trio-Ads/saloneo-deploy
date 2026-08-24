@@ -10,37 +10,14 @@ import { emailService } from '../services/emailService';
 import crypto from 'crypto';
 
 // Helper function to generate slug
-const generateSalonSlug = (text: string): string => {
-  return text
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-};
+import { findSalonBySlug } from '../services/salonLookup';
 
 // Get salon info by slug
 export const getSalonBySlug = async (req: Request, res: Response): Promise<void> => {
   try {
     const { slug } = req.params;
 
-    // Récupérer TOUS les utilisateurs actifs
-    const users = await User.find({ 
-      isActive: true 
-    }).select('firstName lastName establishmentName address phone email businessHours theme settings logo banner presentation publicPhone serviceDisplay showTeamOnPublicPage');
-
-    if (!users || users.length === 0) {
-      res.status(404).json({ error: 'No active salons found' });
-      return;
-    }
-
-    // Chercher l'utilisateur dont le slug correspond
-    let matchingUser = null;
-    for (const user of users) {
-      const userSlug = generateSalonSlug(user.establishmentName || `${user.firstName} ${user.lastName}`);
-      if (userSlug === slug) {
-        matchingUser = user;
-        break;
-      }
-    }
+    const matchingUser = await findSalonBySlug(slug, 'firstName lastName establishmentName address phone email businessHours theme settings logo banner presentation publicPhone serviceDisplay showTeamOnPublicPage slug');
 
     if (!matchingUser) {
       res.status(404).json({ error: 'Salon not found' });
@@ -65,25 +42,7 @@ export const getServicesBySlug = async (req: Request, res: Response): Promise<vo
   try {
     const { slug } = req.params;
 
-    // Récupérer TOUS les utilisateurs actifs
-    const users = await User.find({ 
-      isActive: true 
-    }).select('firstName lastName establishmentName');
-
-    if (!users || users.length === 0) {
-      res.status(404).json({ error: 'No active salons found' });
-      return;
-    }
-
-    // Chercher l'utilisateur dont le slug correspond
-    let matchingUser = null;
-    for (const user of users) {
-      const userSlug = generateSalonSlug(user.establishmentName || `${user.firstName} ${user.lastName}`);
-      if (userSlug === slug) {
-        matchingUser = user;
-        break;
-      }
-    }
+    const matchingUser = await findSalonBySlug(slug);
 
     if (!matchingUser) {
       res.status(404).json({ error: 'Salon not found' });
@@ -107,25 +66,7 @@ export const getTeamBySlug = async (req: Request, res: Response): Promise<void> 
   try {
     const { slug } = req.params;
 
-    // Récupérer TOUS les utilisateurs actifs
-    const users = await User.find({ 
-      isActive: true 
-    }).select('firstName lastName establishmentName');
-
-    if (!users || users.length === 0) {
-      res.status(404).json({ error: 'No active salons found' });
-      return;
-    }
-
-    // Chercher l'utilisateur dont le slug correspond
-    let matchingUser = null;
-    for (const user of users) {
-      const userSlug = generateSalonSlug(user.establishmentName || `${user.firstName} ${user.lastName}`);
-      if (userSlug === slug) {
-        matchingUser = user;
-        break;
-      }
-    }
+    const matchingUser = await findSalonBySlug(slug);
 
     if (!matchingUser) {
       res.status(404).json({ error: 'Salon not found' });
@@ -734,17 +675,7 @@ export const createPublicBooking = async (req: Request, res: Response): Promise<
 
     logger.info('Creating public booking:', { slug, serviceId, stylistId, date, startTime, clientData: { ...clientData, phone: '***' } });
 
-    // Find salon by slug
-    const users = await User.find({ isActive: true }).select('firstName lastName establishmentName');
-    let matchingUser = null;
-    
-    for (const user of users) {
-      const userSlug = generateSalonSlug(user.establishmentName || `${user.firstName} ${user.lastName}`);
-      if (userSlug === slug) {
-        matchingUser = user;
-        break;
-      }
-    }
+    const matchingUser = await findSalonBySlug(slug);
 
     if (!matchingUser) {
       res.status(404).json({ error: 'Salon not found' });
@@ -1088,17 +1019,7 @@ export const searchAppointmentsByClient = async (req: Request, res: Response): P
     const { slug } = req.params;
     const { email, phone, firstName, lastName } = req.query;
 
-    // Find salon by slug
-    const users = await User.find({ isActive: true }).select('firstName lastName establishmentName');
-    let matchingUser = null;
-    
-    for (const user of users) {
-      const userSlug = generateSalonSlug(user.establishmentName || `${user.firstName} ${user.lastName}`);
-      if (userSlug === slug) {
-        matchingUser = user;
-        break;
-      }
-    }
+    const matchingUser = await findSalonBySlug(slug);
 
     if (!matchingUser) {
       res.status(404).json({ error: 'Salon not found' });

@@ -11,7 +11,7 @@ const ShareableLink: React.FC = () => {
   const settings = useInterfaceStore((state) => state.settings);
   
   // URL publique du salon basée sur le nom d'établissement
-  const salonSlug = generateSalonSlug(profile.establishmentName || 'salon');
+  const salonSlug = generateSalonSlug(profile.slug || profile.establishmentName || 'salon');
   const publicUrl = `${window.location.origin}/salon/${salonSlug}`;
 
   const handleCopy = async () => {

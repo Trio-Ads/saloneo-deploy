@@ -338,7 +338,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
               <PhotoIcon className="h-6 w-6 text-orange-600 dark:text-orange-500" />
               <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{t('common:service_form.sections.photos')}</h3>
             </div>
-            <ServiceImageUpload serviceId={initialData.name || 'temp-service'} />
+            <ServiceImageUpload serviceId={initialData.id || 'temp-service'} />
           </div>
         )}
 

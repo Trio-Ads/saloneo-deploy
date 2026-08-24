@@ -1,5 +1,6 @@
 import { Schema, model, Document } from 'mongoose';
 import bcrypt from 'bcryptjs';
+import { salonBaseSlug } from '../utils/slug';
 
 export enum PlanType {
   FREE = 'FREE',
@@ -28,6 +29,7 @@ export interface IUser extends Document {
   firstName?: string;
   lastName?: string;
   establishmentName: string;
+  slug?: string;
   phone?: string;
   address?: string;
     subscription: {
@@ -140,6 +142,12 @@ const userSchema = new Schema<IUser>(
     establishmentName: {
       type: String,
       required: [true, 'Establishment name is required'],
+      trim: true,
+    },
+    slug: {
+      type: String,
+      unique: true,
+      sparse: true,
       trim: true,
     },
     phone: {
@@ -335,6 +343,16 @@ userSchema.index({ isAdmin: 1 });
 userSchema.index({ 'subscription.plan': 1, 'subscription.isActive': 1 });
 userSchema.index({ 'affiliation.affiliateCode': 1 });
 userSchema.index({ 'affiliation.referredBy': 1 });
+
+// Keep a unique public slug in sync with the establishment name
+userSchema.pre('save', async function (next) {
+  if (this.slug && !this.isModified('establishmentName')) return next();
+  const base = salonBaseSlug(this);
+  let slug = base;
+  for (let i = 2; await User.exists({ slug, _id: { $ne: this._id } }); i++) slug = `${base}-${i}`;
+  this.slug = slug;
+  next();
+});
 
 // Hash password before saving
 userSchema.pre('save', async function (next) {

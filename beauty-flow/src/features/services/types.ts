@@ -37,7 +37,7 @@ export interface Service {
   isOnlineBookingEnabled?: boolean;
 }
 
-export type ServiceFormData = Omit<Service, 'id' | 'isActive'>;
+export type ServiceFormData = Omit<Service, 'id' | 'isActive'> & { id?: string };
 
 export type ProductFormData = Omit<Product, 'id' | 'isActive'>;
 

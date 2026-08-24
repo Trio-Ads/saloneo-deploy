@@ -100,8 +100,8 @@ export const uploadProfileAvatar = async (req: AuthRequest, res: Response): Prom
     }
 
     // Delete old avatar from Cloudinary if exists
-    if (user.avatar && user.avatar.includes('cloudinary')) {
-      const publicId = user.avatar.split('/').slice(-1)[0].split('.')[0];
+    if (user.avatar && (user.avatar.includes('cloudinary') || user.avatar.startsWith('/uploads/'))) {
+      const publicId = user.avatar.startsWith('/uploads/') ? user.avatar : user.avatar.split('/').slice(-1)[0].split('.')[0];
       await cloudStorageService.deleteFile(publicId).catch(() => {});
     }
 
@@ -212,8 +212,8 @@ export const uploadTeamMemberAvatar = async (req: AuthRequest, res: Response): P
     }
 
     // Delete old avatar from Cloudinary if exists
-    if (teamMember.avatar && teamMember.avatar.includes('cloudinary')) {
-      const publicId = teamMember.avatar.split('/').slice(-1)[0].split('.')[0];
+    if (teamMember.avatar && (teamMember.avatar.includes('cloudinary') || teamMember.avatar.startsWith('/uploads/'))) {
+      const publicId = teamMember.avatar.startsWith('/uploads/') ? teamMember.avatar : teamMember.avatar.split('/').slice(-1)[0].split('.')[0];
       await cloudStorageService.deleteFile(publicId).catch(() => {});
     }
 
@@ -287,8 +287,8 @@ export const uploadLogo = async (req: AuthRequest, res: Response): Promise<void>
     }
 
     // Delete old logo from Cloudinary if exists
-    if (user.logo && user.logo.includes('cloudinary')) {
-      const publicId = user.logo.split('/').slice(-1)[0].split('.')[0];
+    if (user.logo && (user.logo.includes('cloudinary') || user.logo.startsWith('/uploads/'))) {
+      const publicId = user.logo.startsWith('/uploads/') ? user.logo : user.logo.split('/').slice(-1)[0].split('.')[0];
       await cloudStorageService.deleteFile(publicId).catch(() => {});
     }
 
@@ -340,8 +340,8 @@ export const uploadBanner = async (req: AuthRequest, res: Response): Promise<voi
     }
 
     // Delete old banner from Cloudinary if exists
-    if (user.banner && user.banner.includes('cloudinary')) {
-      const publicId = user.banner.split('/').slice(-1)[0].split('.')[0];
+    if (user.banner && (user.banner.includes('cloudinary') || user.banner.startsWith('/uploads/'))) {
+      const publicId = user.banner.startsWith('/uploads/') ? user.banner : user.banner.split('/').slice(-1)[0].split('.')[0];
       await cloudStorageService.deleteFile(publicId).catch(() => {});
     }
 

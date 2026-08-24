@@ -12,6 +12,7 @@ export interface Profile {
   firstName: string;
   lastName: string;
   establishmentName: string;
+  slug?: string;
   address: string;
   language: Language;
   currency: Currency;

@@ -5,6 +5,7 @@ import { Readable } from 'stream';
 import { logger } from '../utils/logger';
 import { cacheService } from './cacheService';
 import path from 'path';
+import fs from 'fs/promises';
 
 // Storage provider types
 export enum StorageProvider {
@@ -119,6 +120,9 @@ class CloudStorageService {
           break;
         case StorageProvider.CLOUDINARY:
           result = await this.uploadToCloudinary(processedBuffer, filename, mimeType, options);
+          break;
+        case StorageProvider.LOCAL:
+          result = await this.uploadToLocal(processedBuffer, filename, mimeType, options);
           break;
         default:
           throw new Error(`Unsupported storage provider: ${this.provider}`);
@@ -237,6 +241,31 @@ class CloudStorageService {
     });
   }
 
+  private async uploadToLocal(
+    buffer: Buffer,
+    filename: string,
+    mimeType: string,
+    options: UploadOptions
+  ): Promise<FileInfo> {
+    const ext = path.extname(filename) || `.${mimeType.split('/')[1] || 'bin'}`;
+    const key = path.posix.join(options.folder || '', this.generatePublicId(filename) + ext);
+    const dest = path.join(this.localDir(), key);
+    await fs.mkdir(path.dirname(dest), { recursive: true });
+    await fs.writeFile(dest, buffer);
+    return {
+      url: `/uploads/${key}`,
+      publicId: key,
+      key,
+      size: buffer.length,
+      format: ext.slice(1),
+      metadata: options.metadata,
+    };
+  }
+
+  private localDir(): string {
+    return path.resolve(process.env.UPLOAD_DIR || 'uploads');
+  }
+
   /**
    * Delete file from cloud storage
    */
@@ -254,6 +283,9 @@ class CloudStorageService {
           break;
         case StorageProvider.CLOUDINARY:
           await cloudinary.uploader.destroy(keyOrPublicId);
+          break;
+        case StorageProvider.LOCAL:
+          await fs.unlink(path.join(this.localDir(), keyOrPublicId.replace(/^\/?uploads\//, ''))).catch(() => {});
           break;
       }
 

@@ -74,7 +74,8 @@ const useProfileStore = create<ProfileStore>()(
             currency: typeof userData.settings?.currency === 'string' 
               ? CURRENCIES[userData.settings.currency] || defaultCurrency
               : userData.settings?.currency || defaultCurrency,
-            publicLink: generatePublicLink(userData.establishmentName || ''),
+            slug: userData.slug,
+            publicLink: generatePublicLink(userData.slug || userData.establishmentName || ''),
             showAsTeamMember: userData.showAsTeamMember || false
           };
 
@@ -137,7 +138,8 @@ const useProfileStore = create<ProfileStore>()(
             currency: typeof userData.settings?.currency === 'string' 
               ? CURRENCIES[userData.settings.currency] || defaultCurrency
               : userData.settings?.currency || defaultCurrency,
-            publicLink: generatePublicLink(userData.establishmentName || ''),
+            slug: userData.slug,
+            publicLink: generatePublicLink(userData.slug || userData.establishmentName || ''),
             showAsTeamMember: userData.showAsTeamMember || false
           };
 

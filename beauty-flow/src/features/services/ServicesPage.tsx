@@ -325,6 +325,7 @@ const ServicesPage: React.FC = () => {
             <div className="animate-fadeIn">
               <ServiceFormWithLimits
                 initialData={editingService ? {
+                  id: editingService.id,
                   name: editingService.name,
                   description: editingService.description,
                   duration: editingService.duration,
