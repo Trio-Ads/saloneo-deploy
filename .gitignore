@@ -21,3 +21,4 @@ clear-*.html
 # secrets — never commit
 .env
 beauty-flow-backend/.env
+beauty-flow-backend/.env.email
