@@ -12,8 +12,9 @@ interface AuthenticatedSocket extends Socket {
 export const initializeSocket = (httpServer: HttpServer): SocketServer => {
   const allowedOrigins = [
     'http://localhost:3000',
-    'http://localhost:5173'
-  ];
+    'http://localhost:5173',
+  ...(process.env.CORS_ORIGIN || '').split(',').map(o => o.trim()),
+].filter(Boolean);
   
   if (process.env.FRONTEND_URL) {
     allowedOrigins.push(process.env.FRONTEND_URL);
