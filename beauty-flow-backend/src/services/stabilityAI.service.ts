@@ -29,7 +29,7 @@ export class StabilityAIService {
 
   constructor() {
     this.config = {
-      apiKey: process.env.STABILITY_API_KEY || 'sk-0rPxRciQYj6okYo30O66DZ6FJg57Qn47rxzX1LbpJhAJrTRm',
+      apiKey: process.env.STABILITY_API_KEY || '',
       apiUrl: 'https://api.stability.ai/v2beta/stable-image/generate/ultra',
       api3DUrl: 'https://api.stability.ai/v2beta/3d/stable-fast-3d'
     };

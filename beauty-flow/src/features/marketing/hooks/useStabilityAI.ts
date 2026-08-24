@@ -40,7 +40,8 @@ export const useStabilityAI = (): UseStabilityAIReturn => {
       setError(null);
 
       // Essayer de récupérer les images existantes
-      const response = await api.get('/marketing/images/list');
+      // Endpoint not implemented on the backend yet: fall back to placeholders without logging an error
+      const response = await api.get('/marketing/images/list').catch(() => ({ data: {} }));
       
       if (response.data.images && response.data.images.length > 0) {
         // Organiser les images par type

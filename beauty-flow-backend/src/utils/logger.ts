@@ -1,4 +1,10 @@
 import winston from 'winston';
+import { join } from 'path';
+import { existsSync, mkdirSync } from 'fs';
+
+// Log files live next to the build (beauty-flow-backend/logs); pm2 also captures stdout/stderr.
+const logsDir = join(__dirname, '../../logs');
+if (!existsSync(logsDir)) mkdirSync(logsDir, { recursive: true });
 import chalk from 'chalk';
 
 // Custom format for console output with colors
@@ -39,7 +45,7 @@ export const logger = winston.createLogger({
     
     // File transport for errors
     new winston.transports.File({ 
-      filename: 'logs/error.log', 
+      filename: join(logsDir, 'error.log'), 
       level: 'error',
       format: winston.format.combine(
         winston.format.timestamp(),
@@ -49,7 +55,7 @@ export const logger = winston.createLogger({
     
     // File transport for all logs
     new winston.transports.File({ 
-      filename: 'logs/combined.log',
+      filename: join(logsDir, 'combined.log'),
       format: winston.format.combine(
         winston.format.timestamp(),
         winston.format.json()
@@ -59,13 +65,7 @@ export const logger = winston.createLogger({
 });
 
 // Create logs directory if it doesn't exist
-import { existsSync, mkdirSync } from 'fs';
-import { join } from 'path';
 
-const logsDir = join(__dirname, '../../logs');
-if (!existsSync(logsDir)) {
-  mkdirSync(logsDir, { recursive: true });
-}
 
 // If we're not in production, log to the console with colors
 if (process.env.NODE_ENV !== 'production') {

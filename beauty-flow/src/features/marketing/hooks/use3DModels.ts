@@ -41,7 +41,8 @@ export const use3DModels = (): Use3DModelsReturn => {
       setError(null);
 
       // Essayer de récupérer les modèles existants
-      const response = await api.get('/marketing/3d/list');
+      // Endpoint not implemented on the backend yet: fall back to placeholders without logging an error
+      const response = await api.get('/marketing/3d/list').catch(() => ({ data: {} }));
       
       if (response.data.models && response.data.models.length > 0) {
         // Organiser les modèles par type
