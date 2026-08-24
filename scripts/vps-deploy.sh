@@ -22,8 +22,10 @@ healthy() {
   return 1
 }
 
+cp .env /root/saloneo.env.bak            # .env is NOT in git — keep it across the reset
 git fetch -q origin main
 git reset -q --hard origin/main
+cp /root/saloneo.env.bak .env
 echo "==> Building $(git rev-parse --short HEAD)"
 build
 pm2 reload saloneo --update-env >/dev/null
@@ -34,6 +36,7 @@ fi
 
 echo "==> HEALTH CHECK FAILED — rolling back to $(git rev-parse --short "$PREV")"
 git reset -q --hard "$PREV"
+cp /root/saloneo.env.bak .env
 build
 pm2 reload saloneo --update-env >/dev/null
 healthy && echo "==> ROLLED BACK to $(git rev-parse --short HEAD)"

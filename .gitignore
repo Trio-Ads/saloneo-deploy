@@ -17,3 +17,7 @@ diagnostic-*.cjs
 migrate-*.js
 update-*.cjs
 clear-*.html
+
+# secrets — never commit
+.env
+beauty-flow-backend/.env

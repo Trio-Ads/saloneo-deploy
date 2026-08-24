@@ -214,6 +214,8 @@ if (process.env.NODE_ENV === 'production') {
     etag: true,
     lastModified: true,
     setHeaders: (res, path) => {
+      // index.html must never be cached: it references hashed bundles that change on every deploy
+      if (path.endsWith('index.html')) res.setHeader('Cache-Control', 'no-cache');
       // Définir les types MIME corrects
       if (path.endsWith('.css')) {
         res.setHeader('Content-Type', 'text/css');
@@ -240,6 +242,7 @@ if (process.env.NODE_ENV === 'production') {
       return;
     }
     
+    res.setHeader('Cache-Control', 'no-cache');
     res.sendFile(path.join(publicPath, 'index.html'));
   });
 } else {
