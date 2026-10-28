@@ -102,6 +102,7 @@
     "OUTSIDE_HOURS": "Este horário está fora do horário do salão.",
     "TOO_SOON": "Este horário está demasiado próximo para ser reservado.",
     "TOO_FAR": "Este horário está demasiado longe para ser reservado.",
-    "STAFF_UNAVAILABLE": "Este membro da equipa não está disponível nesse momento."
+    "STAFF_UNAVAILABLE": "Este membro da equipa não está disponível nesse momento.",
+    "SERVICE_UNAVAILABLE": "Este serviço não pode ser reservado online de momento."
   }
 }

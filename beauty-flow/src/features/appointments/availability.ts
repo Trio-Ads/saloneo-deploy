@@ -3,7 +3,7 @@
 import { addDays, format, parseISO } from 'date-fns';
 import api from '../../services/api';
 
-export const AVAILABILITY_CODES = ['SLOT_TAKEN', 'OUTSIDE_HOURS', 'TOO_SOON', 'TOO_FAR', 'STAFF_UNAVAILABLE'] as const;
+export const AVAILABILITY_CODES = ['SLOT_TAKEN', 'OUTSIDE_HOURS', 'TOO_SOON', 'TOO_FAR', 'STAFF_UNAVAILABLE', 'SERVICE_UNAVAILABLE'] as const;
 export type AvailabilityCode = typeof AVAILABILITY_CODES[number];
 
 export interface AvailabilitySlot { time: string; staff: string[] }

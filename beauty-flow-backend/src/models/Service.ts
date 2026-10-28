@@ -104,9 +104,10 @@ const serviceSchema = new Schema<IService>(
       },
     }],
     settings: {
+      // Bookable on the public page / directory. On by default; the owner can switch a service off.
       isOnline: {
         type: Boolean,
-        default: false,
+        default: true,
       },
       // No default: unset = the salon's booking settings (User.bookingSettings) apply.
       minimumBookingTime: {

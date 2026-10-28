@@ -102,6 +102,7 @@
     "OUTSIDE_HOURS": "Bu saat salonun çalışma saatleri dışında.",
     "TOO_SOON": "Bu saat randevu için çok yakın.",
     "TOO_FAR": "Bu saat randevu için çok ileride.",
-    "STAFF_UNAVAILABLE": "Bu ekip üyesi o saatte müsait değil."
+    "STAFF_UNAVAILABLE": "Bu ekip üyesi o saatte müsait değil.",
+    "SERVICE_UNAVAILABLE": "Bu hizmet şu anda online olarak rezerve edilemiyor."
   }
 }

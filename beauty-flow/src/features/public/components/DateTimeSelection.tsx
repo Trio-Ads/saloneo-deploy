@@ -4,7 +4,7 @@ import { UserGroupIcon, ExclamationCircleIcon } from '@heroicons/react/24/outlin
 import { addDays, addMonths, endOfMonth, format, parseISO, startOfMonth } from 'date-fns';
 import ModernCalendar from './ModernCalendar';
 import { dateLocale } from './bookingTheme';
-import { fetchPublicAvailability, PublicAvailability, StaffOption } from '../../appointments/availability';
+import { availabilityCode, fetchPublicAvailability, PublicAvailability, StaffOption } from '../../appointments/availability';
 
 interface DateTimeSelectionProps {
   serviceId: string;
@@ -45,7 +45,8 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
   const [day, setDay] = useState<string | undefined>(selectedDate);
   const [result, setResult] = useState<{ base: string; data: PublicAvailability } | null>(null);
   const [staff, setStaff] = useState<StaffOption[] | null>(null);
-  const [failed, setFailed] = useState(false);
+  /** false, or the reason the slots could not be loaded ('SERVICE_UNAVAILABLE' when the service is offline) */
+  const [failed, setFailed] = useState<false | string>(false);
   const [tick, setTick] = useState(0);
   const slotsRef = useRef<HTMLElement>(null);
   const autoAdvanced = useRef(!!selectedDate);
@@ -73,7 +74,7 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
         setResult({ base, data });
         setStaff(data.staff);
       })
-      .catch(() => alive && setFailed(true));
+      .catch((err) => alive && setFailed(availabilityCode(err) || 'load_error'));
     return () => { alive = false; };
   // base covers every input of the request; tick re-polls it
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -162,10 +163,12 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
       {failed && (
         <div className="bk-notice is-error" role="alert">
           <ExclamationCircleIcon className="h-5 w-5 shrink-0" />
-          <span className="flex-1">{t('booking.flow.load_error')}</span>
-          <button type="button" className="underline underline-offset-2 font-medium" onClick={() => setTick((n) => n + 1)}>
-            {t('booking.flow.retry')}
-          </button>
+          <span className="flex-1">{failed === 'load_error' ? t('booking.flow.load_error') : t(`errors:availability.${failed}`)}</span>
+          {failed === 'load_error' && (
+            <button type="button" className="underline underline-offset-2 font-medium" onClick={() => setTick((n) => n + 1)}>
+              {t('booking.flow.retry')}
+            </button>
+          )}
         </div>
       )}
 

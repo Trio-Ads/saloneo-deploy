@@ -122,14 +122,14 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
         await submitBooking();
       } catch (err: any) {
         const code = availabilityCode(err);
-        if (code) {
+        if (code && code !== 'SERVICE_UNAVAILABLE') {
           // The slot went in the meantime: back to the slots (fresh), the client's details are kept
           updateBookingData({ startTime: '' });
           setStep('datetime');
           setRefreshKey((k) => k + 1);
           setError({ step: 'datetime', message: t(`errors:availability.${code}`) });
         } else {
-          setError({ step: 'client', message: err?.message || t('errors:booking.error') });
+          setError({ step: 'client', message: code ? t(`errors:availability.${code}`) : err?.message || t('errors:booking.error') });
         }
       } finally {
         setLoading(false);

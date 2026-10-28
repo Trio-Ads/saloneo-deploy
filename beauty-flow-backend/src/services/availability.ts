@@ -28,7 +28,7 @@ export interface BookingSettings {
   allowCancellation: boolean;
   cancellationDeadlineHours: number;
 }
-export type Reason = 'SLOT_TAKEN' | 'OUTSIDE_HOURS' | 'TOO_SOON' | 'TOO_FAR' | 'STAFF_UNAVAILABLE';
+export type Reason = 'SLOT_TAKEN' | 'OUTSIDE_HOURS' | 'TOO_SOON' | 'TOO_FAR' | 'STAFF_UNAVAILABLE' | 'SERVICE_UNAVAILABLE';
 
 export const SLOT_INTERVALS = [10, 15, 20, 30, 60];
 export const DEFAULT_BOOKING: BookingSettings = {
@@ -44,7 +44,12 @@ export const DEFAULT_BOOKING: BookingSettings = {
 const LEGACY_NOTICE_HOURS = 24;
 const LEGACY_ADVANCE_DAYS = 30;
 
+/** A service clients may see and book: active and switched on for online booking. Dashboard bookings ignore this. */
+export const PUBLIC_SERVICE = { isActive: true, 'settings.isOnline': true } as const;
+export const isPublicService = (s: any) => !!s && s.isActive !== false && s.settings?.isOnline === true;
+
 export const REASON_MESSAGES: Record<Reason, string> = {
+  SERVICE_UNAVAILABLE: "Cette prestation n'est pas réservable en ligne",
   SLOT_TAKEN: "Ce créneau n'est plus disponible",
   OUTSIDE_HOURS: 'Ce créneau est en dehors des horaires du salon',
   TOO_SOON: 'Ce créneau est trop proche pour être réservé',
@@ -467,12 +472,13 @@ export async function bookWithLock<T>(
   time: string,
   stylistId: string | null,
   save: (stylistId: string, loaded: NonNullable<Awaited<ReturnType<typeof loadContext>>>) => Promise<T>,
-  opts: { excludeAppointmentId?: any; staffMode?: boolean; duration?: number; force?: boolean; forceOverlap?: boolean } = {}
+  opts: { excludeAppointmentId?: any; staffMode?: boolean; duration?: number; force?: boolean; forceOverlap?: boolean; publicOnly?: boolean } = {}
 ): Promise<T> {
   if (!isDateKey(date)) throw new AvailabilityError('OUTSIDE_HOURS');
   return withSlotLock(salonId, date, async () => {
     const loaded = await loadContext(salonId, serviceId, { from: date, to: date }, opts);
     if (!loaded) throw new AvailabilityError('STAFF_UNAVAILABLE');
+    if (opts.publicOnly && !isPublicService(loaded.service)) throw new AvailabilityError('SERVICE_UNAVAILABLE');
     const d = decideSlot(loaded.ctx, date, time, stylistId, { ignoreHours: !!opts.force, ignoreOverlap: !!opts.forceOverlap });
     if ('reason' in d) throw new AvailabilityError(d.reason);
     return save(d.stylistId, loaded);

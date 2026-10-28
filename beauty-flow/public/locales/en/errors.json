@@ -102,6 +102,7 @@
     "OUTSIDE_HOURS": "This time is outside the salon’s opening hours.",
     "TOO_SOON": "This time is too soon to be booked.",
     "TOO_FAR": "This time is too far ahead to be booked.",
-    "STAFF_UNAVAILABLE": "This team member is not available at that time."
+    "STAFF_UNAVAILABLE": "This team member is not available at that time.",
+    "SERVICE_UNAVAILABLE": "This service cannot be booked online at the moment."
   }
 }

@@ -102,6 +102,7 @@
     "OUTSIDE_HOURS": "Ce créneau est en dehors des horaires du salon.",
     "TOO_SOON": "Ce créneau est trop proche pour être réservé.",
     "TOO_FAR": "Ce créneau est trop loin dans le temps pour être réservé.",
-    "STAFF_UNAVAILABLE": "Ce membre de l'équipe n'est pas disponible à ce moment-là."
+    "STAFF_UNAVAILABLE": "Ce membre de l'équipe n'est pas disponible à ce moment-là.",
+    "SERVICE_UNAVAILABLE": "Cette prestation n'est pas réservable en ligne pour le moment."
   }
 }

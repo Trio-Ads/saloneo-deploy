@@ -39,7 +39,8 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
       duration: 30,
       price: 0,
       category: categories[0],
-      products: []
+      products: [],
+      isOnline: true // same default as the server: bookable online unless switched off
     }
   );
 

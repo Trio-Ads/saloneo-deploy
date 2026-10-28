@@ -14,7 +14,7 @@ import crypto from 'crypto';
 import { findSalonBySlug } from '../services/salonLookup';
 import {
   availabilityDays, bookWithLock, canDo, dateKey, dayNum, fmt, isDateKey, keyOf, loadContext, nowIn,
-  resolveStylistId, sendAvailabilityError, staffName, toMin,
+  resolveStylistId, sendAvailabilityError, staffName, toMin, PUBLIC_SERVICE, isPublicService, REASON_MESSAGES,
 } from '../services/availability';
 
 // Get salon info by slug
@@ -62,8 +62,8 @@ export const getAvailability = async (req: Request, res: Response): Promise<void
       ? await Appointment.findOne({ 'tokens.modification': String(token), userId: salon._id }).select('_id').lean()
       : null;
     const loaded = await loadContext(salon._id as any, serviceId, { from: start, to: keyOf(dayNum(start) + count - 1) }, { excludeAppointmentId: own?._id });
-    if (!loaded?.service || loaded.service.isActive === false) {
-      res.status(404).json({ error: 'Service not found' });
+    if (!loaded || !isPublicService(loaded.service)) {
+      res.status(404).json({ error: REASON_MESSAGES.SERVICE_UNAVAILABLE, code: 'SERVICE_UNAVAILABLE' });
       return;
     }
     const { ctx, staffViews } = loaded;
@@ -95,10 +95,9 @@ export const getServicesBySlug = async (req: Request, res: Response): Promise<vo
       return;
     }
 
-    const services = await Service.find({ 
-      userId: matchingUser._id,
-      isActive: true
-    }).select('name description category duration price images currency');
+    // Only services bookable online are shown on the public page
+    const services = await Service.find({ userId: matchingUser._id, ...PUBLIC_SERVICE })
+      .select('name description category duration price images currency');
 
     res.json(services);
   } catch (error) {
@@ -169,7 +168,7 @@ export const getSalonInfo = async (req: Request, res: Response): Promise<void> =
 export const getPublicServices = async (req: Request, res: Response): Promise<void> => {
   try {
     const { token } = req.params;
-    const { category, isOnline } = req.query;
+    const { category } = req.query;
 
     const user = await User.findOne({ 
       'tokens.public': token,
@@ -181,14 +180,8 @@ export const getPublicServices = async (req: Request, res: Response): Promise<vo
       return;
     }
 
-    const query: any = { 
-      userId: user._id,
-      isActive: true,
-      isPublic: true
-    };
-
+    const query: any = { userId: user._id, ...PUBLIC_SERVICE, isPublic: true };
     if (category) query.category = category;
-    if (isOnline !== undefined) query.isOnline = isOnline === 'true';
 
     const services = await Service.find(query)
       .select('name description category duration price images isOnline')
@@ -256,8 +249,8 @@ export const getPublicAvailableSlots = async (req: Request, res: Response): Prom
 
     const day = dateKey(String(date));
     const loaded = isDateKey(day) ? await loadContext(user._id as any, String(serviceId), { from: day, to: day }) : null;
-    if (!loaded?.service || loaded.service.isActive === false || loaded.service.isPublic === false) {
-      res.status(404).json({ error: 'Service not found' });
+    if (!loaded || !isPublicService(loaded.service) || loaded.service.isPublic === false) {
+      res.status(404).json({ error: REASON_MESSAGES.SERVICE_UNAVAILABLE, code: 'SERVICE_UNAVAILABLE' });
       return;
     }
 
@@ -287,9 +280,9 @@ export const createPublicAppointment = async (req: Request, res: Response): Prom
       return;
     }
 
-    const service = await Service.findOne({ _id: serviceId, userId: user._id, isActive: true, isPublic: true });
+    const service = await Service.findOne({ _id: serviceId, userId: user._id, ...PUBLIC_SERVICE, isPublic: true });
     if (!service) {
-      res.status(404).json({ error: 'Service not found' });
+      res.status(404).json({ error: REASON_MESSAGES.SERVICE_UNAVAILABLE, code: 'SERVICE_UNAVAILABLE' });
       return;
     }
 
@@ -471,7 +464,7 @@ export const modifyAppointmentByModificationToken = async (req: Request, res: Re
       // Mark as rescheduled when modified
       if (changes.date || changes.startTime || changes.stylistId) appointment.status = AppointmentStatus.RESCHEDULED;
       await appointment.save();
-    }, { excludeAppointmentId: appointment._id, duration: appointment.duration });
+    }, { excludeAppointmentId: appointment._id, duration: appointment.duration, publicOnly: true });
 
     // Return updated appointment (reuse formatter)
     const populated = await Appointment.findById(appointment._id)
@@ -553,15 +546,13 @@ export const createPublicBooking = async (req: Request, res: Response): Promise<
     }
 
     // Verify service exists and get its details
-    const service = await Service.findOne({
-      _id: serviceId,
-      userId: matchingUser._id,
-      isActive: true
-    });
+    const service = Types.ObjectId.isValid(serviceId)
+      ? await Service.findOne({ _id: serviceId, userId: matchingUser._id, ...PUBLIC_SERVICE })
+      : null;
 
     if (!service) {
-      logger.error('Service not found:', serviceId);
-      res.status(404).json({ error: 'Service non trouvé' });
+      logger.error('Service not bookable online:', serviceId);
+      res.status(404).json({ error: REASON_MESSAGES.SERVICE_UNAVAILABLE, code: 'SERVICE_UNAVAILABLE' });
       return;
     }
 

@@ -3,7 +3,9 @@ import assert from 'assert';
 import {
   Ctx, Staff, DEFAULT_BOOKING, checkSlot, computeDay, decideSlot, normalizeBusinessHours, normalizeStaffHours,
   normalizeRanges, nowIn, toMin, availabilityDays, resolveStylistId, firstSlot,
+  isPublicService,
 } from '../availability';
+import { needsOnlineFix } from '../../utils/migrations';
 
 const day = (start: string, end: string, breaks: { start: string; end: string }[] = []) => ({ isWorking: true, start, end, breaks });
 const off = { isWorking: false, start: '09:00', end: '18:00' };
@@ -182,6 +184,23 @@ test('firstSlot = first slot the calendar lists, skipping closed and full days',
   assert.deepStrictEqual(firstSlot(thu, 7), { date: '2026-11-07', time: '09:00' });
   assert.deepStrictEqual(firstSlot(thu, 7)!.time, availabilityDays(thu, '2026-11-07', 1)[0].slots[0].time);
   assert.strictEqual(firstSlot(ctx({ staff: [staff('b', null, { serviceIds: ['other'] })] }), 7), null, 'no eligible staff');
+});
+
+test('public pages only offer active services switched on for online booking', () => {
+  assert.strictEqual(isPublicService({ isActive: true, settings: { isOnline: true } }), true);
+  assert.strictEqual(isPublicService({ isActive: true, settings: { isOnline: false } }), false);
+  assert.strictEqual(isPublicService({ isActive: false, settings: { isOnline: true } }), false);
+  assert.strictEqual(isPublicService({ isActive: true }), false);
+  assert.strictEqual(isPublicService(null), false);
+});
+
+test('services-online migration: only services never deliberately switched off', () => {
+  const before = new Date('2026-10-01T10:00:00Z'), after = new Date('2026-10-28T16:00:00Z');
+  assert.strictEqual(needsOnlineFix({ settings: { isOnline: false }, updatedAt: before }), true);
+  assert.strictEqual(needsOnlineFix({ settings: {}, updatedAt: before }), true, 'missing flag');
+  assert.strictEqual(needsOnlineFix({ settings: { isOnline: false } }), true, 'no updatedAt');
+  assert.strictEqual(needsOnlineFix({ settings: { isOnline: false }, updatedAt: after }), false, 'switched off after the fix');
+  assert.strictEqual(needsOnlineFix({ settings: { isOnline: true }, updatedAt: before }), false, 'already online');
 });
 
 console.log(`\n${n} availability checks passed`);
