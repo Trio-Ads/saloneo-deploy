@@ -1,7 +1,29 @@
 import { DesignTemplate } from './types';
 import { collection2026, studio } from './collection';
+import { coiffureContemporaine } from './families/coiffure-contemporaine';
+import { hauteCoiffure } from './families/haute-coiffure';
+import { barbier } from './families/barbier';
+import { afroTexture } from './families/afro-texture';
+import { onglesCils } from './families/ongles-cils';
+import { popQuartier } from './families/pop-quartier';
+import { spaHammam } from './families/spa-hammam';
+import { institut } from './families/institut';
+import { mariage } from './families/mariage';
+import { patrimoine } from './families/patrimoine';
 
-export const allTemplates: DesignTemplate[] = collection2026;
+export const allTemplates: DesignTemplate[] = [
+  ...collection2026,
+  ...coiffureContemporaine,
+  ...hauteCoiffure,
+  ...barbier,
+  ...afroTexture,
+  ...onglesCils,
+  ...popQuartier,
+  ...spaHammam,
+  ...institut,
+  ...mariage,
+  ...patrimoine,
+];
 
 // Ids saved by salons before the 2026 collection.
 const legacyIds: Record<string, string> = {

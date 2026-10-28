@@ -262,7 +262,235 @@
     "next": "Next template",
     "desktop": "Desktop",
     "mobile": "Mobile",
+    "families": {
+      "mariage": "Wedding",
+      "patrimoine": "Heritage",
+      "coiffure-contemporaine": "Contemporary hairdressing",
+      "haute-coiffure": "Haute coiffure",
+      "barbier": "Barber",
+      "afro-texture": "Textured hair",
+      "ongles-cils": "Nails & lashes",
+      "pop-quartier": "Pop & neighbourhood",
+      "spa-hammam": "Spa & hammam",
+      "institut": "Skincare institute"
+    },
     "templates": {
+      "poteau": {
+        "tagline": "American barbershop",
+        "description": "Red, white and navy, barber-pole stripes and a price list in columns, 1950s style."
+      },
+      "brique": {
+        "tagline": "Industrial barbershop",
+        "description": "Brick, steel and bulb light: a warehouse barbershop with tall, tight lettering."
+      },
+      "club": {
+        "tagline": "Gentleman’s barber",
+        "description": "Bottle green, brass and Caslon: the hushed lounge of a gentlemen’s club."
+      },
+      "marina": {
+        "tagline": "Mediterranean barber",
+        "description": "Whitewash, sea blue and sunshine: the harbour barber, open to the light."
+      },
+      "fade": {
+        "tagline": "Fades & line-ups",
+        "description": "Concrete, black and safety orange, giant capitals for the fade studio."
+      },
+      "ottoman": {
+        "tagline": "Ottoman barber",
+        "description": "Copper, teal and engraved capitals: the old-school shave of an Istanbul barber."
+      },
+      "nord": {
+        "tagline": "Men’s grooming",
+        "description": "Stone grey, slate and a Nordic grotesque: men’s grooming without a word too many."
+      },
+      "flash": {
+        "tagline": "Tattoo-parlour barber",
+        "description": "Ink black, red and mustard, the blackletter of tattoo flash sheets."
+      },
+      "enseigne": {
+        "tagline": "Men’s hairdresser",
+        "description": "Green, red and tile white, the bilingual hand-painted sign of the corner men’s hairdresser."
+      },
+      "ocre": {
+        "tagline": "Natural hair studio",
+        "description": "Terracotta, ochre and linen, a warm studio for curls and natural hair."
+      },
+      "wax": {
+        "tagline": "Braids & cuts",
+        "description": "Vermilion, yellow and green, the bold graphic blocks of Lagos and Abidjan wax prints."
+      },
+      "harlem": {
+        "tagline": "Jazz-age elegance",
+        "description": "Midnight plum, gold and Art Deco letters: the elegance of Harlem salons in the jazz age."
+      },
+      "labo": {
+        "tagline": "Curl clinic",
+        "description": "White, teal and peach, clean as a lab: diagnosis and care for curls."
+      },
+      "tresses": {
+        "tagline": "Braiding atelier",
+        "description": "Plum, saffron and a woven motif, the atelier where every braid is a drawing."
+      },
+      "sanctuaire": {
+        "tagline": "Locs & care",
+        "description": "Moss, clay and raw paper, a calm place to start and maintain your locs."
+      },
+      "zenith": {
+        "tagline": "Afrofuturist",
+        "description": "Deep teal, gold and bright orange: an Afrofuturist salon of bold, full shapes."
+      },
+      "sahel": {
+        "tagline": "Indigo & sand",
+        "description": "Hand-dyed indigo and warm sand, the restraint of the Sahel’s wide open spaces."
+      },
+      "caraibes": {
+        "tagline": "Curls in the sun",
+        "description": "Turquoise, coral and mango, a joyful salon that smells of island summer."
+      },
+      "onyx": {
+        "tagline": "Black & gold",
+        "description": "Matte black and a thread of gold, spaced capitals and almost nothing else."
+      },
+      "seoul": {
+        "tagline": "Pastel nail studio",
+        "description": "Milky pink, lavender and rounded corners: a soft Seoul-style nail studio where photos are the shop window."
+      },
+      "francaise": {
+        "tagline": "Chic manicure",
+        "description": "Nude, white and a fine Bodoni: the elegance of a French manicure, with prices in columns like a menu."
+      },
+      "chrome": {
+        "tagline": "Mirror nail art",
+        "description": "Steel grey and graphite, black-and-white photos in a metal frame, for chrome nail art."
+      },
+      "regard": {
+        "tagline": "Lash & brow bar",
+        "description": "Black and powder pink, a precise line: the lash and brow bar, with the technician in the spotlight."
+      },
+      "cerise": {
+        "tagline": "Classic red",
+        "description": "Cherry red on cream, a retro menu card for classic manicures and flawless polish."
+      },
+      "starlette": {
+        "tagline": "Y2K nail art",
+        "description": "Candy pink, baby blue and puffy letters: Y2K nail art with the studio name scrolling by."
+      },
+      "verveine": {
+        "tagline": "Botanical nail spa",
+        "description": "Leaf green, linen and a botanical border: the nail spa for natural care and rested hands."
+      },
+      "cabine": {
+        "tagline": "Clinical nail bar",
+        "description": "Clinical white, steel blue and monospaced figures: a clean page with full-screen booking."
+      },
+      "miami": {
+        "tagline": "Sunset pop",
+        "description": "Turquoise, peach and sunset stripes, with round pop lettering for a sunny nail studio."
+      },
+      "memphis": {
+        "tagline": "80s graphic",
+        "description": "Flat cobalt, yellow and turquoise, sharp corners and black lettering: a graphic salon in the Memphis spirit."
+      },
+      "riso": {
+        "tagline": "Two-ink print",
+        "description": "Blue and fluorescent pink on paper, two-tone photos: a salon that looks like a printed zine."
+      },
+      "menthe": {
+        "tagline": "Candy & mint",
+        "description": "Raspberry pink and mint green, round and playful shapes for a young, smiling salon."
+      },
+      "bulle": {
+        "tagline": "Comic strip",
+        "description": "Red, yellow and halftone dots, punchy comic-book lettering for a salon full of energy."
+      },
+      "arcade": {
+        "tagline": "90s retro",
+        "description": "Teal, magenta and round letters: the 90s shopping-mall salon, with its name set vertically."
+      },
+      "marelle": {
+        "tagline": "Family salon",
+        "description": "Sky blue, soft yellow and round shapes: a family salon where kids and grown-ups feel welcome."
+      },
+      "campus": {
+        "tagline": "Budget friendly",
+        "description": "Black, white and lime green, prices readable at a glance and booking right at the top of the page."
+      },
+      "fresque": {
+        "tagline": "Street art",
+        "description": "Concrete, signal yellow and giant condensed letters: the neighbourhood salon painted like a street-art wall."
+      },
+      "citronnade": {
+        "tagline": "Summer market",
+        "description": "Mediterranean blue and lemon yellow, the photo framed like a summer market poster."
+      },
+      "apothicaire": {
+        "tagline": "Rituals & care",
+        "description": "Amber glass, paper and Caslon capitals: a treatment menu set like the label on a bottle."
+      },
+      "riad": {
+        "tagline": "Riad spa",
+        "description": "Tadelakt, terracotta and zellige green: the photo framed like a riad courtyard."
+      },
+      "marbre": {
+        "tagline": "Marble hammam",
+        "description": "Veined marble, copper and Roman capitals: the hot room of a Turkish bath, in light tones."
+      },
+      "onsen": {
+        "tagline": "Japanese bath",
+        "description": "Washi paper, ink and cedar: the name set vertically, with the calm of a Japanese bath."
+      },
+      "sauna": {
+        "tagline": "Nordic sauna",
+        "description": "Snow light, lake slate and pale wood: the clarity of a Nordic sauna."
+      },
+      "dune": {
+        "tagline": "Desert spa",
+        "description": "Sand, red rock and evening sky: a Saharan spa in large format, warm and unhurried."
+      },
+      "thermes": {
+        "tagline": "Thermal waters",
+        "description": "White and thermal-water blue: treatments bookable from the first screen, like the front desk of a spa resort."
+      },
+      "veillee": {
+        "tagline": "Night spa",
+        "description": "Candlelight on a night-brown ground: an intimate evening spa where the venue’s name holds the stage."
+      },
+      "derma": {
+        "tagline": "Skin clinic",
+        "description": "Clinical white, a single red and a precise grid: the rigour of a dermatology practice."
+      },
+      "rosee": {
+        "tagline": "K-beauty care",
+        "description": "Peony pink, mist blue and soft shapes: the glass skin of Korean rituals."
+      },
+      "officine": {
+        "tagline": "Pharmacy & care",
+        "description": "Apothecary green, crisp white and shop-sign lettering: address and treatments at hand, as in a pharmacy."
+      },
+      "champagne": {
+        "tagline": "Skincare boutique",
+        "description": "Lacquer black and champagne, a large Didone: the high-end skincare boutique as a magazine page."
+      },
+      "protocole": {
+        "tagline": "Wellness lab",
+        "description": "Lab white and chartreuse green: treatments laid out like protocols, prices and durations aligned."
+      },
+      "quartz": {
+        "tagline": "A gentle institute",
+        "description": "Rose quartz and powdery light under a soft arch, for a delicate beauty institute."
+      },
+      "kraft": {
+        "tagline": "Organic cosmetics",
+        "description": "Kraft paper, leaf green and label lettering: handmade organic cosmetics, poster style."
+      },
+      "perle": {
+        "tagline": "Anti-ageing care",
+        "description": "Deep plum and pearl white, the name set large as on a jewel case: high-end anti-ageing care."
+      },
+      "lagune": {
+        "tagline": "Aesthetic medicine",
+        "description": "Deep teal and pale mint, the centre’s name scrolling by: the med-spa of today."
+      },
       "studio": {
         "tagline": "All-round salon",
         "description": "Bright and warm, in Saloneo orange, for an all-round salon that leads straight to booking."
@@ -291,6 +519,78 @@
         "tagline": "Beauty institute",
         "description": "Clean and calming, sage green and precise typography for a beauty institute."
       },
+      "karakou": {
+        "tagline": "Traditional bride",
+        "description": "Burgundy velvet and gold thread, the photo in a gilded frame: the elegance of the karakou and the chedda for the traditional bride."
+      },
+      "blanc": {
+        "tagline": "Modern bride",
+        "description": "White and pearl grey, a monogram and plenty of air: the modern, pared-back bride."
+      },
+      "roseraie": {
+        "tagline": "Garden wedding",
+        "description": "Old rose and sage green with a botanical border: the romantic garden wedding."
+      },
+      "henne": {
+        "tagline": "Henna night",
+        "description": "Henna brown and saffron, a fine scatter of dots like a hand-drawn pattern, for the henna night."
+      },
+      "gala": {
+        "tagline": "Gala evening",
+        "description": "Lacquered black and ivory, cinematic framing and high-contrast capitals: the gala evening."
+      },
+      "boheme": {
+        "tagline": "Boho wedding",
+        "description": "Sand, terracotta and linen, soft shapes and warm photos for the boho beach wedding."
+      },
+      "sultane": {
+        "tagline": "Royal bride",
+        "description": "Emerald, gold and Iznik red with a frieze of arches: the royal bride, Ottoman-inspired."
+      },
+      "taqendurt": {
+        "tagline": "Kabyle wedding",
+        "description": "Yellow, red and green on white, with trims like those of the Kabyle dress, for weddings in Kabylie."
+      },
+      "age-dor": {
+        "tagline": "Retro glamour",
+        "description": "Ivory, black and champagne, vertical Art Deco lettering: the glamour of the great film stars."
+      },
+      "casbah": {
+        "tagline": "White and blue",
+        "description": "Whitewash and door blue, an arch and a frieze of arcades: the Casbah of Algiers, kept simple."
+      },
+      "kabylie": {
+        "tagline": "Silver and coral",
+        "description": "Charcoal, silver and coral, with sharp angles like the Berber jewellery of Aït Yenni."
+      },
+      "tlemcen": {
+        "tagline": "Andalusian heritage",
+        "description": "Ochre, faience green and zellige: the Andalusian elegance of Tlemcen for a salon of tradition."
+      },
+      "constantine": {
+        "tagline": "Stone and copper",
+        "description": "Grey stone and copper, with lines drawn taut like the cables of Constantine’s suspension bridges."
+      },
+      "tassili": {
+        "tagline": "Sand and ochre",
+        "description": "Golden sand and the red of rock paintings, a grain of desert: the Sahara of the Tassili."
+      },
+      "oran": {
+        "tagline": "Modern Mediterranean",
+        "description": "Sea blue and sun yellow, booking right from the start: Oran, modern and Mediterranean."
+      },
+      "mzab": {
+        "tagline": "M’zab pastels",
+        "description": "Sky blue, peach and mint, a mosaic of photos: the pastel houses of the M’zab valley."
+      },
+      "timgad": {
+        "tagline": "Stone and laurel",
+        "description": "Pale stone and laurel green, engraved Roman capitals: the ancient rigour of Timgad."
+      },
+      "alger-blanche": {
+        "tagline": "Haussmann façades",
+        "description": "Cream façades and wrought iron, the photo framed like a window: Algiers the White and its grand boulevards."
+      },
       "medina": {
         "tagline": "Algiers heritage",
         "description": "Indigo, saffron and zellige: a tribute to the Casbah for a salon rooted in its heritage."
@@ -298,6 +598,70 @@
       "noir": {
         "tagline": "High-end salon",
         "description": "Deep black and gold, with the team in the spotlight: the high-end salon."
+      },
+      "nordique": {
+        "tagline": "Scandinavian concept salon",
+        "description": "Light oak, pine green and plenty of air: a calm, precise Scandinavian concept salon."
+      },
+      "encre": {
+        "tagline": "Cutting studio",
+        "description": "Clean white, ink black and a vermilion seal: the minimal Tokyo-style cutting studio."
+      },
+      "pigment": {
+        "tagline": "Colour bar",
+        "description": "Teal, coral and candy pink: an East London colour bar where the name scrolls large."
+      },
+      "terrazzo": {
+        "tagline": "Milanese salon",
+        "description": "Walnut, terrazzo and warm light: the Milanese salon, photos framed like an architecture review."
+      },
+      "balayage": {
+        "tagline": "Sun-kissed blondes",
+        "description": "Bleached sand, clay and sea foam: the Californian balayage studio, shot wide like a summer film."
+      },
+      "galerie": {
+        "tagline": "Art salon",
+        "description": "White walls and a single ultramarine blue: the salon as a gallery, services hung in a grid."
+      },
+      "beton": {
+        "tagline": "Raw loft",
+        "description": "Polished concrete, black capitals and an architect’s grid: the raw loft where you book on arrival."
+      },
+      "vendome": {
+        "tagline": "Parisian maison",
+        "description": "Ivory and black, fine jeweller’s lettering: the Parisian hair maison, understated and sovereign."
+      },
+      "deco": {
+        "tagline": "Gold and onyx",
+        "description": "Onyx and gold, the photo set in a gilded frame: the Art Deco salon, its prices engraved in columns."
+      },
+      "haussmann": {
+        "tagline": "Moulded salon",
+        "description": "Cream, mouldings and zinc grey: the grand Haussmann apartment turned salon, beneath its arched windows."
+      },
+      "velours": {
+        "tagline": "Italian couture",
+        "description": "Burgundy velvet and champagne nude: Italian couture hairdressing, laid out like a fashion magazine."
+      },
+      "greige": {
+        "tagline": "Monochrome luxury",
+        "description": "Greige, stone and soft shapes: contemporary luxury in a single shade, without a word too many."
+      },
+      "salon-prive": {
+        "tagline": "By appointment",
+        "description": "Bottle green and brass, the address given upfront: the private salon you visit by appointment."
+      },
+      "couverture": {
+        "tagline": "Editorial hairdressing",
+        "description": "Black-on-white Didone and lipstick red: the salon on a magazine cover, its name as a giant headline."
+      },
+      "riviera": {
+        "tagline": "Champagne and navy",
+        "description": "Champagne, navy blue and cabana stripes: the Riviera salon, elegant and sun-drenched."
+      },
+      "laque": {
+        "tagline": "Japanese restraint",
+        "description": "Washi paper, urushi lacquer and silence: the Japanese luxury of restraint, a short, chosen menu."
       },
       "epure": {
         "tagline": "Minimal",

@@ -1,7 +1,7 @@
 import React, { useId, useState } from 'react';
 import { SectionProps } from '../types';
 import {
-  Arrow, BookButton, CategoryStack, HeroCta, HoursTable, Icon, Meta, Monogram, ServicePeek, ServiceVisual, TodayHours,
+  Arrow, BookButton, CategoryStack, HeroCta, Icon, Meta, Monogram, ServicePeek, ServiceVisual, TodayHours,
   initials, isDark, onColor, telHref, useSalon,
 } from '../kit';
 
@@ -450,44 +450,44 @@ function HeroBooking({ data, onBook }: P) {
   );
 }
 
-/** The neighbourhood salon: where it is and whether it is open today, before anything else. */
-function HeroAddress({ data }: P) {
-  const { t, name, about, address, mapsUrl, today, hours } = useSalon(data);
+/** The neighbourhood salon: the address is the visual (street, then city), with today's hours and the way there. */
+function HeroAddress(props: P) {
+  const { data } = props;
+  const { t, name, about, address, mapsUrl, phone, today } = useSalon(data);
+  if (!address) return <HeroMinimal {...props} />;
+  const cut = address.lastIndexOf(',');
+  const [street, city] = cut > 0 ? [address.slice(0, cut), address.slice(cut + 1).trim()] : [address, ''];
+  const banner = data.profile.banner;
   return (
     <section id="top" className="sp-section !pt-10 md:!pt-16">
-      <div className="sp-wrap grid md:grid-cols-12 gap-10 md:gap-12 items-end">
-        <div className="md:col-span-7 sp-rise">
-          <Logo data={data} className="mb-8" />
-          <h1 className="text-[clamp(2.75rem,1.4rem+4.4vw,5.5rem)] !leading-[0.95]">{name}</h1>
-          {about && <p className="mt-5 text-lg sp-muted max-w-[34rem]">{about}</p>}
-          {(address || today) && (
-            <dl className="mt-10 pt-7 border-t sp-line grid gap-6">
-              {address && (
-                <div className="flex gap-4">
-                  <Icon name="pin" size={24} className="sp-ink mt-1" />
-                  <div>
-                    <dt className="sr-only">{t('site.address')}</dt>
-                    <dd className="sp-h !normal-case text-[clamp(1.35rem,1.1rem+1vw,2rem)] !leading-[1.15]">{address}</dd>
-                    <dd className="mt-2"><a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="sp-link inline-flex items-center gap-2">{t('site.directions')} <Arrow /></a></dd>
-                  </div>
-                </div>
-              )}
-              {today && (
-                <div className="flex gap-4 items-center">
-                  <Icon name="clock" size={24} className="sp-ink" />
-                  <dt className="sr-only">{t('site.hours')}</dt>
-                  <dd className="text-lg"><TodayHours data={data} /></dd>
-                </div>
-              )}
-            </dl>
+      <div className="sp-wrap grid md:grid-cols-12 gap-10 md:gap-14 items-end">
+        <div className={`sp-rise ${banner ? 'md:col-span-8' : 'md:col-span-12'}`}>
+          <div className="flex items-center gap-4">
+            <Logo data={data} className="!h-10" />
+            <h1 className="text-[clamp(1.5rem,1.2rem+1.2vw,2.25rem)]">{name}</h1>
+          </div>
+          {about && <p className="mt-3 sp-muted max-w-[38rem]">{about}</p>}
+          <address className="not-italic block mt-10 md:mt-14 pt-6 border-t sp-line">
+            <span className="sr-only">{t('site.address')} : </span>
+            <span className="sp-h block text-[clamp(2.5rem,1.2rem+5.5vw,6.5rem)] !leading-[0.95] [overflow-wrap:anywhere]">{street}</span>
+            {city && <span className="sp-h block sp-ink mt-3 text-[clamp(1.5rem,1rem+2.4vw,3.25rem)] !leading-none">{city}</span>}
+          </address>
+          {today && (
+            <p className="mt-8 inline-flex items-center gap-2.5 text-lg">
+              <Icon name="clock" size={22} className="sp-ink" /><TodayHours data={data} />
+            </p>
           )}
-          <div className="mt-9"><HeroCta data={data} /></div>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="sp-btn"><Icon name="pin" size={18} />{t('site.directions')}</a>
+            {phone && <a href={telHref(phone)} className="sp-btn sp-btn-ghost"><Icon name="phone" size={18} />{t('site.call')}</a>}
+            {data.services.length > 0 && <a href="#services" className="sp-link self-center inline-flex items-center gap-2 min-h-[46px] ms-1">{t('site.book')} <Arrow /></a>}
+          </div>
         </div>
-        <div className="md:col-span-5">
-          {data.profile.banner
-            ? <Banner data={data} className="aspect-[4/5]" />
-            : hours.length > 0 && <div className="sp-card p-6 md:p-8"><h2 className="text-xl mb-3">{t('site.hours')}</h2><HoursTable data={data} /></div>}
-        </div>
+        {banner && (
+          <div className="md:col-span-4 p-2.5 md:p-3 border sp-line" style={{ borderRadius: 'var(--sp-r)' }}>
+            <img src={banner} alt="" className="w-full aspect-[4/3] md:aspect-[3/4] object-cover" style={{ borderRadius: 'calc(var(--sp-r) * 0.6)' }} />
+          </div>
+        )}
       </div>
     </section>
   );

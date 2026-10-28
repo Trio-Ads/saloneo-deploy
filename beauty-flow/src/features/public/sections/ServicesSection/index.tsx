@@ -108,14 +108,14 @@ function ServicesMasonry({ data, onBook }: P) {
           const lead = i % 4 === 0;
           const hasImg = s.images?.length > 0;
           return (
-            <article key={s._id} className={`break-inside-avoid mb-5 sp-card ${lead ? 'p-7 md:p-8' : 'p-6'}`}
+            <article key={s._id} className={`break-inside-avoid mb-5 sp-card sp-fit ${lead ? 'p-7 md:p-8' : 'p-6'}`}
               style={lead ? { background: 'color-mix(in srgb, var(--sp-primary) 9%, var(--sp-surface))' } : undefined}>
               {hasImg && <ServiceVisual service={s} index={i} className="aspect-[4/5] mb-5" />}
               <div className="flex items-center gap-2 text-sm sp-muted">
                 <span aria-hidden className="w-3.5 h-3.5 rounded-full" style={{ background: chips[i % 3] }} />
                 {s.category}
               </div>
-              <h3 className={`mt-3 ${lead ? 'text-3xl md:text-4xl' : 'text-2xl'}`}>{s.name}</h3>
+              <h3 className={`mt-3 sp-fit-t ${lead ? '[--sp-fit-max:2.25rem] [--sp-fit:11cqi]' : ''}`}>{s.name}</h3>
               <Desc s={s} className="mt-2" />
               <div className={`flex items-center justify-between gap-4 ${lead ? 'mt-10' : 'mt-6'}`}>
                 <Meta service={s} data={data} className="text-[0.95rem]" />
@@ -141,9 +141,9 @@ function ServicesFeatured({ data, onBook }: P) {
       <Title>{t('site.services_title')}</Title>
       <div className="grid md:grid-cols-12 gap-10 md:gap-14">
         {/* without a photo the featured service becomes a typographic panel */}
-        <article className={`md:col-span-6 ${img ? '' : 'sp-tile-2 p-7 md:p-12 flex flex-col justify-end min-h-[20rem] md:min-h-[34rem]'}`} style={img ? undefined : { borderRadius: 'var(--sp-r)' }}>
+        <article className={`md:col-span-6 sp-fit ${img ? '' : 'sp-tile-2 p-7 md:p-12 flex flex-col justify-end min-h-[20rem] md:min-h-[34rem]'}`} style={img ? undefined : { borderRadius: 'var(--sp-r)' }}>
           {img ? <ServiceVisual service={lead} index={0} className="aspect-[4/3] md:aspect-[4/5]" /> : lead.category && <p className="sp-muted">{lead.category}</p>}
-          <h3 className={img ? 'mt-7 text-3xl md:text-4xl' : 'mt-3 text-[clamp(2.25rem,1.5rem+3vw,4rem)]'}>{lead.name}</h3>
+          <h3 className={`sp-fit-t ${img ? 'mt-7 [--sp-fit-max:2.25rem] [--sp-fit:11cqi]' : 'mt-3 [--sp-fit-max:4rem] [--sp-fit:12cqi]'}`}>{lead.name}</h3>
           <Desc s={lead} className="mt-3 text-lg max-w-[44ch]" />
           <div className="mt-7 flex flex-wrap items-center gap-6">
             <BookButton service={lead} onBook={onBook} />
@@ -179,10 +179,10 @@ function ServicesCarousel({ data, onBook }: P) {
       </div>
       <div ref={ref} className="sp-scroller gap-5 -mx-5 px-5 md:mx-0 md:px-0 pb-1">
         {data.services.map((s, i) => (
-          <article key={s._id} className="w-[80%] sm:w-[46%] lg:w-[calc((100%-2.5rem)/3)] sp-card overflow-hidden flex flex-col">
+          <article key={s._id} className="w-[80%] sm:w-[46%] lg:w-[calc((100%-2.5rem)/3)] sp-card sp-fit overflow-hidden flex flex-col">
             <ServiceVisual service={s} index={i} className="aspect-[4/3] !rounded-none" />
             <div className="p-6 flex flex-col flex-1">
-              <h3 className="text-2xl">{s.name}</h3>
+              <h3 className="sp-fit-t">{s.name}</h3>
               <Desc s={s} className="mt-2" />
               <div className="mt-auto pt-6 flex items-center justify-between gap-4">
                 <Meta service={s} data={data} className="text-[0.95rem]" />
@@ -204,9 +204,9 @@ function ServicesGrid3col({ data, onBook }: P) {
       <Title>{t('site.services_title')}</Title>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
         {data.services.map((s, i) => (
-          <article key={s._id} className="flex flex-col">
+          <article key={s._id} className="flex flex-col sp-fit">
             <ServiceVisual service={s} index={i} className="aspect-[4/3]" />
-            <h3 className="mt-5 text-2xl">{s.name}</h3>
+            <h3 className="mt-5 sp-fit-t">{s.name}</h3>
             <Desc s={s} className="mt-2" />
             <div className="mt-auto pt-5 flex items-center justify-between gap-4">
               <Meta service={s} data={data} className="text-[0.95rem]" />
@@ -283,12 +283,12 @@ function ServicesLookbook({ data, onBook }: P) {
       <ul className="grid grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-8 md:gap-x-6 md:gap-y-12">
         {data.services.map((s, i) => (
           <li key={s._id} className={`${i % 2 ? 'max-lg:mt-10' : ''} ${i % 3 === 1 ? 'lg:mt-16' : ''}`}>
-            <button type="button" onClick={() => onBook(s._id)} aria-label={t('site.book_service', { name: s.name })} className="sp-look block w-full text-start">
+            <button type="button" onClick={() => onBook(s._id)} aria-label={t('site.book_service', { name: s.name })} className="sp-look sp-fit block w-full text-start">
               <span className="relative block overflow-hidden" style={{ borderRadius: 'var(--sp-r)' }}>
                 <ServiceVisual service={s} index={i} className="aspect-[3/4] !rounded-none" />
                 {price(s) && <span className="sp-look-price absolute top-2.5 end-2.5 md:top-4 md:end-4 sp-num">{price(s)}</span>}
               </span>
-              <span className="sp-h block mt-3 md:mt-4 text-lg md:text-2xl">{s.name}</span>
+              <span className="sp-h sp-fit-t block mt-3 md:mt-4 [--sp-fit:10cqi]">{s.name}</span>
               <span className="block mt-1 sp-muted text-sm sp-num">{duration(s)}{s.category && ` · ${s.category}`}</span>
             </button>
           </li>
@@ -339,9 +339,9 @@ function ServicesSplitCategories({ data, onBook }: P) {
   return (
     <Section id="services">
       <Title>{t('site.services_title')}</Title>
-      <div className="grid md:grid-cols-[minmax(12rem,1fr)_2.6fr] gap-8 md:gap-16 items-start">
+      <div className="grid grid-cols-[minmax(0,1fr)] md:grid-cols-[minmax(12rem,1fr)_2.6fr] gap-8 md:gap-16 items-start">
         {groups.length > 1 && (
-          <nav aria-label={t('site.services_title')} className="md:sticky md:top-24">
+          <nav aria-label={t('site.services_title')} className="min-w-0 md:sticky md:top-24">
             <ul className="sp-scroller md:flex-col gap-2 md:gap-0 -mx-5 px-5 md:mx-0 md:px-0 md:border-t sp-line">
               {groups.map((g, i) => (
                 <li key={g.name}>

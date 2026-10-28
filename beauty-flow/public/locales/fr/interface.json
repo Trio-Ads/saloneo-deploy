@@ -253,7 +253,235 @@
     "next": "Modèle suivant",
     "desktop": "Ordinateur",
     "mobile": "Mobile",
+    "families": {
+      "mariage": "Mariage",
+      "patrimoine": "Patrimoine",
+      "coiffure-contemporaine": "Coiffure contemporaine",
+      "haute-coiffure": "Haute coiffure",
+      "barbier": "Barbier",
+      "afro-texture": "Cheveux texturés",
+      "ongles-cils": "Ongles & cils",
+      "pop-quartier": "Pop & quartier",
+      "spa-hammam": "Spa & hammam",
+      "institut": "Institut & soins"
+    },
     "templates": {
+      "poteau": {
+        "tagline": "Barbier américain",
+        "description": "Rouge, blanc et marine, les rayures du poteau de barbier et une carte des prix en colonnes, façon années 50."
+      },
+      "brique": {
+        "tagline": "Barbier industriel",
+        "description": "Brique, acier et lumière d’ampoule : un barbier d’entrepôt aux lettres hautes et serrées."
+      },
+      "club": {
+        "tagline": "Barbier gentleman",
+        "description": "Vert bouteille, laiton et Caslon : le salon feutré d’un club de gentlemen."
+      },
+      "marina": {
+        "tagline": "Barbier méditerranéen",
+        "description": "Chaux blanche, bleu de mer et soleil : le barbier du port, ouvert sur la lumière."
+      },
+      "fade": {
+        "tagline": "Dégradés & tracés",
+        "description": "Béton, noir et orange de chantier, des capitales géantes pour le studio de dégradés."
+      },
+      "ottoman": {
+        "tagline": "Barbier à l’ottomane",
+        "description": "Cuivre, sarcelle et capitales gravées : le rasage à l’ancienne d’un barbier d’Istanbul."
+      },
+      "nord": {
+        "tagline": "Soin masculin",
+        "description": "Gris pierre, ardoise et grotesque nordique : le soin masculin sans un mot de trop."
+      },
+      "flash": {
+        "tagline": "Barbier tatoueur",
+        "description": "Noir d’encre, rouge et moutarde, la lettre gothique des planches de tatouage."
+      },
+      "enseigne": {
+        "tagline": "Coiffeur hommes",
+        "description": "Vert, rouge et blanc de faïence, la lettre peinte bilingue du coiffeur hommes du coin de la rue."
+      },
+      "ocre": {
+        "tagline": "Studio cheveux naturels",
+        "description": "Terre cuite, ocre et lin, un studio chaleureux pour les boucles et les cheveux naturels."
+      },
+      "wax": {
+        "tagline": "Tresses & coupes",
+        "description": "Vermillon, jaune et vert, les aplats graphiques des tissus wax de Lagos et d’Abidjan."
+      },
+      "harlem": {
+        "tagline": "Élégance jazz",
+        "description": "Prune nuit, or et lettres Art déco : l’élégance des salons de Harlem à l’ère du jazz."
+      },
+      "labo": {
+        "tagline": "Clinique des boucles",
+        "description": "Blanc, sarcelle et pêche, net comme un laboratoire : le diagnostic et le soin des boucles."
+      },
+      "tresses": {
+        "tagline": "Atelier de tresses",
+        "description": "Prune, safran et motif tressé, l’atelier où chaque natte est un dessin."
+      },
+      "sanctuaire": {
+        "tagline": "Locs & soins",
+        "description": "Mousse, argile et papier brut, un lieu calme pour démarrer et entretenir ses locs."
+      },
+      "zenith": {
+        "tagline": "Afro-futuriste",
+        "description": "Sarcelle profonde, or et orange vif : un salon afro-futuriste aux formes pleines."
+      },
+      "sahel": {
+        "tagline": "Indigo & sable",
+        "description": "Indigo teint à la main et sable chaud, la sobriété des grands espaces du Sahel."
+      },
+      "caraibes": {
+        "tagline": "Boucles au soleil",
+        "description": "Turquoise, corail et mangue, un salon joyeux qui sent l’été des îles."
+      },
+      "onyx": {
+        "tagline": "Noir & or",
+        "description": "Noir mat et filet d’or, des capitales espacées et presque rien d’autre."
+      },
+      "seoul": {
+        "tagline": "Nail studio pastel",
+        "description": "Rose lait, lavande et coins arrondis, un nail studio doux comme à Séoul où les photos font la vitrine."
+      },
+      "francaise": {
+        "tagline": "Manucure chic",
+        "description": "Nude, blanc et un Bodoni fin : l’élégance d’une french manucure, tarifs en colonnes comme une carte."
+      },
+      "chrome": {
+        "tagline": "Nail art miroir",
+        "description": "Gris acier et graphite, photos en noir et blanc dans un cadre métal, pour le nail art chrome."
+      },
+      "regard": {
+        "tagline": "Bar à cils",
+        "description": "Noir et rose poudré, un trait précis : le bar à cils et sourcils, la technicienne mise en avant."
+      },
+      "cerise": {
+        "tagline": "Rouge classique",
+        "description": "Rouge cerise sur fond crème, une carte de menu rétro pour la manucure classique et le vernis parfait."
+      },
+      "starlette": {
+        "tagline": "Nail art Y2K",
+        "description": "Rose bonbon, bleu bébé et lettres gonflées, le nail art Y2K avec le nom du studio qui défile."
+      },
+      "verveine": {
+        "tagline": "Nail spa botanique",
+        "description": "Vert feuille, lin et un filet botanique, le nail spa aux soins naturels et aux mains reposées."
+      },
+      "cabine": {
+        "tagline": "Nail bar clinique",
+        "description": "Blanc clinique, bleu acier et chiffres en mono : une page nette et la réservation en plein écran."
+      },
+      "miami": {
+        "tagline": "Pop coucher de soleil",
+        "description": "Turquoise, pêche et rayures couchant, une lettre ronde et pop pour un studio d’ongles solaire."
+      },
+      "memphis": {
+        "tagline": "Graphique années 80",
+        "description": "Cobalt, jaune et turquoise en aplats, angles vifs et lettres noires : un salon graphique esprit Memphis."
+      },
+      "riso": {
+        "tagline": "Imprimé deux encres",
+        "description": "Bleu et rose fluo sur papier, photos en bichromie : un salon qui a l’allure d’un fanzine imprimé."
+      },
+      "menthe": {
+        "tagline": "Bonbon & menthe",
+        "description": "Rose framboise et vert menthe, formes arrondies et gourmandes pour un salon jeune et souriant."
+      },
+      "bulle": {
+        "tagline": "Bande dessinée",
+        "description": "Rouge, jaune et trame de points, des lettres de BD qui claquent pour un salon plein d’énergie."
+      },
+      "arcade": {
+        "tagline": "Rétro années 90",
+        "description": "Sarcelle, magenta et lettres rondes, le salon de galerie marchande des années 90, le nom en vertical."
+      },
+      "marelle": {
+        "tagline": "Salon en famille",
+        "description": "Bleu ciel, jaune doux et formes rondes, un salon familial où petits et grands se sentent bienvenus."
+      },
+      "campus": {
+        "tagline": "Petits prix",
+        "description": "Noir, blanc et vert citron, les prix lisibles d’un coup d’œil et la réservation dès le haut de page."
+      },
+      "fresque": {
+        "tagline": "Street art",
+        "description": "Béton, jaune signal et lettres condensées géantes : le salon de quartier peint comme un mur de street art."
+      },
+      "citronnade": {
+        "tagline": "Marché d’été",
+        "description": "Bleu méditerranée et jaune citron, la photo encadrée comme une affiche de marché d’été."
+      },
+      "apothicaire": {
+        "tagline": "Soins & rituels",
+        "description": "Verre ambré, papier et capitales Caslon : une carte de soins posée comme l’étiquette d’un flacon."
+      },
+      "riad": {
+        "tagline": "Spa de riad",
+        "description": "Tadelakt, terre cuite et vert de zellige : la photo encadrée comme un patio de riad."
+      },
+      "marbre": {
+        "tagline": "Hammam de marbre",
+        "description": "Marbre veiné, cuivre et capitales romaines : la salle chaude d’un hammam turc, en clair."
+      },
+      "onsen": {
+        "tagline": "Bain japonais",
+        "description": "Papier washi, encre et cèdre : le nom posé à la verticale, le calme d’un bain japonais."
+      },
+      "sauna": {
+        "tagline": "Sauna nordique",
+        "description": "Lumière de neige, ardoise de lac et bois blond : la clarté d’un sauna nordique."
+      },
+      "dune": {
+        "tagline": "Spa du désert",
+        "description": "Sable, roche rouge et ciel du soir : un spa saharien en grand format, chaud et lent."
+      },
+      "thermes": {
+        "tagline": "Eau thermale",
+        "description": "Blanc et bleu d’eau thermale : les soins réservables dès l’ouverture, comme à l’accueil d’un centre de cure."
+      },
+      "veillee": {
+        "tagline": "Spa de nuit",
+        "description": "Lueur de bougie sur fond brun nuit : un spa du soir, intime, où le nom du lieu tient toute la scène."
+      },
+      "derma": {
+        "tagline": "Clinique de la peau",
+        "description": "Blanc clinique, un seul rouge et une grille précise : la rigueur d’un cabinet de dermatologie."
+      },
+      "rosee": {
+        "tagline": "Soins K-beauty",
+        "description": "Rose pivoine, bleu brume et formes douces : la peau de verre des rituels coréens."
+      },
+      "officine": {
+        "tagline": "Parapharmacie & soins",
+        "description": "Vert d’officine, blanc net et lettres d’enseigne : l’adresse et les soins sous la main, comme en pharmacie."
+      },
+      "champagne": {
+        "tagline": "Boutique de soins",
+        "description": "Noir laqué et champagne, un Didot en grand : la boutique de soins haut de gamme en page de magazine."
+      },
+      "protocole": {
+        "tagline": "Laboratoire bien-être",
+        "description": "Blanc de laboratoire et vert chartreuse : des soins rangés comme des protocoles, prix et durées alignés."
+      },
+      "quartz": {
+        "tagline": "Institut tout en douceur",
+        "description": "Rose quartz et lumière poudrée sous une arche douce, pour un institut tout en délicatesse."
+      },
+      "kraft": {
+        "tagline": "Cosmétique bio",
+        "description": "Papier kraft, vert feuille et lettres d’étiquette : la cosmétique bio faite main, en affiche."
+      },
+      "perle": {
+        "tagline": "Soins anti-âge",
+        "description": "Prune profonde et blanc nacré, le nom en grand comme sur un écrin : les soins anti-âge en haut de gamme."
+      },
+      "lagune": {
+        "tagline": "Médecine esthétique",
+        "description": "Sarcelle profonde et menthe claire, le nom du centre qui défile : le med-spa d’aujourd’hui."
+      },
       "studio": {
         "tagline": "Salon polyvalent",
         "description": "Clair et chaleureux, l’orange Saloneo pour un salon polyvalent qui mène droit à la réservation."
@@ -282,6 +510,78 @@
         "tagline": "Institut d’esthétique",
         "description": "Net et apaisant, vert sauge et typographie précise pour un institut d’esthétique."
       },
+      "karakou": {
+        "tagline": "Mariée traditionnelle",
+        "description": "Velours bordeaux et fil d’or, la photo dans un cadre doré : l’élégance du karakou et de la chedda pour la mariée traditionnelle."
+      },
+      "blanc": {
+        "tagline": "Mariée moderne",
+        "description": "Blanc et gris perle, un monogramme et beaucoup d’air : la mariée moderne et épurée."
+      },
+      "roseraie": {
+        "tagline": "Mariage au jardin",
+        "description": "Rose ancien et vert sauge, un liseré botanique : le mariage romantique au jardin."
+      },
+      "henne": {
+        "tagline": "Nuit du henné",
+        "description": "Brun henné et safran, un semis de points fin comme un motif tracé à la main, pour la nuit du henné."
+      },
+      "gala": {
+        "tagline": "Soirée de gala",
+        "description": "Noir laqué et ivoire, un cadrage de cinéma et des capitales très contrastées : la soirée de gala."
+      },
+      "boheme": {
+        "tagline": "Mariage bohème",
+        "description": "Sable, terracotta et lin, des formes douces et des photos chaudes pour le mariage bohème au bord de la mer."
+      },
+      "sultane": {
+        "tagline": "Mariée royale",
+        "description": "Émeraude, or et rouge d’Iznik, des arcades en frise : la mariée royale d’inspiration ottomane."
+      },
+      "taqendurt": {
+        "tagline": "Mariage kabyle",
+        "description": "Jaune, rouge et vert sur blanc, des galons comme ceux de la robe kabyle, pour les mariages de Kabylie."
+      },
+      "age-dor": {
+        "tagline": "Glamour rétro",
+        "description": "Ivoire, noir et champagne, des lettres Art déco à la verticale : le glamour des grandes stars de cinéma."
+      },
+      "casbah": {
+        "tagline": "Blanc et bleu",
+        "description": "Chaux blanche et bleu des portes, une arche et une frise d’arcades : la Casbah d’Alger, en toute sobriété."
+      },
+      "kabylie": {
+        "tagline": "Argent et corail",
+        "description": "Anthracite, argent et corail, des angles nets comme les bijoux berbères des Aït Yenni."
+      },
+      "tlemcen": {
+        "tagline": "Héritage andalou",
+        "description": "Ocre, vert de faïence et zellige, l’élégance andalouse de Tlemcen pour un salon de tradition."
+      },
+      "constantine": {
+        "tagline": "Pierre et cuivre",
+        "description": "Pierre grise et cuivre, des lignes tendues comme les câbles des ponts suspendus de Constantine."
+      },
+      "tassili": {
+        "tagline": "Sable et ocre",
+        "description": "Sable doré et rouge des peintures rupestres, un grain de désert : le Sahara du Tassili."
+      },
+      "oran": {
+        "tagline": "Méditerranée moderne",
+        "description": "Bleu de mer et jaune soleil, la réservation dès l’ouverture : Oran, moderne et méditerranéenne."
+      },
+      "mzab": {
+        "tagline": "Pastels du M’zab",
+        "description": "Bleu ciel, pêche et menthe, une mosaïque de photos : les maisons pastel de la vallée du M’zab."
+      },
+      "timgad": {
+        "tagline": "Pierre et laurier",
+        "description": "Pierre blonde et vert laurier, des capitales romaines gravées : la rigueur antique de Timgad."
+      },
+      "alger-blanche": {
+        "tagline": "Façades haussmanniennes",
+        "description": "Façades crème et fer forgé, la photo encadrée comme une fenêtre : l’Alger blanche des grands boulevards."
+      },
       "medina": {
         "tagline": "Patrimoine algérois",
         "description": "Indigo, safran et zellige : un hommage à la Casbah pour un salon ancré dans son patrimoine."
@@ -289,6 +589,70 @@
       "noir": {
         "tagline": "Salon haut de gamme",
         "description": "Noir profond et or, l’équipe mise en scène : le salon haut de gamme."
+      },
+      "nordique": {
+        "tagline": "Concept salon scandinave",
+        "description": "Chêne clair, vert sapin et beaucoup d’air : un concept salon scandinave, calme et précis."
+      },
+      "encre": {
+        "tagline": "Studio de coupe",
+        "description": "Blanc net, noir d’encre et un sceau vermillon : le studio de coupe minimal façon Tokyo."
+      },
+      "pigment": {
+        "tagline": "Bar à couleur",
+        "description": "Sarcelle, corail et rose bonbon : un bar à couleur de l’Est londonien où le nom défile en grand."
+      },
+      "terrazzo": {
+        "tagline": "Salon milanais",
+        "description": "Noyer, terrazzo et lumière chaude : le salon milanais, les photos encadrées comme dans une revue d’architecture."
+      },
+      "balayage": {
+        "tagline": "Blonds soleil",
+        "description": "Sable décoloré, argile et écume : le studio balayage californien, en plan large comme un film d’été."
+      },
+      "galerie": {
+        "tagline": "Salon d’art",
+        "description": "Murs blancs et un seul bleu outremer : le salon pensé comme une galerie, les prestations accrochées en grille."
+      },
+      "beton": {
+        "tagline": "Loft brut",
+        "description": "Béton ciré, capitales noires et grille d’architecte : le loft brut où l’on réserve dès l’arrivée."
+      },
+      "vendome": {
+        "tagline": "Maison parisienne",
+        "description": "Ivoire et noir, lettres fines de joaillier : la maison de coiffure parisienne, sobre et souveraine."
+      },
+      "deco": {
+        "tagline": "Or et onyx",
+        "description": "Onyx et or, la photo sertie dans un cadre doré : le salon Art déco, ses tarifs gravés en colonnes."
+      },
+      "haussmann": {
+        "tagline": "Salon à moulures",
+        "description": "Crème, moulures et gris zinc : le grand appartement haussmannien devenu salon, sous ses fenêtres cintrées."
+      },
+      "velours": {
+        "tagline": "Couture italienne",
+        "description": "Velours bordeaux et nude champagne : la coiffure couture à l’italienne, mise en page comme un magazine de mode."
+      },
+      "greige": {
+        "tagline": "Luxe monochrome",
+        "description": "Greige, pierre et formes douces : le luxe contemporain en une seule teinte, sans un mot de trop."
+      },
+      "salon-prive": {
+        "tagline": "Sur rendez-vous",
+        "description": "Vert bouteille et laiton, l’adresse donnée d’emblée : le salon privé où l’on vient sur rendez-vous."
+      },
+      "couverture": {
+        "tagline": "Coiffure éditoriale",
+        "description": "Didone noir sur blanc et rouge à lèvres : le salon en couverture de magazine, le nom en titre géant."
+      },
+      "riviera": {
+        "tagline": "Champagne et marine",
+        "description": "Champagne, bleu marine et rayures de cabine : le salon de la Riviera, élégant et ensoleillé."
+      },
+      "laque": {
+        "tagline": "Retenue japonaise",
+        "description": "Papier washi, laque urushi et silence : le luxe japonais de la retenue, une carte courte et choisie."
       },
       "epure": {
         "tagline": "Minimal",

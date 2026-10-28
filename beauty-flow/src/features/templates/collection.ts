@@ -5,7 +5,7 @@ import { AboutVariant, CtaVariant, DesignTemplate, GalleryVariant, SectionKey, T
 
 type Variants = [TemplateSections['hero']['variant'], TemplateSections['services']['variant'], TemplateSections['team']['variant'], TemplateSections['reviews']['variant'], TemplateSections['contact']['variant']];
 
-interface Spec {
+export interface Spec {
   id: string;
   name: string;
   tagline: string;
@@ -52,13 +52,13 @@ const fallback = (family: string, serif: boolean) =>
 
 const fonts = (q: string) => `https://fonts.googleapis.com/css2?${q}&display=swap`;
 
-function define(s: Spec): DesignTemplate {
+export function define(s: Spec): DesignTemplate {
   const [primary, secondary, accent, background, surface, text, textSecondary] = s.colors;
   const [hero, services, team, reviews, contact] = s.variants;
   const [o0, o1, o2, o3, o4] = s.order ?? [0, 1, 2, 3, 4];
   const at = (k: SectionKey, d: number) => (s.flow?.includes(k) ? s.flow.indexOf(k) : d);
   const [hFamily, hWeight, hTracking, upper] = s.heading;
-  const serif = (f: string) => /Fraunces|Marcellus|Cormorant|Amiri|Lora|Playfair|Serif/.test(f);
+  const serif = (f: string) => /Fraunces|Marcellus|Cormorant|Amiri|Lora|Playfair|Serif|Caslon|Forum|Gloock|Newsreader|Mincho|Hahmlet|Bodoni|Didot|Gilda|Alegreya|Prata|Garamond|Baskerville|Cinzel|Crimson|Spectral|Libre|Merriweather|Rozha|Abril|Italiana|Tenor|Young Serif|Caprasimo|DM Serif|Rufina|Domine|Bellefair|Aboreto|Literata|Fanwood|Sorts Mill|Old Standard|Petrona|Brygada|Besley|Castoro|Instrument Serif|Aref|Reem|Messiri|Noto Naskh|Scheherazade/.test(f);
   return {
     id: s.id,
     name: s.name,
@@ -112,6 +112,7 @@ function define(s: Spec): DesignTemplate {
 }
 
 export const studio = define({
+  family: 'coiffure-contemporaine', tags: ['lumineux', 'minimal'],
   id: 'studio', name: 'Studio', tagline: 'Salon polyvalent', category: 'polyvalent',
   description: 'Clair et chaleureux, l’orange Saloneo pour un salon polyvalent qui mène droit à la réservation.',
   fonts: 'family=Plus+Jakarta+Sans:wght@500;600;700&family=Inter:wght@400;500;600',
@@ -122,6 +123,7 @@ export const studio = define({
 });
 
 export const atelier = define({
+  family: 'coiffure-contemporaine', tags: ['éditorial', 'lumineux'],
   id: 'atelier', name: 'Atelier', tagline: 'Atelier de coiffure', category: 'coiffure',
   description: 'Esprit éditorial : le nom du salon en grand comme une affiche, les prestations en carte de menu.',
   fonts: 'family=Fraunces:opsz,wght@9..144,300..600&family=Inter:wght@400;500;600',
@@ -132,6 +134,7 @@ export const atelier = define({
 });
 
 export const hammam = define({
+  family: 'spa-hammam', tags: ['naturel', 'patrimoine'],
   id: 'hammam', name: 'Hammam', tagline: 'Hammam & spa', category: 'bien-etre',
   description: 'Vert profond, sable et cuivre, une arche mauresque pour les hammams et les spas.',
   fonts: 'family=Marcellus&family=Nunito+Sans:wght@400;600;700',
@@ -143,6 +146,7 @@ export const hammam = define({
 });
 
 export const barber = define({
+  family: 'barbier', tags: ['sombre', 'street'],
   id: 'barber', name: 'Barber Club', tagline: 'Barbier', category: 'barbier',
   description: 'Anthracite, laiton et lettres condensées : l’ardoise d’un barbier de quartier.',
   fonts: 'family=Oswald:wght@500;600&family=Inter:wght@400;500;600',
@@ -154,6 +158,7 @@ export const barber = define({
 });
 
 export const onglerie = define({
+  family: 'ongles-cils', tags: ['coloré', 'lumineux'],
   id: 'onglerie', name: 'Onglerie', tagline: 'Studio ongles', category: 'ongles',
   description: 'Fuchsia et lilas, des pastilles de couleur comme des flacons de vernis, pour les studios d’ongles.',
   fonts: 'family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Inter:wght@400;500;600',
@@ -164,6 +169,7 @@ export const onglerie = define({
 });
 
 export const mariee = define({
+  family: 'mariage', tags: ['romantique', 'luxe'],
   id: 'mariee', name: 'Mariée', tagline: 'Mariée & maquillage', category: 'mariage',
   description: 'Ivoire, champagne et rose poudré, de l’espace et de la lumière pour la mariée et le maquillage.',
   fonts: 'family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500',
@@ -175,6 +181,7 @@ export const mariee = define({
 });
 
 export const institut = define({
+  family: 'institut', tags: ['minimal', 'naturel'],
   id: 'institut', name: 'Institut', tagline: 'Institut d’esthétique', category: 'bien-etre',
   description: 'Net et apaisant, vert sauge et typographie précise pour un institut d’esthétique.',
   fonts: 'family=Manrope:wght@400;500;600;700',
@@ -185,6 +192,7 @@ export const institut = define({
 });
 
 export const medina = define({
+  family: 'patrimoine', tags: ['patrimoine', 'coloré'],
   id: 'medina', name: 'Médina', tagline: 'Patrimoine algérois', category: 'polyvalent',
   description: 'Indigo, safran et zellige : un hommage à la Casbah pour un salon ancré dans son patrimoine.',
   fonts: 'family=Amiri:wght@400;700&family=Lora:wght@400;500;600',
@@ -197,6 +205,7 @@ export const medina = define({
 });
 
 export const noir = define({
+  family: 'haute-coiffure', tags: ['luxe', 'sombre'],
   id: 'noir', name: 'Noir', tagline: 'Salon haut de gamme', category: 'coiffure',
   description: 'Noir profond et or, l’équipe mise en scène : le salon haut de gamme.',
   fonts: 'family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500',
@@ -207,6 +216,7 @@ export const noir = define({
 });
 
 export const epure = define({
+  family: 'coiffure-contemporaine', tags: ['minimal', 'lumineux'],
   id: 'epure', name: 'Épure', tagline: 'Minimal', category: 'polyvalent',
   description: 'Noir et blanc, rien de superflu : la mise en page la plus sobre de la collection.',
   fonts: 'family=Inter:wght@300..700',
@@ -217,6 +227,7 @@ export const epure = define({
 });
 
 export const soleil = define({
+  family: 'pop-quartier', tags: ['coloré', 'lumineux'],
   id: 'soleil', name: 'Soleil', tagline: 'Salon de quartier', category: 'polyvalent',
   description: 'Corail et jaune soleil, le salon de quartier familial, accueillant et joyeux.',
   fonts: 'family=DM+Serif+Display&family=DM+Sans:opsz,wght@9..40,400..700',
@@ -228,6 +239,7 @@ export const soleil = define({
 });
 
 export const botanique = define({
+  family: 'spa-hammam', tags: ['naturel', 'éditorial'],
   id: 'botanique', name: 'Botanique', tagline: 'Soins naturels', category: 'bien-etre',
   description: 'Lin, olive et argile, une mise en page magazine pour les soins naturels.',
   fonts: 'family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400..600',

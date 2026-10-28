@@ -262,7 +262,235 @@
     "next": "Sonraki şablon",
     "desktop": "Bilgisayar",
     "mobile": "Mobil",
+    "families": {
+      "mariage": "Düğün",
+      "patrimoine": "Miras",
+      "coiffure-contemporaine": "Çağdaş kuaförlük",
+      "haute-coiffure": "Yüksek kuaförlük",
+      "barbier": "Berber",
+      "afro-texture": "Kıvırcık ve doğal saç",
+      "ongles-cils": "Tırnak ve kirpik",
+      "pop-quartier": "Pop ve mahalle",
+      "spa-hammam": "Spa ve hamam",
+      "institut": "Güzellik merkezi"
+    },
     "templates": {
+      "poteau": {
+        "tagline": "Amerikan berberi",
+        "description": "Kırmızı, beyaz ve lacivert; berber direği çizgileri ve sütunlu fiyat listesiyle 50’ler havası."
+      },
+      "brique": {
+        "tagline": "Endüstriyel berber",
+        "description": "Tuğla, çelik ve ampul ışığı: uzun ve sık harfli bir depo berberi."
+      },
+      "club": {
+        "tagline": "Centilmen berberi",
+        "description": "Şişe yeşili, pirinç ve Caslon: bir beyefendiler kulübünün sessiz salonu."
+      },
+      "marina": {
+        "tagline": "Akdeniz berberi",
+        "description": "Beyaz badana, deniz mavisi ve güneş: ışığa açılan liman berberi."
+      },
+      "fade": {
+        "tagline": "Fade ve kontür",
+        "description": "Beton, siyah ve şantiye turuncusu; fade stüdyosu için dev büyük harfler."
+      },
+      "ottoman": {
+        "tagline": "Osmanlı berberi",
+        "description": "Bakır, petrol mavisi ve kazınmış büyük harfler: bir İstanbul berberinin geleneksel tıraşı."
+      },
+      "nord": {
+        "tagline": "Erkek bakımı",
+        "description": "Taş grisi, arduvaz ve İskandinav grotesk: fazladan tek kelime olmadan erkek bakımı."
+      },
+      "flash": {
+        "tagline": "Dövme ruhlu berber",
+        "description": "Mürekkep siyahı, kırmızı ve hardal; dövme kataloglarının gotik harfleri."
+      },
+      "enseigne": {
+        "tagline": "Erkek kuaförü",
+        "description": "Yeşil, kırmızı ve fayans beyazı; köşedeki erkek kuaförünün iki dilli el boyaması tabelası."
+      },
+      "ocre": {
+        "tagline": "Doğal saç stüdyosu",
+        "description": "Pişmiş toprak, okr ve keten; bukleler ve doğal saç için sıcak bir stüdyo."
+      },
+      "wax": {
+        "tagline": "Örgü ve kesim",
+        "description": "Zinober, sarı ve yeşil; Lagos ve Abidjan wax kumaşlarının grafik renk blokları."
+      },
+      "harlem": {
+        "tagline": "Caz zarafeti",
+        "description": "Gece eriği, altın ve Art Deco harfler: caz çağında Harlem salonlarının zarafeti."
+      },
+      "labo": {
+        "tagline": "Bukle kliniği",
+        "description": "Beyaz, petrol mavisi ve şeftali, laboratuvar kadar net: buklelerin analizi ve bakımı."
+      },
+      "tresses": {
+        "tagline": "Örgü atölyesi",
+        "description": "Erik, safran ve örgü motifi; her örgünün bir çizim olduğu atölye."
+      },
+      "sanctuaire": {
+        "tagline": "Locs ve bakım",
+        "description": "Yosun, kil ve ham kâğıt; locs başlatmak ve bakımını yapmak için sakin bir yer."
+      },
+      "zenith": {
+        "tagline": "Afrofütürist",
+        "description": "Derin petrol mavisi, altın ve canlı turuncu: dolgun biçimli Afrofütürist bir salon."
+      },
+      "sahel": {
+        "tagline": "Çivit ve kum",
+        "description": "Elde boyanmış çivit ve sıcak kum; Sahel’in geniş ufuklarının sadeliği."
+      },
+      "caraibes": {
+        "tagline": "Güneşte bukleler",
+        "description": "Turkuaz, mercan ve mango; ada yazı kokan neşeli bir salon."
+      },
+      "onyx": {
+        "tagline": "Siyah ve altın",
+        "description": "Mat siyah ve ince bir altın çizgi, aralıklı büyük harfler ve neredeyse başka hiçbir şey."
+      },
+      "seoul": {
+        "tagline": "Pastel tırnak stüdyosu",
+        "description": "Süt pembesi, lavanta ve yuvarlak köşeler: fotoğrafların vitrin olduğu, Seul tarzı yumuşak bir tırnak stüdyosu."
+      },
+      "francaise": {
+        "tagline": "Şık manikür",
+        "description": "Ten rengi, beyaz ve ince bir Bodoni: Fransız manikürün zarafeti, fiyatlar menü gibi sütunlarda."
+      },
+      "chrome": {
+        "tagline": "Ayna tırnak sanatı",
+        "description": "Çelik gri ve grafit, metal çerçevede siyah beyaz fotoğraflar: krom tırnak sanatı için."
+      },
+      "regard": {
+        "tagline": "Kirpik ve kaş barı",
+        "description": "Siyah ve pudra pembesi, net bir çizgi: uzmanı öne çıkaran kirpik ve kaş barı."
+      },
+      "cerise": {
+        "tagline": "Klasik kırmızı",
+        "description": "Krem zemin üzerinde kiraz kırmızısı: klasik manikür ve kusursuz oje için retro bir menü."
+      },
+      "starlette": {
+        "tagline": "Y2K tırnak sanatı",
+        "description": "Şeker pembesi, bebek mavisi ve şişkin harfler: stüdyo adının kaydığı Y2K tırnak sanatı."
+      },
+      "verveine": {
+        "tagline": "Botanik tırnak spa",
+        "description": "Yaprak yeşili, keten ve botanik bir şerit: doğal bakım ve dinlenmiş eller için tırnak spası."
+      },
+      "cabine": {
+        "tagline": "Klinik tırnak barı",
+        "description": "Klinik beyaz, çelik mavisi ve eş aralıklı rakamlar: sade bir sayfa ve tam ekran randevu."
+      },
+      "miami": {
+        "tagline": "Gün batımı pop",
+        "description": "Turkuaz, şeftali ve gün batımı çizgileri: güneşli bir tırnak stüdyosu için yuvarlak, pop harfler."
+      },
+      "memphis": {
+        "tagline": "80ler grafik",
+        "description": "Düz kobalt, sarı ve turkuaz, keskin köşeler ve siyah harfler: Memphis ruhlu grafik bir salon."
+      },
+      "riso": {
+        "tagline": "İki mürekkep baskı",
+        "description": "Kâğıt üzerinde mavi ve floresan pembe, iki renkli fotoğraflar: basılı bir fanzin havasında salon."
+      },
+      "menthe": {
+        "tagline": "Şeker ve nane",
+        "description": "Ahududu pembesi ve nane yeşili, genç ve güler yüzlü bir salon için yuvarlak, iştah açıcı formlar."
+      },
+      "bulle": {
+        "tagline": "Çizgi roman",
+        "description": "Kırmızı, sarı ve nokta tramı: enerji dolu bir salon için çarpıcı çizgi roman harfleri."
+      },
+      "arcade": {
+        "tagline": "90lar retro",
+        "description": "Çam yeşili, macenta ve yuvarlak harfler: adı dikey yazılmış 90lar alışveriş merkezi salonu."
+      },
+      "marelle": {
+        "tagline": "Aile salonu",
+        "description": "Gök mavisi, yumuşak sarı ve yuvarlak formlar: büyük küçük herkesin kendini rahat hissettiği aile salonu."
+      },
+      "campus": {
+        "tagline": "Uygun fiyat",
+        "description": "Siyah, beyaz ve limon yeşili: bir bakışta okunan fiyatlar ve sayfanın en üstünde randevu."
+      },
+      "fresque": {
+        "tagline": "Sokak sanatı",
+        "description": "Beton, uyarı sarısı ve dev dar harfler: bir sokak sanatı duvarı gibi boyanmış mahalle salonu."
+      },
+      "citronnade": {
+        "tagline": "Yaz pazarı",
+        "description": "Akdeniz mavisi ve limon sarısı, fotoğraf bir yaz pazarı afişi gibi çerçevelenmiş."
+      },
+      "apothicaire": {
+        "tagline": "Bakım ve ritüeller",
+        "description": "Kehribar cam, kâğıt ve Caslon büyük harfleri: bir şişe etiketi gibi dizilmiş bakım menüsü."
+      },
+      "riad": {
+        "tagline": "Riad spa",
+        "description": "Tadelakt, pişmiş toprak ve zellij yeşili: fotoğraf bir riad avlusu gibi çerçevelenmiş."
+      },
+      "marbre": {
+        "tagline": "Mermer hamam",
+        "description": "Damarlı mermer, bakır ve Roma harfleri: bir Türk hamamının sıcaklığı, açık tonlarda."
+      },
+      "onsen": {
+        "tagline": "Japon banyosu",
+        "description": "Washi kâğıdı, mürekkep ve sedir: dikey yazılmış ad ve bir Japon banyosunun dinginliği."
+      },
+      "sauna": {
+        "tagline": "İskandinav saunası",
+        "description": "Kar ışığı, göl kurşunisi ve açık ahşap: bir İskandinav saunasının aydınlığı."
+      },
+      "dune": {
+        "tagline": "Çöl spası",
+        "description": "Kum, kızıl kaya ve akşam göğü: geniş görsellerle sıcak ve sakin bir Sahra spası."
+      },
+      "thermes": {
+        "tagline": "Termal su",
+        "description": "Beyaz ve termal su mavisi: bir kaplıca resepsiyonundaki gibi, bakımlar ilk ekrandan rezerve edilir."
+      },
+      "veillee": {
+        "tagline": "Gece spası",
+        "description": "Gece kahvesi üzerinde mum ışığı: mekânın adının sahneyi kapladığı samimi bir akşam spası."
+      },
+      "derma": {
+        "tagline": "Cilt kliniği",
+        "description": "Klinik beyaz, tek bir kırmızı ve kesin bir ızgara: bir dermatoloji muayenehanesinin titizliği."
+      },
+      "rosee": {
+        "tagline": "K-beauty bakımı",
+        "description": "Şakayık pembesi, sis mavisi ve yumuşak formlar: Kore ritüellerinin cam cildi."
+      },
+      "officine": {
+        "tagline": "Eczane ve bakım",
+        "description": "Eczane yeşili, temiz beyaz ve tabela harfleri: adres ve bakımlar bir eczanedeki gibi el altında."
+      },
+      "champagne": {
+        "tagline": "Bakım butiği",
+        "description": "Lake siyah ve şampanya, iri bir Didot: dergi sayfası gibi üst segment bir bakım butiği."
+      },
+      "protocole": {
+        "tagline": "Sağlıklı yaşam laboratuvarı",
+        "description": "Laboratuvar beyazı ve chartreuse yeşili: protokol gibi dizilmiş bakımlar, hizalı fiyat ve süreler."
+      },
+      "quartz": {
+        "tagline": "Yumuşacık bir merkez",
+        "description": "Pembe kuvars ve pudralı ışık yumuşak bir kemerin altında, narin bir güzellik merkezi için."
+      },
+      "kraft": {
+        "tagline": "Organik kozmetik",
+        "description": "Kraft kâğıt, yaprak yeşili ve etiket harfleri: afiş tadında el yapımı organik kozmetik."
+      },
+      "perle": {
+        "tagline": "Yaşlanma karşıtı bakım",
+        "description": "Koyu erik ve inci beyazı, bir mücevher kutusundaki gibi iri ad: üst segment yaşlanma karşıtı bakım."
+      },
+      "lagune": {
+        "tagline": "Estetik tıp",
+        "description": "Koyu petrol yeşili ve açık nane, kayan merkez adı: bugünün medikal spası."
+      },
       "studio": {
         "tagline": "Çok amaçlı salon",
         "description": "Aydınlık ve sıcak; Saloneo turuncusuyla doğrudan randevuya yönlendiren çok amaçlı bir salon için."
@@ -291,6 +519,78 @@
         "tagline": "Güzellik merkezi",
         "description": "Sade ve dinlendirici; adaçayı yeşili ve özenli tipografiyle bir güzellik merkezi için."
       },
+      "karakou": {
+        "tagline": "Geleneksel gelin",
+        "description": "Bordo kadife ve altın sırma, yaldızlı çerçevede fotoğraf: geleneksel gelin için karakou ve şedda zarafeti."
+      },
+      "blanc": {
+        "tagline": "Modern gelin",
+        "description": "Beyaz ve inci grisi, bir monogram ve bolca boşluk: modern ve sade gelin."
+      },
+      "roseraie": {
+        "tagline": "Bahçe düğünü",
+        "description": "Gül kurusu ve adaçayı yeşili, botanik bir şerit: bahçede romantik düğün."
+      },
+      "henne": {
+        "tagline": "Kına gecesi",
+        "description": "Kına kahvesi ve safran, elle çizilmiş bir desen gibi ince noktalarla kına gecesi için."
+      },
+      "gala": {
+        "tagline": "Gala gecesi",
+        "description": "Lake siyah ve fildişi, sinema kadrajı ve yüksek kontrastlı büyük harfler: gala gecesi."
+      },
+      "boheme": {
+        "tagline": "Bohem düğün",
+        "description": "Kum, kiremit ve keten, yumuşak formlar ve sıcak fotoğraflarla deniz kenarında bohem düğün."
+      },
+      "sultane": {
+        "tagline": "Kraliyet gelini",
+        "description": "Zümrüt, altın ve İznik kırmızısı, kemerlerden bir friz: Osmanlı esintili kraliyet gelini."
+      },
+      "taqendurt": {
+        "tagline": "Kabil düğünü",
+        "description": "Beyaz üzerinde sarı, kırmızı ve yeşil, Kabil elbisesindeki gibi şeritlerle Kabilya düğünleri için."
+      },
+      "age-dor": {
+        "tagline": "Retro ışıltı",
+        "description": "Fildişi, siyah ve şampanya, dikey Art Deco harfler: büyük sinema yıldızlarının ışıltısı."
+      },
+      "casbah": {
+        "tagline": "Beyaz ve mavi",
+        "description": "Beyaz kireç ve kapıların mavisi, bir kemer ve kemerli bir friz: sadeliğiyle Cezayir Kasbahı."
+      },
+      "kabylie": {
+        "tagline": "Gümüş ve mercan",
+        "description": "Antrasit, gümüş ve mercan, Aït Yenni’nin Berberi takıları gibi keskin açılar."
+      },
+      "tlemcen": {
+        "tagline": "Endülüs mirası",
+        "description": "Toprak sarısı, çini yeşili ve zellige: geleneğe bağlı bir salon için Tilimsan’ın Endülüs zarafeti."
+      },
+      "constantine": {
+        "tagline": "Taş ve bakır",
+        "description": "Gri taş ve bakır, Konstantin’in asma köprülerinin halatları gibi gergin çizgiler."
+      },
+      "tassili": {
+        "tagline": "Kum ve toprak",
+        "description": "Altın kum, kaya resimlerinin kırmızısı ve çöl dokusu: Tassili Sahrası."
+      },
+      "oran": {
+        "tagline": "Modern Akdeniz",
+        "description": "Deniz mavisi ve güneş sarısı, ilk bakışta randevu: modern ve Akdenizli Vahran."
+      },
+      "mzab": {
+        "tagline": "M’zab pastelleri",
+        "description": "Gök mavisi, şeftali ve nane, fotoğraflardan bir mozaik: M’zab vadisinin pastel evleri."
+      },
+      "timgad": {
+        "tagline": "Taş ve defne",
+        "description": "Açık taş ve defne yeşili, oyulmuş Roma harfleri: Timgad’ın antik disiplini."
+      },
+      "alger-blanche": {
+        "tagline": "Haussmann cepheleri",
+        "description": "Krem cepheler ve ferforje, pencere gibi çerçevelenmiş fotoğraf: Beyaz Cezayir ve büyük bulvarları."
+      },
       "medina": {
         "tagline": "Cezayir mirası",
         "description": "Çivit mavisi, safran ve zellige çini: mirasına bağlı bir salon için Kasbah'a bir saygı duruşu."
@@ -298,6 +598,70 @@
       "noir": {
         "tagline": "Lüks salon",
         "description": "Derin siyah ve altın, ekip ön planda: lüks salon."
+      },
+      "nordique": {
+        "tagline": "İskandinav konsept salon",
+        "description": "Açık meşe, çam yeşili ve bolca ferahlık: sakin ve özenli bir İskandinav konsept salonu."
+      },
+      "encre": {
+        "tagline": "Kesim stüdyosu",
+        "description": "Temiz beyaz, mürekkep siyahı ve kırmızı bir mühür: Tokyo tarzı minimal kesim stüdyosu."
+      },
+      "pigment": {
+        "tagline": "Renk barı",
+        "description": "Petrol yeşili, mercan ve şeker pembesi: salon adının büyük harflerle aktığı bir Doğu Londra renk barı."
+      },
+      "terrazzo": {
+        "tagline": "Milano salonu",
+        "description": "Ceviz, terrazzo ve sıcak ışık: fotoğrafları bir mimarlık dergisindeki gibi çerçevelenmiş Milano salonu."
+      },
+      "balayage": {
+        "tagline": "Güneş sarısı",
+        "description": "Ağarmış kum, kil ve deniz köpüğü: bir yaz filmi gibi geniş planda Kaliforniya balyaj stüdyosu."
+      },
+      "galerie": {
+        "tagline": "Sanat salonu",
+        "description": "Beyaz duvarlar ve tek bir ultramarin mavi: galeri gibi düşünülmüş, hizmetlerini ızgarada sergileyen salon."
+      },
+      "beton": {
+        "tagline": "Ham loft",
+        "description": "Cilalı beton, siyah büyük harfler ve mimar ızgarası: daha girişte randevu alınan ham loft."
+      },
+      "vendome": {
+        "tagline": "Paris maison’u",
+        "description": "Fildişi ve siyah, ince kuyumcu harfleri: sade ve görkemli Parisli kuaför maison’u."
+      },
+      "deco": {
+        "tagline": "Altın ve oniks",
+        "description": "Oniks ve altın, yaldızlı çerçeveye oturtulmuş fotoğraf: fiyatları sütunlara kazınmış Art déco salonu."
+      },
+      "haussmann": {
+        "tagline": "Pervazlı salon",
+        "description": "Krem, pervazlar ve çinko grisi: kemerli pencereleriyle salona dönüşmüş büyük Haussmann dairesi."
+      },
+      "velours": {
+        "tagline": "İtalyan couture",
+        "description": "Bordo kadife ve şampanya nude: moda dergisi gibi tasarlanmış, İtalyan usulü couture kuaförlük."
+      },
+      "greige": {
+        "tagline": "Monokrom lüks",
+        "description": "Greige, taş ve yumuşak formlar: fazladan tek kelime olmadan, tek tonda çağdaş lüks."
+      },
+      "salon-prive": {
+        "tagline": "Randevuyla",
+        "description": "Şişe yeşili ve pirinç, adres en başta: yalnızca randevuyla gelinen özel salon."
+      },
+      "couverture": {
+        "tagline": "Editoryal kuaförlük",
+        "description": "Beyaz üzerine siyah Didone ve ruj kırmızısı: adı dev bir manşet olan, dergi kapağındaki salon."
+      },
+      "riviera": {
+        "tagline": "Şampanya ve lacivert",
+        "description": "Şampanya, lacivert ve plaj kabini çizgileri: zarif ve güneşli Riviera salonu."
+      },
+      "laque": {
+        "tagline": "Japon sadeliği",
+        "description": "Washi kâğıdı, urushi laka ve sessizlik: sadeliğin Japon lüksü, kısa ve seçkin bir menü."
       },
       "epure": {
         "tagline": "Minimal",

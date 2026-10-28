@@ -262,7 +262,235 @@
     "next": "Tamudemt i d-iteddun",
     "desktop": "Aselkim",
     "mobile": "Aziraz",
+    "families": {
+      "mariage": "Tameɣra",
+      "patrimoine": "Agemmay",
+      "coiffure-contemporaine": "Acebbub atrar",
+      "haute-coiffure": "Acebbub n uɣlay",
+      "barbier": "Aḥeffaf",
+      "afro-texture": "Acebbub agaman",
+      "ongles-cils": "Iccer d yeccifen n wallen",
+      "pop-quartier": "Pop d taddart",
+      "spa-hammam": "Spa d lḥemmam",
+      "institut": "Ammas n ucebbaḥ"
+    },
     "templates": {
+      "poteau": {
+        "tagline": "Aḥeffaf amarikani",
+        "description": "Azeggaɣ, amellal d unili, izirigen n tgejdit n uḥeffaf d tebdart n ssuma s tgejda, am iseggasen 50."
+      },
+      "brique": {
+        "tagline": "Aḥeffaf n tnezzut",
+        "description": "Ajur, uzzal d tafat n tlamba: aḥeffaf deg uxxam n usekles, s isekkilen ɣezzifen yeqqnen."
+      },
+      "club": {
+        "tagline": "Aḥeffaf n lɛali",
+        "description": "Azegzaw n tqerεet, nnḥas d Caslon: tixxamt tanessast n tejmeεt n yergazen."
+      },
+      "marina": {
+        "tagline": "Aḥeffaf n ugrakal",
+        "description": "Ijir amellal, anili n yill d yiṭij: aḥeffaf n lmersa, yeldin ɣer tafat."
+      },
+      "fade": {
+        "tagline": "Asenfel d yizirigen",
+        "description": "Abiṭun, aberkan d ačinaw n uxeddim, isekkilen imeqqranen i tezrawt n usenfel."
+      },
+      "ottoman": {
+        "tagline": "Aḥeffaf aɛusmani",
+        "description": "Nnḥas, azegzaw n yill d isekkilen yettwagezmen: ccḥef n zik n uḥeffaf n Istanbul."
+      },
+      "nord": {
+        "tagline": "Aḥareb n yergazen",
+        "description": "Aɣeryan n udɣaɣ, ardwaz d tira n ugafa: aḥareb n yergazen war awal d ameẓyan."
+      },
+      "flash": {
+        "tagline": "Aḥeffaf n tecraḍ",
+        "description": "Aberkan n lmidad, azeggaɣ d awraɣ, tira tagutit n tferkiwin n tecraḍ."
+      },
+      "enseigne": {
+        "tagline": "Aḥeffaf n yergazen",
+        "description": "Azegzaw, azeggaɣ d amellal n zzlij, tira yettwasnen s snat n tutlayin n uḥeffaf n tɣemmert n zznqa."
+      },
+      "ocre": {
+        "tagline": "Tazrawt n ucebbub agaman",
+        "description": "Akal yettwasewwen, awraɣ d keṭṭan, tazrawt taḥmayant i tcuccay d ucebbub agaman."
+      },
+      "wax": {
+        "tagline": "Tiḍefrin d yigezmen",
+        "description": "Azeggaɣ, awraɣ d azegzaw, initen iǧehden n yiceṭṭiḍen wax n Lagos d Abidjan."
+      },
+      "harlem": {
+        "tagline": "Lɛali n jazz",
+        "description": "Ini n ubercan n yiḍ, ddheb d isekkilen Art déco: lɛali n yisaluniyen n Harlem deg tallit n jazz."
+      },
+      "labo": {
+        "tagline": "Asbiṭar n tcuccay",
+        "description": "Amellal, azegzaw n yill d xuxx, zeddig am lmexber: tasledt d uḥareb n tcuccay."
+      },
+      "tresses": {
+        "tagline": "Tazrawt n tḍefrin",
+        "description": "Abercan, zzeεfran d ukeryis yettwaḍefren, tazrawt anda yal taḍefrit d unuɣ."
+      },
+      "sanctuaire": {
+        "tagline": "Locs d uḥareb",
+        "description": "Tamemmust, talaxt d lkaɣeḍ amagan, amkan ihedden i wakken ad tebduḍ locs-ik u ad ten-tḥerzeḍ."
+      },
+      "zenith": {
+        "tagline": "Afro n uzekka",
+        "description": "Azegzaw n yill aqerḍas, ddheb d učinaw iceεlen: asalun afro n uzekka s talɣiwin yeččuren."
+      },
+      "sahel": {
+        "tagline": "Nnila d yijdi",
+        "description": "Nnila yettwasebɣen s ufus d yijdi uḥmay, asefses n tlemmast tameqqrant n Sahel."
+      },
+      "caraibes": {
+        "tagline": "Tcuccay deg yiṭij",
+        "description": "Azegzaw n lfirus, lmerǧan d mangu, asalun yeččuren d lferḥ s ureḥ n unebdu n tegzirin."
+      },
+      "onyx": {
+        "tagline": "Aberkan d ddheb",
+        "description": "Aberkan amsas d yiwen n yifili n ddheb, isekkilen imeqqranen yemgarraden, ur nelli ara d ayen-nniḍen."
+      },
+      "seoul": {
+        "tagline": "Asturyu n iccer pastel",
+        "description": "Axuxi n uyefki, lavand d tiɣemmar timdewrin: asturyu n iccer leqqaqen am Seoul, tugniwin d nutenti i d asfaylu."
+      },
+      "francaise": {
+        "tagline": "Manikur yelhan",
+        "description": "Ini n yiles, amellal d Bodoni leqqaqen: lɛeqel n manikur tafransist, ssuma deg tgejda am tkarḍa."
+      },
+      "chrome": {
+        "tagline": "Nail art n lemri",
+        "description": "Aɣiɣdi n wuzzal d grafit, tugniwin s ubrik d umellal deg ukatar n uzzal, i nail art chrome."
+      },
+      "regard": {
+        "tagline": "Bar n yeccifen",
+        "description": "Aberkan d uxuxi n tebrurt, ajerriḍ uzlig: bar n yeccifen d tmiwin, tamazzult deg ugensu."
+      },
+      "cerise": {
+        "tagline": "Azeggaɣ aklasiki",
+        "description": "Azeggaɣ n tadeffuyt ɣef ugilal n krim, takarḍa retro i manikur aklasiki d lvirni ifazen."
+      },
+      "starlette": {
+        "tagline": "Nail art Y2K",
+        "description": "Axuxi n lḥelwa, azegzaw n llufan d isekkilen ibuzzaḍ: nail art Y2K, isem n usturyu yettɛeddi."
+      },
+      "verveine": {
+        "tagline": "Nail spa n yemɣan",
+        "description": "Azegzaw n yifer, akettan d tesfift n yemɣan: nail spa n leɛtab agamani d yifassen yesteɛfan."
+      },
+      "cabine": {
+        "tagline": "Nail bar n tsibitar",
+        "description": "Amellal n tsibitar, azegzaw n wuzzal d imḍanen mono: asebter zeddigen d tuṭṭfa n wakud deg ugdil akk."
+      },
+      "miami": {
+        "tagline": "Pop n tafukt",
+        "description": "Turkwaz, axuxi n lxux d ijerriḍen n uɣelluy n tafukt, isekkilen imdewren i usturyu n iccer."
+      },
+      "memphis": {
+        "tagline": "Grafik n 80",
+        "description": "Kobalt, awraɣ d turkwaz, tiɣemmar tiqedḥin d isekkilen iberkanen: asalun grafik s ṛṛuḥ n Memphis."
+      },
+      "riso": {
+        "tagline": "Asiggez s sin n lmidad",
+        "description": "Azegzaw d uxuxi n fluo ɣef lkaɣeḍ, tugniwin s sin n yiniten: asalun am fanzine yettwasiggzen."
+      },
+      "menthe": {
+        "tagline": "Lḥelwa d nɛenaɛ",
+        "description": "Axuxi n tejjujt d uzegzaw n nɛenaɛ, talɣiwin timdewrin i usalun ilemẓi yettḍeṣṣan."
+      },
+      "bulle": {
+        "tagline": "Tisuqilin s tugniwin",
+        "description": "Azeggaɣ, awraɣ d tenqiḍin, isekkilen n BD i usalun yeččuren d tazmert."
+      },
+      "arcade": {
+        "tagline": "Retro n 90",
+        "description": "Azegzaw n waman, magenta d isekkilen imdewren: asalun n tḥanut tameqrant n 90, isem s tibddi."
+      },
+      "marelle": {
+        "tagline": "Asalun n twacult",
+        "description": "Azegzaw n igenni, awraɣ leqqaqen d talɣiwin timdewrin: asalun n twacult anda meẓẓiyen d imeqqranen ttwaqeblen."
+      },
+      "campus": {
+        "tagline": "Ssuma tamectuḥt",
+        "description": "Aberkan, amellal d uzegzaw n llim, ssuma tettwaɣra s yiwet n tmuɣli, tuṭṭfa n wakud seg uqerru n usebter."
+      },
+      "fresque": {
+        "tagline": "Street art",
+        "description": "Abiṭun, awraɣ n lɛelama d isekkilen imeqqranen: asalun n taddart yettwasebɣen am uɣrab n street art."
+      },
+      "citronnade": {
+        "tagline": "Ssuq n unebdu",
+        "description": "Azegzaw n ugaraw ilemmasen d uwraɣ n llim, tugna deg ukatar am uɣmis n ssuq n unebdu."
+      },
+      "apothicaire": {
+        "tagline": "Lɛinaya d leɛwayed",
+        "description": "Ajaj n lɛenber, lkaɣeḍ d isekkilen Caslon: tabdart n lɛinaya am tbiṭaqt n tqerɛet."
+      },
+      "riad": {
+        "tagline": "Spa n riyad",
+        "description": "Tadelakt, akal yeɣlin d uzegzaw n zellij: tawlaft deg ukatar am lḥara n riyad."
+      },
+      "marbre": {
+        "tagline": "Lḥemmam n rrxam",
+        "description": "Rrxam s yizuran, nnḥas d isekkilen irumanen: taxxamt teḥman n lḥemmam aṭerki, s yini yeṣfan."
+      },
+      "onsen": {
+        "tagline": "Asired n Japun",
+        "description": "Lkaɣeḍ washi, smaq d lerz: isem yettwaru s ubeddu, talwit n usired n Japun."
+      },
+      "sauna": {
+        "tagline": "Sauna n ugafa",
+        "description": "Tafat n wedfel, aɣebbar n tamda d usɣar afaw: tafat n sauna n ugafa."
+      },
+      "dune": {
+        "tagline": "Spa n unezruf",
+        "description": "Ijdi, azru azeggaɣ d igenni n tmeddit: spa n Sahra s tewlafin timeqqranin, yeḥman, yessehdan."
+      },
+      "thermes": {
+        "tagline": "Aman yeḥman",
+        "description": "Amellal d uzegzaw n waman yeḥman: lɛinaya tettwaḥjaz seg ugdil amezwaru, am deg tnezduɣt n tḥemmamt."
+      },
+      "veillee": {
+        "tagline": "Spa n yiḍ",
+        "description": "Tafat n teftilt ɣef uqahwi n yiḍ: spa n tmeddit, yeṣṣefḍen, anda isem n wemkan yeṭṭef akk asayes."
+      },
+      "derma": {
+        "tagline": "Aklinik n yilem",
+        "description": "Amellal n uklinik, yiwen n uzeggaɣ d uẓeṭṭa uḥdiq: tiseddi n tnezduɣt n tmussni n yilem."
+      },
+      "rosee": {
+        "tagline": "Lɛinaya K-beauty",
+        "description": "Axuxi n tjeǧǧigt, azegzaw n usigna d talɣiwin leqqaqen: ilem n ujaj n leɛwayed n Kurya."
+      },
+      "officine": {
+        "tagline": "Lfarmasi d lɛinaya",
+        "description": "Azegzaw n lfarmasi, amellal yeṣfan d isekkilen n tbiṭaqt: tansa d lɛinaya ɣer ufus, am deg lfarmasi."
+      },
+      "champagne": {
+        "tagline": "Taḥanut n lɛinaya",
+        "description": "Aberkan iceɛɛlen d ccampanya, Didot ameqqran: taḥanut n lɛinaya n uɣlay am usebter n tɣamsa."
+      },
+      "protocole": {
+        "tagline": "Laboratwar n tifrat",
+        "description": "Amellal n laboratwar d uzegzaw chartreuse: lɛinaya yettwasbedden am yiprutukulen, ssuma d tanzagt ɣef yiwen yizirig."
+      },
+      "quartz": {
+        "tagline": "Ammas leqqaqen",
+        "description": "Axuxi n kwartz d tafat n lɣebra ddaw taddart leqqaqen, i wammas n ucebbaḥ leqqaqen."
+      },
+      "kraft": {
+        "tagline": "Akusmitik agamawan",
+        "description": "Lkaɣeḍ kraft, azegzaw n yifer d isekkilen n tbiṭaqt: akusmitik agamawan s ufus, am uɣmis n lḥiṭ."
+      },
+      "perle": {
+        "tagline": "Lɛinaya mgal tewser",
+        "description": "Aberquq aḥercaw d umellal n tewsart, isem meqqer am ɣef tbewwaṭ n lǧuher: lɛinaya mgal tewser n uɣlay."
+      },
+      "lagune": {
+        "tagline": "Ttbib n ucebbaḥ",
+        "description": "Azegzaw n lebḥer aḥercaw d nneɛneɛ afaw, isem n wammas yettḥerriken: med-spa n wass-a."
+      },
       "studio": {
         "tagline": "Asalun n yal ameẓlu",
         "description": "Aceɛlal, yeẓɣel, s uččinawi n Saloneo i usalun n yal ameẓlu i d-yettawin srid ɣer uḥeǧǧez."
@@ -291,6 +519,78 @@
         "tagline": "Ammas n ucebbaḥ",
         "description": "Yeṣfa, yessehdan, azegzaw n uzenzu d tira tusdidt i wammas n ucebbaḥ."
       },
+      "karakou": {
+        "tagline": "Tislit n zik",
+        "description": "Amxemli azeggaɣ d lxiḍ n wureɣ, tawlaft deg ukatar n wureɣ: tafrara n lkaraku d ccedda i tislit n zik."
+      },
+      "blanc": {
+        "tagline": "Tislit n tura",
+        "description": "Amellal d uɣlay n tejjujt, azamul d tallunt tameqqrant: tislit n tura, fessusen."
+      },
+      "roseraie": {
+        "tagline": "Tameɣra deg urti",
+        "description": "Axuxi aqbur d uzegzaw n ssalmiya s yiri n yemɣan: tameɣra n leḥmala deg urti."
+      },
+      "henne": {
+        "tagline": "Iḍ n lḥenni",
+        "description": "Aqehwi n lḥenni d zzeɛfran, tinqiḍin timeẓyanin am weqcic yettwasunnen s ufus, i yiḍ n lḥenni."
+      },
+      "gala": {
+        "tagline": "Tameddit n gala",
+        "description": "Aberkan yettfeǧǧiǧen d lɛaj, tawlaft am di sinima d isekkilen imeqqranen: tameddit n gala."
+      },
+      "boheme": {
+        "tagline": "Tameɣra tabuhimit",
+        "description": "Ijdi, akal azeggaɣ d lkettan, talɣiwin leqqaqen d tewlafin teḥman i tmeɣra tabuhimit ɣef yiri n yilel."
+      },
+      "sultane": {
+        "tagline": "Tislit n tgeldit",
+        "description": "Azegzaw n zzmerred, aureɣ d uzeggaɣ n Iznik, s tbeqqa n teqwas: tislit n tgeldit s ssifa tutmanit."
+      },
+      "taqendurt": {
+        "tagline": "Tameɣra taqbaylit",
+        "description": "Awraɣ, azeggaɣ d uzegzaw ɣef umellal, s tɛeṣṣabin am tid n tqendurt taqbaylit, i tmeɣriwin n Tmurt n Leqbayel."
+      },
+      "age-dor": {
+        "tagline": "Tafrara n zik",
+        "description": "Lɛaj, aberkan d ccampanya, isekkilen Art déco s ubeddi: tafrara n yitran imeqqranen n sinima."
+      },
+      "casbah": {
+        "tagline": "Amellal d uzegzaw",
+        "description": "Lǧir amellal d uzegzaw n tewwura, taqwest d tbeqqa n teqwas: Lqasba n Lezzayer s ttawil fessusen."
+      },
+      "kabylie": {
+        "tagline": "Lfeṭṭa d lmerǧan",
+        "description": "Aberkan, lfeṭṭa d lmerǧan, s teɣmar yettwagezmen am ṣṣiɣa n At Yenni."
+      },
+      "tlemcen": {
+        "tagline": "Agemmay andalusi",
+        "description": "Awraɣ n wakal, azegzaw n zzlayej d zzlayej: tafrara tandalusit n Tlemsan i usalun n lɛada."
+      },
+      "constantine": {
+        "tagline": "Adɣaɣ d nnḥas",
+        "description": "Adɣaɣ aɣlay d nnḥas, izirigen jebden am yimrawen n leqnaṭer n Qsenṭina."
+      },
+      "tassili": {
+        "tagline": "Ijdi d wakal",
+        "description": "Ijdi n wureɣ d uzeggaɣ n tira ɣef yedɣaɣen: Ṣṣeḥra n Tassili."
+      },
+      "oran": {
+        "tagline": "Ilel n tura",
+        "description": "Azegzaw n yilel d uwraɣ n yiṭij, asekles seg tazwara: Wehran, n tura u n yilel agrakal."
+      },
+      "mzab": {
+        "tagline": "Initen n Mzab",
+        "description": "Azegzaw n yigenni, axuxi d nnaɛnaɛ, tamuzayikt n tewlafin: ixxamen s yini leqqaqen n Mzab."
+      },
+      "timgad": {
+        "tagline": "Adɣaɣ d rrend",
+        "description": "Adɣaɣ aqurar d uzegzaw n rrend, isekkilen irumaniyen yettwagezmen: Timgad n zik."
+      },
+      "alger-blanche": {
+        "tagline": "Udmawen n Lezzayer",
+        "description": "Udmawen n lkrim d wuzzal yettwaxedmen, tawlaft am ṭṭaq: Lezzayer tamellalt d iberdan-is imeqqranen."
+      },
       "medina": {
         "tagline": "Agemmay n Lezzayer",
         "description": "Anili, zzeɛfran d zzlayej: i tkerrimt n Lqasba, i usalun yeṭṭfen deg wagemmay-is."
@@ -298,6 +598,70 @@
       "noir": {
         "tagline": "Asalun n uɣlay",
         "description": "Aberkan aḥercaw d wureɣ, tarbaɛt deg uẓɣer: asalun n uɣlay."
+      },
+      "nordique": {
+        "tagline": "Asalun askandinavi",
+        "description": "Asɣar aceɛlal, azegzaw n tqiqact d tallunt tameqqrant: asalun askandinavi, iḥedden yerna d uẓrif."
+      },
+      "encre": {
+        "tagline": "Astudyu n ugzam",
+        "description": "Amellal yeṣfan, aberkan n lmidad d twelt tazeggaɣt: astudyu n ugzam afessas am win n Tokyo."
+      },
+      "pigment": {
+        "tagline": "Abar n yini",
+        "description": "Azegzaw, ajeǧǧig d uwraɣ-axuxi: abar n yini n London anida isem yettɛeddi s umeqqran."
+      },
+      "terrazzo": {
+        "tagline": "Asalun n Milano",
+        "description": "Ajewz, terrazzo d tafat tazɣalt: asalun n Milano, tugniwin deg yikadranen am tɣamsa n tẓuri n lebni."
+      },
+      "balayage": {
+        "tagline": "Acebbub n yiṭij",
+        "description": "Ijdi aceɛlal, talaxt d ugfuf n yilel: astudyu n balayage n Kalifornya, s tmuɣli tameqqrant am usaru n unebdu."
+      },
+      "galerie": {
+        "tagline": "Asalun n tẓuri",
+        "description": "Iɣerban imellalen d yiwen n uzegzaw n yilel: asalun am tesqamut n tẓuri, imeẓla ttwasersen deg uẓeṭṭa."
+      },
+      "beton": {
+        "tagline": "Loft n béton",
+        "description": "Béton, isekkilen imeqqranen iberkanen d uẓeṭṭa n lebni: loft anida tḥeǧǧzeḍ akken kan ara tawḍeḍ."
+      },
+      "vendome": {
+        "tagline": "Axxam n Paris",
+        "description": "Amellal n ujeǧǧig d uberkan, isekkilen irqaqen: axxam n ucebbub n Paris, aḥerfi yerna d aɣlay."
+      },
+      "deco": {
+        "tagline": "Ureɣ d uberkan",
+        "description": "Aberkan d wureɣ, tugna deg ukadri n wureɣ: asalun Art déco, ssuma-s tettwaru s tgejda."
+      },
+      "haussmann": {
+        "tagline": "Asalun n Haussmann",
+        "description": "Akrim d urkan n zinc: axxam ameqqran n Haussmann yuɣalen d asalun, s ttwaqi-ines imeqqranen."
+      },
+      "velours": {
+        "tagline": "Couture n Ṭelyan",
+        "description": "Lmexmel n bordeaux d yini n cambanya: acebbub n couture n Ṭelyan, am tɣamsa n lmuda."
+      },
+      "greige": {
+        "tagline": "Aɣlay n yiwen yini",
+        "description": "Greige, adɣaɣ d tilɣa leqqaqen: aɣlay atrar s yiwen yini, war awal yugaren."
+      },
+      "salon-prive": {
+        "tagline": "S timlilit",
+        "description": "Azegzaw ubreɣ d nnḥas awraɣ, tansa si tazwara: asalun uslig anida tettaseḍ s timlilit."
+      },
+      "couverture": {
+        "tagline": "Acebbub n tɣamsa",
+        "description": "Isekkilen iberkanen ɣef umellal d uzeggaɣ n tcenḍuct: asalun ɣef uqerru n tɣamsa, isem-is d azwel ameqqran."
+      },
+      "riviera": {
+        "tagline": "Cambanya d unili",
+        "description": "Cambanya, anili d yizirigen n teqjirt n yilel: asalun n Riviera, d aẓrif yerna d iṭij."
+      },
+      "laque": {
+        "tagline": "Aɣlay n Japun",
+        "description": "Lkaɣeḍ washi, laque urushi d tsusmi: aɣlay n Japun deg uḥezzeb, umuɣ awezzlan yettwafernen."
       },
       "epure": {
         "tagline": "Afessas",

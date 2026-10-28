@@ -27,12 +27,15 @@ function TeamCards({ data }: P) {
 
 /** Tall portrait frames; without a photo the initials are set like a monogram. */
 function TeamPortraits({ data }: P) {
+  // Desktop columns: 3 or 4, whichever leaves the fuller last row (4 → 4, 5 → 3+2, 7 → 4+3); short rows are centered.
+  const n = data.team.length;
+  const four = (n % 4 || 4) / 4 > (n % 3 || 3) / 3;
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-10 md:gap-x-8">
+    <div className={`flex flex-wrap justify-center gap-x-[var(--g)] gap-y-10 [--c:2] [--g:1.25rem] md:[--g:2rem] ${four ? 'lg:[--c:4]' : 'lg:[--c:3]'}`}>
       {data.team.map(m => (
-        <article key={m._id}>
+        <article key={m._id} className="sp-fit" style={{ width: 'calc((100% - (var(--c) - 1) * var(--g)) / var(--c))' }}>
           <Avatar member={m} className="w-full !aspect-[3/4] text-[clamp(3rem,2rem+4vw,6rem)]" />
-          <div className="mt-4"><Who m={m} size="text-xl md:text-2xl" /></div>
+          <div className="mt-4"><Who m={m} size="sp-fit-t [--sp-fit:10cqi]" /></div>
         </article>
       ))}
     </div>
