@@ -1,21 +1,15 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { 
-  CalendarDaysIcon, 
-  PlusIcon, 
-  ClockIcon, 
+import {
+  CalendarDaysIcon,
+  PlusIcon,
+  ClockIcon,
   CheckCircleIcon,
-  XCircleIcon,
   ExclamationTriangleIcon,
   ListBulletIcon,
   CalendarIcon,
-  ChartBarIcon,
-  SparklesIcon,
-  FunnelIcon,
   MagnifyingGlassIcon,
-  ArrowTrendingUpIcon,
-  BellIcon
 } from '@heroicons/react/24/outline';
 import { Appointment, AppointmentStatus, AppointmentFormData } from './types';
 import { useAppointmentStore } from './store';
@@ -28,6 +22,7 @@ import CalendarView from './components/CalendarView';
 import { useSocket } from '../../hooks/useSocket';
 import { useSubscriptionLimits } from '../subscription/hooks/useSubscriptionLimits';
 import { SubscriptionLimitWidget } from '../subscription/components/SubscriptionLimitWidget';
+import { PageHeader, Panel, StatGroup, EmptyState, Segmented } from '../../components/ui';
 
 const AppointmentsPage: React.FC = () => {
   const { t } = useTranslation('appointments');
@@ -48,7 +43,7 @@ const AppointmentsPage: React.FC = () => {
 
   const services = useServiceStore((state) => state.services);
   const fetchClients = useClientStore((state) => state.fetchClients);
-  const { checkAppointmentLimit, currentPlan } = useSubscriptionLimits();
+  const { checkAppointmentLimit, currentPlan, usageStats } = useSubscriptionLimits();
   
   // Enable real-time updates
   useSocket();
@@ -65,15 +60,10 @@ const AppointmentsPage: React.FC = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        console.log('🔄 Chargement des données...');
         await Promise.all([
           loadAppointments?.(),
           fetchClients()
         ]);
-        console.log('✅ Données chargées:', {
-          appointments: appointments?.length || 0,
-          services: services?.length || 0
-        });
       } catch (error) {
         console.error('❌ Erreur lors du chargement des données:', error);
       }
@@ -116,28 +106,6 @@ const AppointmentsPage: React.FC = () => {
     return filtered;
   }, [appointments, selectedStatus, searchTerm]);
 
-  // Afficher un état de chargement si les données ne sont pas encore disponibles
-  if (!appointments && isLoading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-orange-50 to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-3xl shadow-orange-lg dark:shadow-gray-lg border border-orange-500/20 dark:border-orange-500/20 p-12 animate-pulse">
-            <div className="flex items-center justify-center h-64">
-              <div className="text-center">
-                <div className="relative">
-                  <div className="animate-spin rounded-full h-20 w-20 border-4 border-orange-100 dark:border-orange-900/30 border-t-orange-500 dark:border-t-orange-400 mx-auto"></div>
-                  <SparklesIcon className="h-8 w-8 text-orange-500 dark:text-orange-400 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pulse" />
-                </div>
-                <p className="mt-8 text-xl font-semibold text-gray-800 dark:text-gray-100">{t('loading.planning')}</p>
-                <p className="mt-3 text-sm text-gray-500 dark:text-gray-400">{t('loading.interface_preparation')}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   // Calculer les statistiques des rendez-vous
   const appointmentStats = useMemo(() => {
     if (!appointments || !Array.isArray(appointments)) return { total: 0, scheduled: 0, confirmed: 0, completed: 0 };
@@ -149,6 +117,20 @@ const AppointmentsPage: React.FC = () => {
       completed: appointments.filter(a => a.status === 'completed').length,
     };
   }, [appointments]);
+
+  // Afficher un état de chargement si les données ne sont pas encore disponibles
+  if (!appointments && isLoading) {
+    return (
+      <div className="py-6 sm:py-8">
+        <Panel>
+          <div className="flex flex-col items-center justify-center py-20 text-center">
+            <div className="size-8 animate-spin rounded-full border-2 border-gray-200 border-t-orange-500 dark:border-gray-700 dark:border-t-orange-400" />
+            <p className="mt-4 text-sm font-medium text-gray-900 dark:text-gray-50">{t('loading.planning')}</p>
+          </div>
+        </Panel>
+      </div>
+    );
+  }
 
   const handleAddClick = () => {
     setEditingAppointment(null);
@@ -198,7 +180,7 @@ const AppointmentsPage: React.FC = () => {
   };
 
   const handleNoShowAppointment = (appointmentId: string) => {
-    if (window.confirm(t('messages.confirm_delete'))) {
+    if (window.confirm(t('messages.confirm_no_show'))) {
       markAsNoShow(appointmentId);
     }
   };
@@ -228,297 +210,148 @@ const AppointmentsPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-orange-50 to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        
-        {/* HERO HEADER - Design spectaculaire */}
-        <div className="relative mb-12">
-          <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-3xl shadow-orange-lg dark:shadow-gray-lg border border-orange-500/20 dark:border-orange-500/20 p-8 overflow-hidden transition-colors duration-300">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
-              
-              {/* Titre avec icône spectaculaire */}
-              <div className="flex items-center space-x-6">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 rounded-2xl blur-lg opacity-30 animate-pulse"></div>
-                  <div className="relative bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 p-4 rounded-2xl shadow-orange-lg transform hover:scale-110 transition-all duration-300">
-                    <CalendarDaysIcon className="h-8 w-8 text-white dark:text-gray-900" />
-                  </div>
-                </div>
-                <div>
-                  <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 dark:from-orange-400 dark:via-orange-500 dark:to-orange-600 bg-clip-text text-transparent">
-                    {t('page_title')}
-                  </h1>
-                  <p className="text-gray-600 dark:text-gray-300 mt-2 text-lg">{t('page_subtitle')}</p>
-                  <div className="flex items-center mt-3 space-x-4">
-                    <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                      <ArrowTrendingUpIcon className="h-4 w-4 mr-1 text-green-500 dark:text-green-400" />
-                      {appointmentStats.total} {t('stats.total_appointments_badge')}
-                    </div>
-                    {pastAppointmentsCount > 0 && (
-                      <div className="flex items-center text-sm text-orange-600 dark:text-orange-400">
-                        <BellIcon className="h-4 w-4 mr-1 animate-bounce" />
-                        {pastAppointmentsCount} {t('stats.pending_badge')}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
+    <div className="py-6 sm:py-8">
+      <PageHeader
+        title={t('title')}
+        subtitle={t('page_subtitle')}
+        meta={
+          <>
+            <span className="tabular-nums">{appointmentStats.total} {t('stats.total_appointments_badge')}</span>
+            {usageStats && (
+              <SubscriptionLimitWidget
+                title={t('limits.title')}
+                limitCheck={checkAppointmentLimit()}
+                planName={currentPlan}
+                resourceType={t('limits.resource')}
+              />
+            )}
+          </>
+        }
+        actions={
+          <>
+            <Link to="/appointments/history" className="btn-secondary">
+              <ClockIcon className="size-4" />
+              {t('history_link')}
+            </Link>
+            <button type="button" onClick={handleAddClick} className="btn-primary" disabled={isLoading}>
+              <PlusIcon className="size-4" />
+              {t('new_appointment')}
+            </button>
+          </>
+        }
+      />
 
-              {/* Actions principales - Design premium */}
-              <div className="flex flex-wrap items-center gap-4">
-                {pastAppointmentsCount > 0 && (
-                  <div className="flex items-center gap-3 p-3 bg-amber-50 rounded-2xl border border-amber-200">
-                    <button
-                      onClick={() => handleProcessPastAppointments('completed')}
-                      className="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
-                    >
-                      <CheckCircleIcon className="h-4 w-4 mr-2 inline" />
-                      {t('past_appointments.complete_action')} ({pastAppointmentsCount})
-                    </button>
-                    <button
-                      onClick={() => handleProcessPastAppointments('noShow')}
-                      className="px-4 py-2 bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
-                    >
-                      <ExclamationTriangleIcon className="h-4 w-4 mr-2 inline" />
-                      {t('past_appointments.no_show_action')}
-                    </button>
-                  </div>
-                )}
-                
-                <Link
-                  to="/appointments/history"
-                  className="px-6 py-3 bg-gradient-to-r from-gray-500 to-gray-600 dark:from-gray-600 dark:to-gray-700 hover:from-gray-600 hover:to-gray-700 dark:hover:from-gray-700 dark:hover:to-gray-800 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
-                >
-                  <ChartBarIcon className="h-4 w-4 mr-2 inline" />
-                  {t('calendar.agenda_view')}
-                </Link>
-                
-                <button
-                  onClick={handleAddClick}
-                  className="px-8 py-3 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 hover:from-orange-600 hover:to-orange-700 dark:hover:from-orange-500 dark:hover:to-orange-600 text-white dark:text-gray-900 rounded-xl font-semibold shadow-orange-lg hover:shadow-orange-xl transform hover:scale-105 transition-all duration-300 relative overflow-hidden group"
-                  disabled={isLoading}
-                >
-                  <div className="absolute inset-0 bg-white/20 dark:bg-white/10 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-                  <PlusIcon className="h-5 w-5 mr-2 inline relative z-10" />
-                  <span className="relative z-10">{t('new_appointment')}</span>
-                </button>
-              </div>
-            </div>
+      {pastAppointmentsCount > 0 && (
+        <div className="panel mb-6 flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center dark:bg-gray-900 dark:border-gray-800">
+          <div className="flex flex-1 items-start gap-3 text-sm">
+            <ExclamationTriangleIcon className="size-5 shrink-0 text-amber-500" />
+            <p className="text-gray-700 dark:text-gray-300">{t('past_appointments.notice', { count: pastAppointmentsCount })}</p>
+          </div>
+          <div className="flex gap-2">
+            <button type="button" onClick={() => handleProcessPastAppointments('completed')} className="btn-secondary flex-1 sm:flex-none">
+              <CheckCircleIcon className="size-4" />
+              {t('past_appointments.mark_completed')}
+            </button>
+            <button type="button" onClick={() => handleProcessPastAppointments('noShow')} className="btn-ghost flex-1 sm:flex-none">
+              {t('past_appointments.mark_no_show')}
+            </button>
           </div>
         </div>
+      )}
 
-        {/* WIDGET DE LIMITE D'ABONNEMENT */}
-        <div className="mb-8">
-          <SubscriptionLimitWidget
-            title={t('limits.title')}
-            icon={
-              <div className="p-2 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 rounded-xl shadow-orange-md">
-                <CalendarDaysIcon className="h-5 w-5 text-white dark:text-gray-900" />
-              </div>
-            }
-            limitCheck={checkAppointmentLimit()}
-            planName={currentPlan}
-            resourceType="rendez-vous"
+      <StatGroup
+        items={[
+          { label: t('stats.total'), value: appointmentStats.total, hint: t('stats.all_appointments') },
+          { label: t('stats.scheduled'), value: appointmentStats.scheduled, hint: t('stats.awaiting_confirmation'), accent: appointmentStats.scheduled > 0 },
+          { label: t('stats.confirmed'), value: appointmentStats.confirmed, hint: t('stats.ready_to_perform') },
+          { label: t('stats.completed'), value: appointmentStats.completed, hint: t('stats.services_performed') },
+        ]}
+      />
+
+      {!showForm && (
+        <div className="mb-4 flex flex-wrap items-center gap-3">
+          <div className="relative w-full sm:w-72">
+            <MagnifyingGlassIcon className="pointer-events-none absolute start-3 top-1/2 size-4 -translate-y-1/2 text-gray-400" />
+            <input
+              type="search"
+              aria-label={t('search.placeholder')}
+              placeholder={t('search.placeholder')}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="field ps-9"
+            />
+          </div>
+          <select
+            aria-label={t('filters.all_status')}
+            value={selectedStatus}
+            onChange={(e) => setSelectedStatus(e.target.value as AppointmentStatus | 'all')}
+            className="field w-auto min-w-0 flex-1 sm:flex-none"
+          >
+            <option value="all">{t('filters.all_status')}</option>
+            <option value="scheduled">{t('status.scheduled')}</option>
+            <option value="confirmed">{t('status.confirmed')}</option>
+            <option value="completed">{t('status.completed')}</option>
+            <option value="cancelled">{t('status.cancelled')}</option>
+            <option value="noShow">{t('status.no_show')}</option>
+          </select>
+          <Segmented
+            className="sm:ms-auto"
+            value={viewMode}
+            onChange={setViewMode}
+            options={[
+              { value: 'list', label: <span className="max-sm:sr-only">{t('view_modes.list')}</span>, icon: ListBulletIcon },
+              { value: 'calendar', label: <span className="max-sm:sr-only">{t('view_modes.calendar')}</span>, icon: CalendarIcon },
+            ]}
           />
         </div>
+      )}
 
-        {/* STATISTIQUES - Design premium avec couleurs orange */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {/* Total */}
-          <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-gray-500 to-gray-600 dark:from-gray-600 dark:to-gray-700 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-orange-500/20 dark:border-orange-500/20 p-6 hover:shadow-orange-lg dark:hover:shadow-gray-lg transform hover:scale-105 transition-all duration-300">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('stats.total')}</p>
-                  <p className="text-3xl font-bold text-gray-900 dark:text-gray-100 mt-1">{appointmentStats.total}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('stats.all_appointments')}</p>
-                </div>
-                <div className="p-3 bg-gradient-to-r from-gray-500 to-gray-600 dark:from-gray-600 dark:to-gray-700 rounded-xl shadow-lg">
-                  <CalendarIcon className="h-6 w-6 text-white" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Planifiés */}
-          <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-orange-500/20 dark:border-orange-500/20 p-6 hover:shadow-orange-lg dark:hover:shadow-gray-lg transform hover:scale-105 transition-all duration-300">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('stats.scheduled')}</p>
-                  <p className="text-3xl font-bold text-orange-600 dark:text-orange-400 mt-1">{appointmentStats.scheduled}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('stats.awaiting_confirmation')}</p>
-                </div>
-                <div className="p-3 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 rounded-xl shadow-orange-md">
-                  <ClockIcon className="h-6 w-6 text-white dark:text-gray-900" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Confirmés */}
-          <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-600 dark:from-green-400 dark:to-emerald-500 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-orange-500/20 dark:border-orange-500/20 p-6 hover:shadow-orange-lg dark:hover:shadow-gray-lg transform hover:scale-105 transition-all duration-300">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('stats.confirmed')}</p>
-                  <p className="text-3xl font-bold text-green-600 dark:text-green-400 mt-1">{appointmentStats.confirmed}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('stats.ready_to_perform')}</p>
-                </div>
-                <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-600 dark:from-green-400 dark:to-emerald-500 rounded-xl shadow-lg">
-                  <CheckCircleIcon className="h-6 w-6 text-white dark:text-gray-900" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Terminés */}
-          <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 dark:from-orange-300 dark:to-orange-400 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-orange-500/20 dark:border-orange-500/20 p-6 hover:shadow-orange-lg dark:hover:shadow-gray-lg transform hover:scale-105 transition-all duration-300">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t('stats.completed')}</p>
-                  <p className="text-3xl font-bold text-orange-500 dark:text-orange-400 mt-1">{appointmentStats.completed}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('stats.services_performed')}</p>
-                </div>
-                <div className="p-3 bg-gradient-to-r from-orange-400 to-orange-500 dark:from-orange-300 dark:to-orange-400 rounded-xl shadow-orange-md">
-                  <SparklesIcon className="h-6 w-6 text-white dark:text-gray-900" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* FILTRES ET CONTRÔLES - Design sophistiqué */}
-        {!showForm && (
-          <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-md dark:shadow-gray-md border border-orange-500/20 dark:border-orange-500/20 p-6 mb-8 transition-colors duration-300">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-              
-              {/* Recherche et filtres */}
-              <div className="flex flex-wrap items-center gap-4">
-                {/* Barre de recherche */}
-                <div className="relative">
-                  <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
-                  <input
-                    type="text"
-                    placeholder={t('search.placeholder')}
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 pr-4 py-3 w-64 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400 focus:border-transparent transition-all duration-200 text-sm text-gray-900 dark:text-gray-100"
-                  />
-                </div>
-
-                {/* Filtre par statut */}
-                <div className="relative">
-                  <FunnelIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
-                  <select
-                    value={selectedStatus}
-                    onChange={(e) => setSelectedStatus(e.target.value as AppointmentStatus | 'all')}
-                    className="pl-10 pr-8 py-3 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400 focus:border-transparent transition-all duration-200 text-sm appearance-none cursor-pointer text-gray-900 dark:text-gray-100"
-                  >
-                    <option value="all">{t('filters.all_status')}</option>
-                    <option value="scheduled">{t('status.scheduled')}</option>
-                    <option value="confirmed">{t('status.confirmed')}</option>
-                    <option value="completed">{t('status.completed')}</option>
-                    <option value="cancelled">{t('status.cancelled')}</option>
-                    <option value="noShow">{t('status.no_show')}</option>
-                  </select>
-                </div>
-              </div>
-
-              {/* Sélecteur de vue */}
-              <div className="flex items-center bg-gray-100 dark:bg-gray-800 rounded-xl p-1 shadow-inner">
-                <button
-                  onClick={() => setViewMode('list')}
-                  className={`flex items-center px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
-                    viewMode === 'list'
-                      ? 'bg-white dark:bg-gray-700 text-orange-600 dark:text-orange-400 shadow-md'
-                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
-                  }`}
-                >
-                  <ListBulletIcon className="h-4 w-4 mr-2" />
-                  {t('view_modes.list')}
-                </button>
-                <button
-                  onClick={() => setViewMode('calendar')}
-                  className={`flex items-center px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
-                    viewMode === 'calendar'
-                      ? 'bg-white dark:bg-gray-700 text-orange-600 dark:text-orange-400 shadow-md'
-                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
-                  }`}
-                >
-                  <CalendarIcon className="h-4 w-4 mr-2" />
-                  {t('view_modes.calendar')}
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Contenu principal */}
-        <div ref={formRef} className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-lg dark:shadow-gray-lg border border-orange-500/20 dark:border-orange-500/20 p-6 min-h-[600px] transition-colors duration-300">
-          {showForm ? (
-            <div className="animate-fadeIn">
-              <AppointmentForm
-                initialData={editingAppointment ? {
-                  clientId: editingAppointment.clientId,
-                  serviceId: editingAppointment.serviceId,
-                  stylistId: editingAppointment.stylistId,
-                  date: editingAppointment.date,
-                  startTime: editingAppointment.startTime,
-                  serviceDuration: services.find(s => s.id === editingAppointment.serviceId)?.duration || 0,
-                  notes: editingAppointment.notes
-                } : undefined}
-                onSubmit={handleFormSubmit}
-                onCancel={handleFormCancel}
+      <div ref={formRef} className="scroll-mt-24">
+        {showForm ? (
+          <AppointmentForm
+            initialData={editingAppointment ? {
+              clientId: editingAppointment.clientId,
+              serviceId: editingAppointment.serviceId,
+              stylistId: editingAppointment.stylistId,
+              date: editingAppointment.date,
+              startTime: editingAppointment.startTime,
+              serviceDuration: services.find(s => s.id === editingAppointment.serviceId)?.duration || 0,
+              notes: editingAppointment.notes
+            } : undefined}
+            onSubmit={handleFormSubmit}
+            onCancel={handleFormCancel}
+          />
+        ) : viewMode === 'list' ? (
+          filteredAppointments.length === 0 ? (
+            <Panel>
+              <EmptyState
+                icon={CalendarDaysIcon}
+                title={t('empty_state.no_appointments')}
+                body={searchTerm || selectedStatus !== 'all' ? t('empty_state.modify_filters') : t('empty_state.create_first')}
+                action={!searchTerm && selectedStatus === 'all' && (
+                  <button type="button" onClick={handleAddClick} className="btn-primary">
+                    <PlusIcon className="size-4" />
+                    {t('empty_state.create_appointment')}
+                  </button>
+                )}
               />
-            </div>
+            </Panel>
           ) : (
-            <div className="animate-fadeIn">
-              {viewMode === 'list' ? (
-                filteredAppointments.length === 0 ? (
-                  <div className="text-center py-16">
-                    <CalendarDaysIcon className="h-16 w-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">{t('empty_state.no_appointments')}</h3>
-                    <p className="text-gray-500 dark:text-gray-400 mb-6">
-                      {searchTerm || selectedStatus !== 'all' 
-                        ? t('empty_state.modify_filters')
-                        : t('empty_state.create_first')
-                      }
-                    </p>
-                    {!searchTerm && selectedStatus === 'all' && (
-                      <button
-                        onClick={handleAddClick}
-                        className="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 hover:from-orange-600 hover:to-orange-700 dark:hover:from-orange-500 dark:hover:to-orange-600 text-white dark:text-gray-900 rounded-xl font-medium shadow-orange-lg hover:shadow-orange-xl transform hover:scale-105 transition-all duration-200"
-                      >
-                        <PlusIcon className="h-4 w-4 mr-2 inline" />
-                        {t('empty_state.create_appointment')}
-                      </button>
-                    )}
-                  </div>
-                ) : (
-                  <AppointmentList
-                    appointments={filteredAppointments}
-                    onEdit={handleEditClick}
-                    onCancel={handleCancelAppointment}
-                    onComplete={handleCompleteAppointment}
-                    onNoShow={handleNoShowAppointment}
-                    onConfirm={handleConfirmAppointment}
-                  />
-                )
-              ) : (
-                <CalendarView
-                  appointments={filteredAppointments}
-                  onEdit={handleEditClick}
-                />
-              )}
-            </div>
-          )}
-        </div>
+            <AppointmentList
+              appointments={filteredAppointments}
+              onEdit={handleEditClick}
+              onCancel={handleCancelAppointment}
+              onComplete={handleCompleteAppointment}
+              onNoShow={handleNoShowAppointment}
+              onConfirm={handleConfirmAppointment}
+            />
+          )
+        ) : (
+          <CalendarView
+            appointments={filteredAppointments}
+            onEdit={handleEditClick}
+          />
+        )}
       </div>
     </div>
   );

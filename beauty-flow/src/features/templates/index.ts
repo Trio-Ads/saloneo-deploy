@@ -1,46 +1,71 @@
 import { DesignTemplate } from './types';
-import { saloneoClassicTemplate } from './saloneo-classic';
-import { minimalScandinavianTemplate } from './minimal-scandinavian';
-import { urbanStreetArtTemplate } from './urban-street-art';
-import { botanicalSpaTemplate } from './botanical-spa';
-import { glamourHollywoodTemplate } from './glamour-hollywood';
-import { pastelKawaiiTemplate } from './pastel-kawaii';
-import { industrialChicTemplate } from './industrial-chic';
-import { vintageParisienTemplate } from './vintage-parisien';
-import { techFuturisteTemplate } from './tech-futuriste';
-import { modernSalon2025 } from './modern-salon-2025';
+import { collection2026, studio } from './collection';
 
-export const allTemplates: DesignTemplate[] = [
-  saloneoClassicTemplate, // Template par défaut en premier
-  modernSalon2025,
-  minimalScandinavianTemplate,
-  urbanStreetArtTemplate,
-  botanicalSpaTemplate,
-  glamourHollywoodTemplate,
-  pastelKawaiiTemplate,
-  industrialChicTemplate,
-  vintageParisienTemplate,
-  techFuturisteTemplate,
-];
+export const allTemplates: DesignTemplate[] = collection2026;
 
-export const getTemplateById = (id: string): DesignTemplate | undefined => {
-  return allTemplates.find(template => template.id === id);
+// Ids saved by salons before the 2026 collection.
+const legacyIds: Record<string, string> = {
+  'saloneo-classic': 'studio',
+  'modern-salon-2025': 'soleil',
+  'minimal-scandinavian': 'epure',
+  'urban-street-art': 'barber',
+  'botanical-spa': 'botanique',
+  'glamour-hollywood': 'noir',
+  'pastel-kawaii': 'onglerie',
+  'industrial-chic': 'barber',
+  'vintage-parisien': 'atelier',
+  'tech-futuriste': 'institut',
 };
 
-export const getTemplatesByCategory = (category: string): DesignTemplate[] => {
-  return allTemplates.filter(template => template.category === category);
+/** Always returns a template: legacy ids are mapped, unknown ids fall back to Studio. */
+export const getTemplateById = (id?: string | null): DesignTemplate => {
+  const key = (id && legacyIds[id]) || id;
+  return allTemplates.find(t => t.id === key) ?? studio;
 };
+
+type SavedColors = { primary?: string; secondary?: string; accent?: string; background?: string };
+const hex = (v?: string) => (v && /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(v) ? v : undefined);
+const dark = (h: string) => {
+  const f = h.length === 4 ? h.slice(1).split('').map(c => c + c).join('') : h.slice(1);
+  const [r, g, b] = [0, 2, 4].map(i => parseInt(f.slice(i, i + 2), 16) / 255);
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b < 0.45;
+};
+
+/**
+ * `template` with the salon's own colors ("Mon Interface → Couleurs") laid over its palette.
+ * The background is only taken when it keeps the template light or dark (its text colors depend on it).
+ */
+export function withSalonColors(template: DesignTemplate, saved?: SavedColors): DesignTemplate {
+  if (!saved) return template;
+  const c = template.theme.colors;
+  const bg = hex(saved.background);
+  return {
+    ...template,
+    theme: {
+      ...template.theme,
+      colors: {
+        ...c,
+        primary: hex(saved.primary) ?? c.primary,
+        secondary: hex(saved.secondary) ?? c.secondary,
+        accent: hex(saved.accent) ?? c.accent,
+        background: bg && dark(bg) === dark(c.background) ? bg : c.background,
+      },
+    },
+  };
+}
+
+/**
+ * The template a salon's public pages use, from its saved `profile.theme`.
+ * Colors saved under a pre-2026 template id belong to that old template, so they are not carried over.
+ */
+export function salonTemplate(theme?: SavedColors & { selectedTemplateId?: string }): DesignTemplate {
+  const template = getTemplateById(theme?.selectedTemplateId);
+  const legacy = theme?.selectedTemplateId && theme.selectedTemplateId !== template.id;
+  return legacy ? template : withSalonColors(template, theme);
+}
+
+export const getTemplatesByCategory = (category: string): DesignTemplate[] =>
+  allTemplates.filter(t => t.category === category);
 
 export * from './types';
-export { 
-  modernSalon2025,
-  saloneoClassicTemplate,
-  minimalScandinavianTemplate, 
-  urbanStreetArtTemplate,
-  botanicalSpaTemplate,
-  glamourHollywoodTemplate,
-  pastelKawaiiTemplate,
-  industrialChicTemplate,
-  vintageParisienTemplate,
-  techFuturisteTemplate
-};
+export * from './collection';

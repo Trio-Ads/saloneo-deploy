@@ -1,6 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import clsx from 'clsx';
+import {
+  HomeIcon,
+  CalendarDaysIcon,
+  UsersIcon,
+  ScissorsIcon,
+  CubeIcon,
+  UserGroupIcon,
+  ShieldCheckIcon,
+  Bars3Icon,
+  XMarkIcon,
+  SunIcon,
+  MoonIcon,
+} from '@heroicons/react/24/outline';
 import { useThemeColors } from '../hooks/useThemeColors';
 import { useClientStore } from '../features/clients/store';
 import { useServiceStore } from '../features/services/store';
@@ -11,69 +25,9 @@ import UserMenu from '../components/UserMenu';
 import NavbarLanguageSelector from '../components/NavbarLanguageSelector';
 import MobileBottomNav from '../components/MobileBottomNav';
 import SaloneoLogo from '../components/SaloneoLogo';
-import './MainLayout.css';
+import { IconButton } from '../components/ui';
 
-// Icons Saloneo 2025
-const MenuIcon = () => (
-  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-  </svg>
-);
-
-const CloseIcon = () => (
-  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-  </svg>
-);
-
-const DashboardIcon = () => (
-  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-  </svg>
-);
-
-const CalendarIcon = () => (
-  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-  </svg>
-);
-
-const UsersIcon = () => (
-  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
-  </svg>
-);
-
-const CogIcon = () => (
-  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-    <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-  </svg>
-);
-
-const CubeIcon = () => (
-  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-  </svg>
-);
-
-const CollectionIcon = () => (
-  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-  </svg>
-);
-
-const UserGroupIcon = () => (
-  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-  </svg>
-);
-
-const ShieldIcon = () => (
-  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-  </svg>
-);
+const MOBILE_QUERY = '(max-width: 768px)';
 
 const MainLayout: React.FC = () => {
   const location = useLocation();
@@ -82,467 +36,126 @@ const MainLayout: React.FC = () => {
   const user = useAuthStore((state) => state.user);
   const isAdmin = user?.isAdmin || user?.role === 'admin';
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia(MOBILE_QUERY).matches);
 
-  // Gérer le blocage du scroll du body quand le menu mobile est ouvert
-  useEffect(() => {
-    if (isOpen && !isMobile) {
-      document.body.style.overflow = 'hidden';
-      document.body.style.position = 'fixed';
-      document.body.style.width = '100%';
-    } else {
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width = '';
-    }
-
-    return () => {
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width = '';
-    };
-  }, [isOpen, isMobile]);
-
-  // Charger les stores au démarrage
   const fetchClients = useClientStore((state) => state.fetchClients);
   const fetchServices = useServiceStore((state) => state.fetchServices);
   const fetchMembers = useTeamStore((state) => state.fetchMembers);
   const loadAppointments = useAppointmentStore((state) => state.loadAppointments);
 
-  // Détecter le scroll pour l'effet navbar
+  // Phones get the bottom bar, tablets and desktops the top bar
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Détecter si on est sur mobile avec matchMedia (plus fiable)
-  useEffect(() => {
-    // Utiliser matchMedia pour synchroniser avec les breakpoints Tailwind
-    const mediaQuery = window.matchMedia('(max-width: 768px)');
-    
-    const handleMediaChange = (e: MediaQueryListEvent | MediaQueryList) => {
-      const newIsMobile = e.matches;
-      setIsMobile(newIsMobile);
-      console.log('📱 Device detection:', {
-        isMobile: newIsMobile,
-        width: window.innerWidth,
-        breakpoint: newIsMobile ? 'Mobile' : 'Tablette/Desktop'
-      });
-    };
-    
-    // Vérification initiale
-    handleMediaChange(mediaQuery);
-    
-    // Écouter les changements
+    const mediaQuery = window.matchMedia(MOBILE_QUERY);
+    const handleMediaChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
     mediaQuery.addEventListener('change', handleMediaChange);
-    
-    return () => {
-      mediaQuery.removeEventListener('change', handleMediaChange);
-    };
+    return () => mediaQuery.removeEventListener('change', handleMediaChange);
   }, []);
 
-  // Debug: Log quand isOpen change
-  useEffect(() => {
-    console.log('🔔 Menu state changed:', {
-      isOpen,
-      isMobile,
-      shouldShowMenu: isOpen && !isMobile
-    });
-  }, [isOpen, isMobile]);
+  // Close the tablet menu on navigation
+  useEffect(() => setIsOpen(false), [location.pathname]);
 
   // Charger toutes les données au démarrage
   useEffect(() => {
-    const loadAllData = async () => {
-      try {
-        console.log('🔄 Chargement des données au démarrage...');
-        
-        // Charger les données en parallèle
-        await Promise.all([
-          fetchClients(),
-          fetchServices(),
-          fetchMembers(),
-          loadAppointments()
-        ]);
-        
-        console.log('✅ Toutes les données chargées avec succès');
-      } catch (error) {
-        console.error('❌ Erreur lors du chargement des données:', error);
-      }
-    };
-
-    loadAllData();
+    Promise.all([fetchClients(), fetchServices(), fetchMembers(), loadAppointments()]).catch((error) =>
+      console.error('Erreur lors du chargement des données:', error)
+    );
   }, [fetchClients, fetchServices, fetchMembers, loadAppointments]);
 
   const navigation = [
-    { 
-      name: t('navigation.dashboard') || 'Dashboard', 
-      href: 'dashboard', 
-      icon: DashboardIcon,
-      color: 'from-orange-500 to-orange-600'
-    },
-    { 
-      name: t('navigation.appointments'), 
-      href: 'appointments', 
-      icon: CalendarIcon,
-      color: 'from-orange-500 to-orange-600'
-    },
-    { 
-      name: t('navigation.clients'), 
-      href: 'clients', 
-      icon: UsersIcon,
-      color: 'from-orange-500 to-orange-600'
-    },
-    { 
-      name: t('navigation.services'), 
-      href: 'services', 
-      icon: CogIcon,
-      color: 'from-orange-500 to-orange-600'
-    },
-    { 
-      name: t('navigation.products'), 
-      href: 'products', 
-      icon: CubeIcon,
-      color: 'from-orange-500 to-orange-600'
-    },
-    { 
-      name: t('navigation.team'), 
-      href: 'team', 
-      icon: UserGroupIcon,
-      color: 'from-orange-500 to-orange-600'
-    },
-    ...(isAdmin ? [{
-      name: t('navigation.admin') || 'Administration',
-      href: 'admin',
-      icon: ShieldIcon,
-      color: 'from-red-500 to-red-600'
-    }] : [])
+    { name: t('navigation.dashboard'), href: 'dashboard', icon: HomeIcon },
+    { name: t('navigation.appointments'), href: 'appointments', icon: CalendarDaysIcon },
+    { name: t('navigation.clients'), href: 'clients', icon: UsersIcon },
+    { name: t('navigation.services'), href: 'services', icon: ScissorsIcon },
+    { name: t('navigation.products'), href: 'products', icon: CubeIcon },
+    { name: t('navigation.team'), href: 'team', icon: UserGroupIcon },
+    ...(isAdmin ? [{ name: t('navigation.admin'), href: 'admin', icon: ShieldCheckIcon }] : []),
   ];
 
-  const isActiveRoute = (href: string) => {
-    return location.pathname === `/${href}` || 
-           (location.pathname === '/' && href === 'dashboard');
-  };
+  const isActiveRoute = (href: string) =>
+    location.pathname === `/${href}` || (location.pathname === '/' && href === 'dashboard');
+
+  const navItemClass = (active: boolean) =>
+    clsx(
+      'flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-150 ease-out',
+      active
+        ? 'bg-orange-50 text-orange-700 dark:bg-orange-500/10 dark:text-orange-400'
+        : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50'
+    );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-      {/* Navigation principale */}
-      <nav className={`
-        fixed top-0 left-0 right-0 z-50 transition-all duration-500
-        ${scrolled 
-          ? 'navbar-2025-scrolled backdrop-blur-xl bg-white/80 dark:bg-gray-900/80 shadow-glass-lg' 
-          : 'navbar-2025 backdrop-blur-sm bg-white/60 dark:bg-gray-900/60'
-        }
-      `}>
-        <div className="container-2025">
-          <div className="flex justify-between items-center h-20">
-            {/* Logo Saloneo */}
-            <div className="flex items-center space-x-4">
-              <Link 
-                to="/" 
-                className="flex items-center space-x-3 group transition-transform duration-300 hover:scale-105"
-              >
-                <SaloneoLogo variant="auto" size="md" />
-              </Link>
-            </div>
+    <div className="min-h-screen bg-gray-50 dark:bg-[#0F1419]">
+      <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
+        <div className="container-2025 flex h-16 items-center justify-between gap-4">
+          <Link to="/" className="shrink-0">
+            <SaloneoLogo variant="auto" size="sm" />
+          </Link>
 
-            {/* Navigation desktop - masquée sur mobile */}
+          {!isMobile && (
+            <div className="hidden lg:flex items-center gap-1 min-w-0">
+              {navigation.map((item) => {
+                const Icon = item.icon;
+                const active = isActiveRoute(item.href);
+                return (
+                  <Link key={item.href} to={item.href} className={navItemClass(active)} aria-current={active ? 'page' : undefined}>
+                    <Icon className="hidden xl:block size-4" />
+                    {item.name}
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+
+          <div className="flex items-center gap-1 shrink-0">
+            <IconButton label={t('navigation.toggle_theme')} onClick={toggleTheme}>
+              {currentTheme === 'dark' ? <SunIcon className="size-5" /> : <MoonIcon className="size-5" />}
+            </IconButton>
+            <NavbarLanguageSelector />
             {!isMobile && (
-              <div className="hidden lg:flex items-center space-x-2">
+              <>
+                <UserMenu />
+                <IconButton
+                  label={t('navigation.main_menu')}
+                  className="lg:hidden"
+                  aria-expanded={isOpen}
+                  onClick={() => setIsOpen(!isOpen)}
+                >
+                  {isOpen ? <XMarkIcon className="size-5" /> : <Bars3Icon className="size-5" />}
+                </IconButton>
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* Tablet menu: drops below the bar */}
+        {isOpen && !isMobile && (
+          <>
+            <div className="lg:hidden fixed inset-0 top-16 bg-gray-900/30" onClick={() => setIsOpen(false)} />
+            <div className="lg:hidden absolute inset-x-0 top-full border-b border-gray-200 bg-white px-4 py-3 shadow-[0_8px_16px_-8px_rgb(24_24_27/0.12)] animate-[menu-in_150ms_ease-out] dark:border-gray-800 dark:bg-gray-900">
+              <div className="grid grid-cols-2 gap-1">
                 {navigation.map((item) => {
                   const Icon = item.icon;
-                  const isActive = isActiveRoute(item.href);
-                  
+                  const active = isActiveRoute(item.href);
                   return (
-                    <Link
-                      key={item.href}
-                      to={item.href}
-                      className={`
-                        nav-item-2025 group relative
-                        ${isActive 
-                          ? 'nav-item-active text-white' 
-                          : 'nav-item-inactive text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
-                        }
-                      `}
-                    >
-                      <div className={`
-                        flex items-center space-x-2 px-4 py-3 rounded-2xl transition-all duration-300 transform hover:scale-105 active:scale-95
-                        ${isActive 
-                          ? `bg-gradient-to-r ${item.color} shadow-lg shadow-orange-500/25` 
-                          : 'hover:bg-orange-50 dark:hover:bg-orange-900/10 hover:shadow-md'
-                        }
-                      `}>
-                        <Icon />
-                        <span className="font-medium font-body text-sm">
-                          {item.name}
-                        </span>
-                      </div>
-                      
-                      {/* Indicateur actif */}
-                      {isActive && (
-                        <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-white rounded-full shadow-soft animate-bounce-gentle" />
-                      )}
+                    <Link key={item.href} to={item.href} className={clsx(navItemClass(active), 'min-h-11')}>
+                      <Icon className="size-5" />
+                      {item.name}
                     </Link>
                   );
                 })}
               </div>
-            )}
-
-            {/* Actions droite */}
-            <div className="flex items-center space-x-3">
-              {/* Bouton thème */}
-              <button
-                onClick={toggleTheme}
-                className="theme-toggle-2025 p-2.5 rounded-xl transition-all duration-300 hover:scale-105 active:scale-95"
-                aria-label="Basculer le thème"
-              >
-                {currentTheme === 'dark' ? (
-                  <svg className="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
-                  </svg>
-                ) : (
-                  <svg className="w-5 h-5 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                  </svg>
-                )}
-              </button>
-
-              {/* Sélecteur de langue */}
-              <div className="hidden lg:block">
-                <NavbarLanguageSelector />
-              </div>
-
-              {/* Menu utilisateur - masqué sur mobile car dans la bottom nav */}
-              {!isMobile && (
-                <div className="hidden lg:block">
-                  <UserMenu />
-                </div>
-              )}
-
-              {/* Bouton menu mobile/tablette */}
-              <button
-                type="button"
-                className="lg:hidden mobile-menu-btn-2025 p-2.5 rounded-xl transition-all duration-300 relative z-[100]"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  console.log('🍔 Hamburger clicked!', { currentState: isOpen, willBe: !isOpen });
-                  setIsOpen(!isOpen);
-                }}
-                aria-label="Menu principal"
-              >
-                {isOpen ? <CloseIcon /> : <MenuIcon />}
-              </button>
             </div>
-          </div>
-
-          {/* Menu mobile/tablette - descend depuis le haut sur tablette, monte depuis le bas sur mobile */}
-          {isOpen && (
-            <>
-              {/* Overlay sombre */}
-              <div 
-                className="lg:hidden fixed inset-0 bg-black/20 dark:bg-black/40 backdrop-blur-sm transition-opacity duration-300 z-[9998]"
-                onClick={() => setIsOpen(false)}
-              />
-              
-              {/* Menu content */}
-              <div className={`
-                lg:hidden fixed left-0 right-0 z-[9999] transition-all duration-300 ease-smooth
-                ${isMobile ? 'bottom-0' : 'top-20'}
-                animate-slide-in
-              `}
-              style={{ paddingBottom: isMobile ? 'calc(5rem + env(safe-area-inset-bottom))' : '0' }}
-              >
-                <div className={`mobile-menu-2025 py-4 space-y-2 max-h-[60vh] overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-orange-300 dark:scrollbar-thumb-orange-600 scrollbar-track-transparent mx-4 ${
-                  isMobile ? 'mb-4 rounded-t-2xl' : 'mt-0 rounded-b-2xl'
-                }`}>
-              {navigation.map((item) => {
-                const Icon = item.icon;
-                const isActive = isActiveRoute(item.href);
-                
-                return (
-                  <Link
-                    key={item.href}
-                    to={item.href}
-                    className={`
-                      mobile-nav-item-2025 flex items-center space-x-3 px-4 py-3 rounded-2xl transition-all duration-300 transform hover:scale-105 active:scale-95
-                      ${isActive 
-                        ? `bg-gradient-to-r ${item.color} text-white shadow-lg shadow-orange-500/25` 
-                        : 'text-gray-600 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/10 hover:shadow-md'
-                      }
-                    `}
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <Icon />
-                    <span className="font-medium font-body">
-                      {item.name}
-                    </span>
-                  </Link>
-                );
-              })}
-                </div>
-              </div>
-            </>
-          )}
-        </div>
+            <style>{'@keyframes menu-in{from{opacity:0;transform:translateY(-4px)}}'}</style>
+          </>
+        )}
       </nav>
 
-      {/* Contenu principal */}
-      <main 
-        className={`main-content-2025 pt-24 ${isMobile ? 'pb-20' : 'pb-8'}`}
-        style={isMobile ? { paddingBottom: 'calc(5rem + env(safe-area-inset-bottom))' } : undefined}
-      >
+      <main className={isMobile ? 'pb-[calc(4.5rem+env(safe-area-inset-bottom))]' : undefined}>
         <div className="container-2025">
-          <div className="animate-fade-in">
-            <Outlet />
-          </div>
+          <Outlet />
         </div>
       </main>
 
-      {/* Navigation mobile en bas */}
       {isMobile && <MobileBottomNav />}
-
-      {/* Styles CSS intégrés */}
-      <style dangerouslySetInnerHTML={{
-        __html: `
-          .logo-saloneo-2025 {
-            padding: 0.5rem;
-            background: linear-gradient(135deg, rgba(249, 115, 22, 0.1), rgba(234, 88, 12, 0.1));
-            border-radius: 1rem;
-            transition: all 0.3s ease;
-          }
-          
-          .logo-saloneo-2025:hover {
-            transform: scale(1.05);
-            background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(234, 88, 12, 0.2));
-          }
-
-          .navbar-2025 {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-          }
-
-          .navbar-2025-scrolled {
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-          }
-
-          .nav-item-2025 {
-            position: relative;
-            transition: all 0.3s ease;
-          }
-
-          .nav-item-2025:hover {
-            transform: translateY(-1px);
-          }
-
-          .theme-toggle-2025 {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-          }
-
-          .theme-toggle-2025:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.05);
-          }
-
-          .mobile-menu-btn-2025 {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            color: #374151;
-          }
-
-          .dark .mobile-menu-btn-2025 {
-            color: #D1D5DB;
-          }
-
-          .mobile-menu-2025 {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 1rem;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            margin: 0 1rem;
-            -webkit-overflow-scrolling: touch;
-            overscroll-behavior: contain;
-          }
-
-          .dark .mobile-menu-2025 {
-            background: rgba(17, 24, 39, 0.95);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-          }
-
-          /* Forcer le défilement vertical sur mobile */
-          @media (max-width: 1024px) {
-            .mobile-menu-2025 {
-              /* Forcer le défilement vertical uniquement */
-              overflow-y: scroll !important;
-              overflow-x: hidden !important;
-              -webkit-overflow-scrolling: touch !important;
-              overscroll-behavior-y: contain !important;
-              overscroll-behavior-x: none !important;
-              
-              /* Empêcher le contenu de déborder horizontalement */
-              width: 100% !important;
-              max-width: calc(100vw - 2rem) !important;
-            }
-
-            /* Empêcher les éléments enfants de déborder */
-            .mobile-menu-2025 > * {
-              max-width: 100% !important;
-              overflow-x: hidden !important;
-            }
-
-            .mobile-nav-item-2025 {
-              width: 100% !important;
-              max-width: 100% !important;
-              overflow: hidden !important;
-              text-overflow: ellipsis !important;
-              white-space: nowrap !important;
-            }
-
-            .mobile-menu-2025::-webkit-scrollbar {
-              width: 4px;
-            }
-
-            .mobile-menu-2025::-webkit-scrollbar-track {
-              background: transparent;
-            }
-
-            .mobile-menu-2025::-webkit-scrollbar-thumb {
-              background: rgba(0, 0, 0, 0.2);
-              border-radius: 2px;
-            }
-
-            .dark .mobile-menu-2025::-webkit-scrollbar-thumb {
-              background: rgba(255, 255, 255, 0.2);
-            }
-
-            /* Support pour iOS */
-            .mobile-menu-2025 {
-              scrollbar-width: thin;
-              scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
-            }
-
-            .dark .mobile-menu-2025 {
-              scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
-            }
-          }
-
-          .main-content-2025 {
-            min-height: calc(100vh - 5rem);
-          }
-
-          @media (max-width: 640px) {
-            .container-2025 {
-              padding-left: 1rem;
-              padding-right: 1rem;
-            }
-          }
-        `
-      }} />
     </div>
   );
 };

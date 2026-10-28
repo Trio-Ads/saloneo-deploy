@@ -160,7 +160,7 @@
   "team_member_form": {
     "title_new": "عضو جديد",
     "title_edit": "تعديل العضو",
-    "subtitle": "أضف عضواً جديداً إلى فريق الجمال الخاص بك",
+    "subtitle": "معلومات الاتصال والخدمات وساعات العمل.",
     "sections": {
       "personal_info": "المعلومات الشخصية",
       "specialties": "التخصصات",
@@ -194,8 +194,9 @@
       "to": "إلى:"
     },
     "help_messages": {
-      "specialties_help": "اضغط مع الاستمرار على Ctrl/Cmd لاختيار تخصصات متعددة",
-      "order_help": "ترتيب الاختيار يحدد أولوية العرض"
+      "specialties_help": "حدّد الخدمات التي يقدّمها هذا العضو.",
+      "order_help": "ترتيب الاختيار يحدد ترتيب العرض.",
+      "no_services": "أضف خدمات أولًا لتتمكن من تعيينها."
     },
     "buttons": {
       "cancel": "إلغاء",
@@ -225,20 +226,21 @@
       "average": "المتوسط",
       "active": "نشط",
       "services": "خدمة/خدمات",
-      "level_of": "المستوى {{level}}/5"
+      "level_of": "المستوى {{level}}/5",
+      "variable_hours": "ساعات متغيرة"
     },
     "tooltips": {
       "edit_member": "تعديل العضو",
       "delete_member": "حذف العضو"
     },
     "days_short": {
-      "monday": "الاثنين",
-      "tuesday": "الثلاثاء",
-      "wednesday": "الأربعاء",
-      "thursday": "الخميس",
-      "friday": "الجمعة",
-      "saturday": "السبت",
-      "sunday": "الأحد"
+      "monday": "ن",
+      "tuesday": "ث",
+      "wednesday": "ر",
+      "thursday": "خ",
+      "friday": "ج",
+      "saturday": "س",
+      "sunday": "ح"
     }
   }
 }

@@ -42,7 +42,7 @@
     "title": "Quick Actions",
     "new_appointment": "New Appointment",
     "new_appointment_desc": "Schedule an appointment",
-    "new_client": "New Client",
+    "new_client": "New client",
     "new_client_desc": "Add a client",
     "calendar": "Calendar",
     "calendar_desc": "View calendar",
@@ -145,7 +145,7 @@
         "high_cancellation_title": "High Cancellation Rate",
         "high_cancellation_desc": "{{rate}}% cancellations this month. Consider sending SMS reminders.",
         "top_service_title": "Most Profitable Service",
-        "top_service_desc": "\"{{service}}\" generates €{{revenue}} in revenue. Consider promoting it.",
+        "top_service_desc": "\"{{service}}\" generates {{revenue}} in revenue. Consider promoting it.",
         "loyal_clients_title": "Loyal Clients",
         "loyal_clients_desc": "{{rate}}% of your clients have over 50 loyalty points. Create a rewards program.",
         "popular_slot_title": "Most Popular Time Slot",
@@ -156,7 +156,7 @@
     },
     "revenue_chart": {
       "title": "Revenue Evolution",
-      "tooltip": "€{{value}}"
+      "tooltip": "{{value}}"
     },
     "service_popularity": {
       "no_data": "No data available",

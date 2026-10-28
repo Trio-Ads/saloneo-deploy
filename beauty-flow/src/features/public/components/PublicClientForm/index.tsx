@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { useInterfaceStore } from '../../../interface/store';
+import { useTranslation } from 'react-i18next';
 import { useServiceStore } from '../../../services/store';
 import { PublicClientFormData, PublicService } from '../../types';
-import { useTemplateStyles } from '../../../../hooks/useTemplateStyles';
 import PersonalInfoSection from './PersonalInfoSection';
 import HairQuestionnaireSection from './HairQuestionnaireSection';
 import SkinQuestionnaireSection from './SkinQuestionnaireSection';
@@ -12,16 +11,17 @@ interface PublicClientFormProps {
   serviceId: string;
   publicService?: PublicService;
   onSubmit: (data: PublicClientFormData) => void;
-  onBack: () => void;
+  /** id of the <form>, so a submit button outside it (sheet footer) can use form={formId} */
+  formId?: string;
 }
 
 const PublicClientForm: React.FC<PublicClientFormProps> = ({
   serviceId,
   publicService,
   onSubmit,
-  onBack,
+  formId = 'bk-client-form',
 }) => {
-  const settings = useInterfaceStore((state) => state.settings);
+  const { t } = useTranslation('public');
   const serviceFromStore = useServiceStore((state) =>
     state.services.find(s => s.id === serviceId)
   );
@@ -68,18 +68,17 @@ const PublicClientForm: React.FC<PublicClientFormProps> = ({
     const newErrors: Record<string, string> = {};
 
     // Validation des champs obligatoires
-    if (!formData.firstName) newErrors.firstName = 'Le prénom est requis';
-    if (!formData.lastName) newErrors.lastName = 'Le nom est requis';
+    if (!formData.firstName.trim()) newErrors.firstName = t('booking.form.errors.first_name');
+    if (!formData.lastName.trim()) newErrors.lastName = t('booking.form.errors.last_name');
     if (!formData.email) {
-      newErrors.email = 'L\'email est requis';
+      newErrors.email = t('booking.form.errors.email_required');
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'L\'email n\'est pas valide';
+      newErrors.email = t('booking.form.errors.email_invalid');
     }
     if (!formData.phone) {
-      newErrors.phone = 'Le téléphone est requis';
-    } else if (formData.phone.length < 8) {
-      // Validation minimale : au moins 8 chiffres (sans compter les espaces, +, etc.)
-      newErrors.phone = 'Le numéro de téléphone n\'est pas valide';
+      newErrors.phone = t('booking.form.errors.phone_required');
+    } else if (formData.phone.replace(/\D/g, '').length < 8) {
+      newErrors.phone = t('booking.form.errors.phone_invalid');
     }
 
     setErrors(newErrors);
@@ -90,6 +89,9 @@ const PublicClientForm: React.FC<PublicClientFormProps> = ({
     e.preventDefault();
     if (validateForm()) {
       onSubmit(formData);
+    } else {
+      // Bring the first invalid field into view on small screens
+      requestAnimationFrame(() => (e.target as HTMLFormElement).querySelector<HTMLElement>('input[aria-invalid="true"], .is-invalid input')?.focus());
     }
   };
 
@@ -140,105 +142,75 @@ const PublicClientForm: React.FC<PublicClientFormProps> = ({
     }));
   };
 
-  const { colors } = useTemplateStyles();
-
   if (!service) return null;
 
+  const chevron = (
+    <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
+    </svg>
+  );
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
-      <div 
-        className="p-6 rounded-xl animate-fade-in transition-all duration-300"
-        style={{
-          backgroundColor: `${colors.surface}`,
-          border: `2px solid ${colors.primary}20`,
-          boxShadow: `0 4px 20px ${colors.primary}10`
+    <form id={formId} onSubmit={handleSubmit} noValidate className="space-y-6">
+      <PersonalInfoSection
+        values={{
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
         }}
-      >
-        <PersonalInfoSection
-          values={{
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-            email: formData.email,
-            phone: formData.phone,
-            birthDate: formData.birthDate,
-            address: formData.address,
-          }}
-          onChange={handlePersonalInfoChange}
-          errors={errors}
-        />
+        onChange={handlePersonalInfoChange}
+        errors={errors}
+      />
+
+      <div className="space-y-3">
+        <details className="bk-details">
+          <summary>{t('booking.form.more_info')}{chevron}</summary>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="bk-birthDate" className="bk-label">{t('booking.form.birth_date')}</label>
+              <input id="bk-birthDate" type="date" className="bk-field" value={formData.birthDate || ''}
+                onChange={(e) => handlePersonalInfoChange('birthDate', e.target.value)} />
+            </div>
+            <div>
+              <label htmlFor="bk-address" className="bk-label">{t('booking.form.address')}</label>
+              <input id="bk-address" type="text" autoComplete="street-address" className="bk-field" value={formData.address || ''}
+                onChange={(e) => handlePersonalInfoChange('address', e.target.value)} />
+            </div>
+          </div>
+        </details>
+
+        {service.category.toLowerCase().includes('cheveux') && formData.hairQuestionnaire && (
+          <details className="bk-details">
+            <summary>{t('booking.form.hair_questionnaire')}{chevron}</summary>
+            <div>
+              <HairQuestionnaireSection values={formData.hairQuestionnaire as any} onChange={handleHairQuestionnaireChange} />
+            </div>
+          </details>
+        )}
+
+        {service.category.toLowerCase().includes('soin') && formData.skinQuestionnaire && (
+          <details className="bk-details">
+            <summary>{t('booking.form.skin_questionnaire')}{chevron}</summary>
+            <div>
+              <SkinQuestionnaireSection values={formData.skinQuestionnaire as any} onChange={handleSkinQuestionnaireChange} />
+            </div>
+          </details>
+        )}
+
+        <details className="bk-details">
+          <summary>{t('booking.form.preferences')}{chevron}</summary>
+          <div>
+            <PreferencesSection values={formData.preferences.communicationPreferences} onChange={handlePreferencesChange} />
+          </div>
+        </details>
       </div>
 
-      {service.category.toLowerCase().includes('cheveux') && formData.hairQuestionnaire && (
-        <div 
-          className="p-6 rounded-xl animate-fade-in transition-all duration-300"
-          style={{
-            backgroundColor: `${colors.surface}`,
-            border: `2px solid ${colors.primary}20`,
-            boxShadow: `0 4px 20px ${colors.primary}10`
-          }}
-        >
-          <HairQuestionnaireSection
-            values={formData.hairQuestionnaire as any}
-            onChange={handleHairQuestionnaireChange}
-          />
-        </div>
-      )}
-
-      {service.category.toLowerCase().includes('soin') && formData.skinQuestionnaire && (
-        <div 
-          className="p-6 rounded-xl animate-fade-in transition-all duration-300"
-          style={{
-            backgroundColor: `${colors.surface}`,
-            border: `2px solid ${colors.primary}20`,
-            boxShadow: `0 4px 20px ${colors.primary}10`
-          }}
-        >
-          <SkinQuestionnaireSection
-            values={formData.skinQuestionnaire as any}
-            onChange={handleSkinQuestionnaireChange}
-          />
-        </div>
-      )}
-
-      <div 
-        className="p-6 rounded-xl animate-fade-in transition-all duration-300"
-        style={{
-          backgroundColor: `${colors.surface}`,
-          border: `2px solid ${colors.primary}20`,
-          boxShadow: `0 4px 20px ${colors.primary}10`
-        }}
-      >
-        <PreferencesSection
-          values={formData.preferences.communicationPreferences}
-          onChange={handlePreferencesChange}
-        />
-      </div>
-
-      <div className="flex justify-between pt-6">
-        <button
-          type="button"
-          onClick={onBack}
-          className="px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105"
-          style={{
-            backgroundColor: `${colors.surface}`,
-            color: colors.textSecondary,
-            border: `2px solid ${colors.primary}40`,
-            boxShadow: `0 2px 8px ${colors.primary}10`
-          }}
-        >
-          Retour
-        </button>
-
-        <button
-          type="submit"
-          className="px-8 py-3 rounded-lg font-medium text-white transform transition-all duration-300 hover:scale-105"
-          style={{
-            backgroundImage: `linear-gradient(to right, ${colors.primary}, ${colors.primaryDark})`,
-            boxShadow: `0 4px 20px ${colors.primary}40`
-          }}
-        >
-          Continuer
-        </button>
+      <div>
+        <label htmlFor="bk-notes" className="bk-label">{t('booking.form.notes')}</label>
+        <textarea id="bk-notes" rows={3} maxLength={500} className="bk-field resize-none"
+          placeholder={t('booking.form.notes_placeholder')}
+          value={formData.notes || ''} onChange={(e) => handlePersonalInfoChange('notes', e.target.value)} />
       </div>
     </form>
   );

@@ -96,20 +96,20 @@ module.exports = {
       },
       boxShadow: {
         // Ombres Orange
-        'orange-sm': '0 2px 8px rgba(249, 115, 22, 0.1)',
-        'orange-md': '0 4px 16px rgba(249, 115, 22, 0.15)',
-        'orange-lg': '0 8px 32px rgba(249, 115, 22, 0.2)',
-        'orange-xl': '0 12px 48px rgba(249, 115, 22, 0.25)',
+        'orange-sm': '0 1px 2px rgba(24, 24, 27, 0.04)',
+        'orange-md': '0 1px 2px rgba(24, 24, 27, 0.04), 0 1px 3px rgba(24, 24, 27, 0.05)',
+        'orange-lg': '0 1px 2px rgba(24, 24, 27, 0.04), 0 2px 6px rgba(24, 24, 27, 0.05)',
+        'orange-xl': '0 1px 2px rgba(24, 24, 27, 0.06), 0 4px 10px rgba(24, 24, 27, 0.06)',
         // Glassmorphism
-        'glass': '0 8px 32px rgba(249, 115, 22, 0.12)',
-        'glass-sm': '0 4px 16px rgba(249, 115, 22, 0.08)',
-        'glass-lg': '0 12px 40px rgba(249, 115, 22, 0.18)',
-        'glass-xl': '0 16px 48px rgba(249, 115, 22, 0.22)',
+        'glass': '0 1px 2px rgba(24, 24, 27, 0.04)',
+        'glass-sm': '0 1px 2px rgba(24, 24, 27, 0.04)',
+        'glass-lg': '0 2px 6px rgba(24, 24, 27, 0.05)',
+        'glass-xl': '0 12px 32px -8px rgba(24, 24, 27, 0.18)',
         'inner-glass': 'inset 0 2px 4px 0 rgba(255, 255, 255, 0.05), inset 0 -1px 2px 0 rgba(0, 0, 0, 0.05)',
         // Glow Orange
-        'glow': '0 0 20px rgba(249, 115, 22, 0.3)',
-        'glow-md': '0 0 30px rgba(249, 115, 22, 0.4)',
-        'glow-lg': '0 0 40px rgba(249, 115, 22, 0.5)',
+        'glow': '0 1px 2px rgba(24, 24, 27, 0.06)',
+        'glow-md': '0 1px 2px rgba(24, 24, 27, 0.06)',
+        'glow-lg': '0 2px 6px rgba(24, 24, 27, 0.08)',
         // Ombres standards
         'soft': '0 4px 20px rgba(0, 0, 0, 0.08)',
         'medium': '0 8px 30px rgba(0, 0, 0, 0.12)',

@@ -52,13 +52,13 @@ const mapUserFromAPI = (apiUser: any): UserProfile => {
       'EGP': { code: 'EGP', symbol: 'ج.م', name: 'Egyptian Pound' },
       'MAD': { code: 'MAD', symbol: 'د.م.', name: 'Moroccan Dirham' },
       'TND': { code: 'TND', symbol: 'د.ت', name: 'Tunisian Dinar' },
-      'DZD': { code: 'DZD', symbol: 'د.ج', name: 'Algerian Dinar' },
+      'DZD': { code: 'DZD', symbol: 'DA', name: 'Algerian Dinar' },
       'LYD': { code: 'LYD', symbol: 'ل.د', name: 'Libyan Dinar' },
     };
-    return currencies[currencyCode] || currencies['EUR'];
+    return currencies[currencyCode] || currencies['DZD'];
   };
 
-  const currencyCode = apiUser.settings?.currency || 'EUR';
+  const currencyCode = apiUser.settings?.currency || 'DZD';
   const currencyObject = typeof currencyCode === 'string' 
     ? getCurrencyObject(currencyCode)
     : currencyCode;
@@ -142,6 +142,8 @@ export const useAuthStore = create<AuthStore>()(
           const response = await authAPI.register({
             email: data.email,
             password: data.password,
+            firstName: data.firstName,
+            lastName: data.lastName,
             establishmentName: data.establishmentName,
             phone: data.phone,
             address: data.address
@@ -206,7 +208,7 @@ export const useAuthStore = create<AuthStore>()(
           establishmentName: '',
           address: '',
           language: 'fr',
-          currency: { code: 'EUR', symbol: '€', name: 'Euro' },
+          currency: { code: 'DZD', symbol: 'DA', name: 'Dinar algérien' },
           publicLink: ''
         });
         

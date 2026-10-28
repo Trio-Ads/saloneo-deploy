@@ -1,158 +1,105 @@
-import React, { useState, useEffect } from 'react';
-import { DesignTemplate } from '../../templates/types';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { addMinutes, format } from 'date-fns';
+import { CalendarDaysIcon, CheckIcon, ClipboardDocumentIcon } from '@heroicons/react/24/outline';
+import { dateLocale } from './bookingTheme';
 
-export function BookingConfirmation({ template, bookingInfo, onClose }: {
-  template: DesignTemplate;
-  bookingInfo: { date: string; time: string; serviceName: string; stylistName?: string; price?: number; modificationLink: string };
-  onClose: () => void;
-}) {
-  const { colors, typography } = template.theme;
+export interface BookingConfirmationInfo {
+  date: string; // yyyy-MM-dd
+  time: string; // HH:mm
+  duration?: number;
+  serviceName: string;
+  stylistName?: string;
+  priceLabel?: string;
+  salonName?: string;
+  address?: string;
+  modificationUrl: string;
+}
+
+const icsText = (s: string) => s.replace(/[\\,;]/g, (c) => `\\${c}`).replace(/\n/g, '\\n');
+
+/** Client-side .ics so the client can drop the appointment in their own calendar. */
+function downloadIcs(info: BookingConfirmationInfo) {
+  const start = new Date(`${info.date}T${info.time}`);
+  const end = addMinutes(start, info.duration || 60);
+  const stamp = (d: Date) => format(d, "yyyyMMdd'T'HHmmss");
+  const lines = [
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Saloneo//Booking//FR', 'BEGIN:VEVENT',
+    `UID:${info.modificationUrl.split('/').pop()}@saloneo`,
+    `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z`,
+    `DTSTART:${stamp(start)}`, `DTEND:${stamp(end)}`,
+    `SUMMARY:${icsText([info.serviceName, info.salonName].filter(Boolean).join(' · '))}`,
+    info.address ? `LOCATION:${icsText(info.address)}` : '',
+    `URL:${info.modificationUrl}`,
+    `DESCRIPTION:${icsText(info.modificationUrl)}`,
+    'END:VEVENT', 'END:VCALENDAR',
+  ].filter(Boolean);
+  const url = URL.createObjectURL(new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' }));
+  const a = Object.assign(document.createElement('a'), { href: url, download: 'rendez-vous.ics' });
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+/** Step 3 body. Rendered inside the booking sheet (`.bk` root). */
+export function BookingConfirmation({ bookingInfo }: { bookingInfo: BookingConfirmationInfo }) {
+  const { t, i18n } = useTranslation('public');
   const [copied, setCopied] = useState(false);
-  const [visible, setVisible] = useState(false);
-
-  // Trigger entry animation on mount (double-RAF ensures paint happens before transition)
-  useEffect(() => {
-    let id1: number;
-    const id2 = requestAnimationFrame(() => {
-      id1 = requestAnimationFrame(() => setVisible(true));
-    });
-    return () => { cancelAnimationFrame(id2); cancelAnimationFrame(id1); };
-  }, []);
+  const day = new Date(`${bookingInfo.date}T00:00`);
 
   const copyLink = async () => {
     try {
-      await navigator.clipboard.writeText(bookingInfo.modificationLink);
+      await navigator.clipboard.writeText(bookingInfo.modificationUrl);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // Clipboard API unavailable (non-HTTPS or older browser) — no-op
+      // Clipboard unavailable (non-HTTPS): the link stays selectable below
     }
   };
 
   return (
-    <div
-      style={{
-        background: colors.background,
-        fontFamily: typography.bodyFont,
-        transition: 'opacity 0.3s ease, transform 0.3s ease',
-        opacity: visible ? 1 : 0,
-        transform: visible ? 'translateY(0)' : 'translateY(8px)',
-      }}
-      className="pb-6"
-    >
-      {/* Success icon */}
-      <div className="flex justify-center pt-7 pb-5">
-        <div
-          className="w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl font-black shadow-lg"
-          style={{
-            background: colors.primary,
-            boxShadow: `0 6px 24px ${colors.primary}55`,
-          }}
-        >
-          ✓
-        </div>
-      </div>
-
-      {/* Title */}
-      <div className="text-center px-5 mb-5">
-        <h2
-          className="text-lg font-extrabold tracking-tight"
-          style={{ color: colors.text, fontFamily: typography.headingFont }}
-        >
-          Réservation confirmée !
-        </h2>
-        <p className="text-sm mt-1" style={{ color: colors.textSecondary }}>
-          Un email de confirmation vous a été envoyé
-        </p>
-      </div>
-
-      {/* RDV card */}
-      <div
-        className="mx-4 rounded-xl overflow-hidden"
-        style={{ border: `1px solid ${colors.surface}` }}
-      >
-        {/* Primary-colored header band */}
-        <div
-          className="px-4 py-3"
-          style={{ background: colors.primary }}
-        >
-          <p className="text-white/80 text-xs font-semibold uppercase tracking-widest mb-0.5">
-            Votre rendez-vous
+    <div className="space-y-5">
+      <div className="bk-card">
+        <div className="bk-card-head">
+          <p className="text-sm opacity-80 first-letter:uppercase">
+            {format(day, 'EEEE d MMMM yyyy', { locale: dateLocale(i18n.language) })}
           </p>
-          <p className="text-white text-2xl font-extrabold leading-none" style={{ fontFamily: typography.headingFont }}>
+          <p className="bk-num text-4xl font-semibold leading-tight mt-1" style={{ fontFamily: 'var(--bk-heading)' }}>
             {bookingInfo.time}
           </p>
-          <p className="text-white/75 text-sm mt-1 capitalize">{bookingInfo.date}</p>
         </div>
-
-        {/* Details rows */}
-        <div
-          className="px-4 py-3 flex flex-col gap-2.5"
-          style={{ background: colors.background }}
-        >
-          <div className="flex items-center justify-between">
-            <span className="text-xs" style={{ color: colors.textSecondary }}>Service</span>
-            <span className="text-xs font-bold" style={{ color: colors.text }}>{bookingInfo.serviceName}</span>
+        <div className="bk-row"><span>{t('booking.summary.service')}</span><span>{bookingInfo.serviceName}</span></div>
+        {bookingInfo.stylistName && (
+          <div className="bk-row"><span>{t('booking.summary.with')}</span><span>{bookingInfo.stylistName}</span></div>
+        )}
+        {bookingInfo.priceLabel && (
+          <div className="bk-row"><span>{t('booking.summary.price')}</span><span className="bk-num">{bookingInfo.priceLabel}</span></div>
+        )}
+        {(bookingInfo.salonName || bookingInfo.address) && (
+          <div className="bk-row">
+            <span>{t('booking.summary.where')}</span>
+            <span>{[bookingInfo.salonName, bookingInfo.address].filter(Boolean).join(', ')}</span>
           </div>
-          {bookingInfo.stylistName && (
-            <div className="flex items-center justify-between">
-              <span className="text-xs" style={{ color: colors.textSecondary }}>Avec</span>
-              <span className="text-xs font-bold" style={{ color: colors.text }}>{bookingInfo.stylistName}</span>
-            </div>
-          )}
-          {bookingInfo.price != null && bookingInfo.price > 0 && (
-            <div className="flex items-center justify-between">
-              <span className="text-xs" style={{ color: colors.textSecondary }}>Total</span>
-              <span className="text-xs font-bold" style={{ color: colors.primary }}>{bookingInfo.price} €</span>
-            </div>
-          )}
-        </div>
+        )}
       </div>
 
-      {/* Modification link */}
-      <div
-        className="mx-4 mt-3 p-3 rounded-xl"
-        style={{ background: colors.surface }}
-      >
-        <p className="text-xs font-bold mb-2" style={{ color: colors.text }}>
-          🔗 Lien de modification
-        </p>
-        <div
-          className="flex items-center gap-2 p-2 rounded-lg"
-          style={{ background: colors.background }}
-        >
-          <span
-            className="text-xs font-mono truncate flex-1"
-            style={{ color: colors.primary }}
-          >
-            {bookingInfo.modificationLink}
-          </span>
-          <button
-            onClick={copyLink}
-            className="flex-shrink-0 text-base leading-none transition-transform duration-150 active:scale-90"
-            style={{ color: colors.primary }}
-            title="Copier le lien"
-          >
-            {copied ? '✓' : '⎘'}
+      <button type="button" className="bk-btn-ghost w-full" onClick={() => downloadIcs(bookingInfo)}>
+        <CalendarDaysIcon className="h-5 w-5" />
+        {t('booking.confirm.add_calendar')}
+      </button>
+
+      <div>
+        <p className="bk-label">{t('booking.confirm.manage_link')}</p>
+        <div className="bk-field flex items-center gap-2 !py-0 !pe-1">
+          <span className="flex-1 min-w-0 truncate text-sm select-all">{bookingInfo.modificationUrl}</span>
+          <button type="button" className="bk-icon-btn" onClick={copyLink}
+            aria-label={copied ? t('booking.confirm.copied') : t('booking.confirm.copy')}>
+            {copied ? <CheckIcon className="h-5 w-5" /> : <ClipboardDocumentIcon className="h-5 w-5" />}
           </button>
         </div>
-        <p className="text-[10px] mt-1.5 flex gap-1" style={{ color: '#f59e0b' }}>
-          <span>⚠</span> Conservez ce lien pour modifier ou annuler votre rendez-vous
+        <p className="bk-muted text-xs mt-2" aria-live="polite">
+          {copied ? t('booking.confirm.copied') : t('booking.confirm.manage_hint')}
         </p>
       </div>
-
-      {/* Close button */}
-      <button
-        onClick={onClose}
-        className="mx-4 mt-4 w-[calc(100%-2rem)] py-3 font-bold text-sm rounded-xl transition-opacity hover:opacity-90 active:opacity-75"
-        style={{
-          background: colors.text,
-          color: colors.background,
-        }}
-      >
-        Parfait ! Fermer
-      </button>
     </div>
   );
 }
-

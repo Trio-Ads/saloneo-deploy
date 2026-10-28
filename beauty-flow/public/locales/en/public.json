@@ -1,5 +1,91 @@
 {
+  "manage": {
+    "title": "My appointment",
+    "invalid_link": "Link not found",
+    "invalid_link_body": "This link is invalid, expired, or the appointment was cancelled.",
+    "back_to_salon": "Back to the salon page",
+    "status_label": "Status",
+    "status": {
+      "scheduled": "Scheduled",
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "rescheduled": "Rescheduled",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "no_show": "No-show"
+    },
+    "modify": "Change time",
+    "cancel": "Cancel appointment",
+    "new_slot": "Pick a new time",
+    "confirm_new_slot": "Confirm this time",
+    "modified": "Your appointment has been moved.",
+    "modify_error": "This appointment couldn't be changed. Pick another time or contact the salon.",
+    "cancel_title": "Cancel this appointment?",
+    "cancel_body": "The salon will be notified and the slot released.",
+    "cancel_reason": "Reason (optional)",
+    "cancel_reason_placeholder": "E.g. something came up",
+    "keep": "Keep my appointment",
+    "confirm_cancel": "Yes, cancel",
+    "cancelled": "Your appointment has been cancelled.",
+    "cancel_error": "The cancellation didn't go through. Try again or contact the salon.",
+    "book_again": "Book again"
+  },
+  "list": {
+    "invalid_search": "Incomplete search: enter an email, a phone number or your full name.",
+    "search_error": "The search didn't go through. Try again in a moment.",
+    "empty_body": "No upcoming appointment matches these details.",
+    "book_new": "Book an appointment"
+  },
   "booking": {
+    "stepper": {
+      "label": "Booking steps",
+      "slot": "Time",
+      "info": "Your details",
+      "done": "Confirmed"
+    },
+    "summary": {
+      "service": "Service",
+      "with": "With",
+      "price": "Price",
+      "where": "Address",
+      "duration": "Duration"
+    },
+    "confirm": {
+      "title": "You're booked",
+      "add_calendar": "Add to calendar",
+      "manage_link": "Link to change or cancel",
+      "copy": "Copy link",
+      "copied": "Link copied",
+      "manage_hint": "Keep this link: it lets you change or cancel your appointment. It was also sent to you by email.",
+      "close": "Close"
+    },
+    "form": {
+      "first_name": "First name",
+      "last_name": "Last name",
+      "phone": "Phone",
+      "email": "Email",
+      "email_placeholder": "you@example.com",
+      "more_info": "Birth date and address (optional)",
+      "birth_date": "Birth date",
+      "address": "Address",
+      "hair_questionnaire": "Hair questionnaire (optional)",
+      "skin_questionnaire": "Skin questionnaire (optional)",
+      "preferences": "Reminders and offers",
+      "pref_sms": "Appointment reminder by SMS",
+      "pref_marketing": "Offers and news by email",
+      "pref_birthday": "A birthday treat",
+      "privacy": "You can change this anytime. Your details are never shared.",
+      "notes": "Anything the salon should know? (optional)",
+      "notes_placeholder": "Allergies, desired length, access…",
+      "errors": {
+        "first_name": "Enter your first name.",
+        "last_name": "Enter your last name.",
+        "email_required": "Enter your email to receive the confirmation.",
+        "email_invalid": "This email looks incomplete, check it (e.g. name@example.com).",
+        "phone_required": "Enter your number so the salon can reach you.",
+        "phone_invalid": "This number looks incomplete, check it."
+      }
+    },
     "title": "Online Booking",
     "steps": {
       "service": "Choose a service",
@@ -27,7 +113,17 @@
       "choose_another_date": "Please choose another date",
       "stylist": "Stylist",
       "date": "Date",
-      "time": "Time"
+      "time": "Time",
+      "with_who": "With whom?",
+      "any_stylist": "No preference",
+      "continue": "Continue",
+      "back": "Back",
+      "sending": "Sending…",
+      "confirm_booking": "Confirm booking",
+      "service_not_found": "This service is no longer available.",
+      "no_stylist": "No team member is available right now.",
+      "previous_month": "Previous month",
+      "next_month": "Next month"
     }
   },
   "salon": {
@@ -140,5 +236,36 @@
     "friday": "Friday",
     "saturday": "Saturday",
     "sunday": "Sunday"
+  },
+  "site": {
+    "nav_label": "Salon navigation",
+    "nav_services": "Services",
+    "nav_team": "Team",
+    "nav_reviews": "Reviews",
+    "nav_contact": "Contact",
+    "book": "Book",
+    "book_service": "Book: {{name}}",
+    "call": "Call",
+    "all": "All",
+    "all_services": "All services",
+    "services_title": "Our services",
+    "team_title": "The team",
+    "reviews_title": "Client reviews",
+    "rating_summary_one": "{{avg}} out of 5 · {{count}} review",
+    "rating_summary_other": "{{avg}} out of 5 · {{count}} reviews",
+    "contact_title": "Find us",
+    "hours": "Opening hours",
+    "closed": "Closed",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "directions": "Directions",
+    "menu_open": "Open menu",
+    "menu_close": "Close menu",
+    "previous": "Previous",
+    "next": "Next",
+    "credit": "Online booking by",
+    "online_booking": "Online booking",
+    "not_found": "This salon could not be found or is temporarily unavailable."
   }
 }

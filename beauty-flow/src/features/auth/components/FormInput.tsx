@@ -1,158 +1,112 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import clsx from 'clsx';
+import { EyeIcon, EyeSlashIcon, ExclamationCircleIcon } from '@heroicons/react/20/solid';
 
 interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  /** i18n key (auth namespace) */
   label: string;
+  /** i18n key (auth namespace) */
   error?: string;
-  variant?: 'default' | 'glass';
+  /** i18n key (auth namespace) */
+  hint?: string;
+  /** Rendered at the end of the label row (e.g. "forgot password" link) */
+  aside?: React.ReactNode;
 }
 
-export const FormInput: React.FC<FormInputProps> = ({ 
-  label, 
-  error, 
-  type = 'text',
-  variant = 'glass',
-  className = '',
-  ...props 
-}) => {
+export const FormInput: React.FC<FormInputProps> = ({ label, error, hint, aside, type = 'text', id, className = '', ...props }) => {
   const { t } = useTranslation('auth');
-
-  const baseClasses = "w-full px-4 py-3 rounded-xl transition-all duration-300 font-body";
-  
-  const variantClasses = {
-    default: `
-      bg-white border border-gray-200 text-gray-900 
-      placeholder-gray-500 focus:border-indigo-500 
-      focus:ring-2 focus:ring-indigo-100
-    `,
-    glass: `
-      glass-input text-white placeholder-white/50
-      focus:border-indigo-400 focus:ring-2 focus:ring-indigo-400/20
-      hover:bg-white/10
-    `
-  };
+  const [visible, setVisible] = useState(false);
+  const inputId = id || props.name;
+  const msgId = `${inputId}-msg`;
+  const isPassword = type === 'password';
 
   return (
-    <div className="mb-6">
-      <label className="block text-white text-sm font-medium font-display mb-3 transition-all duration-300">
-        {t(label)}
-      </label>
-      <input
-        type={type}
-        className={`
-          ${baseClasses}
-          ${variantClasses[variant]}
-          ${error ? 'border-red-400 focus:border-red-400 focus:ring-red-400/20' : ''}
-          ${className}
-        `}
-        {...props}
-      />
-      {error && (
-        <p className="mt-2 text-red-400 text-sm font-medium animate-slide-down">
-          {t(error)}
+    <div>
+      <div className="flex items-baseline justify-between gap-3">
+        <label htmlFor={inputId} className="text-sm font-medium text-gray-700 dark:text-gray-300">{t(label)}</label>
+        {aside}
+      </div>
+      <div className="relative mt-1.5">
+        <input
+          id={inputId}
+          type={isPassword && visible ? 'text' : type}
+          aria-invalid={!!error}
+          aria-describedby={error || hint ? msgId : undefined}
+          className={clsx(
+            'field h-11 dark:bg-gray-900 dark:border-gray-700',
+            isPassword && 'pe-11',
+            error && '!border-red-500 focus:!shadow-[0_0_0_3px_rgb(239_68_68/0.15)]',
+            className,
+          )}
+          {...props}
+        />
+        {isPassword && (
+          <button
+            type="button"
+            onClick={() => setVisible(!visible)}
+            aria-label={t(visible ? 'field.hidePassword' : 'field.showPassword')}
+            aria-pressed={visible}
+            className="absolute inset-y-0 end-0 grid w-11 place-items-center rounded-e-xl text-gray-400 transition-colors duration-150 ease-out hover:text-gray-700 dark:hover:text-gray-200"
+          >
+            {visible ? <EyeSlashIcon className="size-5" /> : <EyeIcon className="size-5" />}
+          </button>
+        )}
+      </div>
+      {error ? (
+        <p id={msgId} className="mt-1.5 flex items-center gap-1 text-xs font-medium text-red-600 dark:text-red-400">
+          <ExclamationCircleIcon className="size-4 shrink-0" />{t(error)}
         </p>
-      )}
+      ) : hint ? (
+        <p id={msgId} className="mt-1.5 text-xs text-gray-500 dark:text-gray-400">{t(hint)}</p>
+      ) : null}
     </div>
   );
 };
 
 interface FormButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
-  variant?: 'primary' | 'secondary' | 'ghost';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: 'primary' | 'secondary';
 }
 
-export const FormButton: React.FC<FormButtonProps> = ({ 
-  children, 
-  isLoading,
-  variant = 'primary',
-  size = 'md',
-  className = '',
-  ...props 
-}) => {
-  const baseClasses = `
-    w-full font-medium font-display rounded-xl transition-all duration-300 
-    transform hover:scale-[1.02] active:scale-[0.98] 
-    disabled:opacity-50 disabled:cursor-not-allowed
-    focus:outline-none focus:ring-2 focus:ring-offset-2
-    click-effect
-  `;
-
-  const sizeClasses = {
-    sm: 'px-4 py-2 text-sm',
-    md: 'px-6 py-3 text-base',
-    lg: 'px-8 py-4 text-lg'
-  };
-
-  const variantClasses = {
-    primary: `
-      btn-primary text-white shadow-soft hover:shadow-medium
-      focus:ring-indigo-400/20
-    `,
-    secondary: `
-      btn-secondary text-white shadow-soft hover:shadow-medium
-      focus:ring-blue-400/20
-    `,
-    ghost: `
-      btn-ghost text-white hover:bg-white/15
-      focus:ring-white/20
-    `
-  };
-
+export const FormButton: React.FC<FormButtonProps> = ({ children, isLoading, variant = 'primary', className = '', disabled, ...props }) => {
+  const { t } = useTranslation('auth');
   return (
     <button
-      className={`
-        ${baseClasses}
-        ${sizeClasses[size]}
-        ${variantClasses[variant]}
-        ${className}
-      `}
-      disabled={isLoading}
+      className={clsx(variant === 'primary' ? 'btn-primary' : 'btn-secondary', 'h-11 text-[0.9375rem]', className)}
+      disabled={isLoading || disabled}
+      aria-busy={isLoading}
       {...props}
     >
       {isLoading ? (
-        <div className="flex items-center justify-center">
-          <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin mr-2" />
-          <span>Chargement...</span>
-        </div>
-      ) : (
-        children
-      )}
+        <>
+          <span className="size-4 animate-spin rounded-full border-2 border-current border-t-transparent" aria-hidden="true" />
+          {t('field.loading')}
+        </>
+      ) : children}
     </button>
   );
 };
 
-interface FormLinkProps {
-  href: string;
-  children: React.ReactNode;
-  variant?: 'default' | 'accent';
-}
+export const FormLink: React.FC<{ to: string; children: React.ReactNode; className?: string }> = ({ to, children, className = '' }) => (
+  <Link to={to} className={clsx('font-medium text-orange-600 underline-offset-4 transition-colors duration-150 ease-out hover:text-orange-700 hover:underline dark:text-orange-400 dark:hover:text-orange-300', className)}>
+    {children}
+  </Link>
+);
 
-export const FormLink: React.FC<FormLinkProps> = ({ href, children, variant = 'default' }) => {
-  const variantClasses = {
-    default: `
-      text-white/80 hover:text-white
-      decoration-white/30 hover:decoration-white/60
-    `,
-    accent: `
-      text-cyan-400 hover:text-cyan-300
-      decoration-cyan-400/50 hover:decoration-cyan-300
-    `
-  };
-
-  return (
-    <a
-      href={href}
-      className={`
-        text-sm font-medium font-body
-        transition-all duration-300
-        underline underline-offset-4
-        hover:scale-105 active:scale-95
-        focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2 focus:ring-offset-transparent
-        ${variantClasses[variant]}
-      `}
-    >
-      {children}
-    </a>
-  );
-};
+/** Form-level error banner. */
+export const FormAlert: React.FC<{ children: React.ReactNode; tone?: 'error' | 'success' }> = ({ children, tone = 'error' }) => (
+  <div
+    role={tone === 'error' ? 'alert' : 'status'}
+    className={clsx(
+      'flex items-start gap-2 rounded-xl border px-3.5 py-3 text-sm',
+      tone === 'error'
+        ? 'border-red-200 bg-red-50 text-red-700 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-300'
+        : 'border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-300',
+    )}
+  >
+    {tone === 'error' && <ExclamationCircleIcon className="mt-0.5 size-4 shrink-0" />}
+    <span>{children}</span>
+  </div>
+);

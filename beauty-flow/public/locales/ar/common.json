@@ -9,7 +9,12 @@
     "profile": "ملفي الشخصي",
     "interface": "واجهتي",
     "subscription": "الاشتراك",
-    "admin": "الإدارة"
+    "admin": "الإدارة",
+    "home": "الرئيسية",
+    "toggle_theme": "تغيير المظهر",
+    "main_menu": "القائمة الرئيسية",
+    "menu": "القائمة",
+    "language": "اللغة"
   },
   "actions": {
     "cancel": "إلغاء",

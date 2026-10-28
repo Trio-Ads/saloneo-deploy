@@ -1,324 +1,230 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { format, parseISO } from 'date-fns';
-import { fr } from 'date-fns/locale';
+import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { format } from 'date-fns';
+import { ArrowLeftIcon, ExclamationCircleIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 import { publicAPI } from '../../../services/api';
-import { getTemplateById } from '../../templates';
+import { Badge, statusTone } from '../../../components/ui';
+import { formatPrice } from '../../../utils/currency';
 import DateTimeSelection from './DateTimeSelection';
-import LoadingSpinner from './LoadingSpinner';
+import { bookingVars, dateLocale, formatDuration } from './bookingTheme';
+import { salonTemplate } from '../../templates';
+
+export const PageSpinner = () => (
+  <div className="min-h-screen grid place-items-center" role="status">
+    <span className="h-6 w-6 rounded-full border-2 border-gray-300 border-t-gray-600 animate-spin" />
+  </div>
+);
+
+const apiError = (err: any, fallback: string) => err?.response?.data?.error || fallback;
 
 export const PublicAppointmentManager: React.FC = () => {
   const { token } = useParams<{ token: string }>();
-  const navigate = useNavigate();
+  const { t, i18n } = useTranslation('public');
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
   const [appointment, setAppointment] = useState<any>(null);
-  const [showCancelModal, setShowCancelModal] = useState(false);
+  const [mode, setMode] = useState<'view' | 'modify' | 'cancel'>('view');
   const [cancellationReason, setCancellationReason] = useState('');
-  const [isModifying, setIsModifying] = useState(false);
   const [newDate, setNewDate] = useState<string | null>(null);
   const [newTime, setNewTime] = useState<string | null>(null);
   const [actionLoading, setActionLoading] = useState(false);
 
   useEffect(() => {
-    const loadAppointment = async () => {
-      if (!token) {
-        setError('Token de modification manquant');
-        setLoading(false);
-        return;
-      }
-      try {
-        const response = await publicAPI.getAppointmentByModificationToken(token);
-        setAppointment(response.data.appointment);
-      } catch (err: any) {
-        setError(err.response?.data?.error || 'Lien de modification invalide ou expiré');
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadAppointment();
-  }, [token]);
-
-  const templateId = appointment?.salon?.theme?.selectedTemplateId || 'saloneo-classic';
-  const template = getTemplateById(templateId) ?? getTemplateById('saloneo-classic');
-  // Graceful guard: if the registry is ever missing the classic template entirely
-  if (!template) return null;
-  const { colors, typography } = template.theme;
-
-  const handleModify = async () => {
-    if (!newDate || !newTime || !token) {
-      setError('Veuillez sélectionner une date et une heure');
+    if (!token) {
+      setError(t('manage.invalid_link_body'));
+      setLoading(false);
       return;
     }
+    publicAPI.getAppointmentByModificationToken(token)
+      .then((response) => setAppointment(response.data.appointment))
+      .catch((err) => setError(apiError(err, t('manage.invalid_link_body'))))
+      .finally(() => setLoading(false));
+  }, [token, t]);
+
+  const salon = appointment?.salon;
+  const template = salonTemplate(salon?.theme);
+
+  const switchMode = (next: typeof mode) => {
+    setMode(next);
+    setError(null);
+    setNotice(null);
+  };
+
+  const handleModify = async () => {
+    if (!newDate || !newTime || !token) return;
     try {
       setActionLoading(true);
-      const response = await publicAPI.modifyAppointmentByModificationToken(token, {
-        date: newDate,
-        startTime: newTime,
-      });
+      const response = await publicAPI.modifyAppointmentByModificationToken(token, { date: newDate, startTime: newTime });
       setAppointment(response.data.appointment);
-      setIsModifying(false);
-      setError(null);
+      switchMode('view');
+      setNotice(t('manage.modified'));
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Erreur lors de la modification');
+      setError(apiError(err, t('manage.modify_error')));
     } finally {
       setActionLoading(false);
     }
   };
 
   const handleCancel = async () => {
-    if (!cancellationReason || !token) {
-      setError("Veuillez indiquer une raison d'annulation");
-      return;
-    }
+    if (!token) return;
     try {
       setActionLoading(true);
-      await publicAPI.cancelAppointmentByModificationToken(token, { reason: cancellationReason });
-      setAppointment({ ...appointment, status: 'cancelled' });
-      setShowCancelModal(false);
-      setError(null);
+      await publicAPI.cancelAppointmentByModificationToken(token, { reason: cancellationReason.trim() || undefined });
+      setAppointment({ ...appointment, status: 'cancelled', canModify: false });
+      switchMode('view');
+      setNotice(t('manage.cancelled'));
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Erreur lors de l'annulation");
+      setError(apiError(err, t('manage.cancel_error')));
     } finally {
       setActionLoading(false);
     }
   };
 
-  if (loading) return <LoadingSpinner />;
+  if (loading) return <PageSpinner />;
 
-  // Error / not found state
-  if (error && !appointment) {
-    return (
-      <div
-        className="min-h-screen flex items-center justify-center px-6"
-        style={{ background: colors.background, fontFamily: typography.bodyFont }}
-      >
-        {template.customCSS && <style dangerouslySetInnerHTML={{ __html: template.customCSS }} />}
-        <div className="text-center max-w-sm">
-          <div
-            className="w-16 h-16 rounded-full flex items-center justify-center text-2xl mx-auto mb-4"
-            style={{ background: colors.surface }}
-          >
-            ✕
-          </div>
-          <h2 className="text-lg font-extrabold mb-2" style={{ color: colors.text, fontFamily: typography.headingFont }}>
-            Lien invalide
-          </h2>
-          <p className="text-sm mb-6" style={{ color: colors.textSecondary }}>{error}</p>
-          <button
-            onClick={() => navigate('/')}
-            className="text-sm font-bold underline"
-            style={{ color: colors.primary }}
-          >
-            ← Retour à l'accueil
-          </button>
-        </div>
+  const shell = (children: React.ReactNode) => (
+    <div className="bk min-h-screen" style={{ ...bookingVars(template), background: 'var(--bk-bg)' }}>
+      {template.fonts && <link rel="stylesheet" href={template.fonts} />}
+      <div className="mx-auto max-w-lg px-4 pb-[calc(2rem+env(safe-area-inset-bottom))]">{children}</div>
+    </div>
+  );
+
+  if (!appointment) {
+    return shell(
+      <div className="min-h-screen flex flex-col items-center justify-center text-center gap-3">
+        <ExclamationCircleIcon className="h-10 w-10 bk-muted" />
+        <h1 className="bk-h text-xl">{t('manage.invalid_link')}</h1>
+        <p className="bk-muted text-sm max-w-xs">{error}</p>
       </div>
     );
   }
 
-  const formatDate = (dateStr: string) =>
-    format(parseISO(dateStr), 'EEEE d MMMM yyyy', { locale: fr });
+  const day = new Date(`${String(appointment.date).slice(0, 10)}T00:00`);
+  const loc = dateLocale(i18n.language);
+  const canModify = appointment.canModify !== false && appointment.status !== 'cancelled';
+  const salonHref = salon?.slug ? `/salon/${salon.slug}` : null;
 
-  const statusConfig: Record<string, { label: string; dot: string; badge: string }> = {
-    confirmed: { label: 'Confirmé',  dot: 'bg-green-500',  badge: 'bg-green-100 text-green-700' },
-    cancelled: { label: 'Annulé',    dot: 'bg-red-500',    badge: 'bg-red-100 text-red-700' },
-    scheduled: { label: 'Planifié',  dot: 'bg-yellow-500', badge: 'bg-yellow-100 text-yellow-700' },
-  };
-  const fallbackStatus = { label: 'Inconnu', dot: 'bg-gray-400', badge: 'bg-gray-100 text-gray-600' };
-  const status = statusConfig[appointment?.status ?? ''] ?? fallbackStatus;
-
-  // Respect the server-side modification permission flag
-  const canModify = appointment?.canModify !== false
-    && appointment?.status !== 'cancelled';
-
-  return (
-    <div
-      style={{
-        background: colors.background,
-        color: colors.text,
-        minHeight: '100vh',
-        fontFamily: typography.bodyFont,
-      }}
-    >
-      {template.customCSS && <style dangerouslySetInnerHTML={{ __html: template.customCSS }} />}
-
-      {/* Header */}
-      <div
-        className="px-5 py-4 flex items-center justify-between"
-        style={{
-          background: colors.surface,
-          borderBottom: `1px solid ${colors.background}`,
-        }}
-      >
-        <div>
-          <button
-            onClick={() => navigate('/')}
-            className="text-sm font-bold"
-            style={{ color: colors.primary }}
-          >
-            ← Saloneo
-          </button>
-          <h1
-            className="text-xl font-extrabold mt-0.5"
-            style={{ color: colors.text, fontFamily: typography.headingFont }}
-          >
-            Mon rendez-vous
-          </h1>
+  return shell(
+    <>
+      <header className="flex items-center gap-2 pt-4 pb-6">
+        {salonHref && (
+          <Link to={salonHref} className="bk-icon-btn -ms-2" aria-label={t('manage.back_to_salon')}>
+            <ArrowLeftIcon className="h-5 w-5 rtl:rotate-180" />
+          </Link>
+        )}
+        <div className="min-w-0">
+          {salon?.establishmentName && <p className="bk-muted text-sm truncate">{salon.establishmentName}</p>}
+          <h1 className="bk-h text-2xl">{t('manage.title')}</h1>
         </div>
-      </div>
+      </header>
 
-      {/* RDV card — boarding-pass style */}
-      <div className="mx-4 mt-5 rounded-2xl overflow-hidden shadow-md">
-        {/* Stub: primary-colored header */}
-        <div className="px-5 py-4" style={{ background: colors.primary }}>
-          <p className="text-white/80 text-sm font-medium">
-            {appointment?.serviceName || 'Rendez-vous'}
-          </p>
-          <p
-            className="text-white text-3xl font-extrabold mt-1 leading-none"
-            style={{ fontFamily: typography.headingFont }}
-          >
-            {appointment?.date ? formatDate(appointment.date) : '—'}
-            {' · '}
-            {appointment?.startTime ?? '—'}
-          </p>
-          {(appointment?.stylistName || appointment?.salonName) && (
-            <p className="text-white/70 text-sm mt-1">
-              {appointment.stylistName && `avec ${appointment.stylistName}`}
-              {appointment.stylistName && appointment.salonName && ' · '}
-              {appointment.salonName}
-            </p>
-          )}
-        </div>
-
-        {/* Body: status badge */}
-        <div className="px-5 py-3" style={{ background: colors.surface }}>
-          <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${status.badge}`}>
-            <span className={`w-1.5 h-1.5 rounded-full ${status.dot}`} />
-            {status.label}
-          </span>
-        </div>
-      </div>
-
-      {/* Inline error */}
-      {error && (
-        <div className="mx-4 mt-3 px-4 py-3 rounded-xl bg-red-50 border border-red-200">
-          <p className="text-sm text-red-700">{error}</p>
-        </div>
-      )}
-
-      {/* Modify mode: inline DateTimeSelection */}
-      {isModifying && canModify && (
-        <div className="mx-4 mt-4">
-          <DateTimeSelection
-            serviceId={appointment.serviceId}
-            selectedDate={newDate || undefined}
-            selectedTime={newTime || undefined}
-            stylistId={appointment.stylistId}
-            onSelect={(date, time) => {
-              setNewDate(date);
-              setNewTime(time);
-            }}
-          />
-          <div className="flex gap-3 mt-4">
-            <button
-              onClick={handleModify}
-              disabled={actionLoading || !newDate || !newTime}
-              className="flex-1 py-3 rounded-xl font-bold text-sm transition-opacity hover:opacity-90 disabled:opacity-50"
-              style={{ background: colors.primary, color: '#fff' }}
-            >
-              {actionLoading ? '…' : 'Confirmer le nouveau créneau'}
-            </button>
-            <button
-              onClick={() => { setIsModifying(false); setError(null); }}
-              className="px-5 py-3 rounded-xl font-bold text-sm border"
-              style={{ borderColor: colors.surface, color: colors.textSecondary }}
-            >
-              Retour
-            </button>
+      <div className="space-y-4">
+        {notice && (
+          <div className="bk-notice is-success" role="status">
+            <CheckCircleIcon className="h-5 w-5 shrink-0" /><span>{notice}</span>
           </div>
-        </div>
-      )}
+        )}
+        {error && (
+          <div className="bk-notice is-error" role="alert">
+            <ExclamationCircleIcon className="h-5 w-5 shrink-0" /><span>{error}</span>
+          </div>
+        )}
 
-      {/* Actions */}
-      {!isModifying && canModify && (
-        <div className="mx-4 mt-4 flex flex-col gap-3">
-          <button
-            onClick={() => setIsModifying(true)}
-            className="w-full py-3 rounded-xl font-bold text-sm hover:opacity-90 transition-opacity"
-            style={{ background: colors.text, color: colors.background }}
-          >
-            ✎ Modifier le créneau
-          </button>
-          <button
-            onClick={() => setShowCancelModal(true)}
-            className="w-full py-3 rounded-xl font-bold text-sm border border-red-400 text-red-500 hover:bg-red-50 transition-colors"
-          >
-            ✕ Annuler le rendez-vous
-          </button>
-        </div>
-      )}
-
-      {/* Cancel bottom-sheet overlay */}
-      {showCancelModal && (
-        <>
-          {/* Backdrop */}
-          <div
-            className="fixed inset-0 z-40"
-            style={{ background: 'rgba(0,0,0,0.4)' }}
-            onClick={() => setShowCancelModal(false)}
-          />
-          {/* Sheet */}
-          <div
-            className="fixed bottom-0 left-0 right-0 z-50 rounded-t-2xl px-5 pt-5 pb-8"
-            style={{ background: colors.background }}
-          >
-            <div
-              className="w-10 h-1 rounded-full mx-auto mb-5"
-              style={{ background: colors.surface }}
-            />
-            <h3
-              className="text-base font-extrabold mb-1"
-              style={{ color: colors.text, fontFamily: typography.headingFont }}
-            >
-              Annuler le rendez-vous
-            </h3>
-            <p className="text-sm mb-4" style={{ color: colors.textSecondary }}>
-              Indiquez la raison pour informer le salon.
+        <article className="bk-card">
+          <div className="bk-card-head">
+            <p className="text-sm opacity-80 first-letter:uppercase">{format(day, 'EEEE d MMMM yyyy', { locale: loc })}</p>
+            <p className="bk-num text-4xl font-semibold leading-tight mt-1" style={{ fontFamily: 'var(--bk-heading)' }}>
+              {appointment.startTime}
+              {appointment.endTime && <span className="text-lg font-normal opacity-80"> – {appointment.endTime}</span>}
             </p>
-            <textarea
-              value={cancellationReason}
-              onChange={(e) => setCancellationReason(e.target.value)}
-              placeholder="Ex : Empêchement de dernière minute…"
-              rows={3}
-              className="w-full rounded-xl px-4 py-3 text-sm resize-none outline-none border"
-              style={{
-                background: colors.surface,
-                color: colors.text,
-                borderColor: colors.surface,
+          </div>
+          <div className="bk-row items-center">
+            <span>{t('manage.status_label')}</span>
+            <span><Badge tone={statusTone(appointment.status)}>{t(`manage.status.${appointment.status}`, { defaultValue: String(appointment.status) })}</Badge></span>
+          </div>
+          {appointment.serviceName && (
+            <div className="bk-row"><span>{t('booking.summary.service')}</span><span>{appointment.serviceName}</span></div>
+          )}
+          {appointment.stylistName && (
+            <div className="bk-row"><span>{t('booking.summary.with')}</span><span>{appointment.stylistName}</span></div>
+          )}
+          {appointment.duration > 0 && (
+            <div className="bk-row"><span>{t('booking.summary.duration')}</span><span>{formatDuration(appointment.duration)}</span></div>
+          )}
+          {appointment.price > 0 && (
+            <div className="bk-row"><span>{t('booking.summary.price')}</span><span className="bk-num">{formatPrice(appointment.price, salon?.settings?.currency || 'DZD')}</span></div>
+          )}
+          {salon?.address && (
+            <div className="bk-row"><span>{t('booking.summary.where')}</span><span>{salon.address}</span></div>
+          )}
+        </article>
+
+        {canModify && mode === 'view' && (
+          <div className="grid gap-3">
+            <button type="button" className="bk-btn" onClick={() => switchMode('modify')}>{t('manage.modify')}</button>
+            <button type="button" className="bk-btn-danger" onClick={() => switchMode('cancel')}>{t('manage.cancel')}</button>
+          </div>
+        )}
+
+        {canModify && mode === 'modify' && (
+          <section className="bk-card p-4 sm:p-5 space-y-5 bk-step-fwd" aria-labelledby="bk-modify-title">
+            <h2 id="bk-modify-title" className="bk-h text-lg">{t('manage.new_slot')}</h2>
+            <DateTimeSelection
+              serviceId={String(appointment.serviceId)}
+              serviceDuration={appointment.duration}
+              selectedDate={newDate || undefined}
+              selectedTime={newTime || undefined}
+              stylistId={appointment.stylistId}
+              showTeamSelection={false}
+              slug={salon?.slug}
+              onSelect={(date, time) => {
+                setNewDate(date);
+                setNewTime(time);
               }}
             />
-            <div className="flex gap-3 mt-4">
-              <button
-                onClick={() => setShowCancelModal(false)}
-                className="flex-1 py-3 rounded-xl font-bold text-sm border"
-                style={{ borderColor: colors.surface, color: colors.textSecondary }}
-              >
-                Retour
+            <div className="flex gap-3">
+              <button type="button" className="bk-btn-ghost" onClick={() => switchMode('view')} disabled={actionLoading}>
+                {t('booking.flow.back')}
               </button>
-              <button
-                onClick={handleCancel}
-                disabled={actionLoading || !cancellationReason}
-                className="flex-1 py-3 rounded-xl font-bold text-sm transition-opacity hover:opacity-90 disabled:opacity-50 bg-red-500 text-white"
-              >
-                {actionLoading ? '…' : "Confirmer l'annulation"}
+              <button type="button" className="bk-btn flex-1" onClick={handleModify} disabled={actionLoading || !newDate || !newTime}>
+                {actionLoading && <span className="bk-spinner" aria-hidden="true" />}
+                {t('manage.confirm_new_slot')}
               </button>
             </div>
-          </div>
-        </>
-      )}
-    </div>
+          </section>
+        )}
+
+        {canModify && mode === 'cancel' && (
+          <section className="bk-card p-4 sm:p-5 space-y-4 bk-step-fwd" aria-labelledby="bk-cancel-title">
+            <div>
+              <h2 id="bk-cancel-title" className="bk-h text-lg">{t('manage.cancel_title')}</h2>
+              <p className="bk-muted text-sm mt-1">{t('manage.cancel_body')}</p>
+            </div>
+            <div>
+              <label htmlFor="bk-cancel-reason" className="bk-label">{t('manage.cancel_reason')}</label>
+              <textarea id="bk-cancel-reason" rows={3} maxLength={500} className="bk-field resize-none"
+                placeholder={t('manage.cancel_reason_placeholder')}
+                value={cancellationReason} onChange={(e) => setCancellationReason(e.target.value)} />
+            </div>
+            <div className="flex flex-col-reverse sm:flex-row gap-3">
+              <button type="button" className="bk-btn-ghost sm:flex-1" onClick={() => switchMode('view')} disabled={actionLoading}>
+                {t('manage.keep')}
+              </button>
+              <button type="button" className="bk-btn-danger is-solid sm:flex-1" onClick={handleCancel} disabled={actionLoading}>
+                {actionLoading && <span className="bk-spinner" aria-hidden="true" />}
+                {t('manage.confirm_cancel')}
+              </button>
+            </div>
+          </section>
+        )}
+
+        {!canModify && salonHref && (
+          <Link to={salonHref} className="bk-btn w-full">{t('manage.book_again')}</Link>
+        )}
+      </div>
+    </>
   );
 };

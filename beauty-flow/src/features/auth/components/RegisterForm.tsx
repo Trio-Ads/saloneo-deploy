@@ -1,22 +1,27 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import { FormInput, FormButton, FormLink } from './FormInput';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { AxiosError } from 'axios';
+import clsx from 'clsx';
+import { FormInput, FormButton, FormLink, FormAlert } from './FormInput';
 import { useAuthStore } from '../store';
 import { RegisterData } from '../types';
 
 type Step = 'credentials' | 'profile' | 'establishment';
+const STEPS: Step[] = ['credentials', 'profile', 'establishment'];
 
 export const RegisterForm: React.FC = () => {
   const [t] = useTranslation(['auth', 'common']);
   const navigate = useNavigate();
+  const location = useLocation();
   const register = useAuthStore(state => state.register);
   const [loading, setLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState<Step>('credentials');
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const [formData, setFormData] = useState<RegisterData>({
-    email: '',
+    // E-mail saisi sur la landing page
+    email: (location.state as { email?: string } | null)?.email || '',
     password: '',
     firstName: '',
     lastName: '',
@@ -71,32 +76,25 @@ export const RegisterForm: React.FC = () => {
     }
   };
 
+  const stepIndex = STEPS.indexOf(currentStep);
+
   const handleNext = () => {
-    if (validateStep(currentStep)) {
-      switch (currentStep) {
-        case 'credentials':
-          setCurrentStep('profile');
-          break;
-        case 'profile':
-          setCurrentStep('establishment');
-          break;
-      }
-    }
+    if (validateStep(currentStep)) setCurrentStep(STEPS[stepIndex + 1]);
   };
 
   const handleBack = () => {
-    switch (currentStep) {
-      case 'profile':
-        setCurrentStep('credentials');
-        break;
-      case 'establishment':
-        setCurrentStep('profile');
-        break;
-    }
+    setErrors({});
+    setCurrentStep(STEPS[stepIndex - 1]);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Entrée sur les étapes 1 et 2 : passer à l'étape suivante, ne pas inscrire
+    if (currentStep !== 'establishment') {
+      handleNext();
+      return;
+    }
 
     if (!validateStep(currentStep)) {
       return;
@@ -107,65 +105,18 @@ export const RegisterForm: React.FC = () => {
       await register(formData);
       navigate('/dashboard');
     } catch (error) {
-      setErrors({
-        submit: 'register.errors.emailExists'
-      });
+      const response = (error as AxiosError<{ error?: string }>)?.response;
+      if (response?.data?.error === 'User already exists') {
+        // L'e-mail est à l'étape 1 : y revenir pour le corriger
+        setCurrentStep('credentials');
+        setErrors({ email: 'register.errors.emailExists' });
+      } else {
+        setErrors({ submit: response ? 'errors.generic' : 'errors.network' });
+      }
     } finally {
       setLoading(false);
     }
   };
-
-  const renderStepIndicator = () => (
-    <div className="flex justify-center items-center mb-10">
-      {(['credentials', 'profile', 'establishment'] as Step[]).map((step, index) => {
-        const isActive = currentStep === step;
-        const isCompleted = ['credentials', 'profile', 'establishment'].indexOf(currentStep) > index;
-        
-        return (
-          <React.Fragment key={step}>
-            <div className="flex flex-col items-center">
-              <div
-                className={`
-                  w-12 h-12 rounded-2xl flex items-center justify-center 
-                  transition-all duration-500 font-display font-bold text-sm
-                  ${isActive 
-                    ? 'bg-gradient-to-br from-indigo-500 to-blue-600 text-white shadow-lg scale-110' 
-                    : isCompleted
-                    ? 'bg-gradient-to-br from-blue-500 to-cyan-600 text-white shadow-md'
-                    : 'bg-white/10 text-white/60 backdrop-blur-sm border border-white/20'
-                  }
-                `}
-              >
-                {isCompleted ? (
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                ) : (
-                  index + 1
-                )}
-              </div>
-              <div className={`
-                text-xs font-medium font-body mt-3 text-center max-w-20
-                transition-all duration-300
-                ${isActive ? 'text-white' : 'text-white/70'}
-              `}>
-                {t(`register.steps.${step}`, { ns: 'auth' })}
-              </div>
-            </div>
-            {index < 2 && (
-              <div className={`
-                w-16 h-1 mx-4 rounded-full transition-all duration-500
-                ${isCompleted 
-                  ? 'bg-gradient-to-r from-blue-500 to-cyan-600' 
-                  : 'bg-white/20'
-                }
-              `} />
-            )}
-          </React.Fragment>
-        );
-      })}
-    </div>
-  );
 
   const renderCurrentStep = () => {
     switch (currentStep) {
@@ -176,10 +127,12 @@ export const RegisterForm: React.FC = () => {
               label="register.email"
               type="email"
               name="email"
+              inputMode="email"
               value={formData.email}
               onChange={handleChange}
               error={errors.email}
               autoComplete="email"
+              placeholder="nom@salon.dz"
             />
             <FormInput
               label="register.password"
@@ -188,6 +141,7 @@ export const RegisterForm: React.FC = () => {
               value={formData.password}
               onChange={handleChange}
               error={errors.password}
+              hint="register.passwordHint"
               autoComplete="new-password"
             />
           </>
@@ -195,7 +149,7 @@ export const RegisterForm: React.FC = () => {
 
       case 'profile':
         return (
-          <>
+          <div className="grid gap-5 sm:grid-cols-2">
             <FormInput
               label="register.firstName"
               name="firstName"
@@ -203,6 +157,7 @@ export const RegisterForm: React.FC = () => {
               onChange={handleChange}
               error={errors.firstName}
               autoComplete="given-name"
+              autoFocus
             />
             <FormInput
               label="register.lastName"
@@ -212,7 +167,7 @@ export const RegisterForm: React.FC = () => {
               error={errors.lastName}
               autoComplete="family-name"
             />
-          </>
+          </div>
         );
 
       case 'establishment':
@@ -224,6 +179,8 @@ export const RegisterForm: React.FC = () => {
               value={formData.establishmentName}
               onChange={handleChange}
               error={errors.establishmentName}
+              autoComplete="organization"
+              autoFocus
             />
             <FormInput
               label="register.address"
@@ -239,38 +196,39 @@ export const RegisterForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      {renderStepIndicator()}
+    <form onSubmit={handleSubmit} noValidate className="space-y-5">
+      {/* Progression */}
+      <div>
+        <p className="text-sm text-gray-500 dark:text-gray-400">
+          {t('register.stepOf', { ns: 'auth', current: stepIndex + 1, total: STEPS.length })}
+          {' · '}
+          <span className="font-medium text-gray-900 dark:text-gray-50">{t(`register.steps.${currentStep}`, { ns: 'auth' })}</span>
+        </p>
+        <div className="mt-2 grid grid-cols-3 gap-1.5" aria-hidden="true">
+          {STEPS.map((step, i) => (
+            <span key={step} className={clsx('h-1 rounded-full transition-colors duration-200 ease-out', i <= stepIndex ? 'bg-orange-500' : 'bg-gray-200 dark:bg-gray-800')} />
+          ))}
+        </div>
+      </div>
+
       {renderCurrentStep()}
 
-      {errors.submit && (
-        <div className="text-red-400 text-sm text-center">
-          {t(errors.submit, { ns: 'auth' })}
-        </div>
-      )}
+      {errors.submit && <FormAlert>{t(errors.submit, { ns: 'auth' })}</FormAlert>}
 
-      <div className="flex gap-4">
+      <div className="flex gap-3 pt-1">
         {currentStep !== 'credentials' && (
-          <FormButton type="button" onClick={handleBack}>
-            {t('back', { ns: 'common' })}
+          <FormButton type="button" variant="secondary" onClick={handleBack} className="px-5">
+            {t('actions.back', { ns: 'common' })}
           </FormButton>
         )}
-        {currentStep === 'establishment' ? (
-          <FormButton type="submit" isLoading={loading}>
-            {t('register.submit', { ns: 'auth' })}
-          </FormButton>
-        ) : (
-          <FormButton type="button" onClick={handleNext}>
-            {t('next', { ns: 'common' })}
-          </FormButton>
-        )}
+        <FormButton type="submit" isLoading={loading} className="flex-1">
+          {currentStep === 'establishment' ? t('register.submit', { ns: 'auth' }) : t('actions.next', { ns: 'common' })}
+        </FormButton>
       </div>
 
-      <div className="text-center mt-4">
-        <FormLink href="/auth/login">
-          {t('register.hasAccount', { ns: 'auth' })} {t('register.login', { ns: 'auth' })}
-        </FormLink>
-      </div>
+      <p className="text-center text-sm text-gray-600 dark:text-gray-400">
+        {t('register.hasAccount', { ns: 'auth' })} <FormLink to="/auth/login">{t('register.login', { ns: 'auth' })}</FormLink>
+      </p>
     </form>
   );
 };

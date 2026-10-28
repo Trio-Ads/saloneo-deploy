@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import './i18n';
 import { useInterfaceStore } from './features/interface/store';
 import { useThemeColors } from './hooks/useThemeColors';
-import { useTemplateLoader } from './hooks/useTemplateLoader';
 import MainLayout from './layouts/MainLayout';
 import DashboardPage from './features/dashboard/DashboardPage';
 import ClientsPage from './features/clients/ClientsPage';
@@ -22,6 +21,9 @@ import { SubscriptionPage } from './features/subscription/SubscriptionPage';
 import { Toast } from './components/Toast';
 import { LoginPage } from './features/auth/pages/LoginPage';
 import { RegisterPage } from './features/auth/pages/RegisterPage';
+import { ForgotPasswordPage } from './features/auth/pages/ForgotPasswordPage';
+import { ResetPasswordPage } from './features/auth/pages/ResetPasswordPage';
+import { VerifyEmailPage } from './features/auth/pages/VerifyEmailPage';
 import { AuthGuard, PublicOnlyGuard } from './features/auth/components/AuthGuard';
 import ErrorBoundary from './components/ErrorBoundary';
 import LandingPage from './features/marketing/pages/LandingPage';
@@ -34,9 +36,6 @@ export const App: React.FC = () => {
   
   // Apply theme colors
   useThemeColors();
-  
-  // Restore saved template
-  useTemplateLoader();
 
   useEffect(() => {
     checkImages();
@@ -59,11 +58,15 @@ export const App: React.FC = () => {
         {/* Alias used by emails */}
         <Route path="modify-appointment/:token" element={<PublicAppointmentManager />} />
         <Route path="appointments/list" element={<PublicAppointmentList />} />
+        {/* Targets of the password-reset and verification e-mails */}
+        <Route path="reset-password" element={<ResetPasswordPage />} />
+        <Route path="verify-email" element={<VerifyEmailPage />} />
 
         {/* Authentication routes */}
         <Route path="auth" element={<PublicOnlyGuard />}>
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
+          <Route path="forgot-password" element={<ForgotPasswordPage />} />
           <Route path="*" element={<Navigate to="/auth/login" replace />} />
         </Route>
 

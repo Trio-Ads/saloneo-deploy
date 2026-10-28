@@ -1,22 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import {
+  UserCircleIcon,
+  UserIcon,
+  SwatchIcon,
+  CreditCardIcon,
+  CubeIcon,
+  UserGroupIcon,
+  ShieldCheckIcon,
+  ArrowRightOnRectangleIcon,
+} from '@heroicons/react/24/outline';
 import { useAuthStore } from '../features/auth/store';
-import { useSubscriptionStore } from '../features/subscription/store';
+import { Badge } from './ui';
+import clsx from 'clsx';
 
-const UserIcon = () => (
-  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-  </svg>
-);
+export const bottomNavItemClass = (active: boolean) =>
+  clsx(
+    'flex flex-col items-center justify-center gap-1 px-1 text-[11px] font-medium leading-tight transition-colors duration-150 ease-out',
+    active ? 'text-orange-600 dark:text-orange-400' : 'text-gray-500 active:text-gray-900 dark:text-gray-400 dark:active:text-gray-50'
+  );
 
 const MobileUserMenu: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const { logout } = useAuthStore();
-  const { subscription } = useSubscriptionStore();
+  const { logout, user } = useAuthStore();
+  const plan = user?.subscription?.planType || 'FREE';
+  const isAdmin = user?.isAdmin || user?.role === 'admin';
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setIsOpen(false);
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [isOpen]);
 
   const handleNavigation = (path: string) => {
     setIsOpen(false);
@@ -24,116 +43,68 @@ const MobileUserMenu: React.FC = () => {
   };
 
   const handleLogout = async () => {
+    setIsOpen(false);
     await logout();
     navigate('/login');
   };
 
   const menuItems = [
-    { label: t('navigation.profile'), path: '/profile' },
-    { label: t('navigation.interface'), path: '/interface' },
-    { label: t('navigation.subscription'), path: '/subscription' },
-    { label: t('navigation.products'), path: '/products' },
-    { label: t('navigation.team'), path: '/team' },
+    { label: t('navigation.profile'), path: '/profile', icon: UserIcon },
+    { label: t('navigation.interface'), path: '/interface', icon: SwatchIcon },
+    { label: t('navigation.subscription'), path: '/subscription', icon: CreditCardIcon },
+    { label: t('navigation.products'), path: '/products', icon: CubeIcon },
+    { label: t('navigation.team'), path: '/team', icon: UserGroupIcon },
+    ...(isAdmin ? [{ label: t('navigation.admin'), path: '/admin', icon: ShieldCheckIcon }] : []),
   ];
 
-  // Rendu du menu avec Portal pour échapper aux contraintes z-index du parent
-  const menuPortal = isOpen && createPortal(
+  const rowClass = 'flex w-full min-h-12 items-center gap-3 px-5 text-[0.9375rem] font-medium transition-colors duration-150 ease-out';
+
+  // Sheet sits above the bottom bar (z-40 < bar z-50) so "Menu" stays tappable to close it
+  const sheet = isOpen && createPortal(
     <>
-      {/* Overlay plein écran */}
-      <div 
-        className="fixed inset-0 z-[9998] bg-black/20 dark:bg-black/40 backdrop-blur-sm transition-opacity duration-300"
-        onClick={() => setIsOpen(false)}
-        style={{ 
-          animation: 'fadeIn 0.3s ease-out'
-        }}
-      />
-      
-      {/* Menu avec glassmorphism - Positionné en bas à droite */}
-      <div 
-        className="fixed bottom-20 right-4 w-64 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-[0_8px_32px_rgba(249,115,22,0.15)] dark:shadow-[0_8px_32px_rgba(251,146,60,0.2)] border border-orange-500/20 dark:border-orange-400/20 z-[9999] max-h-[70vh] overflow-hidden"
-        style={{ 
-          marginBottom: 'env(safe-area-inset-bottom)',
-          animation: 'slideUp 0.3s ease-out'
-        }}
+      <div className="fixed inset-0 z-40 bg-gray-900/30 animate-[sheet-fade_200ms_ease-out]" onClick={() => setIsOpen(false)} />
+      <div
+        role="menu"
+        className="fixed inset-x-0 z-40 max-h-[70dvh] overflow-y-auto rounded-t-2xl border-t border-gray-200 bg-white pb-2 shadow-[0_-8px_24px_-12px_rgb(24_24_27/0.18)] animate-[sheet-up_200ms_ease-out] dark:border-gray-800 dark:bg-gray-900"
+        style={{ bottom: 'calc(4rem + env(safe-area-inset-bottom))' }}
       >
-        <div className="py-2 max-h-[70vh] overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-orange-300 dark:scrollbar-thumb-orange-600 scrollbar-track-transparent">
-          {menuItems.map((item) => (
-            <button
-              key={item.path}
-              onClick={() => handleNavigation(item.path)}
-              className="w-full text-left px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 transition-all duration-200 active:scale-95"
-            >
-              {item.label}
+        <div className="flex items-center gap-3 px-5 pt-5 pb-4 border-b border-gray-100 dark:border-gray-800">
+          <span className="grid place-items-center size-10 rounded-full bg-gray-100 text-sm font-semibold text-gray-700 dark:bg-gray-800 dark:text-gray-200">
+            {(user?.firstName || user?.establishmentName || '?').charAt(0).toUpperCase()}
+          </span>
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-sm font-semibold text-gray-900 dark:text-gray-50">{user?.establishmentName || user?.firstName}</p>
+            <p className="truncate text-xs text-gray-500 dark:text-gray-400">{user?.email}</p>
+          </div>
+          <Badge tone={plan === 'FREE' ? 'neutral' : 'orange'}>{t(`user_menu.plans.${plan}`, plan)}</Badge>
+        </div>
+        <div className="py-1">
+          {menuItems.map(({ label, path, icon: Icon }) => (
+            <button key={path} role="menuitem" onClick={() => handleNavigation(path)} className={`${rowClass} text-gray-700 active:bg-gray-100 dark:text-gray-200 dark:active:bg-gray-800`}>
+              <Icon className="size-5 text-gray-400" />
+              {label}
             </button>
           ))}
-          
-          <div className="border-t border-orange-500/20 dark:border-orange-400/20 my-2" />
-          
-          <button
-            onClick={handleLogout}
-            className="w-full text-left px-4 py-3 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-200 active:scale-95"
-          >
-            {t('auth.logout')}
+        </div>
+        <div className="border-t border-gray-100 pt-1 dark:border-gray-800">
+          <button role="menuitem" onClick={handleLogout} className={`${rowClass} text-red-600 active:bg-red-50 dark:text-red-400 dark:active:bg-red-500/10`}>
+            <ArrowRightOnRectangleIcon className="size-5" />
+            {t('actions.logout')}
           </button>
         </div>
       </div>
-
-      {/* Styles pour les animations */}
-      <style dangerouslySetInnerHTML={{
-        __html: `
-          @keyframes fadeIn {
-            from {
-              opacity: 0;
-            }
-            to {
-              opacity: 1;
-            }
-          }
-          
-          @keyframes slideUp {
-            from {
-              opacity: 0;
-              transform: translateY(20px);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
-          }
-        `
-      }} />
+      <style>{'@keyframes sheet-up{from{opacity:0;transform:translateY(12px)}}@keyframes sheet-fade{from{opacity:0}}'}</style>
     </>,
     document.body
   );
 
   return (
     <>
-      {/* Bouton menu utilisateur */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={`flex flex-col items-center justify-center space-y-0.5 p-1 transition-all duration-300 ${
-          isOpen 
-            ? 'text-orange-600 dark:text-orange-400 scale-105' 
-            : 'text-gray-600 dark:text-gray-400 hover:text-orange-500 dark:hover:text-orange-300'
-        }`}
-      >
-        <div className={`relative p-1 rounded-lg transition-all duration-300 ${
-          isOpen ? 'bg-orange-50 dark:bg-orange-900/20' : ''
-        }`}>
-          <UserIcon />
-          {isOpen && (
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 opacity-20 dark:opacity-30 blur-xl rounded-lg" />
-          )}
-        </div>
-        <span className={`text-[10px] leading-tight font-medium transition-all duration-300 ${
-          isOpen ? 'font-semibold' : ''
-        }`}>
-          Menu
-        </span>
+      <button onClick={() => setIsOpen(!isOpen)} aria-expanded={isOpen} aria-haspopup="menu" className={bottomNavItemClass(isOpen)}>
+        <UserCircleIcon className="size-6" strokeWidth={isOpen ? 2 : 1.5} />
+        <span>{t('navigation.menu')}</span>
       </button>
-
-      {/* Menu rendu via Portal */}
-      {menuPortal}
+      {sheet}
     </>
   );
 };

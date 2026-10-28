@@ -119,6 +119,8 @@ export interface PublicSalonProfile {
   establishmentName: string;
   slug: string;
   description?: string;
+  presentation?: string;
+  phone?: string;
   logo?: string;
   banner?: string;
   publicPhone?: string;
@@ -126,7 +128,7 @@ export interface PublicSalonProfile {
   address?: string;
   socialMedia?: { facebook?: string; instagram?: string; twitter?: string };
   businessHours?: Record<string, { start: string; end: string; lunchBreak?: { enabled: boolean; start: string; end: string } }>;
-  theme?: { selectedTemplateId?: string };
+  theme?: { selectedTemplateId?: string; primary?: string; secondary?: string; accent?: string; background?: string };
   serviceDisplay?: { defaultView: string; priceDisplay: 'fixed' | 'from' | 'range' | 'hidden' };
   showTeamOnPublicPage?: boolean;
   settings?: { currency: string };

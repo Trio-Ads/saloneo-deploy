@@ -62,5 +62,10 @@
     "saving": "Enregistrement...",
     "success": "Abonnement modifié avec succès",
     "error": "Erreur lors de la modification de l'abonnement"
+  },
+  "feedback": {
+    "send": "Envoyer l'email de feedback",
+    "sent": "Email de feedback envoyé à {{name}}",
+    "error": "Erreur lors de l'envoi de l'email de feedback."
   }
 }

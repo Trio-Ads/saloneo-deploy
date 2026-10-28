@@ -135,17 +135,19 @@
     "medical_spa": "Spa Médical"
   },
   "page": {
-    "title": "Mon Interface",
-    "subtitle": "Personnalisez l'apparence de votre salon",
+    "title": "Mon interface",
+    "subtitle": "Le modèle, les couleurs et le contenu de votre page de réservation",
     "loading_subtitle": "Chargement des paramètres...",
-    "loading_interface": "Chargement de l'interface..."
+    "loading_interface": "Chargement de l'interface...",
+    "view_page": "Voir ma page"
   },
   "tabs": {
-    "templates": "Templates",
+    "templates": "Modèles",
     "colors": "Couleurs", 
     "images": "Images",
     "content": "Contenu",
-    "settings": "Paramètres"
+    "settings": "Paramètres",
+    "reviews": "Avis clients"
   },
   "sections": {
     "templates": {
@@ -153,16 +155,16 @@
       "description": "Choisissez un template pour votre salon"
     },
     "colors": {
-      "title": "Couleurs du Thème", 
-      "description": "Personnalisez la palette de couleurs"
+      "title": "Couleurs de votre page", 
+      "description": "Elles remplacent la palette du modèle."
     },
     "images": {
       "title": "Images du Salon",
       "description": "Téléchargez votre logo et bannière"
     },
     "content": {
-      "title": "Contenu du Salon",
-      "description": "Gérez la présentation et l'affichage"
+      "title": "Présentation",
+      "description": "Ce que vos clients lisent sur votre page."
     },
     "settings": {
       "title": "Paramètres Avancés",
@@ -188,18 +190,149 @@
   "team": {
     "show_on_public": "Afficher l'équipe sur la page publique",
     "description": "Si désactivé, les clients ne verront pas votre équipe et ne pourront pas choisir de coiffeur lors de la réservation",
-    "visible_message": "✅ Équipe visible : Les clients peuvent voir votre équipe et choisir leur coiffeur préféré",
-    "hidden_message": "🔒 Équipe masquée : Vous assignerez manuellement les coiffeurs aux rendez-vous depuis votre interface d'administration"
+    "visible_message": "Les clients voient votre équipe et peuvent choisir leur coiffeur.",
+    "hidden_message": "Votre équipe est masquée : vous assignez le coiffeur à chaque rendez-vous."
   },
   "images": {
     "logo_label": "Logo du salon",
     "banner_label": "Bannière / Header",
     "logo_tip": "💡 Conseils : Utilisez un fond transparent (PNG) pour un rendu optimal dans la navigation",
-    "banner_tip": "💡 Conseils : Image haute résolution pour un affichage parfait sur tous les écrans (ratio 16:5)"
+    "banner_tip": "💡 Conseils : Image haute résolution pour un affichage parfait sur tous les écrans (ratio 16:5)",
+    "logo_help": "Un PNG à fond transparent s'affiche mieux dans la barre de navigation.",
+    "banner_help": "Image en haute résolution, format 16:5, affichée en haut de votre page."
   },
   "actions": {
     "save": "Enregistrer",
-    "saving": "Sauvegarde..."
+    "saving": "Sauvegarde...",
+    "saved": "Enregistré",
+    "save_error": "L'enregistrement a échoué. Vérifiez votre connexion et réessayez."
+  },
+  "colors_tab": {
+    "preview": "Aperçu",
+    "reset": "Réinitialiser aux couleurs du modèle"
+  },
+  "gallery": {
+    "categories": {
+      "polyvalent": "Polyvalent",
+      "coiffure": "Coiffure",
+      "barbier": "Barbier",
+      "ongles": "Ongles",
+      "bien-etre": "Bien-être",
+      "mariage": "Mariage",
+      "all": "Tous",
+      "minimal": "Minimaliste",
+      "modern": "Moderne",
+      "classic": "Classique",
+      "creative": "Créatif",
+      "luxury": "Luxe",
+      "natural": "Naturel",
+      "bold": "Audacieux"
+    },
+    "preview": "Aperçu",
+    "preview_of": "Aperçu du modèle {{name}}",
+    "applied": "Appliqué",
+    "apply_template": "Appliquer ce modèle",
+    "close": "Fermer",
+    "desktop": "Ordinateur",
+    "mobile": "Mobile"
+  },
+  "display_settings": {
+    "view": {
+      "title": "Ordre des services",
+      "description": "Comment vos services sont rangés sur votre page.",
+      "options": {
+        "category": {
+          "label": "Par catégorie",
+          "description": "Regroupés par type de service"
+        },
+        "price": {
+          "label": "Par prix",
+          "description": "Du moins cher au plus cher"
+        },
+        "duration": {
+          "label": "Par durée",
+          "description": "Du plus court au plus long"
+        },
+        "popularity": {
+          "label": "Par popularité",
+          "description": "Les plus demandés en premier"
+        }
+      }
+    },
+    "price": {
+      "title": "Affichage des prix",
+      "description": "Comment vos tarifs sont présentés.",
+      "options": {
+        "fixed": {
+          "label": "Prix exact",
+          "description": "Ex. 2 500 DA"
+        },
+        "from": {
+          "label": "Environ",
+          "description": "Ex. environ 2 500 DA"
+        },
+        "range": {
+          "label": "Fourchette",
+          "description": "Ex. 2 000 – 3 000 DA"
+        },
+        "hidden": {
+          "label": "Masquer les prix",
+          "description": "Aucun prix affiché"
+        }
+      }
+    }
+  },
+  "share": {
+    "description": "Partagez ce lien pour que vos clients découvrent vos services et réservent en ligne.",
+    "copy": "Copier",
+    "copied": "Copié",
+    "share_on": "Partager sur",
+    "tweet": "Découvrez mon salon de beauté !",
+    "qr_alt": "QR code de votre page",
+    "qr_help": "Imprimez ce QR code pour votre comptoir ou votre vitrine.",
+    "qr_download": "Télécharger le QR code"
+  },
+  "reviews": {
+    "title": "Avis clients",
+    "description": "Les avis visibles apparaissent sur votre page, dans cet ordre.",
+    "loading": "Chargement…",
+    "empty_title": "Aucun avis pour l'instant",
+    "empty_body": "Ajoutez les retours de vos clientes ci-dessous pour rassurer les nouvelles.",
+    "hidden": "Masqué",
+    "visible": "Visible",
+    "move_up": "Monter",
+    "move_down": "Descendre",
+    "delete": "Supprimer",
+    "confirm_delete": "Supprimer cet avis ?",
+    "add_title": "Ajouter un avis",
+    "author": "Nom du client",
+    "rating": "Note",
+    "comment": "Commentaire",
+    "add": "Ajouter l'avis",
+    "adding": "Ajout…",
+    "errors": {
+      "load": "Impossible de charger les avis.",
+      "create": "L'avis n'a pas pu être ajouté.",
+      "update": "La modification n'a pas été enregistrée.",
+      "delete": "L'avis n'a pas pu être supprimé."
+    }
+  },
+  "upload": {
+    "recommended": "Taille recommandée : {{width}}×{{height}} px",
+    "choose": "Choisir une image",
+    "replace": "Remplacer",
+    "dropzone": "Glissez une image ou cliquez pour parcourir",
+    "processing": "Optimisation en cours…",
+    "too_large": "L'image dépasse 10 Mo. Choisissez un fichier plus léger.",
+    "not_image": "Ce fichier n'est pas une image. Choisissez un JPG, PNG ou WebP.",
+    "unreadable": "Impossible de lire les dimensions de cette image.",
+    "wrong_size": "Cette image fait {{width}}×{{height}} px, la taille recommandée est {{expectedWidth}}×{{expectedHeight}} px.",
+    "resize_question": "La redimensionner automatiquement ?",
+    "resize": "Redimensionner et envoyer",
+    "cancel": "Annuler",
+    "perfect": "Dimensions parfaites.",
+    "resized": "Image redimensionnée à {{width}}×{{height}} px.",
+    "error": "L'image n'a pas pu être envoyée. Réessayez."
   },
   "errors": {
     "upload": "Erreur lors du téléchargement de l'image:",

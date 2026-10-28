@@ -18,7 +18,7 @@ interface ProfileStore {
   syncWithBackend: () => Promise<void>;
 }
 
-const defaultCurrency = CURRENCIES.EUR;
+const defaultCurrency = CURRENCIES.DZD;
 
 export const generatePublicLink = (name: string): string => {
   if (!name) return '';

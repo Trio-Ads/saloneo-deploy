@@ -37,7 +37,9 @@
         "12": "12 heures à l'avance",
         "24": "24 heures à l'avance (1 jour)",
         "48": "48 heures à l'avance (2 jours)"
-      }
+      },
+      "section": "Réservation en ligne",
+      "help": "Vos clients peuvent réserver ce service depuis votre page publique."
     }
   },
   "categories": {
@@ -62,7 +64,7 @@
   },
   "actions": {
     "add_service": "Ajouter un service",
-    "new_service": "Nouveau Service",
+    "new_service": "Nouveau service",
     "create_service": "Créer un service",
     "limit_reached": "Limite atteinte",
     "edit": "Modifier",
@@ -102,9 +104,9 @@
     "total": "Total",
     "categories": "Catégories",
     "service_types": "Types de services",
-    "avg_duration": "Durée Moy.",
+    "avg_duration": "Durée moyenne",
     "avg_time": "Temps moyen",
-    "avg_price": "Prix Moyen",
+    "avg_price": "Prix moyen",
     "avg_rate": "Tarif moyen",
     "all_services": "Tous les services"
   },
@@ -128,19 +130,20 @@
     "image_upload_failed": "Échec du téléchargement de l'image"
   },
   "limits": {
-    "title": "Limite de Services"
+    "title": "Limite de services",
+    "resource": "services"
   },
   "products": {
-    "title": "Gestion des Stocks",
+    "title": "Gestion des stocks",
     "subtitle": "Gérez vos produits et leurs quantités en stock",
-    "add_product": "Ajouter un Produit",
+    "add_product": "Ajouter un produit",
     "stock_report": "Rapport de Stock",
     "stats": {
       "total": "Total Produits",
-      "all_products": "Tous les produits",
+      "all_products": "Produits",
       "units": "Unités",
       "unit_types": "Types d'unités",
-      "low_stock": "Stock Faible",
+      "low_stock": "Stock faible",
       "stock_alerts": "Alertes de stock",
       "out_of_stock": "Rupture",
       "stock_depleted": "Stock épuisé"
@@ -149,7 +152,7 @@
     "filters": "les filtres",
     "unit": "Unité",
     "all_units": "Toutes les unités",
-    "stock_status": "État du Stock",
+    "stock_status": "État du stock",
     "all_stocks": "Tous les stocks",
     "available_stock": "Stock disponible",
     "low_stock": "Stock faible",
@@ -163,9 +166,61 @@
     "products_found": "produit(s) trouvé(s)",
     "with_unit": "avec l'unité",
     "with_filter": "avec le filtre",
-    "confirm_delete": "Êtes-vous sûr de vouloir supprimer ce produit ?"
+    "confirm_delete": "Êtes-vous sûr de vouloir supprimer ce produit ?",
+    "limit_title": "Limite de produits",
+    "resource": "produits",
+    "reset": "Réinitialiser",
+    "in_stock": "En stock",
+    "threshold": "Seuil {{value}} {{unit}}",
+    "decrease": "Retirer 1 du stock",
+    "increase": "Ajouter 1 au stock",
+    "edit_product": "Modifier le produit",
+    "delete_product": "Supprimer le produit"
   },
   "details": {
     "available": "disponible"
+  },
+  "list": {
+    "services_count_one": "{{count}} service",
+    "services_count_other": "{{count}} services",
+    "online": "En ligne",
+    "active": "Actif",
+    "inactive": "Inactif"
+  },
+  "photos": {
+    "hint": "JPG ou PNG, 1200 × 800 px conseillé, 5 photos maximum.",
+    "add": "Ajouter une photo",
+    "uploading": "Envoi en cours…",
+    "none": "Aucune photo pour le moment",
+    "remove": "Retirer la photo",
+    "err_size": "L'image ne doit pas dépasser 5 Mo.",
+    "err_type": "Choisissez un fichier image (JPG ou PNG).",
+    "confirm_dimensions": "Cette image fait {{width}} × {{height}} px. Pour un meilleur rendu, utilisez {{optimalWidth}} × {{optimalHeight}} px.\n\nContinuer quand même ?",
+    "err_save_first": "Enregistrez d'abord le service, puis ajoutez des photos.",
+    "err_max": "Maximum 5 photos par service.",
+    "err_read": "Impossible de lire cette image. Essayez un autre fichier.",
+    "err_remove": "La photo n'a pas pu être retirée. Réessayez."
+  },
+  "product_form": {
+    "title_new": "Nouveau produit",
+    "title_edit": "Modifier le produit",
+    "subtitle": "Suivez le stock de vos produits de beauté.",
+    "name": "Nom du produit",
+    "name_placeholder": "Ex. : shampooing hydratant",
+    "description": "Description",
+    "description_placeholder": "Propriétés, utilisation…",
+    "section_stock": "Stock",
+    "quantity": "Quantité actuelle",
+    "min_quantity": "Seuil d'alerte",
+    "min_help": "Alerte quand le stock descend à ce seuil.",
+    "unit": "Unité de mesure",
+    "low_warning": "Le stock est au seuil d'alerte ou en dessous.",
+    "units": {
+      "ml": "Millilitres (ml)",
+      "g": "Grammes (g)",
+      "unit": "Unité(s)",
+      "l": "Litres (l)",
+      "kg": "Kilogrammes (kg)"
+    }
   }
 }

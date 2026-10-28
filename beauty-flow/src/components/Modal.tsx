@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { IconButton } from './ui';
 
 interface ModalProps {
   isOpen: boolean;
@@ -50,45 +51,27 @@ const Modal: React.FC<ModalProps> = ({
     full: 'max-w-7xl'
   };
 
+  // Phone: bottom sheet. sm+: centered dialog. Enter only; exit is instant.
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto">
-      {/* Backdrop avec blur */}
-      <div 
-        className="fixed inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm transition-opacity duration-300"
-        onClick={onClose}
-      />
-      
-      {/* Container centré */}
-      <div className="flex min-h-full items-center justify-center p-4">
-        <div 
-          className={`relative bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl rounded-3xl shadow-orange-lg dark:shadow-2xl border border-orange-500/20 dark:border-orange-500/30 w-full ${sizeClasses[size]} transform transition-all duration-300 animate-slideUp`}
-          onClick={(e) => e.stopPropagation()}
-        >
-          {/* Header avec gradient orange */}
-          <div className="bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 dark:from-orange-600 dark:via-orange-500 dark:to-orange-600 rounded-t-3xl p-6 relative overflow-hidden">
-            {/* Effet de brillance */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 animate-shimmer"></div>
-            
-            <div className="relative flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-white dark:text-gray-900">{title}</h2>
-              {showCloseButton && (
-                <button
-                  onClick={onClose}
-                  className="p-2 text-white/80 dark:text-gray-900/80 hover:text-white dark:hover:text-gray-900 hover:bg-white/20 dark:hover:bg-gray-900/20 rounded-xl transition-all duration-200 transform hover:scale-110"
-                  aria-label={t('modal.close')}
-                >
-                  <XMarkIcon className="h-6 w-6" />
-                </button>
-              )}
-            </div>
-          </div>
-          
-          {/* Contenu du modal */}
-          <div className="p-6 max-h-[70vh] overflow-y-auto bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-            {children}
-          </div>
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div className="absolute inset-0 bg-gray-900/45 animate-[modal-fade_200ms_ease-out]" onClick={onClose} />
+      <div
+        className={`relative flex w-full ${sizeClasses[size]} max-h-[92dvh] sm:max-h-[90vh] flex-col overflow-hidden rounded-t-2xl sm:rounded-2xl border border-gray-200 bg-white shadow-[0_24px_48px_-12px_rgb(24_24_27/0.25)] animate-[modal-sheet_240ms_cubic-bezier(0.32,0.72,0,1)] sm:animate-[modal-in_200ms_ease-out] dark:border-gray-800 dark:bg-gray-900`}
+        style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+      >
+        <div className="flex items-center justify-between gap-4 px-5 sm:px-6 py-4 border-b border-gray-100 dark:border-gray-800">
+          <h2 id="modal-title" className="text-lg font-semibold text-gray-900 dark:text-gray-50">{title}</h2>
+          {showCloseButton && (
+            <IconButton label={t('modal.close')} onClick={onClose} className="-me-2">
+              <XMarkIcon className="size-5" />
+            </IconButton>
+          )}
+        </div>
+        <div className="flex-1 overflow-y-auto overscroll-contain p-5 sm:p-6 text-gray-900 dark:text-gray-100">
+          {children}
         </div>
       </div>
+      <style>{'@keyframes modal-fade{from{opacity:0}}@keyframes modal-in{from{opacity:0;transform:scale(.97)}}@keyframes modal-sheet{from{transform:translateY(100%)}}'}</style>
     </div>
   );
 };

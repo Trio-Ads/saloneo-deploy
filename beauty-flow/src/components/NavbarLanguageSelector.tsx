@@ -1,79 +1,46 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ChevronDownIcon, CheckIcon } from '@heroicons/react/24/outline';
+import { CheckIcon, LanguageIcon } from '@heroicons/react/24/outline';
+
+const languages = [
+  { code: 'fr', name: 'Français' },
+  { code: 'en', name: 'English' },
+  { code: 'ar', name: 'العربية' },
+  { code: 'es', name: 'Español' },
+  { code: 'pt', name: 'Português' },
+  { code: 'tr', name: 'Türkçe' },
+  { code: 'ber', name: 'Tamazight' },
+];
 
 const NavbarLanguageSelector: React.FC = () => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const languages = [
-    { code: 'fr', name: 'Français', flag: '🇫🇷', isImage: false },
-    { code: 'en', name: 'English', flag: '🇺🇸', isImage: false },
-    { code: 'ar', name: 'العربية', flag: '🇸🇦', isImage: false },
-    { code: 'es', name: 'Español', flag: '🇪🇸', isImage: false },
-    { code: 'pt', name: 'Português', flag: '🇵🇹', isImage: false },
-    { code: 'tr', name: 'Türkçe', flag: '🇹🇷', isImage: false },
-    { code: 'ber', name: 'Tamazight', flag: '/images/flags/berber-flag.webp', isImage: true }
-  ];
-
-  // Fonction pour rendre le drapeau (émoji ou image)
-  const renderFlag = (language: typeof languages[0], size: 'sm' | 'md' = 'md') => {
-    const sizeClasses = {
-      sm: 'w-4 h-4',
-      md: 'w-5 h-5'
-    };
-
-    if (language.isImage) {
-      return (
-        <img 
-          src={language.flag} 
-          alt={`${language.name} flag`}
-          className={`${sizeClasses[size]} object-cover rounded`}
-        />
-      );
-    }
-    return <span className={size === 'sm' ? 'text-base' : 'text-lg'}>{language.flag}</span>;
-  };
-
   const currentLang = i18n.language || 'fr';
-  const selectedLanguage = languages.find(lang => lang.code === currentLang) || languages[0];
 
-  // Fermer le dropdown quand on clique en dehors
+  // Fermer le dropdown au clic extérieur ou avec Escape
   useEffect(() => {
+    if (!isOpen) return;
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) setIsOpen(false);
     };
-
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
+    const handleKey = (e: KeyboardEvent) => e.key === 'Escape' && setIsOpen(false);
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKey);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKey);
     };
   }, [isOpen]);
 
   const handleLanguageChange = async (languageCode: string) => {
-    console.log('🌍 Tentative de changement de langue vers:', languageCode);
-    
     try {
       await i18n.changeLanguage(languageCode);
-      console.log('✅ Langue changée avec succès vers:', languageCode);
-      console.log('✅ i18n.language est maintenant:', i18n.language);
-      
-      // Forcer un re-render en fermant le dropdown
       setIsOpen(false);
-      
-      // Forcer un refresh de la page si nécessaire
-      setTimeout(() => {
-        window.location.reload();
-      }, 100);
-      
+      // Recharger pour appliquer la direction (RTL) et les namespaces partout
+      setTimeout(() => window.location.reload(), 100);
     } catch (error) {
-      console.error('❌ Erreur lors du changement de langue:', error);
+      console.error('Erreur lors du changement de langue:', error);
     }
   };
 
@@ -81,58 +48,42 @@ const NavbarLanguageSelector: React.FC = () => {
     <div className="relative" ref={dropdownRef}>
       <button
         type="button"
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          console.log('🔘 Clic sur le bouton langue, isOpen:', !isOpen);
-          setIsOpen(!isOpen);
-        }}
-        className="flex items-center space-x-2 px-3 py-2 rounded-xl bg-white/10 dark:bg-white/5 backdrop-blur-sm border border-orange-500/20 dark:border-orange-400/20 hover:bg-orange-50/10 dark:hover:bg-orange-900/10 hover:border-orange-500/30 dark:hover:border-orange-400/30 transition-all duration-300 hover:scale-105 active:scale-95"
-        aria-label="Changer de langue"
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex h-9 items-center gap-1.5 rounded-lg px-2 text-sm font-medium text-gray-600 transition-colors duration-150 ease-out hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50"
+        aria-label={t('navigation.language')}
+        aria-expanded={isOpen}
+        aria-haspopup="listbox"
       >
-        {renderFlag(selectedLanguage, 'md')}
-        <span className="hidden sm:block text-sm font-medium text-gray-700 dark:text-gray-200">
-          {selectedLanguage.code.toUpperCase()}
-        </span>
-        <ChevronDownIcon className={`w-4 h-4 text-gray-500 dark:text-gray-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+        <LanguageIcon className="size-5" />
+        <span className="uppercase">{currentLang}</span>
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 w-56 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-[0_8px_32px_rgba(249,115,22,0.15)] dark:shadow-[0_8px_32px_rgba(251,146,60,0.2)] border border-orange-500/20 dark:border-orange-400/20 overflow-hidden z-[9999] animate-slide-down">
-          <div className="p-2">
-            {languages.map((language) => (
+        <div
+          role="listbox"
+          className="absolute end-0 top-full mt-2 w-48 origin-top-right rtl:origin-top-left rounded-xl border border-gray-200 bg-white p-1.5 shadow-[0_12px_32px_-8px_rgb(24_24_27/0.18)] z-50 animate-[menu-pop_200ms_ease-out] dark:border-gray-800 dark:bg-gray-900"
+        >
+          {languages.map((language) => {
+            const active = currentLang === language.code;
+            return (
               <button
                 key={language.code}
                 type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  console.log('🔘 Clic sur langue:', language.code);
-                  handleLanguageChange(language.code);
-                }}
-                className={`
-                  w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl transition-all duration-200 text-left
-                  ${currentLang === language.code 
-                    ? 'bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400' 
-                    : 'hover:bg-orange-50 dark:hover:bg-orange-900/10 text-gray-700 dark:text-gray-200'
-                  }
-                `}
+                role="option"
+                aria-selected={active}
+                onClick={() => handleLanguageChange(language.code)}
+                className={`flex w-full min-h-10 items-center justify-between gap-3 rounded-lg px-3 text-sm transition-colors duration-150 ease-out ${
+                  active
+                    ? 'font-medium text-orange-700 dark:text-orange-400'
+                    : 'text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-800'
+                }`}
               >
-                {renderFlag(language, 'md')}
-                <div className="flex-1">
-                  <div className={`font-medium text-sm ${currentLang === language.code ? 'font-semibold' : ''}`}>
-                    {language.name}
-                  </div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400">
-                    {language.code.toUpperCase()}
-                  </div>
-                </div>
-                {currentLang === language.code && (
-                  <CheckIcon className="w-4 h-4 text-orange-600 dark:text-orange-400" />
-                )}
+                <span>{language.name}</span>
+                {active && <CheckIcon className="size-4" />}
               </button>
-            ))}
-          </div>
+            );
+          })}
+          <style>{'@keyframes menu-pop{from{opacity:0;transform:scale(.97)}}'}</style>
         </div>
       )}
     </div>

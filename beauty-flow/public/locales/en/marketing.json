@@ -589,5 +589,207 @@
       "login": "Login",
       "rights": "All rights reserved"
     }
+  },
+  "site": {
+    "nav": {
+      "features": "Features",
+      "pricing": "Pricing",
+      "login": "Log in",
+      "signup": "Create my salon",
+      "dashboard": "My dashboard",
+      "menu": "Menu"
+    },
+    "hero": {
+      "title": "Run your salon. Let your clients book online.",
+      "subtitle": "Saloneo brings together your schedule, client records, team and stock, and gives your salon a booking page that stays open day and night. Built for salons in Algeria, priced in dinars, in French and Arabic.",
+      "emailLabel": "Your email address",
+      "emailPlaceholder": "you@yoursalon.dz",
+      "cta": "Create my salon",
+      "loading": "One moment…",
+      "note": "Free plan, no bank card",
+      "secondary": "See pricing",
+      "captionAdmin": "Top: your dashboard.",
+      "captionSalon": "Right: the page where your clients book.",
+      "altDashboard": "Saloneo dashboard: today's appointments, revenue, team",
+      "altSalon": "A salon's booking page on a phone"
+    },
+    "trades": {
+      "lead": "For",
+      "items": [
+        "hair salons",
+        "beauty institutes",
+        "nail bars",
+        "barbers",
+        "spas"
+      ]
+    },
+    "stats": {
+      "line": "{{salons}} salons signed up · {{appointments}} appointments booked with Saloneo"
+    },
+    "features": {
+      "title": "The whole salon, in one tool",
+      "subtitle": "No modules to piece together: what you need between two clients is already there.",
+      "agenda": {
+        "title": "A schedule that misses nothing",
+        "body": "Every appointment has its service, its assigned staff member and its status: scheduled, confirmed, completed or no-show. Saloneo refuses overlapping slots.",
+        "points": [
+          "List and calendar views",
+          "No-shows and appointments to close are flagged",
+          "Live updates on all your devices"
+        ],
+        "alt": "Appointment list in Saloneo"
+      },
+      "booking": {
+        "title": "A page in your name, where clients book online",
+        "body": "Pick a template, your colours and your photos. Clients see your services and prices, choose their slot, and can change or cancel from the link they receive.",
+        "points": [
+          "{{templates}} page templates",
+          "Prices shown in dinars",
+          "One link to share on Instagram, Facebook or WhatsApp"
+        ],
+        "slug": "your-salon",
+        "alt": "A salon's booking page on a phone"
+      },
+      "rest": {
+        "title": "And the rest of the day-to-day",
+        "alt": "Client records in Saloneo",
+        "clients": {
+          "title": "Client records",
+          "body": "Contact details, visit history and notes, to find a colour formula or a regular's habits."
+        },
+        "team": {
+          "title": "Team",
+          "body": "Each member has a role; each appointment is assigned to someone."
+        },
+        "stock": {
+          "title": "Products and stock",
+          "body": "Your product list and quantities, kept up to date."
+        },
+        "dashboard": {
+          "title": "Dashboard",
+          "body": "Today's and this month's revenue, occupancy, most requested services."
+        },
+        "mobile": {
+          "title": "On phone and computer",
+          "body": "Designed to be used standing up, between two clients."
+        },
+        "payment": {
+          "title": "Local payment",
+          "body": "Subscription paid by CIB or Edahabia card, through the SATIM gateway."
+        }
+      }
+    },
+    "roi": {
+      "title": "How many services pay for Saloneo?",
+      "body": "Enter the average price of a service in your salon. The maths is simple: the plan price divided by your average price.",
+      "label": "Average service price",
+      "result": "services per month cover the subscription",
+      "note": "Rounded up. The Free plan costs nothing."
+    },
+    "pricing": {
+      "title": "Simple pricing, in dinars",
+      "subtitle": "Start for free. Move to a paid plan when your salon needs it, with no commitment.",
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "perMonth": " / month",
+      "billedMonthly": "Billed every month",
+      "billedYearly": "{{amount}} billed once a year",
+      "noCard": "No bank card",
+      "recommended": "Recommended",
+      "unlimited": "Unlimited",
+      "included": "Included",
+      "notIncluded": "Not included",
+      "onQuote": "On quote",
+      "plans": {
+        "free": {
+          "name": "Free",
+          "description": "To try it with a small salon.",
+          "cta": "Start for free"
+        },
+        "starter": {
+          "name": "Starter",
+          "description": "For a salon with a small team.",
+          "cta": "Start with Starter"
+        },
+        "pro": {
+          "name": "Pro",
+          "description": "For an established, busy salon.",
+          "cta": "Start with Pro"
+        },
+        "enterprise": {
+          "name": "Enterprise"
+        }
+      },
+      "limits": {
+        "appointments": "Appointments per month",
+        "clients": "Clients",
+        "services": "Services",
+        "teamMembers": "Team members"
+      },
+      "features": {
+        "onlineBooking": "Online booking page",
+        "customInterface": "Custom page (template, colours)",
+        "stock": "Stock management"
+      },
+      "startFree": "Every account starts on the Free plan; you upgrade to Starter or Pro from the Subscription page.",
+      "payment": "Payment by CIB or Edahabia card (SATIM).",
+      "compare": "Compare plans in detail",
+      "compareTitle": "Compare plans",
+      "feature": "Plan",
+      "enterprise": "Several salons or special needs? The Enterprise plan is on quote.",
+      "contactUs": "Write to us"
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "more": "Another question? Write to us:",
+      "items": {
+        "free": {
+          "q": "Does the Free plan need a bank card?",
+          "a": "No. You create your account with an email and a password. The Free plan limits (20 appointments a month, 10 clients, 5 services) are enough to try Saloneo."
+        },
+        "payment": {
+          "q": "How do I pay for a subscription?",
+          "a": "By CIB or Edahabia card, through the secure SATIM gateway, from the Subscription page of your account."
+        },
+        "change": {
+          "q": "Can I change plans later?",
+          "a": "Yes. Upgrade whenever you like from the Subscription page. Your appointments, clients and services are kept."
+        },
+        "limit": {
+          "q": "What happens if I reach a limit?",
+          "a": "Saloneo lets you know. Your data stays intact; to add more, simply move to the next plan."
+        },
+        "yearly": {
+          "q": "How does yearly billing work?",
+          "a": "You pay for twelve months at once and pay {{discount}}% less than monthly. Two- and three-year terms also exist, with a larger discount."
+        },
+        "data": {
+          "q": "Who can access my salon's data?",
+          "a": "You and the people on your team. Traffic between your device and Saloneo is encrypted (HTTPS)."
+        }
+      }
+    },
+    "founder": {
+      "title": "Saloneo is just starting, with its first salons",
+      "body": "You won't find fake reviews or inflated numbers here: Saloneo has just opened, and we'd rather show you the product as it is.",
+      "body2": "If you'd like help setting up your salon — services, team, booking page — write to us. The people building Saloneo answer you.",
+      "cta": "Write to the team",
+      "signature": "The Saloneo team"
+    },
+    "cta": {
+      "title": "Your salon can take its first online bookings today.",
+      "body": "Create your account, add your services, share your link.",
+      "button": "Create my salon",
+      "login": "I already have an account"
+    },
+    "footer": {
+      "tagline": "Management and online booking for beauty salons in Algeria.",
+      "product": "Product",
+      "account": "Account",
+      "contact": "Contact",
+      "register": "Create an account",
+      "faq": "FAQ",
+      "rights": "All rights reserved."
+    }
   }
 }

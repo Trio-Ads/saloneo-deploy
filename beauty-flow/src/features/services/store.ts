@@ -41,7 +41,9 @@ const mapServiceFromAPI = (apiService: any): Service => ({
   bufferTimeAfter: apiService.bufferTimeAfter || 0,
   maxAdvanceBooking: apiService.maxAdvanceBooking || 30,
   minAdvanceBooking: apiService.minAdvanceBooking || 0,
-  isOnlineBookingEnabled: apiService.isOnlineBookingEnabled || false
+  isOnlineBookingEnabled: apiService.isOnlineBookingEnabled || false,
+  isOnline: apiService.settings?.isOnline ?? false,
+  minimumBookingTime: apiService.settings?.minimumBookingTime ?? 24
 });
 
 // Fonction pour mapper les données du frontend vers le backend
@@ -56,7 +58,11 @@ const mapServiceToAPI = (service: ServiceFormData) => ({
   bufferTimeAfter: service.bufferTimeAfter || 0,
   maxAdvanceBooking: service.maxAdvanceBooking || 30,
   minAdvanceBooking: service.minAdvanceBooking || 0,
-  isOnlineBookingEnabled: service.isOnlineBookingEnabled || false
+  isOnlineBookingEnabled: service.isOnlineBookingEnabled || false,
+  products: service.products,
+  // Clés pointées : $set ne remplace que ces champs de settings
+  ...(service.isOnline !== undefined && { 'settings.isOnline': service.isOnline }),
+  ...(service.minimumBookingTime !== undefined && { 'settings.minimumBookingTime': service.minimumBookingTime })
 });
 
 // Fonction pour mapper les produits du backend vers le frontend

@@ -218,11 +218,11 @@ const userSchema = new Schema<IUser>(
       },
       currency: {
         type: String,
-        default: 'EUR',
+        default: 'DZD',
       },
       timezone: {
         type: String,
-        default: 'Europe/Paris',
+        default: 'Africa/Algiers',
       },
     },
     isActive: {

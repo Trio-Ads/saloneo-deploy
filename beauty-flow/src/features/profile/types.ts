@@ -26,7 +26,7 @@ export const CURRENCIES: Record<string, Currency> = {
   USD: { code: 'USD', symbol: '$', name: 'Dollar US' },
   GBP: { code: 'GBP', symbol: '£', name: 'Livre Sterling' },
   AED: { code: 'AED', symbol: 'د.إ', name: 'Dirham' },
-  DZD: { code: 'DZD', symbol: 'د.ج', name: 'Dinar Algérien' },
+  DZD: { code: 'DZD', symbol: 'DA', name: 'Dinar algérien' },
   TRY: { code: 'TRY', symbol: '₺', name: 'Lire turque' },
   BRL: { code: 'BRL', symbol: 'R$', name: 'Real brésilien' }
 };

@@ -1,6 +1,6 @@
 {
   "title": "Profile",
-  "my_profile": "My Profile",
+  "my_profile": "My profile",
   "account": "Account",
   "personal_info": "Personal Information",
   "business_info": "Business Information",
@@ -173,7 +173,7 @@
   },
   "profile_form": {
     "tabs": {
-      "profile": "My Profile",
+      "profile": "Profile",
       "affiliation": "Affiliation"
     },
     "sections": {
@@ -193,7 +193,10 @@
       "establishment_name": "Establishment Name",
       "address": "Address",
       "language": "Language",
-      "currency": "Currency"
+      "currency": "Currency",
+      "password": "Password",
+      "full_address": "Full address",
+      "show_as_team_member": "Appear as a team member"
     },
     "placeholders": {
       "email": "your@email.com",
@@ -207,7 +210,10 @@
     },
     "buttons": {
       "change_password": "Change password",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "open": "Open",
+      "show_password": "Show password",
+      "hide_password": "Hide password"
     },
     "messages": {
       "password_required": "Please enter your current password",
@@ -219,7 +225,18 @@
       "public_link_description": "Share this link with your clients so they can book appointments directly",
       "public_link_label": "Your booking link",
       "language_error": "Error changing language",
-      "email_validation": "Please enter a valid email address"
+      "email_validation": "Please enter a valid email address",
+      "show_as_team_member_description": "Clients can pick you when booking and see you on the salon's public page.",
+      "team_member_on": "You now appear in the team",
+      "team_member_off": "You no longer appear in the team",
+      "team_member_error": "Couldn't change this option. Try again.",
+      "current_password_incorrect": "Current password is incorrect."
+    },
+    "descriptions": {
+      "login_info": "The address you sign in with.",
+      "personal_info": "Your name as it appears in the app.",
+      "salon_info": "Shown on your public booking page.",
+      "preferences": "Applied right away, no need to save."
     }
   },
   "firstName": "First Name",
@@ -263,7 +280,7 @@
         "qr_downloaded": "QR Code downloaded"
       },
       "tips": {
-        "title": "💡 Tips to increase your earnings",
+        "title": "Tips to increase your earnings",
         "social_share": "Share your link on your professional social networks",
         "quality_content": "Create quality content about Saloneo's benefits",
         "target_audience": "Target salon owners in your network",
@@ -349,7 +366,8 @@
         "save_error": "Error saving payout settings",
         "settings_updated": "Payout settings updated",
         "payout_requested": "Payout request sent",
-        "minimum_error": "Minimum amount is €{{amount}}"
+        "minimum_error": "Minimum amount is €{{amount}}",
+        "request_error": "Payout request failed"
       },
       "methods": {
         "bank": "Bank Transfer",
@@ -384,10 +402,11 @@
         "payment_schedule": "Payments are processed between the 1st and 5th of each month",
         "processing_time": "A delay of 2-5 business days is required depending on the chosen method",
         "transaction_fees": "Transaction fees may apply depending on your bank"
-      }
+      },
+      "minimum_help": "Payouts are made automatically once your balance reaches this amount."
     },
     "activation": {
-      "title": "Become a Saloneo Affiliate",
+      "title": "Become a Saloneo affiliate",
       "description": "Join our affiliate program and earn attractive commissions by recommending Saloneo to your professional network",
       "subtitle": "Recommend Saloneo and earn commissions on every new customer",
       "benefits": {
@@ -420,13 +439,25 @@
           "payment_schedule": "Monthly payments between the 1st and 5th",
           "tracking_period": "Tracking period: 30 days",
           "compliance": "Compliance with terms of use required"
+        },
+        "intro": "By activating the Saloneo affiliate program, you accept the following terms:",
+        "list": {
+          "rate": "Commissions are 20% of the pre-tax amount of each subscription",
+          "payout": "Commissions are paid monthly with a minimum threshold of €50",
+          "cookie": "The tracking cookie lasts 30 days",
+          "self_referral": "Self-referrals are not allowed",
+          "changes": "Saloneo may change or suspend the program",
+          "fraud": "Any fraud leads to immediate suspension of the affiliate account"
         }
       },
       "activate_button": "Activate Affiliate Program",
       "messages": {
         "activation_success": "Affiliate program activated successfully!",
-        "activation_error": "Error activating affiliate program"
-      }
+        "activation_error": "Error activating affiliate program",
+        "accept_required": "Please accept the affiliate terms"
+      },
+      "accept_terms": "I accept the Saloneo affiliate program terms",
+      "activating": "Activating…"
     },
     "marketing": {
       "title": "Marketing Tools",
@@ -476,7 +507,7 @@
         "instagram": "Instagram"
       },
       "best_practices": {
-        "title": "📚 Best Practices Guide",
+        "title": "Best practices",
         "personalize": "Personalize your messages",
         "personalize_desc": "Adapt templates to your style and audience for better results.",
         "be_authentic": "Be authentic",
@@ -495,7 +526,7 @@
       "dashboard": "Dashboard",
       "commissions": "Commissions",
       "settings": "Settings",
-      "marketing": "Marketing Tools"
+      "marketing": "Marketing tools"
     },
     "status": {
       "active": "Active",
@@ -507,7 +538,7 @@
       "commission_rate": "Commission Rate",
       "conversion_rate": "Conversion Rate"
     },
-    "program_title": "Affiliate Program",
+    "program_title": "Affiliate program",
     "affiliate_code": "Affiliate Code",
     "loading": "Loading affiliation data..."
   },
@@ -559,5 +590,9 @@
     "TND": "Tunisian Dinar",
     "DZD": "Algerian Dinar",
     "LYD": "Libyan Dinar"
+  },
+  "profile_page": {
+    "subtitle": "Your details, your salon's and your preferences",
+    "loading": "Loading profile…"
   }
 }

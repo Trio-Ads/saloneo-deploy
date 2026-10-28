@@ -184,7 +184,7 @@
         "high_cancellation_title": "Taux d'annulation élevé",
         "high_cancellation_desc": "{{rate}}% d'annulations ce mois. Considérez l'envoi de rappels SMS.",
         "top_service_title": "Service le plus rentable",
-        "top_service_desc": "\"{{service}}\" génère {{revenue}}€ de revenus. Pensez à le promouvoir.",
+        "top_service_desc": "\"{{service}}\" génère {{revenue}} de revenus. Pensez à le promouvoir.",
         "loyal_clients_title": "Clients fidèles",
         "loyal_clients_desc": "{{rate}}% de vos clients ont plus de 50 points de fidélité. Créez un programme de récompenses.",
         "popular_slot_title": "Créneau le plus demandé",
@@ -195,7 +195,7 @@
     },
     "revenue_chart": {
       "title": "Évolution des revenus",
-      "tooltip": "{{value}}€"
+      "tooltip": "{{value}}"
     }
   },
   "quick_actions": {

@@ -1,4 +1,6 @@
 import React, { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { PhotoIcon } from '@heroicons/react/24/outline';
 import { fileService } from '../../../services/fileService';
 import { ImageOptimizer, ImageDimensions } from '../../../services/imageOptimizer';
 
@@ -14,121 +16,128 @@ interface ImageUploadProps {
   type?: 'logo' | 'banner' | 'image';
 }
 
+type Status = { tone: 'ok' | 'info' | 'warn' | 'error'; text: string } | null;
+
+const toneClass = {
+  ok: 'text-emerald-700 dark:text-emerald-300',
+  info: 'text-gray-600 dark:text-gray-300',
+  warn: 'text-amber-700 dark:text-amber-300',
+  error: 'text-red-600 dark:text-red-400',
+};
+
 const ImageUpload: React.FC<ImageUploadProps> = ({ label, imageUrl, alt, onUpload, dimensions, type = 'image' }) => {
+  const { t } = useTranslation('interface');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [validationMessage, setValidationMessage] = useState<string>('');
+  const [status, setStatus] = useState<Status>(null);
+  // File whose dimensions are off, waiting for the user to accept the automatic resize.
+  const [pending, setPending] = useState<{ file: File; text: string } | null>(null);
+  const [dragging, setDragging] = useState(false);
 
   const handleClick = () => {
     fileInputRef.current?.click();
   };
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setIsProcessing(true);
-      setValidationMessage('');
-      
-      try {
-        // Vérifier la taille du fichier (max 10MB pour permettre l'optimisation)
-        if (file.size > 10 * 1024 * 1024) {
-          alert('L\'image ne doit pas dépasser 10MB');
-          return;
-        }
-
-        // Vérifier le type de fichier
-        if (!file.type.startsWith('image/')) {
-          alert('Veuillez sélectionner une image');
-          return;
-        }
-
-        let processedFile = file;
-
-        // Si des dimensions sont spécifiées, valider et optimiser
-        if (dimensions) {
-          const validation = await ImageOptimizer.validateImageDimensions(
-            file, 
-            dimensions as ImageDimensions,
-            0.2 // Tolérance de 20%
-          );
-
-          if (!validation.isValid) {
-            // Proposer de redimensionner automatiquement
-            const shouldResize = confirm(
-              `${validation.message}\n\nVoulez-vous redimensionner automatiquement l'image aux dimensions recommandées ?`
-            );
-
-            if (shouldResize) {
-              const optimized = await ImageOptimizer.resizeToExactDimensions(
-                file,
-                dimensions as ImageDimensions,
-                0.98 // Qualité très élevée
-              );
-              
-              // Créer un nouveau fichier à partir du blob optimisé
-              processedFile = new File([optimized.blob], file.name, {
-                type: 'image/png',
-                lastModified: Date.now()
-              });
-              
-              setValidationMessage(
-                `Image redimensionnée automatiquement à ${dimensions.width}x${dimensions.height}px avec qualité maximale`
-              );
-            } else {
-              setValidationMessage(validation.message || '');
-              return;
-            }
-          } else {
-            setValidationMessage('✓ Dimensions parfaites !');
-          }
-        }
-
-        console.log('🔍 ImageUpload: Appel de onUpload avec le fichier:', processedFile.name);
-        await onUpload(processedFile);
-        console.log('✅ ImageUpload: onUpload terminé avec succès');
-      } catch (error) {
-        console.error('❌ ImageUpload: Erreur lors du traitement de l\'image:', error);
-        alert('Erreur lors du traitement de l\'image');
-      } finally {
-        setIsProcessing(false);
-      }
-    }
-    
+    await processFile(event.target.files?.[0]);
     // Réinitialiser l'input
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
   };
 
+  const upload = async (file: File) => {
+    try {
+      await onUpload(file);
+    } catch (error) {
+      console.error('ImageUpload: erreur lors de l\'envoi de l\'image:', error);
+      setStatus({ tone: 'error', text: t('upload.error') });
+    }
+  };
+
+  const processFile = async (file?: File) => {
+    if (!file) return;
+    setPending(null);
+    setStatus(null);
+
+    // Vérifier la taille du fichier (max 10MB pour permettre l'optimisation)
+    if (file.size > 10 * 1024 * 1024) {
+      setStatus({ tone: 'error', text: t('upload.too_large') });
+      return;
+    }
+    // Vérifier le type de fichier
+    if (!file.type.startsWith('image/')) {
+      setStatus({ tone: 'error', text: t('upload.not_image') });
+      return;
+    }
+
+    setIsProcessing(true);
+    try {
+      // Si des dimensions sont spécifiées, valider avant l'envoi
+      if (dimensions) {
+        const validation = await ImageOptimizer.validateImageDimensions(file, dimensions as ImageDimensions, 0.2); // Tolérance de 20%
+        if (!validation.isValid) {
+          const { width, height } = validation.actualDimensions;
+          setPending({
+            file,
+            text: width
+              ? t('upload.wrong_size', { width, height, expectedWidth: dimensions.width, expectedHeight: dimensions.height })
+              : t('upload.unreadable'),
+          });
+          return;
+        }
+        setStatus({ tone: 'ok', text: t('upload.perfect') });
+      }
+      await upload(file);
+    } catch (error) {
+      console.error('ImageUpload: erreur lors du traitement de l\'image:', error);
+      setStatus({ tone: 'error', text: t('upload.error') });
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const resizeAndUpload = async () => {
+    if (!pending || !dimensions) return;
+    const { file } = pending;
+    setPending(null);
+    setIsProcessing(true);
+    try {
+      const optimized = await ImageOptimizer.resizeToExactDimensions(file, dimensions as ImageDimensions, 0.98); // Qualité très élevée
+      // Créer un nouveau fichier à partir du blob optimisé
+      const resized = new File([optimized.blob], file.name, { type: 'image/png', lastModified: Date.now() });
+      setStatus({ tone: 'info', text: t('upload.resized', { width: dimensions.width, height: dimensions.height }) });
+      await upload(resized);
+    } catch (error) {
+      console.error('ImageUpload: erreur lors du redimensionnement:', error);
+      setStatus({ tone: 'error', text: t('upload.error') });
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const cancelResize = () => {
+    setStatus(pending && { tone: 'warn', text: pending.text });
+    setPending(null);
+  };
+
   return (
-    <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-6 space-y-6 animate-fade-in">
-      <div className="flex items-center justify-between">
-        <div>
-          <label className="text-lg font-medium text-gray-900 dark:text-gray-200">{label}</label>
+    <div className="space-y-3">
+      <div className="flex items-start justify-between gap-4">
+        <div className="min-w-0">
+          <p className="text-base font-semibold text-gray-900 dark:text-gray-50">{label}</p>
           {dimensions && (
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-              Taille recommandée : {dimensions.width}x{dimensions.height}px
+            <p className="mt-0.5 text-sm text-gray-500 dark:text-gray-400 tabular-nums">
+              {t('upload.recommended', { width: dimensions.width, height: dimensions.height })}
             </p>
           )}
         </div>
-        <button
-          type="button"
-          onClick={() => fileInputRef.current?.click()}
-          className="px-6 py-3 text-white font-medium rounded-xl
-                   bg-gradient-to-r from-orange-500 to-orange-600
-                   hover:from-orange-600 hover:to-orange-700
-                   transform transition-all duration-300 hover:scale-[1.02]
-                   shadow-lg hover:shadow-xl"
-        >
-          <div className="flex items-center space-x-2">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span>Choisir une image</span>
-          </div>
+        <button type="button" onClick={handleClick} disabled={isProcessing} className="btn-secondary shrink-0">
+          <PhotoIcon className="size-4" />
+          {imageUrl ? t('upload.replace') : t('upload.choose')}
         </button>
       </div>
-      
+
       <input
         type="file"
         ref={fileInputRef}
@@ -136,92 +145,55 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ label, imageUrl, alt, onUploa
         accept="image/*"
         className="hidden"
       />
-      
-      {/* Messages de validation */}
-      {validationMessage && (
-        <div className={`bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl border p-3 text-sm ${
-          validationMessage.includes('✓') 
-            ? 'text-green-700 dark:text-green-300 border-green-500/30 dark:border-green-700/30' 
-            : validationMessage.includes('redimensionnée')
-            ? 'text-orange-700 dark:text-orange-300 border-orange-500/30 dark:border-orange-700/30'
-            : 'text-yellow-700 dark:text-yellow-300 border-yellow-500/30 dark:border-yellow-700/30'
-        }`}>
-          {validationMessage}
+
+      {pending && (
+        <div role="alertdialog" aria-labelledby={`${type}-resize-text`} className="flex flex-col gap-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 sm:flex-row sm:items-center sm:justify-between dark:border-amber-500/30 dark:bg-amber-500/10">
+          <p id={`${type}-resize-text`} className="text-sm text-amber-800 dark:text-amber-200">
+            {pending.text} {t('upload.resize_question')}
+          </p>
+          <div className="flex shrink-0 gap-2">
+            <button type="button" onClick={cancelResize} className="btn-ghost">{t('upload.cancel')}</button>
+            <button type="button" onClick={resizeAndUpload} className="btn-primary">{t('upload.resize')}</button>
+          </div>
         </div>
       )}
+      {status && <p role={status.tone === 'error' ? 'alert' : undefined} className={`text-sm ${toneClass[status.tone]}`}>{status.text}</p>}
 
-      <div 
-        className={`relative w-full h-48 rounded-xl overflow-hidden transition-all duration-300
-                    ${imageUrl ? 'shadow-xl' : 'bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-dashed border-2 border-gray-300 dark:border-gray-600'}`}
+      <div
+        onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
+        onDragLeave={() => setDragging(false)}
+        onDrop={(e) => { e.preventDefault(); setDragging(false); processFile(e.dataTransfer.files?.[0]); }}
+        className={`relative w-full overflow-hidden rounded-xl transition-colors duration-150 ease-out ${type === 'banner' ? 'aspect-[16/5] min-h-32' : 'h-40'} ${
+          dragging
+            ? 'border-2 border-dashed border-orange-500 bg-orange-50 dark:bg-orange-500/10'
+            : imageUrl
+            ? 'border border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-800/50'
+            : 'border-2 border-dashed border-gray-300 dark:border-gray-700'
+        }`}
       >
-        {/* Indicateur de traitement */}
         {isProcessing && (
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm z-10 flex items-center justify-center">
-            <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-xl shadow-xl border border-white/20 dark:border-gray-700/20 p-4 text-center">
-              <div className="w-8 h-8 border-2 border-orange-500/20 border-t-orange-500 rounded-full animate-spin mx-auto mb-2"></div>
-              <p className="text-gray-900 dark:text-gray-200 text-sm">Optimisation en cours...</p>
-            </div>
+          <div className="absolute inset-0 z-10 flex items-center justify-center gap-2 bg-white/85 text-sm text-gray-700 dark:bg-gray-900/85 dark:text-gray-200">
+            <span className="size-4 rounded-full border-2 border-gray-300 border-t-orange-500 animate-spin" />
+            {t('upload.processing')}
           </div>
         )}
 
         {imageUrl ? (
-          <div className="group relative w-full h-full">
-            {type === 'logo' ? (
-              // Affichage spécial pour le logo avec fond et centrage
-              <div className="w-full h-full bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
-                <img
-                  src={fileService.getImageUrl(imageUrl)}
-                  alt={alt}
-                  className="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
-                  style={{
-                    filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.1))'
-                  }}
-                />
-              </div>
-            ) : (
-              // Affichage normal pour bannière et autres images
-              <img
-                src={fileService.getImageUrl(imageUrl)}
-                alt={alt}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                loading="lazy"
-              />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <button
-              onClick={handleClick}
-              disabled={isProcessing}
-              className="absolute bottom-4 right-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-lg shadow-lg border border-white/20 dark:border-gray-700/20 px-4 py-2 text-gray-900 dark:text-gray-200 font-medium opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-105 disabled:opacity-50"
-            >
-              Modifier
-            </button>
-          </div>
-        ) : dimensions ? (
-          <div 
-            className="flex flex-col items-center justify-center h-full text-gray-600 dark:text-gray-400 cursor-pointer hover:text-gray-800 dark:hover:text-gray-200 transition-colors duration-300"
-            onClick={handleClick}
-          >
-            <div className="text-center">
-              <svg className="w-12 h-12 mb-3 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <p className="text-sm mb-2">Glissez une image ou cliquez pour parcourir</p>
-              <div className="text-xs text-gray-600 dark:text-gray-400 bg-white/70 dark:bg-gray-800/70 border border-gray-300 dark:border-gray-600 rounded px-2 py-1 inline-block">
-                {dimensions.width}×{dimensions.height}px
-              </div>
-            </div>
-          </div>
+          <img
+            src={fileService.getImageUrl(imageUrl)}
+            alt={alt}
+            className={`h-full w-full ${type === 'logo' ? 'object-contain p-4' : 'object-cover'}`}
+            loading="lazy"
+          />
         ) : (
-          <div 
-            className="flex flex-col items-center justify-center h-full text-gray-600 dark:text-gray-400 cursor-pointer hover:text-gray-800 dark:hover:text-gray-200 transition-colors duration-300"
+          <button
+            type="button"
             onClick={handleClick}
+            className="flex h-full w-full flex-col items-center justify-center gap-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors duration-150"
           >
-            <svg className="w-12 h-12 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <p className="text-sm">Glissez une image ou cliquez pour parcourir</p>
-          </div>
+            <PhotoIcon className="size-8 text-gray-400" />
+            <span className="text-sm">{t('upload.dropzone')}</span>
+          </button>
         )}
       </div>
     </div>

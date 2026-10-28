@@ -1,38 +1,39 @@
 // beauty-flow/src/features/public/SalonPage.tsx
-import React, { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getTemplateById } from '../templates';
+import { useTranslation } from 'react-i18next';
+import { salonTemplate } from '../templates';
 import { useSalonPublicData } from './hooks/useSalonPublicData';
 import { SalonPageRenderer } from './SalonPageRenderer';
 import { PublicBookingFlow } from './components/PublicBookingFlow';
 import { PublicNavbar } from './components/PublicNavbar';
 import { PublicFooter } from './components/PublicFooter';
+import LoadingSpinner from './components/LoadingSpinner';
+import { themeVars } from './sections/kit';
 
 export default function SalonPage() {
   const { slug } = useParams<{ slug: string }>();
+  const { t } = useTranslation('public');
   const { data, loading, error } = useSalonPublicData(slug || '');
   const [bookingServiceId, setBookingServiceId] = useState<string | null>(null);
+  const template = useMemo(() => salonTemplate(data?.profile.theme), [data]);
 
-  if (loading) return <div className="min-h-screen flex items-center justify-center">Chargement…</div>;
-  if (error || !data) return <div className="min-h-screen flex items-center justify-center">{error}</div>;
+  useEffect(() => {
+    if (data) document.title = `${data.profile.establishmentName} · ${t('site.online_booking')}`;
+  }, [data, t]);
 
-  const templateId = data.profile.theme?.selectedTemplateId || 'saloneo-classic';
-  const template = getTemplateById(templateId) || getTemplateById('saloneo-classic')!;
+  if (loading) return <LoadingSpinner message={t('loading.message')} />;
+  if (error || !data) {
+    return <div className="min-h-screen grid place-items-center p-6 text-center text-zinc-600">{t('site.not_found')}</div>;
+  }
 
   return (
-    <div
-      style={{
-        backgroundColor: template.theme.colors.background,
-        color: template.theme.colors.text,
-        fontFamily: template.theme.typography.bodyFont,
-      }}
-    >
-      {template.customCSS && (
-        <style dangerouslySetInnerHTML={{ __html: template.customCSS }} />
-      )}
-      <PublicNavbar template={template} data={data} onBook={() => setBookingServiceId(data.services[0]?._id || null)} />
-      <SalonPageRenderer template={template} data={data} onBook={setBookingServiceId} />
-      <PublicFooter template={template} data={data} />
+    <div className="sp min-h-screen" style={themeVars(template)}>
+      <PublicNavbar data={data} />
+      <main>
+        <SalonPageRenderer template={template} data={data} onBook={setBookingServiceId} />
+      </main>
+      <PublicFooter data={data} />
       {bookingServiceId && (
         <PublicBookingFlow
           template={template}
@@ -40,6 +41,7 @@ export default function SalonPage() {
           slug={slug || ''}
           services={data.services}
           team={data.team}
+          profile={data.profile}
           onClose={() => setBookingServiceId(null)}
         />
       )}

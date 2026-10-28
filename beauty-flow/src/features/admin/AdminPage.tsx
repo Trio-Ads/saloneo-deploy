@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { 
-  ShieldCheckIcon, 
-  UsersIcon, 
-  ChartBarIcon,
+import {
+  EnvelopeIcon,
   MagnifyingGlassIcon,
-  FunnelIcon,
   PencilSquareIcon,
-  EyeIcon,
-  XMarkIcon,
-  CheckIcon
+  ShieldCheckIcon,
+  UsersIcon,
+  XMarkIcon
 } from '@heroicons/react/24/outline';
+import api from '../../services/api';
+import { Badge, BadgeTone, EmptyState, IconButton, PageHeader, Panel, StatGroup } from '../../components/ui';
+
+const labelClass = 'block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5';
 import { useAdminStore } from './store';
 import { useAuthStore } from '../auth/store';
 import { AdminUser, PlanType, SubscriptionDuration } from './types';
@@ -78,67 +79,50 @@ const SubscriptionEditor: React.FC<SubscriptionEditorProps> = ({ user, onClose, 
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto">
-      <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
-        <div
-          className="fixed inset-0 transition-opacity bg-gray-900/75 dark:bg-black/80 backdrop-blur-sm"
-          onClick={onClose}
-        />
-        <div className="inline-block align-bottom bg-white dark:bg-gray-800 rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full border border-orange-500/20">
-          <form onSubmit={handleSubmit}>
-            {/* Header */}
-            <div className="bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-4 flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-white">
-                {t('edit_modal.title')}
-              </h3>
-              <button
-                type="button"
-                onClick={onClose}
-                className="text-white/80 hover:text-white transition-colors"
+    <div className="fixed inset-0 z-50 flex items-end justify-center overflow-y-auto bg-gray-900/50 sm:items-center sm:p-4" onClick={onClose}>
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="sub-editor-title"
+        onClick={(e) => e.stopPropagation()}
+        className="animate-modal-in sheet-on-mobile w-full overflow-hidden rounded-t-2xl border border-gray-200 bg-white shadow-xl dark:border-gray-800 dark:bg-gray-900 sm:max-w-lg sm:rounded-2xl"
+      >
+        <form onSubmit={handleSubmit}>
+          <div className="flex items-center justify-between border-b border-gray-100 px-5 py-4 dark:border-gray-800">
+            <div className="min-w-0">
+              <h3 id="sub-editor-title" className="text-base font-semibold text-gray-900 dark:text-gray-50">{t('edit_modal.title')}</h3>
+              <p className="truncate text-sm text-gray-500 dark:text-gray-400">{user.establishmentName} · {user.email}</p>
+            </div>
+            <IconButton label={t('edit_modal.cancel')} onClick={onClose}>
+              <XMarkIcon className="size-5" />
+            </IconButton>
+          </div>
+
+          <div className="space-y-4 px-5 py-5">
+            <div>
+              <label htmlFor="sub-plan" className={labelClass}>{t('edit_modal.plan')}</label>
+              <select
+                id="sub-plan"
+                value={formData.plan}
+                onChange={(e) => setFormData({ ...formData, plan: e.target.value as PlanType })}
+                className="field"
               >
-                <XMarkIcon className="w-6 h-6" />
-              </button>
+                <option value="FREE">FREE</option>
+                <option value="STARTER">STARTER</option>
+                <option value="PRO">PRO</option>
+                <option value="ENTERPRISE">ENTERPRISE</option>
+              </select>
             </div>
 
-            {/* Body */}
-            <div className="px-6 py-4 space-y-4">
-              {/* User Info */}
-              <div className="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
-                <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                  {user.establishmentName}
-                </p>
-                <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                  {user.email}
-                </p>
-              </div>
-
-              {/* Plan Selection */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  {t('edit_modal.plan')}
-                </label>
-                <select
-                  value={formData.plan}
-                  onChange={(e) => setFormData({ ...formData, plan: e.target.value as PlanType })}
-                  className="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-gray-900 dark:text-gray-100 transition-all"
-                >
-                  <option value="FREE">FREE</option>
-                  <option value="STARTER">STARTER</option>
-                  <option value="PRO">PRO</option>
-                  <option value="ENTERPRISE">ENTERPRISE</option>
-                </select>
-              </div>
-
-              {/* Duration Selection */}
-              {formData.plan !== 'FREE' && (
+            {formData.plan !== 'FREE' && (
+              <div className="grid gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    {t('edit_modal.duration')}
-                  </label>
+                  <label htmlFor="sub-duration" className={labelClass}>{t('edit_modal.duration')}</label>
                   <select
+                    id="sub-duration"
                     value={formData.duration}
                     onChange={(e) => setFormData({ ...formData, duration: e.target.value as SubscriptionDuration })}
-                    className="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-gray-900 dark:text-gray-100 transition-all"
+                    className="field"
                   >
                     <option value="MONTHLY">{t('edit_modal.monthly')}</option>
                     <option value="YEARLY">{t('edit_modal.yearly')}</option>
@@ -146,71 +130,41 @@ const SubscriptionEditor: React.FC<SubscriptionEditorProps> = ({ user, onClose, 
                     <option value="TRIENNIAL">{t('edit_modal.triennial')}</option>
                   </select>
                 </div>
-              )}
-
-              {/* Expiry Date */}
-              {formData.plan !== 'FREE' && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    {t('edit_modal.expiry_date')}
-                  </label>
+                  <label htmlFor="sub-expiry" className={labelClass}>{t('edit_modal.expiry_date')}</label>
                   <input
+                    id="sub-expiry"
                     type="date"
                     value={formData.expiresAt}
                     onChange={(e) => setFormData({ ...formData, expiresAt: e.target.value })}
-                    className="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-gray-900 dark:text-gray-100 transition-all"
+                    className="field"
                   />
-                  <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
-                    {t('edit_modal.expiry_help')}
-                  </p>
                 </div>
-              )}
-
-              {/* Active Status */}
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  id="isActive"
-                  checked={formData.isActive}
-                  onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
-                  className="w-4 h-4 text-orange-600 bg-gray-100 dark:bg-gray-900 border-gray-300 dark:border-gray-700 rounded focus:ring-orange-500 focus:ring-2"
-                />
-                <label htmlFor="isActive" className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('edit_modal.active')}
-                </label>
+                <p className="-mt-2 text-xs text-gray-500 dark:text-gray-400 sm:col-span-2">{t('edit_modal.expiry_help')}</p>
               </div>
-            </div>
+            )}
 
-            {/* Footer */}
-            <div className="px-6 py-4 bg-gray-50 dark:bg-gray-900/50 flex justify-end gap-3">
-              <button
-                type="button"
-                onClick={onClose}
-                disabled={loading}
-                className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-              >
-                {t('edit_modal.cancel')}
-              </button>
-              <button
-                type="submit"
-                disabled={loading}
-                className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg hover:from-orange-600 hover:to-orange-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2"
-              >
-                {loading ? (
-                  <>
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                    {t('edit_modal.saving')}
-                  </>
-                ) : (
-                  <>
-                    <CheckIcon className="w-4 h-4" />
-                    {t('edit_modal.save')}
-                  </>
-                )}
-              </button>
-            </div>
-          </form>
-        </div>
+            <label htmlFor="isActive" className="flex cursor-pointer items-center gap-3 text-sm font-medium text-gray-700 dark:text-gray-300">
+              <input
+                type="checkbox"
+                id="isActive"
+                checked={formData.isActive}
+                onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
+                className="size-4 rounded border-gray-300 text-orange-500 focus:ring-orange-500 dark:border-gray-600 dark:bg-gray-800"
+              />
+              {t('edit_modal.active')}
+            </label>
+          </div>
+
+          <div className="flex flex-col-reverse gap-2 border-t border-gray-100 px-5 py-4 dark:border-gray-800 sm:flex-row sm:justify-end">
+            <button type="button" onClick={onClose} disabled={loading} className="btn-secondary">
+              {t('edit_modal.cancel')}
+            </button>
+            <button type="submit" disabled={loading} className="btn-primary">
+              {loading ? t('edit_modal.saving') : t('edit_modal.save')}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
@@ -257,415 +211,201 @@ const AdminPage: React.FC = () => {
   const handleSendFeedbackToUser = async (userId: string, establishmentName: string) => {
     setSendingFeedback(userId);
     try {
-      const response = await fetch(`/api/admin/feedback/send/${userId}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-      });
-
-      const data = await response.json();
+      const { data } = await api.post(`/admin/feedback/send/${userId}`);
 
       if (data.success) {
-        alert(`Email de feedback envoyé avec succès à ${establishmentName} !`);
+        alert(t('feedback.sent', { name: establishmentName }));
       } else {
-        alert(`Erreur: ${data.message}`);
+        alert(`${t('feedback.error')} ${data.message || ''}`);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Erreur lors de l\'envoi de l\'email de feedback:', error);
-      alert('Erreur lors de l\'envoi de l\'email de feedback');
+      alert(`${t('feedback.error')} ${error.response?.data?.message || ''}`);
     } finally {
       setSendingFeedback(null);
     }
   };
 
-  const getPlanBadgeColor = (plan: PlanType | undefined) => {
-    if (!plan) {
-      return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200';
-    }
-    switch (plan) {
-      case 'FREE':
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200';
-      case 'STARTER':
-        return 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300';
-      case 'PRO':
-        return 'bg-orange-200 text-orange-900 dark:bg-orange-800/40 dark:text-orange-200';
-      case 'ENTERPRISE':
-        return 'bg-gradient-to-r from-orange-500 to-orange-600 text-white';
-      default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200';
-    }
-  };
+  const getPlanBadge = (plan: PlanType | undefined) => (
+    <Badge tone={!plan || plan === 'FREE' ? 'neutral' : 'orange'}>{plan || 'N/A'}</Badge>
+  );
 
   const getStatusBadge = (isActive: boolean, expiresAt?: string) => {
+    let tone: BadgeTone = 'green';
+    let label = t('status.active');
     if (!isActive) {
-      return (
-        <span className="px-2 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300">
-          {t('status.inactive')}
-        </span>
-      );
-    }
-
-    if (expiresAt) {
-      const expiry = new Date(expiresAt);
-      const now = new Date();
-      const daysLeft = Math.ceil((expiry.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
-
+      tone = 'neutral';
+      label = t('status.inactive');
+    } else if (expiresAt) {
+      const daysLeft = Math.ceil((new Date(expiresAt).getTime() - Date.now()) / (1000 * 60 * 60 * 24));
       if (daysLeft < 0) {
-        return (
-          <span className="px-2 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300">
-            {t('status.expired')}
-          </span>
-        );
+        tone = 'red';
+        label = t('status.expired');
       } else if (daysLeft <= 7) {
-        return (
-          <span className="px-2 py-1 text-xs font-medium rounded-full bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300">
-            {t('status.expiring_soon')}
-          </span>
-        );
+        tone = 'amber';
+        label = t('status.expiring_soon');
       }
     }
-
-    return (
-      <span className="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300">
-        {t('status.active')}
-      </span>
-    );
+    return <Badge tone={tone}>{label}</Badge>;
   };
 
   if (!user?.isAdmin) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-orange-50 to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-4">
-        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-orange-lg p-8 max-w-md w-full text-center border border-orange-500/20 dark:border-orange-500/20">
-          <ShieldCheckIcon className="w-16 h-16 mx-auto text-gray-400 dark:text-gray-600 mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-            {t('access_denied.title')}
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400">
-            {t('access_denied.message')}
-          </p>
-        </div>
+      <div className="py-6 sm:py-8">
+        <Panel>
+          <EmptyState icon={ShieldCheckIcon} title={t('access_denied.title')} body={t('access_denied.message')} />
+        </Panel>
       </div>
     );
   }
 
+  const th = 'px-5 py-3 whitespace-nowrap text-[0.8125rem] font-medium text-gray-500 dark:text-gray-400';
+  const td = 'px-5 py-3 whitespace-nowrap text-sm';
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-orange-50 to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      {/* Header */}
-      <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl border-b border-orange-500/20 dark:border-orange-500/20 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center justify-between w-full">
-              <div className="flex items-center space-x-4">
-                <div className="p-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-md">
-                  <ShieldCheckIcon className="w-8 h-8 text-white" />
-                </div>
-                <div>
-                  <h1 className="text-3xl font-bold bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 bg-clip-text text-transparent">
-                    {t('title')}
-                  </h1>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                    {t('subtitle')}
-                  </p>
-                </div>
-              </div>
-              
-            </div>
-          </div>
+    <div className="py-6 sm:py-8">
+      <PageHeader title={t('title')} subtitle={t('subtitle')} />
+
+      {platformStats && (
+        <StatGroup
+          items={[
+            { label: t('stats.total_users'), value: platformStats.users.total },
+            { label: t('stats.active_users'), value: platformStats.users.active },
+            { label: t('stats.recent_users'), value: platformStats.users.recent, hint: t('stats.last_30_days') },
+            {
+              label: t('stats.by_plan'),
+              value: [platformStats.users.byPlan.free, platformStats.users.byPlan.starter, platformStats.users.byPlan.pro, platformStats.users.byPlan.enterprise].join(' · '),
+              hint: 'Free · Starter · Pro · Enterprise'
+            }
+          ]}
+        />
+      )}
+
+      <div className="mb-4 flex flex-col gap-3 lg:flex-row lg:items-center">
+        <form onSubmit={handleSearch} className="relative flex-1 lg:max-w-sm">
+          <MagnifyingGlassIcon className="pointer-events-none absolute start-3 top-1/2 size-4 -translate-y-1/2 text-gray-400" />
+          <input
+            type="search"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder={t('search.placeholder')}
+            aria-label={t('search.placeholder')}
+            className="field ps-9"
+          />
+        </form>
+        <div className="grid grid-cols-2 gap-3 sm:flex">
+          <select
+            value={filters.planFilter || ''}
+            onChange={(e) => handleFilterChange('planFilter', e.target.value)}
+            aria-label={t('filters.all_plans')}
+            className="field sm:w-44"
+          >
+            <option value="">{t('filters.all_plans')}</option>
+            <option value="FREE">FREE</option>
+            <option value="STARTER">STARTER</option>
+            <option value="PRO">PRO</option>
+            <option value="ENTERPRISE">ENTERPRISE</option>
+          </select>
+          <select
+            value={filters.statusFilter || ''}
+            onChange={(e) => handleFilterChange('statusFilter', e.target.value)}
+            aria-label={t('filters.all_status')}
+            className="field sm:w-44"
+          >
+            <option value="">{t('filters.all_status')}</option>
+            <option value="active">{t('filters.active')}</option>
+            <option value="expired">{t('filters.expired')}</option>
+          </select>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Stats Cards */}
-        {platformStats && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            {/* Total Users */}
-            <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl p-6 border border-orange-500/20 dark:border-orange-500/20 shadow-orange-md hover:shadow-orange-lg transition-all duration-300">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                    {t('stats.total_users')}
-                  </p>
-                  <p className="text-3xl font-bold text-gray-900 dark:text-gray-100 mt-2">
-                    {platformStats.users.total}
-                  </p>
-                </div>
-                <div className="p-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl">
-                  <UsersIcon className="w-6 h-6 text-white" />
-                </div>
-              </div>
-            </div>
-
-            {/* Active Users */}
-            <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl p-6 border border-orange-500/20 dark:border-orange-500/20 shadow-orange-md hover:shadow-orange-lg transition-all duration-300">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                    {t('stats.active_users')}
-                  </p>
-                  <p className="text-3xl font-bold text-gray-900 dark:text-gray-100 mt-2">
-                    {platformStats.users.active}
-                  </p>
-                </div>
-                <div className="p-3 bg-gradient-to-r from-green-500 to-green-600 rounded-xl">
-                  <ChartBarIcon className="w-6 h-6 text-white" />
-                </div>
-              </div>
-            </div>
-
-            {/* Recent Users */}
-            <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl p-6 border border-orange-500/20 dark:border-orange-500/20 shadow-orange-md hover:shadow-orange-lg transition-all duration-300">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                    {t('stats.recent_users')}
-                  </p>
-                  <p className="text-3xl font-bold text-gray-900 dark:text-gray-100 mt-2">
-                    {platformStats.users.recent}
-                  </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
-                    {t('stats.last_30_days')}
-                  </p>
-                </div>
-                <div className="p-3 bg-gradient-to-r from-orange-400 to-orange-500 rounded-xl">
-                  <UsersIcon className="w-6 h-6 text-white" />
-                </div>
-              </div>
-            </div>
-
-            {/* Plans Distribution */}
-            <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl p-6 border border-orange-500/20 dark:border-orange-500/20 shadow-orange-md hover:shadow-orange-lg transition-all duration-300">
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">
-                {t('stats.by_plan')}
-              </p>
-              <div className="space-y-2">
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-gray-600 dark:text-gray-400">FREE</span>
-                  <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-                    {platformStats.users.byPlan.free}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-gray-600 dark:text-gray-400">STARTER</span>
-                  <span className="text-sm font-semibold text-orange-600 dark:text-orange-400">
-                    {platformStats.users.byPlan.starter}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-gray-600 dark:text-gray-400">PRO</span>
-                  <span className="text-sm font-semibold text-orange-600 dark:text-orange-400">
-                    {platformStats.users.byPlan.pro}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-gray-600 dark:text-gray-400">ENTERPRISE</span>
-                  <span className="text-sm font-semibold text-orange-600 dark:text-orange-400">
-                    {platformStats.users.byPlan.enterprise}
-                  </span>
-                </div>
-              </div>
-            </div>
+      <Panel flush>
+        {loading ? (
+          <div className="flex justify-center py-14">
+            <span className="size-6 rounded-full border-2 border-orange-500 border-t-transparent animate-spin" />
           </div>
-        )}
-
-        {/* Filters and Search */}
-        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl p-6 mb-6 border border-orange-500/20 dark:border-orange-500/20 shadow-orange-md">
-          <div className="flex flex-col lg:flex-row gap-4">
-            {/* Search */}
-            <form onSubmit={handleSearch} className="flex-1">
-              <div className="relative">
-                <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 dark:text-gray-500" />
-                <input
-                  type="text"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder={t('search.placeholder')}
-                  className="w-full pl-10 pr-4 py-2.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 transition-all"
-                />
-              </div>
-            </form>
-
-            {/* Plan Filter */}
-            <div className="flex items-center gap-2">
-              <FunnelIcon className="w-5 h-5 text-gray-400 dark:text-gray-500" />
-              <select
-                value={filters.planFilter || ''}
-                onChange={(e) => handleFilterChange('planFilter', e.target.value)}
-                className="px-4 py-2.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-gray-900 dark:text-gray-100 transition-all"
-              >
-                <option value="">{t('filters.all_plans')}</option>
-                <option value="FREE">FREE</option>
-                <option value="STARTER">STARTER</option>
-                <option value="PRO">PRO</option>
-                <option value="ENTERPRISE">ENTERPRISE</option>
-              </select>
-            </div>
-
-            {/* Status Filter */}
-            <select
-              value={filters.statusFilter || ''}
-              onChange={(e) => handleFilterChange('statusFilter', e.target.value)}
-              className="px-4 py-2.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-gray-900 dark:text-gray-100 transition-all"
-            >
-              <option value="">{t('filters.all_status')}</option>
-              <option value="active">{t('filters.active')}</option>
-              <option value="expired">{t('filters.expired')}</option>
-            </select>
-          </div>
-        </div>
-
-        {/* Users Table */}
-        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl border border-orange-500/20 dark:border-orange-500/20 shadow-orange-lg overflow-hidden">
-          {loading ? (
-            <div className="flex items-center justify-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 dark:border-orange-500"></div>
-            </div>
-          ) : error ? (
-            <div className="text-center py-12">
-              <p className="text-red-600 dark:text-red-400">{error}</p>
-            </div>
-          ) : users.length === 0 ? (
-            <div className="text-center py-12">
-              <UsersIcon className="w-16 h-16 mx-auto text-gray-400 dark:text-gray-600 mb-4" />
-              <p className="text-gray-600 dark:text-gray-400">{t('no_users')}</p>
-            </div>
-          ) : (
-            <>
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-gray-50 dark:bg-gray-900/50 border-b border-gray-200 dark:border-gray-700">
-                    <tr>
-                      <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                        {t('table.salon')}
-                      </th>
-                      <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                        {t('table.email')}
-                      </th>
-                      <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                        {t('table.plan')}
-                      </th>
-                      <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                        {t('table.status')}
-                      </th>
-                      <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                        {t('table.expiry')}
-                      </th>
-                      <th className="px-6 py-4 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                        {t('table.actions')}
-                      </th>
+        ) : error ? (
+          <p className="py-14 text-center text-sm text-red-600 dark:text-red-400">{error}</p>
+        ) : users.length === 0 ? (
+          <EmptyState icon={UsersIcon} title={t('no_users')} />
+        ) : (
+          <>
+            <div className="overflow-x-auto">
+              <table className="min-w-full">
+                <thead className="border-b border-gray-100 bg-gray-50 dark:border-gray-800 dark:bg-gray-800/50">
+                  <tr>
+                    <th className={`${th} text-start`}>{t('table.salon')}</th>
+                    <th className={`${th} text-start`}>{t('table.email')}</th>
+                    <th className={`${th} text-start`}>{t('table.plan')}</th>
+                    <th className={`${th} text-start`}>{t('table.status')}</th>
+                    <th className={`${th} text-start`}>{t('table.expiry')}</th>
+                    <th className={`${th} text-end`}><span className="sr-only">{t('table.actions')}</span></th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+                  {users.map((user) => (
+                    <tr key={user._id}>
+                      <td className={`${td} font-medium text-gray-900 dark:text-gray-50`}>{user.establishmentName}</td>
+                      <td className={`${td} text-gray-600 dark:text-gray-400`}>{user.email}</td>
+                      <td className={td}>{getPlanBadge(user.subscription?.plan)}</td>
+                      <td className={td}>{getStatusBadge(user.subscription?.isActive || false, user.subscription?.expiresAt)}</td>
+                      <td className={`${td} tabular-nums text-gray-600 dark:text-gray-400`}>
+                        {user.subscription?.expiresAt
+                          ? format(new Date(user.subscription.expiresAt), 'dd MMM yyyy', { locale: fr })
+                          : t('table.no_expiry')}
+                      </td>
+                      <td className={`${td} text-end`}>
+                        <div className="flex items-center justify-end gap-1">
+                          <IconButton
+                            label={t('feedback.send')}
+                            onClick={() => handleSendFeedbackToUser(user._id, user.establishmentName)}
+                            disabled={sendingFeedback === user._id}
+                            className="disabled:opacity-50"
+                          >
+                            {sendingFeedback === user._id
+                              ? <span className="size-4 rounded-full border-2 border-gray-400 border-t-transparent animate-spin" />
+                              : <EnvelopeIcon className="size-5" />}
+                          </IconButton>
+                          <IconButton
+                            label={t('actions.edit')}
+                            onClick={() => {
+                              setSelectedUser(user);
+                              setShowEditModal(true);
+                            }}
+                          >
+                            <PencilSquareIcon className="size-5" />
+                          </IconButton>
+                        </div>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                    {users.map((user) => (
-                      <tr
-                        key={user._id}
-                        className="hover:bg-orange-50/50 dark:hover:bg-gray-700/30 transition-colors"
-                      >
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                            {user.establishmentName}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-600 dark:text-gray-400">
-                            {user.email}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`px-3 py-1 text-xs font-semibold rounded-full ${getPlanBadgeColor(user.subscription?.plan)}`}>
-                            {user.subscription?.plan || 'N/A'}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {getStatusBadge(user.subscription?.isActive || false, user.subscription?.expiresAt)}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-600 dark:text-gray-400">
-                            {user.subscription?.expiresAt
-                              ? format(new Date(user.subscription.expiresAt), 'dd MMM yyyy', { locale: fr })
-                              : t('table.no_expiry')}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <div className="flex items-center justify-end gap-2">
-                            <button
-                              onClick={() => handleSendFeedbackToUser(user._id, user.establishmentName)}
-                              disabled={sendingFeedback === user._id}
-                              className="p-2 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                              title="Envoyer feedback"
-                            >
-                              {sendingFeedback === user._id ? (
-                                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600"></div>
-                              ) : (
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                </svg>
-                              )}
-                            </button>
-                            <button
-                              onClick={() => {
-                                setSelectedUser(user);
-                                setShowEditModal(true);
-                              }}
-                              className="p-2 text-orange-600 dark:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20 rounded-lg transition-colors"
-                              title={t('actions.edit')}
-                            >
-                              <PencilSquareIcon className="w-5 h-5" />
-                            </button>
-                            <button
-                              onClick={() => {
-                                // TODO: Implement view details
-                              }}
-                              className="p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg transition-colors"
-                              title={t('actions.view')}
-                            >
-                              <EyeIcon className="w-5 h-5" />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
-              {/* Pagination */}
-              {pagination.totalPages > 1 && (
-                <div className="px-6 py-4 bg-gray-50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-700">
-                  <div className="flex items-center justify-between">
-                    <div className="text-sm text-gray-600 dark:text-gray-400">
-                      {t('pagination.showing', {
-                        from: (pagination.page - 1) * pagination.limit + 1,
-                        to: Math.min(pagination.page * pagination.limit, pagination.total),
-                        total: pagination.total
-                      })}
-                    </div>
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => handlePageChange(pagination.page - 1)}
-                        disabled={pagination.page === 1}
-                        className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                      >
-                        {t('pagination.previous')}
-                      </button>
-                      <button
-                        onClick={() => handlePageChange(pagination.page + 1)}
-                        disabled={pagination.page === pagination.totalPages}
-                        className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                      >
-                        {t('pagination.next')}
-                      </button>
-                    </div>
-                  </div>
+            {pagination.totalPages > 1 && (
+              <div className="flex flex-col gap-3 border-t border-gray-100 px-5 py-4 dark:border-gray-800 sm:flex-row sm:items-center sm:justify-between">
+                <p className="text-sm tabular-nums text-gray-500 dark:text-gray-400">
+                  {t('pagination.showing', {
+                    from: (pagination.page - 1) * pagination.limit + 1,
+                    to: Math.min(pagination.page * pagination.limit, pagination.total),
+                    total: pagination.total
+                  })}
+                </p>
+                <div className="flex gap-2">
+                  <button onClick={() => handlePageChange(pagination.page - 1)} disabled={pagination.page === 1} className="btn-secondary">
+                    {t('pagination.previous')}
+                  </button>
+                  <button onClick={() => handlePageChange(pagination.page + 1)} disabled={pagination.page === pagination.totalPages} className="btn-secondary">
+                    {t('pagination.next')}
+                  </button>
                 </div>
-              )}
-            </>
-          )}
-        </div>
-      </div>
+              </div>
+            )}
+          </>
+        )}
+      </Panel>
 
-      {/* Edit Modal - SubscriptionEditor */}
       {showEditModal && selectedUser && (
         <SubscriptionEditor
           user={selectedUser}

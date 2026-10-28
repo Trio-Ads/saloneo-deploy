@@ -64,7 +64,7 @@
     "start_time": "Start Time",
     "end_time": "End Time",
     "break_time": "Break",
-    "day_off": "Day Off",
+    "day_off": "Day off",
     "available": "Available",
     "busy": "Busy",
     "vacation": "Vacation"
@@ -82,13 +82,13 @@
     "upload_photo": "Upload Photo"
   },
   "stats": {
-    "total_team": "Total Team",
+    "total_team": "Members",
     "all_members": "All members",
     "active": "Active",
     "available_members": "Available members",
     "roles": "Roles",
     "position_types": "Position types",
-    "avg_specialties": "Avg Specialties",
+    "avg_specialties": "Avg. specialties",
     "per_member": "Per member"
   },
   "badges": {
@@ -102,7 +102,7 @@
     "with_role": "with role"
   },
   "limits": {
-    "title": "Team Member Limits",
+    "title": "Team member limit",
     "reached": "Limit Reached"
   },
   "errors": {
@@ -158,13 +158,13 @@
     "admin_access": "Admin access"
   },
   "team_member_form": {
-    "title_new": "New Member",
-    "title_edit": "Edit Member",
-    "subtitle": "Add a new member to your beauty team",
+    "title_new": "New member",
+    "title_edit": "Edit member",
+    "subtitle": "Contact details, services and working hours.",
     "sections": {
-      "personal_info": "Personal Information",
+      "personal_info": "Personal information",
       "specialties": "Specialties",
-      "working_hours": "Working Hours"
+      "working_hours": "Working hours"
     },
     "labels": {
       "first_name_required": "First Name *",
@@ -194,8 +194,9 @@
       "to": "To:"
     },
     "help_messages": {
-      "specialties_help": "Hold Ctrl/Cmd to select multiple specialties",
-      "order_help": "Selection order determines display priority"
+      "specialties_help": "Tick the services this member performs.",
+      "order_help": "Selection order sets the display order.",
+      "no_services": "Add services first to assign them."
     },
     "buttons": {
       "cancel": "Cancel",
@@ -225,7 +226,8 @@
       "average": "Average",
       "active": "Active",
       "services": "service(s)",
-      "level_of": "Level {{level}}/5"
+      "level_of": "Level {{level}}/5",
+      "variable_hours": "Varying hours"
     },
     "tooltips": {
       "edit_member": "Edit member",

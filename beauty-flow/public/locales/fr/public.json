@@ -1,5 +1,91 @@
 {
+  "manage": {
+    "title": "Mon rendez-vous",
+    "invalid_link": "Lien introuvable",
+    "invalid_link_body": "Ce lien de modification est invalide, expiré ou le rendez-vous a été annulé.",
+    "back_to_salon": "Retour à la page du salon",
+    "status_label": "Statut",
+    "status": {
+      "scheduled": "Planifié",
+      "pending": "En attente",
+      "confirmed": "Confirmé",
+      "rescheduled": "Modifié",
+      "completed": "Terminé",
+      "cancelled": "Annulé",
+      "no_show": "Absent"
+    },
+    "modify": "Modifier le créneau",
+    "cancel": "Annuler le rendez-vous",
+    "new_slot": "Choisissez un nouveau créneau",
+    "confirm_new_slot": "Confirmer ce créneau",
+    "modified": "Votre rendez-vous a été déplacé.",
+    "modify_error": "Impossible de modifier ce rendez-vous. Choisissez un autre créneau ou contactez le salon.",
+    "cancel_title": "Annuler ce rendez-vous ?",
+    "cancel_body": "Le salon sera prévenu et le créneau libéré.",
+    "cancel_reason": "Raison (facultatif)",
+    "cancel_reason_placeholder": "Ex. : empêchement",
+    "keep": "Garder mon rendez-vous",
+    "confirm_cancel": "Oui, annuler",
+    "cancelled": "Votre rendez-vous a été annulé.",
+    "cancel_error": "L'annulation n'a pas abouti. Réessayez ou contactez le salon.",
+    "book_again": "Reprendre rendez-vous"
+  },
+  "list": {
+    "invalid_search": "Recherche incomplète : indiquez un email, un téléphone ou vos nom et prénom.",
+    "search_error": "La recherche n'a pas abouti. Réessayez dans un instant.",
+    "empty_body": "Aucun rendez-vous à venir avec ces informations.",
+    "book_new": "Prendre un rendez-vous"
+  },
   "booking": {
+    "stepper": {
+      "label": "Étapes de la réservation",
+      "slot": "Créneau",
+      "info": "Vos infos",
+      "done": "Confirmé"
+    },
+    "summary": {
+      "service": "Service",
+      "with": "Avec",
+      "price": "Prix",
+      "where": "Adresse",
+      "duration": "Durée"
+    },
+    "confirm": {
+      "title": "C'est réservé",
+      "add_calendar": "Ajouter au calendrier",
+      "manage_link": "Lien pour modifier ou annuler",
+      "copy": "Copier le lien",
+      "copied": "Lien copié",
+      "manage_hint": "Gardez ce lien : il vous permet de modifier ou d'annuler votre rendez-vous. Il vous a aussi été envoyé par email.",
+      "close": "Fermer"
+    },
+    "form": {
+      "first_name": "Prénom",
+      "last_name": "Nom",
+      "phone": "Téléphone",
+      "email": "Email",
+      "email_placeholder": "vous@exemple.com",
+      "more_info": "Date de naissance et adresse (facultatif)",
+      "birth_date": "Date de naissance",
+      "address": "Adresse",
+      "hair_questionnaire": "Questionnaire cheveux (facultatif)",
+      "skin_questionnaire": "Questionnaire peau (facultatif)",
+      "preferences": "Rappels et offres",
+      "pref_sms": "Rappel de rendez-vous par SMS",
+      "pref_marketing": "Offres et nouveautés par email",
+      "pref_birthday": "Une attention pour mon anniversaire",
+      "privacy": "Modifiable à tout moment. Vos informations ne sont jamais partagées.",
+      "notes": "Une précision pour le salon ? (facultatif)",
+      "notes_placeholder": "Allergies, longueur souhaitée, accès…",
+      "errors": {
+        "first_name": "Indiquez votre prénom.",
+        "last_name": "Indiquez votre nom.",
+        "email_required": "Indiquez votre email pour recevoir la confirmation.",
+        "email_invalid": "Cet email semble incomplet, vérifiez-le (ex. nom@exemple.com).",
+        "phone_required": "Indiquez votre numéro pour que le salon puisse vous joindre.",
+        "phone_invalid": "Ce numéro semble incomplet, vérifiez-le."
+      }
+    },
     "title": "Réservation en ligne",
     "steps": {
       "service": "Choisir un service",
@@ -27,7 +113,17 @@
       "choose_another_date": "Veuillez choisir une autre date",
       "stylist": "Coiffeur",
       "date": "Date",
-      "time": "Heure"
+      "time": "Heure",
+      "with_who": "Avec qui ?",
+      "any_stylist": "Peu importe",
+      "continue": "Continuer",
+      "back": "Retour",
+      "sending": "Envoi…",
+      "confirm_booking": "Confirmer la réservation",
+      "service_not_found": "Ce service n'est plus disponible.",
+      "no_stylist": "Aucun membre de l'équipe n'est disponible pour le moment.",
+      "previous_month": "Mois précédent",
+      "next_month": "Mois suivant"
     },
     "calendar": {
       "month_view": "Mois",
@@ -147,5 +243,35 @@
     "friday": "Vendredi",
     "saturday": "Samedi",
     "sunday": "Dimanche"
+  },
+  "site": {
+    "nav_label": "Navigation du salon",
+    "nav_services": "Prestations",
+    "nav_team": "Équipe",
+    "nav_reviews": "Avis",
+    "nav_contact": "Contact",
+    "book": "Réserver",
+    "book_service": "Réserver : {{name}}",
+    "call": "Appeler",
+    "all": "Tout",
+    "all_services": "Toutes les prestations",
+    "services_title": "Nos prestations",
+    "team_title": "L’équipe",
+    "reviews_title": "Avis clients",
+    "rating_summary": "{{avg}} sur 5 · {{count}} avis",
+    "contact_title": "Nous trouver",
+    "hours": "Horaires",
+    "closed": "Fermé",
+    "address": "Adresse",
+    "phone": "Téléphone",
+    "email": "E-mail",
+    "directions": "Itinéraire",
+    "menu_open": "Ouvrir le menu",
+    "menu_close": "Fermer le menu",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "credit": "Réservation en ligne par",
+    "online_booking": "Réservation en ligne",
+    "not_found": "Ce salon est introuvable ou momentanément indisponible."
   }
 }

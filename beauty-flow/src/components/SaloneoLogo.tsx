@@ -35,7 +35,7 @@ export const SaloneoLogo: React.FC<SaloneoLogoProps> = ({
     const dimensions = iconSizeMap[size];
     return (
       <img
-        src="/images/logos/Salonéo Logo - Icon.webp"
+        src="/images/logos/saloneo-logo-icon.webp"
         alt="Saloneo"
         width={dimensions.width}
         height={dimensions.height}
@@ -51,15 +51,15 @@ export const SaloneoLogo: React.FC<SaloneoLogoProps> = ({
       // En mode auto, utiliser White Colors en dark mode (icône colorée + texte blanc)
       // et Colors en light mode (icône colorée + texte coloré)
       return theme === 'dark' 
-        ? '/images/logos/Salonéo Logo - White Colors.webp'
-        : '/images/logos/Salonéo Logo - Colors.webp';
+        ? '/images/logos/saloneo-logo-white-colors.webp'
+        : '/images/logos/saloneo-logo-colors.webp';
     }
     
     const logoMap = {
-      color: '/images/logos/Salonéo Logo - Colors.webp',
-      white: '/images/logos/Salonéo Logo - White.webp',
-      dark: '/images/logos/Salonéo Logo - Dark.webp',
-      'white-colors': '/images/logos/Salonéo Logo - White Colors.webp'
+      color: '/images/logos/saloneo-logo-colors.webp',
+      white: '/images/logos/saloneo-logo-white.webp',
+      dark: '/images/logos/saloneo-logo-dark.webp',
+      'white-colors': '/images/logos/saloneo-logo-white-colors.webp'
     };
     
     return logoMap[variant];

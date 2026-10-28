@@ -11,6 +11,33 @@ import { ProductFormData } from '../../services/types';
 import { useSubscriptionLimits } from '../hooks/useSubscriptionLimits';
 import { LimitAlert } from './LimitAlert';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from 'react-i18next';
+import { Panel, EmptyState } from '../../../components/ui';
+
+const LimitReached: React.FC<{
+  titleKey: string;
+  message?: string;
+  upgradeMessage: string;
+  onCancel: () => void;
+  onUpgrade?: () => void;
+}> = ({ titleKey, message, upgradeMessage, onCancel, onUpgrade }) => {
+  const { t } = useTranslation('subscription');
+  return (
+    <Panel className="max-w-2xl mx-auto">
+      <EmptyState
+        icon={ExclamationTriangleIcon}
+        title={t(`limits.${titleKey}`)}
+        body={<>{message} {upgradeMessage}</>}
+        action={
+          <div className="flex flex-wrap justify-center gap-2">
+            <button type="button" onClick={onCancel} className="btn-secondary">{t('limits.back')}</button>
+            <button type="button" onClick={onUpgrade} className="btn-primary">{t('limits.see_plans')}</button>
+          </div>
+        }
+      />
+    </Panel>
+  );
+};
 
 // Hook pour gérer les limites dépassées
 export const useLimitedForm = () => {
@@ -53,36 +80,7 @@ export const ClientFormWithLimits: React.FC<ClientFormWithLimitsProps> = ({
   
   // Si limite atteinte pour un nouveau client
   if (!clientLimit.canAdd) {
-    return (
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 rounded-2xl p-8 text-center">
-          <ExclamationTriangleIcon className="h-16 w-16 text-red-500 dark:text-red-400 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-red-800 dark:text-red-300 mb-4">
-            Limite de clients atteinte
-          </h2>
-          <p className="text-red-700 dark:text-red-400 mb-6">
-            {clientLimit.message}
-          </p>
-          <p className="text-gray-700 dark:text-gray-300 mb-8">
-            {getUpgradeMessage()}
-          </p>
-          <div className="flex justify-center space-x-4">
-            <button
-              onClick={onCancel}
-              className="px-6 py-3 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200"
-            >
-              Retour
-            </button>
-            <button
-              onClick={onLimitExceeded}
-              className="px-6 py-3 bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
-            >
-              Voir les plans
-            </button>
-          </div>
-        </div>
-      </div>
-    );
+    return <LimitReached titleKey="clients_reached" message={clientLimit.message} upgradeMessage={getUpgradeMessage()} onCancel={onCancel} onUpgrade={onLimitExceeded} />;
   }
   
   // Afficher l'alerte si proche de la limite
@@ -132,36 +130,7 @@ export const TeamMemberFormWithLimits: React.FC<TeamMemberFormWithLimitsProps> =
   
   // Si limite atteinte pour un nouveau membre
   if (!teamLimit.canAdd) {
-    return (
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-red-50 border border-red-200 rounded-2xl p-8 text-center">
-          <ExclamationTriangleIcon className="h-16 w-16 text-red-500 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-red-800 mb-4">
-            Limite de membres d'équipe atteinte
-          </h2>
-          <p className="text-red-700 mb-6">
-            {teamLimit.message}
-          </p>
-          <p className="text-gray-700 mb-8">
-            {getUpgradeMessage()}
-          </p>
-          <div className="flex justify-center space-x-4">
-            <button
-              onClick={onCancel}
-              className="px-6 py-3 bg-white text-gray-700 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200"
-            >
-              Retour
-            </button>
-            <button
-              onClick={onLimitExceeded}
-              className="px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
-            >
-              Voir les plans
-            </button>
-          </div>
-        </div>
-      </div>
-    );
+    return <LimitReached titleKey="team_reached" message={teamLimit.message} upgradeMessage={getUpgradeMessage()} onCancel={onCancel} onUpgrade={onLimitExceeded} />;
   }
   
   // Afficher l'alerte si proche de la limite et le formulaire
@@ -169,7 +138,7 @@ export const TeamMemberFormWithLimits: React.FC<TeamMemberFormWithLimitsProps> =
     <div>
       <LimitAlert 
         limitCheck={teamLimit} 
-        resourceType="membres d'équipe"
+        resourceType="team"
         upgradeMessage={getUpgradeMessage()}
       />
       <TeamMemberForm
@@ -222,36 +191,7 @@ export const ServiceFormWithLimits: React.FC<ServiceFormWithLimitsProps> = ({
   
   // Si limite atteinte pour un nouveau service
   if (!serviceLimit.canAdd) {
-    return (
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-red-50 border border-red-200 rounded-2xl p-8 text-center">
-          <ExclamationTriangleIcon className="h-16 w-16 text-red-500 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-red-800 mb-4">
-            Limite de services atteinte
-          </h2>
-          <p className="text-red-700 mb-6">
-            {serviceLimit.message}
-          </p>
-          <p className="text-gray-700 mb-8">
-            {getUpgradeMessage()}
-          </p>
-          <div className="flex justify-center space-x-4">
-            <button
-              onClick={onCancel}
-              className="px-6 py-3 bg-white text-gray-700 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200"
-            >
-              Retour
-            </button>
-            <button
-              onClick={onLimitExceeded}
-              className="px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
-            >
-              Voir les plans
-            </button>
-          </div>
-        </div>
-      </div>
-    );
+    return <LimitReached titleKey="services_reached" message={serviceLimit.message} upgradeMessage={getUpgradeMessage()} onCancel={onCancel} onUpgrade={onLimitExceeded} />;
   }
   
   // Afficher l'alerte si proche de la limite et le formulaire
@@ -303,36 +243,7 @@ export const ProductFormWithLimits: React.FC<ProductFormWithLimitsProps> = ({
   
   // Si limite atteinte pour un nouveau produit
   if (!productLimit.canAdd) {
-    return (
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-red-50 border border-red-200 rounded-2xl p-8 text-center">
-          <ExclamationTriangleIcon className="h-16 w-16 text-red-500 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-red-800 mb-4">
-            Limite de produits atteinte
-          </h2>
-          <p className="text-red-700 mb-6">
-            {productLimit.message}
-          </p>
-          <p className="text-gray-700 mb-8">
-            {getUpgradeMessage()}
-          </p>
-          <div className="flex justify-center space-x-4">
-            <button
-              onClick={onCancel}
-              className="px-6 py-3 bg-white text-gray-700 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200"
-            >
-              Retour
-            </button>
-            <button
-              onClick={onLimitExceeded}
-              className="px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
-            >
-              Voir les plans
-            </button>
-          </div>
-        </div>
-      </div>
-    );
+    return <LimitReached titleKey="products_reached" message={productLimit.message} upgradeMessage={getUpgradeMessage()} onCancel={onCancel} onUpgrade={onLimitExceeded} />;
   }
   
   // Afficher l'alerte si proche de la limite et le formulaire
@@ -340,7 +251,7 @@ export const ProductFormWithLimits: React.FC<ProductFormWithLimitsProps> = ({
     <div>
       <LimitAlert 
         limitCheck={productLimit} 
-        resourceType="produits"
+        resourceType="products"
         upgradeMessage={getUpgradeMessage()}
       />
       <ProductForm

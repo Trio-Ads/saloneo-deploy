@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { Types } from 'mongoose';
 import { validationResult } from 'express-validator';
 import { User } from '../models/User';
 import { Service } from '../models/Service';
@@ -33,6 +34,37 @@ export const getSalonBySlug = async (req: Request, res: Response): Promise<void>
     res.json(matchingUser);
   } catch (error) {
     logger.error('Get salon by slug error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+// Busy time ranges of the salon (optionally one stylist) for the next ~6 months — no client data
+export const getBusySlotsBySlug = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const salon = await findSalonBySlug(req.params.slug);
+    if (!salon) {
+      res.status(404).json({ error: 'Salon not found' });
+      return;
+    }
+    const from = new Date();
+    from.setUTCHours(0, 0, 0, 0);
+    const to = new Date(from.getTime() + 190 * 24 * 3600 * 1000);
+    const { stylistId } = req.query;
+    const appointments = await Appointment.find({
+      userId: salon._id,
+      status: { $ne: 'cancelled' },
+      date: { $gte: from, $lt: to },
+      ...(typeof stylistId === 'string' && stylistId ? { stylistId } : {}),
+    }).select('date startTime endTime stylistId').lean();
+    const pad = (t: string) => (t || '').padStart(5, '0');
+    res.json(appointments.map((a: any) => ({
+      date: new Date(a.date).toISOString().slice(0, 10),
+      startTime: pad(a.startTime),
+      endTime: pad(a.endTime),
+      stylistId: a.stylistId,
+    })));
+  } catch (error) {
+    logger.error('Get busy slots error:', error);
     res.status(500).json({ error: 'Server error' });
   }
 };
@@ -417,6 +449,37 @@ export const getAppointmentByToken = async (req: Request, res: Response): Promis
   }
 };
 
+// Shape returned to the public "manage my appointment" page (GET/PATCH by modification token)
+const MANAGED_SALON_FIELDS = 'establishmentName slug address publicPhone theme settings';
+async function managedAppointmentView(appointment: any) {
+  const [service, stylist] = await Promise.all([
+    Service.findById(appointment.serviceId).select('name').lean(),
+    appointment.stylistId && Types.ObjectId.isValid(appointment.stylistId)
+      ? TeamMember.findById(appointment.stylistId).select('firstName lastName').lean()
+      : null,
+  ]);
+  return {
+    id: appointment._id,
+    date: appointment.date,
+    startTime: appointment.startTime,
+    endTime: appointment.endTime,
+    duration: appointment.duration,
+    price: appointment.price,
+    status: appointment.status,
+    notes: appointment.notes,
+    serviceId: appointment.serviceId,
+    serviceName: (service as any)?.name,
+    stylistId: appointment.stylistId,
+    stylistName: stylist ? `${(stylist as any).firstName} ${(stylist as any).lastName || ''}`.trim() : undefined,
+    clientInfo: appointment.clientInfo,
+    client: appointment.clientId,
+    salon: appointment.userId,
+    canModify: appointment.status === 'scheduled' || appointment.status === 'confirmed' || appointment.status === 'rescheduled',
+    modificationToken: appointment.tokens.modification,
+    confirmationToken: appointment.confirmationToken
+  };
+}
+
 // Get appointment by modification token
 export const getAppointmentByModificationToken = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -429,7 +492,7 @@ export const getAppointmentByModificationToken = async (req: Request, res: Respo
       status: { $ne: 'cancelled' }
     })
     .populate('clientId', 'firstName lastName email phone')
-    .populate('userId', 'firstName lastName establishmentName');
+    .populate('userId', MANAGED_SALON_FIELDS);
 
     if (!appointment) {
       logger.warn('Appointment not found for modification token:', token);
@@ -439,25 +502,7 @@ export const getAppointmentByModificationToken = async (req: Request, res: Respo
 
     logger.info('Appointment found:', appointment._id);
 
-    // Format the response for the frontend
-    const response = {
-      id: appointment._id,
-      date: appointment.date,
-      startTime: appointment.startTime,
-      endTime: appointment.endTime,
-      duration: appointment.duration,
-      price: appointment.price,
-      status: appointment.status,
-      notes: appointment.notes,
-      serviceId: appointment.serviceId,
-      stylistId: appointment.stylistId,
-      clientInfo: appointment.clientInfo,
-      client: appointment.clientId,
-      salon: appointment.userId,
-      canModify: appointment.status === 'scheduled' || appointment.status === 'confirmed' || appointment.status === 'rescheduled',
-      modificationToken: appointment.tokens.modification,
-      confirmationToken: appointment.confirmationToken
-    };
+    const response = await managedAppointmentView(appointment);
 
     res.json({ appointment: response });
   } catch (error) {
@@ -580,29 +625,9 @@ export const modifyAppointmentByModificationToken = async (req: Request, res: Re
     // Return updated appointment (reuse formatter)
     const populated = await Appointment.findById(appointment._id)
       .populate('clientId', 'firstName lastName email phone')
-      .populate('userId', 'firstName lastName establishmentName');
+      .populate('userId', MANAGED_SALON_FIELDS);
 
-    res.json({
-      success: true,
-      appointment: {
-        id: populated!._id,
-        date: populated!.date,
-        startTime: populated!.startTime,
-        endTime: populated!.endTime,
-        duration: populated!.duration,
-        price: populated!.price,
-        status: populated!.status,
-        notes: populated!.notes,
-        serviceId: populated!.serviceId,
-        stylistId: populated!.stylistId,
-        clientInfo: populated!.clientInfo,
-        client: populated!.clientId,
-        salon: populated!.userId,
-        canModify: populated!.status === 'scheduled' || populated!.status === 'confirmed' || populated!.status === 'rescheduled',
-        modificationToken: populated!.tokens.modification,
-        confirmationToken: populated!.confirmationToken
-      }
-    });
+    res.json({ success: true, appointment: await managedAppointmentView(populated) });
   } catch (error) {
     logger.error('Modify appointment by modification token error:', error);
     res.status(500).json({ error: 'Server error' });

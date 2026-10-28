@@ -2,18 +2,23 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
-import { 
-  UserIcon,
-  EnvelopeIcon,
-  PhoneIcon,
-  BriefcaseIcon,
-  SparklesIcon,
-  StarIcon,
-  ClockIcon
-} from '@heroicons/react/24/outline';
+import clsx from 'clsx';
 import { TeamMemberFormData } from '../types';
 import { TEAM_ROLES } from '../store';
 import { useServiceStore } from '../../services/store';
+import { Panel } from '../../../components/ui';
+
+const labelClass = 'block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5';
+
+const Section: React.FC<{ title: React.ReactNode; description?: React.ReactNode; children: React.ReactNode }> = ({ title, description, children }) => (
+  <div className="grid gap-4 px-5 py-6 md:grid-cols-3 md:gap-8">
+    <div>
+      <h3 className="text-base font-semibold text-gray-900 dark:text-gray-50">{title}</h3>
+      {description && <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{description}</p>}
+    </div>
+    <div className="md:col-span-2">{children}</div>
+  </div>
+);
 
 interface TeamMemberFormProps {
   initialData?: TeamMemberFormData;
@@ -81,14 +86,14 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
     }));
   };
 
-  const handleSpecialtiesChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedOptions = Array.from(e.target.selectedOptions);
-    const specialties = selectedOptions.map(option => option.value);
-    setFormData((prev) => ({
-      ...prev,
-      specialties,
-      services: specialties // For backend compatibility
-    }));
+  // Append on check so the selection order (= display priority) is kept.
+  const toggleSpecialty = (serviceId: string) => {
+    setFormData((prev) => {
+      const specialties = prev.specialties.includes(serviceId)
+        ? prev.specialties.filter((id) => id !== serviceId)
+        : [...prev.specialties, serviceId];
+      return { ...prev, specialties, services: specialties }; // services: backend compatibility
+    });
   };
 
   const handleWorkingHoursChange = (day: string, field: string, value: string | boolean) => {
@@ -115,111 +120,47 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
   ];
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <form onSubmit={handleSubmit} className="space-y-8">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center space-x-3 mb-4">
-            <div className="p-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-lg">
-              <UserIcon className="h-8 w-8 text-white" />
-            </div>
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
-              {initialData ? t('team_member_form.title_edit') : t('team_member_form.title_new')}
-            </h2>
-          </div>
-          <p className="text-gray-600 dark:text-gray-400">{t('team_member_form.subtitle')}</p>
+    <form onSubmit={handleSubmit}>
+      <Panel flush bodyClassName="divide-y divide-gray-100 dark:divide-gray-800">
+        <div className="px-5 py-5">
+          <h2 className="font-display text-xl font-semibold text-gray-900 dark:text-gray-50">
+            {initialData ? t('team_member_form.title_edit') : t('team_member_form.title_new')}
+          </h2>
+          <p className="mt-0.5 text-sm text-gray-500 dark:text-gray-400">{t('team_member_form.subtitle')}</p>
         </div>
 
-        {/* Informations personnelles */}
-        <div className="glass-card p-6 bg-white/90 dark:bg-gray-800/70 backdrop-blur-xl border border-orange-500/20 shadow-orange-md">
-          <div className="flex items-center space-x-3 mb-6">
-            <UserIcon className="h-6 w-6 text-orange-600 dark:text-orange-500" />
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{t('team_member_form.sections.personal_info')}</h3>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Section title={t('team_member_form.sections.personal_info')}>
+          <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                <UserIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
-                {t('team_member_form.labels.first_name_required')}
-              </label>
-              <input
-                type="text"
-                id="firstName"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-                required
-                className="glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 focus:bg-white dark:focus:bg-gray-600 transition-all duration-200"
-                placeholder={t('team_member_form.placeholders.first_name')}
-              />
+              <label htmlFor="firstName" className={labelClass}>{t('team_member_form.labels.first_name_required')}</label>
+              <input type="text" id="firstName" name="firstName" autoComplete="off" value={formData.firstName} onChange={handleChange} required className="field" placeholder={t('team_member_form.placeholders.first_name')} />
             </div>
-
             <div>
-              <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                <UserIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
-                {t('team_member_form.labels.last_name_required')}
-              </label>
-              <input
-                type="text"
-                id="lastName"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-                required
-                className="glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 focus:bg-white dark:focus:bg-gray-600 transition-all duration-200"
-                placeholder={t('team_member_form.placeholders.last_name')}
-              />
+              <label htmlFor="lastName" className={labelClass}>{t('team_member_form.labels.last_name_required')}</label>
+              <input type="text" id="lastName" name="lastName" autoComplete="off" value={formData.lastName} onChange={handleChange} required className="field" placeholder={t('team_member_form.placeholders.last_name')} />
             </div>
-
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                <EnvelopeIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
-                {t('team_member_form.labels.email_required')}
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 focus:bg-white dark:focus:bg-gray-600 transition-all duration-200"
-                placeholder={t('team_member_form.placeholders.email_example')}
-              />
+              <label htmlFor="email" className={labelClass}>{t('team_member_form.labels.email_required')}</label>
+              <input type="email" id="email" name="email" autoComplete="off" value={formData.email} onChange={handleChange} required className="field" placeholder={t('team_member_form.placeholders.email_example')} />
             </div>
-
             <div>
-              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                <PhoneIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
-                {t('team_member_form.labels.phone_required')}
-              </label>
+              <label htmlFor="phone" className={labelClass}>{t('team_member_form.labels.phone_required')}</label>
               <PhoneInput
+                id="phone"
                 international
                 defaultCountry={defaultCountry as any}
                 value={formData.phone}
                 onChange={(value) => setFormData(prev => ({ ...prev, phone: value || '' }))}
-                className="glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 backdrop-blur-sm shadow-lg focus-within:ring-2 focus-within:ring-orange-500 focus-within:bg-white dark:focus-within:bg-gray-600 transition-all duration-200"
+                className="field flex items-center gap-2 focus-within:border-orange-500 focus-within:ring-[3px] focus-within:ring-orange-500/15"
                 numberInputProps={{
-                  className: 'w-full bg-transparent border-0 focus:outline-none focus:ring-0 text-gray-900 dark:text-gray-100 px-3 py-2',
+                  className: 'min-w-0 flex-1 bg-transparent border-0 p-0 focus:outline-none focus:ring-0 text-gray-900 dark:text-gray-100',
                   required: true
                 }}
               />
             </div>
-
-            <div className="md:col-span-2">
-              <label htmlFor="role" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                <BriefcaseIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
-                {t('team_member_form.labels.role_required')}
-              </label>
-              <select
-                id="role"
-                name="role"
-                value={formData.role}
-                onChange={handleChange}
-                required
-                className="glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 focus:bg-white dark:focus:bg-gray-600 transition-all duration-200"
-              >
+            <div className="sm:col-span-2">
+              <label htmlFor="role" className={labelClass}>{t('team_member_form.labels.role_required')}</label>
+              <select id="role" name="role" value={formData.role} onChange={handleChange} required className="field">
                 {TEAM_ROLES.map((role) => (
                   <option key={role} value={role}>
                     {role}
@@ -228,128 +169,93 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
               </select>
             </div>
           </div>
-        </div>
+        </Section>
 
-        {/* Spécialités */}
-        <div className="glass-card p-6 bg-white/90 dark:bg-gray-800/70 backdrop-blur-xl border border-orange-500/20 shadow-orange-md">
-          <div className="flex items-center space-x-3 mb-6">
-            <SparklesIcon className="h-6 w-6 text-orange-600 dark:text-orange-500" />
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{t('team_member_form.sections.specialties')}</h3>
-          </div>
-          
-          <div>
-            <label htmlFor="specialties" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              <StarIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
-              {t('form.personal_info.specialties')}
-            </label>
-            <select
-              id="specialties"
-              name="specialties"
-              value={formData.specialties}
-              onChange={handleSpecialtiesChange}
-              multiple
-              size={6}
-              className="glass-input w-full rounded-xl border-0 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-lg focus:ring-2 focus:ring-orange-500 focus:bg-white dark:focus:bg-gray-600 transition-all duration-200"
-            >
-              {services.map((service) => (
-                <option key={service.id} value={service.id}>
-                  {service.name}
-                </option>
-              ))}
-            </select>
-            <div className="mt-3 space-y-2">
-              <div className="glass-card bg-orange-50/50 dark:bg-orange-900/20 p-3 rounded-lg border border-orange-200 dark:border-orange-700">
-                <p className="text-sm text-orange-700 dark:text-orange-300 font-medium">
-                  💡 {t('team_member_form.help_messages.specialties_help')}
-                </p>
-              </div>
-              <div className="glass-card bg-orange-50/50 dark:bg-orange-900/20 p-3 rounded-lg border border-orange-200 dark:border-orange-700">
-                <p className="text-sm text-orange-700 dark:text-orange-300 font-medium">
-                  ⭐ {t('team_member_form.help_messages.order_help')}
-                </p>
-              </div>
+        <Section title={t('team_member_form.sections.specialties')} description={`${t('team_member_form.help_messages.specialties_help')} ${t('team_member_form.help_messages.order_help')}`}>
+          {services.length === 0 ? (
+            <p className="text-sm text-gray-500 dark:text-gray-400">{t('team_member_form.help_messages.no_services')}</p>
+          ) : (
+            <div className="grid gap-2 sm:grid-cols-2">
+              {services.map((service) => {
+                const checked = formData.specialties.includes(service.id);
+                return (
+                  <label
+                    key={service.id}
+                    className={clsx(
+                      'flex min-h-[44px] cursor-pointer items-center gap-3 rounded-xl border px-3 py-2 text-sm transition-colors duration-150 ease-out',
+                      checked
+                        ? 'border-orange-300 bg-orange-50 text-orange-900 dark:border-orange-500/40 dark:bg-orange-500/10 dark:text-orange-100'
+                        : 'border-gray-200 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800'
+                    )}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={checked}
+                      onChange={() => toggleSpecialty(service.id)}
+                      className="size-4 rounded border-gray-300 text-orange-500 focus:ring-orange-500 dark:border-gray-600 dark:bg-gray-800"
+                    />
+                    <span className="min-w-0 truncate">{service.name}</span>
+                  </label>
+                );
+              })}
             </div>
-          </div>
-        </div>
+          )}
+        </Section>
 
-        {/* Horaires de travail */}
-        <div className="glass-card p-6 bg-white/90 dark:bg-gray-800/70 backdrop-blur-xl border border-orange-500/20 shadow-orange-md">
-          <div className="flex items-center space-x-3 mb-6">
-            <ClockIcon className="h-6 w-6 text-orange-600 dark:text-orange-500" />
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{t('team_member_form.sections.working_hours')}</h3>
-          </div>
-          
-          <div className="space-y-4">
+        <Section title={t('team_member_form.sections.working_hours')}>
+          <div className="divide-y divide-gray-100 dark:divide-gray-800">
             {daysOfWeek.map(({ key, label }) => {
               const daySchedule = formData.workingHours[key];
               return (
-                <div key={key} className="glass-card bg-white/50 dark:bg-gray-700/50 p-4 rounded-xl hover:bg-white/70 dark:hover:bg-gray-700/70 transition-all duration-200">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-24">
-                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{label}</span>
-                    </div>
-                    
-                    <div className="flex items-center space-x-2">
+                <div key={key} className="flex flex-wrap items-center gap-x-4 gap-y-2 py-2.5 first:pt-0 last:pb-0">
+                  <label htmlFor={`${key}-working`} className="flex w-36 cursor-pointer items-center gap-3 text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <input
+                      type="checkbox"
+                      id={`${key}-working`}
+                      checked={daySchedule?.isWorking || false}
+                      onChange={(e) => handleWorkingHoursChange(key, 'isWorking', e.target.checked)}
+                      className="size-4 rounded border-gray-300 text-orange-500 focus:ring-orange-500 dark:border-gray-600 dark:bg-gray-800"
+                    />
+                    {label}
+                  </label>
+
+                  {daySchedule?.isWorking ? (
+                    <div className="flex items-center gap-2">
                       <input
-                        type="checkbox"
-                        id={`${key}-working`}
-                        checked={daySchedule?.isWorking || false}
-                        onChange={(e) => handleWorkingHoursChange(key, 'isWorking', e.target.checked)}
-                        className="h-4 w-4 rounded border-gray-300 text-orange-600 focus:ring-orange-500"
+                        type="time"
+                        aria-label={`${label} ${t('team_member_form.schedule_labels.from')}`}
+                        value={daySchedule.start || '09:00'}
+                        onChange={(e) => handleWorkingHoursChange(key, 'start', e.target.value)}
+                        className="field w-[7.5rem] py-2 tabular-nums"
                       />
-                      <label htmlFor={`${key}-working`} className="text-sm text-gray-600 dark:text-gray-400">
-                        {t('team_member_form.schedule_labels.works')}
-                      </label>
+                      <span className="text-gray-400">–</span>
+                      <input
+                        type="time"
+                        aria-label={`${label} ${t('team_member_form.schedule_labels.to')}`}
+                        value={daySchedule.end || '18:00'}
+                        onChange={(e) => handleWorkingHoursChange(key, 'end', e.target.value)}
+                        className="field w-[7.5rem] py-2 tabular-nums"
+                      />
                     </div>
-                    
-                    {daySchedule?.isWorking && (
-                      <>
-                        <div className="flex items-center space-x-2">
-                          <label className="text-sm text-gray-600 dark:text-gray-400">{t('team_member_form.schedule_labels.from')}</label>
-                          <input
-                            type="time"
-                            value={daySchedule.start || '09:00'}
-                            onChange={(e) => handleWorkingHoursChange(key, 'start', e.target.value)}
-                            className="glass-input rounded-lg border-0 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-orange-500 focus:bg-white dark:focus:bg-gray-600 transition-all duration-200 text-sm"
-                          />
-                        </div>
-                        
-                        <div className="flex items-center space-x-2">
-                          <label className="text-sm text-gray-600 dark:text-gray-400">{t('team_member_form.schedule_labels.to')}</label>
-                          <input
-                            type="time"
-                            value={daySchedule.end || '18:00'}
-                            onChange={(e) => handleWorkingHoursChange(key, 'end', e.target.value)}
-                            className="glass-input rounded-lg border-0 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-orange-500 focus:bg-white dark:focus:bg-gray-600 transition-all duration-200 text-sm"
-                          />
-                        </div>
-                      </>
-                    )}
-                  </div>
+                  ) : (
+                    <span className="text-sm text-gray-400 dark:text-gray-500">{t('schedule.day_off')}</span>
+                  )}
                 </div>
               );
             })}
           </div>
-        </div>
+        </Section>
 
-        {/* Actions */}
-        <div className="flex justify-end space-x-4 pt-6">
-          <button
-            type="button"
-            onClick={onCancel}
-            className="glass-button bg-white/70 dark:bg-gray-700 hover:bg-white/90 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
-          >
+        <div className="flex flex-col-reverse gap-2 px-5 py-4 sm:flex-row sm:justify-end">
+          <button type="button" onClick={onCancel} className="btn-secondary">
             {t('team_member_form.buttons.cancel')}
           </button>
-          <button
-            type="submit"
-            className="glass-button bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white border-0 shadow-orange-lg hover:shadow-orange-xl transform hover:scale-105 transition-all duration-200"
-          >
+          <button type="submit" className="btn-primary">
             {initialData ? t('team_member_form.buttons.modify') : t('team_member_form.buttons.add')}
           </button>
         </div>
-      </form>
-    </div>
+      </Panel>
+    </form>
   );
 };
 

@@ -121,7 +121,7 @@
     "select_file": "Select File",
     "supported_formats": "Supported formats: CSV, Excel"
   },
-  "page_title": "Client Management",
+  "page_title": "Clients",
   "page_subtitle": "Manage your client base and build lasting relationships",
   "loading": {
     "clients": "Loading your clients...",
@@ -131,12 +131,12 @@
     "clients_total_badge": "clients total",
     "vip_clients_badge": "VIP clients",
     "total": "Total",
-    "all_clients": "All clients",
+    "all_clients": "Clients",
     "vip_title": "VIP Clients",
     "vip_description": "100+ loyalty points",
     "recent_title": "New (30d)",
     "recent_description": "Recent clients",
-    "loyalty_title": "Loyalty Points",
+    "loyalty_title": "Loyalty points",
     "loyalty_description": "Points accumulated"
   },
   "search": {
@@ -154,13 +154,13 @@
     "deleting": "Error deleting client:"
   },
   "client_form": {
-    "title_new": "New Client",
-    "title_edit": "Edit Client",
+    "title_new": "New client",
+    "title_edit": "Edit client",
     "subtitle": "Fill in the client information to personalize their experience",
     "sections": {
-      "personal_info": "Personal Information",
+      "personal_info": "Personal information",
       "preferences": "Preferences",
-      "communication": "Communication Preferences"
+      "communication": "Communication"
     },
     "labels": {
       "first_name_required": "First Name *",
@@ -225,6 +225,12 @@
     "tooltips": {
       "edit_client": "Edit client",
       "delete_client": "Delete client"
-    }
+    },
+    "points_one": "{{count}} pt",
+    "points_other": "{{count}} pts"
+  },
+  "limits": {
+    "title": "Client limit",
+    "resource": "clients"
   }
 }

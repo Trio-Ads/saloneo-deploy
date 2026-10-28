@@ -62,5 +62,10 @@
     "saving": "Saving...",
     "success": "Subscription updated successfully",
     "error": "Error updating subscription"
+  },
+  "feedback": {
+    "send": "Send feedback email",
+    "sent": "Feedback email sent to {{name}}",
+    "error": "Couldn't send the feedback email."
   }
 }

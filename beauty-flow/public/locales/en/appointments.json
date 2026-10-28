@@ -1,7 +1,7 @@
 {
   "title": "Appointments",
   "page_title": "Appointment Management",
-  "page_subtitle": "Schedule and manage your appointments with elegance",
+  "page_subtitle": "Plan, confirm and follow up your salon's appointments.",
   "new_appointment": "New Appointment",
   "edit_appointment": "Edit Appointment",
   "appointment_details": "Appointment Details",
@@ -18,7 +18,8 @@
     "in_progress": "In Progress",
     "completed": "Completed",
     "cancelled": "Cancelled",
-    "no_show": "No Show"
+    "no_show": "No Show",
+    "rescheduled": "Rescheduled"
   },
   "form": {
     "client": "Client",
@@ -73,7 +74,8 @@
     "confirm_cancel": "Are you sure you want to cancel this appointment?",
     "confirm_delete": "Are you sure you want to delete this appointment?",
     "slot_unavailable": "This time slot is no longer available",
-    "overlap_warning": "This appointment overlaps with another one"
+    "overlap_warning": "This appointment overlaps with another one",
+    "confirm_no_show": "Mark this appointment as no-show?"
   },
   "calendar": {
     "month_view": "Month View",
@@ -130,10 +132,15 @@
     "no_show_status": "No Shows",
     "none_to_process": "No past appointments to process.",
     "processed_message": "appointments have been processed.",
-    "processing_error": "Error processing past appointments."
+    "processing_error": "Error processing past appointments.",
+    "notice_one": "{{count}} past appointment is still open.",
+    "notice_other": "{{count}} past appointments are still open.",
+    "mark_completed": "Mark completed",
+    "mark_no_show": "Mark no-show"
   },
   "limits": {
-    "title": "Appointment Limits"
+    "title": "Appointment limit",
+    "resource": "appointments"
   },
   "success_messages": {
     "appointment_created": "Appointment created successfully!"
@@ -142,57 +149,58 @@
     "form_submission": "Error submitting form:"
   },
   "appointment_form": {
-    "title_new": "New Appointment",
-    "title_edit": "Edit Appointment",
+    "title_new": "New appointment",
+    "title_edit": "Edit appointment",
     "subtitle": "Schedule an appointment for your client",
     "sections": {
       "client": "Client",
       "service": "Service",
-      "stylist": "Stylist",
+      "stylist": "Team member",
       "scheduling": "Scheduling",
       "notes": "Notes",
-      "summary": "Appointment Summary"
+      "summary": "Summary"
     },
     "labels": {
-      "select_client": "Select a client *",
-      "choose_client": "Choose a client...",
+      "select_client": "Client",
+      "choose_client": "Choose a client…",
       "client_selected": "Selected client:",
-      "select_service": "Select a service *",
-      "choose_service": "Choose a service...",
+      "select_service": "Service",
+      "choose_service": "Choose a service…",
       "service_selected": "Service:",
-      "select_stylist": "Select a stylist *",
-      "choose_stylist": "Choose a stylist...",
+      "select_stylist": "Team member",
+      "choose_stylist": "Choose a team member…",
       "stylist_selected": "Stylist:",
-      "date": "Date *",
-      "time": "Time *",
-      "select_time": "Select a time...",
-      "additional_notes": "Additional notes",
-      "notes_placeholder": "Add notes about the appointment, client preferences..."
+      "date": "Date",
+      "time": "Time",
+      "select_time": "Choose a time…",
+      "additional_notes": "Notes",
+      "notes_placeholder": "Add notes about the appointment, client preferences...",
+      "new": "New"
     },
     "messages": {
-      "select_service_stylist_first": "Please select a service and stylist first",
+      "select_service_stylist_first": "Choose a service and a team member first.",
       "no_slots_available": "No time slots available for this date",
       "slots_available": "slots available",
       "invalid_date": "Invalid date"
     },
     "summary_labels": {
-      "client": "Client:",
-      "service": "Service:",
-      "stylist": "Stylist:",
-      "date": "Date:",
-      "time": "Time:",
-      "duration": "Duration:",
-      "price": "Price:"
+      "client": "Client",
+      "service": "Service",
+      "stylist": "With",
+      "date": "Date",
+      "time": "Time",
+      "duration": "Duration",
+      "price": "Price"
     },
     "buttons": {
       "cancel": "Cancel",
-      "create": "Create Appointment",
-      "modify": "Modify"
+      "create": "Create appointment",
+      "modify": "Save"
     },
     "unknown": {
       "client": "Unknown client",
       "service": "Unknown service",
-      "stylist": "Unknown stylist"
+      "stylist": "Unknown member"
     }
   },
   "appointment_list": {
@@ -221,7 +229,8 @@
       "cancelled": "Cancelled",
       "no_show": "No Show"
     },
-    "overdue": "Overdue"
+    "overdue": "Overdue",
+    "with": "with {{name}}"
   },
   "calendar_view": {
     "today": "Today",
@@ -240,7 +249,9 @@
     "overdue": "Overdue",
     "legend": {
       "title": "Status Legend"
-    }
+    },
+    "week_total_one": "{{count}} appointment this week",
+    "week_total_other": "{{count}} appointments this week"
   },
   "appointment_settings": {
     "buffer_time": "Buffer time between appointments",
@@ -269,5 +280,58 @@
       "days": "days",
       "hours_before": "hours before appointment"
     }
+  },
+  "history_link": "History",
+  "quick_create": {
+    "client_title": "New client",
+    "service_title": "New service",
+    "team_title": "New team member",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "phone": "Phone",
+    "email": "Email",
+    "service_name": "Service name",
+    "category": "Category",
+    "duration": "Duration (minutes)",
+    "price": "Price",
+    "role": "Role",
+    "create": "Create",
+    "creating": "Creating…",
+    "cancel": "Cancel",
+    "close": "Close"
+  },
+  "history": {
+    "title": "Appointment history",
+    "subtitle": "Find and analyse every appointment in your salon.",
+    "back": "Appointments",
+    "filters": "Filters",
+    "show_filters": "Show",
+    "hide_filters": "Hide",
+    "startDate": "From",
+    "endDate": "To",
+    "client": "Client",
+    "stylist": "Team member",
+    "service": "Service",
+    "status": "Status",
+    "all": "All",
+    "reset": "Reset",
+    "total": "Total",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
+    "completion_rate": "Completion rate",
+    "clientStats": "{{client}}'s statistics",
+    "totalAppointments": "Appointments",
+    "completedAppointments": "Completed",
+    "cancelledAppointments": "Cancelled",
+    "noShowAppointments": "No-shows",
+    "averageDuration": "Average duration",
+    "favoriteService": "Favourite service",
+    "favoriteStylist": "Favourite team member",
+    "notEnoughData": "Not enough data",
+    "results_one": "{{count}} appointment",
+    "results_other": "{{count}} appointments",
+    "no_results_title": "No results",
+    "noResults": "No appointment matches these filters.",
+    "unknown": "Unknown"
   }
 }

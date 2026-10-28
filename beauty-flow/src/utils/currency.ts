@@ -40,7 +40,7 @@ export const getCurrencySymbol = (currency: Currency | string): string => {
     'EGP': 'ج.م',
     'MAD': 'د.م.',
     'TND': 'د.ت',
-    'DZD': 'د.ج',
+    'DZD': 'DA',
     'LYD': 'ل.د'
   };
 
@@ -50,7 +50,8 @@ export const getCurrencySymbol = (currency: Currency | string): string => {
 // Formatage des prix avec la devise appropriée
 export const formatPrice = (price: number, currency: Currency | string): string => {
   const symbol = getCurrencySymbol(currency);
-  return `${price.toFixed(2)} ${symbol}`;
+  const amount = Number(price) || 0;
+  return `${amount.toLocaleString('fr-FR', { maximumFractionDigits: Number.isInteger(amount) ? 0 : 2 })} ${symbol}`;
 };
 
 // Obtenir l'icône appropriée pour la devise

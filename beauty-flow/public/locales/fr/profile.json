@@ -1,6 +1,6 @@
 {
   "title": "Profil",
-  "my_profile": "Mon Profil",
+  "my_profile": "Mon profil",
   "account": "Compte",
   "personal_info": "Informations personnelles",
   "business_info": "Informations de l'entreprise",
@@ -173,7 +173,7 @@
   },
   "profile_form": {
     "tabs": {
-      "profile": "Mon Profil",
+      "profile": "Profil",
       "affiliation": "Affiliation"
     },
     "sections": {
@@ -193,7 +193,10 @@
       "establishment_name": "Nom de l'établissement",
       "address": "Adresse",
       "language": "Langue",
-      "currency": "Devise"
+      "currency": "Devise",
+      "password": "Mot de passe",
+      "full_address": "Adresse complète",
+      "show_as_team_member": "Apparaître comme membre de l'équipe"
     },
     "placeholders": {
       "email": "votre@email.com",
@@ -207,7 +210,10 @@
     },
     "buttons": {
       "change_password": "Changer le mot de passe",
-      "cancel": "Annuler"
+      "cancel": "Annuler",
+      "open": "Ouvrir",
+      "show_password": "Afficher le mot de passe",
+      "hide_password": "Masquer le mot de passe"
     },
     "messages": {
       "password_required": "Veuillez saisir votre mot de passe actuel",
@@ -219,7 +225,18 @@
       "public_link_description": "Partagez ce lien avec vos clients pour qu'ils puissent prendre rendez-vous directement",
       "public_link_label": "Votre lien de réservation",
       "language_error": "Erreur lors du changement de langue",
-      "email_validation": "Veuillez saisir une adresse email valide"
+      "email_validation": "Veuillez saisir une adresse email valide",
+      "show_as_team_member_description": "Vous pourrez être choisi(e) dans les réservations et sur la page publique du salon.",
+      "team_member_on": "Vous apparaissez maintenant dans l'équipe",
+      "team_member_off": "Vous n'apparaissez plus dans l'équipe",
+      "team_member_error": "Impossible de modifier cette option. Réessayez.",
+      "current_password_incorrect": "Mot de passe actuel incorrect."
+    },
+    "descriptions": {
+      "login_info": "L'adresse avec laquelle vous vous connectez.",
+      "personal_info": "Votre nom tel qu'il apparaît dans l'application.",
+      "salon_info": "Affichés sur votre page de réservation publique.",
+      "preferences": "Appliquées immédiatement, sans enregistrer."
     }
   },
   "firstName": "Prénom",
@@ -263,7 +280,7 @@
         "qr_downloaded": "QR Code téléchargé"
       },
       "tips": {
-        "title": "💡 Conseils pour augmenter vos revenus",
+        "title": "Conseils pour augmenter vos revenus",
         "social_share": "Partagez votre lien sur vos réseaux sociaux professionnels",
         "quality_content": "Créez du contenu de qualité sur les avantages de Saloneo",
         "target_audience": "Ciblez les propriétaires de salons dans votre réseau",
@@ -349,7 +366,8 @@
         "save_error": "Erreur lors de la sauvegarde des paramètres",
         "settings_updated": "Paramètres de paiement mis à jour",
         "payout_requested": "Demande de paiement envoyée",
-        "minimum_error": "Le montant minimum est de {{amount}}€"
+        "minimum_error": "Le montant minimum est de {{amount}}€",
+        "request_error": "Erreur lors de la demande de paiement"
       },
       "methods": {
         "bank": "Virement bancaire",
@@ -384,10 +402,11 @@
         "payment_schedule": "Les paiements sont traités entre le 1er et le 5 de chaque mois",
         "processing_time": "Un délai de 2-5 jours ouvrés est nécessaire selon la méthode choisie",
         "transaction_fees": "Des frais de transaction peuvent s'appliquer selon votre banque"
-      }
+      },
+      "minimum_help": "Les paiements sont effectués automatiquement lorsque votre solde atteint ce montant."
     },
     "activation": {
-      "title": "Devenez Affilié Saloneo",
+      "title": "Devenez affilié Saloneo",
       "description": "Rejoignez notre programme d'affiliation et gagnez des commissions attractives en recommandant Saloneo à votre réseau professionnel",
       "subtitle": "Recommandez Saloneo et gagnez des commissions sur chaque nouveau client",
       "benefits": {
@@ -420,13 +439,25 @@
           "payment_schedule": "Paiements mensuels entre le 1er et le 5",
           "tracking_period": "Durée de tracking : 30 jours",
           "compliance": "Respect des conditions d'utilisation obligatoire"
+        },
+        "intro": "En activant le programme d'affiliation Saloneo, vous acceptez les conditions suivantes :",
+        "list": {
+          "rate": "Les commissions sont de 20 % sur le montant HT de chaque abonnement",
+          "payout": "Les commissions sont versées mensuellement avec un seuil minimum de 50 €",
+          "cookie": "Le cookie de suivi a une durée de vie de 30 jours",
+          "self_referral": "Les auto-parrainages ne sont pas autorisés",
+          "changes": "Saloneo se réserve le droit de modifier ou suspendre le programme",
+          "fraud": "Toute fraude entraînera la suspension immédiate du compte affilié"
         }
       },
       "activate_button": "Activer le programme d'affiliation",
       "messages": {
         "activation_success": "Programme d'affiliation activé avec succès !",
-        "activation_error": "Erreur lors de l'activation du programme"
-      }
+        "activation_error": "Erreur lors de l'activation du programme",
+        "accept_required": "Veuillez accepter les conditions d'affiliation"
+      },
+      "accept_terms": "J'accepte les conditions du programme d'affiliation Saloneo",
+      "activating": "Activation…"
     },
     "marketing": {
       "title": "Outils Marketing",
@@ -476,7 +507,7 @@
         "instagram": "Instagram"
       },
       "best_practices": {
-        "title": "📚 Guide des bonnes pratiques",
+        "title": "Bonnes pratiques",
         "personalize": "Personnalisez vos messages",
         "personalize_desc": "Adaptez les templates à votre style et votre audience pour de meilleurs résultats.",
         "be_authentic": "Soyez authentique",
@@ -495,7 +526,7 @@
       "dashboard": "Tableau de bord",
       "commissions": "Commissions",
       "settings": "Paramètres",
-      "marketing": "Outils Marketing"
+      "marketing": "Outils marketing"
     },
     "status": {
       "active": "Actif",
@@ -507,7 +538,7 @@
       "commission_rate": "Taux de commission",
       "conversion_rate": "Taux de conversion"
     },
-    "program_title": "Programme d'Affiliation",
+    "program_title": "Programme d'affiliation",
     "affiliate_code": "Code affilié",
     "loading": "Chargement des données d'affiliation..."
   },
@@ -559,5 +590,9 @@
     "TND": "Dinar tunisien",
     "DZD": "Dinar algérien",
     "LYD": "Dinar libyen"
+  },
+  "profile_page": {
+    "subtitle": "Vos informations, celles du salon et vos préférences",
+    "loading": "Chargement du profil…"
   }
 }

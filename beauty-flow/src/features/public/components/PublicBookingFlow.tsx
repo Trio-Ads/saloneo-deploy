@@ -1,20 +1,17 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
+import { format } from 'date-fns';
+import { CheckIcon, XMarkIcon, ExclamationCircleIcon } from '@heroicons/react/24/outline';
 import { useInterfaceStore } from '../../interface/store';
 import { usePublicBookingStore } from '../store';
-import { PublicClientFormData, PublicService } from '../types';
+import { PublicClientFormData, PublicService, PublicTeamMember, PublicSalonProfile } from '../types';
 import DateTimeSelection from './DateTimeSelection';
 import PublicClientForm from './PublicClientForm';
-import LoadingSpinner from './LoadingSpinner';
 import { BookingConfirmation } from './BookingConfirmation';
 import { DesignTemplate } from '../../templates/types';
-import { PublicTeamMember } from '../types';
-import { format } from 'date-fns';
-import { fr } from 'date-fns/locale';
-
-// ---------------------------------------------------------------------------
-// Props
-// ---------------------------------------------------------------------------
+import { formatPrice } from '../../../utils/currency';
+import { bookingVars, dateLocale, formatDuration } from './bookingTheme';
 
 interface PublicBookingFlowProps {
   template: DesignTemplate;
@@ -22,116 +19,43 @@ interface PublicBookingFlowProps {
   slug: string;
   services?: PublicService[];
   team?: PublicTeamMember[];
+  /** Salon profile: currency, address, name and team visibility for the summary/confirmation */
+  profile?: PublicSalonProfile;
   onClose: () => void;
 }
 
-// ---------------------------------------------------------------------------
-// BookingStepper
-// ---------------------------------------------------------------------------
-
-interface BookingStepperProps {
-  currentStep: 1 | 2 | 3;
-  template: DesignTemplate;
-}
-
-function BookingStepper({ currentStep, template }: BookingStepperProps) {
-  const { colors } = template.theme;
-  const steps = [
-    { num: 1, label: 'Créneau' },
-    { num: 2, label: 'Vous' },
-    { num: 3, label: 'Confirmé' },
-  ];
-
+function BookingStepper({ step }: { step: 1 | 2 | 3 }) {
+  const { t } = useTranslation('public');
+  const labels = [t('booking.stepper.slot'), t('booking.stepper.info'), t('booking.stepper.done')];
   return (
-    <div className="flex items-center px-5 py-3">
-      {steps.map((step, i) => (
-        <div key={step.num} className="flex items-center flex-1">
-          <div className="flex flex-col items-center gap-0.5">
-            <div
-              className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold"
-              style={{
-                background:
-                  currentStep > step.num
-                    ? colors.primary
-                    : currentStep === step.num
-                    ? colors.text
-                    : colors.surface,
-                color: currentStep >= step.num ? '#fff' : colors.textSecondary,
-              }}
-            >
-              {currentStep > step.num ? '✓' : step.num}
-            </div>
-            <span
-              className="text-[9px] font-semibold uppercase tracking-wide"
-              style={{
-                color:
-                  currentStep === step.num ? colors.text : colors.textSecondary,
-              }}
-            >
-              {step.label}
-            </span>
-          </div>
-          {i < steps.length - 1 && (
-            <div
-              className="flex-1 h-0.5 mx-2 mb-3"
-              style={{
-                background:
-                  currentStep > step.num + 1 ? colors.primary : colors.surface,
-              }}
-            />
-          )}
-        </div>
-      ))}
-    </div>
+    <ol className="bk-steps" aria-label={t('booking.stepper.label')}>
+      {labels.map((label, i) => {
+        const n = i + 1;
+        const state = step > n || step === 3 ? 'is-done' : step === n ? 'is-current' : '';
+        return (
+          <React.Fragment key={n}>
+            {i > 0 && <li aria-hidden="true" className={`bk-step-line ${step >= n ? 'is-done' : ''}`} />}
+            <li className={`bk-step ${state}`} aria-current={step === n ? 'step' : undefined}>
+              <span className="bk-step-dot">{state === 'is-done' ? <CheckIcon className="h-3.5 w-3.5" strokeWidth={2.5} /> : n}</span>
+              <span>{label}</span>
+            </li>
+          </React.Fragment>
+        );
+      })}
+    </ol>
   );
 }
-
-// ---------------------------------------------------------------------------
-// ServiceChip
-// ---------------------------------------------------------------------------
-
-interface ServiceChipProps {
-  service: { name: string; duration: number; price: number };
-  slot?: { date: string; time: string; stylistName?: string };
-  template: DesignTemplate;
-}
-
-function ServiceChip({ service, slot, template }: ServiceChipProps) {
-  const { colors } = template.theme;
-  const content = slot
-    ? `${slot.date} · ${slot.time}${slot.stylistName ? ` · ${slot.stylistName}` : ''}`
-    : `${service.name} · ${service.duration} min`;
-
-  return (
-    <div
-      className="mx-4 mb-2 flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold"
-      style={{ background: colors.surface, color: colors.textSecondary }}
-    >
-      <div
-        className="w-2 h-2 rounded-full flex-shrink-0"
-        style={{ background: colors.primary }}
-      />
-      <span className="truncate">{content}</span>
-      <span className="font-bold ml-auto" style={{ color: colors.text }}>
-        {service.price}€
-      </span>
-    </div>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// Main component
-// ---------------------------------------------------------------------------
 
 const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
   template,
   serviceId,
-  slug: _slug,
+  slug,
   services,
   team,
+  profile,
   onClose,
 }) => {
-  const { t } = useTranslation('public');
+  const { t, i18n } = useTranslation('public');
   const settings = useInterfaceStore((state) => state.settings);
   const {
     currentStep,
@@ -150,33 +74,38 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
     closeConfirmation,
   } = usePublicBookingStore();
 
-  const { colors } = template.theme;
-
-  const currentService = services?.find(s => s._id === serviceId);
+  const currentService = services?.find((s) => s._id === serviceId);
+  const currency = profile?.settings?.currency || 'DZD';
+  const priceLabel = currentService?.price ? formatPrice(currentService.price, currency) : undefined;
+  const stylist = team?.find((m) => m._id === bookingData.stylistId);
+  const stylistName = stylist ? `${stylist.firstName} ${stylist.lastName || ''}`.trim() : lastBookingInfo?.stylistName;
 
   // Initialise the store with the serviceId on mount (parent conditionally renders this)
   React.useEffect(() => {
-    if (serviceId) {
-      console.log('🚀 Initializing booking with serviceId:', serviceId);
-      openBooking(serviceId);
-    }
+    if (serviceId) openBooking(serviceId);
   }, [serviceId, openBooking]);
 
-  // Debug
+  const close = React.useCallback(() => {
+    closeConfirmation();
+    onClose();
+    resetBooking();
+  }, [closeConfirmation, onClose, resetBooking]);
+
+  // Escape closes, page behind does not scroll
   React.useEffect(() => {
-    console.log('📊 PublicBookingFlow state:', {
-      currentStep,
-      serviceId: bookingData.serviceId,
-      error,
-    });
-  }, [currentStep, bookingData.serviceId, error]);
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && close();
+    document.addEventListener('keydown', onKey);
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = overflow;
+    };
+  }, [close]);
 
   const handleDateTimeSelect = React.useCallback(
-    (date: string, time: string, stylistId: string) => {
-      updateBookingData({ date, startTime: time, stylistId });
-      setStep('client');
-    },
-    [updateBookingData, setStep]
+    (date: string, time: string, stylistId: string) => updateBookingData({ date, startTime: time, stylistId }),
+    [updateBookingData]
   );
 
   const handleClientSubmit = React.useCallback(
@@ -190,204 +119,134 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
           ? err.message
           : t('errors:booking.error');
         setError({ step: 'client', message: msg });
+      } finally {
         setLoading(false);
       }
     },
     [updateBookingData, setError, setLoading, submitBooking, t]
   );
 
-  const handleBack = React.useCallback(() => {
-    if (currentStep === 'datetime') {
-      onClose();
-      resetBooking();
-    } else if (currentStep === 'client') {
-      setStep('datetime');
-    }
-  }, [currentStep, onClose, resetBooking, setStep]);
+  const step: 1 | 2 | 3 = showConfirmation && lastBookingInfo ? 3 : currentStep === 'client' ? 2 : 1;
 
-  const handleCloseConfirmation = React.useCallback(() => {
-    closeConfirmation();
-    onClose();
-    resetBooking();
-  }, [closeConfirmation, onClose, resetBooking]);
+  // Direction-aware step transition, decided only when the step changes (none on first open)
+  const nav = React.useRef({ step, dir: '' });
+  if (nav.current.step !== step) nav.current = { step, dir: step > nav.current.step ? 'bk-step-fwd' : 'bk-step-back' };
 
-  // Map store steps (strings) → stepper numeric step
-  const numericStep: 1 | 2 | 3 =
-    showConfirmation ? 3 : currentStep === 'client' ? 2 : 1;
+  // Body scrolls back to top on every step change
+  const bodyRef = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => { bodyRef.current?.scrollTo({ top: 0 }); }, [step]);
 
-  // Show confirmation screen
-  if (showConfirmation && lastBookingInfo) {
-    const confirmedService = services?.find(s => s._id === bookingData.serviceId) || currentService;
-    return (
-      <BookingConfirmation
-        template={template}
-        bookingInfo={{
-          date: format(new Date(lastBookingInfo.date), 'EEEE d MMMM yyyy', { locale: fr }),
-          time: lastBookingInfo.time,
-          serviceName: confirmedService?.name || '',
-          stylistName: lastBookingInfo.stylistName,
-          price: confirmedService?.price,
-          modificationLink: lastBookingInfo.modificationLink,
-        }}
-        onClose={handleCloseConfirmation}
-      />
-    );
-  }
+  const titles = { 1: t('booking.flow.choose_slot'), 2: t('booking.flow.your_info'), 3: t('booking.confirm.title') };
+  const slotLabel = bookingData.date && bookingData.startTime
+    ? `${format(new Date(`${bookingData.date}T00:00`), 'EEE d MMM', { locale: dateLocale(i18n.language) })} · ${bookingData.startTime}`
+    : null;
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center">
-      {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-black/50"
-        onClick={() => {
-          onClose();
-          resetBooking();
-        }}
-      />
+  // Portal: keeps the salon page's own CSS (.sp headings, focus rings) out of the sheet
+  return createPortal(
+    <div className="bk bk-overlay" style={bookingVars(template)} onClick={(e) => e.target === e.currentTarget && close()}>
+      <div className="bk-sheet" role="dialog" aria-modal="true" aria-labelledby="bk-title">
+        <div className="bk-handle" aria-hidden="true" />
 
-      {/* Modal sheet */}
-      <div
-        className="relative w-full max-w-lg md:rounded-2xl rounded-t-2xl shadow-2xl max-h-[90vh] overflow-y-auto"
-        style={{
-          background: colors.background,
-          color: colors.text,
-          fontFamily: template.theme.typography.bodyFont,
-        }}
-      >
-        {template.customCSS && (
-          <style dangerouslySetInnerHTML={{ __html: template.customCSS }} />
-        )}
+        <header className="px-5 pt-3 md:pt-5 pb-4 space-y-4" style={{ borderBottom: '1px solid var(--bk-border)' }}>
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              {profile?.establishmentName && <p className="bk-muted text-sm truncate">{profile.establishmentName}</p>}
+              <h2 id="bk-title" className="bk-h text-xl">{titles[step]}</h2>
+            </div>
+            <button type="button" className="bk-icon-btn -me-2" onClick={close} aria-label={t('modal.close')}>
+              <XMarkIcon className="h-5 w-5" />
+            </button>
+          </div>
+          <BookingStepper step={step} />
+          {currentService && step < 3 && (
+            <div className="flex items-center gap-3 px-4 py-2.5 text-sm" style={{ background: 'var(--bk-surface)', boxShadow: 'inset 0 0 0 1px var(--bk-border)', borderRadius: 'min(var(--bk-radius-card), 14px)' }}>
+              <div className="min-w-0 flex-1">
+                <p className="truncate font-medium">
+                  {currentService.name}
+                  <span className="bk-muted font-normal"> · {formatDuration(currentService.duration)}</span>
+                </p>
+                {slotLabel && (
+                  <p className="truncate bk-muted first-letter:uppercase">{slotLabel}{stylistName ? ` · ${stylistName}` : ''}</p>
+                )}
+              </div>
+              {priceLabel && <span className="bk-num shrink-0 font-semibold">{priceLabel}</span>}
+            </div>
+          )}
+        </header>
 
-        {/* Drag handle (mobile) */}
-        <div
-          className="w-10 h-1.5 rounded-full mx-auto mt-3 mb-1"
-          style={{ background: colors.surface }}
-        />
+        <div ref={bodyRef} className="bk-body">
+          <div key={step} className={`px-5 py-5 space-y-4 ${nav.current.dir}`}>
+            {error && (
+              <div className="bk-notice is-error" role="alert">
+                <ExclamationCircleIcon className="h-5 w-5 shrink-0" />
+                <span>{error.message}</span>
+              </div>
+            )}
 
-        {/* Stepper */}
-        <BookingStepper currentStep={numericStep} template={template} />
-
-        {/* Service chip */}
-        {bookingData.serviceId && (
-          <ServiceChip
-            service={{
-              name: currentService?.name || 'Service',
-              duration: currentService?.duration || 0,
-              price: currentService?.price || 0,
-            }}
-            slot={
-              bookingData.date && bookingData.startTime
-                ? { date: bookingData.date, time: bookingData.startTime }
-                : undefined
-            }
-            template={template}
-          />
-        )}
-
-        {/* Header row */}
-        <div
-          className="flex items-center justify-between px-5 pb-2 border-b"
-          style={{ borderColor: colors.surface }}
-        >
-          <h2 className="text-base font-bold" style={{ color: colors.text }}>
-            {currentStep === 'datetime'
-              ? t('booking.flow.choose_slot')
-              : t('booking.flow.your_info')}
-          </h2>
-          <button
-            onClick={() => {
-              onClose();
-              resetBooking();
-            }}
-            className="w-7 h-7 flex items-center justify-center rounded-full transition-opacity hover:opacity-70"
-            style={{ background: colors.surface, color: colors.textSecondary }}
-            aria-label="Fermer"
-          >
-            <svg
-              className="w-3.5 h-3.5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
+            {step === 1 && (
+              <DateTimeSelection
+                serviceId={bookingData.serviceId}
+                serviceDuration={currentService?.duration}
+                publicTeamMembers={team}
+                selectedDate={bookingData.date}
+                selectedTime={bookingData.startTime}
+                stylistId={bookingData.stylistId}
+                showTeamSelection={profile?.showTeamOnPublicPage ?? settings.showTeamOnPublicPage}
+                slug={slug}
+                onSelect={handleDateTimeSelect}
               />
-            </svg>
-          </button>
-        </div>
+            )}
 
-        {/* Body */}
-        <div className="px-5 pb-6 pt-4 space-y-4 relative">
-          {/* Error banner */}
-          {error && (
-            <div
-              className="flex items-center gap-3 p-4 rounded-xl text-sm"
-              style={{
-                backgroundColor: `${colors.primary}15`,
-                color: colors.text,
-                border: `1px solid ${colors.primary}30`,
-              }}
-            >
-              <svg
-                className="w-5 h-5 flex-shrink-0"
-                style={{ color: colors.primary }}
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              <span>{error.message}</span>
-            </div>
-          )}
-
-          {/* Loading overlay */}
-          {isLoading && (
-            <div className="absolute inset-0 backdrop-blur-sm bg-black/30 flex items-center justify-center z-50 rounded-b-2xl">
-              <LoadingSpinner fullScreen={false} />
-            </div>
-          )}
-
-          {/* Step: DateTime */}
-          {currentStep === 'datetime' && (
-            <DateTimeSelection
-              serviceId={bookingData.serviceId}
-              serviceDuration={currentService?.duration}
-              publicTeamMembers={team}
-              selectedDate={bookingData.date}
-              selectedTime={bookingData.startTime}
-              stylistId={bookingData.stylistId}
-              showTeamSelection={settings.showTeamOnPublicPage}
-              onSelect={handleDateTimeSelect}
-            />
-          )}
-
-          {/* Step: Client form */}
-          {currentStep === 'client' && (
-            <>
+            {step === 2 && (
               <PublicClientForm
                 serviceId={bookingData.serviceId}
                 publicService={currentService}
                 onSubmit={handleClientSubmit}
-                onBack={handleBack}
               />
+            )}
 
-              {/* Template-styled CTA (replaces the default button inside PublicClientForm
-                  if needed; kept here as a supplementary submit trigger if the form
-                  exposes a submit reference — otherwise the form's own button is used) */}
+            {step === 3 && lastBookingInfo && (
+              <BookingConfirmation
+                bookingInfo={{
+                  date: lastBookingInfo.date,
+                  time: lastBookingInfo.time,
+                  duration: currentService?.duration,
+                  serviceName: currentService?.name || '',
+                  stylistName,
+                  priceLabel,
+                  salonName: profile?.establishmentName,
+                  address: profile?.address,
+                  modificationUrl: `${window.location.origin}/appointment/${lastBookingInfo.modificationLink}`,
+                }}
+              />
+            )}
+          </div>
+        </div>
+
+        <footer className="bk-footer">
+          {step === 1 && (
+            <button type="button" className="bk-btn" disabled={!bookingData.date || !bookingData.startTime} onClick={() => setStep('client')}>
+              {t('booking.flow.continue')}
+            </button>
+          )}
+          {step === 2 && (
+            <>
+              <button type="button" className="bk-btn-ghost !flex-none" onClick={() => setStep('datetime')} disabled={isLoading}>
+                {t('booking.flow.back')}
+              </button>
+              <button type="submit" form="bk-client-form" className="bk-btn" disabled={isLoading}>
+                {isLoading && <span className="bk-spinner" aria-hidden="true" />}
+                {isLoading ? t('booking.flow.sending') : t('booking.flow.confirm_booking')}
+              </button>
             </>
           )}
-        </div>
+          {step === 3 && (
+            <button type="button" className="bk-btn" onClick={close}>{t('booking.confirm.close')}</button>
+          )}
+        </footer>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

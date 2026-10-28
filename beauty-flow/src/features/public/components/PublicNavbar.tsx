@@ -1,312 +1,86 @@
-import { useState, useEffect, useRef } from 'react';
-import type { CSSProperties } from 'react';
-import { DesignTemplate } from '../../templates/types';
+import { useEffect, useState } from 'react';
 import { SalonPublicData } from '../types';
+import { useSalon } from '../sections/kit';
 
-interface Props {
-  template: DesignTemplate;
-  data: SalonPublicData;
-  onBook: () => void;
-}
-
-export function PublicNavbar({ template, data, onBook }: Props) {
-  const { colors } = template.theme;
-  const [menuOpen, setMenuOpen] = useState(false);
+/** Sticky salon bar; on phones the links fold into a menu and "Réserver" stays pinned to the bottom. */
+export function PublicNavbar({ data }: { data: SalonPublicData }) {
+  const { t, name } = useSalon(data);
+  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('');
-  const navRef = useRef<HTMLElement>(null);
   const { profile } = data;
 
-  const showTeam =
-    profile.showTeamOnPublicPage !== false && data.team.length > 0;
-
-  /* ── scroll shadow + active-section tracking ── */
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 8);
-
-      const sections = ['services', 'team', 'contact'];
-      for (const id of sections) {
-        const el = document.getElementById(id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 90 && rect.bottom > 90) {
-            setActiveSection(id);
-            return;
-          }
-        }
-      }
-      setActiveSection('');
-    };
-
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  /* ── close mobile menu on outside click ── */
   useEffect(() => {
-    if (!menuOpen) return;
-    const handler = (e: MouseEvent) => {
-      if (navRef.current && !navRef.current.contains(e.target as Node)) {
-        setMenuOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
-  }, [menuOpen]);
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [open]);
 
-  const navLinks = [
-    { href: '#services', label: 'Services', id: 'services', show: true },
-    { href: '#team', label: 'Équipe', id: 'team', show: showTeam },
-    { href: '#contact', label: 'Contact', id: 'contact', show: true },
-  ].filter((l) => l.show);
-
-  /* ── subtle backdrop blur for glassmorphism templates ── */
-  const glassEnabled = template.theme.effects.glassmorphism.enabled;
-  const navBg = glassEnabled
-    ? colors.background + 'E6'  // slight transparency for glass effect
-    : colors.background;
-
-  const boxShadow = scrolled
-    ? template.theme.effects.shadows.sm
-    : 'none';
+  const links = [
+    { id: 'services', label: t('site.nav_services'), show: data.services.length > 0 },
+    { id: 'team', label: t('site.nav_team'), show: profile.showTeamOnPublicPage !== false && data.team.length > 0 },
+    { id: 'reviews', label: t('site.nav_reviews'), show: data.reviews.length > 0 },
+    { id: 'contact', label: t('site.nav_contact'), show: true },
+  ].filter(l => l.show);
+  const canBook = data.services.length > 0;
 
   return (
-    <nav
-      ref={navRef}
-      role="navigation"
-      aria-label="Navigation principale"
-      style={{
-        background: navBg,
-        borderBottom: scrolled
-          ? `1px solid ${colors.surface}`
-          : '1px solid transparent',
-        boxShadow,
-        backdropFilter: glassEnabled ? `blur(${template.theme.effects.glassmorphism.blur}px)` : undefined,
-        WebkitBackdropFilter: glassEnabled ? `blur(${template.theme.effects.glassmorphism.blur}px)` : undefined,
-        transition: 'border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease',
-        fontFamily: template.theme.typography.bodyFont,
-      }}
-      className="sticky top-0 z-50 px-6 py-3 md:px-12"
-    >
-      <div className="max-w-6xl mx-auto flex items-center justify-between">
-        {/* ── Logo / Name ── */}
-        <a
-          href="#"
-          aria-label={`${profile.establishmentName} — retour en haut`}
-          className="flex items-center gap-3 no-underline"
-          style={{ textDecoration: 'none' }}
-        >
-          {profile.logo ? (
-            <img
-              src={profile.logo}
-              alt={profile.establishmentName}
-              className="h-8 w-auto object-contain"
-              style={{
-                borderRadius: template.theme.layout.borderRadius.sm,
-              }}
-            />
-          ) : (
-            <span
-              style={{
-                color: colors.text,
-                fontFamily: template.theme.typography.headingFont,
-                letterSpacing: '-0.02em',
-              }}
-              className="font-extrabold text-lg leading-none"
-            >
-              {profile.establishmentName}
-            </span>
-          )}
-        </a>
-
-        {/* ── Desktop nav ── */}
-        <div className="hidden md:flex items-center gap-1">
-          {navLinks.map((link) => {
-            const isActive = activeSection === link.id;
-            return (
-              <a
-                key={link.id}
-                href={link.href}
-                style={{
-                  color: isActive ? colors.primary : colors.textSecondary,
-                  fontFamily: template.theme.typography.bodyFont,
-                  position: 'relative',
-                  transition: 'color 0.2s ease',
-                  textDecoration: 'none',
-                }}
-                className="text-sm font-medium px-4 py-2 rounded-md group"
-                onMouseEnter={(e) => {
-                  if (!isActive) {
-                    (e.currentTarget as HTMLAnchorElement).style.color = colors.text;
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!isActive) {
-                    (e.currentTarget as HTMLAnchorElement).style.color = colors.textSecondary;
-                  }
-                }}
-              >
-                {link.label}
-                {/* active underline */}
-                <span
-                  aria-hidden="true"
-                  style={{
-                    position: 'absolute',
-                    bottom: '4px',
-                    left: '16px',
-                    right: '16px',
-                    height: '2px',
-                    background: colors.primary,
-                    borderRadius: '1px',
-                    transform: isActive ? 'scaleX(1)' : 'scaleX(0)',
-                    transformOrigin: 'left',
-                    transition: 'transform 0.25s ease',
-                  }}
-                />
-              </a>
-            );
-          })}
-
-          {/* CTA button */}
-          <button
-            onClick={onBook}
-            style={{
-              background: colors.primary,
-              color: '#fff',
-              borderRadius: template.theme.layout.borderRadius.md,
-              fontFamily: template.theme.typography.bodyFont,
-              boxShadow: `0 2px 8px ${colors.primary}55`,
-              transition: 'opacity 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease',
-              border: 'none',
-              cursor: 'pointer',
-            }}
-            className="text-sm font-bold px-5 py-2 ml-2"
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.opacity = '0.88';
-              (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(-1px)';
-              (e.currentTarget as HTMLButtonElement).style.boxShadow = `0 4px 14px ${colors.primary}66`;
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.opacity = '1';
-              (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(0)';
-              (e.currentTarget as HTMLButtonElement).style.boxShadow = `0 2px 8px ${colors.primary}55`;
-            }}
-          >
-            Réserver
-          </button>
-        </div>
-
-        {/* ── Mobile hamburger ── */}
-        <button
-          className="md:hidden flex items-center justify-center w-9 h-9 rounded-md"
-          style={{
-            color: colors.text,
-            background: menuOpen ? colors.surface : 'transparent',
-            border: `1px solid ${menuOpen ? colors.surface : 'transparent'}`,
-            transition: 'background 0.2s ease, border-color 0.2s ease',
-            cursor: 'pointer',
-          }}
-          onClick={() => setMenuOpen((m) => !m)}
-          aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
-          aria-expanded={menuOpen}
-          aria-controls="mobile-menu"
-        >
-          <HamburgerIcon open={menuOpen} color={colors.text} />
-        </button>
-      </div>
-
-      {/* ── Mobile dropdown ── */}
-      <div
-        id="mobile-menu"
-        aria-hidden={!menuOpen}
-        style={{
-          background: colors.background,
-          borderTop: `1px solid ${colors.surface}`,
-          maxHeight: menuOpen ? '320px' : '0',
-          overflow: 'hidden',
-          transition: 'max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-        }}
-        className="md:hidden absolute top-full left-0 right-0"
+    <>
+      <header
+        className={`sticky top-0 z-40 border-b transition-[border-color] duration-200 ${scrolled || open ? 'sp-line' : 'border-transparent'}`}
+        style={{ background: 'var(--sp-bg)' }}
       >
-        <div className="px-6 py-4 flex flex-col gap-1">
-          {navLinks.map((link) => (
-            <a
-              key={link.id}
-              href={link.href}
-              onClick={() => setMenuOpen(false)}
-              style={{
-                color: colors.text,
-                fontFamily: template.theme.typography.bodyFont,
-                borderRadius: template.theme.layout.borderRadius.sm,
-                textDecoration: 'none',
-                transition: 'background 0.15s ease',
-              }}
-              className="text-sm font-medium px-3 py-2.5"
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background = colors.surface;
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background = 'transparent';
-              }}
+        <nav aria-label={t('site.nav_label')} className="sp-wrap h-16 md:h-[4.5rem] flex items-center justify-between gap-6">
+          <a href="#top" className="flex items-center gap-3 min-w-0" onClick={() => setOpen(false)}>
+            {profile.logo && <img src={profile.logo} alt="" className="h-8 w-auto object-contain" />}
+            <span className="sp-h text-lg md:text-xl truncate">{name}</span>
+          </a>
+          <ul className="hidden md:flex items-center gap-8">
+            {links.map(l => (
+              <li key={l.id}><a href={`#${l.id}`} className="sp-muted hover:text-[color:var(--sp-text)] transition-colors">{l.label}</a></li>
+            ))}
+          </ul>
+          <div className="flex items-center gap-2">
+            {canBook && <a href="#services" className="sp-btn sp-btn-sm !hidden md:!inline-flex">{t('site.book')}</a>}
+            <button
+              type="button"
+              className="sp-iconbtn md:!hidden"
+              aria-expanded={open}
+              aria-controls="sp-menu"
+              aria-label={open ? t('site.menu_close') : t('site.menu_open')}
+              onClick={() => setOpen(o => !o)}
             >
-              {link.label}
-            </a>
-          ))}
-          <button
-            onClick={() => {
-              onBook();
-              setMenuOpen(false);
-            }}
-            style={{
-              background: colors.primary,
-              color: '#fff',
-              borderRadius: template.theme.layout.borderRadius.md,
-              fontFamily: template.theme.typography.bodyFont,
-              border: 'none',
-              cursor: 'pointer',
-              marginTop: '8px',
-            }}
-            className="text-sm font-bold px-5 py-2.5 text-center"
-          >
-            Réserver
-          </button>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden>
+                {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 8h16M4 16h16" />}
+              </svg>
+            </button>
+          </div>
+        </nav>
+        {open && (
+          <ul id="sp-menu" className="md:hidden sp-wrap pb-4">
+            {links.map(l => (
+              <li key={l.id}>
+                <a href={`#${l.id}`} onClick={() => setOpen(false)} className="flex items-center min-h-[48px] text-lg border-b sp-line">{l.label}</a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </header>
+      {canBook && (
+        <div
+          className="md:hidden fixed inset-x-0 bottom-0 z-30 px-4 pt-6 pb-[calc(0.75rem+env(safe-area-inset-bottom))]"
+          style={{ background: 'linear-gradient(to top, var(--sp-bg) 55%, transparent)' }}
+        >
+          <a href="#services" className="sp-btn w-full">{t('site.book')}</a>
         </div>
-      </div>
-    </nav>
-  );
-}
-
-/* ── Animated hamburger icon ── */
-function HamburgerIcon({ open, color }: { open: boolean; color: string }) {
-  const lineStyle = (
-    transformOpen: string,
-    transformClosed: string,
-    originY: string
-  ): CSSProperties => ({
-    display: 'block',
-    width: '18px',
-    height: '1.5px',
-    background: color,
-    borderRadius: '1px',
-    transformOrigin: `center ${originY}`,
-    transform: open ? transformOpen : transformClosed,
-    transition: 'transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease',
-  });
-
-  return (
-    <span
-      aria-hidden="true"
-      style={{ display: 'flex', flexDirection: 'column', gap: '5px', alignItems: 'center' }}
-    >
-      <span style={lineStyle('rotate(45deg) translate(4.5px, 4.5px)', 'rotate(0) translate(0,0)', '50%')} />
-      <span
-        style={{
-          ...lineStyle('rotate(0)', 'rotate(0)', '50%'),
-          opacity: open ? 0 : 1,
-        }}
-      />
-      <span style={lineStyle('rotate(-45deg) translate(4.5px, -4.5px)', 'rotate(0) translate(0,0)', '50%')} />
-    </span>
+      )}
+    </>
   );
 }

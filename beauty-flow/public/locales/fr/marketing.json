@@ -589,5 +589,207 @@
       "login": "Connexion",
       "rights": "Tous droits réservés"
     }
+  },
+  "site": {
+    "nav": {
+      "features": "Fonctionnalités",
+      "pricing": "Tarifs",
+      "login": "Connexion",
+      "signup": "Créer mon salon",
+      "dashboard": "Mon tableau de bord",
+      "menu": "Menu"
+    },
+    "hero": {
+      "title": "Gérez votre salon. Laissez vos clients réserver en ligne.",
+      "subtitle": "Saloneo réunit l'agenda, le fichier clients, l'équipe et le stock, et donne à votre salon une page de réservation ouverte jour et nuit. Conçu pour les salons d'Algérie, en dinars, en français et en arabe.",
+      "emailLabel": "Votre adresse e-mail",
+      "emailPlaceholder": "vous@votresalon.dz",
+      "cta": "Créer mon salon",
+      "loading": "Un instant…",
+      "note": "Plan gratuit, sans carte bancaire",
+      "secondary": "Voir les tarifs",
+      "captionAdmin": "En haut : votre tableau de bord.",
+      "captionSalon": "À droite : la page où vos clients réservent.",
+      "altDashboard": "Tableau de bord Saloneo : rendez-vous du jour, chiffre d'affaires, équipe",
+      "altSalon": "Page de réservation d'un salon, vue sur téléphone"
+    },
+    "trades": {
+      "lead": "Pour les",
+      "items": [
+        "salons de coiffure",
+        "instituts d'esthétique",
+        "ongleries",
+        "barbiers",
+        "spas"
+      ]
+    },
+    "stats": {
+      "line": "{{salons}} salons inscrits · {{appointments}} rendez-vous pris avec Saloneo"
+    },
+    "features": {
+      "title": "Tout le salon, dans un seul outil",
+      "subtitle": "Pas de modules à assembler : ce qui sert entre deux rendez-vous est déjà là.",
+      "agenda": {
+        "title": "Un agenda qui ne laisse rien passer",
+        "body": "Chaque rendez-vous a sa prestation, sa personne attitrée et son statut : planifié, confirmé, terminé ou absent. Saloneo refuse les créneaux qui se chevauchent.",
+        "points": [
+          "Vue liste et vue calendrier",
+          "Absences et rendez-vous à clôturer signalés",
+          "Mise à jour en direct sur tous vos appareils"
+        ],
+        "alt": "Liste des rendez-vous dans Saloneo"
+      },
+      "booking": {
+        "title": "Une page à votre nom, où l'on réserve en ligne",
+        "body": "Choisissez un modèle, vos couleurs et vos photos. Vos clients voient vos prestations et vos prix, choisissent leur créneau, et peuvent modifier ou annuler depuis le lien reçu.",
+        "points": [
+          "{{templates}} modèles de page",
+          "Prix affichés en dinars",
+          "Un lien à partager sur Instagram, Facebook ou WhatsApp"
+        ],
+        "slug": "votre-salon",
+        "alt": "Page de réservation d'un salon sur téléphone"
+      },
+      "rest": {
+        "title": "Et le reste du quotidien",
+        "alt": "Fichier clients dans Saloneo",
+        "clients": {
+          "title": "Fichier clients",
+          "body": "Coordonnées, historique des visites et notes, pour retrouver une formule de couleur ou les habitudes d'un habitué."
+        },
+        "team": {
+          "title": "Équipe",
+          "body": "Chaque membre a son rôle ; chaque rendez-vous est attribué à quelqu'un."
+        },
+        "stock": {
+          "title": "Produits et stock",
+          "body": "La liste de vos produits et leurs quantités, à jour."
+        },
+        "dashboard": {
+          "title": "Tableau de bord",
+          "body": "Chiffre du jour et du mois, taux d'occupation, prestations les plus demandées."
+        },
+        "mobile": {
+          "title": "Sur téléphone comme sur ordinateur",
+          "body": "Pensé pour être utilisé debout, entre deux rendez-vous."
+        },
+        "payment": {
+          "title": "Paiement local",
+          "body": "Abonnement réglé par carte CIB ou Edahabia, via la passerelle SATIM."
+        }
+      }
+    },
+    "roi": {
+      "title": "Combien de prestations pour payer Saloneo ?",
+      "body": "Indiquez le prix moyen d'une prestation dans votre salon. Le calcul est simple : le prix du plan divisé par votre prix moyen.",
+      "label": "Prix moyen d'une prestation",
+      "result": "prestations par mois couvrent l'abonnement",
+      "note": "Arrondi à l'unité supérieure. Le plan Gratuit ne coûte rien."
+    },
+    "pricing": {
+      "title": "Des tarifs simples, en dinars",
+      "subtitle": "Commencez gratuitement. Passez à un plan payant quand votre salon en a besoin, sans engagement.",
+      "monthly": "Mensuel",
+      "yearly": "Annuel",
+      "perMonth": " / mois",
+      "billedMonthly": "Facturé chaque mois",
+      "billedYearly": "Soit {{amount}} facturés une fois par an",
+      "noCard": "Sans carte bancaire",
+      "recommended": "Recommandé",
+      "unlimited": "Illimité",
+      "included": "Inclus",
+      "notIncluded": "Non inclus",
+      "onQuote": "Sur devis",
+      "plans": {
+        "free": {
+          "name": "Gratuit",
+          "description": "Pour essayer avec un petit salon.",
+          "cta": "Commencer gratuitement"
+        },
+        "starter": {
+          "name": "Starter",
+          "description": "Pour un salon avec une petite équipe.",
+          "cta": "Commencer avec Starter"
+        },
+        "pro": {
+          "name": "Pro",
+          "description": "Pour un salon établi, au planning chargé.",
+          "cta": "Commencer avec Pro"
+        },
+        "enterprise": {
+          "name": "Entreprise"
+        }
+      },
+      "limits": {
+        "appointments": "Rendez-vous par mois",
+        "clients": "Clients",
+        "services": "Prestations",
+        "teamMembers": "Membres d'équipe"
+      },
+      "features": {
+        "onlineBooking": "Page de réservation en ligne",
+        "customInterface": "Page personnalisée (modèle, couleurs)",
+        "stock": "Gestion du stock"
+      },
+      "startFree": "Chaque compte démarre sur le plan Gratuit ; vous passez à Starter ou Pro depuis la page Abonnement.",
+      "payment": "Paiement par carte CIB ou Edahabia (SATIM).",
+      "compare": "Comparer les plans en détail",
+      "compareTitle": "Comparer les plans",
+      "feature": "Plan",
+      "enterprise": "Plusieurs salons ou besoins particuliers ? Le plan Entreprise est sur devis.",
+      "contactUs": "Nous écrire"
+    },
+    "faq": {
+      "title": "Questions fréquentes",
+      "more": "Une autre question ? Écrivez-nous :",
+      "items": {
+        "free": {
+          "q": "Le plan Gratuit demande-t-il une carte bancaire ?",
+          "a": "Non. Vous créez votre compte avec un e-mail et un mot de passe. Les limites du plan Gratuit (20 rendez-vous par mois, 10 clients, 5 prestations) suffisent pour essayer Saloneo."
+        },
+        "payment": {
+          "q": "Comment payer un abonnement ?",
+          "a": "Par carte CIB ou Edahabia, via la passerelle sécurisée SATIM, depuis la page Abonnement de votre compte."
+        },
+        "change": {
+          "q": "Puis-je changer de plan plus tard ?",
+          "a": "Oui. Vous passez à un plan supérieur quand vous voulez, depuis la page Abonnement. Vos rendez-vous, clients et prestations sont conservés."
+        },
+        "limit": {
+          "q": "Que se passe-t-il si j'atteins une limite ?",
+          "a": "Saloneo vous prévient. Vos données restent intactes ; pour en ajouter d'autres, il suffit de passer au plan supérieur."
+        },
+        "yearly": {
+          "q": "Comment fonctionne le paiement annuel ?",
+          "a": "Vous réglez douze mois en une fois et payez {{discount}} % de moins qu'au mois. Des durées de deux et trois ans existent aussi, avec une remise plus forte."
+        },
+        "data": {
+          "q": "Qui a accès aux données de mon salon ?",
+          "a": "Vous et les personnes de votre équipe. Les échanges entre votre appareil et Saloneo sont chiffrés (HTTPS)."
+        }
+      }
+    },
+    "founder": {
+      "title": "Saloneo démarre, avec les premiers salons",
+      "body": "Vous ne trouverez ici ni faux avis ni chiffres gonflés : Saloneo vient d'ouvrir, et nous préférons vous montrer le produit tel qu'il est.",
+      "body2": "Si vous voulez de l'aide pour installer votre salon — prestations, équipe, page de réservation — écrivez-nous. C'est l'équipe qui construit Saloneo qui vous répond.",
+      "cta": "Écrire à l'équipe",
+      "signature": "L'équipe Saloneo"
+    },
+    "cta": {
+      "title": "Votre salon peut prendre ses premiers rendez-vous en ligne dès aujourd'hui.",
+      "body": "Créez votre compte, ajoutez vos prestations, partagez votre lien.",
+      "button": "Créer mon salon",
+      "login": "J'ai déjà un compte"
+    },
+    "footer": {
+      "tagline": "Gestion et réservation en ligne pour les salons de beauté en Algérie.",
+      "product": "Produit",
+      "account": "Compte",
+      "contact": "Contact",
+      "register": "Créer un compte",
+      "faq": "Questions fréquentes",
+      "rights": "Tous droits réservés."
+    }
   }
 }

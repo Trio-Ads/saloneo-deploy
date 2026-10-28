@@ -37,7 +37,9 @@
         "12": "قبل 12 ساعة",
         "24": "قبل 24 ساعة (يوم واحد)",
         "48": "قبل 48 ساعة (يومان)"
-      }
+      },
+      "section": "الحجز عبر الإنترنت",
+      "help": "يمكن للعملاء حجز هذه الخدمة من صفحتك العامة."
     }
   },
   "categories": {
@@ -128,7 +130,8 @@
     "image_upload_failed": "فشل في رفع الصورة"
   },
   "limits": {
-    "title": "حدود الخدمات"
+    "title": "حد الخدمات",
+    "resource": "خدمات"
   },
   "products": {
     "title": "إدارة المخزون",
@@ -137,12 +140,12 @@
     "stock_report": "تقرير المخزون",
     "stats": {
       "total": "إجمالي المنتجات",
-      "all_products": "جميع المنتجات",
+      "all_products": "المنتجات",
       "units": "الوحدات",
       "unit_types": "أنواع الوحدات",
       "low_stock": "مخزون منخفض",
       "stock_alerts": "تنبيهات المخزون",
-      "out_of_stock": "نفاد المخزون",
+      "out_of_stock": "نفد المخزون",
       "stock_depleted": "المخزون منتهي"
     },
     "search_placeholder": "البحث عن منتج أو وصف أو وحدة...",
@@ -163,9 +166,65 @@
     "products_found": "منتج(منتجات) موجود",
     "with_unit": "بالوحدة",
     "with_filter": "بالمرشح",
-    "confirm_delete": "هل أنت متأكد من حذف هذا المنتج؟"
+    "confirm_delete": "هل أنت متأكد من حذف هذا المنتج؟",
+    "limit_title": "حد المنتجات",
+    "resource": "منتجات",
+    "reset": "إعادة تعيين",
+    "in_stock": "متوفر",
+    "threshold": "تنبيه عند {{value}} {{unit}}",
+    "decrease": "إنقاص 1 من المخزون",
+    "increase": "إضافة 1 إلى المخزون",
+    "edit_product": "تعديل المنتج",
+    "delete_product": "حذف المنتج"
   },
   "details": {
     "available": "متاح"
+  },
+  "list": {
+    "services_count_zero": "{{count}} خدمة",
+    "services_count_one": "خدمة واحدة",
+    "services_count_two": "خدمتان",
+    "services_count_few": "{{count}} خدمات",
+    "services_count_many": "{{count}} خدمة",
+    "services_count_other": "{{count}} خدمة",
+    "online": "متاح عبر الإنترنت",
+    "active": "نشط",
+    "inactive": "غير نشط"
+  },
+  "photos": {
+    "hint": "JPG أو PNG، يُنصح بـ 1200 × 800 بكسل، 5 صور كحد أقصى.",
+    "add": "إضافة صورة",
+    "uploading": "جارٍ الرفع…",
+    "none": "لا توجد صور بعد",
+    "remove": "إزالة الصورة",
+    "err_size": "يجب ألا يتجاوز حجم الصورة 5 ميغابايت.",
+    "err_type": "اختر ملف صورة (JPG أو PNG).",
+    "confirm_dimensions": "أبعاد هذه الصورة {{width}} × {{height}} بكسل. للحصول على أفضل نتيجة استخدم {{optimalWidth}} × {{optimalHeight}} بكسل.\n\nهل تريد المتابعة؟",
+    "err_save_first": "احفظ الخدمة أولاً ثم أضف الصور.",
+    "err_max": "5 صور كحد أقصى لكل خدمة.",
+    "err_read": "تعذرت قراءة هذه الصورة. جرّب ملفاً آخر.",
+    "err_remove": "تعذرت إزالة الصورة. حاول مرة أخرى."
+  },
+  "product_form": {
+    "title_new": "منتج جديد",
+    "title_edit": "تعديل المنتج",
+    "subtitle": "تابع مخزون منتجات التجميل لديك.",
+    "name": "اسم المنتج",
+    "name_placeholder": "مثال: شامبو مرطب",
+    "description": "الوصف",
+    "description_placeholder": "الخصائص، طريقة الاستخدام…",
+    "section_stock": "المخزون",
+    "quantity": "الكمية الحالية",
+    "min_quantity": "حد التنبيه",
+    "min_help": "يصلك تنبيه عندما يصل المخزون إلى هذا الحد.",
+    "unit": "وحدة القياس",
+    "low_warning": "المخزون عند حد التنبيه أو أقل.",
+    "units": {
+      "ml": "ملليلتر (ml)",
+      "g": "غرام (g)",
+      "unit": "وحدة",
+      "l": "لتر (l)",
+      "kg": "كيلوغرام (kg)"
+    }
   }
 }

@@ -333,7 +333,7 @@ export const resetPassword = async (req: Request, res: Response): Promise<void> 
     }
 
     // Update password
-    user.password = await bcrypt.hash(password, 10);
+    user.password = password; // hashed by the User pre-save hook
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
     await user.save();

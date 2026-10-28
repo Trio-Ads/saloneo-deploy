@@ -22,7 +22,6 @@ interface InterfaceStore {
   uploadLogo: (file: File) => Promise<void>;
   uploadBanner: (file: File) => Promise<void>;
   applyTemplate: (template: DesignTemplate) => void;
-  restoreTemplate: () => void;
 }
 
 const defaultSettings: InterfaceSettings = {
@@ -366,117 +365,6 @@ export const useInterfaceStore = create<InterfaceStore>()(
           console.error('Erreur lors de la sauvegarde du template:', error);
         });
 
-        // Appliquer le CSS complet du template
-        const existingStyle = document.getElementById('template-styles');
-        if (existingStyle) {
-          existingStyle.remove();
-        }
-
-        // Créer un nouvel élément style avec le CSS du template
-        const styleElement = document.createElement('style');
-        styleElement.id = 'template-styles';
-        styleElement.textContent = template.customCSS || '';
-        document.head.appendChild(styleElement);
-
-        // Appliquer la classe du template au body
-        document.body.className = document.body.className.replace(/\b\w+-\d{4}\b/g, '');
-        document.body.classList.add(template.id + '-2025');
-
-        // Mettre à jour les variables CSS pour les couleurs
-        document.documentElement.style.setProperty('--color-primary', template.theme.colors.primary);
-        document.documentElement.style.setProperty('--color-secondary', template.theme.colors.secondary);
-        document.documentElement.style.setProperty('--color-accent', template.theme.colors.accent);
-        document.documentElement.style.setProperty('--color-background', template.theme.colors.background);
-        document.documentElement.style.setProperty('--color-text', template.theme.colors.text);
-        document.documentElement.style.setProperty('--color-text-secondary', template.theme.colors.textSecondary);
-
-        // Appliquer les polices Google Fonts si nécessaire
-        if (template.theme.typography.headingFont || template.theme.typography.bodyFont) {
-          const existingFonts = document.getElementById('template-fonts');
-          if (existingFonts) {
-            existingFonts.remove();
-          }
-
-          const fontLink = document.createElement('link');
-          fontLink.id = 'template-fonts';
-          fontLink.rel = 'stylesheet';
-          
-          const fonts = [];
-          if (template.theme.typography.headingFont && template.theme.typography.headingFont.includes('Google')) {
-            fonts.push(template.theme.typography.headingFont.split(',')[0].trim());
-          }
-          if (template.theme.typography.bodyFont && template.theme.typography.bodyFont.includes('Google')) {
-            fonts.push(template.theme.typography.bodyFont.split(',')[0].trim());
-          }
-          
-          if (fonts.length > 0) {
-            fontLink.href = `https://fonts.googleapis.com/css2?${fonts.map(font => `family=${font.replace(/\s+/g, '+')}`).join('&')}&display=swap`;
-            document.head.appendChild(fontLink);
-          }
-        }
-
-        console.log(`Template "${template.name}" appliqué avec succès !`);
-      },
-
-      // Restaurer le template sauvegardé
-      restoreTemplate: () => {
-        const state = get();
-        if (state.selectedTemplateId) {
-          // Importer dynamiquement les templates
-          import('../templates/index').then(({ allTemplates }) => {
-            const template = allTemplates.find(t => t.id === state.selectedTemplateId);
-            if (template) {
-              // Réappliquer le template sans changer l'ID (éviter la boucle)
-              const existingStyle = document.getElementById('template-styles');
-              if (existingStyle) {
-                existingStyle.remove();
-              }
-
-              const styleElement = document.createElement('style');
-              styleElement.id = 'template-styles';
-              styleElement.textContent = template.customCSS || '';
-              document.head.appendChild(styleElement);
-
-              document.body.className = document.body.className.replace(/\b\w+-\d{4}\b/g, '');
-              document.body.classList.add(template.id + '-2025');
-
-              document.documentElement.style.setProperty('--color-primary', template.theme.colors.primary);
-              document.documentElement.style.setProperty('--color-secondary', template.theme.colors.secondary);
-              document.documentElement.style.setProperty('--color-accent', template.theme.colors.accent);
-              document.documentElement.style.setProperty('--color-background', template.theme.colors.background);
-              document.documentElement.style.setProperty('--color-text', template.theme.colors.text);
-              document.documentElement.style.setProperty('--color-text-secondary', template.theme.colors.textSecondary);
-
-              if (template.theme.typography.headingFont || template.theme.typography.bodyFont) {
-                const existingFonts = document.getElementById('template-fonts');
-                if (existingFonts) {
-                  existingFonts.remove();
-                }
-
-                const fontLink = document.createElement('link');
-                fontLink.id = 'template-fonts';
-                fontLink.rel = 'stylesheet';
-                
-                const fonts = [];
-                if (template.theme.typography.headingFont && template.theme.typography.headingFont.includes('Google')) {
-                  fonts.push(template.theme.typography.headingFont.split(',')[0].trim());
-                }
-                if (template.theme.typography.bodyFont && template.theme.typography.bodyFont.includes('Google')) {
-                  fonts.push(template.theme.typography.bodyFont.split(',')[0].trim());
-                }
-                
-                if (fonts.length > 0) {
-                  fontLink.href = `https://fonts.googleapis.com/css2?${fonts.map(font => `family=${font.replace(/\s+/g, '+')}`).join('&')}&display=swap`;
-                  document.head.appendChild(fontLink);
-                }
-              }
-
-              console.log(`Template "${template.name}" restauré avec succès !`);
-            }
-          }).catch(error => {
-            console.error('Erreur lors de la restauration du template:', error);
-          });
-        }
       }
     }),
     {

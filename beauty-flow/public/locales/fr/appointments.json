@@ -1,7 +1,7 @@
 {
   "title": "Rendez-vous",
   "page_title": "Gestion des Rendez-vous",
-  "page_subtitle": "Planifiez et gérez vos rendez-vous avec élégance",
+  "page_subtitle": "Planifiez, confirmez et suivez les rendez-vous du salon.",
   "new_appointment": "Nouveau rendez-vous",
   "edit_appointment": "Modifier le rendez-vous",
   "appointment_details": "Détails du rendez-vous",
@@ -18,7 +18,8 @@
     "in_progress": "En cours",
     "completed": "Terminé",
     "cancelled": "Annulé",
-    "no_show": "Absent"
+    "no_show": "Absent",
+    "rescheduled": "Reporté"
   },
   "form": {
     "client": "Client",
@@ -73,7 +74,8 @@
     "confirm_cancel": "Êtes-vous sûr de vouloir annuler ce rendez-vous ?",
     "confirm_delete": "Êtes-vous sûr de vouloir supprimer ce rendez-vous ?",
     "slot_unavailable": "Ce créneau n'est plus disponible",
-    "overlap_warning": "Ce rendez-vous chevauche avec un autre"
+    "overlap_warning": "Ce rendez-vous chevauche avec un autre",
+    "confirm_no_show": "Marquer ce rendez-vous comme absent ?"
   },
   "calendar": {
     "month_view": "Vue mensuelle",
@@ -130,69 +132,79 @@
     "no_show_status": "Non présentés",
     "none_to_process": "Aucun rendez-vous passé à traiter.",
     "processed_message": "rendez-vous ont été traités.",
-    "processing_error": "Erreur lors du traitement des rendez-vous passés."
+    "processing_error": "Erreur lors du traitement des rendez-vous passés.",
+    "notice_one": "{{count}} rendez-vous passé n'a pas été clôturé.",
+    "notice_other": "{{count}} rendez-vous passés n'ont pas été clôturés.",
+    "mark_completed": "Marquer terminés",
+    "mark_no_show": "Marquer absents"
   },
   "limits": {
-    "title": "Limite de Rendez-vous"
+    "title": "Limite de rendez-vous",
+    "resource": "rendez-vous"
   },
   "success_messages": {
     "appointment_created": "Rendez-vous créé avec succès !"
   },
   "errors": {
-    "form_submission": "Erreur lors de la soumission du formulaire:"
+    "selectDateTime": "Veuillez sélectionner une date et une heure",
+    "modificationNotAllowed": "Modification non autorisée",
+    "modificationFailed": "Échec de la modification",
+    "cancellationFailed": "Échec de l'annulation",
+    "reasonRequired": "Veuillez fournir une raison"
   },
   "appointment_form": {
-    "title_new": "Nouveau Rendez-vous",
-    "title_edit": "Modifier le Rendez-vous",
+    "title_new": "Nouveau rendez-vous",
+    "title_edit": "Modifier le rendez-vous",
     "subtitle": "Planifiez un rendez-vous pour votre client",
     "sections": {
       "client": "Client",
       "service": "Service",
-      "stylist": "Coiffeur",
+      "stylist": "Membre de l'équipe",
       "scheduling": "Planification",
       "notes": "Notes",
-      "summary": "Résumé du Rendez-vous"
+      "summary": "Récapitulatif"
     },
     "labels": {
-      "select_client": "Sélectionner un client *",
-      "choose_client": "Choisir un client...",
+      "select_client": "Client",
+      "choose_client": "Choisir un client…",
       "client_selected": "Client sélectionné:",
-      "select_service": "Sélectionner un service *",
-      "choose_service": "Choisir un service...",
+      "select_service": "Service",
+      "choose_service": "Choisir un service…",
       "service_selected": "Service:",
-      "select_stylist": "Sélectionner un coiffeur *",
-      "choose_stylist": "Choisir un coiffeur...",
+      "select_stylist": "Membre de l'équipe",
+      "choose_stylist": "Choisir un membre…",
       "stylist_selected": "Coiffeur:",
-      "date": "Date *",
-      "time": "Heure *",
-      "select_time": "Sélectionner une heure...",
-      "additional_notes": "Notes supplémentaires",
-      "notes_placeholder": "Ajoutez des notes sur le rendez-vous, les préférences du client..."
+      "date": "Date",
+      "time": "Heure",
+      "select_time": "Choisir une heure…",
+      "additional_notes": "Notes",
+      "notes_placeholder": "Ajoutez des notes sur le rendez-vous, les préférences du client...",
+      "new": "Nouveau"
     },
     "messages": {
-      "select_service_stylist_first": "Sélectionnez d'abord un service et un coiffeur",
+      "select_service_stylist_first": "Choisissez d'abord un service et un membre de l'équipe.",
       "no_slots_available": "Aucun créneau disponible pour cette date",
       "slots_available": "créneaux disponibles",
       "invalid_date": "Date invalide"
     },
     "summary_labels": {
-      "client": "Client:",
-      "service": "Service:",
-      "stylist": "Coiffeur:",
-      "date": "Date:",
-      "time": "Heure:",
-      "duration": "Durée:",
-      "price": "Prix:"
+      "client": "Client",
+      "service": "Service",
+      "stylist": "Avec",
+      "date": "Date",
+      "time": "Heure",
+      "duration": "Durée",
+      "price": "Prix"
     },
     "buttons": {
       "cancel": "Annuler",
-      "create": "Créer le Rendez-vous",
-      "modify": "Modifier"
+      "create": "Créer le rendez-vous",
+      "modify": "Enregistrer"
     },
     "unknown": {
       "client": "Client inconnu",
       "service": "Service inconnu",
-      "stylist": "Coiffeur inconnu"
+      "stylist": "Membre inconnu"
     }
   },
   "appointment_list": {
@@ -221,7 +233,8 @@
       "cancelled": "Annulé",
       "no_show": "Non présenté"
     },
-    "overdue": "Date passée"
+    "overdue": "Date passée",
+    "with": "avec {{name}}"
   },
   "calendar_view": {
     "today": "Aujourd'hui",
@@ -240,7 +253,9 @@
     "overdue": "Retard",
     "legend": {
       "title": "Légende des statuts"
-    }
+    },
+    "week_total_one": "{{count}} rendez-vous cette semaine",
+    "week_total_other": "{{count}} rendez-vous cette semaine"
   },
   "appointment_settings": {
     "buffer_time": "Temps de battement entre rendez-vous",
@@ -287,11 +302,57 @@
   "confirmCancellation": "Confirmer l'annulation",
   "date": "Date",
   "time": "Heure",
-  "errors": {
-    "selectDateTime": "Veuillez sélectionner une date et une heure",
-    "modificationNotAllowed": "Modification non autorisée",
-    "modificationFailed": "Échec de la modification",
-    "cancellationFailed": "Échec de l'annulation",
-    "reasonRequired": "Veuillez fournir une raison"
+  "history_link": "Historique",
+  "quick_create": {
+    "client_title": "Nouveau client",
+    "service_title": "Nouveau service",
+    "team_title": "Nouveau membre",
+    "first_name": "Prénom",
+    "last_name": "Nom",
+    "phone": "Téléphone",
+    "email": "Email",
+    "service_name": "Nom du service",
+    "category": "Catégorie",
+    "duration": "Durée (minutes)",
+    "price": "Prix",
+    "role": "Rôle",
+    "create": "Créer",
+    "creating": "Création…",
+    "cancel": "Annuler",
+    "close": "Fermer"
+  },
+  "history": {
+    "title": "Historique des rendez-vous",
+    "subtitle": "Retrouvez et analysez tous les rendez-vous du salon.",
+    "back": "Rendez-vous",
+    "filters": "Filtres",
+    "show_filters": "Afficher",
+    "hide_filters": "Masquer",
+    "startDate": "Du",
+    "endDate": "Au",
+    "client": "Client",
+    "stylist": "Membre de l'équipe",
+    "service": "Service",
+    "status": "Statut",
+    "all": "Tous",
+    "reset": "Réinitialiser",
+    "total": "Total",
+    "completed": "Terminés",
+    "cancelled": "Annulés",
+    "completion_rate": "Taux de réalisation",
+    "clientStats": "Statistiques de {{client}}",
+    "totalAppointments": "Rendez-vous",
+    "completedAppointments": "Terminés",
+    "cancelledAppointments": "Annulés",
+    "noShowAppointments": "Absences",
+    "averageDuration": "Durée moyenne",
+    "favoriteService": "Service préféré",
+    "favoriteStylist": "Membre préféré",
+    "notEnoughData": "Pas assez de données",
+    "results_one": "{{count}} rendez-vous",
+    "results_other": "{{count}} rendez-vous",
+    "no_results_title": "Aucun résultat",
+    "noResults": "Aucun rendez-vous ne correspond à ces filtres.",
+    "unknown": "Inconnu"
   }
 }

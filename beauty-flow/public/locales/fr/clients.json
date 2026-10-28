@@ -121,8 +121,8 @@
     "select_file": "Sélectionner un fichier",
     "supported_formats": "Formats supportés: CSV, Excel"
   },
-  "page_title": "Gestion des Clients",
-  "page_subtitle": "Gérez votre base clients et fidélisez vos relations",
+  "page_title": "Clients",
+  "page_subtitle": "Votre fichier clients, leurs préférences et leur fidélité.",
   "loading": {
     "clients": "Chargement de vos clients...",
     "preparing": "Préparation de votre base clients"
@@ -131,12 +131,12 @@
     "clients_total_badge": "clients au total",
     "vip_clients_badge": "clients VIP",
     "total": "Total",
-    "all_clients": "Tous les clients",
+    "all_clients": "Clients",
     "vip_title": "Clients VIP",
     "vip_description": "100+ points fidélité",
     "recent_title": "Nouveaux (30j)",
     "recent_description": "Clients récents",
-    "loyalty_title": "Points Fidélité",
+    "loyalty_title": "Points fidélité",
     "loyalty_description": "Points cumulés"
   },
   "search": {
@@ -154,13 +154,13 @@
     "deleting": "Erreur lors de la suppression du client:"
   },
   "client_form": {
-    "title_new": "Nouveau Client",
-    "title_edit": "Modifier le Client",
+    "title_new": "Nouveau client",
+    "title_edit": "Modifier le client",
     "subtitle": "Remplissez les informations du client pour personnaliser son expérience",
     "sections": {
-      "personal_info": "Informations Personnelles",
+      "personal_info": "Informations personnelles",
       "preferences": "Préférences",
-      "communication": "Préférences de Communication"
+      "communication": "Communication"
     },
     "labels": {
       "first_name_required": "Prénom *",
@@ -225,6 +225,12 @@
     "tooltips": {
       "edit_client": "Modifier le client",
       "delete_client": "Supprimer le client"
-    }
+    },
+    "points_one": "{{count}} pt",
+    "points_other": "{{count}} pts"
+  },
+  "limits": {
+    "title": "Limite de clients",
+    "resource": "clients"
   }
 }

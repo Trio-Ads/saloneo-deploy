@@ -9,7 +9,12 @@
     "profile": "Mon Profil",
     "interface": "Mon Interface",
     "subscription": "Abonnement",
-    "admin": "Administration"
+    "admin": "Administration",
+    "home": "Accueil",
+    "toggle_theme": "Changer de thème",
+    "main_menu": "Menu principal",
+    "menu": "Menu",
+    "language": "Langue"
   },
   "actions": {
     "cancel": "Annuler",
@@ -67,8 +72,8 @@
   },
   "service_form": {
     "titles": {
-      "new": "Nouveau Service",
-      "edit": "Modifier le Service"
+      "new": "Nouveau service",
+      "edit": "Modifier le service"
     },
     "subtitle": "Créez un service de beauté personnalisé pour vos clients",
     "sections": {

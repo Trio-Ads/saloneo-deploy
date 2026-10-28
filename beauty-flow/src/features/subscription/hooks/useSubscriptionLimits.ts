@@ -157,7 +157,7 @@ export const useSubscriptionLimits = () => {
   };
 
   const getUpgradeMessage = (): string => {
-    switch (subscription.currentPlan) {
+    switch (currentPlan) {
       case 'FREE':
         return 'Passez au plan STARTER pour débloquer plus de fonctionnalités !';
       case 'STARTER':
@@ -178,7 +178,8 @@ export const useSubscriptionLimits = () => {
     checkProductLimit,
     checkFeatureAccess,
     getUpgradeMessage,
-    currentPlan: subscription.currentPlan,
+    // Plan réel renvoyé par le backend (le store local reste sur FREE par défaut)
+    currentPlan,
     loading,
     error,
     usageStats,

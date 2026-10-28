@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react';
-import { format, startOfDay, endOfDay, startOfWeek, endOfWeek, startOfMonth, endOfMonth, eachDayOfInterval, eachWeekOfInterval, eachMonthOfInterval } from 'date-fns';
+import { useTranslation } from 'react-i18next';
+import { format, startOfDay, startOfWeek } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import { dateLocale } from '../dateLocale';
 import { AppointmentWithPrice } from '../types';
 import { useProfileStore } from '../../profile/store';
 import { formatPrice } from '../../../utils/currency';
@@ -12,6 +14,7 @@ interface RevenueChartProps {
 
 const RevenueChart: React.FC<RevenueChartProps> = ({ appointments, timeRange }) => {
   const { profile } = useProfileStore();
+  const { i18n } = useTranslation();
   const chartData = useMemo(() => {
     const now = new Date();
     let interval: Date[];
@@ -40,7 +43,7 @@ const RevenueChart: React.FC<RevenueChartProps> = ({ appointments, timeRange }) 
         groupBy = (date) => format(startOfWeek(date, { locale: fr }), 'yyyy-MM-dd');
         formatLabel = (date) => {
           const weekStart = startOfWeek(date, { locale: fr });
-          return format(weekStart, 'd MMM', { locale: fr });
+          return format(weekStart, 'd MMM', { locale: dateLocale(i18n.language) });
         };
         break;
       
@@ -74,63 +77,42 @@ const RevenueChart: React.FC<RevenueChartProps> = ({ appointments, timeRange }) 
       label: formatLabel(date),
       value: revenueByPeriod.get(groupBy(date)) || 0
     }));
-  }, [appointments, timeRange]);
+  }, [appointments, timeRange, i18n.language]);
 
   const maxValue = Math.max(...chartData.map(d => d.value), 100);
-  const yAxisSteps = 5;
-  const yAxisValues = Array.from({ length: yAxisSteps + 1 }, (_, i) => 
-    Math.round((maxValue / yAxisSteps) * i)
-  );
+  const gridValues = [maxValue, maxValue / 2, 0];
+  const compact = new Intl.NumberFormat(i18n.language, { notation: 'compact', maximumFractionDigits: 1 });
+  const labelStep = Math.ceil(chartData.length / 8);
 
   return (
-    <div className="h-64 relative">
+    <div className="flex h-60 gap-3">
       {/* Axe Y */}
-      <div className="absolute left-0 top-0 bottom-6 w-12 flex flex-col justify-between text-xs text-gray-500 dark:text-gray-400">
-        {yAxisValues.reverse().map((value, index) => (
-          <div key={index} className="text-right pr-2">
-            {formatPrice(value, profile.currency)}
-          </div>
-        ))}
+      <div className="flex w-9 shrink-0 flex-col justify-between pb-6 text-end text-xs tabular-nums text-gray-400">
+        {gridValues.map((value, index) => <span key={index} className="-translate-y-1/2 first:translate-y-0 last:translate-y-0">{compact.format(value)}</span>)}
       </div>
 
-      {/* Zone du graphique */}
-      <div className="ml-14 h-full pr-4">
-        <div className="relative h-full">
-          {/* Lignes de grille horizontales */}
-          {yAxisValues.map((_, index) => (
-            <div
-              key={index}
-              className="absolute w-full border-t border-gray-100 dark:border-gray-700"
-              style={{ top: `${(index / yAxisSteps) * 100}%` }}
-            />
-          ))}
+      <div className="relative min-w-0 flex-1">
+        {/* Lignes de grille */}
+        <div className="absolute inset-x-0 top-0 bottom-6 flex flex-col justify-between">
+          {gridValues.map((_, index) => <div key={index} className="border-t border-gray-100 dark:border-gray-800" />)}
+        </div>
 
-          {/* Barres */}
-          <div className="absolute inset-0 flex items-end justify-between pb-6">
-            {chartData.map((data, index) => {
-              const height = maxValue > 0 ? (data.value / maxValue) * 100 : 0;
-              return (
-                <div
-                  key={index}
-                  className="relative flex-1 mx-0.5 group"
-                >
-                  <div
-                    className="absolute bottom-0 w-full bg-gradient-to-t from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 rounded-t-lg transition-all duration-300 hover:from-orange-600 hover:to-orange-700 dark:hover:from-orange-500 dark:hover:to-orange-600 shadow-orange-md"
-                    style={{ height: `${height}%` }}
-                  >
-                    {/* Tooltip */}
-                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-900 dark:bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap shadow-lg">
-                      {formatPrice(data.value, profile.currency)}
-                    </div>
-                  </div>
-                  {/* Label */}
-                  <div className="absolute -bottom-6 w-full text-center text-xs text-gray-500 dark:text-gray-400 transform rotate-0">
-                    {data.label}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+        {/* Barres */}
+        <div className="absolute inset-x-0 top-0 bottom-6 flex items-end gap-0.5 sm:gap-1">
+          {chartData.map((data, index) => (
+            <div key={index} className="group relative flex h-full flex-1 items-end">
+              <div
+                className="w-full rounded-t-[3px] bg-orange-500 transition-colors duration-150 ease-out group-hover:bg-orange-600 dark:bg-orange-400"
+                style={{ height: `${maxValue > 0 ? (data.value / maxValue) * 100 : 0}%`, minHeight: data.value > 0 ? 2 : 0 }}
+              />
+              <div className="pointer-events-none absolute bottom-full start-1/2 z-10 mb-1 -translate-x-1/2 rtl:translate-x-1/2 whitespace-nowrap rounded-md bg-gray-900 px-2 py-1 text-xs text-white opacity-0 transition-opacity duration-150 group-hover:opacity-100 dark:bg-gray-700">
+                {data.label} · {formatPrice(data.value, profile.currency)}
+              </div>
+              {index % labelStep === 0 && (
+                <span className={`absolute -bottom-6 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 whitespace-nowrap text-xs text-gray-400 ${index % (labelStep * 2) ? 'hidden sm:block' : ''}`}>{data.label}</span>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </div>

@@ -1,169 +1,47 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { createPortal } from 'react-dom';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ChevronDownIcon, CheckIcon } from '@heroicons/react/24/outline';
+import { LanguageIcon } from '@heroicons/react/24/outline';
 
-const AuthLanguageSelector: React.FC = () => {
+const LANGUAGES: [string, string][] = [
+  ['fr', 'Français'],
+  ['ar', 'العربية'],
+  ['en', 'English'],
+  ['es', 'Español'],
+  ['pt', 'Português'],
+  ['tr', 'Türkçe'],
+  ['ber', 'Tamazight'],
+];
+
+/** Compact native language picker for logged-out pages (landing, pricing, auth). */
+const AuthLanguageSelector: React.FC<{ className?: string }> = ({ className = '' }) => {
   const { i18n } = useTranslation();
-  const [isOpen, setIsOpen] = useState(false);
-  const [buttonPosition, setButtonPosition] = useState({ top: 0, left: 0, width: 0 });
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
-
-  const languages = [
-    { code: 'fr', name: 'Français', flag: '🇫🇷', isImage: false },
-    { code: 'en', name: 'English', flag: '🇺🇸', isImage: false },
-    { code: 'ar', name: 'العربية', flag: '🇸🇦', isImage: false },
-    { code: 'es', name: 'Español', flag: '🇪🇸', isImage: false },
-    { code: 'pt', name: 'Português', flag: '🇵🇹', isImage: false },
-    { code: 'tr', name: 'Türkçe', flag: '🇹🇷', isImage: false },
-    { code: 'ber', name: 'Tamazight', flag: '/images/flags/berber-flag.webp', isImage: true }
-  ];
-
-  // Fonction pour rendre le drapeau (émoji ou image)
-  const renderFlag = (language: typeof languages[0], size: 'sm' | 'md' = 'sm') => {
-    const sizeClasses = {
-      sm: 'w-4 h-4',
-      md: 'w-5 h-5'
-    };
-
-    if (language.isImage) {
-      return (
-        <img 
-          src={language.flag} 
-          alt={`${language.name} flag`}
-          className={`${sizeClasses[size]} object-cover rounded`}
-        />
-      );
-    }
-    return <span className={size === 'sm' ? 'text-base' : 'text-lg'}>{language.flag}</span>;
-  };
+  const current = (i18n.resolvedLanguage || i18n.language || 'fr').split('-')[0];
 
   // Charger la langue depuis localStorage au démarrage
   useEffect(() => {
-    const savedLanguage = localStorage.getItem('saloneo-language');
-    if (savedLanguage && savedLanguage !== i18n.language) {
-      i18n.changeLanguage(savedLanguage);
-    }
+    const saved = localStorage.getItem('saloneo-language');
+    if (saved && saved !== i18n.language) i18n.changeLanguage(saved);
   }, [i18n]);
 
-  const currentLang = i18n.language || 'fr';
-  const selectedLanguage = languages.find(lang => lang.code === currentLang) || languages[0];
-
-  // Fermer le dropdown quand on clique en dehors
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isOpen]);
-
-  const handleLanguageChange = (languageCode: string) => {
-    try {
-      localStorage.setItem('saloneo-language', languageCode);
-      i18n.changeLanguage(languageCode);
-      setIsOpen(false);
-      console.log('Language changed to:', languageCode);
-      window.location.reload();
-    } catch (error) {
-      console.error('Error changing language:', error);
-    }
-  };
-
-  // Calculer la position du bouton quand le dropdown s'ouvre
-  const updateButtonPosition = () => {
-    if (buttonRef.current) {
-      const rect = buttonRef.current.getBoundingClientRect();
-      setButtonPosition({
-        top: rect.bottom + window.scrollY + 4,
-        left: rect.right - 200 + window.scrollX,
-        width: rect.width
-      });
-    }
-  };
-
-  const toggleDropdown = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    if (!isOpen) {
-      updateButtonPosition();
-    }
-    setIsOpen(!isOpen);
+  const change = (code: string) => {
+    localStorage.setItem('saloneo-language', code);
+    i18n.changeLanguage(code);
   };
 
   return (
-    <>
-      <div 
-        ref={dropdownRef} 
-        className="relative inline-block z-[99999]"
-        onMouseDown={(e) => e.stopPropagation()}
+    <label className={`inline-flex h-10 items-center gap-1.5 rounded-lg ps-2.5 pe-1 text-sm font-medium text-gray-600 transition-colors duration-150 ease-out hover:bg-gray-100 hover:text-gray-900 focus-within:ring-2 focus-within:ring-orange-500/40 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-50 cursor-pointer ${className}`}>
+      <LanguageIcon className="size-4 shrink-0" aria-hidden="true" />
+      <select
+        aria-label="Langue · Language · اللغة"
+        value={LANGUAGES.some(([c]) => c === current) ? current : 'fr'}
+        onChange={(e) => change(e.target.value)}
+        className="cursor-pointer appearance-none border-0 bg-transparent py-0 ps-0 pe-1 text-base sm:text-sm font-medium text-inherit focus:outline-none focus:ring-0"
       >
-        <button
-          ref={buttonRef}
-          onClick={toggleDropdown}
-          className="flex items-center gap-2 px-3 py-2 bg-white/10 dark:bg-white/5 backdrop-blur-lg border border-white/20 dark:border-white/10 rounded-lg hover:bg-white/15 dark:hover:bg-white/10 hover:border-white/30 dark:hover:border-white/20 hover:-translate-y-0.5 transition-all duration-300 text-sm font-medium text-white z-[99999] relative shadow-lg hover:shadow-xl"
-        >
-          {renderFlag(selectedLanguage, 'sm')}
-          <span>{selectedLanguage.code.toUpperCase()}</span>
-          <ChevronDownIcon className={`h-3.5 w-3.5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
-        </button>
-      </div>
-
-      {isOpen && createPortal(
-        <>
-          {/* Overlay */}
-          <div 
-            className="fixed inset-0 z-[999998] bg-transparent"
-            onClick={() => setIsOpen(false)}
-          />
-          
-          {/* Dropdown avec glassmorphism orange */}
-          <div 
-            className="fixed z-[999999] min-w-[200px] bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-orange-500/20 dark:border-orange-400/20 rounded-xl shadow-[0_8px_32px_rgba(249,115,22,0.2)] dark:shadow-[0_8px_32px_rgba(251,146,60,0.25)] animate-slide-down"
-            style={{
-              top: buttonPosition.top,
-              left: buttonPosition.left,
-              pointerEvents: 'auto'
-            }}
-          >
-            {languages.map((language) => (
-              <button
-                key={language.code}
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  handleLanguageChange(language.code);
-                }}
-                className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all duration-200 first:rounded-t-xl last:rounded-b-xl ${
-                  currentLang === language.code
-                    ? 'bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/10'
-                }`}
-              >
-                {renderFlag(language, 'md')}
-                <span className={currentLang === language.code ? 'font-semibold' : ''}>
-                  {language.name}
-                </span>
-                {currentLang === language.code && (
-                  <CheckIcon className="h-4 w-4 ml-auto text-orange-600 dark:text-orange-400" />
-                )}
-              </button>
-            ))}
-          </div>
-        </>,
-        document.body
-      )}
-    </>
+        {LANGUAGES.map(([code, name]) => (
+          <option key={code} value={code} className="text-gray-900">{name}</option>
+        ))}
+      </select>
+    </label>
   );
 };
 

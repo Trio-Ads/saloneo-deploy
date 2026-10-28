@@ -1,5 +1,91 @@
 {
+  "manage": {
+    "title": "موعدي",
+    "invalid_link": "الرابط غير موجود",
+    "invalid_link_body": "هذا الرابط غير صالح أو منتهي الصلاحية أو أن الموعد أُلغي.",
+    "back_to_salon": "العودة إلى صفحة الصالون",
+    "status_label": "الحالة",
+    "status": {
+      "scheduled": "مُبرمج",
+      "pending": "قيد الانتظار",
+      "confirmed": "مؤكد",
+      "rescheduled": "معدّل",
+      "completed": "منتهٍ",
+      "cancelled": "ملغى",
+      "no_show": "غائب"
+    },
+    "modify": "تغيير الموعد",
+    "cancel": "إلغاء الموعد",
+    "new_slot": "اختر موعدًا جديدًا",
+    "confirm_new_slot": "تأكيد هذا الموعد",
+    "modified": "تم تغيير موعدك.",
+    "modify_error": "تعذّر تعديل الموعد. اختر وقتًا آخر أو اتصل بالصالون.",
+    "cancel_title": "إلغاء هذا الموعد؟",
+    "cancel_body": "سيتم إعلام الصالون وتحرير الموعد.",
+    "cancel_reason": "السبب (اختياري)",
+    "cancel_reason_placeholder": "مثال: ظرف طارئ",
+    "keep": "الإبقاء على موعدي",
+    "confirm_cancel": "نعم، إلغاء",
+    "cancelled": "تم إلغاء موعدك.",
+    "cancel_error": "لم يتم الإلغاء. أعد المحاولة أو اتصل بالصالون.",
+    "book_again": "حجز موعد جديد"
+  },
+  "list": {
+    "invalid_search": "بحث غير مكتمل: أدخل بريدًا أو هاتفًا أو اسمك الكامل.",
+    "search_error": "تعذّر البحث. أعد المحاولة بعد لحظة.",
+    "empty_body": "لا يوجد موعد قادم بهذه المعلومات.",
+    "book_new": "حجز موعد"
+  },
   "booking": {
+    "stepper": {
+      "label": "مراحل الحجز",
+      "slot": "الموعد",
+      "info": "معلوماتك",
+      "done": "تم التأكيد"
+    },
+    "summary": {
+      "service": "الخدمة",
+      "with": "مع",
+      "price": "السعر",
+      "where": "العنوان",
+      "duration": "المدة"
+    },
+    "confirm": {
+      "title": "تم الحجز",
+      "add_calendar": "إضافة إلى التقويم",
+      "manage_link": "رابط التعديل أو الإلغاء",
+      "copy": "نسخ الرابط",
+      "copied": "تم نسخ الرابط",
+      "manage_hint": "احتفظ بهذا الرابط: يتيح لك تعديل موعدك أو إلغاءه. أُرسل إليك أيضًا عبر البريد الإلكتروني.",
+      "close": "إغلاق"
+    },
+    "form": {
+      "first_name": "الاسم",
+      "last_name": "اللقب",
+      "phone": "الهاتف",
+      "email": "البريد الإلكتروني",
+      "email_placeholder": "you@example.com",
+      "more_info": "تاريخ الميلاد والعنوان (اختياري)",
+      "birth_date": "تاريخ الميلاد",
+      "address": "العنوان",
+      "hair_questionnaire": "استبيان الشعر (اختياري)",
+      "skin_questionnaire": "استبيان البشرة (اختياري)",
+      "preferences": "التذكيرات والعروض",
+      "pref_sms": "تذكير بالموعد عبر SMS",
+      "pref_marketing": "العروض والجديد عبر البريد",
+      "pref_birthday": "مفاجأة في عيد ميلادي",
+      "privacy": "يمكن تغييرها في أي وقت. لا نشارك معلوماتك أبدًا.",
+      "notes": "ملاحظة للصالون؟ (اختياري)",
+      "notes_placeholder": "حساسية، الطول المطلوب…",
+      "errors": {
+        "first_name": "أدخل اسمك.",
+        "last_name": "أدخل لقبك.",
+        "email_required": "أدخل بريدك لتلقي التأكيد.",
+        "email_invalid": "يبدو أن البريد غير مكتمل، تحقق منه.",
+        "phone_required": "أدخل رقمك ليتمكن الصالون من الاتصال بك.",
+        "phone_invalid": "يبدو أن الرقم غير مكتمل، تحقق منه."
+      }
+    },
     "title": "الحجز عبر الإنترنت",
     "steps": {
       "service": "اختر خدمة",
@@ -27,7 +113,17 @@
       "choose_another_date": "يرجى اختيار تاريخ آخر",
       "stylist": "مصفف الشعر",
       "date": "التاريخ",
-      "time": "الوقت"
+      "time": "الوقت",
+      "with_who": "مع من؟",
+      "any_stylist": "لا يهم",
+      "continue": "متابعة",
+      "back": "رجوع",
+      "sending": "جارٍ الإرسال…",
+      "confirm_booking": "تأكيد الحجز",
+      "service_not_found": "هذه الخدمة لم تعد متاحة.",
+      "no_stylist": "لا يوجد أي عضو متاح حاليًا.",
+      "previous_month": "الشهر السابق",
+      "next_month": "الشهر التالي"
     }
   },
   "salon": {
@@ -140,5 +236,35 @@
     "friday": "الجمعة",
     "saturday": "السبت",
     "sunday": "الأحد"
+  },
+  "site": {
+    "nav_label": "تصفح الصالون",
+    "nav_services": "الخدمات",
+    "nav_team": "الفريق",
+    "nav_reviews": "الآراء",
+    "nav_contact": "اتصل بنا",
+    "book": "احجز",
+    "book_service": "احجز: {{name}}",
+    "call": "اتصل",
+    "all": "الكل",
+    "all_services": "كل الخدمات",
+    "services_title": "خدماتنا",
+    "team_title": "الفريق",
+    "reviews_title": "آراء الزبائن",
+    "rating_summary": "{{avg}} من 5 · {{count}} رأي",
+    "contact_title": "موقعنا",
+    "hours": "أوقات العمل",
+    "closed": "مغلق",
+    "address": "العنوان",
+    "phone": "الهاتف",
+    "email": "البريد الإلكتروني",
+    "directions": "الاتجاهات",
+    "menu_open": "فتح القائمة",
+    "menu_close": "إغلاق القائمة",
+    "previous": "السابق",
+    "next": "التالي",
+    "credit": "الحجز عبر الإنترنت بواسطة",
+    "online_booking": "الحجز عبر الإنترنت",
+    "not_found": "تعذر العثور على هذا الصالون أو أنه غير متاح مؤقتًا."
   }
 }

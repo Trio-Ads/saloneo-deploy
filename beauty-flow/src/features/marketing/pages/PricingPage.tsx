@@ -1,425 +1,128 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import '../styles/marketing.css';
-import { 
-  Check, 
-  X, 
-  Star, 
-  TrendingUp, 
-  Shield, 
-  Zap,
-  ArrowRight,
-  HelpCircle
-} from 'lucide-react';
+import clsx from 'clsx';
+import { CheckIcon, MinusIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
+import { PlanType, PLAN_LIMITS, DURATION_DISCOUNTS } from '../../subscription/types';
+import { formatPrice } from '../../../utils/currency';
+import { SiteNav, SiteFooter, PlanCards, BillingToggle, Billing, CONTACT_EMAIL, container, planKey, planPrice, formatLimit } from '../components/site';
 
-interface PricingFeature {
-  name: string;
-  free: boolean | string;
-  starter: boolean | string;
-  pro: boolean | string;
-  enterprise: boolean | string;
-}
+const TABLE_PLANS = [PlanType.FREE, PlanType.STARTER, PlanType.PRO, PlanType.ENTERPRISE];
+const LIMIT_ROWS = ['appointments', 'clients', 'services', 'teamMembers'] as const;
+const FEATURE_ROWS = ['onlineBooking', 'customInterface', 'stock'] as const;
+const FAQ = ['free', 'payment', 'change', 'limit', 'yearly', 'data'];
 
 const PricingPage: React.FC = () => {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'yearly'>('yearly');
+  const { t } = useTranslation('marketing', { keyPrefix: 'site' });
+  const [billing, setBilling] = useState<Billing>('monthly');
 
-  // Prix selon la période
-  const prices = {
-    monthly: {
-      free: 0,
-      starter: 3167,
-      pro: 5000,
-      enterprise: 'custom'
-    },
-    yearly: {
-      free: 0,
-      starter: 1900, // -40%
-      pro: 3500, // -30%
-      enterprise: 'custom'
-    }
-  };
-
-  // Fonctionnalités détaillées
-  const features: PricingFeature[] = [
-    { name: t('marketing.pricing.comparison.features.appointments'), free: '20', starter: '60', pro: '200', enterprise: t('marketing.pricing.comparison.values.unlimited') },
-    { name: t('marketing.pricing.comparison.features.clients'), free: '10', starter: '200', pro: '1000', enterprise: t('marketing.pricing.comparison.values.unlimited') },
-    { name: t('marketing.pricing.comparison.features.services'), free: '5', starter: '20', pro: '50', enterprise: t('marketing.pricing.comparison.values.unlimited') },
-    { name: t('marketing.pricing.comparison.features.team'), free: '1', starter: '5', pro: '10', enterprise: t('marketing.pricing.comparison.values.unlimited') },
-    { name: t('marketing.pricing.comparison.features.products'), free: '5', starter: '50', pro: '200', enterprise: t('marketing.pricing.comparison.values.unlimited') },
-    { name: t('marketing.pricing.comparison.features.booking'), free: true, starter: true, pro: true, enterprise: true },
-    { name: t('marketing.pricing.comparison.features.sms'), free: false, starter: true, pro: true, enterprise: true },
-    { name: t('marketing.pricing.comparison.features.interface'), free: false, starter: true, pro: true, enterprise: true },
-    { name: t('marketing.pricing.comparison.features.inventory'), free: false, starter: true, pro: true, enterprise: true },
-    { name: t('marketing.pricing.comparison.features.analytics'), free: false, starter: false, pro: true, enterprise: true },
-    { name: t('marketing.pricing.comparison.features.payments'), free: false, starter: false, pro: true, enterprise: true },
-    { name: t('marketing.pricing.comparison.features.multi'), free: false, starter: false, pro: false, enterprise: true },
-    { name: t('marketing.pricing.comparison.features.api'), free: false, starter: false, pro: false, enterprise: true },
-    { name: t('marketing.pricing.comparison.features.support'), free: false, starter: false, pro: true, enterprise: true },
-    { name: t('marketing.pricing.comparison.features.training'), free: false, starter: false, pro: false, enterprise: true },
-  ];
-
-  const renderFeatureValue = (value: boolean | string) => {
-    if (typeof value === 'boolean') {
-      return value ? (
-        <Check className="text-cyan-500 mx-auto" size={20} />
-      ) : (
-        <X className="text-gray-300 mx-auto" size={20} />
-      );
-    }
-    return <span className="text-center block font-semibold">{value}</span>;
-  };
+  const planHead = (plan: PlanType) =>
+    plan === PlanType.ENTERPRISE ? t('pricing.onQuote') : `${formatPrice(planPrice(plan, billing).perMonth, 'DZD')}${t('pricing.perMonth')}`;
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-50 to-cyan-50" style={{ paddingTop: '120px' }}>
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-5xl font-bold mb-6 text-gradient">
-            {t('marketing.pricing.title_detailed')}
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            {t('marketing.pricing.subtitle_detailed')}
-          </p>
+    <div className="min-h-screen bg-white text-gray-900 dark:bg-[#0F1419] dark:text-gray-50">
+      <SiteNav />
 
-          {/* Billing Toggle */}
-          <div className="inline-flex items-center gap-4 bg-white rounded-full p-2 shadow-lg">
-            <button
-              onClick={() => setBillingPeriod('monthly')}
-              className={`px-6 py-2 rounded-full font-medium transition-all ${
-                billingPeriod === 'monthly' 
-                  ? 'bg-primary text-white' 
-                  : 'text-gray-600 hover:text-primary'
-              }`}
-            >
-              {t('marketing.pricing.toggle.monthly')}
-            </button>
-            <button
-              onClick={() => setBillingPeriod('yearly')}
-              className={`px-6 py-2 rounded-full font-medium transition-all ${
-                billingPeriod === 'yearly' 
-                  ? 'bg-primary text-white' 
-                  : 'text-gray-600 hover:text-primary'
-              }`}
-            >
-              {t('marketing.pricing.toggle.yearly')}
-              <span className="ml-2 text-cyan-600 text-sm font-bold">
-                {t('marketing.pricing.toggle.save')}
-              </span>
-            </button>
+      <main>
+        <section className="bg-gray-50 pt-28 pb-20 sm:pt-36 dark:bg-gray-900/40">
+          <div className={container}>
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+              <div className="max-w-2xl">
+                <h1 className="font-display text-[2.5rem] sm:text-6xl font-semibold leading-[1.05] tracking-[-0.035em]">{t('pricing.title')}</h1>
+                <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">{t('pricing.subtitle')}</p>
+              </div>
+              <BillingToggle value={billing} onChange={setBilling} />
+            </div>
+            <div className="mt-10"><PlanCards billing={billing} /></div>
+            <p className="mt-6 text-sm text-gray-600 dark:text-gray-400">{t('pricing.startFree')} {t('pricing.payment')}</p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Pricing Cards */}
-      <section className="py-20 -mt-10">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8">
-            {/* Free Plan */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 relative">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold mb-2">{t('marketing.pricing.plans.free.name_simple')}</h3>
-                <p className="text-gray-600 mb-4">{t('marketing.pricing.plans.free.description')}</p>
-                <div className="text-4xl font-bold text-primary mb-2">
-                  {t('marketing.pricing.plans.free.price')} <span className="text-lg font-normal">DZD</span>
-                </div>
-              </div>
-              <ul className="space-y-4 mb-8">
-                <li className="flex items-center gap-3">
-                  <Check className="text-cyan-500 flex-shrink-0" size={20} />
-                  <span>{t('marketing.pricing.plans.free.features.0')}</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="text-cyan-500 flex-shrink-0" size={20} />
-                  <span>{t('marketing.pricing.plans.free.features.1')}</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="text-cyan-500 flex-shrink-0" size={20} />
-                  <span>{t('marketing.pricing.plans.free.features.3')}</span>
-                </li>
-              </ul>
-              <Link 
-                to="/register" 
-                className="btn-secondary w-full text-center"
-              >
-                {t('marketing.pricing.plans.free.button')}
-              </Link>
-            </div>
-
-            {/* Starter Plan */}
-            <div className="bg-white rounded-2xl shadow-xl p-8 relative border-2 border-primary transform scale-105">
-              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                <span className="bg-gradient-to-r from-primary to-secondary text-white px-4 py-1 rounded-full text-sm font-bold">
-                  {t('marketing.pricing.plans.starter.popular')}
-                </span>
-              </div>
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold mb-2">{t('marketing.pricing.plans.starter.name_simple')}</h3>
-                <p className="text-gray-600 mb-4">{t('marketing.pricing.plans.starter.description')}</p>
-                <div className="text-4xl font-bold text-primary mb-2">
-                  {prices[billingPeriod].starter} 
-                  <span className="text-lg font-normal">DZD{t('marketing.pricing.plans.starter.period')}</span>
-                </div>
-                {billingPeriod === 'yearly' && (
-                  <p className="text-sm text-cyan-600 font-semibold">
-                    {t('marketing.pricing.plans.starter.save_amount')}
-                  </p>
-                )}
-              </div>
-              <ul className="space-y-4 mb-8">
-                <li className="flex items-center gap-3">
-                  <Check className="text-cyan-500 flex-shrink-0" size={20} />
-                  <span>{t('marketing.pricing.plans.starter.features.0')}</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="text-cyan-500 flex-shrink-0" size={20} />
-                  <span>{t('marketing.pricing.plans.starter.features.1')}</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="text-cyan-500 flex-shrink-0" size={20} />
-                  <span>{t('marketing.pricing.plans.starter.features.4')}</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="text-cyan-500 flex-shrink-0" size={20} />
-                  <span>{t('marketing.pricing.plans.starter.features.7')}</span>
-                </li>
-              </ul>
-              <Link 
-                to="/register" 
-                className="btn-primary w-full text-center"
-              >
-                {t('marketing.pricing.plans.starter.button')}
-              </Link>
-            </div>
-
-            {/* Pro Plan */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 relative">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold mb-2">{t('marketing.pricing.plans.pro.name_simple')}</h3>
-                <p className="text-gray-600 mb-4">{t('marketing.pricing.plans.pro.description')}</p>
-                <div className="text-4xl font-bold text-primary mb-2">
-                  {prices[billingPeriod].pro} 
-                  <span className="text-lg font-normal">DZD{t('marketing.pricing.plans.pro.period')}</span>
-                </div>
-                {billingPeriod === 'yearly' && (
-                  <p className="text-sm text-cyan-600 font-semibold">
-                    {t('marketing.pricing.plans.pro.save_amount')}
-                  </p>
-                )}
-              </div>
-              <ul className="space-y-4 mb-8">
-                <li className="flex items-center gap-3">
-                  <Check className="text-cyan-500 flex-shrink-0" size={20} />
-                  <span>{t('marketing.pricing.plans.pro.features.0')}</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="text-cyan-500 flex-shrink-0" size={20} />
-                  <span>{t('marketing.pricing.plans.pro.features.1')}</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="text-cyan-500 flex-shrink-0" size={20} />
-                  <span>{t('marketing.pricing.plans.pro.features.6')}</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="text-cyan-500 flex-shrink-0" size={20} />
-                  <span>{t('marketing.pricing.plans.pro.features.7')}</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="text-cyan-500 flex-shrink-0" size={20} />
-                  <span>{t('marketing.pricing.plans.pro.features.5')}</span>
-                </li>
-              </ul>
-              <Link 
-                to="/register" 
-                className="btn-secondary w-full text-center"
-              >
-                {t('marketing.pricing.plans.pro.button')}
-              </Link>
-            </div>
-
-            {/* Enterprise Plan */}
-            <div className="bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-2xl shadow-lg p-8 relative">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold mb-2">{t('marketing.pricing.plans.enterprise.name_simple')}</h3>
-                <p className="text-gray-300 mb-4">{t('marketing.pricing.plans.enterprise.description')}</p>
-                <div className="text-4xl font-bold mb-2">
-                  {t('marketing.pricing.plans.enterprise.price')}
-                </div>
-              </div>
-              <ul className="space-y-4 mb-8">
-                <li className="flex items-center gap-3">
-                  <Check className="text-cyan-400 flex-shrink-0" size={20} />
-                  <span>{t('marketing.pricing.plans.enterprise.features.0')}</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="text-cyan-400 flex-shrink-0" size={20} />
-                  <span>{t('marketing.pricing.plans.enterprise.features.1')}</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="text-cyan-400 flex-shrink-0" size={20} />
-                  <span>{t('marketing.pricing.plans.enterprise.features.2')}</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="text-cyan-400 flex-shrink-0" size={20} />
-                  <span>{t('marketing.pricing.plans.enterprise.features.3')}</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="text-cyan-400 flex-shrink-0" size={20} />
-                  <span>{t('marketing.pricing.plans.enterprise.features.4')}</span>
-                </li>
-              </ul>
-              <button 
-                onClick={() => navigate('/contact')}
-                className="w-full bg-white text-gray-900 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-              >
-                {t('marketing.pricing.plans.enterprise.button')}
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Detailed Comparison Table */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-4">
-            {t('marketing.pricing.comparison.title')}
-          </h2>
-          <p className="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto">
-            {t('marketing.pricing.comparison.subtitle')}
-          </p>
-
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b-2 border-gray-200">
-                  <th className="text-left py-4 px-6">{t('marketing.pricing.comparison.features.appointments').split(' ')[0]}</th>
-                  <th className="text-center py-4 px-6">
-                    <div className="font-bold text-lg">{t('marketing.pricing.plans.free.name_simple')}</div>
-                    <div className="text-sm text-gray-600">0 DZD</div>
-                  </th>
-                  <th className="text-center py-4 px-6 bg-blue-50">
-                    <div className="font-bold text-lg text-primary">{t('marketing.pricing.plans.starter.name_simple')}</div>
-                    <div className="text-sm text-primary">
-                      {prices[billingPeriod].starter} DZD{t('marketing.pricing.plans.starter.period')}
-                    </div>
-                  </th>
-                  <th className="text-center py-4 px-6">
-                    <div className="font-bold text-lg">{t('marketing.pricing.plans.pro.name_simple')}</div>
-                    <div className="text-sm text-gray-600">
-                      {prices[billingPeriod].pro} DZD{t('marketing.pricing.plans.pro.period')}
-                    </div>
-                  </th>
-                  <th className="text-center py-4 px-6">
-                    <div className="font-bold text-lg">{t('marketing.pricing.plans.enterprise.name_simple')}</div>
-                    <div className="text-sm text-gray-600">{t('marketing.pricing.plans.enterprise.price')}</div>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {features.map((feature, index) => (
-                  <tr key={index} className="border-b hover:bg-gray-50">
-                    <td className="py-4 px-6 font-medium">{feature.name}</td>
-                    <td className="py-4 px-6 text-center">
-                      {renderFeatureValue(feature.free)}
-                    </td>
-                    <td className="py-4 px-6 text-center bg-blue-50">
-                      {renderFeatureValue(feature.starter)}
-                    </td>
-                    <td className="py-4 px-6 text-center">
-                      {renderFeatureValue(feature.pro)}
-                    </td>
-                    <td className="py-4 px-6 text-center">
-                      {renderFeatureValue(feature.enterprise)}
-                    </td>
+        {/* Plan comparison */}
+        <section className="py-20 sm:py-24">
+          <div className={container}>
+            <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-[-0.025em]">{t('pricing.compareTitle')}</h2>
+            <div className="mt-8 overflow-x-auto rounded-2xl border border-gray-200 dark:border-gray-800">
+              <table className="w-full min-w-[640px] text-sm">
+                <thead>
+                  <tr className="border-b border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-900">
+                    <th scope="col" className="px-5 py-4 text-start font-medium text-gray-500 dark:text-gray-400">{t('pricing.feature')}</th>
+                    {TABLE_PLANS.map((plan) => (
+                      <th key={plan} scope="col" className={clsx('px-5 py-4 text-start', plan === PlanType.STARTER && 'bg-orange-50 dark:bg-orange-500/10')}>
+                        <span className="block text-base font-semibold text-gray-900 dark:text-gray-50">{t(`pricing.plans.${planKey(plan)}.name`)}</span>
+                        <span className="block font-normal tabular-nums text-gray-500 dark:text-gray-400">{planHead(plan)}</span>
+                      </th>
+                    ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      {/* ROI Section */}
-      <section className="py-20 bg-gradient-to-br from-primary to-secondary text-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">
-              {t('marketing.roi.title_static')}
-            </h2>
-            <p className="text-xl opacity-90 max-w-3xl mx-auto">
-              {t('marketing.roi.subtitle_static')}
+                </thead>
+                <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+                  {LIMIT_ROWS.map((k) => (
+                    <tr key={k}>
+                      <th scope="row" className="px-5 py-3.5 text-start font-medium text-gray-700 dark:text-gray-300">{t(`pricing.limits.${k}`)}</th>
+                      {TABLE_PLANS.map((plan) => (
+                        <td key={plan} className={clsx('px-5 py-3.5 font-semibold tabular-nums', plan === PlanType.STARTER && 'bg-orange-50/60 dark:bg-orange-500/5')}>
+                          {formatLimit(PLAN_LIMITS[plan][k], t('pricing.unlimited'))}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                  {FEATURE_ROWS.map((k) => (
+                    <tr key={k}>
+                      <th scope="row" className="px-5 py-3.5 text-start font-medium text-gray-700 dark:text-gray-300">{t(`pricing.features.${k}`)}</th>
+                      {TABLE_PLANS.map((plan) => (
+                        <td key={plan} className={clsx('px-5 py-3.5', plan === PlanType.STARTER && 'bg-orange-50/60 dark:bg-orange-500/5')}>
+                          {PLAN_LIMITS[plan][k]
+                            ? <CheckIcon className="size-5 text-orange-600 dark:text-orange-400" aria-label={t('pricing.included')} />
+                            : <MinusIcon className="size-5 text-gray-300 dark:text-gray-600" aria-label={t('pricing.notIncluded')} />}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+              {t('pricing.enterprise')}{' '}
+              <a href={`mailto:${CONTACT_EMAIL}`} className="font-semibold text-orange-600 hover:text-orange-700 dark:text-orange-400">{t('pricing.contactUs')}</a>
             </p>
           </div>
+        </section>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="text-5xl font-bold mb-2">+47%</div>
-              <p className="text-lg opacity-90">{t('marketing.roi.stats.revenue_increase')}</p>
-              <p className="text-sm opacity-75 mt-2">{t('marketing.roi.stats.revenue_increase_note')}</p>
+        {/* FAQ — native disclosure */}
+        <section id="faq" className="scroll-mt-16 border-t border-gray-200 py-20 sm:py-24 dark:border-gray-800">
+          <div className={clsx(container, 'grid gap-10 lg:grid-cols-12')}>
+            <div className="lg:col-span-4">
+              <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-[-0.025em]">{t('faq.title')}</h2>
+              <p className="mt-4 text-gray-600 dark:text-gray-300">
+                {t('faq.more')}{' '}
+                <a href={`mailto:${CONTACT_EMAIL}`} className="font-semibold text-orange-600 hover:text-orange-700 dark:text-orange-400">{CONTACT_EMAIL}</a>
+              </p>
             </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold mb-2">-68%</div>
-              <p className="text-lg opacity-90">{t('marketing.roi.stats.no_show_reduction')}</p>
-              <p className="text-sm opacity-75 mt-2">{t('marketing.roi.stats.no_show_note')}</p>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold mb-2">15h</div>
-              <p className="text-lg opacity-90">{t('marketing.roi.stats.time_saved')}</p>
-              <p className="text-sm opacity-75 mt-2">{t('marketing.roi.stats.time_saved_note')}</p>
+            <div className="lg:col-span-8 divide-y divide-gray-200 border-y border-gray-200 dark:divide-gray-800 dark:border-gray-800">
+              {FAQ.map((k, i) => (
+                <details key={k} className="group" open={i === 0}>
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-base font-semibold text-gray-900 dark:text-gray-50 [&::-webkit-details-marker]:hidden">
+                    {t(`faq.items.${k}.q`, { discount: DURATION_DISCOUNTS.yearly })}
+                    <ChevronDownIcon className="size-5 shrink-0 text-gray-400 transition-transform duration-150 ease-out group-open:rotate-180" />
+                  </summary>
+                  <p className="pb-5 pe-8 leading-relaxed text-gray-600 dark:text-gray-300">{t(`faq.items.${k}.a`, { discount: DURATION_DISCOUNTS.yearly })}</p>
+                </details>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* FAQ Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">
-            {t('marketing.faq.title')}
-          </h2>
-
-          <div className="space-y-6">
-            {[0, 1, 2, 3].map((index) => (
-              <div key={index} className="bg-white rounded-lg p-6 shadow-sm">
-                <h3 className="font-bold text-lg mb-2 flex items-center gap-2">
-                  <HelpCircle className="text-primary" size={20} />
-                  {t(`marketing.faq.items.${index}.question`)}
-                </h3>
-                <p className="text-gray-600">
-                  {t(`marketing.faq.items.${index}.answer`)}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-6">
-            {t('marketing.cta.title')}
-          </h2>
-          <p className="text-xl text-gray-600 mb-8">
-            {t('marketing.cta.subtitle')}
-          </p>
-          <div className="flex gap-4 justify-center">
-            <Link to="/register" className="btn-primary">
-              {t('marketing.cta.buttons.start')}
-              <ArrowRight className="inline ml-2" size={20} />
-            </Link>
-            <Link to="/contact" className="btn-secondary">
-              {t('marketing.cta.buttons.contact')}
+        <section className="bg-orange-500">
+          <div className={clsx(container, 'flex flex-col gap-6 py-14 sm:flex-row sm:items-center sm:justify-between')}>
+            <h2 className="max-w-2xl font-display text-2xl sm:text-4xl font-semibold leading-tight tracking-[-0.025em] text-gray-900">{t('cta.title')}</h2>
+            <Link to="/auth/register" className="inline-flex shrink-0 items-center justify-center rounded-xl bg-gray-900 px-6 py-3.5 text-[0.9375rem] font-semibold text-white transition-[background-color,transform] duration-150 ease-out hover:bg-black active:scale-[0.98]">
+              {t('cta.button')}
             </Link>
           </div>
-          <p className="text-gray-500 mt-6">
-            {t('marketing.cta.note')}
-          </p>
-        </div>
-      </section>
+        </section>
+      </main>
+
+      <SiteFooter />
     </div>
   );
 };

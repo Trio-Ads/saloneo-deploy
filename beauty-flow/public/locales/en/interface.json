@@ -135,17 +135,19 @@
     "medical_spa": "Medical Spa"
   },
   "page": {
-    "title": "My Interface",
-    "subtitle": "Customize your salon's appearance",
+    "title": "My interface",
+    "subtitle": "The template, colors and content of your booking page",
     "loading_subtitle": "Loading settings...",
-    "loading_interface": "Loading interface..."
+    "loading_interface": "Loading interface...",
+    "view_page": "View my page"
   },
   "tabs": {
     "templates": "Templates",
     "colors": "Colors", 
     "images": "Images",
     "content": "Content",
-    "settings": "Settings"
+    "settings": "Settings",
+    "reviews": "Client reviews"
   },
   "sections": {
     "templates": {
@@ -182,18 +184,149 @@
   "team": {
     "show_on_public": "Show team on public page",
     "description": "If disabled, clients won't see your team and won't be able to choose a stylist when booking",
-    "visible_message": "✅ Team visible: Clients can see your team and choose their preferred stylist",
-    "hidden_message": "🔒 Team hidden: You will manually assign stylists to appointments from your admin interface"
+    "visible_message": "Clients see your team and can choose their stylist.",
+    "hidden_message": "Your team is hidden: you assign the stylist to each appointment."
   },
   "images": {
     "logo_label": "Salon logo",
     "banner_label": "Banner / Header",
     "logo_tip": "💡 Tips: Use a transparent background (PNG) for optimal rendering in navigation",
-    "banner_tip": "💡 Tips: High resolution image for perfect display on all screens (16:5 ratio)"
+    "banner_tip": "💡 Tips: High resolution image for perfect display on all screens (16:5 ratio)",
+    "logo_help": "A PNG with a transparent background looks best in the navigation bar.",
+    "banner_help": "High-resolution image, 16:5, shown at the top of your page."
   },
   "actions": {
     "save": "Save",
-    "saving": "Saving..."
+    "saving": "Saving...",
+    "saved": "Saved",
+    "save_error": "Saving failed. Check your connection and try again."
+  },
+  "colors_tab": {
+    "preview": "Preview",
+    "reset": "Reset to template colors"
+  },
+  "gallery": {
+    "categories": {
+      "polyvalent": "All-round",
+      "coiffure": "Hair",
+      "barbier": "Barber",
+      "ongles": "Nails",
+      "bien-etre": "Wellness",
+      "mariage": "Bridal",
+      "all": "All",
+      "minimal": "Minimal",
+      "modern": "Modern",
+      "classic": "Classic",
+      "creative": "Creative",
+      "luxury": "Luxury",
+      "natural": "Natural",
+      "bold": "Bold"
+    },
+    "preview": "Preview",
+    "preview_of": "Preview of {{name}}",
+    "applied": "Applied",
+    "apply_template": "Apply this template",
+    "close": "Close",
+    "desktop": "Desktop",
+    "mobile": "Mobile"
+  },
+  "display_settings": {
+    "view": {
+      "title": "Service order",
+      "description": "How your services are arranged on your page.",
+      "options": {
+        "category": {
+          "label": "By category",
+          "description": "Grouped by service type"
+        },
+        "price": {
+          "label": "By price",
+          "description": "Cheapest first"
+        },
+        "duration": {
+          "label": "By duration",
+          "description": "Shortest first"
+        },
+        "popularity": {
+          "label": "By popularity",
+          "description": "Most booked first"
+        }
+      }
+    },
+    "price": {
+      "title": "Price display",
+      "description": "How your prices are shown.",
+      "options": {
+        "fixed": {
+          "label": "Exact price",
+          "description": "e.g. 2,500 DA"
+        },
+        "from": {
+          "label": "About",
+          "description": "e.g. about 2,500 DA"
+        },
+        "range": {
+          "label": "Range",
+          "description": "e.g. 2,000 – 3,000 DA"
+        },
+        "hidden": {
+          "label": "Hide prices",
+          "description": "No price shown"
+        }
+      }
+    }
+  },
+  "share": {
+    "description": "Share this link so clients can discover your services and book online.",
+    "copy": "Copy",
+    "copied": "Copied",
+    "share_on": "Share on",
+    "tweet": "Discover my beauty salon!",
+    "qr_alt": "QR code for your page",
+    "qr_help": "Print this QR code for your counter or window.",
+    "qr_download": "Download QR code"
+  },
+  "reviews": {
+    "title": "Client reviews",
+    "description": "Visible reviews appear on your page, in this order.",
+    "loading": "Loading…",
+    "empty_title": "No reviews yet",
+    "empty_body": "Add your clients' feedback below to reassure new ones.",
+    "hidden": "Hidden",
+    "visible": "Visible",
+    "move_up": "Move up",
+    "move_down": "Move down",
+    "delete": "Delete",
+    "confirm_delete": "Delete this review?",
+    "add_title": "Add a review",
+    "author": "Client name",
+    "rating": "Rating",
+    "comment": "Comment",
+    "add": "Add review",
+    "adding": "Adding…",
+    "errors": {
+      "load": "Could not load reviews.",
+      "create": "The review could not be added.",
+      "update": "The change was not saved.",
+      "delete": "The review could not be deleted."
+    }
+  },
+  "upload": {
+    "recommended": "Recommended size: {{width}}×{{height}} px",
+    "choose": "Choose an image",
+    "replace": "Replace",
+    "dropzone": "Drop an image or click to browse",
+    "processing": "Optimizing…",
+    "too_large": "The image is over 10 MB. Choose a lighter file.",
+    "not_image": "This file is not an image. Choose a JPG, PNG or WebP.",
+    "unreadable": "Could not read this image's dimensions.",
+    "wrong_size": "This image is {{width}}×{{height}} px; the recommended size is {{expectedWidth}}×{{expectedHeight}} px.",
+    "resize_question": "Resize it automatically?",
+    "resize": "Resize and upload",
+    "cancel": "Cancel",
+    "perfect": "Perfect dimensions.",
+    "resized": "Image resized to {{width}}×{{height}} px.",
+    "error": "The image could not be uploaded. Try again."
   },
   "errors": {
     "upload": "Error uploading image:",

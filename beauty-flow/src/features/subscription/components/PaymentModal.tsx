@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { XMarkIcon, CreditCardIcon, ShieldCheckIcon, ExclamationTriangleIcon, ClockIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
-import { PlanType, SubscriptionDuration, DURATION_PRICES } from '../types';
+import { XMarkIcon, ShieldCheckIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+import { IconButton } from '../../../components/ui';
+import { formatPrice } from '../../../utils/currency';
+import { PlanType, SubscriptionDuration, DURATION_PRICES, DURATION_DISCOUNTS } from '../types';
 import { paymentService } from '../../../services/paymentService';
 import { PLAN_PRICES } from '../types';
 
@@ -25,26 +27,21 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [showTerms, setShowTerms] = useState(false);
-  const modalRef = useRef<HTMLDivElement>(null);
   
   // Reset states when modal is opened/closed
   useEffect(() => {
     if (isOpen) {
       setTermsAccepted(false);
       setError(null);
-      
-      // Scroll to modal when it opens
-      setTimeout(() => {
-        if (modalRef.current) {
-          // Scroll to the modal with smooth behavior
-          modalRef.current.scrollIntoView({
-            behavior: 'smooth',
-            block: 'center'
-          });
-        }
-      }, 100);
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen || isLoading) return;
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [isOpen, isLoading, onClose]);
 
   if (!isOpen) return null;
 
@@ -72,18 +69,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
     };
   };
 
-  const getDurationLabel = () => {
-    switch (duration) {
-      case SubscriptionDuration.MONTHLY:
-        return t('billing.monthly');
-      case SubscriptionDuration.YEARLY:
-        return t('billing.yearly');
-      case SubscriptionDuration.BIENNIAL:
-        return t('billing.yearly') + ' (2 ans)';
-      case SubscriptionDuration.TRIENNIAL:
-        return t('billing.yearly') + ' (3 ans)';
-    }
-  };
+  const getDurationLabel = () => t(`plan_card.durations.${duration}`);
 
   const displayPrice = getDisplayPrice();
 
@@ -129,205 +115,138 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
     setShowTerms(!showTerms);
   };
 
+  const total = 'total' in displayPrice ? displayPrice.total : displayPrice.amount;
+  const promoPercent = planPrice.isPromo && planPrice.regularAmount ? Math.round((1 - planPrice.amount / planPrice.regularAmount) * 100) : 0;
+  const row = 'flex items-baseline justify-between gap-4 py-2.5 text-sm';
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center z-50 p-4 overflow-y-auto" style={{ paddingTop: '10vh' }}>
-      <div ref={modalRef} className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full max-h-[80vh] overflow-y-auto my-8">
+    <div className="fixed inset-0 z-50 flex items-end justify-center overflow-y-auto bg-gray-900/50 sm:items-center sm:p-4" onClick={() => !isLoading && onClose()}>
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="payment-title"
+        onClick={(e) => e.stopPropagation()}
+        className="animate-modal-in sheet-on-mobile flex max-h-[92vh] w-full flex-col overflow-hidden rounded-t-2xl border border-gray-200 bg-white shadow-xl dark:border-gray-800 dark:bg-gray-900 sm:max-w-md sm:rounded-2xl"
+      >
         {/* Header */}
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-              {t('payment.secure_payment')}
-            </h2>
-            <button
-              onClick={onClose}
-              className="text-gray-400 hover:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400 transition-colors"
-              disabled={isLoading}
-            >
-              <XMarkIcon className="h-6 w-6" />
-            </button>
-          </div>
+        <div className="flex items-center justify-between border-b border-gray-100 px-5 py-4 dark:border-gray-800">
+          <h2 id="payment-title" className="text-base font-semibold text-gray-900 dark:text-gray-50">
+            {t('payment.secure_payment')}
+          </h2>
+          <IconButton label={t('payment.cancel')} onClick={onClose} disabled={isLoading}>
+            <XMarkIcon className="size-5" />
+          </IconButton>
         </div>
 
         {/* Content */}
-        <div className="p-6 space-y-6">
-          {/* Plan Details */}
-          <div className="bg-gradient-to-r from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 rounded-xl p-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
-              {t('payment.plan')} {planType}
-            </h3>
-            
-            {/* Selected duration */}
-            <div className="flex items-center gap-2 mb-3">
-              <ClockIcon className="h-5 w-5 text-orange-600 dark:text-orange-500" />
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                {t('payment.duration')}: {getDurationLabel()}
-              </span>
-            </div>
-
-            {/* Price according to duration - Mise en évidence selon exigences SATIM */}
-            {duration === SubscriptionDuration.MONTHLY ? (
-              <div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-4xl font-extrabold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
-                    {planPrice.amount.toLocaleString('fr-DZ')}
-                  </span>
-                  <span className="text-gray-600 dark:text-gray-400">DZD/{t('payment.monthly')}</span>
-                </div>
-                <div className="mt-2 text-lg font-semibold text-gray-800 dark:text-gray-200">
-                  {t('payment.total_amount')}: <span className="text-orange-700 dark:text-orange-400">{planPrice.amount.toLocaleString('fr-DZ')} DZD</span>
-                </div>
-                {planPrice.isPromo && planPrice.regularAmount && (
-                  <div className="mt-2">
-                    <span className="text-sm text-gray-500 line-through">
-                      {planPrice.regularAmount.toLocaleString('fr-DZ')} DZD
-                    </span>
-                    <span className="ml-2 text-sm font-semibold text-green-600">
-                      -40% {t('payment.discount')}
-                    </span>
+        <div className="flex-1 space-y-5 overflow-y-auto px-5 py-5">
+          {/* Récapitulatif — montant total mis en évidence (exigence SATIM) */}
+          <div>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{t('payment.total_amount')}</p>
+            <p className="mt-1 font-display text-3xl font-semibold tabular-nums text-gray-900 dark:text-gray-50">{formatPrice(total, 'DZD')}</p>
+            <dl className="mt-3 divide-y divide-gray-100 border-y border-gray-100 dark:divide-gray-800 dark:border-gray-800">
+              <div className={row}>
+                <dt className="text-gray-500 dark:text-gray-400">{t('payment.plan')}</dt>
+                <dd className="font-medium text-gray-900 dark:text-gray-50">{planType}</dd>
+              </div>
+              <div className={row}>
+                <dt className="text-gray-500 dark:text-gray-400">{t('payment.duration')}</dt>
+                <dd className="font-medium text-gray-900 dark:text-gray-50">{getDurationLabel()}</dd>
+              </div>
+              {duration === SubscriptionDuration.MONTHLY ? (
+                promoPercent > 0 && (
+                  <div className={row}>
+                    <dt className="text-gray-500 dark:text-gray-400">{t('payment.regular_price')}</dt>
+                    <dd className="tabular-nums">
+                      <span className="text-gray-400 line-through">{formatPrice(planPrice.regularAmount!, 'DZD')}</span>
+                      <span className="ms-2 font-medium text-emerald-700 dark:text-emerald-400">−{promoPercent} %</span>
+                    </dd>
                   </div>
-                )}
-              </div>
-            ) : (
-              <div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-4xl font-extrabold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
-                    {'total' in displayPrice ? displayPrice.total.toLocaleString('fr-DZ') : displayPrice.amount.toLocaleString('fr-DZ')}
-                  </span>
-                  <span className="text-gray-600 dark:text-gray-400">DZD</span>
+                )
+              ) : (
+                <div className={row}>
+                  <dt className="text-gray-500 dark:text-gray-400">{t('payment.per_month_equivalent')}</dt>
+                  <dd className="tabular-nums text-gray-900 dark:text-gray-50">
+                    {formatPrice('monthly' in displayPrice ? displayPrice.monthly : total, 'DZD')}
+                    <span className="ms-2 font-medium text-emerald-700 dark:text-emerald-400">−{DURATION_DISCOUNTS[duration.toLowerCase() as 'yearly' | 'biennial' | 'triennial']} %</span>
+                  </dd>
                 </div>
-                <div className="mt-2 text-lg font-semibold text-gray-800 dark:text-gray-200">
-                  {t('payment.total_amount')}: <span className="text-orange-700 dark:text-orange-400">{'total' in displayPrice ? displayPrice.total.toLocaleString('fr-DZ') : displayPrice.amount.toLocaleString('fr-DZ')} DZD</span>
-                </div>
-                <div className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                  {t('payment.economy')} {'monthly' in displayPrice ? displayPrice.monthly.toLocaleString('fr-DZ') : displayPrice.amount.toLocaleString('fr-DZ')} DZD/{t('payment.monthly')}
-                </div>
-                <div className="mt-2 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 text-sm font-medium px-3 py-1 rounded-lg inline-block">
-                  {t('payment.economy')} {duration === SubscriptionDuration.YEARLY ? '25%' : 
-                             duration === SubscriptionDuration.BIENNIAL ? '35%' : '50%'}
-                </div>
-              </div>
-            )}
+              )}
+            </dl>
           </div>
 
           {/* Test Mode Warning */}
           {isTestMode && (
-            <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg p-4">
-              <div className="flex items-start">
-                <ExclamationTriangleIcon className="h-5 w-5 text-yellow-600 mt-0.5 mr-3 flex-shrink-0" />
-                <div className="text-sm">
-                  <p className="font-semibold text-yellow-800 mb-1">
-                    {t('payment.test_mode.title')}
-                  </p>
-                  <p className="text-yellow-700">
-                    {t('payment.test_mode.description')}
-                  </p>
-                </div>
+            <div className="flex items-start gap-3 rounded-xl bg-amber-50 p-3 text-sm text-amber-900 dark:bg-amber-500/10 dark:text-amber-200">
+              <ExclamationTriangleIcon className="mt-0.5 size-5 shrink-0" />
+              <div>
+                <p className="font-medium">{t('payment.test_mode.title')}</p>
+                <p className="mt-0.5">{t('payment.test_mode.description')}</p>
               </div>
             </div>
           )}
 
-          {/* Security Features */}
-          <div className="space-y-3">
-            <div className="flex items-center gap-3">
-              <ShieldCheckIcon className="h-5 w-5 text-green-600" />
-              <span className="text-sm text-gray-700 dark:text-gray-300">
-                {t('payment.security_features.satim')}
-              </span>
-            </div>
-            <div className="flex items-center gap-3">
-              <CreditCardIcon className="h-5 w-5 text-green-600" />
-              <span className="text-sm text-gray-700">
-                {t('payment.security_features.cards')}
-              </span>
-            </div>
+          {/* Security */}
+          <div className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400">
+            <ShieldCheckIcon className="mt-0.5 size-5 shrink-0 text-gray-400" />
+            <p>{t('payment.security_features.satim')} · {t('payment.security_features.cards')}</p>
+            <img
+              src="/images/cib-logo.webp"
+              alt="CIB"
+              className="ms-auto h-6 shrink-0"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+              }}
+            />
           </div>
 
-          {/* Error Message */}
-          {error && (
-            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 rounded-lg p-4">
-              <p className="text-sm text-red-800 dark:text-red-300">{error}</p>
-            </div>
-          )}
-
-          {/* Security Notice */}
-          <div className="flex items-center gap-2 my-4 p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg text-sm text-orange-700 dark:text-orange-300">
-            <ShieldCheckIcon className="h-5 w-5 text-orange-500" />
-            <span>{t('payment.security_notice')}</span>
-          </div>
-          
           {/* Terms and Conditions */}
-          <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
-            <div className="flex items-start mb-2">
+          <div>
+            <label htmlFor="terms" className="flex cursor-pointer items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
               <input
                 type="checkbox"
                 id="terms"
                 checked={termsAccepted}
-                onChange={(e) => setTermsAccepted(e.target.checked)}
-                className="mt-1 h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 dark:border-gray-600 rounded"
+                onChange={(e) => { setTermsAccepted(e.target.checked); setError(null); }}
+                className="mt-0.5 size-4 shrink-0 rounded border-gray-300 text-orange-500 focus:ring-orange-500 dark:border-gray-600 dark:bg-gray-800"
               />
-              <label htmlFor="terms" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
-                {t('payment.accept_terms')} <button type="button" onClick={toggleTerms} className="text-orange-600 dark:text-orange-500 hover:text-orange-800 dark:hover:text-orange-400 underline">{t('payment.read_terms')}</button>
-              </label>
-            </div>
-            
+              <span>{t('payment.accept_terms')}</span>
+            </label>
+            <button type="button" onClick={toggleTerms} aria-expanded={showTerms} className="ms-7 mt-1 text-sm font-medium text-orange-600 underline-offset-2 hover:underline dark:text-orange-400">
+              {t('payment.read_terms')}
+            </button>
             {showTerms && (
-              <div className="mt-2 p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 max-h-40 overflow-y-auto text-sm text-gray-600 dark:text-gray-400">
-                <h4 className="font-semibold mb-1 dark:text-gray-200">{t('payment.terms_title')}</h4>
+              <div className="mt-2 max-h-40 overflow-y-auto rounded-xl bg-gray-50 p-3 text-sm text-gray-600 dark:bg-gray-800/60 dark:text-gray-400">
+                <h4 className="mb-1 font-medium text-gray-900 dark:text-gray-200">{t('payment.terms_title')}</h4>
                 <p className="mb-2">{t('payment.terms_content')}</p>
                 <p>{t('payment.terms_content2')}</p>
               </div>
             )}
           </div>
-          
-          {/* Payment Info */}
-          <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 text-sm text-gray-600 dark:text-gray-400 mt-4">
-            <p>
-              {t('payment.info')}
-            </p>
-          </div>
+
+          {/* Error Message */}
+          {error && (
+            <p role="alert" className="rounded-xl bg-red-50 p-3 text-sm text-red-700 dark:bg-red-500/10 dark:text-red-300">{error}</p>
+          )}
+
+          <p className="text-xs text-gray-500 dark:text-gray-400">{t('payment.info')}</p>
         </div>
 
         {/* Footer */}
-        <div className="p-6 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
-          <div className="flex gap-3">
-            <button
-              onClick={onClose}
-              disabled={isLoading}
-              className="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {t('actions.cancel')}
-            </button>
-            <button
-              onClick={handlePayment}
-              disabled={isLoading}
-              className="flex-1 px-4 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-xl font-medium hover:from-orange-600 hover:to-orange-700 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
-            >
-              {isLoading ? (
-                <>
-                  <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  <span>{t('payment.processing')}</span>
-                </>
-              ) : (
-                <>
-              <div className="flex items-center">
-                <CreditCardIcon className="h-5 w-5 mr-2" />
-                <span>{t('payment.proceed')}</span>
-                <img 
-                  src="/images/cib-logo.webp" 
-                  alt="CIB" 
-                  className="h-5 ml-2"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                  }}
-                />
-              </div>
-                </>
-              )}
-            </button>
-          </div>
+        <div className="flex flex-col-reverse gap-2 border-t border-gray-100 px-5 py-4 dark:border-gray-800 sm:flex-row" style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}>
+          <button onClick={onClose} disabled={isLoading} className="btn-secondary flex-1">
+            {t('payment.cancel')}
+          </button>
+          <button onClick={handlePayment} disabled={isLoading} className="btn-primary flex-1">
+            {isLoading ? (
+              <>
+                <span className="size-4 rounded-full border-2 border-white/40 border-t-white animate-spin" />
+                {t('payment.processing')}
+              </>
+            ) : (
+              t('payment.proceed')
+            )}
+          </button>
         </div>
       </div>
     </div>

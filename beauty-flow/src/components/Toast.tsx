@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { create } from 'zustand';
+import { CheckCircleIcon, XCircleIcon, ExclamationTriangleIcon, InformationCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
+
+const toastIcons = { success: CheckCircleIcon, error: XCircleIcon, warning: ExclamationTriangleIcon, info: InformationCircleIcon };
+const toastIconColors = {
+  success: 'text-emerald-600 dark:text-emerald-400',
+  error: 'text-red-600 dark:text-red-400',
+  warning: 'text-amber-600 dark:text-amber-400',
+  info: 'text-gray-500 dark:text-gray-400',
+};
 
 interface ToastState {
   message: string;
@@ -35,111 +44,32 @@ export const Toast: React.FC = () => {
       // Délai pour l'animation de sortie
       const timer = setTimeout(() => {
         setShouldRender(false);
-      }, 300);
+      }, 150);
       return () => clearTimeout(timer);
     }
   }, [isVisible, hideToast]);
 
   if (!shouldRender) return null;
 
-  const getToastStyles = () => {
-    switch (type) {
-      case 'success':
-        return 'toast-success bg-orange-500 dark:bg-orange-600 border-l-4 border-orange-600 dark:border-orange-500';
-      case 'error':
-        return 'toast-error bg-red-500 dark:bg-red-600 border-l-4 border-red-600 dark:border-red-500';
-      case 'warning':
-        return 'toast-warning bg-orange-400 dark:bg-orange-500 border-l-4 border-orange-500 dark:border-orange-400';
-      case 'info':
-        return 'toast-info bg-gray-500 dark:bg-gray-600 border-l-4 border-gray-600 dark:border-gray-500';
-      default:
-        return 'toast-success bg-orange-500 dark:bg-orange-600 border-l-4 border-orange-600 dark:border-orange-500';
-    }
-  };
-
-  const getIcon = () => {
-    switch (type) {
-      case 'success':
-        return (
-          <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-          </svg>
-        );
-      case 'error':
-        return (
-          <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        );
-      case 'warning':
-        return (
-          <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-          </svg>
-        );
-      case 'info':
-        return (
-          <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-        );
-      default:
-        return null;
-    }
-  };
+  const Icon = toastIcons[type] || toastIcons.success;
 
   return (
-    <div className="fixed top-4 right-4 z-100 pointer-events-none">
-      <div
-        className={`
-          toast-2025 ${getToastStyles()}
-          text-white font-body
-          transform transition-all duration-300 ease-smooth
-          ${isVisible 
-            ? 'translate-x-0 opacity-100 scale-100' 
-            : 'translate-x-full opacity-0 scale-95'
-          }
-          pointer-events-auto
-          max-w-sm w-full
-          animate-slide-down
-        `}
+    <div
+      role={type === 'error' ? 'alert' : 'status'}
+      className={`toast-2025 z-100 w-[calc(100%-2rem)] sm:w-full flex items-start gap-3 transition-[opacity,transform] duration-200 ease-out ${
+        isVisible ? 'opacity-100 translate-y-0 animate-[toast-in_200ms_ease-out]' : 'opacity-0 -translate-y-1'
+      }`}
+    >
+      <Icon className={`size-5 shrink-0 mt-px ${toastIconColors[type] || toastIconColors.success}`} />
+      <p className="flex-1 min-w-0 text-sm font-medium leading-relaxed text-gray-900 dark:text-gray-50">{message}</p>
+      <button
+        onClick={hideToast}
+        className="-m-1 shrink-0 grid place-items-center size-7 rounded-md text-gray-400 transition-colors duration-150 ease-out hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+        aria-label={t('toast.close')}
       >
-        <div className="flex items-start space-x-3">
-          <div className="flex-shrink-0 mt-0.5">
-            {getIcon()}
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-white leading-relaxed">
-              {message}
-            </p>
-          </div>
-          <button
-            onClick={hideToast}
-            className="
-              flex-shrink-0 ml-2 p-1 rounded-lg
-              hover:bg-white/20 active:bg-white/30
-              transition-all duration-200
-              focus:outline-none focus:ring-2 focus:ring-white/30
-              click-effect
-            "
-            aria-label={t('toast.close')}
-          >
-            <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-        
-        {/* Barre de progression */}
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20 rounded-b-2xl overflow-hidden">
-          <div 
-            className="h-full bg-white/40 rounded-b-2xl animate-pulse"
-            style={{
-              animation: 'toastProgress 4s linear forwards'
-            }}
-          />
-        </div>
-      </div>
+        <XMarkIcon className="size-4" />
+      </button>
+      <style>{'@keyframes toast-in{from{opacity:0;transform:translateY(-8px)}}'}</style>
     </div>
   );
 };
@@ -171,26 +101,3 @@ export const useToast = () => {
     showInfo,
   };
 };
-
-// Styles CSS à ajouter (normalement dans index.css)
-const toastStyles = `
-@keyframes toastProgress {
-  from {
-    width: 100%;
-  }
-  to {
-    width: 0%;
-  }
-}
-`;
-
-// Injecter les styles si pas déjà présents
-if (typeof document !== 'undefined') {
-  const styleId = 'saloneo-toast-styles';
-  if (!document.getElementById(styleId)) {
-    const style = document.createElement('style');
-    style.id = styleId;
-    style.textContent = toastStyles;
-    document.head.appendChild(style);
-  }
-}

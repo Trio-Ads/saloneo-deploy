@@ -16,7 +16,9 @@ export const useEnrichedAppointments = (
       
       return {
         ...appointment,
+        // Service price, not the stored one: older appointments were saved with a hardcoded 50
         price: service?.price || 0,
+        serviceName: appointment.serviceName || service?.name || '',
         service,
         clientInfo: client ? {
           firstName: client.firstName,

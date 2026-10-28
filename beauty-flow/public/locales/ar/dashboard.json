@@ -145,7 +145,7 @@
         "high_cancellation_title": "معدل إلغاء مرتفع",
         "high_cancellation_desc": "{{rate}}% إلغاءات هذا الشهر. فكر في إرسال تذكيرات SMS.",
         "top_service_title": "الخدمة الأكثر ربحية",
-        "top_service_desc": "\"{{service}}\" تحقق {{revenue}}€ من الإيرادات. فكر في الترويج لها.",
+        "top_service_desc": "\"{{service}}\" تحقق {{revenue}} من الإيرادات. فكر في الترويج لها.",
         "loyal_clients_title": "العملاء المخلصون",
         "loyal_clients_desc": "{{rate}}% من عملائك لديهم أكثر من 50 نقطة ولاء. أنشئ برنامج مكافآت.",
         "popular_slot_title": "الوقت الأكثر شعبية",
@@ -156,7 +156,7 @@
     },
     "revenue_chart": {
       "title": "تطور الإيرادات",
-      "tooltip": "{{value}}€"
+      "tooltip": "{{value}}"
     },
     "service_popularity": {
       "no_data": "لا توجد بيانات متاحة",

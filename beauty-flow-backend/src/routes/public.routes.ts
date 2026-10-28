@@ -14,6 +14,9 @@ router.get('/services/:slug', publicController.getServicesBySlug);
 // Get team by slug
 router.get('/team/:slug', publicController.getTeamBySlug);
 
+// Busy time ranges (no client data) so the booking calendar hides taken slots
+router.get('/busy/:slug', publicController.getBusySlotsBySlug);
+
 // Search appointments by client info
 router.get('/appointments/search/:slug', publicController.searchAppointmentsByClient);
 

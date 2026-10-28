@@ -1,7 +1,7 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
-import { useTemplateStyles } from '../../../../hooks/useTemplateStyles';
 
 interface PersonalInfoSectionProps {
   values: {
@@ -9,223 +9,54 @@ interface PersonalInfoSectionProps {
     lastName: string;
     email: string;
     phone: string;
-    birthDate?: string;
-    address?: string;
   };
   onChange: (field: string, value: string) => void;
   errors: Record<string, string>;
 }
 
-const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
-  values,
-  onChange,
-  errors,
-}) => {
-  const { colors } = useTemplateStyles();
-  const [defaultCountry, setDefaultCountry] = React.useState<string>('DZ');
+const Field: React.FC<{ id: string; label: string; error?: string; children: React.ReactNode }> = ({ id, label, error, children }) => (
+  <div>
+    <label htmlFor={id} className="bk-label">{label}</label>
+    {children}
+    {error && <p id={`${id}-error`} className="bk-error" role="alert">{error}</p>}
+  </div>
+);
 
-  // Détecter le pays basé sur l'IP de l'utilisateur
-  React.useEffect(() => {
-    const detectCountry = async () => {
-      try {
-        // Utiliser ip-api.com qui supporte CORS (gratuit, pas de clé API requise)
-        const response = await fetch('https://ipapi.co/json/');
-        const data = await response.json();
-        if (data.country_code || data.countryCode) {
-          setDefaultCountry(data.country_code || data.countryCode);
-        }
-      } catch (error) {
-        console.log('Impossible de détecter le pays, utilisation de DZ par défaut');
-      }
-    };
-    detectCountry();
-  }, []);
+const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({ values, onChange, errors }) => {
+  const { t } = useTranslation('public');
+  const a11y = (field: string) => ({
+    'aria-invalid': !!errors[field],
+    'aria-describedby': errors[field] ? `bk-${field}-error` : undefined,
+  });
 
   return (
-    <div className="space-y-6">
-      <h3 
-        className="text-xl font-bold bg-clip-text text-transparent"
-        style={{
-          backgroundImage: `linear-gradient(to right, ${colors.primary}, ${colors.primaryDark})`
-        }}
-      >
-        Informations personnelles
-      </h3>
-
-      <div className="grid grid-cols-2 gap-4">
-        {/* Prénom */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-white mb-2">
-            Prénom <span style={{ color: colors.primary }}>*</span>
-          </label>
-          <input
-            type="text"
-            value={values.firstName}
-            onChange={(e) => onChange('firstName', e.target.value)}
-            className={`w-full px-4 py-3 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 ${
-              errors.firstName ? 'ring-2' : ''
-            }`}
-            style={{
-              backgroundColor: `${colors.surface}`,
-              color: colors.textPrimary,
-              borderWidth: '2px',
-              borderStyle: 'solid',
-              borderColor: errors.firstName ? colors.error : `${colors.primary}40`,
-              '--tw-ring-color': errors.firstName ? colors.error : colors.primary
-            } as any}
-            required
-          />
-          {errors.firstName && (
-            <div className="flex items-center space-x-1 mt-1 animate-fade-in" style={{ color: colors.primary }}>
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <p className="text-sm">{errors.firstName}</p>
-            </div>
-          )}
-        </div>
-
-        {/* Nom */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-white mb-2">
-            Nom <span style={{ color: colors.primary }}>*</span>
-          </label>
-          <input
-            type="text"
-            value={values.lastName}
-            onChange={(e) => onChange('lastName', e.target.value)}
-            className={`w-full px-4 py-3 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 ${
-              errors.lastName ? 'ring-2' : ''
-            }`}
-            style={{
-              backgroundColor: `${colors.surface}`,
-              color: colors.textPrimary,
-              borderWidth: '2px',
-              borderStyle: 'solid',
-              borderColor: errors.lastName ? colors.error : `${colors.primary}40`,
-              '--tw-ring-color': errors.lastName ? colors.error : colors.primary
-            } as any}
-            required
-          />
-          {errors.lastName && (
-            <div className="flex items-center space-x-1 mt-1 animate-fade-in" style={{ color: colors.primary }}>
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <p className="text-sm">{errors.lastName}</p>
-            </div>
-          )}
-        </div>
-
-        {/* Email */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-white mb-2">
-            Email <span style={{ color: colors.primary }}>*</span>
-          </label>
-          <input
-            type="email"
-            value={values.email}
-            onChange={(e) => onChange('email', e.target.value)}
-            className={`w-full px-4 py-3 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 ${
-              errors.email ? 'ring-2' : ''
-            }`}
-            style={{
-              backgroundColor: `${colors.surface}`,
-              color: colors.textPrimary,
-              borderWidth: '2px',
-              borderStyle: 'solid',
-              borderColor: errors.email ? colors.error : `${colors.primary}40`,
-              '--tw-ring-color': errors.email ? colors.error : colors.primary
-            } as any}
-            required
-          />
-          {errors.email && (
-            <div className="flex items-center space-x-1 mt-1 animate-fade-in" style={{ color: colors.primary }}>
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <p className="text-sm">{errors.email}</p>
-            </div>
-          )}
-        </div>
-
-        {/* Téléphone */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-white mb-2">
-            Téléphone <span style={{ color: colors.primary }}>*</span>
-          </label>
+    <div className="grid grid-cols-2 gap-x-3 gap-y-4">
+      <Field id="bk-firstName" label={t('booking.form.first_name')} error={errors.firstName}>
+        <input id="bk-firstName" type="text" autoComplete="given-name" className="bk-field"
+          value={values.firstName} onChange={(e) => onChange('firstName', e.target.value)} {...a11y('firstName')} />
+      </Field>
+      <Field id="bk-lastName" label={t('booking.form.last_name')} error={errors.lastName}>
+        <input id="bk-lastName" type="text" autoComplete="family-name" className="bk-field"
+          value={values.lastName} onChange={(e) => onChange('lastName', e.target.value)} {...a11y('lastName')} />
+      </Field>
+      <div className="col-span-2">
+        <Field id="bk-phone" label={t('booking.form.phone')} error={errors.phone}>
           <PhoneInput
             international
-            defaultCountry={defaultCountry as any}
+            defaultCountry="DZ"
             value={values.phone}
             onChange={(value) => onChange('phone', value || '')}
-            className={`w-full rounded-lg transition-all duration-200 ${
-              errors.phone ? 'ring-2' : 'focus-within:ring-2'
-            }`}
-            style={{
-              backgroundColor: `${colors.surface}`,
-              borderWidth: '2px',
-              borderStyle: 'solid',
-              borderColor: errors.phone ? colors.error : `${colors.primary}40`,
-              '--tw-ring-color': errors.phone ? colors.error : colors.primary
-            } as any}
-            numberInputProps={{
-              className: 'w-full bg-transparent border-0 focus:outline-none focus:ring-0 px-3 py-2',
-              style: { color: colors.textPrimary },
-              required: false
-            }}
+            className={`bk-field${errors.phone ? ' is-invalid' : ''}`}
+            numberInputProps={{ id: 'bk-phone', autoComplete: 'tel', 'aria-describedby': errors.phone ? 'bk-phone-error' : undefined }}
           />
-          {errors.phone && (
-            <div className="flex items-center space-x-1 mt-1 animate-fade-in" style={{ color: colors.primary }}>
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <p className="text-sm">{errors.phone}</p>
-            </div>
-          )}
-        </div>
-
-        {/* Date de naissance */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-white mb-2">
-            Date de naissance
-          </label>
-          <input
-            type="date"
-            value={values.birthDate || ''}
-            onChange={(e) => onChange('birthDate', e.target.value)}
-            className="w-full px-4 py-3 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2"
-            style={{
-              backgroundColor: `${colors.surface}`,
-              color: colors.textPrimary,
-              borderWidth: '2px',
-              borderStyle: 'solid',
-              borderColor: `${colors.primary}40`,
-              '--tw-ring-color': colors.primary
-            } as any}
-          />
-        </div>
-
-        {/* Adresse */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-white mb-2">
-            Adresse
-          </label>
-          <input
-            type="text"
-            value={values.address || ''}
-            onChange={(e) => onChange('address', e.target.value)}
-            className="w-full px-4 py-3 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2"
-            style={{
-              backgroundColor: `${colors.surface}`,
-              color: colors.textPrimary,
-              borderWidth: '2px',
-              borderStyle: 'solid',
-              borderColor: `${colors.primary}40`,
-              '--tw-ring-color': colors.primary
-            } as any}
-          />
-        </div>
+        </Field>
+      </div>
+      <div className="col-span-2">
+        <Field id="bk-email" label={t('booking.form.email')} error={errors.email}>
+          <input id="bk-email" type="email" inputMode="email" autoComplete="email" className="bk-field"
+            placeholder={t('booking.form.email_placeholder')}
+            value={values.email} onChange={(e) => onChange('email', e.target.value)} {...a11y('email')} />
+        </Field>
       </div>
     </div>
   );

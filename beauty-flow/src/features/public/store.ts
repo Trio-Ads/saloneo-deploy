@@ -223,6 +223,7 @@ export const usePublicBookingStore = create<PublicBookingStore>((set, get) => ({
         date: bookingData.date,
         startTime: bookingData.startTime,
         clientData,
+        ...(notes?.trim() ? { notes: notes.trim() } : {}),
       });
 
       console.log('✅ Réponse de l\'API:', response.data);

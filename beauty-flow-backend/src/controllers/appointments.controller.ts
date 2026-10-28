@@ -145,10 +145,12 @@ export const createAppointment = async (req: AuthRequest, res: Response): Promis
     // Note: In a full implementation, these should also be stored in the database
     logger.info('Using local store IDs for service and team member:', { serviceId, teamMemberId });
 
-    // For now, we'll use default values for service duration and price
-    // In a full implementation, these would come from the Service model
-    const defaultDuration = 30; // 30 minutes default
-    const defaultPrice = 50; // 50€ default
+    // Duration and price come from the salon's service; fall back when the id is not a stored service
+    const service = Types.ObjectId.isValid(serviceId)
+      ? await Service.findOne({ _id: serviceId, userId }).select('duration price')
+      : null;
+    const defaultDuration = service?.duration || 30;
+    const defaultPrice = service?.price ?? 0;
 
     // Calculate end time based on default service duration
     const [startHours, startMinutes] = startTime.split(':').map(Number);

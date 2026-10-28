@@ -42,17 +42,8 @@ export const usePublicStats = (): UsePublicStatsReturn => {
           setError('Erreur lors de la récupération des statistiques');
         }
       } catch (err) {
-        console.error('Erreur lors de la récupération des statistiques:', err);
-        // En cas d'erreur, utiliser des valeurs par défaut
-        setStats({
-          salonsCount: 150,
-          appointmentsCount: 5000,
-          clientsCount: 3000,
-          servicesCount: 500,
-          hoursSaved: 15600,
-          satisfactionRate: 98,
-          timestamp: new Date().toISOString()
-        });
+        // Pas de chiffres inventés : sans réponse de l'API, la page n'affiche aucune statistique
+        setError('Statistiques indisponibles');
       } finally {
         setLoading(false);
       }

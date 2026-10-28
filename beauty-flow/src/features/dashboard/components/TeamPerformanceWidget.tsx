@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { UserGroupIcon, StarIcon } from '@heroicons/react/24/outline';
+import { UserGroupIcon } from '@heroicons/react/24/outline';
+import { Panel, EmptyState } from '../../../components/ui';
 import { AppointmentWithPrice } from '../types';
 import { TeamMember } from '../../team/types';
 import { useProfileStore } from '../../profile/store';
@@ -42,86 +43,43 @@ const TeamPerformanceWidget: React.FC<TeamPerformanceWidgetProps> = ({ appointme
 
     // Trier par revenu décroissant
     return stats.sort((a, b) => b.revenue - a.revenue).slice(0, 5);
-  }, [appointments, members]);
-
-  if (teamStats.length === 0) {
-    return (
-      <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-lg dark:shadow-gray-lg border border-orange-500/20 dark:border-orange-500/20 p-6 transition-colors duration-300">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
-          <UserGroupIcon className="h-5 w-5 mr-2 text-orange-500 dark:text-orange-400" />
-          {t('components.team_performance.title')}
-        </h3>
-        <div className="h-48 flex items-center justify-center">
-          <p className="text-gray-500 dark:text-gray-400 text-sm">{t('components.team_performance.no_members')}</p>
-        </div>
-      </div>
-    );
-  }
+  }, [appointments, members, t]);
 
   const maxRevenue = Math.max(...teamStats.map(s => s.revenue), 1);
 
   return (
-    <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-lg dark:shadow-gray-lg border border-orange-500/20 dark:border-orange-500/20 p-6 transition-colors duration-300">
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
-        <UserGroupIcon className="h-5 w-5 mr-2 text-orange-500 dark:text-orange-400" />
-        {t('components.team_performance.title')}
-      </h3>
-      
-      <div className="space-y-4">
-        {teamStats.map((member, index) => {
-          const revenuePercentage = (member.revenue / maxRevenue) * 100;
-          
-          return (
-            <div key={member.id} className="group">
-              <div className="flex items-center space-x-3">
-                {/* Avatar */}
-                <div className="flex-shrink-0">
-                  {member.avatar ? (
-                    <img
-                      src={member.avatar}
-                      alt={member.name}
-                      className="h-10 w-10 rounded-full object-cover ring-2 ring-orange-500 dark:ring-orange-400"
-                    />
-                  ) : (
-                    <div className="h-10 w-10 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 flex items-center justify-center text-white font-semibold shadow-orange-md">
-                      {member.name.charAt(0)}
-                    </div>
-                  )}
+    <Panel title={t('components.team_performance.title')}>
+      {teamStats.length === 0 ? (
+        <EmptyState icon={UserGroupIcon} title={t('components.team_performance.no_members')} />
+      ) : (
+        <ul className="space-y-4">
+          {teamStats.map((member) => (
+            <li key={member.id} className="flex items-center gap-3">
+              {member.avatar ? (
+                <img src={member.avatar} alt="" className="size-9 shrink-0 rounded-full object-cover" />
+              ) : (
+                <span className="grid size-9 shrink-0 place-items-center rounded-full bg-gray-100 text-sm font-semibold text-gray-700 dark:bg-gray-800 dark:text-gray-200">
+                  {member.name.charAt(0)}
+                </span>
+              )}
+              <div className="min-w-0 flex-1">
+                <div className="flex items-baseline justify-between gap-3">
+                  <p className="truncate text-sm font-medium text-gray-900 dark:text-gray-50">{member.name}</p>
+                  <p className="shrink-0 text-sm font-medium tabular-nums text-gray-900 dark:text-gray-50">{formatPrice(member.revenue, profile.currency)}</p>
                 </div>
-
-                {/* Info */}
-                  <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
-                        {member.name}
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">{member.role}</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-                        {formatPrice(member.revenue, profile.currency)}
-                      </p>
-                      <div className="flex items-center justify-end space-x-1 text-xs text-gray-500 dark:text-gray-400">
-                        <span>{member.completedCount} {t('components.team_performance.completed')}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Barre de progression */}
-                  <div className="mt-2 relative h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
-                    <div
-                      className="absolute inset-y-0 left-0 bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 rounded-full transition-all duration-500 ease-out shadow-orange-sm"
-                      style={{ width: `${revenuePercentage}%` }}
-                    />
-                  </div>
+                <div className="flex items-baseline justify-between gap-3 text-xs text-gray-500 dark:text-gray-400">
+                  <span className="truncate">{member.role}</span>
+                  <span className="shrink-0">{member.completedCount} {t('components.team_performance.completed')}</span>
+                </div>
+                <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
+                  <div className="h-full rounded-full bg-orange-500 dark:bg-orange-400" style={{ width: `${(member.revenue / maxRevenue) * 100}%` }} />
                 </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </Panel>
   );
 };
 

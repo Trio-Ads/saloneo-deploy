@@ -1,15 +1,14 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { 
-  LightBulbIcon, 
   ArrowTrendingUpIcon, 
   ArrowTrendingDownIcon,
   ExclamationTriangleIcon,
   CheckCircleIcon,
   InformationCircleIcon
 } from '@heroicons/react/24/outline';
-import { format, subDays, startOfMonth, endOfMonth } from 'date-fns';
-import { fr } from 'date-fns/locale';
+import { subDays, startOfMonth, endOfMonth } from 'date-fns';
+import { Panel } from '../../../components/ui';
 import { AppointmentWithPrice } from '../types';
 import { Client } from '../../clients/types';
 import { Service } from '../../services/types';
@@ -139,45 +138,35 @@ const BusinessInsights: React.FC<BusinessInsightsProps> = ({ appointments, clien
     }
 
     return insightsList.slice(0, 4); // Limiter à 4 insights
-  }, [appointments, clients, services, t]);
+  }, [appointments, clients, services, t, profile.currency]);
 
   if (insights.length === 0) {
     return null;
   }
 
-  return (
-    <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-lg dark:shadow-gray-lg border border-orange-500/20 dark:border-orange-500/20 p-6 transition-colors duration-300">
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
-        <LightBulbIcon className="h-5 w-5 mr-2 text-orange-500 dark:text-orange-400" />
-        {t('components.business_insights.title')}
-      </h3>
+  const iconColor: Record<string, string> = {
+    success: 'text-emerald-600 dark:text-emerald-400',
+    warning: 'text-amber-600 dark:text-amber-400',
+    info: 'text-gray-400',
+  };
 
-      <div className="space-y-4">
+  return (
+    <Panel title={t('components.business_insights.title')} flush>
+      <ul className="divide-y divide-gray-100 dark:divide-gray-800 border-t border-gray-100 dark:border-gray-800">
         {insights.map((insight, index) => {
           const Icon = insight.icon;
-          const colors = {
-            success: 'text-green-600 bg-green-100 dark:text-green-400 dark:bg-green-900/30',
-            warning: 'text-orange-600 bg-orange-100 dark:text-orange-400 dark:bg-orange-900/30',
-            info: 'text-orange-500 bg-orange-50 dark:text-orange-300 dark:bg-orange-900/20'
-          };
-
           return (
-            <div
-              key={index}
-              className="flex items-start space-x-3 p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50 hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-colors duration-200"
-            >
-              <div className={`p-2 rounded-lg ${colors[insight.type as keyof typeof colors]}`}>
-                <Icon className="h-5 w-5" />
+            <li key={index} className="flex items-start gap-3 px-5 py-3">
+              <Icon className={`mt-0.5 size-5 shrink-0 ${iconColor[insight.type] || iconColor.info}`} />
+              <div className="min-w-0">
+                <p className="text-sm font-medium text-gray-900 dark:text-gray-50">{insight.title}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">{insight.description}</p>
               </div>
-              <div className="flex-1">
-                <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-1">{insight.title}</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400">{insight.description}</p>
-              </div>
-            </div>
+            </li>
           );
         })}
-      </div>
-    </div>
+      </ul>
+    </Panel>
   );
 };
 

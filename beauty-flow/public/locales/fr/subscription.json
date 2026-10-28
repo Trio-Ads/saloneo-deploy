@@ -1,7 +1,36 @@
 {
+  "plan_card": {
+    "recommended": "Recommandé",
+    "current": "Plan actuel",
+    "choose": "Choisir ce plan",
+    "contact": "Nous contacter",
+    "on_quote": "Sur devis",
+    "per_month": "/ mois",
+    "equivalent": "soit {{amount}} / mois",
+    "savings": "Économisez {{amount}} (−{{percent}} %)",
+    "duration_hint": "Engagement plus long, prix plus bas sur Starter et Pro.",
+    "durations": {
+      "MONTHLY": "Mensuel",
+      "YEARLY": "1 an",
+      "BIENNIAL": "2 ans",
+      "TRIENNIAL": "3 ans"
+    },
+    "count": "{{value}} {{label}}",
+    "unlimited": "{{label}} illimités",
+    "limits": {
+      "appointments": "rendez-vous",
+      "clients": "clients",
+      "services": "services",
+      "team_members_one": "membre d'équipe",
+      "team_members": "membres d'équipe",
+      "stock": "Gestion de stock",
+      "online_booking": "Réservation en ligne",
+      "custom_interface": "Interface personnalisable"
+    }
+  },
   "page": {
-    "title": "Choisissez Votre Plan",
-    "subtitle": "Transformez votre salon avec Saloneo et rejoignez plus de 10,000+ professionnels qui ont révolutionné leur activité",
+    "title": "Choisissez votre plan",
+    "subtitle": "Changez de plan à tout moment. Paiement sécurisé par carte CIB via SATIM.",
     "why_choose": "Pourquoi choisir Saloneo ?",
     "why_subtitle": "La solution complète pour faire prospérer votre salon de beauté"
   },
@@ -47,7 +76,7 @@
     }
   },
   "faq": {
-    "title": "Questions Fréquentes",
+    "title": "Questions fréquentes",
     "change_plan": {
       "q": "Puis-je changer de plan à tout moment ?",
       "a": "Oui, vous pouvez upgrader ou downgrader votre plan à tout moment. Les changements prennent effet immédiatement."
@@ -67,7 +96,10 @@
     "button": "Commencer l'essai gratuit"
   },
   "payment": {
-    "secure_payment": "Paiement Sécurisé",
+    "cancel": "Annuler",
+    "regular_price": "Prix habituel",
+    "per_month_equivalent": "Soit par mois",
+    "secure_payment": "Paiement sécurisé",
     "plan": "Plan",
     "duration": "Durée",
     "monthly": "mois",
@@ -76,7 +108,7 @@
     "discount": "de réduction",
     "economy": "Économisez",
     "test_mode": {
-      "title": "Mode Test Activé",
+      "title": "Mode test activé",
       "description": "Vous êtes en environnement de test. Les paiements seront simulés avec des montants réduits."
     },
     "security_features": {
@@ -100,9 +132,15 @@
     "team_reached": "Limite de membres d'équipe atteinte",
     "services_reached": "Limite de services atteinte",
     "products_reached": "Limite de produits atteinte",
-    "upgrade_plan": "Mettre à niveau votre plan"
+    "upgrade_plan": "Mettre à niveau votre plan",
+    "back": "Retour",
+    "see_plans": "Voir les plans"
   },
   "widget": {
+    "usage": "Plan {{plan}} · {{current}} / {{limit}} {{resource}}",
+    "usage_unlimited": "Plan {{plan}} · {{resource}} illimités",
+    "near_limit": "{{current}} / {{limit}} {{resource}} utilisés, limite bientôt atteinte",
+    "at_limit": "Limite de {{limit}} {{resource}} atteinte",
     "title": "Votre Abonnement",
     "manage": "Gérer",
     "unlimited": "Illimité",
@@ -114,7 +152,7 @@
     "upgrade": "Upgrade"
   },
   "success": {
-    "title": "Paiement Réussi !",
+    "title": "Paiement réussi",
     "message": "Félicitations ! Votre abonnement au plan {{planName}} a été activé avec succès.",
     "benefits": {
       "title": "Vous pouvez maintenant :",
@@ -125,7 +163,7 @@
     "continue": "Accéder à mon tableau de bord",
     "email_sent": "Un email de confirmation a été envoyé à votre adresse.",
     "transaction": {
-      "title": "Détails de la Transaction",
+      "title": "Détails de la transaction",
       "id": "Numéro de transaction",
       "date": "Date",
       "time": "Heure",
@@ -136,7 +174,7 @@
     }
   },
   "failed": {
-    "title": "Paiement Échoué",
+    "title": "Paiement échoué",
     "help": {
       "title": "Que faire maintenant ?",
       "check_card": "Vérifiez que votre carte est valide et dispose de fonds suffisants",
@@ -147,7 +185,7 @@
     "back": "Retour aux abonnements",
     "support": "Besoin d'aide ?",
     "transaction": {
-      "title": "Détails de l'Erreur",
+      "title": "Détails de l'erreur",
       "id": "Numéro de transaction",
       "error_code": "Code d'erreur",
       "date": "Date et heure",
@@ -244,5 +282,11 @@
     "trial_ending": "Votre essai se termine bientôt",
     "subscription_expired": "Votre abonnement a expiré",
     "upgrade_required": "Veuillez mettre à niveau votre plan pour continuer à utiliser cette fonctionnalité"
+  },
+  "resources": {
+    "clients": "clients",
+      "team": "membres d'équipe",
+      "services": "services",
+      "products": "produits"
   }
 }

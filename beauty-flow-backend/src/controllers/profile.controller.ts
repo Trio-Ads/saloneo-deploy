@@ -109,7 +109,7 @@ export const updatePassword = async (req: AuthRequest, res: Response): Promise<v
     const { currentPassword, newPassword } = req.body;
     const userId = req.userId;
 
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).select('+password');
     if (!user) {
       res.status(404).json({ error: 'User not found' });
       return;
@@ -118,12 +118,12 @@ export const updatePassword = async (req: AuthRequest, res: Response): Promise<v
     // Verify current password
     const isPasswordValid = await bcrypt.compare(currentPassword, user.password);
     if (!isPasswordValid) {
-      res.status(401).json({ error: 'Current password is incorrect' });
+      res.status(400).json({ error: 'Current password is incorrect' });
       return;
     }
 
-    // Hash new password
-    user.password = await bcrypt.hash(newPassword, 10);
+    // Hashed by the User pre-save hook
+    user.password = newPassword;
     await user.save();
 
     res.json({ message: 'Password updated successfully' });
@@ -144,7 +144,7 @@ export const updateEmail = async (req: AuthRequest, res: Response): Promise<void
     const { email, password } = req.body;
     const userId = req.userId;
 
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).select('+password');
     if (!user) {
       res.status(404).json({ error: 'User not found' });
       return;
@@ -153,7 +153,7 @@ export const updateEmail = async (req: AuthRequest, res: Response): Promise<void
     // Verify password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      res.status(401).json({ error: 'Password is incorrect' });
+      res.status(400).json({ error: 'Password is incorrect' });
       return;
     }
 
@@ -264,7 +264,7 @@ export const deleteAccount = async (req: AuthRequest, res: Response): Promise<vo
     const { password } = req.body;
     const userId = req.userId;
 
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).select('+password');
     if (!user) {
       res.status(404).json({ error: 'User not found' });
       return;
@@ -273,7 +273,7 @@ export const deleteAccount = async (req: AuthRequest, res: Response): Promise<vo
     // Verify password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      res.status(401).json({ error: 'Password is incorrect' });
+      res.status(400).json({ error: 'Password is incorrect' });
       return;
     }
 

@@ -9,7 +9,12 @@
     "profile": "My Profile",
     "interface": "My Interface",
     "subscription": "Subscription",
-    "admin": "Administration"
+    "admin": "Administration",
+    "home": "Home",
+    "toggle_theme": "Toggle theme",
+    "main_menu": "Main menu",
+    "menu": "Menu",
+    "language": "Language"
   },
   "actions": {
     "cancel": "Cancel",

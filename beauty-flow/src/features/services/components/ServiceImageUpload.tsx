@@ -1,12 +1,16 @@
 import React, { useRef, useState } from 'react';
 import { useServiceStore } from '../store';
 import api from '../../../services/api';
+import { useTranslation } from 'react-i18next';
+import { PhotoIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { fileService } from '../../../services/fileService';
 
 interface ServiceImageUploadProps {
   serviceId: string;
 }
 
 const ServiceImageUpload: React.FC<ServiceImageUploadProps> = ({ serviceId }) => {
+  const { t } = useTranslation('services');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { services, updateService } = useServiceStore();
   const service = services.find(s => s.id === serviceId);
@@ -22,13 +26,13 @@ const ServiceImageUpload: React.FC<ServiceImageUploadProps> = ({ serviceId }) =>
       try {
         // Vérifier la taille du fichier (max 5MB)
         if (file.size > 5 * 1024 * 1024) {
-          alert('L\'image ne doit pas dépasser 5MB');
+          alert(t('photos.err_size'));
           return;
         }
 
         // Vérifier le type de fichier
         if (!file.type.startsWith('image/')) {
-          alert('Veuillez sélectionner une image');
+          alert(t('photos.err_type'));
           return;
         }
 
@@ -48,25 +52,20 @@ const ServiceImageUpload: React.FC<ServiceImageUploadProps> = ({ serviceId }) =>
           const heightDiff = Math.abs(img.height - optimalHeight) / optimalHeight;
           
           if (widthDiff > tolerance || heightDiff > tolerance) {
-            const proceed = confirm(
-              `Dimensions détectées: ${img.width}x${img.height}px\n` +
-              `Dimensions optimales: ${optimalWidth}x${optimalHeight}px\n\n` +
-              `Pour un meilleur rendu, utilisez les dimensions optimales.\n` +
-              `Voulez-vous continuer quand même ?`
-            );
+            const proceed = confirm(t('photos.confirm_dimensions', { width: img.width, height: img.height, optimalWidth, optimalHeight }));
             if (!proceed) return;
           }
           
           try {
             // Upload direct via l'API Service (plus de localStorage)
             if (!service || service.id === 'temp-service') {
-              alert('Veuillez d\'abord sauvegarder le service');
+              alert(t('photos.err_save_first'));
               return;
             }
 
             // Vérifier qu'on n'a pas déjà 5 images
             if (service.images && service.images.length >= 5) {
-              alert('Maximum 5 images par service');
+              alert(t('photos.err_max'));
               return;
             }
 
@@ -92,7 +91,7 @@ const ServiceImageUpload: React.FC<ServiceImageUploadProps> = ({ serviceId }) =>
             console.log('✅ Image uploadée avec succès');
           } catch (error) {
             console.error('Erreur lors du téléchargement de l\'image:', error);
-            alert('Erreur lors du téléchargement de l\'image');
+            alert(t('messages.image_upload_failed'));
           } finally {
             // Désactiver l'indicateur de chargement
             setUploading(false);
@@ -101,13 +100,13 @@ const ServiceImageUpload: React.FC<ServiceImageUploadProps> = ({ serviceId }) =>
         
         img.onerror = () => {
           URL.revokeObjectURL(imageUrl);
-          alert('Erreur lors de la lecture de l\'image');
+          alert(t('photos.err_read'));
         };
         
         img.src = imageUrl;
       } catch (error) {
         console.error('Erreur lors du téléchargement de l\'image:', error);
-        alert('Erreur lors du téléchargement de l\'image');
+        alert(t('messages.image_upload_failed'));
       }
     }
     
@@ -122,7 +121,7 @@ const ServiceImageUpload: React.FC<ServiceImageUploadProps> = ({ serviceId }) =>
     
     try {
       if (!service || service.id === 'temp-service') {
-        alert('Service non trouvé');
+        alert(t('photos.err_save_first'));
         return;
       }
 
@@ -140,100 +139,48 @@ const ServiceImageUpload: React.FC<ServiceImageUploadProps> = ({ serviceId }) =>
       console.log('✅ Image supprimée avec succès');
     } catch (error) {
       console.error('Erreur lors de la suppression de l\'image:', error);
-      alert('Erreur lors de la suppression de l\'image');
+      alert(t('photos.err_remove'));
     }
   };
 
   return (
-    <div className="mt-4">
-      <div className="flex items-center justify-between mb-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Photos du service
-          </label>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-            <span className="font-medium">Taille optimale :</span> 1200x800px (ratio 3:2)
-          </p>
-          <p className="text-xs text-gray-500 dark:text-gray-400">
-            <span className="font-medium">Formats :</span> JPG, PNG • <span className="font-medium">Taille max :</span> 2MB • <span className="font-medium">Maximum :</span> 5 photos
-          </p>
-        </div>
-        <button
-          type="button"
-          onClick={handleClick}
-          disabled={uploading}
-          className={`px-3 py-1 text-sm font-medium text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200 ${
-            uploading 
-              ? 'bg-gray-400 cursor-not-allowed' 
-              : 'bg-orange-500 hover:bg-orange-600 transform hover:scale-105 shadow-orange-md hover:shadow-orange-lg'
-          }`}
-        >
-          {uploading ? (
-            <span className="flex items-center">
-              <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-              Upload en cours...
-            </span>
-          ) : (
-            'Ajouter une photo'
-          )}
+    <div className="mt-3">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <p className="text-xs text-gray-500 dark:text-gray-400">{t('photos.hint')}</p>
+        <button type="button" onClick={handleClick} disabled={uploading} className="btn-secondary">
+          <PhotoIcon className="size-4" />
+          {uploading ? t('photos.uploading') : t('photos.add')}
         </button>
       </div>
 
-      <input
-        type="file"
-        ref={fileInputRef}
-        onChange={handleFileChange}
-        accept="image/*"
-        className="hidden"
-      />
-
-      {uploading && (
-        <div className="mt-4 p-4 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700 rounded-lg">
-          <div className="flex items-center">
-            <svg className="animate-spin h-5 w-5 text-orange-500 dark:text-orange-400 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            <div>
-              <p className="text-sm font-medium text-orange-900 dark:text-orange-100">Upload en cours...</p>
-              <p className="text-xs text-orange-700 dark:text-orange-300">Veuillez patienter pendant l'envoi de votre image</p>
-            </div>
-          </div>
-        </div>
-      )}
+      <input type="file" ref={fileInputRef} onChange={handleFileChange} accept="image/*" className="hidden" />
 
       {service?.images && service.images.length > 0 ? (
-        <div className="grid grid-cols-2 gap-4 mt-4">
+        <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
           {service.images.map((image, index) => (
-            <div key={index} className="relative group">
+            <div key={index} className="relative">
               <img
-                src={image.url}
+                src={fileService.getImageUrl(image.url)}
                 alt={image.alt}
-                className="w-full h-32 object-cover rounded-lg"
+                className="aspect-[3/2] w-full rounded-xl object-cover bg-gray-100 dark:bg-gray-800"
               />
               <button
+                type="button"
                 onClick={() => handleRemoveImage(image.url)}
                 disabled={uploading}
-                className={`absolute top-2 right-2 p-1 bg-red-500 hover:bg-red-600 text-white rounded-full transition-all duration-200 shadow-lg ${
-                  uploading ? 'opacity-50 cursor-not-allowed' : 'opacity-0 group-hover:opacity-100'
-                }`}
+                aria-label={t('photos.remove')}
+                title={t('photos.remove')}
+                className="absolute top-2 end-2 grid size-8 place-items-center rounded-lg bg-white/90 text-gray-700 shadow-sm transition-colors duration-150 ease-out hover:text-red-600 disabled:opacity-50 dark:bg-gray-900/90 dark:text-gray-200"
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                <XMarkIcon className="size-4" />
               </button>
             </div>
           ))}
         </div>
       ) : (
-        <div className="text-center py-6 bg-gray-50 dark:bg-gray-700/50 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600">
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            Aucune photo ajoutée
-          </p>
-        </div>
+        <p className="mt-3 rounded-xl border border-dashed border-gray-200 py-6 text-center text-sm text-gray-500 dark:border-gray-700 dark:text-gray-400">
+          {t('photos.none')}
+        </p>
       )}
     </div>
   );

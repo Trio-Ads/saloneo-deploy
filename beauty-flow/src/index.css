@@ -138,238 +138,140 @@ body {
   font-family: var(--font-body);
   background: var(--background);
   color: var(--text-primary);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'cv11', 'ss01';
   position: relative;
 }
 
-/* Gradient animé pour le fond */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    var(--primary) 0%,
-    var(--secondary) 50%,
-    var(--accent) 100%
-  );
-  opacity: 0.03;
-  pointer-events: none;
-  z-index: -1;
-}
+::selection { background: rgba(var(--primary-rgb), 0.18); }
+:focus-visible { outline: 2px solid rgba(var(--primary-rgb), 0.55); outline-offset: 2px; border-radius: 6px; }
+h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.015em; text-wrap: balance; }
+.tabular-nums, table td { font-variant-numeric: tabular-nums; }
 
 /* Support RTL */
 html[dir="rtl"] {
   font-family: 'Noto Sans Arabic', var(--font-body);
 }
 
-/* ===== SYSTÈME DE COMPOSANTS SALONEO 2025 ===== */
+/* ===== SYSTÈME DE COMPOSANTS SALONEO — "Studio" (voir DESIGN.md) =====
+   Surfaces calmes, une seule couleur d'action (orange), pas de halo ni de verre décoratif. */
 
 @layer components {
   /* Boutons */
   .btn-primary {
-    @apply px-6 py-3 rounded-xl font-medium text-white relative overflow-hidden;
-    @apply transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98];
-    background: linear-gradient(135deg, var(--primary), var(--primary-light));
-    box-shadow: 0 4px 14px rgba(var(--primary-rgb), 0.25);
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white;
+    @apply transition-[background-color,transform,box-shadow] duration-150 ease-out active:scale-[0.98];
+    @apply disabled:opacity-50 disabled:pointer-events-none;
+    background: var(--primary);
+    box-shadow: 0 1px 2px rgba(24, 24, 27, 0.08);
   }
-
-  .btn-primary:hover {
-    box-shadow: 0 6px 20px rgba(var(--primary-rgb), 0.35);
-    transform: translateY(-2px) scale(1.02);
-  }
+  .btn-primary:hover { background: var(--primary-dark); }
 
   .btn-secondary {
-    @apply px-6 py-3 rounded-xl font-medium text-white relative overflow-hidden;
-    @apply transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98];
-    background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
-    box-shadow: 0 4px 14px rgba(var(--secondary-rgb), 0.25);
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold;
+    @apply transition-[background-color,transform] duration-150 ease-out active:scale-[0.98];
+    @apply disabled:opacity-50 disabled:pointer-events-none;
+    background: var(--surface);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 2px rgba(24, 24, 27, 0.04);
   }
+  .btn-secondary:hover { background: var(--surface-elevated); }
 
   .btn-ghost {
-    @apply px-6 py-3 rounded-xl font-medium relative overflow-hidden;
-    @apply transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98];
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-border);
-    color: var(--text-primary);
+    @apply inline-flex items-center justify-center gap-2 px-3 py-2 rounded-xl text-sm font-medium;
+    @apply transition-[background-color,transform] duration-150 ease-out active:scale-[0.98];
+    color: var(--text-secondary);
   }
+  .btn-ghost:hover { background: var(--surface-elevated); color: var(--text-primary); }
 
-  .btn-ghost:hover {
-    background: rgba(var(--primary-rgb), 0.1);
-    border-color: rgba(var(--primary-rgb), 0.2);
-  }
-
-  /* Glass Components */
-  .glass-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    box-shadow: 0 8px 32px var(--glass-shadow);
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Panneaux (ancien nom conservé : .glass-card) */
+  .glass-card,
+  .card-2025,
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 1px 2px rgba(24, 24, 27, 0.04);
     position: relative;
-    overflow: hidden;
-  }
-
-  .glass-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      120deg,
-      transparent 20%,
-      var(--glass-highlight) 40%,
-      var(--glass-highlight) 60%,
-      transparent 80%
-    );
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-
-  .glass-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px var(--glass-shadow);
-  }
-
-  .glass-card:hover::before {
-    opacity: 1;
   }
 
   .glass-nav {
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border-bottom: 1px solid var(--glass-border);
+    background: color-mix(in srgb, var(--surface) 92%, transparent);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
     z-index: 50;
   }
 
-  .glass-input {
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    border: 1px solid #D1D5DB;
+  .glass-input,
+  .field {
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 12px 16px;
+    padding: 10px 14px;
+    font-size: 0.875rem;
     color: var(--text-primary);
-    transition: all 0.3s ease;
+    transition: border-color 150ms ease-out, box-shadow 150ms ease-out;
     width: 100%;
   }
-
-  .glass-input:focus {
+  .glass-input:focus,
+  .field:focus {
     outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.15);
   }
-
-  .glass-input::placeholder {
-    color: var(--text-tertiary);
+  .glass-input::placeholder,
+  .field::placeholder { color: var(--text-tertiary); }
+  /* iOS zooms on focus below 16px */
+  @media (max-width: 639px) {
+    .glass-input, .field { font-size: 16px; }
   }
 
   .glass-button {
-    padding: 12px 24px;
-    border-radius: 12px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium cursor-pointer;
+    @apply transition-[background-color,transform] duration-150 ease-out active:scale-[0.98];
+    border: 1px solid var(--border);
+    background: var(--surface);
   }
+  .glass-button:hover { background: var(--surface-elevated); }
 
-  .glass-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-  }
-
-  .glass-button:active {
-    transform: translateY(0);
-  }
-
-  /* Modal moderne */
-  .modal-2025 {
-    @apply fixed inset-0 z-50 overflow-y-auto;
-  }
-
+  /* Modales */
+  .modal-2025 { @apply fixed inset-0 z-50 overflow-y-auto; }
   .modal-overlay {
     @apply fixed inset-0;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(8px);
-    transition: all 0.3s ease;
+    background: rgba(24, 24, 27, 0.45);
   }
-
   .modal-content {
     @apply relative w-full max-w-2xl mx-auto my-8;
     background: var(--surface);
-    border-radius: 24px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    border: 1px solid var(--border);
-    overflow: hidden;
-  }
-
-  /* Cards avec effet Bento */
-  .card-2025 {
-    background: var(--surface);
     border-radius: 20px;
+    box-shadow: 0 24px 48px -12px rgba(24, 24, 27, 0.25);
     border: 1px solid var(--border);
-    padding: 24px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
     overflow: hidden;
   }
 
-  .card-2025::before {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    border-radius: inherit;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: -1;
-  }
-
-  .card-2025:hover {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  }
-
-  .card-2025:hover::before {
-    opacity: 0.1;
-  }
-
-  /* Toast notifications */
+  /* Toasts */
   .toast-2025 {
-    @apply fixed top-4 right-4 z-50 max-w-sm;
+    @apply fixed top-4 end-4 z-50 max-w-sm;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 16px 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    backdrop-filter: blur(10px);
+    border-radius: 14px;
+    padding: 14px 16px;
+    box-shadow: 0 12px 32px -8px rgba(24, 24, 27, 0.18);
   }
-
-  .toast-success {
-    border-left: 4px solid var(--success);
-  }
-
-  .toast-error {
-    border-left: 4px solid var(--error);
-  }
-
-  .toast-warning {
-    border-left: 4px solid var(--warning);
-  }
-
-  .toast-info {
-    border-left: 4px solid var(--info);
-  }
+  .toast-success, .toast-error, .toast-warning, .toast-info { border-width: 1px; }
 }
+
+/* Modal / popover entrance (Emil: ease-out, small scale, fast) */
+@keyframes modalIn { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: none; } }
+@keyframes sheetIn { from { transform: translateY(100%); } to { transform: none; } }
+.animate-modal-in { animation: modalIn 200ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-sheet-in { animation: sheetIn 250ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+@media (max-width: 639px) { .animate-modal-in.sheet-on-mobile { animation-name: sheetIn; animation-duration: 250ms; } }
 
 /* ===== ANIMATIONS SALONEO 2025 ===== */
 

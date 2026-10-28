@@ -1,30 +1,21 @@
 import React, { useMemo, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, UseFormRegisterReturn } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { 
-  UserIcon,
-  BuildingStorefrontIcon,
-  MapPinIcon,
-  LanguageIcon,
-  CurrencyDollarIcon,
-  LinkIcon,
+import clsx from 'clsx';
+import {
+  ArrowTopRightOnSquareIcon,
+  CheckIcon,
   ClipboardDocumentIcon,
-  CheckCircleIcon,
-  EnvelopeIcon,
-  LockClosedIcon,
-  KeyIcon,
-  ShieldCheckIcon,
   EyeIcon,
-  EyeSlashIcon,
-  UserGroupIcon
+  EyeSlashIcon
 } from '@heroicons/react/24/outline';
-import { useProfileStore, generatePublicLink } from '../store';
+import { useProfileStore } from '../store';
 import { useToastStore } from '../../../components/Toast';
-import { Profile, Currency, getAllCurrencies } from '../types';
-import LanguageSelector from '../../../components/LanguageSelector';
-import CurrencySelector from '../../../components/CurrencySelector';
+import { Profile, getAllCurrencies } from '../types';
 import { AffiliationTab } from './affiliation';
 import { useAuthStore } from '../../auth/store';
+import { profileAPI } from '../../../services/api';
+import { Panel, IconButton, Segmented } from '../../../components/ui';
 
 interface ExtendedProfile extends Profile {
   email?: string;
@@ -33,34 +24,80 @@ interface ExtendedProfile extends Profile {
   confirmPassword?: string;
 }
 
+const LANGUAGES = [
+  { code: 'fr', name: 'Français' },
+  { code: 'ar', name: 'العربية' },
+  { code: 'en', name: 'English' },
+  { code: 'es', name: 'Español' },
+  { code: 'pt', name: 'Português' },
+  { code: 'tr', name: 'Türkçe' },
+  { code: 'ber', name: 'Tamazight' }
+];
+
+const labelClass = 'block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5';
+const errorClass = 'mt-1.5 text-xs text-red-600 dark:text-red-400';
+
+// Settings row: title + description on the start side, fields on the end side (stacked on mobile).
+const Section: React.FC<{ title: React.ReactNode; description?: React.ReactNode; children: React.ReactNode }> = ({ title, description, children }) => (
+  <div className="grid gap-4 px-5 py-6 md:grid-cols-3 md:gap-8">
+    <div>
+      <h2 className="text-base font-semibold text-gray-900 dark:text-gray-50">{title}</h2>
+      {description && <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{description}</p>}
+    </div>
+    <div className="space-y-4 md:col-span-2">{children}</div>
+  </div>
+);
+
+const PasswordField: React.FC<{ label: string; registration: UseFormRegisterReturn; showLabel: string; hideLabel: string; error?: string }> = ({ label, registration, showLabel, hideLabel, error }) => {
+  const [visible, setVisible] = useState(false);
+  const errorId = `${registration.name}-error`;
+  return (
+    <div>
+      <label className={labelClass} htmlFor={registration.name}>{label}</label>
+      <div className="relative">
+        <input
+          id={registration.name}
+          type={visible ? 'text' : 'password'}
+          autoComplete={registration.name === 'currentPassword' ? 'current-password' : 'new-password'}
+          aria-invalid={!!error}
+          aria-describedby={error ? errorId : undefined}
+          {...registration}
+          className={clsx('field pe-11', error && 'border-red-400')}
+        />
+        <IconButton label={visible ? hideLabel : showLabel} onClick={() => setVisible(!visible)} className="absolute inset-y-0 end-1 my-auto">
+          {visible ? <EyeSlashIcon className="size-5" /> : <EyeIcon className="size-5" />}
+        </IconButton>
+      </div>
+      {error && <p id={errorId} className={errorClass}>{error}</p>}
+    </div>
+  );
+};
+
 const ProfileForm: React.FC = () => {
   const { t, i18n } = useTranslation('profile');
-  const isRTL = useMemo(() => i18n.language === 'ar', [i18n.language]);
-  const { 
-    profile, 
-    isLoading, 
-    error, 
-    updateProfile, 
-    setLanguage, 
-    setCurrency, 
-    setEstablishmentName,
-    loadProfile 
+  const {
+    profile,
+    isLoading,
+    error,
+    updateProfile,
+    setLanguage,
+    setCurrency,
+    loadProfile
   } = useProfileStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [linkCopied, setLinkCopied] = useState(false);
-  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
   const [activeTab, setActiveTab] = useState<'profile' | 'affiliation'>('profile');
-  
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
     setValue,
-    reset
+    reset,
+    setError,
+    clearErrors
   } = useForm<ExtendedProfile>({
     defaultValues: {
       ...profile,
@@ -69,7 +106,7 @@ const ProfileForm: React.FC = () => {
   });
 
   const currentLanguage = watch('language');
-  const newPassword = watch('newPassword');
+  const showAsTeamMember = watch('showAsTeamMember');
   const availableCurrencies = useMemo(() => getAllCurrencies(), []);
   const { user } = useAuthStore();
 
@@ -108,25 +145,44 @@ const ProfileForm: React.FC = () => {
   const { showToast } = useToastStore();
 
   const onSubmit = async (data: ExtendedProfile) => {
+    clearErrors(['currentPassword', 'newPassword', 'confirmPassword']);
+    // Validation du changement de mot de passe (erreurs affichées sous le champ concerné)
+    if (isChangingPassword) {
+      if (!data.currentPassword) {
+        setError('currentPassword', { message: t('profile_form.messages.password_required') }, { shouldFocus: true });
+        return;
+      }
+      if (!data.newPassword || data.newPassword.length < 8) {
+        setError('newPassword', { message: t('profile_form.messages.password_min_length') }, { shouldFocus: true });
+        return;
+      }
+      if (data.newPassword !== data.confirmPassword) {
+        setError('confirmPassword', { message: t('profile_form.messages.passwords_not_match') }, { shouldFocus: true });
+        return;
+      }
+    }
+
     setIsSubmitting(true);
     try {
-      // Validation du changement de mot de passe
+      // Mot de passe d'abord : s'il est refusé, rien n'est enregistré et l'erreur reste sous le champ.
       if (isChangingPassword) {
-        if (!data.currentPassword) {
-          showToast(t('profile_form.messages.password_required'), 'error');
-          setIsSubmitting(false);
+        try {
+          await profileAPI.updatePassword({ currentPassword: data.currentPassword!, newPassword: data.newPassword! });
+        } catch (err: any) {
+          const status = err?.response?.status;
+          setError(
+            'currentPassword',
+            { message: status === 400 ? t('profile_form.messages.current_password_incorrect') : (err?.response?.data?.error || t('error.save')) },
+            { shouldFocus: true }
+          );
           return;
         }
-        if (!data.newPassword || data.newPassword.length < 8) {
-          showToast(t('profile_form.messages.password_min_length'), 'error');
-          setIsSubmitting(false);
-          return;
-        }
-        if (data.newPassword !== data.confirmPassword) {
-          showToast(t('profile_form.messages.passwords_not_match'), 'error');
-          setIsSubmitting(false);
-          return;
-        }
+        showToast(t('profile_form.messages.password_updated'), 'success');
+        setIsChangingPassword(false);
+        // Réinitialiser les champs de mot de passe
+        setValue('currentPassword', '');
+        setValue('newPassword', '');
+        setValue('confirmPassword', '');
       }
 
       await updateProfile({
@@ -137,16 +193,6 @@ const ProfileForm: React.FC = () => {
         language: data.language,
         currency: data.currency
       });
-
-      // Simuler la mise à jour de l'email et du mot de passe
-      if (isChangingPassword) {
-        showToast(t('profile_form.messages.password_updated'), 'success');
-        setIsChangingPassword(false);
-        // Réinitialiser les champs de mot de passe
-        setValue('currentPassword', '');
-        setValue('newPassword', '');
-        setValue('confirmPassword', '');
-      }
 
       showToast(t('success.save'), 'success');
     } catch (error) {
@@ -162,7 +208,7 @@ const ProfileForm: React.FC = () => {
       // Changer la langue dans i18n immédiatement pour l'interface
       i18n.changeLanguage(newLanguage);
       setValue('language', newLanguage as Profile['language']);
-      
+
       // Mettre à jour le profil en arrière-plan sans notification
       await setLanguage(newLanguage as Profile['language']);
     } catch (error) {
@@ -171,10 +217,11 @@ const ProfileForm: React.FC = () => {
     }
   };
 
-  const handleCurrencyChange = async (currency: Currency) => {
+  const handleCurrencyChange = async (code: string) => {
+    const currency = availableCurrencies.find(c => c.code === code);
     try {
       // Ne mettre à jour que si la monnaie a vraiment changé
-      if (profile.currency === currency) {
+      if (!currency || profile.currency?.code === code) {
         return;
       }
       setValue('currency', currency);
@@ -184,6 +231,21 @@ const ProfileForm: React.FC = () => {
       console.error('Error changing currency:', error);
       showToast(t('profile_form.messages.currency_error'), 'error');
     }
+  };
+
+  const handleTeamMemberToggle = () => {
+    const next = !showAsTeamMember;
+    setValue('showAsTeamMember', next);
+    updateProfile({ showAsTeamMember: next })
+      .then(() => {
+        showToast(t(next ? 'profile_form.messages.team_member_on' : 'profile_form.messages.team_member_off'), 'success');
+        // Recharger le profil pour mettre à jour l'interface
+        loadProfile();
+      })
+      .catch(() => {
+        setValue('showAsTeamMember', !next);
+        showToast(t('profile_form.messages.team_member_error'), 'error');
+      });
   };
 
   const handleCopyLink = () => {
@@ -202,480 +264,148 @@ const ProfileForm: React.FC = () => {
     }
   }, [error, showToast]);
 
+  const currencyCode = typeof profile.currency === 'string' ? profile.currency : profile.currency?.code;
+
   return (
-    <div className="max-w-5xl mx-auto">
-      {/* Onglets */}
-      <div className="bg-white dark:bg-gray-800 rounded-t-xl shadow-sm border-b border-gray-200 dark:border-gray-700">
-        <nav className="flex space-x-8 px-6" aria-label="Tabs">
-          <button
-            type="button"
-            onClick={() => setActiveTab('profile')}
-            className={`
-              flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm
-              transition-colors duration-200
-              ${activeTab === 'profile'
-                ? 'border-orange-500 text-orange-600 dark:text-orange-500'
-                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
-              }
-            `}
-          >
-            <UserIcon className="h-5 w-5" />
-            <span>{t('profile_form.tabs.profile')}</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab('affiliation')}
-            className={`
-              flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm
-              transition-colors duration-200
-              ${activeTab === 'affiliation'
-                ? 'border-orange-500 text-orange-600 dark:text-orange-500'
-                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
-              }
-            `}
-          >
-            <UserGroupIcon className="h-5 w-5" />
-            <span>{t('profile_form.tabs.affiliation')}</span>
-          </button>
-        </nav>
-      </div>
+    <div>
+      <Segmented
+        className="mb-6"
+        value={activeTab}
+        onChange={setActiveTab}
+        options={[
+          { value: 'profile', label: t('profile_form.tabs.profile') },
+          { value: 'affiliation', label: t('profile_form.tabs.affiliation') }
+        ]}
+      />
 
-      {/* Contenu des onglets */}
-      <div className="bg-white dark:bg-gray-800 rounded-b-xl shadow-sm p-6">
-        {activeTab === 'profile' ? (
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-        
-        {/* SECTION 1: Informations de connexion */}
-        <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 dark:border-gray-700/20 p-6">
-          <div className="flex items-center space-x-3 mb-6">
-            <div className="p-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-lg">
-              <EnvelopeIcon className="h-5 w-5 text-white" />
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              {t('profile_form.sections.login_info')}
-            </h3>
-          </div>
-          
-          <div className="space-y-6">
-            {/* Email */}
-            <div>
-              <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
-                <EnvelopeIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
-                {t('profile_form.fields.email')}
-              </label>
-              <input
-                type="email"
-                {...register('email', { required: true, pattern: /^\S+@\S+\.\S+$/ })}
-                className={`w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 ${
-                  isRTL ? 'text-right' : 'text-left'
-                } ${errors.email ? 'ring-2 ring-red-300 focus:ring-red-500' : ''}`}
-                dir={isRTL ? 'rtl' : 'ltr'}
-                placeholder={t('profile_form.placeholders.email')}
-              />
-              {errors.email && (
-                <p className={`mt-2 text-sm text-red-600 ${isRTL ? 'text-right' : 'text-left'}`}>
-                  {t('profile_form.messages.email_validation')}
-                </p>
-              )}
-            </div>
+      {activeTab === 'affiliation' ? (
+        <AffiliationTab />
+      ) : (
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Panel flush bodyClassName="divide-y divide-gray-100 dark:divide-gray-800">
+            <Section title={t('profile_form.sections.login_info')} description={t('profile_form.descriptions.login_info')}>
+              <div>
+                <label className={labelClass} htmlFor="email">{t('profile_form.fields.email')}</label>
+                <input
+                  id="email"
+                  type="email"
+                  readOnly
+                  {...register('email')}
+                  className="field bg-gray-50 text-gray-500 dark:bg-gray-800/60 dark:text-gray-400"
+                />
+              </div>
 
-            {/* Changement de mot de passe */}
-            <div className="border-t border-gray-200 pt-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center space-x-2">
-                  <LockClosedIcon className="h-4 w-4 text-orange-600 dark:text-orange-500" />
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('security.current_password')}</span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setIsChangingPassword(!isChangingPassword)}
-                  className="text-sm text-orange-600 dark:text-orange-500 hover:text-orange-700 dark:hover:text-orange-400 font-medium transition-colors duration-200"
-                >
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('profile_form.fields.password')}</span>
+                <button type="button" onClick={() => setIsChangingPassword(!isChangingPassword)} className="btn-secondary">
                   {isChangingPassword ? t('profile_form.buttons.cancel') : t('profile_form.buttons.change_password')}
                 </button>
               </div>
 
               {isChangingPassword && (
-                <div className="space-y-4 bg-orange-50/50 dark:bg-orange-900/20 rounded-xl p-4 border border-orange-200 dark:border-orange-700">
-                  {/* Mot de passe actuel */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      {t('profile_form.fields.current_password')}
-                    </label>
-                    <div className="relative">
-                      <input
-                        type={showCurrentPassword ? 'text' : 'password'}
-                        {...register('currentPassword')}
-                        className="w-full px-4 py-3 pr-12 rounded-xl border border-gray-200 dark:border-gray-600 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
-                        placeholder="••••••••"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
-                      >
-                        {showCurrentPassword ? (
-                          <EyeSlashIcon className="h-5 w-5" />
-                        ) : (
-                          <EyeIcon className="h-5 w-5" />
-                        )}
-                      </button>
-                    </div>
+                <div className="space-y-4">
+                  <PasswordField label={t('profile_form.fields.current_password')} registration={register('currentPassword')} error={errors.currentPassword?.message} showLabel={t('profile_form.buttons.show_password')} hideLabel={t('profile_form.buttons.hide_password')} />
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <PasswordField label={t('profile_form.fields.new_password')} registration={register('newPassword')} error={errors.newPassword?.message} showLabel={t('profile_form.buttons.show_password')} hideLabel={t('profile_form.buttons.hide_password')} />
+                    <PasswordField label={t('profile_form.fields.confirm_password')} registration={register('confirmPassword')} error={errors.confirmPassword?.message} showLabel={t('profile_form.buttons.show_password')} hideLabel={t('profile_form.buttons.hide_password')} />
                   </div>
-
-                  {/* Nouveau mot de passe */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      {t('profile_form.fields.new_password')}
-                    </label>
-                    <div className="relative">
-                      <input
-                        type={showNewPassword ? 'text' : 'password'}
-                        {...register('newPassword')}
-                        className="w-full px-4 py-3 pr-12 rounded-xl border border-gray-200 dark:border-gray-600 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
-                        placeholder="••••••••"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowNewPassword(!showNewPassword)}
-                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
-                      >
-                        {showNewPassword ? (
-                          <EyeSlashIcon className="h-5 w-5" />
-                        ) : (
-                          <EyeIcon className="h-5 w-5" />
-                        )}
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Confirmer le mot de passe */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      {t('profile_form.fields.confirm_password')}
-                    </label>
-                    <div className="relative">
-                      <input
-                        type={showConfirmPassword ? 'text' : 'password'}
-                        {...register('confirmPassword')}
-                        className="w-full px-4 py-3 pr-12 rounded-xl border border-gray-200 dark:border-gray-600 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
-                        placeholder="••••••••"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
-                      >
-                        {showConfirmPassword ? (
-                          <EyeSlashIcon className="h-5 w-5" />
-                        ) : (
-                          <EyeIcon className="h-5 w-5" />
-                        )}
-                      </button>
-                    </div>
-                  </div>
+                  {!errors.newPassword && <p className="text-xs text-gray-500 dark:text-gray-400">{t('profile_form.messages.password_min_length')}</p>}
                 </div>
               )}
-            </div>
-          </div>
-        </div>
+            </Section>
 
-        {/* SECTION 2: Informations personnelles */}
-        <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 dark:border-gray-700/20 p-6">
-          <div className="flex items-center space-x-3 mb-6">
-            <div className="p-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-lg">
-              <UserIcon className="h-5 w-5 text-white" />
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              {t('profile_form.sections.personal_info')}
-            </h3>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
-                <UserIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
-                {t('firstName')} *
-              </label>
-              <input
-                type="text"
-                {...register('firstName', { required: true })}
-                className={`w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 ${
-                  isRTL ? 'text-right' : 'text-left'
-                } ${errors.firstName ? 'ring-2 ring-red-300 focus:ring-red-500' : ''}`}
-                dir={isRTL ? 'rtl' : 'ltr'}
-                placeholder={t('profile_form.placeholders.first_name')}
-              />
-              {errors.firstName && (
-                <p className={`mt-2 text-sm text-red-600 ${isRTL ? 'text-right' : 'text-left'}`}>
-                  {t('form.required')}
-                </p>
-              )}
-            </div>
-
-            <div>
-              <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
-                <UserIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
-                {t('lastName')} *
-              </label>
-              <input
-                type="text"
-                {...register('lastName', { required: true })}
-                className={`w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 ${
-                  isRTL ? 'text-right' : 'text-left'
-                } ${errors.lastName ? 'ring-2 ring-red-300 focus:ring-red-500' : ''}`}
-                dir={isRTL ? 'rtl' : 'ltr'}
-                placeholder={t('profile_form.placeholders.last_name')}
-              />
-              {errors.lastName && (
-                <p className={`mt-2 text-sm text-red-600 ${isRTL ? 'text-right' : 'text-left'}`}>
-                  {t('form.required')}
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* SECTION 3: Informations du salon */}
-        <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 dark:border-gray-700/20 p-6">
-          <div className="flex items-center space-x-3 mb-6">
-            <div className="p-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-lg">
-              <BuildingStorefrontIcon className="h-5 w-5 text-white" />
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              {t('profile_form.sections.salon_info')}
-            </h3>
-          </div>
-          
-          <div className="space-y-6">
-            <div>
-              <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
-                <BuildingStorefrontIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
-                {t('establishmentName')} *
-              </label>
-              <input
-                type="text"
-                {...register('establishmentName', { required: true })}
-                className={`w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 ${
-                  isRTL ? 'text-right' : 'text-left'
-                } ${errors.establishmentName ? 'ring-2 ring-red-300 focus:ring-red-500' : ''}`}
-                dir={isRTL ? 'rtl' : 'ltr'}
-                placeholder={t('profile_form.placeholders.establishment_name')}
-              />
-              {errors.establishmentName && (
-                <p className={`mt-2 text-sm text-red-600 ${isRTL ? 'text-right' : 'text-left'}`}>
-                  {t('form.required')}
-                </p>
-              )}
-            </div>
-
-            <div>
-              <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
-                <MapPinIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
-                {t('address')} *
-              </label>
-              <textarea
-                {...register('address', { required: true })}
-                rows={3}
-                className={`w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white/70 dark:bg-gray-700 dark:text-gray-100 backdrop-blur-sm shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 ${
-                  isRTL ? 'text-right' : 'text-left'
-                } ${errors.address ? 'ring-2 ring-red-300 focus:ring-red-500' : ''}`}
-                dir={isRTL ? 'rtl' : 'ltr'}
-                placeholder={t('profile_form.placeholders.address')}
-              />
-              {errors.address && (
-                <p className={`mt-2 text-sm text-red-600 ${isRTL ? 'text-right' : 'text-left'}`}>
-                  {t('form.required')}
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* SECTION 4: Préférences */}
-        <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-500/20 dark:border-gray-700/20 p-6">
-          <div className="flex items-center space-x-3 mb-6">
-            <div className="p-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-lg">
-              <LanguageIcon className="h-5 w-5 text-white" />
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              {t('profile_form.sections.preferences')}
-            </h3>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
-                <LanguageIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
-                {t('language')}
-              </label>
-              <div className="bg-white/50 dark:bg-gray-700/50 p-3 rounded-xl border border-gray-200 dark:border-gray-600">
-                <LanguageSelector />
-              </div>
-            </div>
-
-            <div>
-              <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
-                <CurrencyDollarIcon className="h-4 w-4 inline mr-2 text-orange-600 dark:text-orange-500" />
-                {t('currency')}
-              </label>
-              <div className="bg-white/50 dark:bg-gray-700/50 p-3 rounded-xl border border-gray-200 dark:border-gray-600">
-                <CurrencySelector
-                  value={typeof profile.currency === 'string' ? profile.currency : profile.currency?.code}
-                  currencies={availableCurrencies}
-                  onChange={handleCurrencyChange}
-                />
-              </div>
-            </div>
-          </div>
-          
-          <div className="mt-6 border-t border-gray-200 pt-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <UserGroupIcon className="h-5 w-5 text-orange-600 dark:text-orange-500" />
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('profile_form.fields.show_as_team_member', 'Apparaître comme membre de l\'équipe')}
-                </span>
-              </div>
-            </div>
-            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-              {t('profile_form.messages.show_as_team_member_description', 'Activez cette option pour apparaître comme membre de l\'équipe dans les réservations et sur la page publique de votre salon.')}
-            </p>
-            
-            <div className="mt-4 flex flex-col space-y-4">
-              <div className="flex items-center">
-                <span className="mr-3 text-sm font-medium text-gray-700 dark:text-gray-300">État actuel:</span>
-                <span className={`px-3 py-1 rounded-full text-xs font-medium ${watch('showAsTeamMember') ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
-                  {watch('showAsTeamMember') ? 'Activé' : 'Désactivé'}
-                </span>
-              </div>
-              
-              <div className="flex space-x-4">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setValue('showAsTeamMember', true);
-                    updateProfile({
-                      showAsTeamMember: true
-                    }).then(() => {
-                      showToast('Vous apparaissez maintenant comme membre de l\'équipe', 'success');
-                      // Recharger le profil pour mettre à jour l'interface
-                      loadProfile().then(() => {
-                        console.log('Profil rechargé après activation');
-                      });
-                    }).catch(error => {
-                      showToast('Erreur lors de l\'activation', 'error');
-                    });
-                  }}
-                  className="px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-lg shadow-orange-md hover:shadow-orange-lg transition-all duration-200"
-                >
-                  Activer
-                </button>
-                
-                <button
-                  type="button"
-                  onClick={() => {
-                    setValue('showAsTeamMember', false);
-                    updateProfile({
-                      showAsTeamMember: false
-                    }).then(() => {
-                      showToast('Option désactivée', 'success');
-                      // Recharger le profil pour mettre à jour l'interface
-                      loadProfile().then(() => {
-                        console.log('Profil rechargé après désactivation');
-                      });
-                    }).catch(error => {
-                      showToast('Erreur lors de la désactivation', 'error');
-                    });
-                  }}
-                  className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200"
-                >
-                  Désactiver
-                </button>
-              </div>
-            </div>
-            
-            {watch('showAsTeamMember') && (
-              <div className="mt-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-700">
-                <p className="text-sm text-green-700 dark:text-green-300 flex items-center">
-                  <CheckCircleIcon className="h-4 w-4 mr-2" />
-                  Option activée ! Vous apparaîtrez maintenant comme membre de l'équipe.
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* SECTION 5: Lien public */}
-        <div className="bg-gradient-to-r from-orange-50/80 to-orange-100/80 dark:from-orange-900/20 dark:to-orange-800/20 backdrop-blur-xl rounded-2xl shadow-xl border border-orange-200/50 dark:border-orange-700/50 p-6">
-          <div className="flex items-center space-x-3 mb-6">
-            <div className="p-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-orange-lg">
-              <LinkIcon className="h-5 w-5 text-white" />
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              {t('profile_form.sections.public_link')}
-            </h3>
-          </div>
-          
-          <div className="bg-white/70 dark:bg-gray-800/70 p-4 rounded-xl border border-orange-200/50 dark:border-orange-700/50">
-            <div className="flex items-center justify-between">
-              <div className="flex-1">
-                <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('profile_form.messages.public_link_label')}</p>
-                <div className="flex items-center space-x-2">
-                  <code className="text-sm text-orange-600 dark:text-orange-400 font-mono bg-orange-50 dark:bg-orange-900/20 px-3 py-2 rounded-lg">
-                    {profile.publicLink || t('profile_form.placeholders.demo_link')}
-                  </code>
-                  <button
-                    type="button"
-                    onClick={handleCopyLink}
-                    disabled={!profile.publicLink}
-                    className={`p-2 rounded-lg transition-all duration-200 ${
-                      linkCopied 
-                        ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400' 
-                        : 'bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 hover:bg-orange-200 dark:hover:bg-orange-900/50'
-                    } disabled:opacity-50 disabled:cursor-not-allowed`}
-                  >
-                    {linkCopied ? (
-                      <CheckCircleIcon className="h-4 w-4" />
-                    ) : (
-                      <ClipboardDocumentIcon className="h-4 w-4" />
-                    )}
-                  </button>
+            <Section title={t('profile_form.sections.personal_info')} description={t('profile_form.descriptions.personal_info')}>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label className={labelClass} htmlFor="firstName">{t('firstName')}</label>
+                  <input id="firstName" type="text" autoComplete="given-name" {...register('firstName', { required: true })} className={clsx('field', errors.firstName && 'border-red-400')} placeholder={t('profile_form.placeholders.first_name')} />
+                  {errors.firstName && <p className={errorClass}>{t('form.required')}</p>}
+                </div>
+                <div>
+                  <label className={labelClass} htmlFor="lastName">{t('lastName')}</label>
+                  <input id="lastName" type="text" autoComplete="family-name" {...register('lastName', { required: true })} className={clsx('field', errors.lastName && 'border-red-400')} placeholder={t('profile_form.placeholders.last_name')} />
+                  {errors.lastName && <p className={errorClass}>{t('form.required')}</p>}
                 </div>
               </div>
-            </div>
-            <p className={`mt-2 text-sm text-gray-600 dark:text-gray-400 ${isRTL ? 'text-right' : 'text-left'}`}>
-              {t('profile_form.messages.public_link_description')}
-            </p>
-          </div>
-        </div>
+            </Section>
 
-        {/* Actions */}
-        <div className={`flex ${isRTL ? 'justify-start' : 'justify-end'} pt-6`}>
-          <button
-            type="submit"
-            disabled={isLoading || isSubmitting}
-            className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-8 py-3 rounded-xl shadow-orange-lg hover:shadow-orange-xl transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none font-medium"
-          >
-            {isLoading || isSubmitting ? (
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                {t('actions.saving')}
+            <Section title={t('profile_form.sections.salon_info')} description={t('profile_form.descriptions.salon_info')}>
+              <div>
+                <label className={labelClass} htmlFor="establishmentName">{t('establishmentName')}</label>
+                <input id="establishmentName" type="text" autoComplete="organization" {...register('establishmentName', { required: true })} className={clsx('field', errors.establishmentName && 'border-red-400')} placeholder={t('profile_form.placeholders.establishment_name')} />
+                {errors.establishmentName && <p className={errorClass}>{t('form.required')}</p>}
               </div>
-            ) : (
-              <div className="flex items-center gap-2">
-                <CheckCircleIcon className="h-5 w-5" />
-                {t('actions.save')}
+              <div>
+                <label className={labelClass} htmlFor="address">{t('profile_form.fields.full_address')}</label>
+                <textarea id="address" rows={2} autoComplete="street-address" {...register('address', { required: true })} className={clsx('field resize-y', errors.address && 'border-red-400')} placeholder={t('profile_form.placeholders.address')} />
+                {errors.address && <p className={errorClass}>{t('form.required')}</p>}
               </div>
-            )}
-          </button>
-          </div>
+            </Section>
+
+            <Section title={t('profile_form.sections.preferences')} description={t('profile_form.descriptions.preferences')}>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label className={labelClass} htmlFor="language">{t('language')}</label>
+                  <select id="language" value={i18n.language} onChange={(e) => handleLanguageChange(e.target.value)} className="field">
+                    {LANGUAGES.map(l => <option key={l.code} value={l.code}>{l.name}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label className={labelClass} htmlFor="currency">{t('currency')}</label>
+                  <select id="currency" value={currencyCode} onChange={(e) => handleCurrencyChange(e.target.value)} className="field">
+                    {availableCurrencies.map(c => <option key={c.code} value={c.code}>{t(`currencies.${c.code}`)} ({c.symbol})</option>)}
+                  </select>
+                </div>
+              </div>
+
+              <div className="flex items-start justify-between gap-4 pt-2">
+                <div>
+                  <p id="team-member-label" className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('profile_form.fields.show_as_team_member')}</p>
+                  <p className="mt-0.5 text-sm text-gray-500 dark:text-gray-400">{t('profile_form.messages.show_as_team_member_description')}</p>
+                </div>
+                <button
+                  type="button"
+                  role="switch"
+                  aria-checked={!!showAsTeamMember}
+                  aria-labelledby="team-member-label"
+                  onClick={handleTeamMemberToggle}
+                  className={clsx(
+                    'relative mt-0.5 inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900',
+                    showAsTeamMember ? 'bg-orange-500' : 'bg-gray-200 dark:bg-gray-700'
+                  )}
+                >
+                  <span className={clsx('inline-block size-5 rounded-full bg-white shadow-sm transition-transform duration-150 ease-out', showAsTeamMember ? 'translate-x-[22px] rtl:-translate-x-[22px]' : 'translate-x-0.5 rtl:-translate-x-0.5')} />
+                </button>
+              </div>
+            </Section>
+
+            <Section title={t('profile_form.sections.public_link')} description={t('profile_form.messages.public_link_description')}>
+              <div>
+                <label className={labelClass} htmlFor="publicLink">{t('profile_form.messages.public_link_label')}</label>
+                <div className="flex items-center gap-2">
+                  <input id="publicLink" readOnly value={profile.publicLink || ''} placeholder={t('profile_form.placeholders.demo_link')} dir="ltr" onFocus={(e) => e.target.select()} className="field min-w-0 flex-1 text-gray-700 dark:text-gray-300" />
+                  <IconButton label={t('actions.copy')} onClick={handleCopyLink} disabled={!profile.publicLink} className="size-10 shrink-0 border border-gray-200 dark:border-gray-700 disabled:opacity-50">
+                    {linkCopied ? <CheckIcon className="size-5 text-emerald-600" /> : <ClipboardDocumentIcon className="size-5" />}
+                  </IconButton>
+                  {profile.publicLink && (
+                    <a href={profile.publicLink} target="_blank" rel="noopener noreferrer" className="btn-secondary shrink-0">
+                      <ArrowTopRightOnSquareIcon className="size-4" />
+                      <span className="hidden sm:inline">{t('profile_form.buttons.open')}</span>
+                    </a>
+                  )}
+                </div>
+              </div>
+            </Section>
+
+            <div className="flex justify-end px-5 py-4">
+              <button type="submit" disabled={isLoading || isSubmitting} className="btn-primary w-full sm:w-auto">
+                {isSubmitting ? t('actions.saving') : t('actions.save')}
+              </button>
+            </div>
+          </Panel>
         </form>
-      ) : (
-        <AffiliationTab />
       )}
     </div>
-  </div>
   );
 };
 

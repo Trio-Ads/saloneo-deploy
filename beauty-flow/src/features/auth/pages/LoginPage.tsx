@@ -3,7 +3,7 @@ import { AuthLayout } from '../components/AuthLayout';
 import { LoginForm } from '../components/LoginForm';
 
 export const LoginPage: React.FC = () => (
-  <AuthLayout title="login.title">
+  <AuthLayout title="login.title" subtitle="login.subtitle">
     <LoginForm />
   </AuthLayout>
 );

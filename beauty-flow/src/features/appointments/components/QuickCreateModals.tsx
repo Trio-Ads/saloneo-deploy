@@ -1,8 +1,62 @@
-import React, { useState } from 'react';
+import React, { useEffect, useId, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { IconButton } from '../../../components/ui';
+import { getCurrencySymbol } from '../../../utils/currency';
+import { useProfileStore } from '../../profile/store';
+import { TEAM_ROLES } from '../../team/store';
 import { ClientFormData } from '../../clients/types';
 import { ServiceFormData } from '../../services/types';
 import { TeamMemberFormData } from '../../team/types';
+
+const labelClass = 'mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300';
+
+/** Shared dialog chrome: backdrop, title bar, Escape to close, cancel/submit footer. */
+const ModalShell: React.FC<{
+  title: string;
+  onClose: () => void;
+  onSubmit: (e: React.FormEvent) => void;
+  loading: boolean;
+  children: React.ReactNode;
+}> = ({ title, onClose, onSubmit, loading, children }) => {
+  const { t } = useTranslation('appointments');
+  const titleId = useId();
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose]);
+
+  return (
+    <div className="fixed inset-0 z-[70] flex items-end justify-center bg-gray-900/40 p-0 animate-fadeIn sm:items-center sm:p-4" onClick={onClose}>
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        onClick={(e) => e.stopPropagation()}
+        className="max-h-[90dvh] w-full max-w-md overflow-y-auto rounded-t-2xl border border-gray-200 bg-white pb-[env(safe-area-inset-bottom)] shadow-xl sm:rounded-2xl sm:pb-0 dark:border-gray-800 dark:bg-gray-900"
+      >
+        <div className="flex items-center justify-between px-5 pt-5 pb-3">
+          <h3 id={titleId} className="text-base font-semibold text-gray-900 dark:text-gray-50">{title}</h3>
+          <IconButton label={t('quick_create.close')} onClick={onClose} className="-me-2">
+            <XMarkIcon className="size-5" />
+          </IconButton>
+        </div>
+        <form onSubmit={onSubmit} className="space-y-4 px-5 pb-5">
+          {children}
+          <div className="flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:justify-end">
+            <button type="button" onClick={onClose} className="btn-secondary">
+              {t('quick_create.cancel')}
+            </button>
+            <button type="submit" disabled={loading} className="btn-primary">
+              {loading ? t('quick_create.creating') : t('quick_create.create')}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
 
 interface QuickCreateClientModalProps {
   isOpen: boolean;
@@ -22,6 +76,7 @@ export const QuickCreateClientModal: React.FC<QuickCreateClientModalProps> = ({
     email: ''
   });
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation('appointments');
 
   if (!isOpen) return null;
 
@@ -40,91 +95,58 @@ export const QuickCreateClientModal: React.FC<QuickCreateClientModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full mx-4 p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-            ➕ Nouveau Client Rapide
-          </h3>
-          <button
-            onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
-          >
-            <XMarkIcon className="h-6 w-6" />
-          </button>
-        </div>
+    <ModalShell title={t('quick_create.client_title')} onClose={onClose} onSubmit={handleSubmit} loading={loading}>
+      <label className="block">
+        <span className={labelClass}>
+          {t('quick_create.first_name')}
+        </span>
+        <input
+          type="text"
+          required
+          value={formData.firstName}
+          onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+          className="field"
+        />
+      </label>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Prénom *
-            </label>
-            <input
-              type="text"
-              required
-              value={formData.firstName}
-              onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-              className="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2"
-            />
-          </div>
+      <label className="block">
+        <span className={labelClass}>
+          {t('quick_create.last_name')}
+        </span>
+        <input
+          type="text"
+          required
+          value={formData.lastName}
+          onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+          className="field"
+        />
+      </label>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Nom *
-            </label>
-            <input
-              type="text"
-              required
-              value={formData.lastName}
-              onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-              className="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2"
-            />
-          </div>
+      <label className="block">
+        <span className={labelClass}>
+          {t('quick_create.phone')}
+        </span>
+        <input
+          type="tel"
+          required
+          value={formData.phone}
+          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+          className="field"
+        />
+      </label>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Téléphone *
-            </label>
-            <input
-              type="tel"
-              required
-              value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Email
-            </label>
-            <input
-              type="email"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2"
-            />
-          </div>
-
-          <div className="flex justify-end space-x-3 pt-4">
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
-            >
-              Annuler
-            </button>
-            <button
-              type="submit"
-              disabled={loading}
-              className="px-4 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600 disabled:opacity-50"
-            >
-              {loading ? 'Création...' : 'Créer'}
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+      <label className="block">
+        <span className={labelClass}>
+          {t('quick_create.email')}
+        </span>
+        <input
+          type="email"
+          value={formData.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          className="field"
+        />
+      </label>
+    </ModalShell>
   );
 };
 
@@ -141,6 +163,7 @@ export const QuickCreateServiceModal: React.FC<QuickCreateServiceModalProps> = (
   onCreate,
   categories
 }) => {
+  const { profile } = useProfileStore();
   const [formData, setFormData] = useState<Partial<ServiceFormData>>({
     name: '',
     category: categories[0] || 'Coupe',
@@ -148,6 +171,7 @@ export const QuickCreateServiceModal: React.FC<QuickCreateServiceModalProps> = (
     price: 0
   });
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation('appointments');
 
   if (!isOpen) return null;
 
@@ -166,99 +190,66 @@ export const QuickCreateServiceModal: React.FC<QuickCreateServiceModalProps> = (
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full mx-4 p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-            ✨ Nouveau Service Rapide
-          </h3>
-          <button
-            onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
-          >
-            <XMarkIcon className="h-6 w-6" />
-          </button>
-        </div>
+    <ModalShell title={t('quick_create.service_title')} onClose={onClose} onSubmit={handleSubmit} loading={loading}>
+      <label className="block">
+        <span className={labelClass}>
+          {t('quick_create.service_name')}
+        </span>
+        <input
+          type="text"
+          required
+          value={formData.name}
+          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          className="field"
+        />
+      </label>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Nom du service *
-            </label>
-            <input
-              type="text"
-              required
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2"
-            />
-          </div>
+      <label className="block">
+        <span className={labelClass}>
+          {t('quick_create.category')}
+        </span>
+        <select
+          required
+          value={formData.category}
+          onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+          className="field"
+        >
+          {categories.map((cat) => (
+            <option key={cat} value={cat}>{cat}</option>
+          ))}
+        </select>
+      </label>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Catégorie *
-            </label>
-            <select
-              required
-              value={formData.category}
-              onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-              className="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2"
-            >
-              {categories.map((cat) => (
-                <option key={cat} value={cat}>{cat}</option>
-              ))}
-            </select>
-          </div>
+      <label className="block">
+        <span className={labelClass}>
+          {t('quick_create.duration')}
+        </span>
+        <input
+          type="number"
+          required
+          min="5"
+          step="5"
+          value={formData.duration}
+          onChange={(e) => setFormData({ ...formData, duration: parseInt(e.target.value) })}
+          className="field"
+        />
+      </label>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Durée (minutes) *
-            </label>
-            <input
-              type="number"
-              required
-              min="5"
-              step="5"
-              value={formData.duration}
-              onChange={(e) => setFormData({ ...formData, duration: parseInt(e.target.value) })}
-              className="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Prix (€) *
-            </label>
-            <input
-              type="number"
-              required
-              min="0"
-              step="0.01"
-              value={formData.price}
-              onChange={(e) => setFormData({ ...formData, price: parseFloat(e.target.value) })}
-              className="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2"
-            />
-          </div>
-
-          <div className="flex justify-end space-x-3 pt-4">
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
-            >
-              Annuler
-            </button>
-            <button
-              type="submit"
-              disabled={loading}
-              className="px-4 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600 disabled:opacity-50"
-            >
-              {loading ? 'Création...' : 'Créer'}
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+      <label className="block">
+        <span className={labelClass}>
+          {`${t('quick_create.price')} (${getCurrencySymbol(profile.currency)})`}
+        </span>
+        <input
+          type="number"
+          required
+          min="0"
+          step="0.01"
+          value={formData.price}
+          onChange={(e) => setFormData({ ...formData, price: parseFloat(e.target.value) })}
+          className="field"
+        />
+      </label>
+    </ModalShell>
   );
 };
 
@@ -281,6 +272,7 @@ export const QuickCreateTeamModal: React.FC<QuickCreateTeamModalProps> = ({
     role: 'Coiffeur(se)'
   });
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation('appointments');
 
   if (!isOpen) return null;
 
@@ -299,107 +291,72 @@ export const QuickCreateTeamModal: React.FC<QuickCreateTeamModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full mx-4 p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-            👨‍💼 Nouveau Membre Rapide
-          </h3>
-          <button
-            onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
-          >
-            <XMarkIcon className="h-6 w-6" />
-          </button>
-        </div>
+    <ModalShell title={t('quick_create.team_title')} onClose={onClose} onSubmit={handleSubmit} loading={loading}>
+      <label className="block">
+        <span className={labelClass}>
+          {t('quick_create.first_name')}
+        </span>
+        <input
+          type="text"
+          required
+          value={formData.firstName}
+          onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+          className="field"
+        />
+      </label>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Prénom *
-            </label>
-            <input
-              type="text"
-              required
-              value={formData.firstName}
-              onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-              className="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2"
-            />
-          </div>
+      <label className="block">
+        <span className={labelClass}>
+          {t('quick_create.last_name')}
+        </span>
+        <input
+          type="text"
+          required
+          value={formData.lastName}
+          onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+          className="field"
+        />
+      </label>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Nom *
-            </label>
-            <input
-              type="text"
-              required
-              value={formData.lastName}
-              onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-              className="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2"
-            />
-          </div>
+      <label className="block">
+        <span className={labelClass}>
+          {t('quick_create.role')}
+        </span>
+        <select
+          required
+          value={formData.role}
+          onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+          className="field"
+        >
+          {TEAM_ROLES.map((role) => (
+            <option key={role} value={role}>{role}</option>
+          ))}
+        </select>
+      </label>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Rôle *
-            </label>
-            <select
-              required
-              value={formData.role}
-              onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-              className="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2"
-            >
-              <option value="Coiffeur(se)">Coiffeur(se)</option>
-              <option value="Coloriste">Coloriste</option>
-              <option value="Assistant(e)">Assistant(e)</option>
-              <option value="Réceptionniste">Réceptionniste</option>
-              <option value="Manager">Manager</option>
-            </select>
-          </div>
+      <label className="block">
+        <span className={labelClass}>
+          {t('quick_create.email')}
+        </span>
+        <input
+          type="email"
+          value={formData.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          className="field"
+        />
+      </label>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Email
-            </label>
-            <input
-              type="email"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Téléphone
-            </label>
-            <input
-              type="tel"
-              value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2"
-            />
-          </div>
-
-          <div className="flex justify-end space-x-3 pt-4">
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
-            >
-              Annuler
-            </button>
-            <button
-              type="submit"
-              disabled={loading}
-              className="px-4 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600 disabled:opacity-50"
-            >
-              {loading ? 'Création...' : 'Créer'}
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+      <label className="block">
+        <span className={labelClass}>
+          {t('quick_create.phone')}
+        </span>
+        <input
+          type="tel"
+          value={formData.phone}
+          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+          className="field"
+        />
+      </label>
+    </ModalShell>
   );
 };

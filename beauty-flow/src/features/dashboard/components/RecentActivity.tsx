@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { format } from 'date-fns';
-import { fr, enUS, ar } from 'date-fns/locale';
+import { dateLocale } from '../dateLocale';
+import { Panel, EmptyState } from '../../../components/ui';
 import {
   ClockIcon,
   CheckCircleIcon,
@@ -12,6 +13,10 @@ import {
 } from '@heroicons/react/24/outline';
 import { AppointmentWithPrice } from '../types';
 
+// When the appointment was last touched (API timestamps), not when it takes place
+const activityDate = (apt: AppointmentWithPrice & { updatedAt?: string; createdAt?: string }) =>
+  apt.lastModified || apt.updatedAt || apt.createdAt || apt.date;
+
 interface RecentActivityProps {
   appointments: AppointmentWithPrice[];
 }
@@ -19,59 +24,42 @@ interface RecentActivityProps {
 const RecentActivity: React.FC<RecentActivityProps> = ({ appointments }) => {
   const { t, i18n } = useTranslation('dashboard');
 
-  // Sélectionner la locale appropriée pour date-fns
-  const getDateLocale = () => {
-    switch (i18n.language) {
-      case 'fr':
-        return fr;
-      case 'ar':
-        return ar;
-      case 'en':
-      default:
-        return enUS;
-    }
-  };
+  const getDateLocale = () => dateLocale(i18n.language);
 
   const recentActivities = useMemo(() => {
     // Trier les rendez-vous par date de modification ou création
     const sortedAppointments = [...appointments]
       .sort((a, b) => {
-        const dateA = new Date(a.lastModified || a.date);
-        const dateB = new Date(b.lastModified || b.date);
+        const dateA = new Date(activityDate(a));
+        const dateB = new Date(activityDate(b));
         return dateB.getTime() - dateA.getTime();
       })
       .slice(0, 10); // Dernières 10 activités
 
     return sortedAppointments.map(appointment => {
-      const date = new Date(appointment.lastModified || appointment.date);
+      const date = new Date(activityDate(appointment));
       let icon = CalendarIcon;
-      let color = 'text-blue-600 bg-blue-100';
       let actionKey = 'created';
 
       switch (appointment.status) {
         case 'confirmed':
           icon = CheckCircleIcon;
-          color = 'text-green-600 bg-green-100 dark:text-green-400 dark:bg-green-900/30';
           actionKey = 'confirmed';
           break;
         case 'completed':
           icon = CheckCircleIcon;
-          color = 'text-emerald-600 bg-emerald-100 dark:text-emerald-400 dark:bg-emerald-900/30';
           actionKey = 'completed';
           break;
         case 'cancelled':
           icon = XCircleIcon;
-          color = 'text-red-600 bg-red-100 dark:text-red-400 dark:bg-red-900/30';
           actionKey = 'cancelled';
           break;
         case 'rescheduled':
           icon = ArrowPathIcon;
-          color = 'text-orange-400 bg-orange-50 dark:text-orange-300 dark:bg-orange-900/30';
           actionKey = 'rescheduled';
           break;
         case 'noShow':
           icon = XCircleIcon;
-          color = 'text-orange-600 bg-orange-100 dark:text-orange-400 dark:bg-orange-900/30';
           actionKey = 'no_show';
           break;
       }
@@ -79,12 +67,12 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ appointments }) => {
       return {
         id: appointment.id,
         icon,
-        color,
         action: t(`recent_activity.actions.${actionKey}`),
         client: appointment.clientInfo 
           ? `${appointment.clientInfo.firstName} ${appointment.clientInfo.lastName}`
           : t('recent_activity.unknown_client'),
         service: appointment.serviceName,
+        status: appointment.status,
         date,
         appointmentDate: appointment.date,
         time: appointment.startTime
@@ -113,65 +101,40 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ appointments }) => {
     }
   };
 
-  if (recentActivities.length === 0) {
-    return (
-      <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-lg dark:shadow-gray-lg border border-orange-500/20 dark:border-orange-500/20 p-6 transition-colors duration-300">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
-          <ClockIcon className="h-5 w-5 mr-2 text-orange-500 dark:text-orange-400" />
-          {t('recent_activity.title')}
-        </h3>
-        <div className="text-center py-8">
-          <ClockIcon className="h-12 w-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-          <p className="text-gray-500 dark:text-gray-400">{t('recent_activity.no_activity')}</p>
-        </div>
-      </div>
-    );
-  }
+  const iconColor: Record<string, string> = {
+    confirmed: 'text-blue-500',
+    completed: 'text-emerald-500',
+    cancelled: 'text-red-500',
+    noShow: 'text-amber-500',
+  };
 
   return (
-    <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-orange-lg dark:shadow-gray-lg border border-orange-500/20 dark:border-orange-500/20 p-6 transition-colors duration-300">
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
-        <ClockIcon className="h-5 w-5 mr-2 text-orange-500 dark:text-orange-400" />
-        {t('recent_activity.title')}
-      </h3>
-
-      <div className="space-y-3 max-h-96 overflow-y-auto">
-        {recentActivities.map((activity) => {
-          const Icon = activity.icon;
-          const timeAgo = getTimeAgo(activity.date);
-
-          return (
-            <div
-              key={activity.id}
-              className="group flex items-start space-x-3 p-3 rounded-lg hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-colors duration-200"
-            >
-              {/* Icône */}
-              <div className={`p-2 rounded-lg ${activity.color}`}>
-                <Icon className="h-4 w-4" />
-              </div>
-
-              {/* Contenu */}
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                  {activity.action}
-                </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400 truncate">
-                  {activity.client} - {activity.service}
-                </p>
-                <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
-                  {format(new Date(activity.appointmentDate), 'd MMM', { locale: getDateLocale() })} à {activity.time}
-                </p>
-              </div>
-
-              {/* Temps écoulé */}
-              <div className="text-xs text-gray-500 dark:text-gray-500 whitespace-nowrap">
-                {timeAgo}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
+    <Panel title={t('recent_activity.title')} flush>
+      {recentActivities.length === 0 ? (
+        <EmptyState icon={ClockIcon} title={t('recent_activity.no_activity')} />
+      ) : (
+        <ul className="divide-y divide-gray-100 dark:divide-gray-800 border-t border-gray-100 dark:border-gray-800">
+          {recentActivities.map((activity) => {
+            const Icon = activity.icon;
+            return (
+              <li key={activity.id} className="flex items-start gap-3 px-5 py-3">
+                <Icon className={`mt-0.5 size-5 shrink-0 ${iconColor[activity.status] || 'text-gray-400'}`} />
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-medium text-gray-900 dark:text-gray-50">{activity.action}</p>
+                  <p className="truncate text-sm text-gray-500 dark:text-gray-400">
+                    {[activity.client, activity.service].filter(Boolean).join(' · ')}
+                  </p>
+                  <p className="mt-0.5 text-xs tabular-nums text-gray-500 dark:text-gray-400">
+                    {format(new Date(activity.appointmentDate), 'd MMM', { locale: getDateLocale() })} · {activity.time}
+                  </p>
+                </div>
+                <span className="shrink-0 whitespace-nowrap text-xs text-gray-500 dark:text-gray-400">{getTimeAgo(activity.date)}</span>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </Panel>
   );
 };
 

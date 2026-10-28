@@ -105,7 +105,7 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({
           <button
             ref={buttonRef}
             onClick={toggleDropdown}
-            className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-gray-800 border border-orange-500/20 dark:border-orange-400/20 rounded-lg hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-all duration-200 text-sm font-medium text-gray-700 dark:text-gray-300"
+            className="btn-secondary gap-2 px-3 py-2 text-sm"
           >
             {renderFlag(selectedLanguage, 'sm')}
             <span>{selectedLanguage.code.toUpperCase()}</span>
@@ -117,13 +117,13 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({
           <>
             {/* Overlay */}
             <div 
-              className="fixed inset-0 z-[9998] bg-black/20 dark:bg-black/40 backdrop-blur-sm"
+              className="fixed inset-0 z-[9998]"
               onClick={() => setIsOpen(false)}
             />
             
             {/* Dropdown avec glassmorphism */}
             <div 
-              className="fixed z-[99999] min-w-[200px] bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-orange-500/20 dark:border-orange-400/20 rounded-xl shadow-[0_8px_32px_rgba(249,115,22,0.15)] dark:shadow-[0_8px_32px_rgba(251,146,60,0.2)] animate-slide-down"
+              className="fixed z-[99999] min-w-[200px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-[0_12px_32px_-8px_rgb(24_24_27/0.18)] p-1.5"
               style={{
                 top: buttonPosition.top,
                 left: buttonPosition.left,
@@ -134,10 +134,10 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({
                 <button
                   key={language.code}
                   onClick={() => handleLanguageChange(language.code)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all duration-200 first:rounded-t-xl last:rounded-b-xl ${
+                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors duration-150 ease-out ${
                     currentLang === language.code
-                      ? 'bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400'
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/10'
+                      ? 'font-medium text-orange-700 dark:text-orange-400'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
                   }`}
                 >
                   {renderFlag(language, 'md')}
@@ -145,7 +145,7 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({
                     {language.name}
                   </span>
                   {currentLang === language.code && (
-                    <CheckIcon className="h-4 w-4 ml-auto text-orange-600 dark:text-orange-400" />
+                    <CheckIcon className="h-4 w-4 ms-auto text-orange-600 dark:text-orange-400" />
                   )}
                 </button>
               ))}
@@ -161,7 +161,7 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({
     <div className="mb-4">
       {showLabel && (
         <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-          🌍 Langue / Language
+          Langue / Language
         </label>
       )}
       
@@ -173,11 +173,11 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({
             e.stopPropagation();
             setIsOpen(!isOpen);
           }}
-          className="w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-gray-800 border border-orange-500/20 dark:border-orange-400/20 rounded-xl hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-all duration-200 text-sm"
+          className="field w-full flex items-center justify-between text-sm dark:bg-gray-900 dark:border-gray-800"
         >
           <div className="flex items-center gap-3">
             {renderFlag(selectedLanguage, 'lg')}
-            <div className="text-left">
+            <div className="text-start">
               <div className="font-medium text-gray-900 dark:text-gray-100">{selectedLanguage.name}</div>
               <div className="text-xs text-gray-500 dark:text-gray-400">{selectedLanguage.code.toUpperCase()}</div>
             </div>
@@ -186,7 +186,7 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({
         </button>
 
         {isOpen && (
-          <div className="absolute top-full left-0 right-0 mt-1 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-orange-500/20 dark:border-orange-400/20 rounded-xl shadow-[0_8px_32px_rgba(249,115,22,0.15)] dark:shadow-[0_8px_32px_rgba(251,146,60,0.2)] z-[99999] max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-orange-300 dark:scrollbar-thumb-orange-600 scrollbar-track-transparent animate-slide-down">
+          <div className="absolute top-full start-0 end-0 mt-1 z-[99999] max-h-[300px] overflow-y-auto bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-[0_12px_32px_-8px_rgb(24_24_27/0.18)] p-1.5">
             {languages.map((language) => (
               <button
                 key={language.code}
@@ -196,15 +196,15 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({
                   e.stopPropagation();
                   handleLanguageChange(language.code);
                 }}
-                className={`w-full flex items-center justify-between px-4 py-3 text-sm font-medium transition-all duration-200 first:rounded-t-xl last:rounded-b-xl ${
+                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm transition-colors duration-150 ease-out ${
                   currentLang === language.code
-                    ? 'bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/10'
+                    ? 'font-medium text-orange-700 dark:text-orange-400'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
                 }`}
               >
                 <div className="flex items-center gap-3">
                   {renderFlag(language, 'md')}
-                  <div className="text-left">
+                  <div className="text-start">
                     <div className={currentLang === language.code ? 'font-semibold' : ''}>
                       {language.name}
                     </div>

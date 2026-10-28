@@ -82,13 +82,13 @@
     "upload_photo": "Télécharger une photo"
   },
   "stats": {
-    "total_team": "Total Équipe",
+    "total_team": "Membres",
     "all_members": "Tous les membres",
     "active": "Actifs",
     "available_members": "Membres disponibles",
     "roles": "Rôles",
     "position_types": "Types de postes",
-    "avg_specialties": "Spécialités Moy.",
+    "avg_specialties": "Spécialités moy.",
     "per_member": "Par membre"
   },
   "badges": {
@@ -102,7 +102,7 @@
     "with_role": "avec le rôle"
   },
   "limits": {
-    "title": "Limite de Membres d'Équipe",
+    "title": "Limite de membres d'équipe",
     "reached": "Limite atteinte"
   },
   "errors": {
@@ -158,13 +158,13 @@
     "admin_access": "Accès administrateur"
   },
   "team_member_form": {
-    "title_new": "Nouveau Membre",
-    "title_edit": "Modifier le Membre",
-    "subtitle": "Ajoutez un nouveau membre à votre équipe de beauté",
+    "title_new": "Nouveau membre",
+    "title_edit": "Modifier le membre",
+    "subtitle": "Coordonnées, services réalisés et horaires de travail.",
     "sections": {
-      "personal_info": "Informations Personnelles",
+      "personal_info": "Informations personnelles",
       "specialties": "Spécialités",
-      "working_hours": "Horaires de Travail"
+      "working_hours": "Horaires de travail"
     },
     "labels": {
       "first_name_required": "Prénom *",
@@ -194,8 +194,9 @@
       "to": "À:"
     },
     "help_messages": {
-      "specialties_help": "Maintenez Ctrl/Cmd pour sélectionner plusieurs spécialités",
-      "order_help": "L'ordre de sélection détermine la priorité d'affichage"
+      "specialties_help": "Cochez les services que ce membre réalise.",
+      "order_help": "L'ordre de sélection détermine l'ordre d'affichage.",
+      "no_services": "Ajoutez d'abord des services pour pouvoir les attribuer."
     },
     "buttons": {
       "cancel": "Annuler",
@@ -225,7 +226,8 @@
       "average": "Moyenne",
       "active": "Actif",
       "services": "service(s)",
-      "level_of": "Niveau {{level}}/5"
+      "level_of": "Niveau {{level}}/5",
+      "variable_hours": "Horaires variables"
     },
     "tooltips": {
       "edit_member": "Modifier le membre",

@@ -1,7 +1,35 @@
 {
+  "plan_card": {
+    "recommended": "موصى بها",
+    "current": "الخطة الحالية",
+    "choose": "اختر هذه الخطة",
+    "contact": "تواصل معنا",
+    "on_quote": "حسب الطلب",
+    "per_month": "/ شهر",
+    "equivalent": "أي {{amount}} / شهر",
+    "savings": "وفّر {{amount}} (−{{percent}}%)",
+    "duration_hint": "التزام أطول، سعر أقل لخطتي Starter وPro.",
+    "durations": {
+      "MONTHLY": "شهري",
+      "YEARLY": "سنة",
+      "BIENNIAL": "سنتان",
+      "TRIENNIAL": "3 سنوات"
+    },
+    "count": "{{value}} {{label}}",
+    "unlimited": "{{label}} غير محدودة",
+    "limits": {
+      "appointments": "موعد",
+      "clients": "عميل",
+      "services": "خدمة",
+      "team_members": "عضو فريق",
+      "stock": "إدارة المخزون",
+      "online_booking": "الحجز عبر الإنترنت",
+      "custom_interface": "واجهة قابلة للتخصيص"
+    }
+  },
   "page": {
     "title": "اختر خطتك",
-    "subtitle": "حوّل صالونك مع سالونيو وانضم إلى أكثر من 10,000+ محترف ثوروا أعمالهم",
+    "subtitle": "غيّر خطتك في أي وقت. دفع آمن ببطاقة CIB عبر SATIM.",
     "why_choose": "لماذا تختار سالونيو؟",
     "why_subtitle": "الحل الشامل لنمو صالون الجمال الخاص بك"
   },
@@ -67,6 +95,9 @@
     "button": "ابدأ التجربة المجانية"
   },
   "payment": {
+    "cancel": "إلغاء",
+    "regular_price": "السعر العادي",
+    "per_month_equivalent": "شهريًا",
     "secure_payment": "دفع آمن",
     "plan": "الخطة",
     "duration": "المدة",
@@ -100,9 +131,15 @@
     "team_reached": "تم الوصول لحد أعضاء الفريق",
     "services_reached": "تم الوصول لحد الخدمات",
     "products_reached": "تم الوصول لحد المنتجات",
-    "upgrade_plan": "ترقية خطتك"
+    "upgrade_plan": "ترقية خطتك",
+    "back": "رجوع",
+    "see_plans": "عرض الخطط"
   },
   "widget": {
+    "usage": "خطة {{plan}} · {{current}} / {{limit}} {{resource}}",
+    "usage_unlimited": "خطة {{plan}} · {{resource}} غير محدودة",
+    "near_limit": "تم استخدام {{current}} / {{limit}} {{resource}}، اقتربت من الحد",
+    "at_limit": "تم بلوغ حد {{limit}} {{resource}}",
     "title": "اشتراكك",
     "manage": "إدارة",
     "unlimited": "غير محدود",
@@ -244,5 +281,11 @@
     "trial_ending": "تجربتك تنتهي قريباً",
     "subscription_expired": "انتهت صلاحية اشتراكك",
     "upgrade_required": "يرجى ترقية خطتك لمواصلة استخدام هذه الميزة"
+  },
+  "resources": {
+    "clients": "عملاء",
+      "team": "أعضاء الفريق",
+      "services": "خدمات",
+      "products": "منتجات"
   }
 }

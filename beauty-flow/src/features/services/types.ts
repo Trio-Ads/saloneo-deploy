@@ -35,6 +35,10 @@ export interface Service {
   maxAdvanceBooking?: number;
   minAdvanceBooking?: number;
   isOnlineBookingEnabled?: boolean;
+  /** settings.isOnline côté API : réservable sur la page publique */
+  isOnline?: boolean;
+  /** settings.minimumBookingTime côté API, en heures */
+  minimumBookingTime?: number;
 }
 
 export type ServiceFormData = Omit<Service, 'id' | 'isActive'> & { id?: string };

@@ -121,7 +121,7 @@
     "select_file": "اختيار ملف",
     "supported_formats": "التنسيقات المدعومة: CSV، Excel"
   },
-  "page_title": "إدارة العملاء",
+  "page_title": "العملاء",
   "page_subtitle": "إدارة قاعدة عملائك وبناء علاقات دائمة",
   "loading": {
     "clients": "جاري تحميل عملائك...",
@@ -131,7 +131,7 @@
     "clients_total_badge": "عميل إجمالي",
     "vip_clients_badge": "عملاء VIP",
     "total": "الإجمالي",
-    "all_clients": "جميع العملاء",
+    "all_clients": "العملاء",
     "vip_title": "عملاء VIP",
     "vip_description": "100+ نقطة ولاء",
     "recent_title": "جديد (30ي)",
@@ -225,6 +225,16 @@
     "tooltips": {
       "edit_client": "تعديل العميل",
       "delete_client": "حذف العميل"
-    }
+    },
+    "points_zero": "{{count}} نقطة",
+    "points_one": "نقطة واحدة",
+    "points_two": "نقطتان",
+    "points_few": "{{count}} نقاط",
+    "points_many": "{{count}} نقطة",
+    "points_other": "{{count}} نقطة"
+  },
+  "limits": {
+    "title": "حد العملاء",
+    "resource": "عملاء"
   }
 }
