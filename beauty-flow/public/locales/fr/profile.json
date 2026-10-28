@@ -174,7 +174,8 @@
   "profile_form": {
     "tabs": {
       "profile": "Profil",
-      "affiliation": "Affiliation"
+      "affiliation": "Affiliation",
+      "deposits": "Acomptes"
     },
     "sections": {
       "login_info": "Informations de connexion",
@@ -602,5 +603,51 @@
   "profile_page": {
     "subtitle": "Vos informations, celles du salon et vos préférences",
     "loading": "Chargement du profil…"
+  },
+  "deposits": {
+    "load_error": "Impossible de charger vos acomptes.",
+    "available": "Disponible",
+    "available_hint": "Sera reversé lors du prochain virement",
+    "pending": "En attente",
+    "pending_hint": "Rendez-vous à venir",
+    "paid_out": "Déjà reversé",
+    "commission": "Commission Saloneo",
+    "commission_hint": "{{percent}} % des acomptes encaissés",
+    "earned": "Total acquis",
+    "how_it_works": "Les acomptes payés en ligne (CIB / Edahabia) sont encaissés par Saloneo via SATIM puis reversés sur votre compte. Ils deviennent disponibles une fois le rendez-vous passé : prestation réalisée, absence ou annulation tardive. Une annulation dans les délais est remboursée automatiquement à la cliente.",
+    "payout_title": "Coordonnées de versement",
+    "payout_description": "Le compte sur lequel Saloneo vous reverse vos acomptes. Ces informations ne sont jamais affichées publiquement.",
+    "payout_missing": "Renseignez vos coordonnées pour recevoir vos versements.",
+    "legal_name": "Titulaire du compte",
+    "legal_name_placeholder": "Nom ou raison sociale exacte",
+    "legal_name_required": "Indiquez le titulaire du compte.",
+    "method": "Type de compte",
+    "method_ccp": "CCP (Algérie Poste)",
+    "method_bank": "Banque",
+    "rip": "RIP (20 chiffres)",
+    "rib": "RIB (20 chiffres)",
+    "rip_help": "Relevé d'identité postale : commence par 007 99999, visible dans BaridiMob.",
+    "rib_help": "Relevé d'identité bancaire à 20 chiffres, fourni par votre banque.",
+    "rib_length": "Le numéro doit contenir exactement 20 chiffres.",
+    "rib_ccp": "Un RIP CCP commence par 007 99999.",
+    "saved": "Enregistré",
+    "save_error": "Enregistrement impossible. Vérifiez les informations et réessayez.",
+    "save": "Enregistrer",
+    "list_title": "Acomptes",
+    "list_description": "Chaque acompte payé en ligne et ce qu'il est devenu.",
+    "empty": "Aucun acompte pour l'instant",
+    "empty_body": "Activez un acompte sur une prestation (Prestations → modifier) pour le demander à la réservation en ligne.",
+    "status": {
+      "paid": "Payé · rendez-vous à venir",
+      "refund_pending": "Remboursement en cours",
+      "refunded": "Remboursé",
+      "retained": "Retenu",
+      "applied": "Déduit de la prestation",
+      "paid_out": "Reversé"
+    },
+    "payouts_title": "Versements reçus",
+    "payouts_empty": "Aucun versement pour l'instant.",
+    "reference": "Réf. {{ref}}",
+    "coming_soon": "Le paiement d'acompte en ligne sera activé prochainement — vos réglages sont enregistrés."
   }
 }

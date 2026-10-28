@@ -174,7 +174,8 @@
   "profile_form": {
     "tabs": {
       "profile": "Perfil",
-      "affiliation": "Afiliados"
+      "affiliation": "Afiliados",
+      "deposits": "Señales"
     },
     "sections": {
       "login_info": "Datos de acceso",
@@ -602,5 +603,51 @@
   "profile_page": {
     "subtitle": "Sus datos, los del salón y sus preferencias",
     "loading": "Cargando el perfil…"
+  },
+  "deposits": {
+    "load_error": "No se han podido cargar tus señales.",
+    "available": "Disponible",
+    "available_hint": "Se transferirá en el próximo pago",
+    "pending": "Pendiente",
+    "pending_hint": "Citas próximas",
+    "paid_out": "Ya transferido",
+    "commission": "Comisión de Saloneo",
+    "commission_hint": "{{percent}} % de las señales cobradas",
+    "earned": "Total obtenido",
+    "how_it_works": "Las señales pagadas en línea (CIB / Edahabia) las cobra Saloneo a través de SATIM y después se transfieren a tu cuenta. Quedan disponibles cuando pasa la cita: servicio realizado, ausencia o cancelación tardía. Una cancelación dentro del plazo se devuelve automáticamente a la clienta.",
+    "payout_title": "Datos de pago",
+    "payout_description": "La cuenta en la que Saloneo te transfiere las señales. Esta información nunca se muestra públicamente.",
+    "payout_missing": "Añade tus datos para recibir tus pagos.",
+    "legal_name": "Titular de la cuenta",
+    "legal_name_placeholder": "Nombre o razón social exacta",
+    "legal_name_required": "Indica el titular de la cuenta.",
+    "method": "Tipo de cuenta",
+    "method_ccp": "CCP (Algérie Poste)",
+    "method_bank": "Banco",
+    "rip": "RIP (20 dígitos)",
+    "rib": "RIB (20 dígitos)",
+    "rip_help": "Identificador de cuenta postal: empieza por 007 99999, visible en BaridiMob.",
+    "rib_help": "Identificador bancario de 20 dígitos que te facilita tu banco.",
+    "rib_length": "El número debe tener exactamente 20 dígitos.",
+    "rib_ccp": "Un RIP de CCP empieza por 007 99999.",
+    "saved": "Guardado",
+    "save_error": "No se ha podido guardar. Revisa los datos e inténtalo de nuevo.",
+    "save": "Guardar",
+    "list_title": "Señales",
+    "list_description": "Cada señal pagada en línea y qué ha sido de ella.",
+    "empty": "Aún no hay señales",
+    "empty_body": "Activa una señal en un servicio (Servicios → editar) para pedirla en las reservas en línea.",
+    "status": {
+      "paid": "Pagada · cita próxima",
+      "refund_pending": "Reembolso en curso",
+      "refunded": "Reembolsada",
+      "retained": "Retenida",
+      "applied": "Descontada del servicio",
+      "paid_out": "Transferida"
+    },
+    "payouts_title": "Pagos recibidos",
+    "payouts_empty": "Aún no hay pagos.",
+    "reference": "Ref. {{ref}}",
+    "coming_soon": "El pago de la señal en línea se activará próximamente: tus ajustes están guardados."
   }
 }

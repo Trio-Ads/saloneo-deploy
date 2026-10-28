@@ -19,7 +19,8 @@
     "completed": "Yemmed",
     "cancelled": "Yettwasefsex",
     "no_show": "Ur d-yusi ara",
-    "rescheduled": "Yettwasmutti"
+    "rescheduled": "Yettwasmutti",
+    "pending_payment": "Yettraǧu axelleṣ"
   },
   "form": {
     "client": "Amsaɣ",
@@ -241,7 +242,8 @@
     "overdue": "Azemz yezri",
     "with": "akked {{name}}",
     "appointments_count_one": "{{count}} n tmlilit",
-    "appointments_count_other": "{{count}} n tmlilin"
+    "appointments_count_other": "{{count}} n tmlilin",
+    "deposit_paid": "Lɛerbun {{amount}}"
   },
   "calendar_view": {
     "today": "Ass-a",
@@ -333,7 +335,16 @@
     "save_closures": "Sekles imdalen",
     "unsaved": "Ibeddilen ur yettwaskelsen ara",
     "copy_to_open_days": "Nɣel ɣer wussan akk yeldin",
-    "leave_confirm": "Kra n yibeddilen ur ttwaskelsen ara. Ad teffɣeḍ ɣas akken?"
+    "leave_confirm": "Kra n yibeddilen ur ttwaskelsen ara. Ad teffɣeḍ ɣas akken?",
+    "deposit_policy_hint": "Lɛerbun srid: ma tsefsex tmsaɣt send tanzagt-a, ad as-d-yuɣal s wudem awurman; seld-s neɣ ma ur d-tusi ara, lɛerbun ad yeqqim ɣur-k. Ma d kečč i yesfesxen, ad d-yuɣal yal tikkelt.",
+    "late_reschedule": "Seld tanzagt-a, sireg yiwen n ubeddel n wakud",
+    "late_reschedule_description": "Tamsaɣt tzemmer mazal ad tesmutti timlilit-is yiwet n tikkelt; lɛerbun ad yeddu ɣer wakud amaynut.",
+    "paid_status": "Addad n usqam mi ara yettwaxlaṣ lɛerbun",
+    "paid_status_description": "« Yettwasentem »: ulac ayen ara txedmeḍ. « Yettusɣiwes »: d kečč ara t-isentmen.",
+    "policy_text": "Tazmilt i yimsaɣen (d afrayan)",
+    "policy_text_placeholder": "Md.: ttxil-k, ɛlem-aɣ-d ɣas ass send ma yella wayen i k-iḥebsen.",
+    "policy_text_help": "Ad d-tban deg usurif n usqam d yimayl n usentem.",
+    "deposits_coming_soon": "Axelleṣ n lɛerbun srid ad yermed ur yettɛeṭṭil ara — iɣewwaṛen-ik ttwaseklasen."
   },
   "bookingConfirmed": "Aḥeǧǧez yettwasentem!",
   "bookingSuccessMessage": "Timlilit-ik tettwasentem akken iwata",
@@ -418,5 +429,58 @@
     "force_confirm": "Ad t-ternuḍ ɣas akken?",
     "hours_not_configured": "Isragen n twuri ur ttwasbadun ara: imsaɣen ttwalin s lexṣas Ssebt–Lexmis 09:00–18:00.",
     "configure_hours": "Sbadu isragen"
+  },
+  "waitlist": {
+    "tab": "Tabdart n uraǧu",
+    "badge": "Tabdart n uraǧu: {{count}}",
+    "title": "Tabdart n uraǧu",
+    "description": "Imsaɣen ttwalɣen s umizwer n ujerred-nsen akken kan ara yilil wakud i asen-ilaqen.",
+    "empty_title": "Ulac yiwen deg tebdart n uraǧu",
+    "empty_body": "Mi ara yeččur wass, imsaɣen-ik zemren ad jerden seg usebter-ik n uḥeǧǧez.",
+    "history": "Amazray (30 n wussan)",
+    "any_staff": "Ulac aɣilif",
+    "time": {
+      "morning": "Taṣebḥit",
+      "afternoon": "Tameddit",
+      "evening": "Tameddit taneggarut",
+      "any": "Ass akk"
+    },
+    "status": {
+      "active": "Yettraǧu",
+      "offered": "Asumer yettwazen",
+      "booked": "Yeḥeǧǧez",
+      "expired": "Yemmut",
+      "cancelled": "Yettwakkes"
+    },
+    "outcome": {
+      "booked": "yettwaḥeǧǧez",
+      "expired": "yemmut",
+      "taken": "akud yettwaṭṭef",
+      "cancelled": "yettwasefsex"
+    },
+    "offers_sent": "Isumar: {{count}}",
+    "last_offer": "aneggaru: {{slot}}, yettwazen {{sent}}",
+    "expires_at": "ad yemmet ɣef {{time}}",
+    "offer_slot": "Sumer akud",
+    "offer_date": "Azemz",
+    "offer_time": "Asrag",
+    "no_free_time": "Ulac akud ilellin",
+    "send_offer": "Azen asumer",
+    "offer_error": "Ur yettwazen ara usumer.",
+    "call": "Siwel i {{phone}}",
+    "remove": "Kkes seg tebdart",
+    "remove_confirm": "Ad tekkseḍ {{name}} seg tebdart n uraǧu?",
+    "load_error": "Ur d-tettwasali ara tebdart n uraǧu.",
+    "settings": {
+      "title": "Tabdart n uraǧu",
+      "description": "Mi ara yeččur wass, imsaɣen-ik zemren ad d-sutren ad ttwalɣen ma yilil wakud.",
+      "enabled": "Rmed tabdart n uraǧu",
+      "enabled_description": "Taqeffalt « Rnu-d ɣer tebdart n uraǧu » ad d-tban deg usebter-ik n uḥeǧǧez.",
+      "offer_minutes": "Tanzagt n usumer",
+      "offer_minutes_description": "Mi tɛedda tanzagt-a, akud ad yettwasumer i umsaɣ d-iteddun.",
+      "hold": "Ḥrez akud ɣef tanzagt n usumer",
+      "hold_description": "Akud yettwasumren yettwaḥraz i umsaɣ-a alamma yekfa usumer. Ma ulac, win yeḥeǧǧzen d amezwaru ad t-yawi.",
+      "save": "Sekles"
+    }
   }
 }

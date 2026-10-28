@@ -45,6 +45,19 @@
       "buffer_after": "Limpeza depois",
       "buffer_help": "Tempo bloqueado na agenda antes e depois deste serviço. A 0, aplica-se depois o intervalo do salão.",
       "minutes": "min"
+    },
+    "deposit": {
+      "section": "Sinal online",
+      "help": "Pago com cartão (CIB / Edahabia) na marcação online, cobrado pela Saloneo e depois transferido para a sua conta.",
+      "none": "Nenhum",
+      "percent": "Percentagem",
+      "fixed": "Montante fixo",
+      "percent_value": "Percentagem do preço",
+      "fixed_value": "Montante do sinal",
+      "preview": "Sinal pedido: {{amount}} · restam {{rest}} a pagar no salão",
+      "preview_none": "Indique um preço para calcular o sinal.",
+      "rules": "Arredondado a 50 DA, mínimo 500 DA, nunca mais do que o preço. Cancelamento e reembolso segundo a sua política de cancelamento.",
+      "coming_soon": "O pagamento do sinal online será ativado em breve — as suas definições estão guardadas."
     }
   },
   "categories": {
@@ -190,7 +203,9 @@
     "services_count_other": "{{count}} serviços",
     "online": "Online",
     "active": "Ativo",
-    "inactive": "Inativo"
+    "inactive": "Inativo",
+    "deposit_badge": "Sinal {{rule}} · {{amount}}",
+    "deposit_badge_fixed": "Sinal {{amount}}"
   },
   "photos": {
     "hint": "JPG ou PNG, recomendado 1200 × 800 px, máximo de 5 fotos.",

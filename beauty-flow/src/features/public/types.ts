@@ -1,4 +1,4 @@
-export type BookingStep = 'service' | 'datetime' | 'client';
+export type BookingStep = 'service' | 'datetime' | 'client' | 'deposit';
 
 export interface BookingData {
   serviceId: string;
@@ -6,6 +6,8 @@ export interface BookingData {
   date: string;
   startTime: string;
   clientData: PublicClientFormData;
+  /** Waitlist offer token when the client came from an offer link (lets them book a held slot) */
+  waitlistOffer?: string;
 }
 
 export interface PublicClientFormData {
@@ -63,17 +65,12 @@ export interface BookingError {
   message: string;
 }
 
-export interface ServiceDepositInfo {
-  serviceId: string;
-  serviceName: string;
-  depositAmount: number;
-  totalAmount: number;
-  currency: string;
-  description?: string;
-  servicePrice: number;
-  depositType: 'percentage' | 'fixed';
-  depositPercentage?: number;
-  calculatedDepositAmount: number;
+/** Salon cancellation policy shown before booking (GET /public/salon/:slug → bookingPolicy). */
+export interface BookingPolicy {
+  allowCancellation: boolean;
+  freeCancellationHours: number;
+  lateReschedule: boolean;
+  policyText: string;
 }
 
 export interface PublicService {
@@ -88,6 +85,9 @@ export interface PublicService {
     isOnline: boolean;
     minimumBookingTime: number;
   };
+  /** Online deposit rule and the amount it asks for (DA, computed by the server; 0 = none). */
+  deposit?: { mode: 'none' | 'fixed' | 'percent'; value: number };
+  depositAmount?: number;
 }
 
 export interface PublicTeamMember {
@@ -133,6 +133,7 @@ export interface PublicSalonProfile {
   showTeamOnPublicPage?: boolean;
   settings?: { currency: string };
   subscription?: { plan: string };
+  bookingPolicy?: BookingPolicy;
 }
 
 export interface SalonPublicData {

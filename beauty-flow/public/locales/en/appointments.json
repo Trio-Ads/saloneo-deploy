@@ -19,7 +19,8 @@
     "completed": "Completed",
     "cancelled": "Cancelled",
     "no_show": "No-show",
-    "rescheduled": "Rescheduled"
+    "rescheduled": "Rescheduled",
+    "pending_payment": "Awaiting payment"
   },
   "form": {
     "client": "Client",
@@ -241,7 +242,8 @@
     "overdue": "Past date",
     "with": "with {{name}}",
     "appointments_count_one": "{{count}} appointment",
-    "appointments_count_other": "{{count}} appointments"
+    "appointments_count_other": "{{count}} appointments",
+    "deposit_paid": "Deposit {{amount}}"
   },
   "calendar_view": {
     "today": "Today",
@@ -333,7 +335,16 @@
     "save_closures": "Save closures",
     "unsaved": "Unsaved changes",
     "copy_to_open_days": "Copy to all open days",
-    "leave_confirm": "Some changes are not saved. Leave anyway?"
+    "leave_confirm": "Some changes are not saved. Leave anyway?",
+    "deposit_policy_hint": "Online deposit: a client cancelling before this deadline is refunded automatically; after it, or if they do not show up, the deposit is yours. If you cancel, it is always refunded.",
+    "late_reschedule": "After this deadline, allow one change of slot",
+    "late_reschedule_description": "The client can still move the appointment once; the deposit carries over to the new slot.",
+    "paid_status": "Status of a booking once its deposit is paid",
+    "paid_status_description": "\"Confirmed\": nothing to do on your side. \"Scheduled\": you confirm it yourself.",
+    "policy_text": "Note shown to clients (optional)",
+    "policy_text_placeholder": "E.g.: please let us know at least the day before if you cannot come.",
+    "policy_text_help": "Shown on the booking step and in the confirmation email.",
+    "deposits_coming_soon": "Online deposit payment will be switched on soon — your settings are saved."
   },
   "bookingConfirmed": "Booking confirmed!",
   "bookingSuccessMessage": "Your appointment is confirmed",
@@ -418,5 +429,58 @@
     "force_confirm": "Add it anyway?",
     "hours_not_configured": "Your opening hours are not set: clients see Saturday–Thursday 09:00–18:00 by default.",
     "configure_hours": "Set opening hours"
+  },
+  "waitlist": {
+    "tab": "Waitlist",
+    "badge": "Waitlist: {{count}}",
+    "title": "Waitlist",
+    "description": "Clients are notified in the order they joined as soon as a matching slot opens up.",
+    "empty_title": "Nobody on the waitlist",
+    "empty_body": "When a day is fully booked, your clients can join from your booking page.",
+    "history": "History (30 days)",
+    "any_staff": "Anyone",
+    "time": {
+      "morning": "Morning",
+      "afternoon": "Afternoon",
+      "evening": "Evening",
+      "any": "Any time"
+    },
+    "status": {
+      "active": "Waiting",
+      "offered": "Offer sent",
+      "booked": "Booked",
+      "expired": "Expired",
+      "cancelled": "Removed"
+    },
+    "outcome": {
+      "booked": "booked",
+      "expired": "expired",
+      "taken": "slot taken",
+      "cancelled": "cancelled"
+    },
+    "offers_sent": "Offers: {{count}}",
+    "last_offer": "latest: {{slot}}, sent {{sent}}",
+    "expires_at": "expires at {{time}}",
+    "offer_slot": "Offer a slot",
+    "offer_date": "Date",
+    "offer_time": "Time",
+    "no_free_time": "No free time",
+    "send_offer": "Send offer",
+    "offer_error": "Couldn't send the offer.",
+    "call": "Call {{phone}}",
+    "remove": "Remove from the list",
+    "remove_confirm": "Remove {{name}} from the waitlist?",
+    "load_error": "Couldn't load the waitlist.",
+    "settings": {
+      "title": "Waitlist",
+      "description": "When a day is fully booked, your clients can ask to be told if a slot opens up.",
+      "enabled": "Turn on the waitlist",
+      "enabled_description": "A “Join the waitlist” button appears on your booking page.",
+      "offer_minutes": "How long an offer stays valid",
+      "offer_minutes_description": "After that, the slot is offered to the next client.",
+      "hold": "Hold the slot during the offer",
+      "hold_description": "The offered slot stays reserved for that client until the offer ends. Otherwise, whoever books first gets it.",
+      "save": "Save"
+    }
   }
 }

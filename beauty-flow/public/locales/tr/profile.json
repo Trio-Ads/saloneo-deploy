@@ -174,7 +174,8 @@
   "profile_form": {
     "tabs": {
       "profile": "Profil",
-      "affiliation": "Satış ortaklığı"
+      "affiliation": "Satış ortaklığı",
+      "deposits": "Kaporalar"
     },
     "sections": {
       "login_info": "Giriş bilgileri",
@@ -602,5 +603,51 @@
   "profile_page": {
     "subtitle": "Sizin ve salonunuzun bilgileri ile tercihleriniz",
     "loading": "Profil yükleniyor…"
+  },
+  "deposits": {
+    "load_error": "Kaporalarınız yüklenemedi.",
+    "available": "Kullanılabilir",
+    "available_hint": "Bir sonraki transferle ödenir",
+    "pending": "Beklemede",
+    "pending_hint": "Yaklaşan randevular",
+    "paid_out": "Ödenmiş",
+    "commission": "Saloneo komisyonu",
+    "commission_hint": "Tahsil edilen kaporaların % {{percent}}'i",
+    "earned": "Toplam kazanç",
+    "how_it_works": "Çevrim içi ödenen kaporalar (CIB / Edahabia) Saloneo tarafından SATIM aracılığıyla tahsil edilir ve hesabınıza aktarılır. Randevu geçtikten sonra kullanılabilir olur: hizmet verildi, gelmedi veya geç iptal. Süresi içinde yapılan iptal müşteriye otomatik iade edilir.",
+    "payout_title": "Ödeme bilgileri",
+    "payout_description": "Saloneo'nun kaporalarınızı aktardığı hesap. Bu bilgiler asla herkese açık gösterilmez.",
+    "payout_missing": "Ödemelerinizi almak için bilgilerinizi girin.",
+    "legal_name": "Hesap sahibi",
+    "legal_name_placeholder": "Tam ad veya şirket unvanı",
+    "legal_name_required": "Hesap sahibini girin.",
+    "method": "Hesap türü",
+    "method_ccp": "CCP (Algérie Poste)",
+    "method_bank": "Banka",
+    "rip": "RIP (20 hane)",
+    "rib": "RIB (20 hane)",
+    "rip_help": "Posta hesabı kimliği: 007 99999 ile başlar, BaridiMob'da görünür.",
+    "rib_help": "Bankanızın verdiği 20 haneli banka hesabı kimliği.",
+    "rib_length": "Numara tam olarak 20 haneden oluşmalıdır.",
+    "rib_ccp": "CCP RIP numarası 007 99999 ile başlar.",
+    "saved": "Kaydedildi",
+    "save_error": "Kaydedilemedi. Bilgileri kontrol edip tekrar deneyin.",
+    "save": "Kaydet",
+    "list_title": "Kaporalar",
+    "list_description": "Çevrim içi ödenen her kapora ve durumu.",
+    "empty": "Henüz kapora yok",
+    "empty_body": "Çevrim içi rezervasyonlarda istemek için bir hizmette kaporayı açın (Hizmetler → düzenle).",
+    "status": {
+      "paid": "Ödendi · yaklaşan",
+      "refund_pending": "İade işleniyor",
+      "refunded": "İade edildi",
+      "retained": "Alıkonuldu",
+      "applied": "Hizmetten düşüldü",
+      "paid_out": "Aktarıldı"
+    },
+    "payouts_title": "Alınan ödemeler",
+    "payouts_empty": "Henüz ödeme yok.",
+    "reference": "Ref. {{ref}}",
+    "coming_soon": "Çevrim içi kapora ödemesi yakında etkinleştirilecek — ayarlarınız kaydedildi."
   }
 }

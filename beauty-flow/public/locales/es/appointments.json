@@ -19,7 +19,8 @@
     "completed": "Completada",
     "cancelled": "Cancelada",
     "no_show": "No se presentó",
-    "rescheduled": "Reprogramada"
+    "rescheduled": "Reprogramada",
+    "pending_payment": "Pago pendiente"
   },
   "form": {
     "client": "Cliente",
@@ -241,7 +242,8 @@
     "overdue": "Fecha pasada",
     "with": "con {{name}}",
     "appointments_count_one": "{{count}} cita",
-    "appointments_count_other": "{{count}} citas"
+    "appointments_count_other": "{{count}} citas",
+    "deposit_paid": "Señal {{amount}}"
   },
   "calendar_view": {
     "today": "Hoy",
@@ -333,7 +335,16 @@
     "save_closures": "Guardar los cierres",
     "unsaved": "Cambios sin guardar",
     "copy_to_open_days": "Copiar a todos los días abiertos",
-    "leave_confirm": "Hay cambios sin guardar. ¿Salir de todos modos?"
+    "leave_confirm": "Hay cambios sin guardar. ¿Salir de todos modos?",
+    "deposit_policy_hint": "Señal en línea: si la clienta cancela antes de este plazo se le devuelve automáticamente; después, o si no se presenta, la señal es para ti. Si cancelas tú, siempre se devuelve.",
+    "late_reschedule": "Pasado este plazo, permitir un único cambio de hora",
+    "late_reschedule_description": "La clienta aún puede cambiar su cita una vez; la señal se traslada a la nueva hora.",
+    "paid_status": "Estado de una reserva con la señal pagada",
+    "paid_status_description": "«Confirmada»: no tienes nada que hacer. «Programada»: la confirmas tú.",
+    "policy_text": "Nota para las clientas (opcional)",
+    "policy_text_placeholder": "Ej.: avísanos al menos el día anterior si no puedes venir.",
+    "policy_text_help": "Se muestra en el paso de reserva y en el correo de confirmación.",
+    "deposits_coming_soon": "El pago de la señal en línea se activará próximamente: tus ajustes están guardados."
   },
   "bookingConfirmed": "¡Reserva confirmada!",
   "bookingSuccessMessage": "Su cita se ha confirmado correctamente",
@@ -418,5 +429,58 @@
     "force_confirm": "¿Añadirla de todos modos?",
     "hours_not_configured": "Tu horario de apertura no está configurado: las clientas ven sábado–jueves 09:00–18:00 por defecto.",
     "configure_hours": "Configurar el horario"
+  },
+  "waitlist": {
+    "tab": "Lista de espera",
+    "badge": "Lista de espera: {{count}}",
+    "title": "Lista de espera",
+    "description": "Los clientes reciben aviso por orden de inscripción en cuanto se libera un hueco que les encaja.",
+    "empty_title": "Nadie en la lista de espera",
+    "empty_body": "Cuando un día está completo, tus clientes pueden apuntarse desde tu página de reservas.",
+    "history": "Historial (30 días)",
+    "any_staff": "Cualquiera",
+    "time": {
+      "morning": "Mañana",
+      "afternoon": "Tarde",
+      "evening": "Noche",
+      "any": "Todo el día"
+    },
+    "status": {
+      "active": "En espera",
+      "offered": "Oferta enviada",
+      "booked": "Ha reservado",
+      "expired": "Caducada",
+      "cancelled": "Retirada"
+    },
+    "outcome": {
+      "booked": "reservado",
+      "expired": "caducada",
+      "taken": "hueco ocupado",
+      "cancelled": "cancelada"
+    },
+    "offers_sent": "Ofertas: {{count}}",
+    "last_offer": "última: {{slot}}, enviada el {{sent}}",
+    "expires_at": "caduca a las {{time}}",
+    "offer_slot": "Proponer un hueco",
+    "offer_date": "Fecha",
+    "offer_time": "Hora",
+    "no_free_time": "Ningún horario libre",
+    "send_offer": "Enviar la oferta",
+    "offer_error": "No se pudo enviar la oferta.",
+    "call": "Llamar al {{phone}}",
+    "remove": "Quitar de la lista",
+    "remove_confirm": "¿Quitar a {{name}} de la lista de espera?",
+    "load_error": "No se pudo cargar la lista de espera.",
+    "settings": {
+      "title": "Lista de espera",
+      "description": "Cuando un día está completo, tus clientes pueden pedir que se les avise si se libera un hueco.",
+      "enabled": "Activar la lista de espera",
+      "enabled_description": "El botón «Unirme a la lista de espera» aparece en tu página de reservas.",
+      "offer_minutes": "Validez de una oferta",
+      "offer_minutes_description": "Pasado ese tiempo, el hueco se ofrece al siguiente cliente.",
+      "hold": "Reservar el hueco durante la oferta",
+      "hold_description": "El hueco propuesto queda reservado para ese cliente hasta que termine la oferta. Si no, se lo queda quien reserve primero.",
+      "save": "Guardar"
+    }
   }
 }

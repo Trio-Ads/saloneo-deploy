@@ -19,7 +19,8 @@
     "completed": "Concluída",
     "cancelled": "Cancelada",
     "no_show": "Faltou",
-    "rescheduled": "Reagendada"
+    "rescheduled": "Reagendada",
+    "pending_payment": "Pagamento pendente"
   },
   "form": {
     "client": "Cliente",
@@ -241,7 +242,8 @@
     "overdue": "Data passada",
     "with": "com {{name}}",
     "appointments_count_one": "{{count}} marcação",
-    "appointments_count_other": "{{count}} marcações"
+    "appointments_count_other": "{{count}} marcações",
+    "deposit_paid": "Sinal {{amount}}"
   },
   "calendar_view": {
     "today": "Hoje",
@@ -333,7 +335,16 @@
     "save_closures": "Guardar os encerramentos",
     "unsaved": "Alterações não guardadas",
     "copy_to_open_days": "Copiar para todos os dias abertos",
-    "leave_confirm": "Há alterações não guardadas. Sair mesmo assim?"
+    "leave_confirm": "Há alterações não guardadas. Sair mesmo assim?",
+    "deposit_policy_hint": "Sinal online: se a cliente cancelar antes deste prazo, é reembolsada automaticamente; depois, ou em caso de falta, o sinal é seu. Se for o salão a cancelar, é sempre reembolsado.",
+    "late_reschedule": "Depois deste prazo, permitir uma única alteração de horário",
+    "late_reschedule_description": "A cliente ainda pode alterar a marcação uma vez; o sinal transita para o novo horário.",
+    "paid_status": "Estado de uma marcação com sinal pago",
+    "paid_status_description": "«Confirmada»: nada a fazer da sua parte. «Agendada»: confirma-a você.",
+    "policy_text": "Nota mostrada às clientes (opcional)",
+    "policy_text_placeholder": "Ex.: avise-nos pelo menos na véspera se não puder vir.",
+    "policy_text_help": "Mostrada no passo de marcação e no e-mail de confirmação.",
+    "deposits_coming_soon": "O pagamento do sinal online será ativado em breve — as suas definições estão guardadas."
   },
   "bookingConfirmed": "Reserva confirmada!",
   "bookingSuccessMessage": "A sua marcação foi confirmada com sucesso",
@@ -418,5 +429,58 @@
     "force_confirm": "Adicionar mesmo assim?",
     "hours_not_configured": "O seu horário de funcionamento não está configurado: as clientes veem sábado–quinta 09:00–18:00 por defeito.",
     "configure_hours": "Configurar o horário"
+  },
+  "waitlist": {
+    "tab": "Lista de espera",
+    "badge": "Lista de espera: {{count}}",
+    "title": "Lista de espera",
+    "description": "Os clientes são avisados pela ordem de inscrição assim que fica livre um horário adequado.",
+    "empty_title": "Ninguém na lista de espera",
+    "empty_body": "Quando um dia está cheio, os seus clientes podem inscrever-se a partir da sua página de reservas.",
+    "history": "Histórico (30 dias)",
+    "any_staff": "Qualquer um",
+    "time": {
+      "morning": "Manhã",
+      "afternoon": "Tarde",
+      "evening": "Noite",
+      "any": "O dia todo"
+    },
+    "status": {
+      "active": "Em espera",
+      "offered": "Oferta enviada",
+      "booked": "Reservou",
+      "expired": "Expirada",
+      "cancelled": "Removida"
+    },
+    "outcome": {
+      "booked": "reservado",
+      "expired": "expirada",
+      "taken": "horário ocupado",
+      "cancelled": "cancelada"
+    },
+    "offers_sent": "Ofertas: {{count}}",
+    "last_offer": "última: {{slot}}, enviada a {{sent}}",
+    "expires_at": "expira às {{time}}",
+    "offer_slot": "Propor um horário",
+    "offer_date": "Data",
+    "offer_time": "Hora",
+    "no_free_time": "Nenhum horário livre",
+    "send_offer": "Enviar a oferta",
+    "offer_error": "Não foi possível enviar a oferta.",
+    "call": "Ligar para {{phone}}",
+    "remove": "Remover da lista",
+    "remove_confirm": "Remover {{name}} da lista de espera?",
+    "load_error": "Não foi possível carregar a lista de espera.",
+    "settings": {
+      "title": "Lista de espera",
+      "description": "Quando um dia está cheio, os seus clientes podem pedir para ser avisados se um horário ficar livre.",
+      "enabled": "Ativar a lista de espera",
+      "enabled_description": "O botão «Entrar na lista de espera» aparece na sua página de reservas.",
+      "offer_minutes": "Validade de uma oferta",
+      "offer_minutes_description": "Depois desse prazo, o horário é proposto ao cliente seguinte.",
+      "hold": "Reservar o horário durante a oferta",
+      "hold_description": "O horário proposto fica reservado para esse cliente até ao fim da oferta. Caso contrário, fica para quem reservar primeiro.",
+      "save": "Guardar"
+    }
   }
 }

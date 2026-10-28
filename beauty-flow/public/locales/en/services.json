@@ -45,6 +45,19 @@
       "buffer_after": "Clean-up after",
       "buffer_help": "Time blocked in the diary before and after this service. At 0, the salon's buffer applies after.",
       "minutes": "min"
+    },
+    "deposit": {
+      "section": "Online deposit",
+      "help": "Paid by card (CIB / Edahabia) when booking online, collected by Saloneo and paid out to your account.",
+      "none": "None",
+      "percent": "Percentage",
+      "fixed": "Fixed amount",
+      "percent_value": "Percentage of the price",
+      "fixed_value": "Deposit amount",
+      "preview": "Deposit asked: {{amount}} · {{rest}} left to pay at the salon",
+      "preview_none": "Set a price to calculate the deposit.",
+      "rules": "Rounded to 50 DA, at least 500 DA, never more than the price. Cancellation and refunds follow your cancellation policy.",
+      "coming_soon": "Online deposit payment will be switched on soon — your settings are saved."
     }
   },
   "categories": {
@@ -190,7 +203,9 @@
     "services_count_other": "{{count}} services",
     "online": "Online",
     "active": "Active",
-    "inactive": "Inactive"
+    "inactive": "Inactive",
+    "deposit_badge": "Deposit {{rule}} · {{amount}}",
+    "deposit_badge_fixed": "Deposit {{amount}}"
   },
   "photos": {
     "hint": "JPG or PNG, 1200 × 800 px recommended, up to 5 photos.",

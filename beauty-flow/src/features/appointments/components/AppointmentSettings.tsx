@@ -7,6 +7,7 @@ import { useUnsavedChanges } from '../../../hooks/useUnsavedChanges';
 import { Panel, IconButton } from '../../../components/ui';
 import { getDateLocale } from '../utils';
 import { availabilityAPI, BookingSettings, DateRange, DayHours, WEEK, WeekHours } from '../availability';
+import WaitlistSettings from './WaitlistSettings';
 
 // The Algerian work week: Saturday first
 const SALON_WEEK = ['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'] as const;
@@ -45,6 +46,7 @@ const AppointmentSettings: React.FC = () => {
   const [closures, setClosures] = useState<DateRange[]>([]);
   const [draft, setDraft] = useState<DateRange>({ from: '', to: '', reason: '' });
   const [loadError, setLoadError] = useState(false);
+  const [depositsOn, setDepositsOn] = useState(true);
   // Last saved values: a panel is dirty when its values differ from these
   const [saved, setSaved] = useState<{ hours: WeekHours; booking: BookingSettings; closures: DateRange[] } | null>(null);
   const [status, setStatus] = useState<Record<Section, SaveStatus>>({ hours: 'idle', booking: 'idle', closures: 'idle' });
@@ -55,6 +57,7 @@ const AppointmentSettings: React.FC = () => {
       setConfigured(data.configured);
       setBooking(data.bookingSettings);
       setClosures(data.closures);
+      setDepositsOn(data.depositsEnabled !== false);
       setSaved({ hours: data.hours, booking: data.bookingSettings, closures: data.closures });
     }).catch(() => setLoadError(true));
   }, []);
@@ -271,10 +274,40 @@ const AppointmentSettings: React.FC = () => {
                 <span className={unit}>{t('appointment_settings.units.hours_before')}</span>
               </div>
             )}
+            {/* Online deposits: what happens before / after that deadline */}
+            <p className={`${help} ps-7`}>{t('appointment_settings.deposit_policy_hint', { count: booking.cancellationDeadlineHours })}</p>
+            {!depositsOn && <p className={`${help} ps-7`} role="status">{t('appointment_settings.deposits_coming_soon')}</p>}
+            <label htmlFor="lateReschedule" className="mt-4 flex items-start gap-3">
+              <input type="checkbox" id="lateReschedule" checked={booking.lateReschedule} className={`${checkbox} mt-0.5`}
+                onChange={(e) => setRule('lateReschedule', e.target.checked)} />
+              <span>
+                <span className="block text-sm text-gray-700 dark:text-gray-300">{t('appointment_settings.late_reschedule')}</span>
+                <span className={help + ' block'}>{t('appointment_settings.late_reschedule_description')}</span>
+              </span>
+            </label>
+            <div className="mt-4 grid gap-4 sm:grid-cols-[1fr_auto] sm:items-center">
+              <div>
+                <label htmlFor="paidStatus" className="text-sm text-gray-700 dark:text-gray-300">{t('appointment_settings.paid_status')}</label>
+                <p className={help}>{t('appointment_settings.paid_status_description')}</p>
+              </div>
+              <select id="paidStatus" className="field w-auto" value={booking.paidStatus} onChange={(e) => setRule('paidStatus', e.target.value as BookingSettings['paidStatus'])}>
+                <option value="confirmed">{t('status.confirmed')}</option>
+                <option value="scheduled">{t('status.scheduled')}</option>
+              </select>
+            </div>
+            <div className="mt-4">
+              <label htmlFor="policyText" className="mb-1.5 block text-sm text-gray-700 dark:text-gray-300">{t('appointment_settings.policy_text')}</label>
+              <textarea id="policyText" rows={2} maxLength={500} value={booking.policyText} className="field resize-y"
+                placeholder={t('appointment_settings.policy_text_placeholder')}
+                onChange={(e) => setRule('policyText', e.target.value)} />
+              <p className={help}>{t('appointment_settings.policy_text_help')}</p>
+            </div>
           </div>
         </div>
         {saveBar('booking', t('appointment_settings.save_booking'))}
       </Panel>
+
+      <WaitlistSettings />
 
       <Panel title={t('appointment_settings.closures_title')} description={t('appointment_settings.closures_description')}>
         {closures.length === 0 ? (

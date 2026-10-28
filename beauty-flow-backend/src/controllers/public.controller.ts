@@ -12,9 +12,15 @@ import crypto from 'crypto';
 
 // Helper function to generate slug
 import { findSalonBySlug } from '../services/salonLookup';
+import { onCapacityFreed, normalizeWaitlistSettings } from '../services/waitlist';
+import {
+  HOLD_MINUTES, bookingPolicy, depositsEnabled, cancellationPolicy, clientCancelDecision, clientRescheduleDecision, depositAmount, onClientCancel,
+  paidDepositOf, policyView, sendBookingConfirmation, sendDepositError, startDeposit,
+} from '../services/deposits';
+import { satimPaymentService } from '../services/satimPayment.service';
 import {
   availabilityDays, bookWithLock, canDo, dateKey, dayNum, fmt, isDateKey, keyOf, loadContext, nowIn,
-  resolveStylistId, sendAvailabilityError, staffName, toMin, PUBLIC_SERVICE, isPublicService, REASON_MESSAGES,
+  resolveStylistId, sendAvailabilityError, staffName, toMin, PUBLIC_SERVICE, isPublicService, REASON_MESSAGES, normalizeBooking,
 } from '../services/availability';
 
 // Get salon info by slug
@@ -22,7 +28,7 @@ export const getSalonBySlug = async (req: Request, res: Response): Promise<void>
   try {
     const { slug } = req.params;
 
-    const matchingUser = await findSalonBySlug(slug, 'firstName lastName establishmentName address phone email businessHours theme settings logo banner presentation publicPhone serviceDisplay showTeamOnPublicPage slug');
+    const matchingUser = await findSalonBySlug(slug, 'firstName lastName establishmentName address phone email businessHours theme settings logo banner presentation publicPhone serviceDisplay showTeamOnPublicPage slug bookingSettings');
 
     if (!matchingUser) {
       res.status(404).json({ error: 'Salon not found' });
@@ -35,7 +41,9 @@ export const getSalonBySlug = async (req: Request, res: Response): Promise<void>
       showTeamOnPublicPage: matchingUser.showTeamOnPublicPage
     });
 
-    res.json(matchingUser);
+    // Cancellation policy (free-cancellation deadline, custom text) for the booking step; not the raw settings
+    const { bookingSettings, ...salon } = matchingUser.toObject() as any;
+    res.json({ ...salon, bookingPolicy: bookingPolicy(normalizeBooking(bookingSettings)), depositsEnabled: depositsEnabled() });
   } catch (error) {
     logger.error('Get salon by slug error:', error);
     res.status(500).json({ error: 'Server error' });
@@ -46,12 +54,12 @@ export const getSalonBySlug = async (req: Request, res: Response): Promise<void>
 // GET /public/availability/:slug?serviceId&stylistId?&from=YYYY-MM-DD&days=N(<=14)&token? (token = own appointment when rescheduling)
 export const getAvailability = async (req: Request, res: Response): Promise<void> => {
   try {
-    const salon = await findSalonBySlug(req.params.slug, 'settings');
+    const salon = await findSalonBySlug(req.params.slug, 'settings waitlist');
     if (!salon) {
       res.status(404).json({ error: 'Salon not found' });
       return;
     }
-    const { serviceId, stylistId, from, days, token } = req.query as Record<string, string | undefined>;
+    const { serviceId, stylistId, from, days, token, offer } = req.query as Record<string, string | undefined>;
     if (!serviceId) {
       res.status(400).json({ error: 'serviceId is required' });
       return;
@@ -61,7 +69,7 @@ export const getAvailability = async (req: Request, res: Response): Promise<void
     const own = token
       ? await Appointment.findOne({ 'tokens.modification': String(token), userId: salon._id }).select('_id').lean()
       : null;
-    const loaded = await loadContext(salon._id as any, serviceId, { from: start, to: keyOf(dayNum(start) + count - 1) }, { excludeAppointmentId: own?._id });
+    const loaded = await loadContext(salon._id as any, serviceId, { from: start, to: keyOf(dayNum(start) + count - 1) }, { excludeAppointmentId: own?._id, offerToken: offer });
     if (!loaded || !isPublicService(loaded.service)) {
       res.status(404).json({ error: REASON_MESSAGES.SERVICE_UNAVAILABLE, code: 'SERVICE_UNAVAILABLE' });
       return;
@@ -76,6 +84,7 @@ export const getAvailability = async (req: Request, res: Response): Promise<void
       slotInterval: ctx.booking.slotInterval,
       allowAnyStaff: ctx.booking.allowAnyStaff,
       duration: ctx.service.duration,
+      waitlist: normalizeWaitlistSettings((salon as any).waitlist).enabled,
     });
   } catch (error) {
     logger.error('Get availability error:', error);
@@ -97,9 +106,11 @@ export const getServicesBySlug = async (req: Request, res: Response): Promise<vo
 
     // Only services bookable online are shown on the public page
     const services = await Service.find({ userId: matchingUser._id, ...PUBLIC_SERVICE })
-      .select('name description category duration price images currency');
+      .select('name description category duration price images currency deposit').lean();
 
-    res.json(services);
+    // depositAmount (DA, 0 = none) is the amount the booking will ask for — computed here only
+    const on = depositsEnabled();
+    res.json(services.map((s: any) => ({ ...s, depositAmount: on ? depositAmount(s.price, s.deposit) : 0 })));
   } catch (error) {
     logger.error('Get services by slug error:', error);
     res.status(500).json({ error: 'Server error' });
@@ -362,12 +373,16 @@ export const getAppointmentByToken = async (req: Request, res: Response): Promis
 };
 
 // Shape returned to the public "manage my appointment" page (GET/PATCH by modification token)
-const MANAGED_SALON_FIELDS = 'establishmentName slug address publicPhone theme settings';
+const MANAGED_SALON_FIELDS = 'establishmentName slug address publicPhone theme settings bookingSettings';
 async function managedAppointmentView(appointment: any) {
-  const [service, stylist] = await Promise.all([
+  const [service, stylist, deposit] = await Promise.all([
     Service.findById(appointment.serviceId).select('name').lean(),
     staffName(appointment.userId, appointment.stylistId),
+    paidDepositOf(appointment._id),
   ]);
+  const salonDoc: any = appointment.userId;
+  const booking = normalizeBooking(salonDoc?.bookingSettings);
+  const tz = salonDoc?.settings?.timezone || 'Africa/Algiers';
   return {
     id: appointment._id,
     date: appointment.date,
@@ -382,11 +397,48 @@ async function managedAppointmentView(appointment: any) {
     stylistId: appointment.stylistId,
     stylistName: stylist,
     clientInfo: appointment.clientInfo,
-    salon: appointment.userId,
+    salon: salonDoc && {
+      _id: salonDoc._id, establishmentName: salonDoc.establishmentName, slug: salonDoc.slug, address: salonDoc.address,
+      publicPhone: salonDoc.publicPhone, theme: salonDoc.theme, settings: salonDoc.settings,
+    },
     canModify: appointment.status === 'scheduled' || appointment.status === 'confirmed' || appointment.status === 'rescheduled',
     modificationToken: appointment.tokens.modification,
-    confirmationToken: appointment.confirmationToken
+    confirmationToken: appointment.confirmationToken,
+    deposit: deposit && { amount: deposit.amount, status: deposit.status, orderNumber: deposit.satim?.orderNumber, paidAt: deposit.paidAt },
+    policy: policyView(booking, appointment, tz, deposit?.status === 'paid'),
   };
+}
+
+/* ── client cancellation / reschedule rules (salon policy, deposit) ── */
+
+const POLICY_MESSAGES: Record<string, string> = {
+  CANCELLATION_DISABLED: "Ce salon ne propose pas l'annulation en ligne : contactez-le directement.",
+  CANCELLATION_DEADLINE_PASSED: "La date limite d'annulation en ligne est dépassée : contactez le salon.",
+  RESCHEDULE_DEADLINE_PASSED: 'La date limite de modification en ligne est dépassée : contactez le salon.',
+  DEPOSIT_RETAINED_ACK: "L'annulation a lieu après la date limite : l'acompte sera conservé par le salon. Confirmez pour annuler.",
+};
+
+async function clientRules(appointment: any) {
+  const salon: any = await User.findById(appointment.userId?._id ?? appointment.userId).select('bookingSettings settings').lean();
+  const booking = normalizeBooking(salon?.bookingSettings);
+  const policy = cancellationPolicy(booking.cancellationDeadlineHours, appointment, nowIn(salon?.settings?.timezone || 'Africa/Algiers'));
+  return { booking, policy, deposit: await paidDepositOf(appointment._id) };
+}
+
+/** Policy check before a client cancellation; sends the 403/409 itself and returns null when refused. */
+async function clientCancelCheck(appointment: any, acknowledged: boolean, res: Response) {
+  const { booking, policy, deposit } = await clientRules(appointment);
+  const decision = clientCancelDecision(booking, policy, deposit?.status === 'paid');
+  if (!decision.ok) {
+    res.status(403).json({ error: POLICY_MESSAGES[decision.code], code: decision.code });
+    return null;
+  }
+  // A late cancellation with a paid deposit must be confirmed knowingly: the deposit is kept
+  if (decision.deposit === 'retain' && !acknowledged) {
+    res.status(409).json({ error: POLICY_MESSAGES.DEPOSIT_RETAINED_ACK, code: 'DEPOSIT_RETAINED_ACK', amount: deposit?.amount });
+    return null;
+  }
+  return decision;
 }
 
 // Get appointment by modification token
@@ -447,10 +499,19 @@ export const modifyAppointmentByModificationToken = async (req: Request, res: Re
       return;
     }
 
+    // Salon policy: free before the deadline, then once if the salon allows it (a paid deposit carries over)
+    const rules = await clientRules(appointment);
+    const resched = clientRescheduleDecision(rules.booking, rules.policy, appointment.lateReschedules || 0);
+    if (!resched.ok) {
+      res.status(403).json({ error: POLICY_MESSAGES[resched.code], code: resched.code });
+      return;
+    }
+
     // Re-check the new slot with the same engine as booking (own appointment excluded), under the day lock
     const day = date ? dateKey(date) : dateKey(appointment.date);
     const time = startTime || appointment.startTime;
     const wantedStylist = resolveStylistId(stylistId) ?? appointment.stylistId;
+    const before = { date: appointment.date, stylistId: appointment.stylistId };
     await bookWithLock(appointment.userId, appointment.serviceId, day, time, wantedStylist, async (assigned) => {
       const changes: Record<string, any> = {};
       if (date) { appointment.date = new Date(`${day}T00:00:00.000Z`); changes.date = day; }
@@ -463,8 +524,11 @@ export const modifyAppointmentByModificationToken = async (req: Request, res: Re
       appointment.modifications.push({ date: new Date(), modifiedBy: 'client', changes, reason });
       // Mark as rescheduled when modified
       if (changes.date || changes.startTime || changes.stylistId) appointment.status = AppointmentStatus.RESCHEDULED;
+      if (resched.late && (changes.date || changes.startTime || changes.stylistId)) appointment.lateReschedules = (appointment.lateReschedules || 0) + 1;
       await appointment.save();
     }, { excludeAppointmentId: appointment._id, duration: appointment.duration, publicOnly: true });
+    // The old slot (moved away or shortened) may serve the waitlist
+    void onCapacityFreed(appointment.userId, before.date, before.stylistId);
 
     // Return updated appointment (reuse formatter)
     const populated = await Appointment.findById(appointment._id)
@@ -489,7 +553,7 @@ export const cancelAppointmentByModificationToken = async (req: Request, res: Re
     }
 
     const { token } = req.params;
-    const { reason } = req.body as { reason?: string };
+    const { reason, acknowledgeRetention } = req.body as { reason?: string; acknowledgeRetention?: boolean };
 
     const appointment = await Appointment.findOne({
       'tokens.modification': token,
@@ -501,6 +565,9 @@ export const cancelAppointmentByModificationToken = async (req: Request, res: Re
       return;
     }
 
+    const decision = await clientCancelCheck(appointment, acknowledgeRetention === true, res);
+    if (!decision) return;
+
     appointment.status = AppointmentStatus.CANCELLED;
     appointment.cancellation = {
       reason,
@@ -508,8 +575,11 @@ export const cancelAppointmentByModificationToken = async (req: Request, res: Re
       cancelledAt: new Date(),
     };
     await appointment.save();
+    void onCapacityFreed(appointment.userId, appointment.date, appointment.stylistId);
+    // Deposit: refunded before the deadline, kept by the salon after it
+    const deposit = decision.deposit ? await onClientCancel(appointment._id, decision.deposit) : null;
 
-    res.json({ success: true, message: 'Appointment cancelled successfully' });
+    res.json({ success: true, message: 'Appointment cancelled successfully', deposit: deposit && { status: deposit.status, amount: deposit.amount } });
   } catch (error) {
     logger.error('Cancel appointment by modification token error:', error);
     res.status(500).json({ error: 'Server error' });
@@ -538,7 +608,7 @@ export const createPublicBooking = async (req: Request, res: Response): Promise<
 
     logger.info('Creating public booking:', { slug, serviceId, stylistId, date, startTime, clientData: { ...clientData, phone: '***' } });
 
-    const matchingUser = await findSalonBySlug(slug);
+    const matchingUser = await findSalonBySlug(slug, 'firstName lastName establishmentName email phone publicPhone address logo settings slug');
 
     if (!matchingUser) {
       res.status(404).json({ error: 'Salon not found' });
@@ -553,6 +623,13 @@ export const createPublicBooking = async (req: Request, res: Response): Promise<
     if (!service) {
       logger.error('Service not bookable online:', serviceId);
       res.status(404).json({ error: REASON_MESSAGES.SERVICE_UNAVAILABLE, code: 'SERVICE_UNAVAILABLE' });
+      return;
+    }
+
+    // Online deposit (amount decided here only): the slot is held as pending_payment until SATIM confirms
+    const deposit = depositsEnabled() ? depositAmount(service.price, (service as any).deposit) : 0;
+    if (deposit && !satimPaymentService.isConfigured()) {
+      res.status(503).json({ error: 'Le paiement en ligne est momentanément indisponible', code: 'PAYMENT_UNAVAILABLE' });
       return;
     }
 
@@ -654,7 +731,8 @@ export const createPublicBooking = async (req: Request, res: Response): Promise<
         endTime,
         duration: service.duration,
         price: service.price,
-        status: 'scheduled',
+        status: deposit ? AppointmentStatus.PENDING_PAYMENT : 'scheduled',
+        ...(deposit ? { holdExpiresAt: new Date(Date.now() + HOLD_MINUTES * 60000), deposit: { required: true, amount: deposit, paid: false } } : {}),
         notes: notes || '',
         source: 'online',
         confirmationToken: crypto.randomBytes(16).toString('hex'),
@@ -672,65 +750,26 @@ export const createPublicBooking = async (req: Request, res: Response): Promise<
 
       await appointment.save();
       return { appointment, client };
-    });
+    }, { offerToken: typeof req.body.waitlistOffer === 'string' ? req.body.waitlistOffer : undefined }); // waitlist offer link: its held slot is free for this client
     logger.info('Appointment created successfully:', appointment._id);
 
-    // Envoyer les emails de confirmation
-    try {
-      // Préparer les données communes pour l'email
-      const emailData = {
-        clientName: `${client.firstName} ${client.lastName}`,
-        salonName: matchingUser.establishmentName || `${matchingUser.firstName} ${matchingUser.lastName}`,
-        serviceName: service.name,
-        appointmentDate: new Date(date).toLocaleDateString('fr-FR', { 
-          weekday: 'long', 
-          year: 'numeric', 
-          month: 'long', 
-          day: 'numeric' 
-        }),
-        appointmentTime: startTime,
-        serviceDuration: service.duration.toString(),
-        servicePrice: service.price.toString(),
-        currency: (service as any).currency || (matchingUser as any).currency || 'DZD',
-        staffName: stylistName,
-        salonAddress: matchingUser.address || '',
-        salonPhone: matchingUser.phone || '',
-        salonEmail: matchingUser.email || '',
-        salonLogo: matchingUser.logo || '',
-        bookingUrl: `${process.env.FRONTEND_URL || 'https://saloneo.com'}/modify-appointment/${appointment.tokens.modification}`,
-        modificationLink: `${process.env.FRONTEND_URL || 'https://saloneo.com'}/modify-appointment/${appointment.tokens.modification}`,
-        confirmationToken: appointment.confirmationToken
-      };
-
-      // Email au client (seulement si l'email existe)
-      if (client.email) {
-        await emailService.sendTemplateEmail(
-          'appointment-confirmation',
-          client.email,
-          emailData
-        );
-        logger.info('Confirmation email sent to client:', client.email);
-      }
-
-      // Email au salon (notification de nouvelle réservation)
-      if (matchingUser.email) {
-        await emailService.sendTemplateEmail(
-          'appointment-confirmation',
-          matchingUser.email,
-          {
-            ...emailData,
-            clientPhone: client.phone,
-            clientEmail: client.email,
-            notes: notes || 'Aucune note',
-            appointmentId: (appointment._id as any).toString()
-          }
-        );
-        logger.info('Notification email sent to salon:', matchingUser.email);
-      }
-    } catch (emailError) {
-      // Ne pas bloquer la création du rendez-vous si l'email échoue
-      logger.error('Failed to send confirmation emails:', emailError);
+    if (deposit) {
+      // Pay first: emails go out once the deposit is paid (services/deposits.ts); the client is sent to SATIM
+      const { deposit: dep, formUrl } = await startDeposit(appointment, matchingUser, service.name, slug, String(req.body.lang || '').slice(0, 2));
+      res.status(201).json({
+        success: true,
+        appointment: {
+          id: appointment._id, date: appointment.date, startTime: appointment.startTime, endTime: appointment.endTime,
+          duration: appointment.duration, price: appointment.price, status: appointment.status, stylistId: appointment.stylistId, stylistName,
+        },
+        deposit: { id: dep._id, amount: dep.amount, holdExpiresAt: dep.holdExpiresAt, formUrl },
+        message: 'Acompte à payer pour confirmer le rendez-vous',
+      });
+      return;
     }
+
+    // Confirmation emails (client + salon), with the cancellation policy; never blocks the booking
+    sendBookingConfirmation(String(appointment._id)).catch((emailError) => logger.error('Failed to send confirmation emails:', emailError));
 
     res.status(201).json({
       success: true,
@@ -759,7 +798,7 @@ export const createPublicBooking = async (req: Request, res: Response): Promise<
     });
 
   } catch (error: any) {
-    if (sendAvailabilityError(res, error)) return;
+    if (sendAvailabilityError(res, error) || sendDepositError(res, error)) return;
     logger.error('Create public booking error:', {
       message: error.message,
       stack: error.stack,
@@ -894,17 +933,20 @@ export const searchAppointmentsByClient = async (req: Request, res: Response): P
 export const cancelPublicAppointment = async (req: Request, res: Response): Promise<void> => {
   try {
     const { confirmationToken } = req.params;
-    const { reason } = req.body;
+    const { reason, acknowledgeRetention } = req.body;
 
     const appointment = await Appointment.findOne({ 
       confirmationToken,
-      status: { $in: ['scheduled', 'confirmed'] }
+      status: { $in: ['scheduled', 'confirmed', 'rescheduled'] }
     });
 
     if (!appointment) {
       res.status(404).json({ error: 'Appointment not found or already cancelled' });
       return;
     }
+
+    const decision = await clientCancelCheck(appointment, acknowledgeRetention === true, res);
+    if (!decision) return;
 
     appointment.status = AppointmentStatus.CANCELLED;
     appointment.cancellation = {
@@ -913,8 +955,10 @@ export const cancelPublicAppointment = async (req: Request, res: Response): Prom
       cancelledAt: new Date(),
     };
     await appointment.save();
+    void onCapacityFreed(appointment.userId, appointment.date, appointment.stylistId);
+    const deposit = decision.deposit ? await onClientCancel(appointment._id, decision.deposit) : null;
 
-    res.json({ message: 'Appointment cancelled successfully' });
+    res.json({ message: 'Appointment cancelled successfully', deposit: deposit && { status: deposit.status, amount: deposit.amount } });
   } catch (error) {
     logger.error('Cancel public appointment error:', error);
     res.status(500).json({ error: 'Server error' });

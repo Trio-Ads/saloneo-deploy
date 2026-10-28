@@ -19,7 +19,8 @@
     "completed": "Terminé",
     "cancelled": "Annulé",
     "no_show": "Absent",
-    "rescheduled": "Reporté"
+    "rescheduled": "Reporté",
+    "pending_payment": "Paiement en attente"
   },
   "form": {
     "client": "Client",
@@ -241,7 +242,8 @@
     "overdue": "Date passée",
     "with": "avec {{name}}",
     "appointments_count_one": "{{count}} rendez-vous",
-    "appointments_count_other": "{{count}} rendez-vous"
+    "appointments_count_other": "{{count}} rendez-vous",
+    "deposit_paid": "Acompte {{amount}}"
   },
   "calendar_view": {
     "today": "Aujourd'hui",
@@ -333,7 +335,16 @@
     "save_closures": "Enregistrer les fermetures",
     "unsaved": "Modifications non enregistrées",
     "copy_to_open_days": "Copier sur tous les jours ouverts",
-    "leave_confirm": "Des modifications ne sont pas enregistrées. Quitter quand même ?"
+    "leave_confirm": "Des modifications ne sont pas enregistrées. Quitter quand même ?",
+    "deposit_policy_hint": "Acompte en ligne : annulation par la cliente avant ce délai = remboursement automatique ; après ce délai ou en cas d'absence, l'acompte vous revient. Si vous annulez, il est toujours remboursé.",
+    "late_reschedule": "Après ce délai, autoriser un seul changement de créneau",
+    "late_reschedule_description": "La cliente peut encore déplacer son rendez-vous une fois ; l'acompte est reporté sur le nouveau créneau.",
+    "paid_status": "Statut d'une réservation dont l'acompte est payé",
+    "paid_status_description": "« Confirmé » : rien à faire de votre côté. « Planifié » : vous confirmez vous-même.",
+    "policy_text": "Précision affichée aux clientes (facultatif)",
+    "policy_text_placeholder": "Ex. : merci de prévenir au moins la veille en cas d'empêchement.",
+    "policy_text_help": "Affichée à l'étape de réservation et dans l'e-mail de confirmation.",
+    "deposits_coming_soon": "Le paiement d'acompte en ligne sera activé prochainement — vos réglages sont enregistrés."
   },
   "bookingConfirmed": "Réservation confirmée !",
   "bookingSuccessMessage": "Votre rendez-vous a été confirmé avec succès",
@@ -418,5 +429,58 @@
     "force_confirm": "Ajouter quand même ?",
     "hours_not_configured": "Vos horaires d'ouverture ne sont pas configurés : les clientes voient samedi–jeudi 09:00–18:00 par défaut.",
     "configure_hours": "Configurer les horaires"
+  },
+  "waitlist": {
+    "tab": "Liste d'attente",
+    "badge": "Liste d'attente : {{count}}",
+    "title": "Liste d'attente",
+    "description": "Les clients sont prévenus dans l'ordre d'inscription dès qu'un créneau correspondant se libère.",
+    "empty_title": "Personne en liste d'attente",
+    "empty_body": "Quand une journée est complète, vos clients peuvent s'inscrire depuis votre page de réservation.",
+    "history": "Historique (30 jours)",
+    "any_staff": "Peu importe",
+    "time": {
+      "morning": "Matin",
+      "afternoon": "Après-midi",
+      "evening": "Soir",
+      "any": "Toute la journée"
+    },
+    "status": {
+      "active": "En attente",
+      "offered": "Offre envoyée",
+      "booked": "A réservé",
+      "expired": "Expirée",
+      "cancelled": "Retirée"
+    },
+    "outcome": {
+      "booked": "réservé",
+      "expired": "expirée",
+      "taken": "créneau pris",
+      "cancelled": "annulée"
+    },
+    "offers_sent": "Offres : {{count}}",
+    "last_offer": "dernière : {{slot}}, envoyée le {{sent}}",
+    "expires_at": "expire à {{time}}",
+    "offer_slot": "Proposer un créneau",
+    "offer_date": "Date",
+    "offer_time": "Heure",
+    "no_free_time": "Aucun horaire libre",
+    "send_offer": "Envoyer l'offre",
+    "offer_error": "Impossible d'envoyer l'offre.",
+    "call": "Appeler le {{phone}}",
+    "remove": "Retirer de la liste",
+    "remove_confirm": "Retirer {{name}} de la liste d'attente ?",
+    "load_error": "Impossible de charger la liste d'attente.",
+    "settings": {
+      "title": "Liste d'attente",
+      "description": "Quand une journée est complète, vos clients peuvent demander à être prévenus si un créneau se libère.",
+      "enabled": "Activer la liste d'attente",
+      "enabled_description": "Le bouton « Rejoindre la liste d'attente » apparaît sur votre page de réservation.",
+      "offer_minutes": "Durée de validité d'une offre",
+      "offer_minutes_description": "Passé ce délai, le créneau est proposé au client suivant.",
+      "hold": "Réserver le créneau pendant l'offre",
+      "hold_description": "Le créneau proposé reste réservé à ce client jusqu'à la fin de l'offre. Sinon, le premier qui réserve l'obtient.",
+      "save": "Enregistrer"
+    }
   }
 }

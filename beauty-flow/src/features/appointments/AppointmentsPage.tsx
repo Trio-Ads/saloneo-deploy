@@ -10,6 +10,7 @@ import {
   ListBulletIcon,
   CalendarIcon,
   MagnifyingGlassIcon,
+  QueueListIcon,
 } from '@heroicons/react/24/outline';
 import { Appointment, AppointmentStatus, AppointmentFormData } from './types';
 import { useAppointmentStore, ForceOptions } from './store';
@@ -20,6 +21,8 @@ import { useTeamStore } from '../team/store';
 import AppointmentList from './components/AppointmentList';
 import AppointmentForm from './components/AppointmentForm';
 import CalendarView from './components/CalendarView';
+import WaitlistPanel from './components/WaitlistPanel';
+import { waitlistAPI } from '../public/waitlist';
 import { useSocket } from '../../hooks/useSocket';
 import { useSubscriptionLimits } from '../subscription/hooks/useSubscriptionLimits';
 import { SubscriptionLimitWidget } from '../subscription/components/SubscriptionLimitWidget';
@@ -52,7 +55,11 @@ const AppointmentsPage: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
   const [editingAppointment, setEditingAppointment] = useState<Appointment | null>(null);
   const [selectedStatus, setSelectedStatus] = useState<AppointmentStatus | 'all'>('all');
-  const [viewMode, setViewMode] = useState<'list' | 'calendar'>('list');
+  const [viewMode, setViewMode] = useState<'list' | 'calendar' | 'waitlist'>('list');
+  const [waitlistCount, setWaitlistCount] = useState(0);
+  useEffect(() => {
+    waitlistAPI.list().then((r) => setWaitlistCount(r.data.count)).catch(() => undefined);
+  }, []);
   const [pastAppointmentsCount, setPastAppointmentsCount] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
   const formRef = React.useRef<HTMLDivElement>(null);
@@ -237,6 +244,11 @@ const AppointmentsPage: React.FC = () => {
         meta={
           <>
             <span className="tabular-nums">{t('stats.total_appointments_badge', { count: appointmentStats.total })}</span>
+            {waitlistCount > 0 && (
+              <button type="button" onClick={() => setViewMode('waitlist')} className="tabular-nums hover:text-gray-900 dark:hover:text-gray-50">
+                {t('waitlist.badge', { count: waitlistCount })}
+              </button>
+            )}
             {usageStats && (
               <SubscriptionLimitWidget
                 title={t('limits.title')}
@@ -300,6 +312,7 @@ const AppointmentsPage: React.FC = () => {
 
       {!showForm && (
         <div className="mb-4 flex flex-wrap items-center gap-3">
+          {viewMode !== 'waitlist' && <>
           <div className="relative w-full sm:w-72">
             <MagnifyingGlassIcon className="pointer-events-none absolute start-3 top-1/2 size-4 -translate-y-1/2 text-gray-400" />
             <input
@@ -324,6 +337,7 @@ const AppointmentsPage: React.FC = () => {
             <option value="cancelled">{t('status.cancelled')}</option>
             <option value="noShow">{t('status.no_show')}</option>
           </select>
+          </>}
           <Segmented
             className="sm:ms-auto"
             value={viewMode}
@@ -331,6 +345,7 @@ const AppointmentsPage: React.FC = () => {
             options={[
               { value: 'list', label: <span className="max-sm:sr-only">{t('view_modes.list')}</span>, icon: ListBulletIcon },
               { value: 'calendar', label: <span className="max-sm:sr-only">{t('view_modes.calendar')}</span>, icon: CalendarIcon },
+              { value: 'waitlist', label: <span>{t('waitlist.tab')}{waitlistCount > 0 && <span className="ms-1.5 tabular-nums text-orange-600 dark:text-orange-400">{waitlistCount}</span>}</span>, icon: QueueListIcon },
             ]}
           />
         </div>
@@ -352,6 +367,8 @@ const AppointmentsPage: React.FC = () => {
             onSubmit={handleFormSubmit}
             onCancel={handleFormCancel}
           />
+        ) : viewMode === 'waitlist' ? (
+          <WaitlistPanel onCount={setWaitlistCount} />
         ) : viewMode === 'list' ? (
           filteredAppointments.length === 0 ? (
             <Panel>

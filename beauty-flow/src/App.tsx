@@ -17,6 +17,8 @@ import ProfilePage from './features/profile/ProfilePage';
 import { PublicAppointmentManager } from './features/public/components/PublicAppointmentManager';
 import PublicAppointmentList from './features/public/components/PublicAppointmentList';
 import SalonPage from './features/public/SalonPage';
+import DepositReturn from './features/public/components/DepositReturn';
+import WaitlistManagePage from './features/public/WaitlistManagePage';
 import { SubscriptionPage } from './features/subscription/SubscriptionPage';
 import { Toast } from './components/Toast';
 import { LoginPage } from './features/auth/pages/LoginPage';
@@ -60,6 +62,9 @@ export const App: React.FC = () => {
         <Route path="salon/:slug" element={<SalonPage />} />
         <Route path="salon/:slug/appointments/list" element={<PublicAppointmentList />} />
         <Route path="appointment/:token" element={<PublicAppointmentManager />} />
+        {/* SATIM sends the client back here after paying an online deposit */}
+        <Route path="booking/payment-return" element={<DepositReturn />} />
+        <Route path="waitlist/:token" element={<WaitlistManagePage />} />
         {/* Alias used by emails */}
         <Route path="modify-appointment/:token" element={<PublicAppointmentManager />} />
         <Route path="appointments/list" element={<PublicAppointmentList />} />

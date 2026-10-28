@@ -167,6 +167,8 @@
   border-top: 1px solid var(--bk-border); background: var(--bk-bg);
 }
 .bk-footer > * { flex: 1; }
+/* The waitlist form has its own buttons: no disabled "Continuer" under it */
+.bk-sheet:has(.bk-waitlist) .bk-footer { display: none; }
 @media (min-width: 768px) {
   .bk-overlay { align-items: center; padding: 1.5rem; }
   .bk-sheet { max-width: 560px; max-height: min(880px, calc(100dvh - 3rem)); border-radius: var(--bk-sheet-radius); box-shadow: 0 24px 64px rgb(0 0 0 / .28); animation: bk-dialog-in .2s ease-out; }
@@ -186,6 +188,8 @@
 .bk-step.is-current .bk-step-dot, .bk-step.is-done .bk-step-dot { background: var(--bk-primary); color: var(--bk-on-primary); box-shadow: none; }
 .bk-step-line { flex: 1; min-width: 12px; height: 1px; background: var(--bk-border); }
 .bk-step-line.is-done { background: var(--bk-primary); }
+/* 4 steps (deposit) on a phone: only the current step keeps its label */
+@media (max-width: 479px) { .bk-steps.is-long .bk-step:not(.is-current) > span:last-child { display: none; } }
 
 /* Step transitions (direction-aware) */
 .bk-step-fwd { animation: bk-in-fwd .2s ease-out; }

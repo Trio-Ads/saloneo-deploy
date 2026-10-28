@@ -45,6 +45,19 @@
       "buffer_after": "Sonra temizlik",
       "buffer_help": "Bu hizmetten önce ve sonra ajandada ayrılan süre. 0 ise salonun ara süresi sonrasına uygulanır.",
       "minutes": "dk"
+    },
+    "deposit": {
+      "section": "Çevrim içi kapora",
+      "help": "Çevrim içi rezervasyonda kartla (CIB / Edahabia) ödenir; Saloneo tahsil eder ve hesabınıza aktarır.",
+      "none": "Yok",
+      "percent": "Yüzde",
+      "fixed": "Sabit tutar",
+      "percent_value": "Fiyatın yüzdesi",
+      "fixed_value": "Kapora tutarı",
+      "preview": "İstenen kapora: {{amount}} · salonda ödenecek kalan {{rest}}",
+      "preview_none": "Kaporayı hesaplamak için bir fiyat girin.",
+      "rules": "50 DA'ya yuvarlanır, en az 500 DA, hiçbir zaman fiyattan fazla değil. İptal ve iade iptal politikanıza göre yapılır.",
+      "coming_soon": "Çevrim içi kapora ödemesi yakında etkinleştirilecek — ayarlarınız kaydedildi."
     }
   },
   "categories": {
@@ -190,7 +203,9 @@
     "services_count_other": "{{count}} hizmet",
     "online": "Online",
     "active": "Aktif",
-    "inactive": "Pasif"
+    "inactive": "Pasif",
+    "deposit_badge": "Kapora {{rule}} · {{amount}}",
+    "deposit_badge_fixed": "Kapora {{amount}}"
   },
   "photos": {
     "hint": "JPG veya PNG, önerilen boyut 1200 × 800 px, en fazla 5 fotoğraf.",

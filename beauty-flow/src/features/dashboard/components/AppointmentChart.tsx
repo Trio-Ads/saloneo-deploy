@@ -17,7 +17,8 @@ const AppointmentChart: React.FC<AppointmentChartProps> = ({ appointments }) => 
       completed: 0,
       cancelled: 0,
       noShow: 0,
-      rescheduled: 0
+      rescheduled: 0,
+      pending_payment: 0 // deposit not paid yet: not charted
     };
 
     appointments.forEach(apt => {

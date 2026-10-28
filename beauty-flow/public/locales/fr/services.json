@@ -45,6 +45,19 @@
       "buffer_after": "Nettoyage après",
       "buffer_help": "Temps bloqué dans l'agenda avant et après ce service. À 0, le temps de battement du salon s'applique après.",
       "minutes": "min"
+    },
+    "deposit": {
+      "section": "Acompte en ligne",
+      "help": "Payé par carte (CIB / Edahabia) à la réservation en ligne, encaissé par Saloneo puis reversé sur votre compte.",
+      "none": "Aucun",
+      "percent": "Pourcentage",
+      "fixed": "Montant fixe",
+      "percent_value": "Pourcentage du prix",
+      "fixed_value": "Montant de l'acompte",
+      "preview": "Acompte demandé : {{amount}} · reste {{rest}} au salon",
+      "preview_none": "Indiquez un prix pour calculer l'acompte.",
+      "rules": "Arrondi à 50 DA, minimum 500 DA, jamais plus que le prix. Annulation et remboursement selon votre politique d'annulation.",
+      "coming_soon": "Le paiement d'acompte en ligne sera activé prochainement — vos réglages sont enregistrés."
     }
   },
   "categories": {
@@ -190,7 +203,9 @@
     "services_count_other": "{{count}} services",
     "online": "En ligne",
     "active": "Actif",
-    "inactive": "Inactif"
+    "inactive": "Inactif",
+    "deposit_badge": "Acompte {{rule}} · {{amount}}",
+    "deposit_badge_fixed": "Acompte {{amount}}"
   },
   "photos": {
     "hint": "JPG ou PNG, 1200 × 800 px conseillé, 5 photos maximum.",

@@ -41,6 +41,8 @@ router.post(
     body('maxCapacity').optional().isInt({ min: 1 }),
     body('buffer.before').optional().isInt({ min: 0 }),
     body('buffer.after').optional().isInt({ min: 0 }),
+    body('deposit.mode').optional().isIn(['none', 'fixed', 'percent']),
+    body('deposit.value').optional().isFloat({ min: 0, max: 1000000 }),
   ],
   servicesController.createService
 );
@@ -62,6 +64,8 @@ router.put(
     body('maxCapacity').optional().isInt({ min: 1 }),
     body('buffer.before').optional().isInt({ min: 0 }),
     body('buffer.after').optional().isInt({ min: 0 }),
+    body('deposit.mode').optional().isIn(['none', 'fixed', 'percent']),
+    body('deposit.value').optional().isFloat({ min: 0, max: 1000000 }),
   ],
   servicesController.updateService
 );

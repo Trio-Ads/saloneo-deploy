@@ -85,9 +85,21 @@ export interface IUser extends Document {
     bufferMinutes?: number;
     allowCancellation?: boolean;
     cancellationDeadlineHours?: number;
+    lateReschedule?: boolean;
+    paidStatus?: 'confirmed' | 'scheduled';
+    policyText?: string;
+  };
+  /** Where Saloneo pays out online deposits. Sensitive: select: false, never in public responses. */
+  payout?: {
+    legalName?: string;
+    method?: 'ccp' | 'bank';
+    rib?: string;
+    updatedAt?: Date;
   };
   /** Exceptional closures (Aïd, fermeture exceptionnelle): inclusive 'YYYY-MM-DD' days. */
   closures?: Array<{ from: string; to: string; reason?: string }>;
+  /** Waitlist (see services/waitlist.ts for defaults): on by default, 30 min offers, slot not held. */
+  waitlist?: { enabled?: boolean; offerMinutes?: number; holdSlot?: boolean };
   logo?: string;
   banner?: string;
   presentation?: string;
@@ -273,6 +285,18 @@ const userSchema = new Schema<IUser>(
       bufferMinutes: { type: Number, min: 0, max: 120 },
       allowCancellation: Boolean,
       cancellationDeadlineHours: { type: Number, min: 0 },
+      lateReschedule: Boolean,
+      paidStatus: { type: String, enum: ['confirmed', 'scheduled'] },
+      policyText: { type: String, trim: true, maxlength: 500 },
+    },
+    payout: {
+      type: new Schema({
+        legalName: { type: String, trim: true, maxlength: 120 },
+        method: { type: String, enum: ['ccp', 'bank'] },
+        rib: { type: String, match: /^\d{20}$/ },
+        updatedAt: Date,
+      }, { _id: false }),
+      select: false,
     },
     closures: [{
       _id: false,
@@ -280,6 +304,11 @@ const userSchema = new Schema<IUser>(
       to: { type: String, required: true, match: /^\d{4}-\d{2}-\d{2}$/ },
       reason: { type: String, trim: true, maxlength: 120 },
     }],
+    waitlist: {
+      enabled: Boolean,
+      offerMinutes: { type: Number, enum: [15, 30, 60] },
+      holdSlot: Boolean,
+    },
     logo: String,
     banner: String,
     presentation: String,

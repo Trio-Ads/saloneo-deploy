@@ -1,92 +1,114 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { CreditCardIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
-import { ServiceDepositInfo } from '../types';
+import { format, parseISO, subHours } from 'date-fns';
+import { LockClosedIcon } from '@heroicons/react/24/outline';
+import { formatPrice } from '../../../utils/currency';
+import { BookingPolicy } from '../types';
+import { dateLocale } from './bookingTheme';
 
-interface DepositPaymentProps {
-  depositInfo: ServiceDepositInfo;
-  onPayDeposit: () => void;
-  onSkipDeposit: () => void;
-  onBack: () => void;
-  isLoading: boolean;
-  currency: string;
+/** Minutes the slot stays held while the client pays (server: HOLD_MINUTES in services/deposits.ts). */
+export const HOLD_MINUTES = 15;
+
+/** Card networks accepted through SATIM (required on every payment screen). */
+export function PaymentBrands({ className = '' }: { className?: string }) {
+  const [edahabiaLogo, setEdahabiaLogo] = React.useState(true);
+  return (
+    <span className={`inline-flex items-center gap-2 ${className}`}>
+      <img src="/images/cib-logo.webp" alt="CIB" className="h-6 w-auto" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+      {edahabiaLogo
+        ? <img src="/images/edahabia-logo.webp" alt="Edahabia" className="h-6 w-auto" onError={() => setEdahabiaLogo(false)} />
+        : <span className="text-xs font-semibold tracking-tight">Edahabia</span>}
+    </span>
+  );
 }
 
-const DepositPayment: React.FC<DepositPaymentProps> = ({
-  depositInfo,
-  onPayDeposit,
-  onSkipDeposit,
-  onBack,
-  isLoading,
-  currency
-}) => {
-  const { t } = useTranslation(['public', 'services']);
-
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('fr-DZ', {
-      style: 'currency',
-      currency: currency,
-    }).format(amount / 100); // Convertir les centimes en unité principale
-  };
-
-  // Rendered inside a `.bk` root (booking sheet), styled from the salon template
+/** "Paiement sécurisé par SATIM" + accepted cards + SATIM support number. */
+export function SatimNotice() {
+  const { t } = useTranslation('public');
   return (
-    <div className="space-y-5">
-      <div>
-        <h2 className="bk-h text-lg">{t('deposit.title')}</h2>
-        <p className="bk-muted text-sm mt-1">{t('deposit.subtitle')}</p>
+    <div className="bk-card flex items-start gap-3 p-4">
+      <LockClosedIcon className="h-5 w-5 shrink-0 bk-muted mt-0.5" />
+      <div className="min-w-0 flex-1">
+        <p className="font-medium">{t('deposit.secure')}</p>
+        <p className="bk-muted text-sm">{t('deposit.cards')}</p>
+        <p className="bk-muted text-xs mt-1">{t('deposit.support')}</p>
       </div>
+      <PaymentBrands className="shrink-0" />
+    </div>
+  );
+}
+
+/**
+ * The salon's cancellation rules in plain sentences. With a slot (date + time) the free-cancellation
+ * deadline is shown as a date; `deposit` switches between the deposit and the no-deposit wording.
+ */
+export function CancellationPolicy({ policy, deposit, date, time, compact }: {
+  policy?: BookingPolicy;
+  deposit: boolean;
+  date?: string;
+  time?: string;
+  compact?: boolean;
+}) {
+  const { t, i18n } = useTranslation('public');
+  if (!policy) return null;
+  const hours = policy.freeCancellationHours;
+  const deadline = date && time ? subHours(parseISO(`${date}T${time}`), hours) : null;
+  const lines = !policy.allowCancellation
+    ? [t('deposit.policy.no_online_cancel')]
+    : [
+        deadline && deadline > new Date()
+          ? t(deposit ? 'deposit.policy.free_until' : 'deposit.policy.free_until_no_deposit', {
+              date: format(deadline, 'EEEE d MMMM', { locale: dateLocale(i18n.language) }),
+              time: format(deadline, 'HH:mm'),
+            })
+          : t(deposit ? 'deposit.policy.free_hours' : 'deposit.policy.free_hours_no_deposit', { count: hours }),
+        t(deposit ? 'deposit.policy.late' : 'deposit.policy.late_no_deposit'),
+        policy.lateReschedule ? t(deposit ? 'deposit.policy.reschedule_once' : 'deposit.policy.reschedule_once_no_deposit') : '',
+      ].filter(Boolean);
+
+  if (compact) {
+    return <p className="bk-muted text-sm">{lines[0]}</p>;
+  }
+  return (
+    <section className="bk-card p-4 space-y-2" aria-labelledby="bk-policy-title">
+      <h3 id="bk-policy-title" className="font-medium">{t('deposit.policy.title')}</h3>
+      <ul className="bk-muted text-sm space-y-1.5 list-disc ps-4">
+        {lines.map((l) => <li key={l}>{l}</li>)}
+      </ul>
+      {policy.policyText && (
+        <p className="text-sm pt-2" style={{ borderTop: '1px solid var(--bk-border)' }}>
+          <span className="bk-muted">{t('deposit.policy.salon_note')} · </span>{policy.policyText}
+        </p>
+      )}
+    </section>
+  );
+}
+
+/** Booking step "Acompte" (inside the `.bk` sheet): what is paid now, what is left, the rules, SATIM. */
+const DepositPayment: React.FC<{
+  price: number;
+  amount: number;
+  currency: string;
+  policy?: BookingPolicy;
+  date?: string;
+  time?: string;
+}> = ({ price, amount, currency, policy, date, time }) => {
+  const { t } = useTranslation('public');
+  return (
+    <div className="space-y-4">
+      <p className="bk-muted text-sm">{t('deposit.subtitle', { minutes: HOLD_MINUTES })}</p>
 
       <div className="bk-card">
-        <div className="bk-row"><span>{t('services:deposit.service_price')}</span><span className="bk-num">{formatCurrency(depositInfo.servicePrice)}</span></div>
-        <div className="bk-row">
-          <span>{t('services:deposit.type')}</span>
-          <span>
-            {depositInfo.depositType === 'percentage'
-              ? `${depositInfo.depositPercentage}% ${t('services:deposit.percentage_desc')}`
-              : t('services:deposit.fixed_desc')}
-          </span>
-        </div>
+        <div className="bk-row"><span>{t('deposit.service_price')}</span><span className="bk-num">{formatPrice(price, currency)}</span></div>
         <div className="bk-row items-center">
-          <span>{t('services:deposit.deposit_amount')}</span>
-          <span className="bk-num text-xl font-semibold">{formatCurrency(depositInfo.calculatedDepositAmount)}</span>
+          <span>{t('deposit.pay_now')}</span>
+          <span className="bk-num text-xl font-semibold">{formatPrice(amount, currency)}</span>
         </div>
+        <div className="bk-row"><span>{t('deposit.remaining')}</span><span className="bk-num">{formatPrice(Math.max(0, price - amount), currency)}</span></div>
       </div>
 
-      <div className="bk-notice" style={{ background: 'var(--bk-surface)', boxShadow: 'inset 0 0 0 1px var(--bk-border)' }}>
-        <ExclamationTriangleIcon className="h-5 w-5 shrink-0 bk-muted" />
-        <div>
-          <p className="font-medium">{t('deposit.important_info')}</p>
-          <ul className="bk-muted mt-1 space-y-1 list-disc ps-4">
-            <li>{t('deposit.info_1')}</li>
-            <li>{t('deposit.info_2')}</li>
-            <li>{t('deposit.info_3')}</li>
-          </ul>
-        </div>
-      </div>
-
-      <div className="bk-card flex items-center gap-4 p-4">
-        <img src="/images/satim-logo.png" alt="Satim" className="h-8 w-auto"
-          onError={(e) => { e.currentTarget.style.display = 'none'; }} />
-        <div className="min-w-0">
-          <p className="font-medium">{t('deposit.satim_payment')}</p>
-          <p className="bk-muted text-sm">{t('deposit.satim_desc')}</p>
-        </div>
-        <CreditCardIcon className="h-5 w-5 ms-auto shrink-0 bk-muted" />
-      </div>
-
-      <div className="flex flex-col sm:flex-row gap-3">
-        <button type="button" onClick={onBack} disabled={isLoading} className="bk-btn-ghost">
-          {t('common:actions.back')}
-        </button>
-        <button type="button" onClick={onSkipDeposit} disabled={isLoading} className="bk-btn-ghost sm:flex-1">
-          {t('deposit.skip_deposit')}
-        </button>
-        <button type="button" onClick={onPayDeposit} disabled={isLoading} className="bk-btn sm:flex-1">
-          {isLoading ? <span className="bk-spinner" aria-hidden="true" /> : <CreditCardIcon className="h-5 w-5" />}
-          {isLoading ? t('deposit.processing') : t('deposit.pay_deposit')}
-        </button>
-      </div>
+      <CancellationPolicy policy={policy} deposit date={date} time={time} />
+      <SatimNotice />
     </div>
   );
 };

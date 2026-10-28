@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { Service } from '../types';
+import { Service, depositAmount } from '../types';
 import { useServiceStore } from '../store';
 import ServiceOnlineSettings from './ServiceOnlineSettings';
 import { useProfileStore } from '../../profile/store';
@@ -58,6 +58,13 @@ const ServiceList: React.FC<ServiceListProps> = ({ services, onEdit, onDelete })
                     <p className="truncate font-medium text-gray-900 dark:text-gray-50">{service.name}</p>
                     {service.description && (
                       <p className="line-clamp-1 text-sm text-gray-500 dark:text-gray-400">{service.description}</p>
+                    )}
+                    {service.isOnline && depositAmount(service.price, service.deposit) > 0 && (
+                      <Badge tone="orange" className="mt-1">
+                        {service.deposit!.mode === 'percent'
+                          ? t('list.deposit_badge', { rule: `${service.deposit!.value} %`, amount: formatPrice(depositAmount(service.price, service.deposit), profile.currency) })
+                          : t('list.deposit_badge_fixed', { amount: formatPrice(depositAmount(service.price, service.deposit), profile.currency) })}
+                      </Badge>
                     )}
                     {usedProducts && (
                       <p className="line-clamp-1 text-xs text-gray-500 dark:text-gray-400">

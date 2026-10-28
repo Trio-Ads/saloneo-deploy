@@ -174,7 +174,8 @@
   "profile_form": {
     "tabs": {
       "profile": "Perfil",
-      "affiliation": "Afiliados"
+      "affiliation": "Afiliados",
+      "deposits": "Sinais"
     },
     "sections": {
       "login_info": "Dados de acesso",
@@ -602,5 +603,51 @@
   "profile_page": {
     "subtitle": "As suas informações, as do salão e as suas preferências",
     "loading": "A carregar o perfil…"
+  },
+  "deposits": {
+    "load_error": "Não foi possível carregar os seus sinais.",
+    "available": "Disponível",
+    "available_hint": "Transferido na próxima transferência",
+    "pending": "Pendente",
+    "pending_hint": "Marcações futuras",
+    "paid_out": "Já transferido",
+    "commission": "Comissão Saloneo",
+    "commission_hint": "{{percent}} % dos sinais cobrados",
+    "earned": "Total ganho",
+    "how_it_works": "Os sinais pagos online (CIB / Edahabia) são cobrados pela Saloneo através da SATIM e depois transferidos para a sua conta. Ficam disponíveis depois da marcação: serviço realizado, falta ou cancelamento tardio. Um cancelamento dentro do prazo é reembolsado automaticamente à cliente.",
+    "payout_title": "Dados de pagamento",
+    "payout_description": "A conta para onde a Saloneo transfere os seus sinais. Estas informações nunca são mostradas publicamente.",
+    "payout_missing": "Indique os seus dados para receber as transferências.",
+    "legal_name": "Titular da conta",
+    "legal_name_placeholder": "Nome ou denominação social exata",
+    "legal_name_required": "Indique o titular da conta.",
+    "method": "Tipo de conta",
+    "method_ccp": "CCP (Algérie Poste)",
+    "method_bank": "Banco",
+    "rip": "RIP (20 dígitos)",
+    "rib": "RIB (20 dígitos)",
+    "rip_help": "Identificador da conta postal: começa por 007 99999, visível no BaridiMob.",
+    "rib_help": "Identificador bancário de 20 dígitos, fornecido pelo seu banco.",
+    "rib_length": "O número deve ter exatamente 20 dígitos.",
+    "rib_ccp": "Um RIP CCP começa por 007 99999.",
+    "saved": "Guardado",
+    "save_error": "Não foi possível guardar. Verifique os dados e tente novamente.",
+    "save": "Guardar",
+    "list_title": "Sinais",
+    "list_description": "Cada sinal pago online e o que lhe aconteceu.",
+    "empty": "Ainda não há sinais",
+    "empty_body": "Ative um sinal num serviço (Serviços → editar) para o pedir nas marcações online.",
+    "status": {
+      "paid": "Pago · marcação futura",
+      "refund_pending": "Reembolso em curso",
+      "refunded": "Reembolsado",
+      "retained": "Retido",
+      "applied": "Deduzido do serviço",
+      "paid_out": "Transferido"
+    },
+    "payouts_title": "Transferências recebidas",
+    "payouts_empty": "Ainda não há transferências.",
+    "reference": "Ref. {{ref}}",
+    "coming_soon": "O pagamento do sinal online será ativado em breve — as suas definições estão guardadas."
   }
 }

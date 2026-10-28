@@ -9,7 +9,8 @@ import {
   XMarkIcon
 } from '@heroicons/react/24/outline';
 import api from '../../services/api';
-import { Badge, BadgeTone, EmptyState, IconButton, PageHeader, Panel, StatGroup } from '../../components/ui';
+import { Badge, BadgeTone, EmptyState, IconButton, PageHeader, Panel, Segmented, StatGroup } from '../../components/ui';
+import AdminDeposits from './AdminDeposits';
 
 const labelClass = 'block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5';
 import { useAdminStore } from './store';
@@ -189,6 +190,7 @@ const AdminPage: React.FC = () => {
   const [selectedUser, setSelectedUser] = useState<AdminUser | null>(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [sendingFeedback, setSendingFeedback] = useState<string | null>(null);
+  const [section, setSection] = useState<'salons' | 'deposits'>('salons');
 
   useEffect(() => {
     fetchUsers();
@@ -265,6 +267,15 @@ const AdminPage: React.FC = () => {
   return (
     <div className="py-6 sm:py-8">
       <PageHeader title={t('title')} subtitle={t('subtitle')} />
+
+      <Segmented
+        className="mb-6"
+        value={section}
+        onChange={setSection}
+        options={[{ value: 'salons', label: t('sections.salons') }, { value: 'deposits', label: t('sections.deposits') }]}
+      />
+
+      {section === 'deposits' ? <AdminDeposits /> : <>
 
       {platformStats && (
         <StatGroup
@@ -405,6 +416,8 @@ const AdminPage: React.FC = () => {
           </>
         )}
       </Panel>
+
+      </>}
 
       {showEditModal && selectedUser && (
         <SubscriptionEditor

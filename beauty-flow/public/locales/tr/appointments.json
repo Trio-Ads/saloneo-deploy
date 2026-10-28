@@ -19,7 +19,8 @@
     "completed": "Tamamlandı",
     "cancelled": "İptal edildi",
     "no_show": "Gelmedi",
-    "rescheduled": "Ertelendi"
+    "rescheduled": "Ertelendi",
+    "pending_payment": "Ödeme bekleniyor"
   },
   "form": {
     "client": "Müşteri",
@@ -241,7 +242,8 @@
     "overdue": "Tarihi geçti",
     "with": "{{name}} ile",
     "appointments_count_one": "{{count}} randevu",
-    "appointments_count_other": "{{count}} randevu"
+    "appointments_count_other": "{{count}} randevu",
+    "deposit_paid": "Kapora {{amount}}"
   },
   "calendar_view": {
     "today": "Bugün",
@@ -333,7 +335,16 @@
     "save_closures": "Kapanışları kaydet",
     "unsaved": "Kaydedilmemiş değişiklikler",
     "copy_to_open_days": "Tüm açık günlere kopyala",
-    "leave_confirm": "Kaydedilmemiş değişiklikler var. Yine de çıkılsın mı?"
+    "leave_confirm": "Kaydedilmemiş değişiklikler var. Yine de çıkılsın mı?",
+    "deposit_policy_hint": "Çevrim içi kapora: müşteri bu süreden önce iptal ederse otomatik iade edilir; sonrasında veya gelmezse kapora sizindir. Siz iptal ederseniz her zaman iade edilir.",
+    "late_reschedule": "Bu süreden sonra tek bir saat değişikliğine izin ver",
+    "late_reschedule_description": "Müşteri randevusunu bir kez daha değiştirebilir; kapora yeni saate aktarılır.",
+    "paid_status": "Kaporası ödenmiş rezervasyonun durumu",
+    "paid_status_description": "\"Onaylandı\": sizin yapmanız gereken bir şey yok. \"Planlandı\": onayı siz verirsiniz.",
+    "policy_text": "Müşterilere gösterilen not (isteğe bağlı)",
+    "policy_text_placeholder": "Örn.: gelemeyecekseniz lütfen en geç bir gün önce haber verin.",
+    "policy_text_help": "Rezervasyon adımında ve onay e-postasında gösterilir.",
+    "deposits_coming_soon": "Çevrim içi kapora ödemesi yakında etkinleştirilecek — ayarlarınız kaydedildi."
   },
   "bookingConfirmed": "Randevunuz onaylandı!",
   "bookingSuccessMessage": "Randevunuz başarıyla onaylandı",
@@ -418,5 +429,58 @@
     "force_confirm": "Yine de eklensin mi?",
     "hours_not_configured": "Çalışma saatleriniz ayarlanmadı: müşteriler varsayılan olarak cumartesi–perşembe 09:00–18:00 görüyor.",
     "configure_hours": "Çalışma saatlerini ayarla"
+  },
+  "waitlist": {
+    "tab": "Bekleme listesi",
+    "badge": "Bekleme listesi: {{count}}",
+    "title": "Bekleme listesi",
+    "description": "Uygun bir saat boşalır boşalmaz müşteriler kayıt sırasına göre bilgilendirilir.",
+    "empty_title": "Bekleme listesinde kimse yok",
+    "empty_body": "Bir gün tamamen dolduğunda müşterileriniz rezervasyon sayfanızdan kaydolabilir.",
+    "history": "Geçmiş (30 gün)",
+    "any_staff": "Fark etmez",
+    "time": {
+      "morning": "Sabah",
+      "afternoon": "Öğleden sonra",
+      "evening": "Akşam",
+      "any": "Gün boyu"
+    },
+    "status": {
+      "active": "Bekliyor",
+      "offered": "Teklif gönderildi",
+      "booked": "Rezervasyon yaptı",
+      "expired": "Süresi doldu",
+      "cancelled": "Çıkarıldı"
+    },
+    "outcome": {
+      "booked": "ayrıldı",
+      "expired": "süresi doldu",
+      "taken": "saat dolu",
+      "cancelled": "iptal edildi"
+    },
+    "offers_sent": "Teklifler: {{count}}",
+    "last_offer": "son: {{slot}}, gönderim {{sent}}",
+    "expires_at": "{{time}} saatinde sona erer",
+    "offer_slot": "Saat öner",
+    "offer_date": "Tarih",
+    "offer_time": "Saat",
+    "no_free_time": "Boş saat yok",
+    "send_offer": "Teklifi gönder",
+    "offer_error": "Teklif gönderilemedi.",
+    "call": "{{phone}} numarasını ara",
+    "remove": "Listeden çıkar",
+    "remove_confirm": "{{name}} bekleme listesinden çıkarılsın mı?",
+    "load_error": "Bekleme listesi yüklenemedi.",
+    "settings": {
+      "title": "Bekleme listesi",
+      "description": "Bir gün tamamen dolduğunda müşterileriniz bir saat boşalırsa haber verilmesini isteyebilir.",
+      "enabled": "Bekleme listesini etkinleştir",
+      "enabled_description": "Rezervasyon sayfanızda “Bekleme listesine katıl” düğmesi görünür.",
+      "offer_minutes": "Teklifin geçerlilik süresi",
+      "offer_minutes_description": "Bu süre dolunca saat sıradaki müşteriye önerilir.",
+      "hold": "Teklif süresince saati ayır",
+      "hold_description": "Önerilen saat, teklif bitene kadar o müşteriye ayrılır. Aksi halde ilk rezervasyon yapan alır.",
+      "save": "Kaydet"
+    }
   }
 }

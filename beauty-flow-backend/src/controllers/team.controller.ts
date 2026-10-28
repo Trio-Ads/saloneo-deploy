@@ -4,6 +4,7 @@ import { TeamMember } from '../models/Team';
 import { Service } from '../models/Service';
 import { AuthRequest } from '../middleware/auth';
 import { logger } from '../utils/logger';
+import { recheckSalon } from '../services/waitlist';
 
 export const getAllTeamMembers = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
@@ -96,6 +97,7 @@ export const createTeamMember = async (req: AuthRequest, res: Response): Promise
     await teamMember.save();
     await teamMember.populate('services', 'name category');
 
+    void recheckSalon(userId!);
     res.status(201).json({ teamMember });
   } catch (error) {
     logger.error('Create team member error:', error);
@@ -140,6 +142,8 @@ export const updateTeamMember = async (req: AuthRequest, res: Response): Promise
       return;
     }
 
+    // Absence removed, hours or services widened: the waitlist may get a slot
+    void recheckSalon(userId!);
     res.json({ teamMember });
   } catch (error) {
     logger.error('Update team member error:', error);
@@ -182,6 +186,7 @@ export const toggleTeamMemberStatus = async (req: AuthRequest, res: Response): P
     await teamMember.save();
     await teamMember.populate('services', 'name category');
 
+    if (teamMember.isActive) void recheckSalon(userId!);
     res.json({ teamMember });
   } catch (error) {
     logger.error('Toggle team member status error:', error);
@@ -216,6 +221,7 @@ export const updateWorkingHours = async (req: AuthRequest, res: Response): Promi
     await teamMember.save();
     await teamMember.populate('services', 'name category');
 
+    void recheckSalon(userId!);
     res.json({ teamMember });
   } catch (error) {
     logger.error('Update working hours error:', error);

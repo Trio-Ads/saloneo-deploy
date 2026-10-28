@@ -5,6 +5,7 @@ import { AuthRequest } from '../middleware/auth';
 import { logger } from '../utils/logger';
 import { clearDirectoryCache } from './directory.controller';
 import { findWilaya } from '../utils/wilayas';
+import { recheckSalon } from '../services/waitlist';
 import bcrypt from 'bcryptjs';
 
 export const getProfile = async (req: AuthRequest, res: Response): Promise<void> => {
@@ -101,6 +102,7 @@ export const updateProfile = async (req: AuthRequest, res: Response): Promise<vo
 
     logger.info('Profile updated successfully:', { userId, user: user.toObject() });
     clearDirectoryCache();
+    if (updates.businessHours !== undefined) void recheckSalon(userId!);
     res.json({ user });
   } catch (error) {
     logger.error('Update profile error:', error);
@@ -221,6 +223,7 @@ export const updateBusinessInfo = async (req: AuthRequest, res: Response): Promi
       return;
     }
 
+    if (businessHours) void recheckSalon(userId!);
     res.json({ user });
   } catch (error) {
     logger.error('Update business info error:', error);

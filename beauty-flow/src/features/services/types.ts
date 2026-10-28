@@ -40,6 +40,18 @@ export interface Service {
   isOnline?: boolean;
   /** settings.minimumBookingTime côté API, en heures — null = réglage du salon (Paramètres des rendez-vous) */
   minimumBookingTime?: number | null;
+  /** Acompte en ligne : pourcentage du prix ou montant fixe en DA (montant calculé par le serveur) */
+  deposit?: ServiceDeposit;
+}
+
+export interface ServiceDeposit { mode: 'none' | 'fixed' | 'percent'; value: number }
+
+/** Same rule as the server (services/deposits.ts depositAmount): percent rounded to 50 DA, min 500 DA, never above the price. */
+export const DEPOSIT_MIN = 500;
+export function depositAmount(price: number, d?: ServiceDeposit): number {
+  if (!d || price <= 0 || !(d.value > 0) || (d.mode !== 'fixed' && d.mode !== 'percent')) return 0;
+  const raw = d.mode === 'percent' ? Math.round((price * Math.min(100, d.value)) / 100 / 50) * 50 : Math.round(d.value);
+  return Math.min(price, Math.max(DEPOSIT_MIN, raw));
 }
 
 export type ServiceFormData = Omit<Service, 'id' | 'isActive'> & { id?: string };

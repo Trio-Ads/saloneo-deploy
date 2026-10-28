@@ -18,6 +18,8 @@ export const PageSpinner = () => (
 );
 
 const apiError = (err: any, fallback: string) => err?.response?.data?.error || fallback;
+/** Salon-policy refusals the page explains itself (see policyView in the API) */
+const POLICY_CODES = ['CANCELLATION_DISABLED', 'CANCELLATION_DEADLINE_PASSED', 'RESCHEDULE_DEADLINE_PASSED'];
 
 export const PublicAppointmentManager: React.FC = () => {
   const { token } = useParams<{ token: string }>();
@@ -48,6 +50,8 @@ export const PublicAppointmentManager: React.FC = () => {
 
   const salon = appointment?.salon;
   const template = salonTemplate(salon?.theme);
+  const policy = appointment?.policy;
+  const currency = salon?.settings?.currency || 'DZD';
 
   const switchMode = (next: typeof mode) => {
     setMode(next);
@@ -70,7 +74,9 @@ export const PublicAppointmentManager: React.FC = () => {
         setNewTime(null);
         setRefreshKey((k) => k + 1);
       }
-      setError(code ? t(`errors:availability.${code}`) : apiError(err, t('manage.modify_error')));
+      const policyCode = (err as any)?.response?.data?.code;
+      setError(code ? t(`errors:availability.${code}`)
+        : POLICY_CODES.includes(policyCode) ? t(`manage.blocked.${policyCode}`) : apiError(err, t('manage.modify_error')));
     } finally {
       setActionLoading(false);
     }
@@ -80,12 +86,20 @@ export const PublicAppointmentManager: React.FC = () => {
     if (!token) return;
     try {
       setActionLoading(true);
-      await publicAPI.cancelAppointmentByModificationToken(token, { reason: cancellationReason.trim() || undefined });
-      setAppointment({ ...appointment, status: 'cancelled', canModify: false });
+      // A late cancellation keeps the deposit: the client saw it on the button, so it is acknowledged
+      const { data } = await publicAPI.cancelAppointmentByModificationToken(token, {
+        reason: cancellationReason.trim() || undefined,
+        ...(policy?.cancelOutcome === 'retain' ? { acknowledgeRetention: true } : {}),
+      });
+      setAppointment({ ...appointment, status: 'cancelled', canModify: false, deposit: data.deposit ? { ...appointment.deposit, ...data.deposit } : appointment.deposit });
       switchMode('view');
-      setNotice(t('manage.cancelled'));
-    } catch (err) {
-      setError(apiError(err, t('manage.cancel_error')));
+      const dep = data.deposit?.status;
+      setNotice(dep === 'refunded' || dep === 'refund_pending' || dep === 'retained'
+        ? t(`manage.cancelled_${dep}`, { amount: formatPrice(data.deposit.amount, currency) })
+        : t('manage.cancelled'));
+    } catch (err: any) {
+      const policyCode = err?.response?.data?.code;
+      setError(POLICY_CODES.includes(policyCode) ? t(`manage.blocked.${policyCode}`) : apiError(err, t('manage.cancel_error')));
     } finally {
       setActionLoading(false);
     }
@@ -114,6 +128,16 @@ export const PublicAppointmentManager: React.FC = () => {
   const loc = dateLocale(i18n.language);
   const canModify = appointment.canModify !== false && appointment.status !== 'cancelled';
   const salonHref = salon?.slug ? `/salon/${salon.slug}` : null;
+  // Salon policy (free-cancellation deadline, late reschedule once); older API responses have none → allowed
+  const canCancel = canModify && policy?.canCancel !== false;
+  const canReschedule = canModify && policy?.canReschedule !== false;
+  const deposit = appointment.deposit;
+  const depositAmount = deposit ? formatPrice(deposit.amount, currency) : '';
+  const freeUntil = policy?.freeUntil
+    ? { date: format(new Date(`${policy.freeUntil.date}T00:00`), 'EEEE d MMMM', { locale: loc }), time: policy.freeUntil.time }
+    : null;
+  const blocked = canModify && policy && (!policy.canCancel || !policy.canReschedule)
+    ? [policy.cancelBlocked, policy.rescheduleBlocked].filter(Boolean) as string[] : [];
 
   return shell(
     <>
@@ -163,23 +187,54 @@ export const PublicAppointmentManager: React.FC = () => {
             <div className="bk-row"><span>{t('booking.summary.duration')}</span><span>{formatDuration(appointment.duration)}</span></div>
           )}
           {appointment.price > 0 && (
-            <div className="bk-row"><span>{t('booking.summary.price')}</span><span className="bk-num">{formatPrice(appointment.price, salon?.settings?.currency || 'DZD')}</span></div>
+            <div className="bk-row"><span>{t('booking.summary.price')}</span><span className="bk-num">{formatPrice(appointment.price, currency)}</span></div>
+          )}
+          {deposit && (
+            <div className="bk-row items-center">
+              <span>{t('manage.deposit')}</span>
+              <span className="inline-flex flex-wrap items-center justify-end gap-2">
+                <span className="bk-num">{depositAmount}</span>
+                {deposit.status !== 'paid' && <Badge tone={deposit.status === 'retained' ? 'amber' : 'neutral'}>{t(`manage.deposit_status.${deposit.status}`)}</Badge>}
+              </span>
+            </div>
+          )}
+          {deposit?.status === 'paid' && appointment.price > deposit.amount && (
+            <div className="bk-row"><span>{t('deposit.remaining')}</span><span className="bk-num">{formatPrice(appointment.price - deposit.amount, currency)}</span></div>
           )}
           {salon?.address && (
             <div className="bk-row"><span>{t('booking.summary.where')}</span><span>{salon.address}</span></div>
           )}
         </article>
 
-        {canModify && mode === 'view' && (
+        {canModify && mode === 'view' && policy?.isFree && policy.allowCancellation && freeUntil && (
+          <p className="bk-muted text-sm">
+            {t(deposit?.status === 'paid' ? 'manage.free_until_deposit' : 'manage.free_until', freeUntil)}
+          </p>
+        )}
+        {mode === 'view' && blocked.length > 0 && (
+          <div className="bk-notice" role="status" style={{ background: 'var(--bk-surface)', boxShadow: 'inset 0 0 0 1px var(--bk-border)' }}>
+            <ExclamationCircleIcon className="h-5 w-5 shrink-0 bk-muted" />
+            <div className="space-y-1">
+              {blocked.map((code) => <p key={code}>{t(`manage.blocked.${code}`)}</p>)}
+              {salon?.publicPhone && <a href={`tel:${salon.publicPhone}`} className="font-medium underline underline-offset-2">{t('manage.call_salon', { phone: salon.publicPhone })}</a>}
+            </div>
+          </div>
+        )}
+        {canModify && mode === 'view' && (canReschedule || canCancel) && (
           <div className="grid gap-3">
-            <button type="button" className="bk-btn" onClick={() => switchMode('modify')}>{t('manage.modify')}</button>
-            <button type="button" className="bk-btn-danger" onClick={() => switchMode('cancel')}>{t('manage.cancel')}</button>
+            {canReschedule && <button type="button" className="bk-btn" onClick={() => switchMode('modify')}>{t('manage.modify')}</button>}
+            {canCancel && <button type="button" className="bk-btn-danger" onClick={() => switchMode('cancel')}>{t('manage.cancel')}</button>}
           </div>
         )}
 
-        {canModify && mode === 'modify' && (
+        {canReschedule && mode === 'modify' && (
           <section className="bk-card p-4 sm:p-5 space-y-5 bk-step-fwd" aria-labelledby="bk-modify-title">
             <h2 id="bk-modify-title" className="bk-h text-lg">{t('manage.new_slot')}</h2>
+            {(policy?.lateRescheduleNext || deposit?.status === 'paid') && (
+              <p className="bk-muted text-sm">
+                {[policy?.lateRescheduleNext ? t('manage.reschedule_late') : '', deposit?.status === 'paid' ? t('manage.deposit_carries') : ''].filter(Boolean).join(' ')}
+              </p>
+            )}
             <DateTimeSelection
               serviceId={String(appointment.serviceId)}
               selectedDate={newDate || undefined}
@@ -206,12 +261,22 @@ export const PublicAppointmentManager: React.FC = () => {
           </section>
         )}
 
-        {canModify && mode === 'cancel' && (
+        {canCancel && mode === 'cancel' && (
           <section className="bk-card p-4 sm:p-5 space-y-4 bk-step-fwd" aria-labelledby="bk-cancel-title">
             <div>
               <h2 id="bk-cancel-title" className="bk-h text-lg">{t('manage.cancel_title')}</h2>
               <p className="bk-muted text-sm mt-1">{t('manage.cancel_body')}</p>
             </div>
+            {/* What happens to the deposit, said before the client confirms */}
+            {policy?.cancelOutcome === 'refund' && (
+              <div className="bk-notice is-success" role="status"><CheckCircleIcon className="h-5 w-5 shrink-0" /><span>{t('manage.cancel_refund', { amount: depositAmount })}</span></div>
+            )}
+            {policy?.cancelOutcome === 'retain' && (
+              <div className="bk-notice is-error" role="alert">
+                <ExclamationCircleIcon className="h-5 w-5 shrink-0" />
+                <span>{t('manage.cancel_retain', { amount: depositAmount, ...(freeUntil || { date: '', time: '' }) })}</span>
+              </div>
+            )}
             <div>
               <label htmlFor="bk-cancel-reason" className="bk-label">{t('manage.cancel_reason')}</label>
               <textarea id="bk-cancel-reason" rows={3} maxLength={500} className="bk-field resize-none"
@@ -224,7 +289,7 @@ export const PublicAppointmentManager: React.FC = () => {
               </button>
               <button type="button" className="bk-btn-danger is-solid sm:flex-1" onClick={handleCancel} disabled={actionLoading}>
                 {actionLoading && <span className="bk-spinner" aria-hidden="true" />}
-                {t('manage.confirm_cancel')}
+                {policy?.cancelOutcome === 'retain' ? t('manage.confirm_cancel_retain') : t('manage.confirm_cancel')}
               </button>
             </div>
           </section>

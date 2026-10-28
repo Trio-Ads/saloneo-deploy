@@ -3,6 +3,8 @@ import { body } from 'express-validator';
 import * as publicController from '../controllers/public.controller';
 import { getPublicReviews } from '../controllers/review.controller';
 import * as directoryController from '../controllers/directory.controller';
+import rateLimit from 'express-rate-limit';
+import { confirmDeposit, retryDeposit } from '../controllers/deposit.controller';
 
 const router = Router();
 
@@ -108,6 +110,12 @@ router.post(
   publicController.cancelPublicAppointment
 );
 
+
+// Online deposit: SATIM return page checks the payment (server-side) and may start a new attempt.
+// Own limiter on top of the global one: these call the payment gateway.
+const paymentLimiter = rateLimit({ windowMs: 10 * 60 * 1000, max: 60, standardHeaders: true, legacyHeaders: false });
+router.post('/deposits/:id/confirm', paymentLimiter, [body('slug').isString().trim().notEmpty()], confirmDeposit);
+router.post('/deposits/:id/retry', paymentLimiter, [body('slug').isString().trim().notEmpty()], retryDeposit);
 
 // Get public reviews by salon slug
 router.get('/reviews/:slug', getPublicReviews);

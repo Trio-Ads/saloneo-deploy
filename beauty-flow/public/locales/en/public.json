@@ -12,7 +12,8 @@
       "rescheduled": "Rescheduled",
       "completed": "Completed",
       "cancelled": "Cancelled",
-      "no_show": "No-show"
+      "no_show": "No-show",
+      "pending_payment": "Awaiting payment"
     },
     "modify": "Change time",
     "cancel": "Cancel appointment",
@@ -28,7 +29,31 @@
     "confirm_cancel": "Yes, cancel",
     "cancelled": "Your appointment has been cancelled.",
     "cancel_error": "The cancellation didn't go through. Try again or contact the salon.",
-    "book_again": "Book again"
+    "book_again": "Book again",
+    "deposit": "Deposit paid",
+    "deposit_status": {
+      "paid": "Paid",
+      "refund_pending": "Refund in progress",
+      "refunded": "Refunded",
+      "retained": "Kept by the salon",
+      "applied": "Deducted"
+    },
+    "free_until": "Free cancellation until {{date}} at {{time}}.",
+    "free_until_deposit": "Free cancellation until {{date}} at {{time}}: your deposit would be refunded.",
+    "blocked": {
+      "CANCELLATION_DISABLED": "This salon does not offer online cancellation: contact it directly.",
+      "CANCELLATION_DEADLINE_PASSED": "The online cancellation deadline has passed: contact the salon.",
+      "RESCHEDULE_DEADLINE_PASSED": "The deadline to move this appointment online has passed: contact the salon."
+    },
+    "call_salon": "Call the salon · {{phone}}",
+    "reschedule_late": "The deadline has passed: you can still move this appointment one time.",
+    "deposit_carries": "Your deposit carries over to the new slot.",
+    "cancel_refund": "Free cancellation: your {{amount}} deposit will be refunded to your card.",
+    "cancel_retain": "The free cancellation deadline ({{date}} at {{time}}) has passed: the salon will keep the {{amount}} deposit.",
+    "confirm_cancel_retain": "Cancel and leave the deposit",
+    "cancelled_refunded": "Appointment cancelled. Your {{amount}} deposit has been refunded.",
+    "cancelled_refund_pending": "Appointment cancelled. The refund of your {{amount}} deposit is being processed.",
+    "cancelled_retained": "Appointment cancelled. The salon keeps the {{amount}} deposit."
   },
   "list": {
     "invalid_search": "Incomplete search: enter an email, a phone number or your full name.",
@@ -357,5 +382,127 @@
     "review_count_one": "{{count}} review",
     "review_count_other": "{{count}} reviews",
     "rating_row": "{{stars}} stars: {{n}} reviews"
+  },
+  "waitlist": {
+    "cta": {
+      "question": "No time that suits you?",
+      "join": "Join the waitlist"
+    },
+    "form": {
+      "title": "Waitlist",
+      "intro": "Tell us when you're free: as soon as a slot opens up, we'll send you a link to book it.",
+      "dates": "When you're available",
+      "from": "From",
+      "to": "To",
+      "dates_hint": "Up to {{count}} days.",
+      "when": "Time of day",
+      "email": "Email (optional)",
+      "consent": "I agree to be contacted by text or email when a slot opens up.",
+      "submit": "Join the waitlist",
+      "back_to_slots": "Back to times"
+    },
+    "time": {
+      "morning": "Morning",
+      "afternoon": "Afternoon",
+      "evening": "Evening",
+      "any": "Any time"
+    },
+    "done": {
+      "title": "You're on the waitlist",
+      "updated": "Your request has been updated",
+      "body": "We'll let you know as soon as a slot opens up between {{from}} and {{to}}.",
+      "offer_now": "Available now",
+      "manage_link": "Link to manage your request",
+      "manage_hint": "Keep this link: you can use it to leave the waitlist."
+    },
+    "offer": {
+      "book": "Book this slot",
+      "expired": "This offer has expired: the slot went to the next person. You're still on the waitlist.",
+      "taken": "Someone else just booked this slot. You're still on the waitlist.",
+      "booked": "This slot is already booked in your name.",
+      "cancelled": "This waitlist request was cancelled."
+    },
+    "manage": {
+      "title": "My waitlist request",
+      "status": {
+        "active": "You're on the waitlist. We'll let you know as soon as a slot opens up.",
+        "offered": "A slot is waiting for you.",
+        "booked": "You've booked: you're no longer on the waitlist.",
+        "expired": "This request has ended: the dates have passed.",
+        "cancelled": "You've left the waitlist."
+      },
+      "offer_title": "Slot offered",
+      "offer_until": "Book it before {{time}}.",
+      "leave": "Leave the waitlist",
+      "leave_confirm": "Leave the waitlist?"
+    },
+    "errors": {
+      "INVALID_RANGE": "Pick a period of 1 to 14 days, starting today or later.",
+      "INVALID_PHONE": "This number looks incomplete, please check it.",
+      "WAITLIST_LIMIT": "You're already on 3 waitlists at this salon.",
+      "WAITLIST_DISABLED": "This salon doesn't use a waitlist.",
+      "SERVICE_UNAVAILABLE": "This service can't be booked online.",
+      "STAFF_UNAVAILABLE": "This team member doesn't offer this service.",
+      "RATE_LIMITED": "Too many requests. Try again in a few minutes.",
+      "consent": "Agree to be contacted so we can send you freed-up slots.",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
+  "deposit": {
+    "step": "Deposit",
+    "title": "Deposit to confirm",
+    "subtitle": "Your slot is held for {{minutes}} minutes while you pay.",
+    "service_price": "Service price",
+    "pay_now": "Deposit to pay now",
+    "remaining": "Left to pay at the salon",
+    "pay_button": "Pay {{amount}} by card",
+    "continue": "Continue to deposit",
+    "redirecting": "Redirecting to SATIM…",
+    "secure": "Secure payment by SATIM",
+    "cards": "CIB or Edahabia card",
+    "support": "A question about your payment? SATIM support: 3020.",
+    "unavailable": "Online payment is temporarily unavailable. Try again in a few minutes or contact the salon.",
+    "policy": {
+      "title": "Cancellation policy",
+      "free_until": "Free cancellation until {{date}} at {{time}}: your deposit is refunded.",
+      "free_until_no_deposit": "Free online cancellation until {{date}} at {{time}}.",
+      "free_hours": "Free cancellation up to {{count}} h before the appointment: your deposit is refunded.",
+      "free_hours_no_deposit": "Free online cancellation up to {{count}} h before the appointment.",
+      "late": "After that, or if you do not show up, the salon keeps the deposit.",
+      "late_no_deposit": "After that, contact the salon to cancel.",
+      "reschedule_once": "After that, you can still move your appointment once; the deposit carries over.",
+      "reschedule_once_no_deposit": "After that, you can still move your appointment once.",
+      "no_online_cancel": "This salon does not offer online cancellation: contact it directly.",
+      "salon_note": "Note from the salon"
+    },
+    "return": {
+      "checking": "Checking your payment with SATIM…",
+      "title_error": "Payment not found",
+      "not_found": "This payment link is not valid.",
+      "verify_error": "We cannot check your payment right now. Your slot stays held for a few minutes.",
+      "verify_again": "Check again",
+      "back_to_salon": "Back to the salon",
+      "title_paid": "Appointment confirmed",
+      "paid": "Payment accepted. Your appointment is confirmed and a confirmation email is on its way.",
+      "receipt": "Payment receipt",
+      "order": "Order number",
+      "date": "Date and time",
+      "card": "Card",
+      "authorization": "Authorization number",
+      "amount": "Amount paid",
+      "disclaimer": "Transaction processed by SATIM. Keep this information.",
+      "title_refunded": "Slot no longer available",
+      "refunded": "Your payment arrived after the time limit and the slot was taken in the meantime. Your {{amount}} deposit is refunded automatically.",
+      "other_slot": "Choose another slot",
+      "title_expired": "Payment time limit passed",
+      "expired": "The payment was not completed in time, so the slot was released. You can choose a new one.",
+      "title_failed": "Payment not completed",
+      "failed": "The payment did not go through.",
+      "satim_message": "Reason: {{message}}",
+      "hold_left_one": "Your slot stays held for {{count}} more minute.",
+      "hold_left_other": "Your slot stays held for {{count}} more minutes.",
+      "retry": "Try the payment again",
+      "too_many": "Too many payment attempts. Choose a new slot or contact the salon."
+    }
   }
 }

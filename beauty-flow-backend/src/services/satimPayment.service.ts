@@ -239,10 +239,80 @@ export class SatimPaymentService {
     }
   }
 
+  /* ── Generic payments (online deposits) ─────────────────────────────────────
+   * Amounts in centimes (DA × 100). With SATIM_MOCK=1 outside production, a local mock gateway
+   * (see satimMock below and /api/payment/satim-mock) stands in for SATIM so the flow runs end to end.
+   */
+
+  /** register.do for any payment; returns the SATIM order and the payment page URL. */
+  async registerPayment(p: {
+    orderNumber: string; amount: number; returnUrl: string; failUrl: string;
+    description: string; udf1: string; udf2?: string; language?: string;
+  }): Promise<{ orderId: string; formUrl: string }> {
+    const language = ['AR', 'FR', 'EN'].includes(String(p.language).toUpperCase()) ? String(p.language).toUpperCase() : 'FR';
+    if (satimMockEnabled()) return satimMock.register(p);
+    const params = new URLSearchParams({
+      userName: this.config.username,
+      password: this.config.password,
+      orderNumber: p.orderNumber,
+      amount: String(Math.round(p.amount)),
+      currency: '012',
+      returnUrl: p.returnUrl,
+      failUrl: p.failUrl,
+      description: p.description.slice(0, 99),
+      language,
+      jsonParams: JSON.stringify({ force_terminal_id: this.config.terminalId, udf1: p.udf1, ...(p.udf2 ? { udf2: p.udf2 } : {}) }),
+    });
+    const { data } = await this.axiosInstance.get('/payment/rest/register.do', { params });
+    const code = String(data?.errorCode ?? data?.ErrorCode ?? '0');
+    if (code !== '0' || !data?.orderId || !data?.formUrl) {
+      logger.error('SATIM register error', { orderNumber: p.orderNumber, errorCode: code, errorMessage: data?.errorMessage ?? data?.ErrorMessage });
+      throw new Error(`SATIM register failed (${code})`);
+    }
+    logger.info('SATIM payment registered', { orderNumber: p.orderNumber, orderId: data.orderId });
+    return { orderId: data.orderId, formUrl: data.formUrl };
+  }
+
+  /**
+   * confirmOrder.do, normalized. Safe to call repeatedly: an already-confirmed order (ErrorCode 2)
+   * still reports OrderStatus 2. Only the last 4 card digits are kept; nothing card-related is logged.
+   */
+  async checkPayment(orderId: string): Promise<{ paid: boolean; status: number; message?: string; cardLast4?: string; approvalCode?: string }> {
+    if (satimMockEnabled()) return satimMock.check(orderId);
+    const params = new URLSearchParams({ userName: this.config.username, password: this.config.password, orderId, language: 'FR' });
+    const { data } = await this.axiosInstance.get('/payment/rest/confirmOrder.do', { params });
+    const status = Number(data?.OrderStatus ?? data?.orderStatus ?? -1);
+    const paid = status === SatimOrderStatus.AUTHORIZED || status === SatimOrderStatus.PRE_AUTHORIZED;
+    const pan = String(data?.Pan ?? data?.pan ?? '');
+    logger.info('SATIM payment checked', { orderId, status, paid, errorCode: data?.ErrorCode ?? data?.errorCode, actionCode: data?.actionCode });
+    return {
+      paid,
+      status,
+      message: data?.params?.respCode_desc || data?.actionCodeDescription || data?.ErrorMessage || data?.errorMessage,
+      cardLast4: pan.length >= 4 ? pan.slice(-4) : undefined,
+      approvalCode: data?.approvalCode,
+    };
+  }
+
+  /** refund.do, normalized (never throws on a gateway refusal; network errors do throw). */
+  async refundPayment(orderId: string, amount: number): Promise<{ ok: boolean; message?: string }> {
+    if (satimMockEnabled()) return satimMock.refund(orderId, amount);
+    const params = new URLSearchParams({
+      userName: this.config.username, password: this.config.password, orderId,
+      amount: String(Math.round(amount)), currency: '012', language: 'FR',
+    });
+    const { data } = await this.axiosInstance.get('/payment/rest/refund.do', { params });
+    const code = String(data?.errorCode ?? data?.ErrorCode ?? '');
+    const ok = code === SatimErrorCode.SUCCESS;
+    logger[ok ? 'info' : 'error']('SATIM refund', { orderId, errorCode: code, errorMessage: data?.errorMessage ?? data?.ErrorMessage });
+    return { ok, message: data?.errorMessage ?? data?.ErrorMessage };
+  }
+
   /**
    * Vérifie si le service est correctement configuré
    */
   isConfigured(): boolean {
+    if (satimMockEnabled()) return true;
     return !!(
       this.config.username &&
       this.config.password &&
@@ -271,6 +341,51 @@ export class SatimPaymentService {
     };
   }
 }
+
+/* ── Dev-only mock gateway ─────────────────────────────────────────────────── */
+
+/** Read at call time (dotenv may load after imports). Never active in production. */
+export const satimMockEnabled = () => process.env.SATIM_MOCK === '1' && process.env.NODE_ENV !== 'production';
+
+type MockOrder = { amount: number; orderNumber: string; description: string; returnUrl: string; failUrl: string; status: number; refundFails?: boolean; refunded?: boolean };
+// ponytail: in-memory, orders vanish on API restart (a pending payment then reads as unpaid) — fine for local testing
+const mockOrders = new Map<string, MockOrder>();
+
+export const satimMock = {
+  register(p: { orderNumber: string; amount: number; returnUrl: string; failUrl: string; description: string }) {
+    const orderId = `mock-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+    mockOrders.set(orderId, { amount: p.amount, orderNumber: p.orderNumber, description: p.description, returnUrl: p.returnUrl, failUrl: p.failUrl, status: SatimOrderStatus.REGISTERED });
+    const base = process.env.API_PUBLIC_URL || `http://localhost:${process.env.PORT || 5000}`;
+    return { orderId, formUrl: `${base}/api/payment/satim-mock/pay?orderId=${orderId}` };
+  },
+  check(orderId: string) {
+    const o = mockOrders.get(orderId);
+    const status = o ? (o.refunded ? SatimOrderStatus.REFUNDED : o.status) : SatimOrderStatus.REGISTERED;
+    const paid = status === SatimOrderStatus.AUTHORIZED;
+    return {
+      paid, status,
+      message: status === SatimOrderStatus.AUTHORIZATION_REJECTED ? 'Solde carte insuffisant' : paid ? 'Votre paiement a été accepté' : undefined,
+      cardLast4: paid ? '1011' : undefined,
+      approvalCode: paid ? '123456' : undefined,
+    };
+  },
+  refund(orderId: string, _amount: number) {
+    const o = mockOrders.get(orderId);
+    if (!o || o.status !== SatimOrderStatus.AUTHORIZED || o.refundFails) return { ok: false, message: 'Remboursement refusé (simulation)' };
+    o.refunded = true;
+    return { ok: true };
+  },
+  get: (orderId: string) => mockOrders.get(orderId),
+  /** success | success_refund_fails | declined | cancel → where the browser goes next (like SATIM). */
+  act(orderId: string, action: string): string | null {
+    const o = mockOrders.get(orderId);
+    if (!o) return null;
+    o.status = action.startsWith('success') ? SatimOrderStatus.AUTHORIZED : action === 'declined' ? SatimOrderStatus.AUTHORIZATION_REJECTED : SatimOrderStatus.REGISTERED;
+    o.refundFails = action === 'success_refund_fails';
+    const url = action.startsWith('success') ? o.returnUrl : o.failUrl;
+    return `${url}${url.includes('?') ? '&' : '?'}orderId=${encodeURIComponent(orderId)}`;
+  },
+};
 
 // Export une instance singleton
 export const satimPaymentService = new SatimPaymentService();

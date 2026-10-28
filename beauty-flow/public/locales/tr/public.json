@@ -12,7 +12,8 @@
       "rescheduled": "Ertelendi",
       "completed": "Tamamlandı",
       "cancelled": "İptal edildi",
-      "no_show": "Gelmedi"
+      "no_show": "Gelmedi",
+      "pending_payment": "Ödeme bekleniyor"
     },
     "modify": "Saati değiştir",
     "cancel": "Randevuyu iptal et",
@@ -28,7 +29,31 @@
     "confirm_cancel": "Evet, iptal et",
     "cancelled": "Randevunuz iptal edildi.",
     "cancel_error": "İptal gerçekleştirilemedi. Tekrar deneyin veya salonla iletişime geçin.",
-    "book_again": "Yeniden randevu al"
+    "book_again": "Yeniden randevu al",
+    "deposit": "Ödenen kapora",
+    "deposit_status": {
+      "paid": "Ödendi",
+      "refund_pending": "İade işleniyor",
+      "refunded": "İade edildi",
+      "retained": "Salonda kaldı",
+      "applied": "Düşüldü"
+    },
+    "free_until": "{{date}} saat {{time}}'a kadar ücretsiz iptal.",
+    "free_until_deposit": "{{date}} saat {{time}}'a kadar ücretsiz iptal: kaporanız iade edilir.",
+    "blocked": {
+      "CANCELLATION_DISABLED": "Bu salon çevrim içi iptal sunmuyor: doğrudan salonla iletişime geçin.",
+      "CANCELLATION_DEADLINE_PASSED": "Çevrim içi iptal süresi geçti: salonla iletişime geçin.",
+      "RESCHEDULE_DEADLINE_PASSED": "Bu randevuyu çevrim içi değiştirme süresi geçti: salonla iletişime geçin."
+    },
+    "call_salon": "Salonu ara · {{phone}}",
+    "reschedule_late": "Süre geçti: bu randevuyu yalnızca bir kez daha değiştirebilirsiniz.",
+    "deposit_carries": "Kaporanız yeni saate aktarılır.",
+    "cancel_refund": "Ücretsiz iptal: {{amount}} kaporanız kartınıza iade edilecek.",
+    "cancel_retain": "Ücretsiz iptal süresi ({{date}} saat {{time}}) geçti: {{amount}} kapora salonda kalacak.",
+    "confirm_cancel_retain": "İptal et ve kaporayı bırak",
+    "cancelled_refunded": "Randevu iptal edildi. {{amount}} kaporanız iade edildi.",
+    "cancelled_refund_pending": "Randevu iptal edildi. {{amount}} kaporanızın iadesi işleniyor.",
+    "cancelled_retained": "Randevu iptal edildi. {{amount}} kapora salonda kalıyor."
   },
   "list": {
     "invalid_search": "Eksik arama: bir e-posta, telefon veya adınızı ve soyadınızı girin.",
@@ -357,5 +382,127 @@
     "review_count_one": "{{count}} yorum",
     "review_count_other": "{{count}} yorum",
     "rating_row": "{{stars}} yıldız: {{n}} yorum"
+  },
+  "waitlist": {
+    "cta": {
+      "question": "Size uygun saat yok mu?",
+      "join": "Bekleme listesine katıl"
+    },
+    "form": {
+      "title": "Bekleme listesi",
+      "intro": "Ne zaman müsait olduğunuzu söyleyin: bir saat boşalır boşalmaz rezervasyon bağlantısını size gönderelim.",
+      "dates": "Müsait olduğunuz günler",
+      "from": "Başlangıç",
+      "to": "Bitiş",
+      "dates_hint": "En fazla {{count}} gün.",
+      "when": "Günün zamanı",
+      "email": "E-posta (isteğe bağlı)",
+      "consent": "Bir saat boşaldığında SMS veya e-posta ile bilgilendirilmeyi kabul ediyorum.",
+      "submit": "Listeye katıl",
+      "back_to_slots": "Saatlere dön"
+    },
+    "time": {
+      "morning": "Sabah",
+      "afternoon": "Öğleden sonra",
+      "evening": "Akşam",
+      "any": "Gün boyu"
+    },
+    "done": {
+      "title": "Bekleme listesindesiniz",
+      "updated": "Talebiniz güncellendi",
+      "body": "{{from}} ile {{to}} arasında bir saat boşalır boşalmaz size haber vereceğiz.",
+      "offer_now": "Şu an müsait",
+      "manage_link": "Talebinizi yönetme bağlantısı",
+      "manage_hint": "Bu bağlantıyı saklayın: bekleme listesinden çıkmanızı sağlar."
+    },
+    "offer": {
+      "book": "Bu saati ayır",
+      "expired": "Bu teklifin süresi doldu: saat sıradaki kişiye önerildi. Bekleme listesinde kalmaya devam ediyorsunuz.",
+      "taken": "Bu saat az önce başka biri tarafından ayrıldı. Bekleme listesinde kalmaya devam ediyorsunuz.",
+      "booked": "Bu saat zaten sizin adınıza ayrıldı.",
+      "cancelled": "Bu bekleme listesi talebi iptal edildi."
+    },
+    "manage": {
+      "title": "Bekleme listesi talebim",
+      "status": {
+        "active": "Bekleme listesindesiniz. Bir saat boşalır boşalmaz size haber vereceğiz.",
+        "offered": "Size bir saat önerildi.",
+        "booked": "Rezervasyon yaptınız: artık bekleme listesinde değilsiniz.",
+        "expired": "Bu talep sona erdi: tarihler geçti.",
+        "cancelled": "Bekleme listesinden çıktınız."
+      },
+      "offer_title": "Önerilen saat",
+      "offer_until": "{{time}} saatinden önce ayırın.",
+      "leave": "Bekleme listesinden çık",
+      "leave_confirm": "Bekleme listesinden çıkılsın mı?"
+    },
+    "errors": {
+      "INVALID_RANGE": "Bugünden itibaren 1 ile 14 gün arasında bir dönem seçin.",
+      "INVALID_PHONE": "Bu numara eksik görünüyor, lütfen kontrol edin.",
+      "WAITLIST_LIMIT": "Bu salonda zaten 3 bekleme listesindesiniz.",
+      "WAITLIST_DISABLED": "Bu salon bekleme listesi kullanmıyor.",
+      "SERVICE_UNAVAILABLE": "Bu hizmet çevrim içi ayrılamaz.",
+      "STAFF_UNAVAILABLE": "Bu ekip üyesi bu hizmeti sunmuyor.",
+      "RATE_LIMITED": "Çok fazla istek. Birkaç dakika sonra tekrar deneyin.",
+      "consent": "Boşalan saatleri alabilmeniz için iletişime geçilmesini kabul edin.",
+      "generic": "Bir hata oluştu. Tekrar deneyin."
+    }
+  },
+  "deposit": {
+    "step": "Kapora",
+    "title": "Onay için kapora",
+    "subtitle": "Ödeme yaparken saatiniz {{minutes}} dakika boyunca ayrılır.",
+    "service_price": "Hizmet ücreti",
+    "pay_now": "Şimdi ödenecek kapora",
+    "remaining": "Salonda ödenecek kalan",
+    "pay_button": "{{amount}} kartla öde",
+    "continue": "Kaporaya devam et",
+    "redirecting": "SATIM'e yönlendiriliyor…",
+    "secure": "SATIM ile güvenli ödeme",
+    "cards": "CIB veya Edahabia kartı",
+    "support": "Ödemenizle ilgili bir sorunuz mu var? SATIM destek: 3020.",
+    "unavailable": "Çevrim içi ödeme şu anda kullanılamıyor. Birkaç dakika sonra tekrar deneyin veya salonla iletişime geçin.",
+    "policy": {
+      "title": "İptal politikası",
+      "free_until": "{{date}} saat {{time}}'a kadar ücretsiz iptal: kapora iade edilir.",
+      "free_until_no_deposit": "{{date}} saat {{time}}'a kadar çevrim içi ücretsiz iptal.",
+      "free_hours": "Randevudan {{count}} saat öncesine kadar ücretsiz iptal: kapora iade edilir.",
+      "free_hours_no_deposit": "Randevudan {{count}} saat öncesine kadar çevrim içi ücretsiz iptal.",
+      "late": "Bu süreden sonra veya gelmezseniz kapora salonda kalır.",
+      "late_no_deposit": "Bu süreden sonra iptal için salonla iletişime geçin.",
+      "reschedule_once": "Bu süreden sonra randevunuzu bir kez daha değiştirebilirsiniz; kapora yeni saate aktarılır.",
+      "reschedule_once_no_deposit": "Bu süreden sonra randevunuzu bir kez daha değiştirebilirsiniz.",
+      "no_online_cancel": "Bu salon çevrim içi iptal sunmuyor: doğrudan salonla iletişime geçin.",
+      "salon_note": "Salonun notu"
+    },
+    "return": {
+      "checking": "Ödemeniz SATIM ile kontrol ediliyor…",
+      "title_error": "Ödeme bulunamadı",
+      "not_found": "Bu ödeme bağlantısı geçerli değil.",
+      "verify_error": "Ödemeniz şu anda kontrol edilemiyor. Saatiniz birkaç dakika daha ayrılı kalır.",
+      "verify_again": "Tekrar kontrol et",
+      "back_to_salon": "Salona dön",
+      "title_paid": "Randevu onaylandı",
+      "paid": "Ödeme kabul edildi. Randevunuz onaylandı ve onay e-postası gönderildi.",
+      "receipt": "Ödeme makbuzu",
+      "order": "Sipariş numarası",
+      "date": "Tarih ve saat",
+      "card": "Kart",
+      "authorization": "Onay numarası",
+      "amount": "Ödenen tutar",
+      "disclaimer": "İşlem SATIM tarafından gerçekleştirildi. Bu bilgileri saklayın.",
+      "title_refunded": "Saat artık müsait değil",
+      "refunded": "Ödemeniz süre dolduktan sonra ulaştı ve bu arada saat başkası tarafından alındı. {{amount}} kaporanız otomatik olarak iade ediliyor.",
+      "other_slot": "Başka bir saat seç",
+      "title_expired": "Ödeme süresi doldu",
+      "expired": "Ödeme zamanında tamamlanmadığı için saat serbest bırakıldı. Yeni bir saat seçebilirsiniz.",
+      "title_failed": "Ödeme tamamlanmadı",
+      "failed": "Ödeme gerçekleşmedi.",
+      "satim_message": "Neden: {{message}}",
+      "hold_left_one": "Saatiniz {{count}} dakika daha ayrılı.",
+      "hold_left_other": "Saatiniz {{count}} dakika daha ayrılı.",
+      "retry": "Ödemeyi tekrar dene",
+      "too_many": "Çok fazla ödeme denemesi. Yeni bir saat seçin veya salonla iletişime geçin."
+    }
   }
 }

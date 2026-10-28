@@ -7,6 +7,8 @@ import { User } from '../models/User';
 import { AuthRequest } from '../middleware/auth';
 import { logger } from '../utils/logger';
 import { subscriptionEmailService } from '../services/subscriptionEmailService';
+import { onCapacityFreed, recheckSalon } from '../services/waitlist';
+import { depositsEnabled, onSalonChange } from '../services/deposits';
 import {
   DAYS, availabilityDays, bookWithLock, canDo, checkSlot, dateKey, dayNum, fmt, isDateKey, keyOf, loadContext,
   normalizeBooking, normalizeBusinessHours, normalizeRanges, resolveStylistId, sendAvailabilityError, toMin, weekday,
@@ -280,6 +282,8 @@ export const updateAppointment = async (req: AuthRequest, res: Response): Promis
         force: updates.force === true,
         forceOverlap: updates.forceOverlap === true,
       });
+      // The time it left (or the minutes a shorter service gave back) may serve the waitlist
+      void onCapacityFreed(userId!, appointment.date, appointment.stylistId);
     } else if (Object.keys(set).length) {
       await Appointment.updateOne({ _id: id }, { $set: set }, { runValidators: true });
     }
@@ -340,6 +344,14 @@ export const updateAppointmentStatus = async (req: AuthRequest, res: Response): 
       return;
     }
 
+    if (normalizedStatus === 'cancelled') {
+      const a: any = appointment;
+      void onCapacityFreed(userId!, a.date, String(a.stylistId?._id ?? a.stylistId));
+    }
+    // Online deposit follows the salon's decision: cancelled → full refund, no-show → kept, completed → applied to the bill
+    if (normalizedStatus === 'cancelled' || normalizedStatus === 'no_show' || normalizedStatus === 'completed') {
+      onSalonChange(appointment._id, normalizedStatus).catch((e) => logger.error('Deposit update after status change failed', e));
+    }
     res.json({ appointment });
 
     // Emit socket event (disabled for deployment)
@@ -360,6 +372,10 @@ export const deleteAppointment = async (req: AuthRequest, res: Response): Promis
       res.status(404).json({ error: 'Appointment not found' });
       return;
     }
+
+    if (appointment.status !== 'cancelled') void onCapacityFreed(userId!, appointment.date, appointment.stylistId);
+    // Deleting a booking is a salon cancellation: a paid deposit is refunded in full
+    onSalonChange(appointment._id, 'deleted').catch((e) => logger.error('Deposit refund after delete failed', e));
 
     // Send appointment cancellation email (async, don't wait for it)
     subscriptionEmailService.sendAppointmentCancellation((appointment._id as any).toString()).catch(err => {
@@ -437,7 +453,7 @@ export const getBookingSettings = async (req: AuthRequest, res: Response): Promi
       return;
     }
     const { hours, configured } = normalizeBusinessHours(user.businessHours);
-    res.json({ hours, configured, bookingSettings: normalizeBooking(user.bookingSettings), closures: normalizeRanges(user.closures) });
+    res.json({ hours, configured, bookingSettings: normalizeBooking(user.bookingSettings), closures: normalizeRanges(user.closures), depositsEnabled: depositsEnabled() });
   } catch (error) {
     logger.error('Get booking settings error:', error);
     res.status(500).json({ error: 'Server error' });
@@ -465,6 +481,8 @@ export const updateBookingSettings = async (req: AuthRequest, res: Response): Pr
       res.status(404).json({ error: 'User not found' });
       return;
     }
+    // Longer hours, fewer closures, shorter notice… may open slots for the waitlist
+    void recheckSalon(req.userId!);
     const n = normalizeBusinessHours(user.businessHours);
     res.json({ hours: n.hours, configured: n.configured, bookingSettings: normalizeBooking(user.bookingSettings), closures: normalizeRanges(user.closures) });
   } catch (error) {

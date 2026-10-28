@@ -1,11 +1,14 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { ServiceFormData, ServiceProduct } from '../types';
+import { ServiceFormData, ServiceProduct, ServiceDeposit, depositAmount } from '../types';
 import { useProfileStore } from '../../profile/store';
-import { getCurrencySymbol } from '../../../utils/currency';
+import { formatPrice, getCurrencySymbol } from '../../../utils/currency';
 import ServiceImageUpload from './ServiceImageUpload';
-import { IconButton } from '../../../components/ui';
+import { IconButton, Segmented } from '../../../components/ui';
+import { fetchDepositsEnabled } from '../../appointments/availability';
+
+const DEPOSIT_PRESETS = [20, 30, 50];
 
 const labelClass = 'mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300';
 
@@ -32,6 +35,8 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
   const { t } = useTranslation(['services', 'common']);
   const { profile } = useProfileStore();
   const currencySymbol = getCurrencySymbol(profile.currency);
+  const [depositsOn, setDepositsOn] = React.useState(true);
+  React.useEffect(() => { fetchDepositsEnabled().then(setDepositsOn); }, []);
   const [formData, setFormData] = React.useState<ServiceFormData>(
     initialData || {
       name: '',
@@ -244,6 +249,65 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
             </div>
           )}
         </section>
+
+        {formData.isOnline && (() => {
+          // Online deposit (acompte), paid by card when booking online; amount previewed with the server's rule
+          const deposit: ServiceDeposit = formData.deposit || { mode: 'none', value: 0 };
+          const setDeposit = (d: ServiceDeposit) => setFormData((prev) => ({ ...prev, deposit: d }));
+          const amount = depositAmount(formData.price, deposit);
+          return (
+            <section className="space-y-3 p-5">
+              <div>
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-50">{t('form.deposit.section')}</h3>
+                <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">{t('form.deposit.help')}</p>
+              </div>
+              {!depositsOn && (
+                <p className="rounded-xl bg-gray-50 px-3.5 py-2.5 text-sm text-gray-600 dark:bg-gray-800/60 dark:text-gray-300" role="status">{t('form.deposit.coming_soon')}</p>
+              )}
+              <Segmented
+                value={deposit.mode}
+                onChange={(mode) => setDeposit({ mode, value: mode === 'percent' ? 30 : mode === 'fixed' ? Math.min(formData.price || 1000, 1000) : 0 })}
+                options={[
+                  { value: 'none', label: t('form.deposit.none') },
+                  { value: 'percent', label: t('form.deposit.percent') },
+                  { value: 'fixed', label: t('form.deposit.fixed') },
+                ]}
+              />
+              {deposit.mode === 'percent' && (
+                <div className="flex flex-wrap items-center gap-2">
+                  {DEPOSIT_PRESETS.map((p) => (
+                    <button key={p} type="button" onClick={() => setDeposit({ mode: 'percent', value: p })} aria-pressed={deposit.value === p}
+                      className="min-h-10 rounded-xl border border-gray-200 px-3.5 text-sm font-medium tabular-nums text-gray-700 transition-colors duration-150 ease-out hover:bg-gray-50 aria-pressed:border-orange-500 aria-pressed:bg-orange-50 aria-pressed:text-orange-700 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800 dark:aria-pressed:bg-orange-500/15 dark:aria-pressed:text-orange-300">
+                      {p} %
+                    </button>
+                  ))}
+                  <div className="flex items-center gap-2">
+                    <input type="number" aria-label={t('form.deposit.percent_value')} min={1} max={100} step={5} inputMode="numeric" value={deposit.value}
+                      onChange={(e) => setDeposit({ mode: 'percent', value: Math.min(100, Math.max(0, parseInt(e.target.value, 10) || 0)) })}
+                      className="field w-24 tabular-nums" />
+                    <span className="text-sm text-gray-500 dark:text-gray-400">%</span>
+                  </div>
+                </div>
+              )}
+              {deposit.mode === 'fixed' && (
+                <div className="relative w-40">
+                  <input type="number" aria-label={t('form.deposit.fixed_value')} min={0} step={50} inputMode="numeric" value={deposit.value}
+                    onChange={(e) => setDeposit({ mode: 'fixed', value: Math.max(0, parseInt(e.target.value, 10) || 0) })}
+                    className="field pe-12 tabular-nums" />
+                  <span className="pointer-events-none absolute inset-y-0 end-3 flex items-center text-sm text-gray-500 dark:text-gray-400">{currencySymbol}</span>
+                </div>
+              )}
+              {deposit.mode !== 'none' && (
+                <p className="text-sm text-gray-700 dark:text-gray-300" role="status">
+                  {amount > 0
+                    ? t('form.deposit.preview', { amount: formatPrice(amount, profile.currency), rest: formatPrice(Math.max(0, formData.price - amount), profile.currency) })
+                    : t('form.deposit.preview_none')}
+                  <span className="mt-0.5 block text-xs text-gray-500 dark:text-gray-400">{t('form.deposit.rules')}</span>
+                </p>
+              )}
+            </section>
+          );
+        })()}
 
         <section className="space-y-3 p-5">
           <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-50">{t('common:service_form.sections.products')}</h3>

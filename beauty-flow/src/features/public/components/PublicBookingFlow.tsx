@@ -13,6 +13,7 @@ import { DesignTemplate } from '../../templates/types';
 import { formatPrice } from '../../../utils/currency';
 import { availabilityCode } from '../../appointments/availability';
 import { bookingVars, dateLocale, formatDuration } from './bookingTheme';
+import DepositPayment, { CancellationPolicy } from './DepositPayment';
 
 interface PublicBookingFlowProps {
   template: DesignTemplate;
@@ -25,14 +26,13 @@ interface PublicBookingFlowProps {
   onClose: () => void;
 }
 
-function BookingStepper({ step }: { step: 1 | 2 | 3 }) {
+function BookingStepper({ step, labels }: { step: number; labels: string[] }) {
   const { t } = useTranslation('public');
-  const labels = [t('booking.stepper.slot'), t('booking.stepper.info'), t('booking.stepper.done')];
   return (
-    <ol className="bk-steps" aria-label={t('booking.stepper.label')}>
+    <ol className={`bk-steps${labels.length > 3 ? ' is-long' : ''}`} aria-label={t('booking.stepper.label')}>
       {labels.map((label, i) => {
         const n = i + 1;
-        const state = step > n || step === 3 ? 'is-done' : step === n ? 'is-current' : '';
+        const state = step > n || step === labels.length ? 'is-done' : step === n ? 'is-current' : '';
         return (
           <React.Fragment key={n}>
             {i > 0 && <li aria-hidden="true" className={`bk-step-line ${step >= n ? 'is-done' : ''}`} />}
@@ -77,6 +77,8 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
 
   const currentService = services?.find((s) => s._id === serviceId);
   const currency = profile?.settings?.currency || 'DZD';
+  const depositAmount = currentService?.depositAmount || 0; // deposit (computed by the server)
+  const needsDeposit = depositAmount > 0;
   const priceLabel = currentService?.price ? formatPrice(currentService.price, currency) : undefined;
   // Name of the picked staff (from the availability staff list); after "peu importe" the server tells who got it
   const [pickedName, setPickedName] = React.useState<string | undefined>();
@@ -114,31 +116,40 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
     [updateBookingData]
   );
 
-  const handleClientSubmit = React.useCallback(
-    async (clientData: PublicClientFormData) => {
-      updateBookingData({ clientData });
-      setLoading(true);
-      try {
-        await submitBooking();
-      } catch (err: any) {
-        const code = availabilityCode(err);
-        if (code && code !== 'SERVICE_UNAVAILABLE') {
-          // The slot went in the meantime: back to the slots (fresh), the client's details are kept
-          updateBookingData({ startTime: '' });
-          setStep('datetime');
-          setRefreshKey((k) => k + 1);
-          setError({ step: 'datetime', message: t(`errors:availability.${code}`) });
-        } else {
-          setError({ step: 'client', message: code ? t(`errors:availability.${code}`) : err?.message || t('errors:booking.error') });
-        }
-      } finally {
-        setLoading(false);
-      }
-    },
-    [updateBookingData, setError, setLoading, setStep, submitBooking, t]
-  );
+  const handleClientSubmit = async (clientData: PublicClientFormData) => {
+    updateBookingData({ clientData });
+    if (needsDeposit) { setStep('deposit'); return; } // deposit: paid on the next step
+    await submit('client');
+  };
 
-  const step: 1 | 2 | 3 = showConfirmation && lastBookingInfo ? 3 : currentStep === 'client' ? 2 : 1;
+  // Creates the booking; with a deposit the store sends the browser to SATIM (loading stays on until it leaves)
+  const submit = async (from: 'client' | 'deposit') => {
+    setLoading(true);
+    let leaving = false;
+    try {
+      leaving = (await submitBooking()) === 'payment';
+    } catch (err: any) {
+      const code = availabilityCode(err);
+      if (code && code !== 'SERVICE_UNAVAILABLE') {
+        // The slot went in the meantime: back to the slots (fresh), the client's details are kept
+        updateBookingData({ startTime: '' });
+        setStep('datetime');
+        setRefreshKey((k) => k + 1);
+        setError({ step: 'datetime', message: t(`errors:availability.${code}`) });
+      } else {
+        const message = err?.code === 'PAYMENT_UNAVAILABLE' ? t('deposit.unavailable')
+          : code ? t(`errors:availability.${code}`) : err?.message || t('errors:booking.error');
+        setError({ step: from, message });
+      }
+    } finally {
+      if (!leaving) setLoading(false);
+    }
+  };
+
+  // Steps: slot → info (→ deposit when the service asks for one) → done
+  const views = needsDeposit ? ['slot', 'info', 'deposit', 'done'] : ['slot', 'info', 'done'];
+  const view = showConfirmation && lastBookingInfo ? 'done' : currentStep === 'deposit' ? 'deposit' : currentStep === 'client' ? 'info' : 'slot';
+  const step = views.indexOf(view) + 1;
 
   // Direction-aware step transition, decided only when the step changes (none on first open)
   const nav = React.useRef({ step, dir: '' });
@@ -148,7 +159,10 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
   const bodyRef = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => { bodyRef.current?.scrollTo({ top: 0 }); }, [step]);
 
-  const titles = { 1: t('booking.flow.choose_slot'), 2: t('booking.flow.your_info'), 3: t('booking.confirm.title') };
+  const titles: Record<string, string> = {
+    slot: t('booking.flow.choose_slot'), info: t('booking.flow.your_info'), deposit: t('deposit.title'), done: t('booking.confirm.title'),
+  };
+  const stepLabels = views.map((v) => (v === 'deposit' ? t('deposit.step') : t(`booking.stepper.${v}`)));
   const slotLabel = bookingData.date && bookingData.startTime
     ? `${format(new Date(`${bookingData.date}T00:00`), 'EEE d MMM', { locale: dateLocale(i18n.language) })} · ${bookingData.startTime}`
     : null;
@@ -163,14 +177,14 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
               {profile?.establishmentName && <p className="bk-muted text-sm truncate">{profile.establishmentName}</p>}
-              <h2 id="bk-title" className="bk-h text-xl">{titles[step]}</h2>
+              <h2 id="bk-title" className="bk-h text-xl">{titles[view]}</h2>
             </div>
             <button type="button" className="bk-icon-btn -me-2" onClick={close} aria-label={t('modal.close')}>
               <XMarkIcon className="h-5 w-5" />
             </button>
           </div>
-          <BookingStepper step={step} />
-          {currentService && step < 3 && (
+          <BookingStepper step={step} labels={stepLabels} />
+          {currentService && view !== 'done' && (
             <div className="flex items-center gap-3 px-4 py-2.5 text-sm" style={{ background: 'var(--bk-surface)', boxShadow: 'inset 0 0 0 1px var(--bk-border)', borderRadius: 'min(var(--bk-radius-card), 14px)' }}>
               <div className="min-w-0 flex-1">
                 <p className="truncate font-medium">
@@ -195,7 +209,7 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
               </div>
             )}
 
-            {step === 1 && (
+            {view === 'slot' && (
               <DateTimeSelection
                 serviceId={bookingData.serviceId}
                 selectedDate={bookingData.date}
@@ -208,7 +222,7 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
               />
             )}
 
-            {step === 2 && (
+            {view === 'info' && (
               <PublicClientForm
                 serviceId={bookingData.serviceId}
                 publicService={currentService}
@@ -216,8 +230,17 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
                 onSubmit={handleClientSubmit}
               />
             )}
+            {/* deposit: the free-cancellation rule, before the client commits */}
+            {view === 'info' && !needsDeposit && (
+              <CancellationPolicy compact policy={profile?.bookingPolicy} deposit={false} date={bookingData.date} time={bookingData.startTime} />
+            )}
+            {view === 'deposit' && currentService && (
+              <DepositPayment price={currentService.price} amount={depositAmount} currency={currency}
+                policy={profile?.bookingPolicy} date={bookingData.date} time={bookingData.startTime} />
+            )}
+            {/* /deposit */}
 
-            {step === 3 && lastBookingInfo && (
+            {view === 'done' && lastBookingInfo && (
               <BookingConfirmation
                 bookingInfo={{
                   date: lastBookingInfo.date,
@@ -236,23 +259,36 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
         </div>
 
         <footer className="bk-footer">
-          {step === 1 && (
+          {view === 'slot' && (
             <button type="button" className="bk-btn" disabled={!bookingData.date || !bookingData.startTime} onClick={() => setStep('client')}>
               {t('booking.flow.continue')}
             </button>
           )}
-          {step === 2 && (
+          {view === 'info' && (
             <>
               <button type="button" className="bk-btn-ghost !flex-none" onClick={() => setStep('datetime')} disabled={isLoading}>
                 {t('booking.flow.back')}
               </button>
               <button type="submit" form="bk-client-form" className="bk-btn" disabled={isLoading}>
                 {isLoading && <span className="bk-spinner" aria-hidden="true" />}
-                {isLoading ? t('booking.flow.sending') : t('booking.flow.confirm_booking')}
+                {isLoading ? t('booking.flow.sending') : needsDeposit ? t('deposit.continue') : t('booking.flow.confirm_booking')}
               </button>
             </>
           )}
-          {step === 3 && (
+          {/* deposit */}
+          {view === 'deposit' && (
+            <>
+              <button type="button" className="bk-btn-ghost !flex-none" onClick={() => setStep('client')} disabled={isLoading}>
+                {t('booking.flow.back')}
+              </button>
+              <button type="button" className="bk-btn" onClick={() => submit('deposit')} disabled={isLoading}>
+                {isLoading && <span className="bk-spinner" aria-hidden="true" />}
+                {isLoading ? t('deposit.redirecting') : t('deposit.pay_button', { amount: formatPrice(depositAmount, currency) })}
+              </button>
+            </>
+          )}
+          {/* /deposit */}
+          {view === 'done' && (
             <button type="button" className="bk-btn" onClick={close}>{t('booking.confirm.close')}</button>
           )}
         </footer>

@@ -13,6 +13,7 @@ import { useProfileStore } from '../store';
 import { useToastStore } from '../../../components/Toast';
 import { Profile, getAllCurrencies } from '../types';
 import { AffiliationTab } from './affiliation';
+import DepositsTab from './deposits/DepositsTab';
 import { useAuthStore } from '../../auth/store';
 import { profileAPI } from '../../../services/api';
 import { Panel, IconButton, Segmented } from '../../../components/ui';
@@ -87,7 +88,9 @@ const ProfileForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [linkCopied, setLinkCopied] = useState(false);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
-  const [activeTab, setActiveTab] = useState<'profile' | 'affiliation'>('profile');
+  // ?tab=deposits: links from the deposit / payout emails
+  const [activeTab, setActiveTab] = useState<'profile' | 'affiliation' | 'deposits'>(() =>
+    new URLSearchParams(window.location.search).get('tab') === 'deposits' ? 'deposits' : 'profile');
 
   const {
     register,
@@ -274,11 +277,14 @@ const ProfileForm: React.FC = () => {
         onChange={setActiveTab}
         options={[
           { value: 'profile', label: t('profile_form.tabs.profile') },
+          { value: 'deposits', label: t('profile_form.tabs.deposits') },
           { value: 'affiliation', label: t('profile_form.tabs.affiliation') }
         ]}
       />
 
-      {activeTab === 'affiliation' ? (
+      {activeTab === 'deposits' ? (
+        <DepositsTab />
+      ) : activeTab === 'affiliation' ? (
         <AffiliationTab />
       ) : (
         <form onSubmit={handleSubmit(onSubmit)}>

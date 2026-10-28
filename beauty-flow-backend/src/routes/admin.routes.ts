@@ -7,6 +7,9 @@ import {
   updateUserSubscription,
   getPlatformStats
 } from '../controllers/admin.controller';
+import {
+  createPayout, depositEvents, exportBalancesCsv, getBalances, listPayouts, markRefunded, retryRefund, updateDepositSettings,
+} from '../controllers/deposit.controller';
 
 const router = Router();
 
@@ -44,5 +47,18 @@ router.patch('/users/:id/subscription', updateUserSubscription);
  * @access  Admin only
  */
 router.get('/stats', getPlatformStats);
+
+/**
+ * Online deposits: salon balances, bank-transfer CSV, payouts, failed refunds, commission.
+ * @access Admin only
+ */
+router.get('/deposits/balances', getBalances);
+router.get('/deposits/balances.csv', exportBalancesCsv);
+router.get('/deposits/payouts', listPayouts);
+router.post('/deposits/payouts', createPayout);
+router.put('/deposits/settings', updateDepositSettings);
+router.get('/deposits/:id/events', depositEvents);
+router.post('/deposits/:id/refund', retryRefund);
+router.post('/deposits/:id/mark-refunded', markRefunded);
 
 export default router;

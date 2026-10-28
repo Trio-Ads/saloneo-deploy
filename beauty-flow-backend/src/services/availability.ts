@@ -11,6 +11,7 @@ import { User } from '../models/User';
 import { Service } from '../models/Service';
 import { TeamMember } from '../models/Team';
 import { Appointment } from '../models/Appointment';
+import { WaitlistEntry } from '../models/Waitlist';
 
 export const DAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'] as const;
 export type DayKey = typeof DAYS[number];
@@ -26,7 +27,14 @@ export interface BookingSettings {
   allowAnyStaff: boolean;
   bufferMinutes: number;
   allowCancellation: boolean;
+  /** Also the free-cancellation deadline of online deposits (services/deposits.ts). */
   cancellationDeadlineHours: number;
+  /** After that deadline, one client reschedule is still allowed (deposit carries over). */
+  lateReschedule: boolean;
+  /** Status of an online booking once its deposit is paid. */
+  paidStatus: 'confirmed' | 'scheduled';
+  /** Salon's own cancellation-policy wording, shown on the booking step and in emails. */
+  policyText: string;
 }
 export type Reason = 'SLOT_TAKEN' | 'OUTSIDE_HOURS' | 'TOO_SOON' | 'TOO_FAR' | 'STAFF_UNAVAILABLE' | 'SERVICE_UNAVAILABLE';
 
@@ -39,6 +47,9 @@ export const DEFAULT_BOOKING: BookingSettings = {
   bufferMinutes: 0,
   allowCancellation: true,
   cancellationDeadlineHours: 24,
+  lateReschedule: true,
+  paidStatus: 'confirmed',
+  policyText: '',
 };
 // Service schema used to store these as defaults on every service: treat them as "not set" (salon setting wins).
 const LEGACY_NOTICE_HOURS = 24;
@@ -158,6 +169,9 @@ export function normalizeBooking(raw: any): BookingSettings {
     bufferMinutes: num(b.bufferMinutes, 0, 0, 120),
     allowCancellation: b.allowCancellation !== false,
     cancellationDeadlineHours: num(b.cancellationDeadlineHours, DEFAULT_BOOKING.cancellationDeadlineHours, 0, 24 * 14),
+    lateReschedule: b.lateReschedule !== false,
+    paidStatus: b.paidStatus === 'scheduled' ? 'scheduled' : 'confirmed',
+    policyText: typeof b.policyText === 'string' ? b.policyText.trim().slice(0, 500) : '',
   };
 }
 
@@ -262,6 +276,12 @@ export function decideSlot(ctx: Ctx, date: string, time: string, stylistId: stri
 
 /* ── loader ──────────────────────────────────────────────────── */
 
+/** Appointments that occupy their slot: not cancelled, and not a deposit hold past its holdExpiresAt. */
+export const occupying = (now: Date = new Date()) => ({
+  status: { $ne: 'cancelled' },
+  $or: [{ status: { $ne: 'pending_payment' } }, { holdExpiresAt: { $gt: now } }],
+});
+
 const SALON_FIELDS = 'firstName lastName establishmentName businessHours bookingSettings closures settings showAsTeamMember avatar logo';
 export interface StaffView { id: string; firstName: string; lastName: string; avatar?: string; color?: string; isOwner?: boolean }
 
@@ -275,22 +295,42 @@ export async function loadContext(
   salonId: string | Types.ObjectId,
   serviceId: string,
   range: { from: string; to: string },
-  opts: { excludeAppointmentId?: any; staffMode?: boolean; duration?: number; now?: Date } = {}
+  opts: { excludeAppointmentId?: any; staffMode?: boolean; duration?: number; now?: Date; offerToken?: string } = {}
 ) {
   const salon: any = await User.findById(salonId).select(SALON_FIELDS).lean();
   if (!salon) return null;
-  const [service, members, services, appointments]: any[] = await Promise.all([
+  const [service, members, services, appointments, held]: any[] = await Promise.all([
     Types.ObjectId.isValid(serviceId) ? Service.findOne({ _id: serviceId, userId: salon._id }).lean() : null,
     TeamMember.find({ userId: salon._id, isActive: true }).lean(),
-    Service.find({ userId: salon._id }).select('buffer').lean(),
+    Service.find({ userId: salon._id }).select('buffer duration').lean(),
     Appointment.find({
       userId: salon._id,
-      status: { $ne: 'cancelled' },
+      ...occupying(),
       date: { $gte: new Date(`${range.from}T00:00:00.000Z`), $lt: new Date((dayNum(range.to) + 1) * DAY_MS) },
       ...(opts.excludeAppointmentId ? { _id: { $ne: opts.excludeAppointmentId } } : {}),
     }).select('date startTime endTime stylistId serviceId').lean(),
+    heldOffers(salon._id, range, opts.offerToken),
   ]);
-  return contextFrom(salon, { service, members, services, appointments }, { ...opts, serviceId });
+  const durationOf = new Map<string, number>(services.map((s: any) => [String(s._id), s.duration || 30]));
+  for (const h of held) h.endTime = fmt(toMin(h.startTime) + (durationOf.get(h.serviceId) || 30));
+  return contextFrom(salon, { service, members, services, appointments: [...appointments, ...held] }, { ...opts, serviceId });
+}
+
+/**
+ * Waitlist offers holding their slot ("réserver pour l'offre"): busy like a deposit hold until expiresAt,
+ * except for the client holding the offer link (offerToken).
+ */
+async function heldOffers(salonId: Types.ObjectId, range: { from: string; to: string }, offerToken?: string) {
+  const now = new Date();
+  const entries: any[] = await WaitlistEntry.find({
+    userId: salonId, status: 'offered',
+    offers: { $elemMatch: { held: true, expiresAt: { $gt: now }, outcome: { $exists: false }, 'slot.date': { $gte: range.from, $lte: range.to } } },
+  }).select('serviceId offers').lean();
+  return entries.flatMap((e) => {
+    const o = e.offers[e.offers.length - 1];
+    if (!o?.held || o.outcome || +o.expiresAt <= +now || o.token === offerToken || o.slot.date < range.from || o.slot.date > range.to) return [];
+    return [{ date: o.slot.date, startTime: o.slot.time, endTime: o.slot.time, stylistId: o.slot.stylistId, serviceId: e.serviceId }];
+  });
 }
 
 /** loadContext without the queries: builds the context from already-loaded documents (used for batches). */
@@ -401,7 +441,7 @@ export async function loadNextSlots(salonIds: Array<string | Types.ObjectId>, da
     Service.find({ userId: { $in: ids } }).select('userId buffer duration settings isActive').lean(),
     Appointment.find({
       userId: { $in: ids },
-      status: { $ne: 'cancelled' },
+      ...occupying(),
       date: { $gte: new Date(from * DAY_MS), $lt: new Date((from + days + 2) * DAY_MS) },
     }).select('userId date startTime endTime stylistId serviceId').lean(),
   ]);
@@ -472,7 +512,7 @@ export async function bookWithLock<T>(
   time: string,
   stylistId: string | null,
   save: (stylistId: string, loaded: NonNullable<Awaited<ReturnType<typeof loadContext>>>) => Promise<T>,
-  opts: { excludeAppointmentId?: any; staffMode?: boolean; duration?: number; force?: boolean; forceOverlap?: boolean; publicOnly?: boolean } = {}
+  opts: { excludeAppointmentId?: any; staffMode?: boolean; duration?: number; force?: boolean; forceOverlap?: boolean; publicOnly?: boolean; offerToken?: string } = {}
 ): Promise<T> {
   if (!isDateKey(date)) throw new AvailabilityError('OUTSIDE_HOURS');
   return withSlotLock(salonId, date, async () => {

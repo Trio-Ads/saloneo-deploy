@@ -12,7 +12,8 @@
       "rescheduled": "Yettwasmutti",
       "completed": "Yemmed",
       "cancelled": "Yettwasefsex",
-      "no_show": "Ur d-yusi ara"
+      "no_show": "Ur d-yusi ara",
+      "pending_payment": "Yettraǧu axelleṣ"
     },
     "modify": "Beddel akud",
     "cancel": "Sefsex timlilit",
@@ -28,7 +29,31 @@
     "confirm_cancel": "Ih, sefsex",
     "cancelled": "Timlilit-ik tettwasefsex.",
     "cancel_error": "Asefsex ur yeddi ara. Ɛreḍ tikkelt-nniḍen neɣ nermes asalun.",
-    "book_again": "Ṭṭef timlilit tikkelt-nniḍen"
+    "book_again": "Ṭṭef timlilit tikkelt-nniḍen",
+    "deposit": "Lɛerbun yettwaxelṣen",
+    "deposit_status": {
+      "paid": "Yettwaxelleṣ",
+      "refund_pending": "Tuɣalin n yedrimen tetteddu",
+      "refunded": "Yuɣal-d",
+      "retained": "Yeqqim ɣer usalun",
+      "applied": "Yettwakkes"
+    },
+    "free_until": "Asefsex baṭel alamma d {{date}} ɣef {{time}}.",
+    "free_until_deposit": "Asefsex baṭel alamma d {{date}} ɣef {{time}}: lɛerbun-ik ad ak-d-yuɣal.",
+    "blocked": {
+      "CANCELLATION_DISABLED": "Asalun-a ur d-yettak ara asefsex srid: nermes-it srid.",
+      "CANCELLATION_DEADLINE_PASSED": "Tanzagt n usefsex srid tɛedda: nermes asalun.",
+      "RESCHEDULE_DEADLINE_PASSED": "Tanzagt n usmutti n tmlilit-a srid tɛedda: nermes asalun."
+    },
+    "call_salon": "Siwel i usalun · {{phone}}",
+    "reschedule_late": "Tanzagt tɛedda: tzemreḍ mazal ad tesmuttiḍ timlilit-a yiwet n tikkelt kan.",
+    "deposit_carries": "Lɛerbun-ik ad yeddu ɣer wakud amaynut.",
+    "cancel_refund": "Asefsex baṭel: lɛerbun-ik n {{amount}} ad d-yuɣal ɣer tkarḍa-k.",
+    "cancel_retain": "Tanzagt n usefsex baṭel ({{date}} ɣef {{time}}) tɛedda: lɛerbun n {{amount}} ad yeqqim ɣer usalun.",
+    "confirm_cancel_retain": "Sefsex, eǧǧ lɛerbun",
+    "cancelled_refunded": "Timlilit tettwasefsex. Lɛerbun-ik n {{amount}} yuɣal-ak-d.",
+    "cancelled_refund_pending": "Timlilit tettwasefsex. Tuɣalin n lɛerbun-ik n {{amount}} tetteddu.",
+    "cancelled_retained": "Timlilit tettwasefsex. Lɛerbun n {{amount}} yeqqim ɣer usalun."
   },
   "list": {
     "invalid_search": "Anadi ur yemmid ara: sekcem imayl, uṭṭun n tiliɣri neɣ isem d yisem n tawacult.",
@@ -357,5 +382,127 @@
     "review_count_one": "{{count}} n tmawt",
     "review_count_other": "{{count}} n tmawin",
     "rating_row": "{{stars}} n yitran: {{n}} n tmawin"
+  },
+  "waitlist": {
+    "cta": {
+      "question": "Ulac akud i k-ilaqen?",
+      "join": "Rnu-d ɣer tebdart n uraǧu"
+    },
+    "form": {
+      "title": "Tabdart n uraǧu",
+      "intro": "Ini-aɣ-d melmi ara tiliḍ d ilelli: akken kan ara yilil wakud, a k-n-nazen aseɣwen akken ad t-teḥeǧǧzeḍ.",
+      "dates": "Ussan-ik ilellin",
+      "from": "Seg",
+      "to": "Ar",
+      "dates_hint": "Alamma d {{count}} n wussan.",
+      "when": "Akud n wass",
+      "email": "Imayl (ma tebɣiḍ)",
+      "consent": "Qebleɣ ad d-ttwanadiɣ s SMS neɣ s imayl mi ara yilil wakud.",
+      "submit": "Rnu-d ɣer tebdart",
+      "back_to_slots": "Uɣal ɣer wakuden"
+    },
+    "time": {
+      "morning": "Taṣebḥit",
+      "afternoon": "Tameddit",
+      "evening": "Tameddit taneggarut",
+      "any": "Ass akk"
+    },
+    "done": {
+      "title": "Aql-ik deg tebdart n uraǧu",
+      "updated": "Asuter-ik yettwaleqqem",
+      "body": "A k-d-nini akken kan ara yilil wakud gar {{from}} d {{to}}.",
+      "offer_now": "Yella tura",
+      "manage_link": "Aseɣwen i usefrek n usuter-ik",
+      "manage_hint": "Ḥrez aseɣwen-a: ad ak-yeǧǧ ad teffɣeḍ seg tebdart n uraǧu."
+    },
+    "offer": {
+      "book": "Ḥeǧǧez akud-a",
+      "expired": "Asumer-a yemmut: akud yettwasumer i umdan d-iteddun. Mazal-ik deg tebdart n uraǧu.",
+      "taken": "Yiwen-nniḍen yeḥeǧǧez akud-a tura kan. Mazal-ik deg tebdart n uraǧu.",
+      "booked": "Akud-a yettwaḥeǧǧez yakan s yisem-ik.",
+      "cancelled": "Asuter-a n tebdart n uraǧu yettwasefsex."
+    },
+    "manage": {
+      "title": "Tabdart-iw n uraǧu",
+      "status": {
+        "active": "Aql-ik deg tebdart n uraǧu. A k-d-nini akken kan ara yilil wakud.",
+        "offered": "Yella wakud i k-d-yettwasumren.",
+        "booked": "Teḥeǧǧzeḍ: ur telliḍ ara deg tebdart n uraǧu.",
+        "expired": "Asuter-a yekfa: ussan ɛeddan.",
+        "cancelled": "Teffɣeḍ seg tebdart n uraǧu."
+      },
+      "offer_title": "Akud yettwasumren",
+      "offer_until": "Ḥeǧǧez-it uqbel {{time}}.",
+      "leave": "Ffeɣ seg tebdart n uraǧu",
+      "leave_confirm": "Ad teffɣeḍ seg tebdart n uraǧu?"
+    },
+    "errors": {
+      "INVALID_RANGE": "Fren tallit seg 1 ar 14 n wussan, seg wass-a.",
+      "INVALID_PHONE": "Uṭṭun-a yettban ur yemmid ara, senqed-it.",
+      "WAITLIST_LIMIT": "Aql-ik yakan deg 3 n tebdarin n uraǧu n usalun-a.",
+      "WAITLIST_DISABLED": "Asalun-a ur isseqdac ara tabdart n uraǧu.",
+      "SERVICE_UNAVAILABLE": "Ameẓlu-a ur yettwaḥeǧǧez ara srid.",
+      "STAFF_UNAVAILABLE": "Aɛeggal-a n terbaɛt ur d-yettak ara ameẓlu-a.",
+      "RATE_LIMITED": "Aṭas n yisuturen. Ɛreḍ tikkelt-nniḍen deg kra n tesdatin.",
+      "consent": "Qbel ad k-d-nnadin akken ad k-d-awḍen wakuden ilellin.",
+      "generic": "Teḍra-d tuccḍa. Ɛreḍ tikkelt-nniḍen."
+    }
+  },
+  "deposit": {
+    "step": "Lɛerbun",
+    "title": "Lɛerbun i usentem",
+    "subtitle": "Akud-ik yettwaṭṭef {{minutes}} n tesdatin alamma txelṣeḍ.",
+    "service_price": "Ssuma n umeẓlu",
+    "pay_now": "Lɛerbun ara txelṣeḍ tura",
+    "remaining": "Ayen i d-yeqqimen ad t-txelṣeḍ deg usalun",
+    "pay_button": "Xelleṣ {{amount}} s tkarḍa",
+    "continue": "Kemmel ɣer lɛerbun",
+    "redirecting": "Asiweḍ ɣer SATIM…",
+    "secure": "Axelleṣ yettwaḍemnen s SATIM",
+    "cards": "Takarḍa CIB neɣ Edahabia",
+    "support": "Tesɛiḍ asteqsi ɣef uxelleṣ-ik? Tallelt n SATIM: 3020.",
+    "unavailable": "Axelleṣ srid ulac-it akka tura. Ɛreḍ tikkelt-nniḍen deg kra n tesdatin neɣ nermes asalun.",
+    "policy": {
+      "title": "Tasertit n usefsex",
+      "free_until": "Asefsex baṭel alamma d {{date}} ɣef {{time}}: lɛerbun ad ak-d-yuɣal.",
+      "free_until_no_deposit": "Asefsex srid baṭel alamma d {{date}} ɣef {{time}}.",
+      "free_hours": "Asefsex baṭel alamma d {{count}} n yisragen send timlilit: lɛerbun ad ak-d-yuɣal.",
+      "free_hours_no_deposit": "Asefsex srid baṭel alamma d {{count}} n yisragen send timlilit.",
+      "late": "Seld akud-a, neɣ ma ur d-tusiḍ ara, lɛerbun ad yeqqim ɣer usalun.",
+      "late_no_deposit": "Seld akud-a, nermes asalun akken ad tsefsxeḍ.",
+      "reschedule_once": "Seld akud-a, tzemreḍ mazal ad tesmuttiḍ timlilit-ik yiwet n tikkelt; lɛerbun ad yeddu yid-s.",
+      "reschedule_once_no_deposit": "Seld akud-a, tzemreḍ mazal ad tesmuttiḍ timlilit-ik yiwet n tikkelt.",
+      "no_online_cancel": "Asalun-a ur d-yettak ara asefsex srid: nermes-it srid.",
+      "salon_note": "Tazmilt n usalun"
+    },
+    "return": {
+      "checking": "Nettḥaqqeq axelleṣ-ik ɣer SATIM…",
+      "title_error": "Axelleṣ ulac-it",
+      "not_found": "Aseɣwen-a n uxelleṣ ur yeṣḥi ara.",
+      "verify_error": "Ur nezmir ara ad nḥaqqeq axelleṣ-ik tura. Akud-ik yettwaṭṭef mazal kra n tesdatin.",
+      "verify_again": "Ḥaqqeq tikkelt-nniḍen",
+      "back_to_salon": "Uɣal ɣer usalun",
+      "title_paid": "Timlilit tettwasentem",
+      "paid": "Axelleṣ yettwaqbel. Timlilit-ik tettwasentem, imayl n usentem yettwazen-ak-d.",
+      "receipt": "Tanaga n uxelleṣ",
+      "order": "Uṭṭun n tladna",
+      "date": "Azemz d usrag",
+      "card": "Takarḍa",
+      "authorization": "Uṭṭun n tsiregt",
+      "amount": "Tasuqqilt yettwaxelṣen",
+      "disclaimer": "Tamhelt tettwasesfer s SATIM. Ḥrez talɣut-a.",
+      "title_refunded": "Akud ulac-it tura",
+      "refunded": "Axelleṣ-ik yewweḍ-d seld tanzagt, akud yettwaṭṭef deg leɛḍil. Lɛerbun-ik n {{amount}} ad ak-d-yuɣal s wudem awurman.",
+      "other_slot": "Fren akud-nniḍen",
+      "title_expired": "Tanzagt n uxelleṣ tɛedda",
+      "expired": "Axelleṣ ur yemmed ara deg wakud, ihi akud yettwasreḥ. Tzemreḍ ad tferneḍ wayeḍ.",
+      "title_failed": "Axelleṣ ur yeddi ara",
+      "failed": "Axelleṣ ur yeddi ara.",
+      "satim_message": "Taɣẓint: {{message}}",
+      "hold_left_one": "Akud-ik yettwaṭṭef mazal {{count}} n tesdat.",
+      "hold_left_other": "Akud-ik yettwaṭṭef mazal {{count}} n tesdatin.",
+      "retry": "Ɛreḍ axelleṣ tikkelt-nniḍen",
+      "too_many": "Aṭas n tirmatin n uxelleṣ. Fren akud amaynut neɣ nermes asalun."
+    }
   }
 }

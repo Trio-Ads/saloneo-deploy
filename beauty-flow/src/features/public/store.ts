@@ -30,7 +30,8 @@ interface PublicBookingStore {
   resetBooking: () => void;
   setLoading: (isLoading: boolean) => void;
   validateCurrentStep: () => boolean;
-  submitBooking: () => Promise<void>;
+  /** 'payment' when the service needs a deposit: the browser is on its way to SATIM */
+  submitBooking: () => Promise<'done' | 'payment'>;
   closeConfirmation: () => void;
 }
 
@@ -197,7 +198,15 @@ export const usePublicBookingStore = create<PublicBookingStore>((set, get) => ({
         startTime: bookingData.startTime,
         clientData,
         ...(notes?.trim() ? { notes: notes.trim() } : {}),
+        ...(bookingData.waitlistOffer ? { waitlistOffer: bookingData.waitlistOffer } : {}),
+        lang: i18n.language,
       });
+
+      // Deposit: the slot is held while the client pays on SATIM's page, then comes back to /booking/payment-return
+      if (response.data.deposit?.formUrl) {
+        window.location.assign(response.data.deposit.formUrl);
+        return 'payment';
+      }
 
       console.log('✅ Réponse de l\'API:', response.data);
       
@@ -211,6 +220,7 @@ export const usePublicBookingStore = create<PublicBookingStore>((set, get) => ({
           stylistName: response.data.appointment.stylistName || undefined,
         },
       });
+      return 'done';
 
     } catch (error: any) {
       console.error('❌ Erreur lors de la soumission:', error);

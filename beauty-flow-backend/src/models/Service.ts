@@ -25,6 +25,11 @@ export interface IService extends Document {
     depositAmount?: number;
     depositPercentage?: number;
   };
+  /** Online deposit: percent of the price or a fixed amount in DA (amount computed in services/deposits.ts). */
+  deposit?: {
+    mode: 'none' | 'fixed' | 'percent';
+    value: number;
+  };
   images: Array<{
     url: string;
     alt: string;
@@ -131,6 +136,10 @@ const serviceSchema = new Schema<IService>(
         min: [0, 'Deposit percentage cannot be negative'],
         max: [100, 'Deposit percentage cannot exceed 100'],
       },
+    },
+    deposit: {
+      mode: { type: String, enum: ['none', 'fixed', 'percent'], default: 'none' },
+      value: { type: Number, default: 0, min: [0, 'Deposit cannot be negative'] },
     },
     images: [{
       url: {

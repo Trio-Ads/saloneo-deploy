@@ -174,7 +174,8 @@
   "profile_form": {
     "tabs": {
       "profile": "Amaɣnu",
-      "affiliation": "Tidukla"
+      "affiliation": "Tidukla",
+      "deposits": "Lɛerbunat"
     },
     "sections": {
       "login_info": "Talɣut n tuqqna",
@@ -602,5 +603,51 @@
   "profile_page": {
     "subtitle": "Talɣut-ik, tin n usalun d yismenyifen-ik",
     "loading": "Asali n umaɣnu…"
+  },
+  "deposits": {
+    "load_error": "D awezɣi asali n lɛerbunat-ik.",
+    "available": "Yella",
+    "available_hint": "Ad yettwazen deg usiweḍ i d-iteddun",
+    "pending": "Yettraǧu",
+    "pending_hint": "Timlilin i d-iteddun",
+    "paid_out": "Yettwazen yakan",
+    "commission": "Akmis n Saloneo",
+    "commission_hint": "{{percent}} % n lɛerbunat yettwaqebḍen",
+    "earned": "Asemday yettwarebḥen",
+    "how_it_works": "Lɛerbunat yettwaxelṣen srid (CIB / Edahabia) qebḍen-ten Saloneo s SATIM sakin ttwaznen ɣer umiḍan-ik. Ttilin-d mi ara tɛeddi tmlilit: ameẓlu yemmed, tamsaɣt ur d-tusi ara neɣ asefsex yeɛṭlen. Asefsex deg tanzagt yettuɣal-d i tmsaɣt s wudem awurman.",
+    "payout_title": "Talɣut n usiweḍ",
+    "payout_description": "Amiḍan ɣer i d-tazen Saloneo lɛerbunat-ik. Talɣut-a werǧin tettban i medden.",
+    "payout_missing": "Sekcem talɣut-ik akken ad d-teṭṭfeḍ isiweḍ-ik.",
+    "legal_name": "Bab n umiḍan",
+    "legal_name_placeholder": "Isem neɣ isem n tkebbanit s tidet",
+    "legal_name_required": "Sekcem bab n umiḍan.",
+    "method": "Anaw n umiḍan",
+    "method_ccp": "CCP (Algérie Poste)",
+    "method_bank": "Tabanka",
+    "rip": "RIP (20 n wuṭṭunen)",
+    "rib": "RIB (20 n wuṭṭunen)",
+    "rip_help": "Asulay n umiḍan n lbusṭa: yettebdu s 007 99999, yettban deg BaridiMob.",
+    "rib_help": "Asulay n umiḍan n tbankt s 20 n wuṭṭunen, i d-ttak tbankt-ik.",
+    "rib_length": "Uṭṭun ilaq ad yesɛu 20 n wuṭṭunen s tidet.",
+    "rib_ccp": "RIP n CCP yettebdu s 007 99999.",
+    "saved": "Yettwasekles",
+    "save_error": "D awezɣi asekles. Senqed talɣut sakin ɛreḍ tikkelt-nniḍen.",
+    "save": "Sekles",
+    "list_title": "Lɛerbunat",
+    "list_description": "Yal lɛerbun yettwaxelṣen srid d wayen i s-yeḍran.",
+    "empty": "Ulac lɛerbunat akka tura",
+    "empty_body": "Rmed lɛerbun ɣef umeẓlu (Imeẓla → beddel) akken ad t-tsutreḍ deg usqam srid.",
+    "status": {
+      "paid": "Yettwaxelleṣ · timlilit i d-iteddun",
+      "refund_pending": "Tuɣalin tetteddu",
+      "refunded": "Yuɣal-d",
+      "retained": "Yeqqim",
+      "applied": "Yettwakkes seg umeẓlu",
+      "paid_out": "Yettwazen"
+    },
+    "payouts_title": "Isiweḍ yettwaṭṭfen",
+    "payouts_empty": "Ulac isiweḍ akka tura.",
+    "reference": "Tamselɣut {{ref}}",
+    "coming_soon": "Axelleṣ n lɛerbun srid ad yermed ur yettɛeṭṭil ara — iɣewwaṛen-ik ttwaseklasen."
   }
 }

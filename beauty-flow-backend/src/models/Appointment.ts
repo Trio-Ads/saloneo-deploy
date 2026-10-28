@@ -8,7 +8,9 @@ export enum AppointmentStatus {
   COMPLETED = 'completed',
   CANCELLED = 'cancelled',
   NO_SHOW = 'no_show',
-  RESCHEDULED = 'rescheduled'
+  RESCHEDULED = 'rescheduled',
+  /** Slot held while the client pays the online deposit (until holdExpiresAt). */
+  PENDING_PAYMENT = 'pending_payment'
 }
 
 export interface IAppointment extends Document {
@@ -28,7 +30,13 @@ export interface IAppointment extends Document {
     amount: number;
     paid: boolean;
     paidAt?: Date;
+    /** Deposit._id (see models/Deposit.ts) */
+    id?: string;
   };
+  /** pending_payment only: the slot is free again after this instant. */
+  holdExpiresAt?: Date;
+  /** Client reschedules made after the free-cancellation deadline. */
+  lateReschedules?: number;
   tokens: {
     public: string;
     modification: string;
@@ -144,7 +152,10 @@ const appointmentSchema = new Schema<IAppointment>(
         default: false,
       },
       paidAt: Date,
+      id: String,
     },
+    holdExpiresAt: Date,
+    lateReschedules: { type: Number, default: 0 },
     tokens: {
       public: {
         type: String,

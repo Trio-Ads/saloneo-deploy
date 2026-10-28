@@ -12,7 +12,8 @@
       "rescheduled": "Reprogramada",
       "completed": "Completada",
       "cancelled": "Cancelada",
-      "no_show": "No se presentó"
+      "no_show": "No se presentó",
+      "pending_payment": "Pendiente de pago"
     },
     "modify": "Cambiar el horario",
     "cancel": "Cancelar la cita",
@@ -28,7 +29,31 @@
     "confirm_cancel": "Sí, cancelar",
     "cancelled": "Su cita ha sido cancelada.",
     "cancel_error": "No se pudo cancelar. Inténtelo de nuevo o contacte con el salón.",
-    "book_again": "Reservar otra cita"
+    "book_again": "Reservar otra cita",
+    "deposit": "Señal pagada",
+    "deposit_status": {
+      "paid": "Pagada",
+      "refund_pending": "Reembolso en curso",
+      "refunded": "Reembolsada",
+      "retained": "Retenida por el salón",
+      "applied": "Descontada"
+    },
+    "free_until": "Cancelación gratuita hasta el {{date}} a las {{time}}.",
+    "free_until_deposit": "Cancelación gratuita hasta el {{date}} a las {{time}}: se te devolvería la señal.",
+    "blocked": {
+      "CANCELLATION_DISABLED": "Este salón no ofrece cancelación en línea: contacta con él directamente.",
+      "CANCELLATION_DEADLINE_PASSED": "El plazo para cancelar en línea ha pasado: contacta con el salón.",
+      "RESCHEDULE_DEADLINE_PASSED": "El plazo para cambiar esta cita en línea ha pasado: contacta con el salón."
+    },
+    "call_salon": "Llamar al salón · {{phone}}",
+    "reschedule_late": "El plazo ha pasado: aún puedes cambiar esta cita una sola vez.",
+    "deposit_carries": "Tu señal se traslada a la nueva hora.",
+    "cancel_refund": "Cancelación gratuita: tu señal de {{amount}} se devolverá a tu tarjeta.",
+    "cancel_retain": "El plazo de cancelación gratuita ({{date}} a las {{time}}) ha pasado: el salón se quedará con la señal de {{amount}}.",
+    "confirm_cancel_retain": "Cancelar y dejar la señal",
+    "cancelled_refunded": "Cita cancelada. Tu señal de {{amount}} ha sido reembolsada.",
+    "cancelled_refund_pending": "Cita cancelada. El reembolso de tu señal de {{amount}} está en proceso.",
+    "cancelled_retained": "Cita cancelada. El salón se queda con la señal de {{amount}}."
   },
   "list": {
     "invalid_search": "Búsqueda incompleta: indique un correo, un teléfono o su nombre y apellido.",
@@ -357,5 +382,127 @@
     "review_count_one": "{{count}} opinión",
     "review_count_other": "{{count}} opiniones",
     "rating_row": "{{stars}} estrellas: {{n}} opiniones"
+  },
+  "waitlist": {
+    "cta": {
+      "question": "¿Ningún horario te viene bien?",
+      "join": "Unirme a la lista de espera"
+    },
+    "form": {
+      "title": "Lista de espera",
+      "intro": "Dinos cuándo estás disponible: en cuanto se libere un hueco, te enviamos un enlace para reservarlo.",
+      "dates": "Tu disponibilidad",
+      "from": "Desde",
+      "to": "Hasta",
+      "dates_hint": "Hasta {{count}} días.",
+      "when": "Momento del día",
+      "email": "Correo electrónico (opcional)",
+      "consent": "Acepto que me contacten por SMS o correo cuando se libere un hueco.",
+      "submit": "Unirme a la lista",
+      "back_to_slots": "Volver a los horarios"
+    },
+    "time": {
+      "morning": "Mañana",
+      "afternoon": "Tarde",
+      "evening": "Noche",
+      "any": "Todo el día"
+    },
+    "done": {
+      "title": "Estás en la lista de espera",
+      "updated": "Tu solicitud se ha actualizado",
+      "body": "Te avisaremos en cuanto se libere un hueco entre el {{from}} y el {{to}}.",
+      "offer_now": "Disponible ya",
+      "manage_link": "Enlace para gestionar tu solicitud",
+      "manage_hint": "Guarda este enlace: te permite salir de la lista de espera."
+    },
+    "offer": {
+      "book": "Reservar este hueco",
+      "expired": "Esta oferta ha caducado: el hueco se ofreció a la siguiente persona. Sigues en la lista de espera.",
+      "taken": "Otra persona acaba de reservar este hueco. Sigues en la lista de espera.",
+      "booked": "Este hueco ya está reservado a tu nombre.",
+      "cancelled": "Esta solicitud de lista de espera fue cancelada."
+    },
+    "manage": {
+      "title": "Mi lista de espera",
+      "status": {
+        "active": "Estás en la lista de espera. Te avisaremos en cuanto se libere un hueco.",
+        "offered": "Tienes un hueco propuesto.",
+        "booked": "Ya has reservado: ya no estás en la lista de espera.",
+        "expired": "Esta solicitud ha terminado: el periodo ya pasó.",
+        "cancelled": "Has salido de la lista de espera."
+      },
+      "offer_title": "Hueco propuesto",
+      "offer_until": "Resérvalo antes de las {{time}}.",
+      "leave": "Salir de la lista de espera",
+      "leave_confirm": "¿Salir de la lista de espera?"
+    },
+    "errors": {
+      "INVALID_RANGE": "Elige un periodo de 1 a 14 días, a partir de hoy.",
+      "INVALID_PHONE": "Este número parece incompleto, revísalo.",
+      "WAITLIST_LIMIT": "Ya estás en 3 listas de espera de este salón.",
+      "WAITLIST_DISABLED": "Este salón no utiliza lista de espera.",
+      "SERVICE_UNAVAILABLE": "Este servicio no se puede reservar en línea.",
+      "STAFF_UNAVAILABLE": "Este miembro del equipo no ofrece este servicio.",
+      "RATE_LIMITED": "Demasiadas solicitudes. Inténtalo de nuevo en unos minutos.",
+      "consent": "Acepta que te contactemos para enviarte los huecos liberados.",
+      "generic": "Se ha producido un error. Inténtalo de nuevo."
+    }
+  },
+  "deposit": {
+    "step": "Señal",
+    "title": "Señal para confirmar",
+    "subtitle": "Tu hora queda reservada durante {{minutes}} minutos mientras pagas.",
+    "service_price": "Precio del servicio",
+    "pay_now": "Señal a pagar ahora",
+    "remaining": "Resto a pagar en el salón",
+    "pay_button": "Pagar {{amount}} con tarjeta",
+    "continue": "Continuar a la señal",
+    "redirecting": "Redirigiendo a SATIM…",
+    "secure": "Pago seguro con SATIM",
+    "cards": "Tarjeta CIB o Edahabia",
+    "support": "¿Una pregunta sobre tu pago? Soporte SATIM: 3020.",
+    "unavailable": "El pago en línea no está disponible por el momento. Inténtalo de nuevo en unos minutos o contacta con el salón.",
+    "policy": {
+      "title": "Política de cancelación",
+      "free_until": "Cancelación gratuita hasta el {{date}} a las {{time}}: se te devuelve la señal.",
+      "free_until_no_deposit": "Cancelación en línea gratuita hasta el {{date}} a las {{time}}.",
+      "free_hours": "Cancelación gratuita hasta {{count}} h antes de la cita: se te devuelve la señal.",
+      "free_hours_no_deposit": "Cancelación en línea gratuita hasta {{count}} h antes de la cita.",
+      "late": "Pasado ese plazo, o si no te presentas, el salón se queda con la señal.",
+      "late_no_deposit": "Pasado ese plazo, contacta con el salón para cancelar.",
+      "reschedule_once": "Pasado ese plazo, aún puedes cambiar tu cita una vez; la señal se traslada.",
+      "reschedule_once_no_deposit": "Pasado ese plazo, aún puedes cambiar tu cita una vez.",
+      "no_online_cancel": "Este salón no ofrece cancelación en línea: contacta con él directamente.",
+      "salon_note": "Nota del salón"
+    },
+    "return": {
+      "checking": "Estamos comprobando tu pago con SATIM…",
+      "title_error": "Pago no encontrado",
+      "not_found": "Este enlace de pago no es válido.",
+      "verify_error": "No podemos comprobar tu pago en este momento. Tu hora sigue reservada unos minutos.",
+      "verify_again": "Comprobar de nuevo",
+      "back_to_salon": "Volver al salón",
+      "title_paid": "Cita confirmada",
+      "paid": "Pago aceptado. Tu cita está confirmada y te hemos enviado un correo de confirmación.",
+      "receipt": "Recibo de pago",
+      "order": "N.º de pedido",
+      "date": "Fecha y hora",
+      "card": "Tarjeta",
+      "authorization": "N.º de autorización",
+      "amount": "Importe pagado",
+      "disclaimer": "Transacción procesada por SATIM. Conserva esta información.",
+      "title_refunded": "La hora ya no está disponible",
+      "refunded": "Tu pago llegó fuera de plazo y la hora se ocupó mientras tanto. Tu señal de {{amount}} se devuelve automáticamente.",
+      "other_slot": "Elegir otra hora",
+      "title_expired": "Plazo de pago superado",
+      "expired": "El pago no se completó a tiempo y la hora se liberó. Puedes elegir otra.",
+      "title_failed": "Pago no completado",
+      "failed": "El pago no se ha realizado.",
+      "satim_message": "Motivo: {{message}}",
+      "hold_left_one": "Tu hora sigue reservada {{count}} minuto más.",
+      "hold_left_other": "Tu hora sigue reservada {{count}} minutos más.",
+      "retry": "Reintentar el pago",
+      "too_many": "Demasiados intentos de pago. Elige otra hora o contacta con el salón."
+    }
   }
 }

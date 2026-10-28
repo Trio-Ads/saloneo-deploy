@@ -196,12 +196,27 @@ export const publicAPI = {
   modifyAppointmentByModificationToken: (token: string, data: { date?: string; startTime?: string; stylistId?: string; reason?: string }) =>
     api.patch(`/public/appointment/${token}`, data),
   // Annuler un rendez-vous via token de modification
-  cancelAppointmentByModificationToken: (token: string, data: { reason?: string }) =>
+  cancelAppointmentByModificationToken: (token: string, data: { reason?: string; acknowledgeRetention?: boolean }) =>
     api.post(`/public/appointment/${token}/cancel`, data),
+  // Online deposit: the SATIM return page asks the server (which asks SATIM) where the payment stands
+  confirmDeposit: (id: string, slug: string) => api.post(`/public/deposits/${id}/confirm`, { slug }),
+  retryDeposit: (id: string, slug: string, lang: string) => api.post<{ formUrl: string }>(`/public/deposits/${id}/retry`, { slug, lang }),
   getAppointment: (code: string, email: string) => 
     api.get('/public/appointment', { params: { code, email } }),
   cancelAppointment: (code: string, email: string) => 
     api.post('/public/appointment/cancel', { code, email }),
+};
+
+// Online deposits: salon balance/payout details, and the admin payout tools
+export const depositsAPI = {
+  get: () => api.get('/deposits'),
+  savePayoutInfo: (data: { legalName: string; method: 'ccp' | 'bank'; rib: string }) => api.put('/deposits/payout-info', data),
+  adminBalances: () => api.get('/admin/deposits/balances'),
+  adminCsv: () => api.get('/admin/deposits/balances.csv', { responseType: 'blob' }),
+  adminPayout: (data: { userId: string; amount: number; paidAt: string; reference: string }) => api.post('/admin/deposits/payouts', data),
+  adminSettings: (commissionPercent: number) => api.put('/admin/deposits/settings', { commissionPercent }),
+  adminRetryRefund: (id: string) => api.post(`/admin/deposits/${id}/refund`),
+  adminMarkRefunded: (id: string, note: string) => api.post(`/admin/deposits/${id}/mark-refunded`, { note }),
 };
 
 // Affiliation API

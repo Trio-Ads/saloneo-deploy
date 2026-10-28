@@ -18,6 +18,8 @@ export interface Appointment {
     lastName: string;
     phone: string;
   };
+  /** Online deposit (API Appointment.deposit): amount in DA, paid by card on Saloneo */
+  deposit?: { required: boolean; amount: number; paid: boolean; paidAt?: string };
 }
 
 export interface ClientSearchInfo {
@@ -26,7 +28,7 @@ export interface ClientSearchInfo {
   phone: string;
 }
 
-export type AppointmentStatus = 'scheduled' | 'confirmed' | 'completed' | 'cancelled' | 'noShow' | 'rescheduled';
+export type AppointmentStatus = 'scheduled' | 'confirmed' | 'completed' | 'cancelled' | 'noShow' | 'rescheduled' | 'pending_payment';
 
 export interface AppointmentFormData {
   clientId: string;

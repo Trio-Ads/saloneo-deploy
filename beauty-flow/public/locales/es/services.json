@@ -45,6 +45,19 @@
       "buffer_after": "Limpieza después",
       "buffer_help": "Tiempo bloqueado en la agenda antes y después de este servicio. A 0, se aplica después el tiempo entre citas del salón.",
       "minutes": "min"
+    },
+    "deposit": {
+      "section": "Señal en línea",
+      "help": "Se paga con tarjeta (CIB / Edahabia) al reservar en línea; Saloneo la cobra y luego la transfiere a tu cuenta.",
+      "none": "Ninguna",
+      "percent": "Porcentaje",
+      "fixed": "Importe fijo",
+      "percent_value": "Porcentaje del precio",
+      "fixed_value": "Importe de la señal",
+      "preview": "Señal solicitada: {{amount}} · quedan {{rest}} a pagar en el salón",
+      "preview_none": "Indica un precio para calcular la señal.",
+      "rules": "Redondeada a 50 DA, mínimo 500 DA, nunca más que el precio. Cancelación y reembolso según tu política de cancelación.",
+      "coming_soon": "El pago de la señal en línea se activará próximamente: tus ajustes están guardados."
     }
   },
   "categories": {
@@ -190,7 +203,9 @@
     "services_count_other": "{{count}} servicios",
     "online": "En línea",
     "active": "Activo",
-    "inactive": "Inactivo"
+    "inactive": "Inactivo",
+    "deposit_badge": "Señal {{rule}} · {{amount}}",
+    "deposit_badge_fixed": "Señal {{amount}}"
   },
   "photos": {
     "hint": "JPG o PNG, se recomienda 1200 × 800 px, 5 fotos como máximo.",

@@ -12,7 +12,8 @@
       "rescheduled": "Reporté",
       "completed": "Terminé",
       "cancelled": "Annulé",
-      "no_show": "Absent"
+      "no_show": "Absent",
+      "pending_payment": "En attente de paiement"
     },
     "modify": "Modifier le créneau",
     "cancel": "Annuler le rendez-vous",
@@ -28,7 +29,31 @@
     "confirm_cancel": "Oui, annuler",
     "cancelled": "Votre rendez-vous a été annulé.",
     "cancel_error": "L'annulation n'a pas abouti. Réessayez ou contactez le salon.",
-    "book_again": "Reprendre rendez-vous"
+    "book_again": "Reprendre rendez-vous",
+    "deposit": "Acompte payé",
+    "deposit_status": {
+      "paid": "Payé",
+      "refund_pending": "Remboursement en cours",
+      "refunded": "Remboursé",
+      "retained": "Conservé par le salon",
+      "applied": "Déduit"
+    },
+    "free_until": "Annulation gratuite jusqu'au {{date}} à {{time}}.",
+    "free_until_deposit": "Annulation gratuite jusqu'au {{date}} à {{time}} : votre acompte vous serait remboursé.",
+    "blocked": {
+      "CANCELLATION_DISABLED": "Ce salon ne propose pas l'annulation en ligne : contactez-le directement.",
+      "CANCELLATION_DEADLINE_PASSED": "La date limite d'annulation en ligne est passée : contactez le salon.",
+      "RESCHEDULE_DEADLINE_PASSED": "La date limite pour déplacer ce rendez-vous en ligne est passée : contactez le salon."
+    },
+    "call_salon": "Appeler le salon · {{phone}}",
+    "reschedule_late": "La date limite est passée : vous pouvez encore déplacer ce rendez-vous une seule fois.",
+    "deposit_carries": "Votre acompte est reporté sur le nouveau créneau.",
+    "cancel_refund": "Annulation gratuite : votre acompte de {{amount}} vous sera remboursé sur votre carte.",
+    "cancel_retain": "La date limite d'annulation gratuite ({{date}} à {{time}}) est passée : l'acompte de {{amount}} sera conservé par le salon.",
+    "confirm_cancel_retain": "Annuler et laisser l'acompte",
+    "cancelled_refunded": "Rendez-vous annulé. Votre acompte de {{amount}} vous a été remboursé.",
+    "cancelled_refund_pending": "Rendez-vous annulé. Le remboursement de votre acompte de {{amount}} est en cours de traitement.",
+    "cancelled_retained": "Rendez-vous annulé. L'acompte de {{amount}} est conservé par le salon."
   },
   "list": {
     "invalid_search": "Recherche incomplète : indiquez un e-mail, un téléphone ou vos nom et prénom.",
@@ -357,5 +382,127 @@
     "review_count_one": "{{count}} avis",
     "review_count_other": "{{count}} avis",
     "rating_row": "{{stars}} étoiles : {{n}} avis"
+  },
+  "waitlist": {
+    "cta": {
+      "question": "Aucun créneau ne vous convient ?",
+      "join": "Rejoindre la liste d'attente"
+    },
+    "form": {
+      "title": "Liste d'attente",
+      "intro": "Dites-nous quand vous êtes disponible : dès qu'un créneau se libère, nous vous envoyons un lien pour le réserver.",
+      "dates": "Vos disponibilités",
+      "from": "Du",
+      "to": "Au",
+      "dates_hint": "Jusqu'à {{count}} jours.",
+      "when": "Moment de la journée",
+      "email": "E-mail (facultatif)",
+      "consent": "J'accepte d'être contacté(e) par SMS ou e-mail quand un créneau se libère.",
+      "submit": "Rejoindre la liste",
+      "back_to_slots": "Revenir aux créneaux"
+    },
+    "time": {
+      "morning": "Matin",
+      "afternoon": "Après-midi",
+      "evening": "Soir",
+      "any": "Toute la journée"
+    },
+    "done": {
+      "title": "Vous êtes sur la liste d'attente",
+      "updated": "Votre demande a été mise à jour",
+      "body": "Nous vous prévenons dès qu'un créneau se libère entre le {{from}} et le {{to}}.",
+      "offer_now": "Déjà disponible",
+      "manage_link": "Lien pour gérer votre demande",
+      "manage_hint": "Gardez ce lien : il permet de quitter la liste d'attente."
+    },
+    "offer": {
+      "book": "Réserver ce créneau",
+      "expired": "Cette offre a expiré : le créneau a été proposé à la personne suivante. Vous restez sur la liste d'attente.",
+      "taken": "Ce créneau vient d'être réservé par quelqu'un d'autre. Vous restez sur la liste d'attente.",
+      "booked": "Ce créneau est déjà réservé à votre nom.",
+      "cancelled": "Cette demande de liste d'attente a été annulée."
+    },
+    "manage": {
+      "title": "Ma liste d'attente",
+      "status": {
+        "active": "Vous êtes sur la liste d'attente. Nous vous prévenons dès qu'un créneau se libère.",
+        "offered": "Un créneau vous est proposé.",
+        "booked": "Vous avez réservé : vous n'êtes plus sur la liste d'attente.",
+        "expired": "Cette demande est terminée : la période est passée.",
+        "cancelled": "Vous avez quitté la liste d'attente."
+      },
+      "offer_title": "Créneau proposé",
+      "offer_until": "Réservez-le avant {{time}}.",
+      "leave": "Quitter la liste d'attente",
+      "leave_confirm": "Quitter la liste d'attente ?"
+    },
+    "errors": {
+      "INVALID_RANGE": "Choisissez une période de 1 à 14 jours, à partir d'aujourd'hui.",
+      "INVALID_PHONE": "Ce numéro semble incomplet, vérifiez-le.",
+      "WAITLIST_LIMIT": "Vous êtes déjà sur 3 listes d'attente de ce salon.",
+      "WAITLIST_DISABLED": "Ce salon n'utilise pas la liste d'attente.",
+      "SERVICE_UNAVAILABLE": "Cette prestation n'est pas réservable en ligne.",
+      "STAFF_UNAVAILABLE": "Ce membre de l'équipe ne propose pas cette prestation.",
+      "RATE_LIMITED": "Trop de demandes. Réessayez dans quelques minutes.",
+      "consent": "Acceptez d'être contacté(e) pour recevoir les créneaux libérés.",
+      "generic": "Une erreur est survenue. Réessayez."
+    }
+  },
+  "deposit": {
+    "step": "Acompte",
+    "title": "Acompte pour confirmer",
+    "subtitle": "Votre créneau vous est réservé pendant {{minutes}} minutes, le temps du paiement.",
+    "service_price": "Prix de la prestation",
+    "pay_now": "Acompte à payer maintenant",
+    "remaining": "Reste à régler au salon",
+    "pay_button": "Payer {{amount}} par carte",
+    "continue": "Continuer vers l'acompte",
+    "redirecting": "Redirection vers SATIM…",
+    "secure": "Paiement sécurisé par SATIM",
+    "cards": "Carte CIB ou Edahabia",
+    "support": "Une question sur votre paiement ? Support SATIM : 3020.",
+    "unavailable": "Le paiement en ligne est momentanément indisponible. Réessayez dans quelques minutes ou contactez le salon.",
+    "policy": {
+      "title": "Politique d'annulation",
+      "free_until": "Annulation gratuite jusqu'au {{date}} à {{time}} : l'acompte vous est remboursé.",
+      "free_until_no_deposit": "Annulation gratuite en ligne jusqu'au {{date}} à {{time}}.",
+      "free_hours": "Annulation gratuite jusqu'à {{count}} h avant le rendez-vous : l'acompte vous est remboursé.",
+      "free_hours_no_deposit": "Annulation gratuite en ligne jusqu'à {{count}} h avant le rendez-vous.",
+      "late": "Après ce délai, ou en cas d'absence, l'acompte est conservé par le salon.",
+      "late_no_deposit": "Passé ce délai, contactez le salon pour annuler.",
+      "reschedule_once": "Après ce délai, vous pouvez encore déplacer votre rendez-vous une fois ; l'acompte est reporté.",
+      "reschedule_once_no_deposit": "Après ce délai, vous pouvez encore déplacer votre rendez-vous une fois.",
+      "no_online_cancel": "L'annulation en ligne n'est pas proposée par ce salon : contactez-le directement.",
+      "salon_note": "Précision du salon"
+    },
+    "return": {
+      "checking": "Nous vérifions votre paiement auprès de SATIM…",
+      "title_error": "Paiement introuvable",
+      "not_found": "Ce lien de paiement n'est pas valide.",
+      "verify_error": "Impossible de vérifier votre paiement pour le moment. Votre créneau reste réservé quelques minutes.",
+      "verify_again": "Vérifier à nouveau",
+      "back_to_salon": "Retour au salon",
+      "title_paid": "Rendez-vous confirmé",
+      "paid": "Paiement accepté. Votre rendez-vous est confirmé, un e-mail de confirmation vous a été envoyé.",
+      "receipt": "Reçu de paiement",
+      "order": "N° de commande",
+      "date": "Date et heure",
+      "card": "Carte",
+      "authorization": "N° d'autorisation",
+      "amount": "Montant payé",
+      "disclaimer": "Transaction traitée par SATIM. Conservez ces informations.",
+      "title_refunded": "Créneau plus disponible",
+      "refunded": "Votre paiement est arrivé après le délai et le créneau a été pris entre-temps. Votre acompte de {{amount}} vous est remboursé automatiquement.",
+      "other_slot": "Choisir un autre créneau",
+      "title_expired": "Délai de paiement dépassé",
+      "expired": "Le paiement n'a pas été finalisé à temps : le créneau a été libéré. Vous pouvez en choisir un nouveau.",
+      "title_failed": "Paiement non abouti",
+      "failed": "Le paiement n'a pas abouti.",
+      "satim_message": "Motif : {{message}}",
+      "hold_left_one": "Votre créneau reste réservé encore {{count}} minute.",
+      "hold_left_other": "Votre créneau reste réservé encore {{count}} minutes.",
+      "retry": "Réessayer le paiement",
+      "too_many": "Trop de tentatives de paiement. Choisissez un nouveau créneau ou contactez le salon."
+    }
   }
 }

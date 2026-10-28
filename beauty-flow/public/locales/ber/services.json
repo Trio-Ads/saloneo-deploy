@@ -45,6 +45,19 @@
       "buffer_after": "Asizdeg seld",
       "buffer_help": "Akud yettwaṭṭfen deg uɣmis uqbel d seld tenfiɛt-a. Ma d 0, akud n usgunfu n usalun ad yettwasnes seld.",
       "minutes": "tsd"
+    },
+    "deposit": {
+      "section": "Lɛerbun srid",
+      "help": "Yettwaxlaṣ s tkarḍa (CIB / Edahabia) mi ara yili wesqam srid; Saloneo ad t-id-tqbeḍ sakin ad t-tazen ɣer umiḍan-ik.",
+      "none": "Ulac",
+      "percent": "Afmiḍi",
+      "fixed": "Tasuqqilt tusbiḍt",
+      "percent_value": "Afmiḍi n ssuma",
+      "fixed_value": "Tasuqqilt n lɛerbun",
+      "preview": "Lɛerbun yettwasutren: {{amount}} · ayen i d-yeqqimen {{rest}} deg usalun",
+      "preview_none": "Sbedd ssuma akken ad yettwaḥsab lɛerbun.",
+      "rules": "Yettwaqreb ɣer 50 DA, ugar n 500 DA, werǧin ugar n ssuma. Asefsex d tuɣalin n yedrimen almend n tsertit-ik n usefsex.",
+      "coming_soon": "Axelleṣ n lɛerbun srid ad yermed ur yettɛeṭṭil ara — iɣewwaṛen-ik ttwaseklasen."
     }
   },
   "categories": {
@@ -190,7 +203,9 @@
     "services_count_other": "{{count}} n yimeẓla",
     "online": "Srid",
     "active": "Urmid",
-    "inactive": "Arurmid"
+    "inactive": "Arurmid",
+    "deposit_badge": "Lɛerbun {{rule}} · {{amount}}",
+    "deposit_badge_fixed": "Lɛerbun {{amount}}"
   },
   "photos": {
     "hint": "JPG neɣ PNG, 1200 × 800 px i yelhan, 5 n tewlafin s wugar.",

@@ -16,6 +16,8 @@ import { useStaffName } from '../../team/staff';
 import { useAppointmentStore } from '../store';
 import { Panel, Badge, statusTone, IconButton, EmptyState } from '../../../components/ui';
 import { getDateLocale, dayKey, sortKey, durationMinutes, statusKey } from '../utils';
+import { formatPrice } from '../../../utils/currency';
+import { useProfileStore } from '../../profile/store';
 
 interface AppointmentListProps {
   appointments: Appointment[];
@@ -39,6 +41,7 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
   const services = useServiceStore((state) => state.services);
   const getStylistName = useStaffName();
   const isPastAppointment = useAppointmentStore((state) => state.isPastAppointment);
+  const currency = useProfileStore((state) => state.profile.currency);
 
   const getClientName = (appointment: Appointment) => {
     if (appointment.clientInfo?.firstName) {
@@ -104,6 +107,9 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
                       <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                         <p className="truncate font-medium text-gray-900 dark:text-gray-50">{getClientName(appointment)}</p>
                         <Badge tone={statusTone(appointment.status)}>{t(`status.${statusKey(appointment.status)}`, appointment.status)}</Badge>
+                        {appointment.deposit?.paid && (
+                          <Badge tone="green">{t('appointment_list.deposit_paid', { amount: formatPrice(appointment.deposit.amount, currency) })}</Badge>
+                        )}
                         {isOverdue && (
                           <Badge tone="amber">
                             <ExclamationTriangleIcon className="size-3" />

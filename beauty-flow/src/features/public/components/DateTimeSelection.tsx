@@ -5,6 +5,7 @@ import { addDays, addMonths, endOfMonth, format, parseISO, startOfMonth } from '
 import ModernCalendar from './ModernCalendar';
 import { dateLocale } from './bookingTheme';
 import { availabilityCode, fetchPublicAvailability, PublicAvailability, StaffOption } from '../../appointments/availability';
+import WaitlistForm from './WaitlistForm';
 
 interface DateTimeSelectionProps {
   serviceId: string;
@@ -48,6 +49,9 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
   /** false, or the reason the slots could not be loaded ('SERVICE_UNAVAILABLE' when the service is offline) */
   const [failed, setFailed] = useState<false | string>(false);
   const [tick, setTick] = useState(0);
+  const [joining, setJoining] = useState(false);
+  // Waitlist offer link (?offer=…): its slot may be held for this client only
+  const [offer] = useState(() => new URLSearchParams(window.location.search).get('offer') || undefined);
   const slotsRef = useRef<HTMLElement>(null);
   const autoAdvanced = useRef(!!selectedDate);
   const lastStylist = useRef(stylistId);
@@ -56,7 +60,7 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
   const monthStart = format(month, 'yyyy-MM-dd');
   const from = monthStart > todayKey ? monthStart : todayKey;
   const to = format(endOfMonth(month), 'yyyy-MM-dd');
-  const base = [slug, serviceId, stylist, from, to, token, refreshKey].join('|');
+  const base = [slug, serviceId, stylist, from, to, token, refreshKey, offer].join('|');
 
   // Slots stay fresh while the sheet is open
   useEffect(() => {
@@ -68,7 +72,7 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
     if (!slug || !serviceId) return;
     let alive = true;
     setFailed(false);
-    fetchPublicAvailability(slug, { serviceId, stylistId: stylist, token }, from, to)
+    fetchPublicAvailability(slug, { serviceId, stylistId: stylist, token, offer }, from, to)
       .then((data) => {
         if (!alive) return;
         setResult({ base, data });
@@ -111,7 +115,37 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stylist]);
 
+  // A slot chosen by the parent after mount (waitlist offer link) opens that day and staff
+  useEffect(() => {
+    if (stylistId !== lastStylist.current) { lastStylist.current = stylistId; setStylist(stylistId); }
+    if (selectedDate && selectedDate !== day) {
+      autoAdvanced.current = true;
+      setDay(selectedDate);
+      setMonth(startOfMonth(parseISO(selectedDate)));
+      requestAnimationFrame(() => slotsRef.current?.scrollIntoView({ block: 'nearest' }));
+    }
+  // day is local state: only a change coming from the parent matters here
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stylistId, selectedDate]);
+
   if (!slug) return <div className="flex justify-center py-8 bk-muted"><span className="bk-spinner" /></div>;
+
+  if (joining && data) {
+    return (
+      <WaitlistForm
+        slug={slug}
+        serviceId={serviceId}
+        stylistId={stylist}
+        staff={staff ?? []}
+        allowAnyStaff={data.allowAnyStaff !== false}
+        showTeamSelection={showTeamSelection}
+        initialDay={day || data.today}
+        today={data.today}
+        horizon={data.horizon}
+        onBack={() => setJoining(false)}
+      />
+    );
+  }
 
   if (staff && staff.length === 0) {
     return <p className="bk-muted text-sm py-6 text-center">{t('booking.flow.no_stylist')}</p>;
@@ -230,6 +264,15 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
             </div>
           )}
         </section>
+      )}
+
+      {data?.waitlist && !token && (
+        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 pt-4" style={{ borderTop: '1px solid var(--bk-border)' }}>
+          <p className="bk-muted text-sm">{t('waitlist.cta.question')}</p>
+          <button type="button" className="bk-btn-ghost !min-h-[44px]" onClick={() => setJoining(true)}>
+            {t('waitlist.cta.join')}
+          </button>
+        </div>
       )}
     </div>
   );

@@ -28,6 +28,10 @@ import feedbackRoutes from './routes/feedback.routes';
 import reviewRoutes from './routes/review.routes';
 import { emailService } from './services/emailService';
 import { sitemap } from './controllers/directory.controller';
+import waitlistRoutes from './routes/waitlist.routes';
+import { startWaitlistCron } from './services/waitlist';
+import depositRoutes from './routes/deposit.routes';
+import { startDepositJobs } from './services/deposits';
 
 // Load environment variables
 dotenv.config();
@@ -44,6 +48,12 @@ export const io = initializeSocket(httpServer);
 
 // Connect to MongoDB
 connectDatabase();
+
+// Waitlist: expired offers move to the next client every minute, past entries expire daily
+startWaitlistCron();
+
+// Online deposits: expired payment holds released every minute, weekly payout reminder to admins
+startDepositJobs();
 
 // Initialize email service
 emailService.initialize().catch(err => {
@@ -200,6 +210,7 @@ app.use('/api/team', teamRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/payment', paymentRoutes);
+app.use('/api/deposits', depositRoutes);
 app.use('/api/subscription', subscriptionRoutes);
 app.use('/api/affiliation', affiliationRoutes);
 app.use('/api/email', emailRoutes);
@@ -209,6 +220,7 @@ app.use('/api', feedbackRoutes);
 
 // Public routes (no authentication required)
 app.use('/api/public', publicRoutes);
+app.use('/api/waitlist', waitlistRoutes);
 app.use('/api/marketing', marketingRoutes);
 app.use('/api/stats', statsRoutes);
 

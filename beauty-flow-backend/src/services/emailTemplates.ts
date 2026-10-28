@@ -77,10 +77,39 @@ export class EmailTemplates {
         <p><strong>👤 Avec:</strong> {{staffName}}</p>
         <p><strong>💰 Prix:</strong> {{formatCurrency servicePrice currency}}</p>
       </div>
+      {{#if depositAmount}}
+      <div class="success-box">
+        <p><strong>Acompte payé en ligne :</strong> {{depositAmount}}</p>
+        <p><strong>Reste à régler au salon :</strong> {{depositRemaining}}</p>
+        {{#if depositOrderNumber}}<p>N° de commande SATIM : {{depositOrderNumber}}</p>{{/if}}
+      </div>
+      {{/if}}
+      {{#if policyText}}
+      <p style="font-size: 13px; color: #555;"><strong>Politique d'annulation :</strong> {{policyText}}</p>
+      {{/if}}
       <p>Nous avons hâte de vous accueillir !</p>
       <p style="text-align: center;">
         <a href="{{bookingUrl}}" class="button">Voir mon rendez-vous</a>
       </p>
+    `);
+  }
+
+  /** Generic deposit notice (refund, retained, payout, admin alerts): title, intro, rows, note, optional button. */
+  static getDepositNoticeTemplate(): string {
+    return this.wrapTemplate(`
+      <h2>{{title}}</h2>
+      <p>{{intro}}</p>
+      {{#if rows.length}}
+      <div class="info-box">
+        {{#each rows}}<p><strong>{{label}} :</strong> {{value}}</p>{{/each}}
+      </div>
+      {{/if}}
+      {{#if note}}<p style="font-size: 13px; color: #555;">{{note}}</p>{{/if}}
+      {{#if buttonUrl}}
+      <p style="text-align: center;">
+        <a href="{{buttonUrl}}" class="button">{{buttonLabel}}</a>
+      </p>
+      {{/if}}
     `);
   }
 
@@ -129,6 +158,23 @@ export class EmailTemplates {
         <p><strong>💇 Service:</strong> {{serviceName}}</p>
         <p><strong>👤 Avec:</strong> {{staffName}}</p>
       </div>
+    `);
+  }
+
+  static getWaitlistOfferTemplate(): string {
+    return this.wrapTemplate(`
+      <h2>Un créneau s'est libéré</h2>
+      <p>Bonjour <strong>{{clientName}}</strong>,</p>
+      <p>Bonne nouvelle : un créneau s'est libéré chez <strong>{{salonName}}</strong>.</p>
+      <div class="info-box">
+        <p><strong>Date :</strong> {{date}}</p>
+        <p><strong>Heure :</strong> {{time}}</p>
+        <p><strong>Prestation :</strong> {{serviceName}}</p>
+      </div>
+      <p>Réservez-le avant <strong>{{expires}}</strong>. Passé ce délai, il sera proposé à la personne suivante sur la liste d'attente.</p>
+      <p style="text-align: center;">
+        <a href="{{link}}" class="button">Réserver ce créneau</a>
+      </p>
     `);
   }
 

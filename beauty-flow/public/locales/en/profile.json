@@ -174,7 +174,8 @@
   "profile_form": {
     "tabs": {
       "profile": "Profile",
-      "affiliation": "Affiliation"
+      "affiliation": "Affiliation",
+      "deposits": "Deposits"
     },
     "sections": {
       "login_info": "Login information",
@@ -602,5 +603,51 @@
   "profile_page": {
     "subtitle": "Your details, your salon's details and your preferences",
     "loading": "Loading profile…"
+  },
+  "deposits": {
+    "load_error": "Your deposits could not be loaded.",
+    "available": "Available",
+    "available_hint": "Paid out with the next transfer",
+    "pending": "Pending",
+    "pending_hint": "Upcoming appointments",
+    "paid_out": "Already paid out",
+    "commission": "Saloneo commission",
+    "commission_hint": "{{percent}} % of collected deposits",
+    "earned": "Total earned",
+    "how_it_works": "Deposits paid online (CIB / Edahabia) are collected by Saloneo through SATIM and then paid out to your account. They become available once the appointment is over: service done, no-show or late cancellation. A cancellation within the deadline is refunded to the client automatically.",
+    "payout_title": "Payout details",
+    "payout_description": "The account Saloneo pays your deposits into. This information is never shown publicly.",
+    "payout_missing": "Add your details to receive your payouts.",
+    "legal_name": "Account holder",
+    "legal_name_placeholder": "Exact name or company name",
+    "legal_name_required": "Enter the account holder.",
+    "method": "Account type",
+    "method_ccp": "CCP (Algérie Poste)",
+    "method_bank": "Bank",
+    "rip": "RIP (20 digits)",
+    "rib": "RIB (20 digits)",
+    "rip_help": "Postal account identifier: starts with 007 99999, shown in BaridiMob.",
+    "rib_help": "20-digit bank account identifier, provided by your bank.",
+    "rib_length": "The number must have exactly 20 digits.",
+    "rib_ccp": "A CCP RIP starts with 007 99999.",
+    "saved": "Saved",
+    "save_error": "Could not save. Check the details and try again.",
+    "save": "Save",
+    "list_title": "Deposits",
+    "list_description": "Every deposit paid online and what became of it.",
+    "empty": "No deposits yet",
+    "empty_body": "Turn on a deposit for a service (Services → edit) to ask for it on online bookings.",
+    "status": {
+      "paid": "Paid · upcoming",
+      "refund_pending": "Refund in progress",
+      "refunded": "Refunded",
+      "retained": "Kept",
+      "applied": "Deducted from the bill",
+      "paid_out": "Paid out"
+    },
+    "payouts_title": "Payouts received",
+    "payouts_empty": "No payouts yet.",
+    "reference": "Ref. {{ref}}",
+    "coming_soon": "Online deposit payment will be switched on soon — your settings are saved."
   }
 }

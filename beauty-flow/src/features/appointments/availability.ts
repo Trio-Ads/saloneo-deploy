@@ -17,6 +17,8 @@ export interface PublicAvailability {
   slotInterval: number;
   allowAnyStaff: boolean;
   duration: number;
+  /** The salon takes waitlist requests */
+  waitlist?: boolean;
 }
 export interface DashboardAvailability {
   slots: string[];
@@ -39,9 +41,20 @@ export interface BookingSettings {
   allowAnyStaff: boolean;
   bufferMinutes: number;
   allowCancellation: boolean;
+  /** Also the free-cancellation deadline of online deposits */
   cancellationDeadlineHours: number;
+  /** After that deadline, one client reschedule is still allowed */
+  lateReschedule: boolean;
+  /** Status of an online booking once its deposit is paid */
+  paidStatus: 'confirmed' | 'scheduled';
+  /** Salon's own policy wording (booking step, emails) */
+  policyText: string;
 }
-export interface SalonBookingSettings { hours: WeekHours; configured: boolean; bookingSettings: BookingSettings; closures: DateRange[] }
+export interface SalonBookingSettings {
+  hours: WeekHours; configured: boolean; bookingSettings: BookingSettings; closures: DateRange[];
+  /** Server switch DEPOSITS_ENABLED: off = deposit settings are saved but no payment is asked yet */
+  depositsEnabled?: boolean;
+}
 
 export const availabilityAPI = {
   dashboard: (params: { serviceId: string; teamMemberId?: string; date: string; includeBusy?: 1; excludeId?: string }) =>
@@ -49,6 +62,11 @@ export const availabilityAPI = {
   getSettings: () => api.get<SalonBookingSettings>('/appointments/booking-settings'),
   saveSettings: (data: Partial<Omit<SalonBookingSettings, 'configured'>>) => api.put<SalonBookingSettings>('/appointments/booking-settings', data),
 };
+
+// One request per page load: whether online deposits are switched on server-side (settings stay editable either way)
+let depositsFlag: Promise<boolean> | null = null;
+export const fetchDepositsEnabled = () =>
+  (depositsFlag ??= availabilityAPI.getSettings().then(({ data }) => data.depositsEnabled !== false).catch(() => true));
 
 /** The refusal code of a 409 from any booking endpoint (undefined for other errors). */
 export const availabilityCode = (err: any): AvailabilityCode | undefined =>
@@ -60,7 +78,7 @@ export const availabilityCode = (err: any): AvailabilityCode | undefined =>
  */
 export async function fetchPublicAvailability(
   slug: string,
-  params: { serviceId: string; stylistId?: string; token?: string },
+  params: { serviceId: string; stylistId?: string; token?: string; offer?: string },
   from: string,
   to: string
 ): Promise<PublicAvailability> {
@@ -72,7 +90,7 @@ export async function fetchPublicAvailability(
   }
   const parts = await Promise.all(chunks.map((c) =>
     api.get<PublicAvailability>(`/public/availability/${slug}`, {
-      params: { serviceId: params.serviceId, stylistId: params.stylistId || undefined, token: params.token, from: c.from, days: c.days },
+      params: { serviceId: params.serviceId, stylistId: params.stylistId || undefined, token: params.token, offer: params.offer, from: c.from, days: c.days },
     }).then((r) => r.data)
   ));
   return { ...parts[0], days: parts.flatMap((p) => p.days) };

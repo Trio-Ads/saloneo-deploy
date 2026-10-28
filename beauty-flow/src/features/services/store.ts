@@ -45,7 +45,8 @@ const mapServiceFromAPI = (apiService: any): Service => ({
   isOnlineBookingEnabled: apiService.isOnlineBookingEnabled || false,
   isOnline: apiService.settings?.isOnline ?? false,
   // 24 h was the old schema default on every service: it means "salon setting" (same rule as the availability engine)
-  minimumBookingTime: [undefined, null, 24].includes(apiService.settings?.minimumBookingTime) ? null : apiService.settings.minimumBookingTime
+  minimumBookingTime: [undefined, null, 24].includes(apiService.settings?.minimumBookingTime) ? null : apiService.settings.minimumBookingTime,
+  deposit: apiService.deposit?.mode ? { mode: apiService.deposit.mode, value: apiService.deposit.value || 0 } : { mode: 'none', value: 0 }
 });
 
 // Fonction pour mapper les données du frontend vers le backend
@@ -63,7 +64,8 @@ const mapServiceToAPI = (service: ServiceFormData) => ({
   products: service.products,
   // Clés pointées : $set ne remplace que ces champs de settings
   ...(service.isOnline !== undefined && { 'settings.isOnline': service.isOnline }),
-  ...(service.minimumBookingTime !== undefined && { 'settings.minimumBookingTime': service.minimumBookingTime })
+  ...(service.minimumBookingTime !== undefined && { 'settings.minimumBookingTime': service.minimumBookingTime }),
+  ...(service.deposit && { deposit: service.deposit })
 });
 
 // Fonction pour mapper les produits du backend vers le frontend
