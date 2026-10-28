@@ -2,99 +2,99 @@
   "title": "Profile",
   "my_profile": "My profile",
   "account": "Account",
-  "personal_info": "Personal Information",
-  "business_info": "Business Information",
+  "personal_info": "Personal information",
+  "business_info": "Salon information",
   "security": {
-    "current_password": "Current Password",
-    "new_password": "New Password",
-    "confirm_password": "Confirm Password",
-    "change_password": "Change Password",
-    "two_factor": "Two-Factor Authentication",
+    "current_password": "Current password",
+    "new_password": "New password",
+    "confirm_password": "Confirm password",
+    "change_password": "Change password",
+    "two_factor": "Two-factor authentication",
     "enable_2fa": "Enable 2FA",
     "disable_2fa": "Disable 2FA",
-    "backup_codes": "Backup Codes",
-    "generate_codes": "Generate Codes",
-    "login_history": "Login History",
-    "active_sessions": "Active Sessions",
-    "revoke_session": "Revoke Session"
+    "backup_codes": "Backup codes",
+    "generate_codes": "Generate codes",
+    "login_history": "Login history",
+    "active_sessions": "Active sessions",
+    "revoke_session": "Revoke session"
   },
   "preferences": {
     "theme": "Theme",
     "language": "Language",
     "timezone": "Timezone",
-    "date_format": "Date Format",
-    "time_format": "Time Format",
+    "date_format": "Date format",
+    "time_format": "Time format",
     "currency": "Currency",
     "notifications": "Notifications",
-    "email_notifications": "Email Notifications",
-    "sms_notifications": "SMS Notifications",
-    "push_notifications": "Push Notifications",
-    "marketing_emails": "Marketing Emails",
+    "email_notifications": "Email notifications",
+    "sms_notifications": "SMS notifications",
+    "push_notifications": "Push notifications",
+    "marketing_emails": "Marketing emails",
     "privacy": "Privacy",
-    "public_profile": "Public Profile",
-    "show_online_status": "Show Online Status"
+    "public_profile": "Public profile",
+    "show_online_status": "Show online status"
   },
   "affiliation": {
-    "title": "Affiliation Program",
+    "title": "Affiliate program",
     "status": "Status",
     "active": "Active",
     "inactive": "Inactive",
     "pending": "Pending",
-    "commission_rate": "Commission Rate",
-    "total_earnings": "Total Earnings",
-    "pending_earnings": "Pending Earnings",
-    "paid_earnings": "Paid Earnings",
+    "commission_rate": "Commission rate",
+    "total_earnings": "Total earnings",
+    "pending_earnings": "Pending earnings",
+    "paid_earnings": "Paid earnings",
     "referrals": "Referrals",
-    "referral_code": "Referral Code",
-    "referral_link": "Referral Link",
-    "copy_link": "Copy Link",
-    "share_link": "Share Link",
-    "marketing_materials": "Marketing Materials",
+    "referral_code": "Referral code",
+    "referral_link": "Referral link",
+    "copy_link": "Copy link",
+    "share_link": "Share link",
+    "marketing_materials": "Marketing materials",
     "banners": "Banners",
-    "email_templates": "Email Templates",
-    "social_posts": "Social Posts",
-    "payout_settings": "Payout Settings",
-    "payment_method": "Payment Method",
-    "bank_account": "Bank Account",
-    "paypal_email": "PayPal Email",
-    "minimum_payout": "Minimum Payout",
-    "payout_schedule": "Payout Schedule",
-    "commission_history": "Commission History",
+    "email_templates": "Email templates",
+    "social_posts": "Social posts",
+    "payout_settings": "Payout settings",
+    "payment_method": "Payment method",
+    "bank_account": "Bank account",
+    "paypal_email": "PayPal email",
+    "minimum_payout": "Minimum payout",
+    "payout_schedule": "Payout schedule",
+    "commission_history": "Commission history",
     "performance": "Performance",
     "clicks": "Clicks",
     "conversions": "Conversions",
-    "conversion_rate": "Conversion Rate"
+    "conversion_rate": "Conversion rate"
   },
   "subscription": {
-    "current_plan": "Current Plan",
-    "plan_details": "Plan Details",
-    "billing_cycle": "Billing Cycle",
-    "next_billing": "Next Billing",
+    "current_plan": "Current plan",
+    "plan_details": "Plan details",
+    "billing_cycle": "Billing cycle",
+    "next_billing": "Next billing",
     "usage": "Usage",
     "limits": "Limits",
     "upgrade": "Upgrade",
     "downgrade": "Downgrade",
     "cancel": "Cancel",
     "renew": "Renew",
-    "payment_method": "Payment Method",
-    "billing_history": "Billing History",
+    "payment_method": "Payment method",
+    "billing_history": "Billing history",
     "invoices": "Invoices",
-    "download_invoice": "Download Invoice"
+    "download_invoice": "Download invoice"
   },
   "billing": "Billing",
   "notifications": "Notifications",
   "form": {
-    "first_name": "First Name",
-    "last_name": "Last Name",
+    "first_name": "First name",
+    "last_name": "Last name",
     "email": "Email",
     "phone": "Phone",
-    "avatar": "Profile Picture",
+    "avatar": "Profile picture",
     "bio": "Biography",
     "website": "Website",
-    "social_media": "Social Media",
+    "social_media": "Social media",
     "address": "Address",
     "city": "City",
-    "postal_code": "Postal Code",
+    "postal_code": "Postal code",
     "country": "Country",
     "timezone": "Timezone",
     "language": "Language",
@@ -102,16 +102,16 @@
     "required": "Required field"
   },
   "business": {
-    "establishment_name": "Establishment Name",
-    "business_type": "Business Type",
-    "registration_number": "Registration Number",
-    "tax_number": "Tax Number",
+    "establishment_name": "Salon name",
+    "business_type": "Business type",
+    "registration_number": "Registration number",
+    "tax_number": "VAT number",
     "description": "Description",
     "specialties": "Specialties",
-    "opening_hours": "Opening Hours",
-    "contact_email": "Contact Email",
-    "contact_phone": "Contact Phone",
-    "emergency_contact": "Emergency Contact",
+    "opening_hours": "Opening hours",
+    "contact_email": "Contact email",
+    "contact_phone": "Contact phone",
+    "emergency_contact": "Emergency contact",
     "insurance": "Insurance",
     "certifications": "Certifications",
     "licenses": "Licenses"
@@ -132,29 +132,29 @@
     "download": "Download",
     "export": "Export",
     "import": "Import",
-    "saving": "Saving..."
+    "saving": "Saving…"
   },
   "messages": {
-    "profile_updated": "Profile updated successfully",
-    "password_changed": "Password changed successfully",
-    "email_verified": "Email verified successfully",
-    "phone_verified": "Phone verified successfully",
-    "avatar_uploaded": "Profile picture uploaded successfully",
-    "avatar_removed": "Profile picture removed successfully",
-    "settings_saved": "Settings saved successfully",
+    "profile_updated": "Profile updated",
+    "password_changed": "Password changed",
+    "email_verified": "Email verified",
+    "phone_verified": "Phone verified",
+    "avatar_uploaded": "Profile picture uploaded",
+    "avatar_removed": "Profile picture removed",
+    "settings_saved": "Settings saved",
     "2fa_enabled": "Two-factor authentication enabled",
     "2fa_disabled": "Two-factor authentication disabled",
     "codes_generated": "Backup codes generated",
-    "session_revoked": "Session revoked successfully",
+    "session_revoked": "Session revoked",
     "link_copied": "Link copied to clipboard",
     "invalid_password": "Invalid password",
     "passwords_not_match": "Passwords do not match",
-    "email_already_exists": "This email already exists",
-    "phone_already_exists": "This phone number already exists",
+    "email_already_exists": "This email is already in use",
+    "phone_already_exists": "This phone number is already in use",
     "verification_sent": "Verification code sent",
     "verification_failed": "Verification failed",
-    "upload_error": "Upload error",
-    "file_too_large": "File too large",
+    "upload_error": "Couldn't upload the file",
+    "file_too_large": "File is too large",
     "invalid_file_type": "Invalid file type",
     "network_error": "Network error",
     "server_error": "Server error",
@@ -166,10 +166,10 @@
     "email_invalid": "Invalid email format",
     "phone_invalid": "Invalid phone format",
     "password_min_length": "Password must contain at least 8 characters",
-    "password_complexity": "Password must contain at least one uppercase, one lowercase and one digit",
+    "password_complexity": "Password must contain at least one uppercase letter, one lowercase letter and one number",
     "url_invalid": "Invalid URL format",
     "postal_code_invalid": "Invalid postal code",
-    "tax_number_invalid": "Invalid tax number"
+    "tax_number_invalid": "Invalid VAT number"
   },
   "profile_form": {
     "tabs": {
@@ -177,20 +177,20 @@
       "affiliation": "Affiliation"
     },
     "sections": {
-      "login_info": "Login Information",
-      "personal_info": "Personal Information",
-      "salon_info": "Salon Information",
+      "login_info": "Login information",
+      "personal_info": "Personal information",
+      "salon_info": "Salon information",
       "preferences": "Preferences",
-      "public_link": "Public Booking Link"
+      "public_link": "Booking page link"
     },
     "fields": {
-      "email": "Email Address",
-      "current_password": "Current Password",
-      "new_password": "New Password",
-      "confirm_password": "Confirm New Password",
-      "first_name": "First Name",
-      "last_name": "Last Name",
-      "establishment_name": "Establishment Name",
+      "email": "Email address",
+      "current_password": "Current password",
+      "new_password": "New password",
+      "confirm_password": "Confirm new password",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "establishment_name": "Salon name",
       "address": "Address",
       "language": "Language",
       "currency": "Currency",
@@ -204,7 +204,7 @@
       "first_name": "Your first name",
       "last_name": "Your last name",
       "establishment_name": "Your salon name",
-      "address": "Your salon full address",
+      "address": "Your salon's full address",
       "demo_email": "user@example.com",
       "demo_link": "saloneo.tech/your-salon"
     },
@@ -219,47 +219,47 @@
       "password_required": "Please enter your current password",
       "password_min_length": "New password must contain at least 8 characters",
       "passwords_not_match": "Passwords do not match",
-      "password_updated": "Password updated successfully",
-      "currency_updated": "Currency updated successfully",
-      "currency_error": "Error changing currency",
+      "password_updated": "Password updated",
+      "currency_updated": "Currency updated",
+      "currency_error": "Couldn't change the currency",
       "public_link_description": "Share this link with your clients so they can book appointments directly",
       "public_link_label": "Your booking link",
-      "language_error": "Error changing language",
+      "language_error": "Couldn't change the language",
       "email_validation": "Please enter a valid email address",
-      "show_as_team_member_description": "Clients can pick you when booking and see you on the salon's public page.",
+      "show_as_team_member_description": "Clients will be able to choose you when booking, and you'll appear on the salon's booking page.",
       "team_member_on": "You now appear in the team",
       "team_member_off": "You no longer appear in the team",
       "team_member_error": "Couldn't change this option. Try again.",
       "current_password_incorrect": "Current password is incorrect."
     },
     "descriptions": {
-      "login_info": "The address you sign in with.",
+      "login_info": "The email address you log in with.",
       "personal_info": "Your name as it appears in the app.",
-      "salon_info": "Shown on your public booking page.",
+      "salon_info": "Shown on your booking page.",
       "preferences": "Applied right away, no need to save."
     }
   },
-  "firstName": "First Name",
-  "lastName": "Last Name",
-  "establishmentName": "Establishment Name",
+  "firstName": "First name",
+  "lastName": "Last name",
+  "establishmentName": "Salon name",
   "address": "Address",
   "language": "Language",
   "currency": "Currency",
   "publicLinkCopied": "Link copied to clipboard",
   "success": {
-    "save": "Profile saved successfully"
+    "save": "Profile saved"
   },
   "error": {
-    "save": "Error saving profile"
+    "save": "Couldn't save the profile"
   },
   "affiliation_components": {
     "dashboard": {
       "affiliate_link": "Your affiliate link",
-      "monthly_stats": "Monthly Statistics",
+      "monthly_stats": "Monthly statistics",
       "share_buttons": {
         "whatsapp": "WhatsApp",
         "facebook": "Facebook",
-        "twitter": "Twitter",
+        "twitter": "X (Twitter)",
         "linkedin": "LinkedIn",
         "email": "Email"
       },
@@ -267,7 +267,7 @@
         "month": "Month",
         "clicks": "Clicks",
         "conversions": "Conversions",
-        "conversion_rate": "Conversion Rate",
+        "conversion_rate": "Conversion rate",
         "revenue": "Revenue"
       },
       "current_month": {
@@ -286,7 +286,9 @@
         "target_audience": "Target salon owners in your network",
         "use_tools": "Use the provided marketing tools for your campaigns"
       },
-      "vs_last_month": "vs last month"
+      "vs_last_month": "vs last month",
+      "share_text": "Discover Saloneo, the management app for beauty salons",
+      "share_subject": "Discover Saloneo"
     },
     "commissions": {
       "status": {
@@ -308,12 +310,13 @@
       },
       "table": {
         "date": "Date",
-        "referred_client": "Referred Client",
+        "referred_client": "Referred client",
         "type": "Type",
-        "original_amount": "Original Amount",
+        "original_amount": "Original amount",
         "commission": "Commission",
         "status": "Status",
-        "payment_date": "Payment Date"
+        "payment_date": "Payment date",
+        "rate": "Rate"
       },
       "empty_state": {
         "title": "No commissions",
@@ -327,80 +330,80 @@
       }
     },
     "payout": {
-      "title": "Payout Settings",
+      "title": "Payout settings",
       "description": "Configure your payment information to receive your commissions",
-      "available_balance": "Available Balance",
-      "payment_method": "Payment Method",
-      "minimum_threshold": "Minimum Payout Threshold",
-      "withdraw_amount": "Withdrawal Amount",
-      "request_payout": "Request Payout",
+      "available_balance": "Available balance",
+      "payment_method": "Payment method",
+      "minimum_threshold": "Minimum payout threshold",
+      "withdraw_amount": "Withdrawal amount",
+      "request_payout": "Request payout",
       "method": {
-        "title": "Payment Method",
-        "bank_transfer": "Bank Transfer",
+        "title": "Payment method",
+        "bank_transfer": "Bank transfer",
         "paypal": "PayPal",
         "crypto": "Cryptocurrency"
       },
       "bank_details": {
-        "title": "Bank Details",
-        "account_holder": "Account Holder Name",
+        "title": "Bank details",
+        "account_holder": "Account holder name",
         "iban": "IBAN",
-        "bic": "BIC/SWIFT Code",
-        "bank_name": "Bank Name"
+        "bic": "BIC/SWIFT code",
+        "bank_name": "Bank name"
       },
       "paypal_details": {
-        "title": "PayPal Details",
-        "email": "PayPal Email"
+        "title": "PayPal details",
+        "email": "PayPal email"
       },
       "crypto_details": {
-        "title": "Crypto Details",
-        "wallet_address": "Wallet Address",
+        "title": "Crypto details",
+        "wallet_address": "Wallet address",
         "currency": "Cryptocurrency"
       },
       "minimum_payout": {
-        "title": "Minimum Threshold",
+        "title": "Minimum threshold",
         "description": "Minimum amount required to make a payout: €50"
       },
-      "save_button": "Save Settings",
+      "save_button": "Save settings",
       "messages": {
-        "save_success": "Payout settings saved successfully",
-        "save_error": "Error saving payout settings",
+        "save_success": "Payout settings saved",
+        "save_error": "Couldn't save the payout settings",
         "settings_updated": "Payout settings updated",
         "payout_requested": "Payout request sent",
-        "minimum_error": "Minimum amount is €{{amount}}",
-        "request_error": "Payout request failed"
+        "minimum_error": "The minimum amount is €{{amount}}",
+        "request_error": "Couldn't request the payout"
       },
       "methods": {
-        "bank": "Bank Transfer",
+        "bank": "Bank transfer",
         "paypal": "PayPal",
         "crypto": "Crypto"
       },
       "bank_info": {
-        "title": "Bank Information",
-        "account_name": "Account Holder Name",
-        "bank_name": "Bank Name",
+        "title": "Bank information",
+        "account_name": "Account holder name",
+        "bank_name": "Bank name",
         "iban": "IBAN",
-        "swift": "SWIFT/BIC Code"
+        "swift": "SWIFT/BIC code"
       },
       "paypal_info": {
-        "title": "PayPal Information",
-        "email": "PayPal Email"
+        "title": "PayPal information",
+        "email": "PayPal email"
       },
       "crypto_info": {
-        "title": "Crypto Information",
+        "title": "Crypto information",
         "network": "Network",
-        "wallet_address": "Wallet Address"
+        "wallet_address": "Wallet address"
       },
       "networks": {
         "ETH": "Ethereum (ETH)",
         "BTC": "Bitcoin (BTC)",
         "USDT": "Tether (USDT)"
       },
-      "save_settings": "Save Settings",
-      "saving": "Saving...",
+      "save_settings": "Save settings",
+      "saving": "Saving…",
       "warning": {
         "title": "Important:",
         "payment_schedule": "Payments are processed between the 1st and 5th of each month",
-        "processing_time": "A delay of 2-5 business days is required depending on the chosen method",
+        "processing_time": "Allow 2 to 5 business days depending on the method chosen",
         "transaction_fees": "Transaction fees may apply depending on your bank"
       },
       "minimum_help": "Payouts are made automatically once your balance reaches this amount."
@@ -408,9 +411,9 @@
     "activation": {
       "title": "Become a Saloneo affiliate",
       "description": "Join our affiliate program and earn attractive commissions by recommending Saloneo to your professional network",
-      "subtitle": "Recommend Saloneo and earn commissions on every new customer",
+      "subtitle": "Recommend Saloneo and earn a commission on every new subscriber",
       "benefits": {
-        "title": "Program Benefits",
+        "title": "Program benefits",
         "items": {
           "earn_commissions": "Earn 20% commission on every subscription",
           "marketing_tools": "Access professional marketing tools",
@@ -419,7 +422,7 @@
         }
       },
       "how_it_works": {
-        "title": "How it works?",
+        "title": "How does it work?",
         "steps": {
           "share_link": "Share your unique affiliate link",
           "client_subscribes": "Your contacts subscribe to Saloneo",
@@ -427,18 +430,18 @@
         }
       },
       "commission_rates": {
-        "title": "Commission Rates",
+        "title": "Commission rates",
         "new_subscription": "20% on new subscriptions",
         "renewal": "10% on renewals",
         "upgrade": "15% on upgrades"
       },
       "terms": {
-        "title": "Program Terms",
+        "title": "Program terms",
         "items": {
           "minimum_payout": "Minimum payout threshold: €50",
           "payment_schedule": "Monthly payments between the 1st and 5th",
           "tracking_period": "Tracking period: 30 days",
-          "compliance": "Compliance with terms of use required"
+          "compliance": "You must comply with the terms of use"
         },
         "intro": "By activating the Saloneo affiliate program, you accept the following terms:",
         "list": {
@@ -450,61 +453,66 @@
           "fraud": "Any fraud leads to immediate suspension of the affiliate account"
         }
       },
-      "activate_button": "Activate Affiliate Program",
+      "activate_button": "Activate affiliate program",
       "messages": {
-        "activation_success": "Affiliate program activated successfully!",
-        "activation_error": "Error activating affiliate program",
+        "activation_success": "Affiliate program activated!",
+        "activation_error": "Couldn't activate the program",
         "accept_required": "Please accept the affiliate terms"
       },
       "accept_terms": "I accept the Saloneo affiliate program terms",
       "activating": "Activating…"
     },
     "marketing": {
-      "title": "Marketing Tools",
+      "title": "Marketing tools",
       "description": "Use these resources to promote Saloneo and maximize your commissions",
       "qr_code": {
-        "title": "Referral QR Code",
-        "description": "Share this QR code to allow your contacts to sign up easily. Perfect for business cards, flyers or posters.",
-        "generate": "Generate QR Code",
-        "download": "Download QR Code",
-        "generating": "Generating QR Code...",
-        "modal_title": "Affiliate QR Code",
-        "modal_description": "Scan this code to directly access your affiliate link"
+        "title": "Referral QR code",
+        "description": "Share this QR code so your contacts can sign up easily. Perfect for business cards, flyers or posters.",
+        "generate": "Generate QR code",
+        "download": "Download QR code",
+        "generating": "Generating QR code…",
+        "modal_title": "Affiliate QR code",
+        "modal_description": "Scan this code to go straight to your affiliate link"
       },
       "banners": {
-        "title": "Advertising Banners",
+        "title": "Advertising banners",
         "description": "Ready-to-use advertising banners for your campaigns",
-        "horizontal": "Horizontal Banner 728x90",
+        "horizontal": "Horizontal banner 728×90",
         "horizontal_desc": "Perfect for websites and blogs",
-        "square": "Square Banner 300x300",
+        "square": "Square banner 300×300",
         "square_desc": "Ideal for social networks",
-        "vertical": "Vertical Banner 160x600",
+        "vertical": "Vertical banner 160×600",
         "vertical_desc": "For website sidebars",
         "download": "Download"
       },
       "social_posts": {
-        "title": "Social Posts",
+        "title": "Social posts",
         "description": "Ready-to-share messages for your social networks",
-        "copy": "Copy Text"
+        "copy": "Copy text"
       },
       "email_templates": {
-        "title": "Email Templates",
+        "title": "Email templates",
         "description": "Professional email templates to promote Saloneo",
-        "copy": "Copy Template",
+        "copy": "Copy template",
         "professional": {
-          "title": "Professional Introduction Email",
-          "subject": "Discover Saloneo - The Complete Solution for Your Salon"
+          "title": "Professional introduction email",
+          "subject": "Discover Saloneo, the complete solution for your salon",
+          "content": "Hello,\n\nI'd like to introduce you to Saloneo, a complete management app designed for beauty salons, spas and barbers.\n\nWith Saloneo you can:\n✓ Take appointments online 24/7\n✓ Build client loyalty with a points system\n✓ Track your performance with detailed dashboards\n✓ Send automatic SMS reminders to reduce missed appointments\n✓ Manage your team and services easily\n\nThe Free plan lets you start with no card and no commitment.\n\nSign up now: {{link}}\n\nBest regards,\n[Your name]"
         },
         "personal": {
-          "title": "Personal Recommendation Email",
-          "subject": "My Secret to Managing My Salon Efficiently"
+          "title": "Personal recommendation email",
+          "subject": "My secret to running my salon smoothly",
+          "content": "Hi,\n\nHope you're doing well! I wanted to share the tool I use to run my salon.\n\nSince I started using Saloneo, I've:\n- Cut my missed appointments by 40%\n- Increased my online bookings by 60%\n- Saved 2 hours a day on admin\n\nThe best part? Clients can book straight from their phone, even when the salon is closed.\n\nIf you're interested, you can start for free: {{link}}\n\nLet me know if you have any questions!\n\nSee you soon,\n[Your name]"
         }
       },
       "social_messages": {
-        "title": "Social Media Messages",
+        "title": "Social media messages",
         "linkedin": "LinkedIn",
         "whatsapp": "WhatsApp",
-        "instagram": "Instagram"
+        "instagram": "Instagram",
+        "linkedin_message": "🚀 Discover Saloneo, the all-in-one management app for beauty professionals.\n\n✅ Online booking 24/7\n✅ Simple team management\n✅ Analytics dashboards\n✅ Automatic SMS reminders\n\nStart for free: {{link}}\n\n#BeautyTech #SalonManagement #DigitalTransformation",
+        "whatsapp_message": "Hey! 👋\n\nLooking for a tool to run your salon? I recommend Saloneo!\n\nIt's really simple and lets your clients book online 24/7 📱\n\nTry it free here: {{link}}",
+        "instagram_message": "✨ Transform your salon with Saloneo!\n\nThe digital tool that makes every day easier:\n📅 Online booking\n💆‍♀️ Service management\n👥 Client tracking\n📊 Detailed analytics\n\nLink in bio 👆 {{link}}\n\n#BeautySalon #SalonManagement #BeautyBusiness #Saloneo"
       },
       "best_practices": {
         "title": "Best practices",
@@ -533,22 +541,22 @@
       "inactive": "Inactive"
     },
     "stats": {
-      "total_referrals": "Total Referrals",
-      "total_commissions": "Total Commissions",
-      "commission_rate": "Commission Rate",
-      "conversion_rate": "Conversion Rate"
+      "total_referrals": "Total referrals",
+      "total_commissions": "Total commissions",
+      "commission_rate": "Commission rate",
+      "conversion_rate": "Conversion rate"
     },
     "program_title": "Affiliate program",
-    "affiliate_code": "Affiliate Code",
-    "loading": "Loading affiliation data..."
+    "affiliate_code": "Affiliate code",
+    "loading": "Loading affiliate data…"
   },
   "affiliation_tab": {
-    "title": "Affiliate Program",
+    "title": "Affiliate program",
     "description": "Earn commissions by recommending Saloneo to your professional network",
     "tabs": {
       "dashboard": "Dashboard",
       "commissions": "Commissions",
-      "marketing": "Marketing Tools",
+      "marketing": "Marketing tools",
       "settings": "Settings"
     }
   },
@@ -592,7 +600,7 @@
     "LYD": "Libyan Dinar"
   },
   "profile_page": {
-    "subtitle": "Your details, your salon's and your preferences",
+    "subtitle": "Your details, your salon's details and your preferences",
     "loading": "Loading profile…"
   }
 }

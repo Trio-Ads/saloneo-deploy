@@ -18,31 +18,31 @@
     "in_progress": "قيد التنفيذ",
     "completed": "مكتمل",
     "cancelled": "ملغي",
-    "no_show": "لم يحضر",
-    "rescheduled": "مؤجل"
+    "no_show": "غياب",
+    "rescheduled": "معدّل"
   },
   "form": {
-    "client": "العميل",
+    "client": "الزبون",
     "service": "الخدمة",
-    "stylist": "مصفف الشعر",
+    "stylist": "عضو الفريق",
     "date": "التاريخ",
     "time": "الوقت",
     "duration": "المدة",
     "price": "السعر",
     "notes": "ملاحظات",
-    "select_client": "اختر عميلاً",
-    "select_service": "اختر خدمة",
-    "select_stylist": "اختر مصفف شعر",
-    "select_date": "اختر تاريخاً",
-    "select_time": "اختر وقتاً",
-    "add_notes": "أضف ملاحظات",
-    "client_phone": "هاتف العميل",
-    "client_email": "بريد العميل الإلكتروني",
+    "select_client": "اختيار زبون",
+    "select_service": "اختيار خدمة",
+    "select_stylist": "اختيار عضو من الفريق",
+    "select_date": "اختيار تاريخ",
+    "select_time": "اختيار وقت",
+    "add_notes": "إضافة ملاحظات",
+    "client_phone": "هاتف الزبون",
+    "client_email": "بريد الزبون الإلكتروني",
     "reminder_sent": "تم إرسال التذكير",
     "payment_status": "حالة الدفع"
   },
   "actions": {
-    "book": "احجز",
+    "book": "حجز",
     "reschedule": "إعادة جدولة",
     "cancel": "إلغاء",
     "confirm": "تأكيد",
@@ -56,7 +56,7 @@
   },
   "filters": {
     "all_status": "جميع الحالات",
-    "all_stylists": "جميع المصففين",
+    "all_stylists": "كل أعضاء الفريق",
     "all_services": "جميع الخدمات",
     "date_range": "نطاق التاريخ",
     "from": "من",
@@ -70,9 +70,9 @@
     "appointment_completed": "تم إنهاء الموعد بنجاح",
     "reminder_sent": "تم إرسال التذكير بنجاح",
     "no_appointments": "لم يتم العثور على مواعيد",
-    "loading": "جاري تحميل المواعيد...",
-    "confirm_cancel": "هل أنت متأكد من إلغاء هذا الموعد؟",
-    "confirm_delete": "هل أنت متأكد من حذف هذا الموعد؟",
+    "loading": "جارٍ تحميل المواعيد…",
+    "confirm_cancel": "إلغاء هذا الموعد؟",
+    "confirm_delete": "حذف هذا الموعد نهائيًا؟",
     "slot_unavailable": "هذا الموعد لم يعد متاحاً",
     "overlap_warning": "هذا الموعد يتداخل مع موعد آخر",
     "confirm_no_show": "تسجيل هذا الموعد كغياب؟"
@@ -81,7 +81,7 @@
     "month_view": "عرض شهري",
     "week_view": "عرض أسبوعي",
     "day_view": "عرض يومي",
-    "agenda_view": "عرض جدول الأعمال",
+    "agenda_view": "عرض الأجندة",
     "today": "اليوم",
     "previous": "السابق",
     "next": "التالي"
@@ -96,11 +96,10 @@
     "revenue": "الإيرادات"
   },
   "loading": {
-    "planning": "جاري تحميل جدولك...",
+    "planning": "جارٍ تحميل جدولك…",
     "interface_preparation": "تحضير الواجهة"
   },
   "stats": {
-    "total_appointments_badge": "موعد إجمالي",
     "pending_badge": "في الانتظار",
     "total": "الإجمالي",
     "all_appointments": "جميع المواعيد",
@@ -109,10 +108,16 @@
     "confirmed": "مؤكدة",
     "ready_to_perform": "جاهزة للتنفيذ",
     "completed": "مكتملة",
-    "services_performed": "خدمات منجزة"
+    "services_performed": "خدمات منجزة",
+    "total_appointments_badge_zero": "لا مواعيد",
+    "total_appointments_badge_one": "موعد واحد إجمالًا",
+    "total_appointments_badge_two": "موعدان إجمالًا",
+    "total_appointments_badge_few": "{{count}} مواعيد إجمالًا",
+    "total_appointments_badge_many": "{{count}} موعدًا إجمالًا",
+    "total_appointments_badge_other": "{{count}} موعد إجمالًا"
   },
   "search": {
-    "placeholder": "البحث عن عميل أو خدمة..."
+    "placeholder": "البحث عن زبون أو خدمة…"
   },
   "view_modes": {
     "list": "قائمة",
@@ -120,21 +125,35 @@
   },
   "empty_state": {
     "no_appointments": "لم يتم العثور على مواعيد",
-    "modify_filters": "جرب تعديل مرشحات البحث",
-    "create_first": "ابدأ بإنشاء موعدك الأول",
+    "modify_filters": "يمكن تعديل عوامل التصفية لعرض نتائج أخرى",
+    "create_first": "يمكنك البدء بإنشاء موعدك الأول",
     "create_appointment": "إنشاء موعد"
   },
   "past_appointments": {
     "complete_action": "إنهاء",
-    "no_show_action": "غائبون",
-    "found_message": "مواعيد سابقة موجودة. هل تريد تسجيلها كـ",
+    "no_show_action": "غياب",
+    "confirm_mark_zero": "لا توجد مواعيد سابقة لتسجيلها كـ«{{status}}».",
+    "confirm_mark_one": "تم العثور على {{count}} موعد سابق. هل تريد تسجيله كـ«{{status}}»؟",
+    "confirm_mark_two": "تم العثور على موعدين سابقين. هل تريد تسجيلهما كـ«{{status}}»؟",
+    "confirm_mark_few": "تم العثور على {{count}} مواعيد سابقة. هل تريد تسجيلها كـ«{{status}}»؟",
+    "confirm_mark_many": "تم العثور على {{count}} موعدًا سابقًا. هل تريد تسجيلها كـ«{{status}}»؟",
+    "confirm_mark_other": "تم العثور على {{count}} موعد سابق. هل تريد تسجيلها كـ«{{status}}»؟",
     "completed_status": "مكتملة",
-    "no_show_status": "غائبون",
+    "no_show_status": "غياب",
     "none_to_process": "لا توجد مواعيد سابقة للمعالجة.",
-    "processed_message": "مواعيد تم معالجتها.",
+    "processed_zero": "لم تتم معالجة أي موعد.",
+    "processed_one": "تمت معالجة {{count}} موعد.",
+    "processed_two": "تمت معالجة موعدين.",
+    "processed_few": "تمت معالجة {{count}} مواعيد.",
+    "processed_many": "تمت معالجة {{count}} موعدًا.",
+    "processed_other": "تمت معالجة {{count}} موعد.",
     "processing_error": "خطأ في معالجة المواعيد السابقة.",
+    "notice_zero": "لا توجد مواعيد سابقة بحاجة إلى إغلاق.",
     "notice_one": "موعد سابق واحد لم يُغلق بعد.",
-    "notice_other": "{{count}} مواعيد سابقة لم تُغلق بعد.",
+    "notice_two": "موعدان سابقان لم يُغلقا بعد.",
+    "notice_few": "{{count}} مواعيد سابقة لم تُغلق بعد.",
+    "notice_many": "{{count}} موعدًا سابقًا لم يُغلق بعد.",
+    "notice_other": "{{count}} موعد سابق لم يُغلق بعد.",
     "mark_completed": "تحديد كمكتملة",
     "mark_no_show": "تحديد كغياب"
   },
@@ -146,14 +165,19 @@
     "appointment_created": "تم إنشاء الموعد بنجاح!"
   },
   "errors": {
+    "selectDateTime": "يرجى اختيار التاريخ والوقت",
+    "modificationNotAllowed": "التعديل غير مسموح به",
+    "modificationFailed": "تعذّر التعديل",
+    "cancellationFailed": "تعذّر الإلغاء",
+    "reasonRequired": "يرجى ذكر السبب",
     "form_submission": "خطأ في إرسال النموذج:"
   },
   "appointment_form": {
     "title_new": "موعد جديد",
     "title_edit": "تعديل الموعد",
-    "subtitle": "جدولة موعد لعميلك",
+    "subtitle": "جدولة موعد لزبونك",
     "sections": {
-      "client": "العميل",
+      "client": "الزبون",
       "service": "الخدمة",
       "stylist": "عضو الفريق",
       "scheduling": "الجدولة",
@@ -161,30 +185,35 @@
       "summary": "ملخص"
     },
     "labels": {
-      "select_client": "العميل",
-      "choose_client": "اختر عميلًا…",
-      "client_selected": "العميل المختار:",
+      "select_client": "الزبون",
+      "choose_client": "اختيار زبون…",
+      "client_selected": "الزبون المختار:",
       "select_service": "الخدمة",
-      "choose_service": "اختر خدمة…",
+      "choose_service": "اختيار خدمة…",
       "service_selected": "الخدمة:",
       "select_stylist": "عضو الفريق",
-      "choose_stylist": "اختر عضوًا…",
-      "stylist_selected": "المصفف:",
+      "choose_stylist": "اختيار عضو…",
+      "stylist_selected": "عضو الفريق:",
       "date": "التاريخ",
       "time": "الوقت",
-      "select_time": "اختر وقتًا…",
+      "select_time": "اختيار وقت…",
       "additional_notes": "ملاحظات",
-      "notes_placeholder": "أضف ملاحظات حول الموعد، تفضيلات العميل...",
+      "notes_placeholder": "ملاحظات حول الموعد، تفضيلات الزبون…",
       "new": "جديد"
     },
     "messages": {
-      "select_service_stylist_first": "اختر خدمة وعضوًا من الفريق أولًا.",
+      "select_service_stylist_first": "يجب اختيار خدمة وعضو من الفريق أولًا.",
       "no_slots_available": "لا توجد أوقات متاحة لهذا التاريخ",
-      "slots_available": "مواعيد متاحة",
-      "invalid_date": "تاريخ غير صالح"
+      "invalid_date": "تاريخ غير صالح",
+      "slots_available_zero": "لا يوجد وقت متاح",
+      "slots_available_one": "وقت واحد متاح",
+      "slots_available_two": "وقتان متاحان",
+      "slots_available_few": "{{count}} أوقات متاحة",
+      "slots_available_many": "{{count}} وقتًا متاحًا",
+      "slots_available_other": "{{count}} وقت متاح"
     },
     "summary_labels": {
-      "client": "العميل",
+      "client": "الزبون",
       "service": "الخدمة",
       "stylist": "مع",
       "date": "التاريخ",
@@ -198,7 +227,7 @@
       "modify": "حفظ"
     },
     "unknown": {
-      "client": "عميل غير معروف",
+      "client": "زبون غير معروف",
       "service": "خدمة غير معروفة",
       "stylist": "عضو غير معروف"
     }
@@ -206,20 +235,19 @@
   "appointment_list": {
     "no_appointments": "لا توجد مواعيد",
     "no_appointments_period": "لا توجد مواعيد مجدولة لهذه الفترة",
-    "schedule_first": "جدول مواعيدك الأولى",
-    "appointments_count": "مواعيد",
+    "schedule_first": "لا موعد بعد في هذه الفترة",
     "past_appointment": "تاريخ سابق",
     "invalid_date": "تاريخ غير صحيح",
     "tooltips": {
       "confirm": "تأكيد الموعد",
       "edit": "تعديل الموعد",
-      "complete": "وضع علامة كمكتمل",
-      "no_show": "وضع علامة كغير حاضر",
+      "complete": "تحديد كمكتمل",
+      "no_show": "تسجيل غياب",
       "cancel": "إلغاء الموعد"
     },
     "details": {
       "service": "الخدمة",
-      "stylist": "المصفف",
+      "stylist": "عضو الفريق",
       "notes": "الملاحظات"
     },
     "status_labels": {
@@ -227,17 +255,21 @@
       "confirmed": "مؤكد",
       "completed": "مكتمل",
       "cancelled": "ملغى",
-      "no_show": "غير حاضر"
+      "no_show": "غياب"
     },
     "overdue": "متأخر",
-    "with": "مع {{name}}"
+    "with": "مع {{name}}",
+    "appointments_count_zero": "لا مواعيد",
+    "appointments_count_one": "موعد واحد",
+    "appointments_count_two": "موعدان",
+    "appointments_count_few": "{{count}} مواعيد",
+    "appointments_count_many": "{{count}} موعدًا",
+    "appointments_count_other": "{{count}} موعد"
   },
   "calendar_view": {
     "today": "اليوم",
     "previous_week": "الأسبوع السابق",
     "next_week": "الأسبوع التالي",
-    "week_from": "أسبوع من",
-    "week_to": "إلى",
     "stats": {
       "total": "إجمالي المواعيد",
       "confirmed": "مؤكدة",
@@ -250,8 +282,13 @@
     "legend": {
       "title": "مفتاح الحالات"
     },
+    "week_total_zero": "لا مواعيد هذا الأسبوع",
     "week_total_one": "موعد واحد هذا الأسبوع",
-    "week_total_other": "{{count}} مواعيد هذا الأسبوع"
+    "week_total_two": "موعدان هذا الأسبوع",
+    "week_total_few": "{{count}} مواعيد هذا الأسبوع",
+    "week_total_many": "{{count}} موعدًا هذا الأسبوع",
+    "week_total_other": "{{count}} موعد هذا الأسبوع",
+    "week_range": "أسبوع {{from}} إلى {{to}}"
   },
   "appointment_settings": {
     "buffer_time": "وقت الفاصل بين المواعيد",
@@ -271,7 +308,7 @@
     "lunch_start": "بداية الاستراحة",
     "lunch_end": "نهاية الاستراحة",
     "save_settings": "حفظ الإعدادات",
-    "saving": "جاري الحفظ...",
+    "saving": "جارٍ الحفظ…",
     "success_message": "تم حفظ إعدادات المواعيد بنجاح!",
     "error_message": "خطأ في حفظ الإعدادات",
     "units": {
@@ -281,9 +318,26 @@
       "hours_before": "ساعات قبل الموعد"
     }
   },
+  "bookingConfirmed": "تم تأكيد الحجز!",
+  "bookingSuccessMessage": "تم تأكيد موعدك بنجاح",
+  "modificationLinkInfo": "يتيح لك هذا الرابط تعديل موعدك أو إلغاءه",
+  "modificationLinkWarning": "يُرجى الاحتفاظ بهذا الرابط جيدًا، فهو يتيح لك إدارة موعدك",
+  "yourAppointments": "مواعيدك",
+  "noAppointments": "لم يُعثر على أي موعد",
+  "bookNew": "حجز موعد جديد",
+  "modify": "تعديل",
+  "cancel": "إلغاء",
+  "modifyAppointment": "تعديل الموعد",
+  "cancelAppointment": "إلغاء الموعد",
+  "cancelConfirmation": "إلغاء هذا الموعد؟",
+  "cancelReasonPlaceholder": "سبب الإلغاء (اختياري)",
+  "confirmModification": "تأكيد التعديل",
+  "confirmCancellation": "تأكيد الإلغاء",
+  "date": "التاريخ",
+  "time": "الوقت",
   "history_link": "السجل",
   "quick_create": {
-    "client_title": "عميل جديد",
+    "client_title": "زبون جديد",
     "service_title": "خدمة جديدة",
     "team_title": "عضو جديد",
     "first_name": "الاسم",
@@ -302,14 +356,14 @@
   },
   "history": {
     "title": "سجل المواعيد",
-    "subtitle": "اعثر على جميع مواعيد الصالون وحلّلها.",
+    "subtitle": "كل مواعيد الصالون في مكان واحد، للبحث والتحليل.",
     "back": "المواعيد",
     "filters": "عوامل التصفية",
     "show_filters": "إظهار",
     "hide_filters": "إخفاء",
     "startDate": "من",
     "endDate": "إلى",
-    "client": "العميل",
+    "client": "الزبون",
     "stylist": "عضو الفريق",
     "service": "الخدمة",
     "status": "الحالة",
@@ -328,10 +382,14 @@
     "favoriteService": "الخدمة المفضلة",
     "favoriteStylist": "العضو المفضل",
     "notEnoughData": "بيانات غير كافية",
+    "results_zero": "لا مواعيد",
     "results_one": "موعد واحد",
-    "results_other": "{{count}} مواعيد",
+    "results_two": "موعدان",
+    "results_few": "{{count}} مواعيد",
+    "results_many": "{{count}} موعدًا",
+    "results_other": "{{count}} موعد",
     "no_results_title": "لا توجد نتائج",
-    "noResults": "لا يوجد موعد يطابق هذه المرشحات.",
+    "noResults": "لا يوجد موعد يطابق عوامل التصفية هذه.",
     "unknown": "غير معروف"
   }
 }

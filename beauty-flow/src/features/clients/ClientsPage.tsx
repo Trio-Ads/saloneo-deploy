@@ -194,7 +194,7 @@ const ClientsPage: React.FC = () => {
             </div>
             {searchTerm && (
               <p className="text-sm text-gray-500 dark:text-gray-400 sm:ms-auto">
-                {filteredClients.length} {t('search.results')} « {searchTerm} »
+                {t('search.results', { count: filteredClients.length, term: searchTerm })}
               </p>
             )}
           </div>

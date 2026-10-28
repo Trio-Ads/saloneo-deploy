@@ -1,9 +1,8 @@
 import type React from 'react';
-import { fr, enUS, ar } from 'date-fns/locale';
 import type { DesignTemplate } from '../../templates';
 import './booking.css';
 
-export const dateLocale = (lang?: string) => (lang?.startsWith('ar') ? ar : lang?.startsWith('en') ? enUS : fr);
+export { dateLocale } from '../../dashboard/dateLocale';
 
 // Relative luminance of a #rgb / #rrggbb color; null when the value is not hex.
 function luminance(color: string): number | null {

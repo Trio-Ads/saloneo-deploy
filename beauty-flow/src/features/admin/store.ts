@@ -9,6 +9,7 @@ import {
   PlanType,
   SubscriptionDuration
 } from './types';
+import i18n from 'i18next';
 
 interface AdminState {
   users: AdminUser[];
@@ -86,7 +87,7 @@ export const useAdminStore = create<AdminState>((set, get) => ({
       }
     } catch (error: any) {
       set({
-        error: error.response?.data?.error || 'Failed to fetch users',
+        error: error.response?.data?.error || i18n.t('admin:errors.load_users'),
         loading: false
       });
     }
@@ -111,7 +112,7 @@ export const useAdminStore = create<AdminState>((set, get) => ({
       }
     } catch (error: any) {
       set({
-        error: error.response?.data?.error || 'Failed to fetch user details',
+        error: error.response?.data?.error || i18n.t('admin:errors.load_user'),
         loading: false
       });
     }
@@ -132,7 +133,7 @@ export const useAdminStore = create<AdminState>((set, get) => ({
       }
     } catch (error: any) {
       set({
-        error: error.response?.data?.error || 'Failed to fetch platform stats',
+        error: error.response?.data?.error || i18n.t('admin:errors.load_stats'),
         loading: false
       });
     }
@@ -166,7 +167,7 @@ export const useAdminStore = create<AdminState>((set, get) => ({
       }
     } catch (error: any) {
       set({
-        error: error.response?.data?.error || 'Failed to update subscription',
+        error: error.response?.data?.error || i18n.t('admin:errors.update_subscription'),
         loading: false
       });
       throw error;

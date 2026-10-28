@@ -11,7 +11,7 @@
   "form": {
     "first_name": "Prénom",
     "last_name": "Nom",
-    "email": "Email",
+    "email": "E-mail",
     "phone": "Téléphone",
     "date_of_birth": "Date de naissance",
     "gender": "Genre",
@@ -33,12 +33,12 @@
     "last_name": "Entrez le nom",
     "email": "exemple@email.com",
     "phone": "06 12 34 56 78",
-    "address": "123 Rue de la Paix",
+    "address": "12 rue Didouche Mourad, Alger",
     "city": "Paris",
     "postal_code": "75001",
-    "notes": "Notes sur le client...",
-    "allergies": "Allergies connues...",
-    "preferences": "Préférences du client..."
+    "notes": "Notes sur le client…",
+    "allergies": "Allergies connues…",
+    "preferences": "Préférences du client…"
   },
   "gender": {
     "male": "Homme",
@@ -79,10 +79,10 @@
     "import": "Importer"
   },
   "filters": {
-    "search": "Rechercher des clients...",
+    "search": "Rechercher des clients…",
     "all_status": "Tous les statuts",
     "all_genders": "Tous les genres",
-    "all_stylists": "Tous les coiffeurs",
+    "all_stylists": "Tous les membres de l'équipe",
     "registration_date": "Date d'inscription",
     "last_visit": "Dernière visite"
   },
@@ -107,9 +107,9 @@
     "client_updated": "Client mis à jour avec succès",
     "client_deleted": "Client supprimé avec succès",
     "no_clients": "Aucun client trouvé",
-    "loading": "Chargement des clients...",
+    "loading": "Chargement des clients…",
     "confirm_delete": "Êtes-vous sûr de vouloir supprimer ce client ?",
-    "email_exists": "Cette adresse email existe déjà",
+    "email_exists": "Cette adresse e-mail existe déjà",
     "phone_exists": "Ce numéro de téléphone existe déjà",
     "export_success": "Clients exportés avec succès",
     "import_success": "Clients importés avec succès"
@@ -119,12 +119,12 @@
     "import_clients": "Importer les clients",
     "download_template": "Télécharger le modèle",
     "select_file": "Sélectionner un fichier",
-    "supported_formats": "Formats supportés: CSV, Excel"
+    "supported_formats": "Formats supportés : CSV, Excel"
   },
   "page_title": "Clients",
   "page_subtitle": "Votre fichier clients, leurs préférences et leur fidélité.",
   "loading": {
-    "clients": "Chargement de vos clients...",
+    "clients": "Chargement de vos clients…",
     "preparing": "Préparation de votre base clients"
   },
   "stats": {
@@ -133,15 +133,16 @@
     "total": "Total",
     "all_clients": "Clients",
     "vip_title": "Clients VIP",
-    "vip_description": "100+ points fidélité",
-    "recent_title": "Nouveaux (30j)",
+    "vip_description": "100 points de fidélité et plus",
+    "recent_title": "Nouveaux (30 jours)",
     "recent_description": "Clients récents",
-    "loyalty_title": "Points fidélité",
+    "loyalty_title": "Points de fidélité",
     "loyalty_description": "Points cumulés"
   },
   "search": {
-    "placeholder": "Rechercher un client (nom, email, téléphone...)",
-    "results": "client(s) trouvé(s) pour"
+    "placeholder": "Rechercher un client (nom, e-mail, téléphone…)",
+    "results_one": "{{count}} client trouvé pour « {{term}} »",
+    "results_other": "{{count}} clients trouvés pour « {{term}} »"
   },
   "empty_state": {
     "no_clients": "Aucun client trouvé",
@@ -150,8 +151,8 @@
     "create_client": "Créer un client"
   },
   "errors": {
-    "saving": "Erreur lors de la sauvegarde du client:",
-    "deleting": "Erreur lors de la suppression du client:"
+    "saving": "Erreur lors de la sauvegarde du client :",
+    "deleting": "Erreur lors de la suppression du client :"
   },
   "client_form": {
     "title_new": "Nouveau client",
@@ -168,24 +169,24 @@
       "phone_required": "Téléphone *",
       "birth_date": "Date de naissance",
       "favorite_services": "Services préférés",
-      "preferred_stylists": "Coiffeurs préférés",
+      "preferred_stylists": "Membres de l'équipe préférés",
       "sms_reminders": "Rappels SMS",
-      "email_marketing": "Emails promotionnels",
+      "email_marketing": "E-mails promotionnels",
       "birthday_offers": "Offres d'anniversaire"
     },
     "placeholders": {
       "enter_first_name": "Entrez le prénom",
       "enter_last_name": "Entrez le nom",
       "phone_example": "+33 6 12 34 56 78",
-      "address_example": "123 Rue de la Beauté, 75001 Paris",
-      "notes_placeholder": "Notes supplémentaires sur le client..."
+      "address_example": "12 rue Didouche Mourad, Alger",
+      "notes_placeholder": "Notes supplémentaires sur le client…"
     },
     "buttons": {
       "cancel": "Annuler",
       "add": "Ajouter",
       "modify": "Modifier"
     },
-    "error_message": "Erreur lors de la soumission du formulaire:"
+    "error_message": "Erreur lors de la soumission du formulaire :"
   },
   "client_list": {
     "empty_state": {
@@ -195,31 +196,31 @@
     },
     "loyalty_levels": {
       "vip": "VIP",
-      "gold": "Gold",
-      "silver": "Silver",
+      "gold": "Or",
+      "silver": "Argent",
       "bronze": "Bronze"
     },
     "info_labels": {
-      "email": "Email",
+      "email": "E-mail",
       "phone": "Téléphone",
       "birth_date": "Date de naissance",
       "last_visit": "Dernière visite"
     },
     "profile_sections": {
       "hair_profile": "Profil capillaire",
-      "loyalty_points": "Points fidélité",
+      "loyalty_points": "Points de fidélité",
       "communication": "Communication",
       "favorite_services": "Services préférés",
-      "preferred_stylists": "Coiffeurs préférés",
+      "preferred_stylists": "Membres de l'équipe préférés",
       "notes": "Notes"
     },
     "hair_info": {
-      "type": "Type:",
-      "thickness": "Épaisseur:"
+      "type": "Type :",
+      "thickness": "Épaisseur :"
     },
     "communication_badges": {
       "sms": "SMS",
-      "email": "Email",
+      "email": "E-mail",
       "birthday": "Anniversaire"
     },
     "tooltips": {

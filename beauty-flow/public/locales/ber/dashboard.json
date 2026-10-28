@@ -1,41 +1,177 @@
 {
   "title": "Tafelwit n usenqed",
   "welcome": "Ansuf",
-  "overview": "Taskant",
-  "stats": {
-    "appointments": "Isuraf",
+  "overview": "Tamuɣli s umata",
+  "analytics": "Tislaḍin",
+  "reports": "Ineqqisen",
+  "loading": "Asali n tfelwit n usenqed…",
+  "widgets": {
+    "revenue": "Idrimen i d-yekcmen",
+    "appointments": "Timlilin",
     "clients": "Imsaɣen",
-    "revenue": "Aɣaras",
     "services": "Imeẓla",
-    "team": "Tarbaɛt",
-    "growth": "Akker",
+    "team_performance": "Igmaḍ n terbaɛt",
+    "popular_services": "Imeẓla yettwasnen",
+    "recent_activity": "Armud aneggaru",
+    "upcoming_appointments": "Timlilin i d-iteddun",
+    "quick_actions": "Tigawin tiruradin",
+    "business_insights": "Tislaḍin n urmud"
+  },
+  "metrics": {
     "today": "Ass-a",
-    "thisWeek": "Imalas-a",
-    "thisMonth": "Aggur-a",
-    "thisYear": "Aseggas-a"
-  },
-  "quickActions": {
-    "title": "Tigawin tiruḥin",
-    "newAppointment": "Asuref amaynut",
-    "newClient": "Amsaɣ amaynut",
-    "newService": "Ameẓlu amaynut",
-    "viewCalendar": "Ẓer awitay",
-    "viewReports": "Ẓer ineqqisen"
-  },
-  "recentActivity": {
-    "title": "Armud n melmi kan",
-    "noActivity": "Ulac armud",
-    "viewAll": "Ẓer akk"
-  },
-  "upcomingAppointments": {
-    "title": "Isuraf i d-iteddun",
-    "noAppointments": "Ulac isuraf",
-    "viewAll": "Ẓer akk isuraf"
+    "this_week": "Dduṛt-a",
+    "this_month": "Aggur-a",
+    "this_year": "Aseggas-a",
+    "total": "Asemday",
+    "growth": "Asnerni",
+    "vs_last_period": "ɣef tallit yezrin",
+    "increase": "Timerna",
+    "decrease": "Asenqes"
   },
   "charts": {
-    "revenue": "Aɣaras",
-    "appointments": "Isuraf",
+    "revenue_chart": "Udlif n yidrimen",
+    "appointment_chart": "Udlif n tmlilin",
+    "service_popularity": "Imeẓla yettwasnen",
+    "client_retention": "Taɣlalt n yimsaɣen",
+    "daily": "Yal ass",
+    "weekly": "Yal dduṛt",
+    "monthly": "Yal aggur",
+    "yearly": "Yal aseggas"
+  },
+  "quick_actions": {
+    "title": "Tigawin tiruradin",
+    "new_appointment": "Timlilit tamaynut",
+    "new_appointment_desc": "Sbadu timlilit",
+    "new_client": "Amsaɣ amaynut",
+    "new_client_desc": "Rnu amsaɣ",
+    "calendar": "Asɣiwes",
+    "calendar_desc": "Ẓer awitay",
+    "subscription": "Ajerred",
+    "subscription_desc": "Sefrek aɣawas-ik",
+    "statistics": "Tidaddanin",
+    "statistics_desc": "Ẓer amazray",
+    "settings": "Iɣewwaṛen",
+    "settings_desc": "Tawila",
+    "new_service": "Ameẓlu amaynut",
+    "view_calendar": "Ẓer awitay",
+    "manage_team": "Sefrek tarbaɛt",
+    "reports": "Ineqqisen"
+  },
+  "insights": {
+    "peak_hours": "Isragen n tuṭṭfa",
+    "busiest_day": "Ass yeččuren akk",
+    "top_service": "Ameẓlu yettwasutren akk",
+    "best_performer": "Aɛeggal yifen",
+    "revenue_trend": "Tanila n yidrimen",
+    "client_satisfaction": "Aqbal n yimsaɣen"
+  },
+  "overview_subtitle": "Atan wayen yeḍran deg urmud-ik ass-a",
+  "demo_mode": "Askar n uskan",
+  "real_data": "Isefka n tidet",
+  "time_periods": {
+    "day": "Ass",
+    "week": "Dduṛt",
+    "month": "Aggur"
+  },
+  "kpis": {
+    "daily_revenue": "Idrimen n wass",
+    "monthly_revenue": "Idrimen n waggur",
     "clients": "Imsaɣen",
-    "services": "Imeẓla"
+    "occupancy": "Aččar",
+    "this_month": "aggur-a",
+    "upcoming": "i d-iteddun",
+    "appointments_one": "{{count}} n tmlilit",
+    "appointments_other": "{{count}} n tmlilin"
+  },
+  "charts_titles": {
+    "revenue_evolution": "Tamesfeɣt n yidrimen",
+    "appointments_by_status": "Timlilin s waddad",
+    "popular_services": "Imeẓla yettwasnen"
+  },
+  "alerts": {
+    "subscription_limit": "Tqerbeḍ ɣer tilist n tmlilin-ik ({{percentage}} % yettwaseqdec)",
+    "upgrade": "Leqqem aɣawas",
+    "unconfirmed_appointments": "{{count}} n tmlilin ara tesnetmeḍ ass-a",
+    "view": "Ẓer",
+    "manage": "Sefrek",
+    "loyal_clients_one": "{{count}} n umsaɣ amaɣlal yuklal arraz",
+    "loyal_clients_other": "{{count}} n yimsaɣen imaɣlalen uklalen arraz"
+  },
+  "recent_activity": {
+    "title": "Armud aneggaru",
+    "no_activity": "Ulac armud aneggaru",
+    "actions": {
+      "created": "Timlilit tettwarna",
+      "confirmed": "Timlilit tettwasentem",
+      "completed": "Timlilit temmed",
+      "cancelled": "Timlilit tettwasefsex",
+      "rescheduled": "Timlilit tettwasmutti",
+      "no_show": "Amsaɣ ur d-yusi ara"
+    },
+    "time": {
+      "just_now": "Tura kan",
+      "minutes_ago": "{{minutes}} tsd aya",
+      "hours_ago": "{{hours}} sr aya",
+      "days_ago": "{{days}} n wussan aya"
+    },
+    "unknown_client": "Amsaɣ arussin"
+  },
+  "components": {
+    "upcoming_appointments": {
+      "title": "Timlilin i d-iteddun",
+      "no_appointments": "Ulac timlilin i d-iteddun",
+      "today": "Ass-a",
+      "tomorrow": "Azekka",
+      "statuses": {
+        "scheduled": "Yettusɣiwes",
+        "confirmed": "Yettwasentem",
+        "rescheduled": "Yettwasmutti"
+      }
+    },
+    "appointment_chart": {
+      "title": "Timlilin s waddad",
+      "no_data": "Ulac timlilin deg tallit-a",
+      "total": "Asemday",
+      "statuses": {
+        "scheduled": "Ttwasbadunt",
+        "confirmed": "Ttwasentment",
+        "completed": "Mmdent",
+        "cancelled": "Ttwasefsxent",
+        "noShow": "Ur d-usin ara",
+        "rescheduled": "Ttwasmuttint"
+      }
+    },
+    "business_insights": {
+      "title": "Tislaḍin n urmud-ik",
+      "insights": {
+        "high_cancellation_title": "Afmiḍi n usefsex d ameqqran",
+        "high_cancellation_desc": "{{rate}} % n usefsex aggur-a. Xemmem ad tazneḍ ismektiyen s SMS.",
+        "top_service_title": "Ameẓlu yettawin ugar",
+        "top_service_desc": "\"{{service}}\" yewwi-d {{revenue}} n yidrimen. Xemmem ad t-tesbeggneḍ.",
+        "loyal_clients_title": "Imsaɣen imaɣlalen",
+        "loyal_clients_desc": "{{rate}} % n yimsaɣen-ik sɛan ugar n 50 n tneqqiḍin n taɣlalt. Snulfu-d ahil n warrazen.",
+        "popular_slot_title": "Tallit yettwasutren akk",
+        "popular_slot_desc": "{{slot}} d tallit yettwasutren akk. Seggem ahil n wakud-ik ɣef waya.",
+        "low_acquisition_title": "Drus n yimsaɣen imaynuten",
+        "low_acquisition_desc": "Ulac amsaɣ amaynut dduṛt-a. Senker tamesbalt n usbeggen."
+      }
+    },
+    "revenue_chart": {
+      "title": "Tamesfeɣt n yidrimen",
+      "tooltip": "{{value}}"
+    },
+    "service_popularity": {
+      "no_data": "Ulac isefka",
+      "unknown_service": "Ameẓlu arussin",
+      "other_category": "Wayeḍ"
+    },
+    "team_performance": {
+      "title": "Igmaḍ n terbaɛt",
+      "no_members": "Ulac iɛeggalen deg terbaɛt",
+      "unknown_member": "Aɛeggal arussin",
+      "no_role": "Ulac tawuri",
+      "completed_one": "{{count}} yemmed",
+      "completed_other": "{{count}} mmden"
+    }
   }
 }

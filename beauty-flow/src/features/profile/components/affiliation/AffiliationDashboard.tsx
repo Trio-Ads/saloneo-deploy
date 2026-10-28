@@ -147,7 +147,7 @@ const AffiliationDashboard: React.FC = () => {
   };
 
   const handleShare = (platform: string) => {
-    const text = 'Découvrez Saloneo, la solution de gestion pour salons de beauté';
+    const text = t('affiliation_components.dashboard.share_text');
     const url = affiliateLink;
 
     switch (platform) {
@@ -164,7 +164,7 @@ const AffiliationDashboard: React.FC = () => {
         window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`);
         break;
       case 'email':
-        window.location.href = `mailto:?subject=${encodeURIComponent('Découvrez Saloneo')}&body=${encodeURIComponent(text + '\n\n' + url)}`;
+        window.location.href = `mailto:?subject=${encodeURIComponent(t('affiliation_components.dashboard.share_subject'))}&body=${encodeURIComponent(text + '\n\n' + url)}`;
         break;
     }
   };

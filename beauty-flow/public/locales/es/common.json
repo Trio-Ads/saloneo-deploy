@@ -1,133 +1,100 @@
 {
   "navigation": {
-    "dashboard": "Tableau de bord",
-    "appointments": "Rendez-vous",
-    "clients": "Clients",
-    "services": "Services",
-    "products": "Stocks",
-    "team": "Équipe",
-    "interface": "Mon Interface",
-    "profile": "Mon Profil",
-    "subscription": "Abonnement"
+    "dashboard": "Panel",
+    "appointments": "Citas",
+    "clients": "Clientes",
+    "services": "Servicios",
+    "products": "Productos",
+    "team": "Equipo",
+    "profile": "Mi perfil",
+    "interface": "Mi interfaz",
+    "subscription": "Suscripción",
+    "admin": "Administración",
+    "home": "Inicio",
+    "toggle_theme": "Cambiar de tema",
+    "main_menu": "Menú principal",
+    "menu": "Menú",
+    "language": "Idioma"
   },
   "actions": {
-    "cancel": "Annuler",
-    "add": "Ajouter",
-    "edit": "Modifier",
-    "delete": "Supprimer",
-    "save": "Enregistrer",
-    "next": "Suivant",
-    "back": "Retour",
-    "close": "Fermer",
-    "logout": "Se déconnecter",
-    "logging_out": "Déconnexion...",
-    "add_product": "Ajouter un produit"
+    "cancel": "Cancelar",
+    "add": "Añadir",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "save": "Guardar",
+    "next": "Siguiente",
+    "back": "Volver",
+    "close": "Cerrar",
+    "logout": "Cerrar sesión",
+    "logging_out": "Cerrando sesión…",
+    "add_product": "Añadir un producto"
   },
   "form": {
-    "required": "Champ requis",
-    "invalid_email": "Email invalide",
-    "invalid_phone": "Numéro de téléphone invalide"
+    "required": "Campo obligatorio",
+    "invalid_email": "Correo electrónico no válido",
+    "invalid_phone": "Número de teléfono no válido"
   },
   "common": {
-    "app_subtitle": "Gestion moderne"
+    "app_subtitle": "Gestión moderna",
+    "loading": "Cargando"
   },
   "modal": {
-    "close": "Fermer"
+    "close": "Cerrar"
   },
   "toast": {
-    "close": "Fermer la notification"
+    "close": "Cerrar la notificación"
   },
   "user_menu": {
-    "user_name": "Utilisateur Saloneo",
+    "user_name": "Usuario de Saloneo",
     "user_email": "user@saloneo.com",
     "plan_prefix": "Plan",
     "plans": {
-      "FREE": "Gratuit",
+      "FREE": "Gratuito",
       "STARTER": "Starter",
       "PRO": "Pro",
-      "ENTERPRISE": "Enterprise"
+      "ENTERPRISE": "Empresa"
     },
     "menu_items": {
       "profile": {
-        "description": "Gérer vos informations"
+        "description": "Gestionar su información"
       },
       "interface": {
-        "description": "Personnaliser votre salon"
+        "description": "Personalizar su salón"
       },
       "subscription": {
-        "description": "Plans et facturation"
+        "description": "Planes y facturación"
       }
     },
     "language_section": {
-      "title": "Langue",
-      "current": "Langue actuelle"
+      "title": "Idioma",
+      "current": "Idioma actual"
     },
     "version": "Saloneo v2.0.0"
   },
   "service_form": {
     "titles": {
-      "new": "Nouveau Service",
-      "edit": "Modifier le Service"
+      "new": "Nuevo servicio",
+      "edit": "Editar el servicio"
     },
-    "subtitle": "Créez un service de beauté personnalisé pour vos clients",
+    "subtitle": "Cree un servicio de belleza personalizado para sus clientes",
     "sections": {
-      "basic_info": "Informations de Base",
-      "products": "Produits utilisés",
-      "photos": "Photos du Service"
+      "basic_info": "Información básica",
+      "products": "Productos utilizados",
+      "photos": "Fotos del servicio"
     },
     "placeholders": {
-      "name": "Ex: Coupe et brushing",
-      "description": "Décrivez votre service en détail..."
+      "name": "Ej.: Corte y peinado",
+      "description": "Describa su servicio en detalle…"
     },
     "labels": {
-      "product": "Produit",
-      "quantity": "Quantité"
+      "product": "Producto",
+      "quantity": "Cantidad"
     },
     "messages": {
-      "no_products": "Aucun produit disponible. Ajoutez des produits dans la section Stocks pour les utiliser ici."
+      "no_products": "No hay productos disponibles. Añada productos en la sección Productos para usarlos aquí."
     },
     "units": {
       "min": "min"
     }
-  },
-  "save": "Guardar",
-  "cancel": "Cancelar",
-  "delete": "Eliminar",
-  "edit": "Editar",
-  "add": "Agregar",
-  "search": "Buscar",
-  "loading": "Cargando...",
-  "error": "Error",
-  "success": "Éxito",
-  "confirm": "Sentem",
-  "close": "Mdel",
-  "open": "Ldi",
-  "yes": "Ih",
-  "no": "Uhu",
-  "next": "Ameḍfir",
-  "previous": "Azwir",
-  "finish": "Fakk",
-  "continue": "Kemmel",
-  "back": "Uɣal",
-  "select": "Fren",
-  "upload": "Sali",
-  "download": "Sader",
-  "print": "Siggez",
-  "export": "Sifeḍ",
-  "import": "Kter",
-  "refresh": "Smiren",
-  "clear": "Sfeḍ",
-  "reset": "Ales asbeddi",
-  "apply": "Snes",
-  "remove": "Kkes",
-  "view": "Ẓer",
-  "details": "Talqayt",
-  "settings": "Iɣewwaṛen",
-  "help": "Tallalt",
-  "about": "Ɣef",
-  "contact": "Nermes",
-  "home": "Agejdan",
-  "dashboard": "Tafelwit n usenqed",
-  "profile": "Amaɣnu",
-  "logout": "Ffeɣ"
+  }
 }

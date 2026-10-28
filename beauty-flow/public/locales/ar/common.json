@@ -2,7 +2,7 @@
   "navigation": {
     "dashboard": "لوحة التحكم",
     "appointments": "المواعيد",
-    "clients": "العملاء",
+    "clients": "الزبائن",
     "services": "الخدمات",
     "products": "المنتجات",
     "team": "الفريق",
@@ -26,7 +26,7 @@
     "back": "رجوع",
     "close": "إغلاق",
     "logout": "تسجيل الخروج",
-    "logging_out": "جاري تسجيل الخروج...",
+    "logging_out": "جارٍ تسجيل الخروج…",
     "add_product": "إضافة منتج"
   },
   "form": {
@@ -35,7 +35,8 @@
     "invalid_phone": "رقم هاتف غير صحيح"
   },
   "common": {
-    "app_subtitle": "إدارة حديثة"
+    "app_subtitle": "إدارة حديثة",
+    "loading": "جارٍ التحميل"
   },
   "modal": {
     "close": "إغلاق"
@@ -44,14 +45,14 @@
     "close": "إغلاق الإشعار"
   },
   "user_menu": {
-    "user_name": "مستخدم سالونيو",
+    "user_name": "مستخدم Saloneo",
     "user_email": "user@saloneo.com",
     "plan_prefix": "خطة",
     "plans": {
-      "FREE": "مجاني",
-      "STARTER": "مبتدئ",
-      "PRO": "محترف",
-      "ENTERPRISE": "مؤسسي"
+      "FREE": "المجانية",
+      "STARTER": "Starter",
+      "PRO": "Pro",
+      "ENTERPRISE": "المؤسسات"
     },
     "menu_items": {
       "profile": {
@@ -68,14 +69,14 @@
       "title": "اللغة",
       "current": "اللغة الحالية"
     },
-    "version": "سالونيو الإصدار 2.0.0"
+    "version": "Saloneo الإصدار 2.0.0"
   },
   "service_form": {
     "titles": {
       "new": "خدمة جديدة",
       "edit": "تعديل الخدمة"
     },
-    "subtitle": "إنشاء خدمة تجميل مخصصة لعملائك",
+    "subtitle": "خدمة تجميل على مقاس زبائنك",
     "sections": {
       "basic_info": "المعلومات الأساسية",
       "products": "المنتجات المستخدمة",
@@ -83,14 +84,14 @@
     },
     "placeholders": {
       "name": "مثال: قص وتصفيف",
-      "description": "اوصف خدمتك بالتفصيل..."
+      "description": "وصف مفصّل للخدمة…"
     },
     "labels": {
       "product": "المنتج",
       "quantity": "الكمية"
     },
     "messages": {
-      "no_products": "لا توجد منتجات متاحة. أضف منتجات في قسم المخزون لاستخدامها هنا."
+      "no_products": "لا توجد منتجات متاحة. يمكن إضافة المنتجات من قسم المخزون لاستعمالها هنا."
     },
     "units": {
       "min": "دقيقة"

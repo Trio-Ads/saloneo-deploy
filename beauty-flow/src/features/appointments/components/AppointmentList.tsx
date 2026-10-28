@@ -88,7 +88,7 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
           title={
             <>
               <span className="inline-block first-letter:uppercase">{formatDay(date)}</span>
-              <span className="font-normal text-gray-500 dark:text-gray-400"> · {dayAppointments.length} {t('appointment_list.appointments_count')}</span>
+              <span className="font-normal text-gray-500 dark:text-gray-400"> · {t('appointment_list.appointments_count', { count: dayAppointments.length })}</span>
             </>
           }
         >

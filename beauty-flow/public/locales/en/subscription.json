@@ -4,7 +4,7 @@
     "current": "Current plan",
     "choose": "Choose this plan",
     "contact": "Contact us",
-    "on_quote": "On quote",
+    "on_quote": "Custom quote",
     "per_month": "/ month",
     "equivalent": "that's {{amount}} / month",
     "savings": "Save {{amount}} (−{{percent}}%)",
@@ -22,58 +22,15 @@
       "clients": "clients",
       "services": "services",
       "team_members_one": "team member",
-      "team_members": "team members",
       "stock": "Stock management",
       "online_booking": "Online booking",
-      "custom_interface": "Custom interface"
+      "custom_interface": "Customizable booking page",
+      "team_members_other": "team members"
     }
   },
   "page": {
     "title": "Choose your plan",
-    "subtitle": "Switch plans anytime. Secure CIB card payment via SATIM.",
-    "why_choose": "Why choose Saloneo?",
-    "why_subtitle": "The complete solution to grow your beauty salon"
-  },
-  "features": {
-    "security": {
-      "title": "Premium Security",
-      "description": "Your data is protected with bank-level encryption"
-    },
-    "growth": {
-      "title": "Guaranteed Growth",
-      "description": "Increase your revenue by 30% on average"
-    },
-    "support": {
-      "title": "24/7 Support",
-      "description": "A dedicated team to support you at every step"
-    }
-  },
-  "badges": {
-    "free_trial": "14-day free trial",
-    "no_commitment": "No commitment",
-    "premium_support": "Premium support"
-  },
-  "promotion": {
-    "limited_offer": "🔥 LIMITED OFFER: -40% on all plans! 🔥"
-  },
-  "testimonials": {
-    "title": "What our clients say",
-    "subtitle": "Over 10,000 professionals trust us",
-    "marie": {
-      "name": "Marie Dubois",
-      "salon": "Salon Élégance",
-      "text": "Saloneo transformed the way I work. +50% bookings in 3 months!"
-    },
-    "sophie": {
-      "name": "Sophie Martin",
-      "salon": "Beauty Paradise",
-      "text": "Intuitive interface and exceptional support. I highly recommend!"
-    },
-    "amelie": {
-      "name": "Amélie Laurent",
-      "salon": "Coiffure Moderne",
-      "text": "My clients love being able to book online. A real plus for my salon!"
-    }
+    "subtitle": "Switch plans anytime. Secure CIB card payment via SATIM."
   },
   "faq": {
     "title": "Frequently asked questions",
@@ -83,7 +40,7 @@
     },
     "hidden_fees": {
       "q": "Are there any hidden fees?",
-      "a": "No hidden fees! The displayed price is all-inclusive. No setup fees, no commission on sales."
+      "a": "No hidden fees. The price shown includes everything: no setup fees, no commission on sales."
     },
     "cancel": {
       "q": "What happens if I cancel my subscription?",
@@ -109,23 +66,23 @@
     "economy": "Save",
     "test_mode": {
       "title": "Test mode enabled",
-      "description": "You are in test environment. Payments will be simulated with reduced amounts."
+      "description": "You're in a test environment. Payments will be simulated with reduced amounts."
     },
     "security_features": {
-      "satim": "Secure payment by SATIM",
+      "satim": "Secure payment via SATIM",
       "cards": "Compatible with all CIB cards"
     },
-    "info": "By clicking \"Proceed to payment\", you will be redirected to the secure SATIM platform to complete your payment.",
+    "info": "When you click “Proceed to payment”, you'll be redirected to the secure SATIM platform to complete your payment.",
     "proceed": "Proceed to payment",
-    "processing": "Processing...",
+    "processing": "Processing…",
     "security_notice": "Your payment is secured by the SATIM protocol",
-    "accept_terms": "I accept the terms and conditions and privacy policy",
+    "accept_terms": "I accept the terms of sale and the privacy policy",
     "read_terms": "Read terms",
-    "terms_title": "Terms and Conditions",
-    "terms_content": "By making this payment, you accept Saloneo's terms and conditions as well as SATIM's conditions for payment processing.",
-    "terms_content2": "Your payment is secure and your banking information is not stored on our servers.",
-    "terms_required": "You must accept the terms and conditions to continue",
-    "captcha_required": "Please validate the captcha to continue"
+    "terms_title": "Terms of sale",
+    "terms_content": "By making this payment, you accept Saloneo's terms of sale and SATIM's payment processing terms.",
+    "terms_content2": "Your payment is secure and your card details are never stored on our servers.",
+    "terms_required": "You must accept the terms of sale to continue",
+    "captcha_required": "Please complete the captcha to continue"
   },
   "limits": {
     "clients_reached": "Client limit reached",
@@ -134,63 +91,85 @@
     "products_reached": "Product limit reached",
     "upgrade_plan": "Upgrade your plan",
     "back": "Back",
-    "see_plans": "See plans"
+    "see_plans": "See plans",
+    "messages": {
+      "clients_one": "You've reached the limit of {{count}} client. Upgrade your plan to continue.",
+      "clients_other": "You've reached the limit of {{count}} clients. Upgrade your plan to continue.",
+      "services_one": "You've reached the limit of {{count}} service. Upgrade your plan to continue.",
+      "services_other": "You've reached the limit of {{count}} services. Upgrade your plan to continue.",
+      "team_one": "You've reached the limit of {{count}} team member. Upgrade your plan to continue.",
+      "team_other": "You've reached the limit of {{count}} team members. Upgrade your plan to continue.",
+      "appointments_one": "You've reached the limit of {{count}} appointment. Upgrade your plan to continue.",
+      "appointments_other": "You've reached the limit of {{count}} appointments. Upgrade your plan to continue.",
+      "products_one": "You've reached the limit of {{count}} product on the {{plan}} plan.",
+      "products_other": "You've reached the limit of {{count}} products on the {{plan}} plan.",
+      "products_remaining_one": "You can add {{count}} more product.",
+      "products_remaining_other": "You can add {{count}} more products.",
+      "products_unlimited": "You can add as many products as you like.",
+      "usage_error": "Couldn't load usage statistics."
+    },
+    "upgrade": {
+      "FREE": "Upgrade to Starter to unlock more features.",
+      "STARTER": "Upgrade to Pro to raise your limits.",
+      "PRO": "Upgrade to Enterprise for unlimited use.",
+      "ENTERPRISE": "Contact us for a custom plan."
+    }
   },
   "widget": {
     "usage": "{{plan}} plan · {{current}} / {{limit}} {{resource}}",
     "usage_unlimited": "{{plan}} plan · unlimited {{resource}}",
     "near_limit": "{{current}} / {{limit}} {{resource}} used, limit almost reached",
     "at_limit": "{{limit}} {{resource}} limit reached",
-    "title": "Your Subscription",
+    "title": "Your subscription",
     "manage": "Manage",
     "unlimited": "Unlimited",
     "used": "Used",
     "remaining": "remaining",
     "limit_reached": "Limit reached",
-    "limit_near": "Limit near",
+    "limit_near": "Almost at the limit",
     "available": "Available",
     "upgrade": "Upgrade"
   },
   "success": {
     "title": "Payment successful",
-    "message": "Congratulations! Your subscription to the {{planName}} plan has been successfully activated.",
+    "message": "Congratulations! Your {{planName}} plan is now active.",
     "benefits": {
       "title": "You can now:",
       "premium": "Access all premium features",
-      "unlimited": "Manage your salon without limits",
-      "support": "Benefit from priority support"
+      "unlimited": "Run your salon without limits",
+      "support": "Get priority support"
     },
-    "continue": "Access my dashboard",
+    "continue": "Go to my dashboard",
     "email_sent": "A confirmation email has been sent to your address.",
     "transaction": {
-      "title": "Transaction Details",
+      "title": "Transaction details",
       "id": "Transaction number",
       "date": "Date",
       "time": "Time",
       "method": "Payment method",
       "amount": "Amount",
-      "disclaimer": "This transaction was processed by SATIM. Keep this information for future reference.",
-      "support": "For any questions regarding your payment, contact SATIM support at 3020."
+      "disclaimer": "This transaction was processed by SATIM. Keep this information for your records.",
+      "support": "For any questions about your payment, contact SATIM support on 3020."
     }
   },
   "failed": {
     "title": "Payment failed",
     "help": {
-      "title": "What to do now?",
+      "title": "What now?",
       "check_card": "Check that your card is valid and has sufficient funds",
-      "check_info": "Make sure you entered your information correctly",
-      "try_another": "Try with another card if the problem persists"
+      "check_info": "Make sure you entered your details correctly",
+      "try_another": "Try another card if the problem persists"
     },
     "retry": "Retry payment",
-    "back": "Back to subscriptions",
+    "back": "Back to plans",
     "support": "Need help?",
     "transaction": {
-      "title": "Error Details",
+      "title": "Error details",
       "id": "Transaction number",
       "error_code": "Error code",
       "date": "Date and time",
-      "disclaimer": "This transaction was declined by SATIM. Please check your information and try again.",
-      "support": "For assistance, contact SATIM support at 3020."
+      "disclaimer": "SATIM declined this transaction. Please check your details and try again.",
+      "support": "For help, contact SATIM support on 3020."
     }
   },
   "plans": {
@@ -201,32 +180,30 @@
       "features": [
         "Up to 10 appointments per month",
         "Up to 5 clients",
-        "Basic services management",
+        "Basic service management",
         "Email support"
       ]
     },
     "starter": {
       "name": "Starter",
       "description": "Ideal for small salons",
-      "price": "$29",
       "features": [
         "Up to 100 appointments per month",
         "Up to 50 clients",
-        "Complete services management",
-        "Team management (up to 3 members)",
+        "Full service management",
+        "Team management (up to 3 team members)",
         "Basic analytics",
         "Email support"
       ]
     },
     "professional": {
-      "name": "Professional",
+      "name": "Pro",
       "description": "For growing businesses",
-      "price": "$79",
       "features": [
         "Up to 500 appointments per month",
         "Up to 200 clients",
-        "Advanced services management",
-        "Team management (up to 10 members)",
+        "Advanced service management",
+        "Team management (up to 10 team members)",
         "Advanced analytics",
         "Online booking",
         "Priority support"
@@ -235,11 +212,10 @@
     "enterprise": {
       "name": "Enterprise",
       "description": "For large salons and chains",
-      "price": "$199",
       "features": [
         "Unlimited appointments",
         "Unlimited clients",
-        "Complete feature access",
+        "Full access to all features",
         "Unlimited team members",
         "Advanced analytics and reports",
         "Multi-location support",
@@ -258,13 +234,13 @@
     "per_year": "per year"
   },
   "actions": {
-    "choose_plan": "Choose Plan",
-    "current_plan": "Current Plan",
+    "choose_plan": "Choose plan",
+    "current_plan": "Current plan",
     "upgrade": "Upgrade",
     "downgrade": "Downgrade",
-    "cancel": "Cancel Subscription",
+    "cancel": "Cancel subscription",
     "reactivate": "Reactivate",
-    "change_plan": "Change Plan"
+    "change_plan": "Change plan"
   },
   "status": {
     "active": "Active",
@@ -274,19 +250,35 @@
     "pending": "Pending"
   },
   "messages": {
-    "upgrade_success": "Plan upgraded successfully",
-    "downgrade_success": "Plan downgraded successfully",
-    "cancellation_success": "Subscription cancelled successfully",
-    "reactivation_success": "Subscription reactivated successfully",
-    "payment_updated": "Payment method updated successfully",
+    "upgrade_success": "Plan upgraded",
+    "downgrade_success": "Plan downgraded",
+    "cancellation_success": "Subscription cancelled",
+    "reactivation_success": "Subscription reactivated",
+    "payment_updated": "Payment method updated",
     "trial_ending": "Your trial is ending soon",
     "subscription_expired": "Your subscription has expired",
-    "upgrade_required": "Please upgrade your plan to continue using this feature"
+    "upgrade_required": "Please upgrade your plan to keep using this feature"
   },
   "resources": {
     "clients": "clients",
-      "team": "team members",
-      "services": "services",
-      "products": "products"
+    "team": "team members",
+    "services": "services",
+    "products": "products"
+  },
+  "payment_errors": {
+    "init": "Couldn't start the payment",
+    "status": "Couldn't check the payment status",
+    "history": "Couldn't load the payment history",
+    "fallback_link": "Click here to go to the payment page",
+    "fallback_message": "If you're not redirected to the payment page automatically, click the button below:",
+    "redirect": "Something went wrong during the redirect. Please try again or contact support.",
+    "codes": {
+      "missing_transaction": "Missing transaction",
+      "transaction_not_found": "Transaction not found",
+      "payment_failed": "The payment failed",
+      "payment_cancelled": "The payment was cancelled",
+      "processing_error": "Processing error",
+      "invalid_transaction": "Invalid transaction"
+    }
   }
 }

@@ -57,7 +57,9 @@ export function themeVars(t: DesignTemplate): CSSProperties {
     '--sp-rb': layout.borderRadius.md,
     '--sp-r': layout.borderRadius.lg,
     '--sp-ra': layout.borderRadius.full,
-    '--sp-py': layout.spacing.section ?? '6rem',
+    '--sp-py': t.density === 'airy' || t.density === 'compact'
+      ? `calc(${layout.spacing.section ?? '6rem'} * ${t.density === 'airy' ? 1.35 : 0.7})`
+      : layout.spacing.section ?? '6rem',
   } as CSSProperties;
 }
 
@@ -67,14 +69,13 @@ const DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'
 type Hours = { start?: string; end?: string; open?: string; close?: string; closed?: boolean; isOpen?: boolean };
 
 /**
- * Opening hours as grouped rows ("Lundi – Samedi · 09:00 – 19:00").
+ * Opening hours per day, and grouped into rows ("Lundi – Samedi · 09:00 – 19:00").
  * businessHours is either per-day, or one global { start, end } (then open days come from the team).
  */
-function hoursRows(data: SalonPublicData, t: (k: string) => string) {
+function hoursOf(data: SalonPublicData, t: (k: string) => string) {
   const bh = data.profile.businessHours as Record<string, Hours> & Hours | undefined;
-  if (!bh) return [];
-  const perDay = DAYS.some(d => bh[d]);
-  if (!perDay && !(bh.start && bh.end)) return [];
+  const perDay = !!bh && DAYS.some(d => bh[d]);
+  if (!bh || (!perDay && !(bh.start && bh.end))) return { rows: [], week: [] };
   const teamDays = new Set(data.team.flatMap(m => Object.entries(m.workingHours ?? {}).filter(([, h]) => h?.isWorking).map(([d]) => d)));
   const slot = (d: string) => {
     if (perDay) {
@@ -84,16 +85,21 @@ function hoursRows(data: SalonPublicData, t: (k: string) => string) {
     }
     return teamDays.size && !teamDays.has(d) ? null : `${bh.start} – ${bh.end}`;
   };
+  const today = DAYS[(new Date().getDay() + 6) % 7];
+  const week = DAYS.map(d => ({ day: t(`days.${d}`), value: slot(d), today: d === today }));
   const rows: { from: string; to: string; value: string | null }[] = [];
-  DAYS.forEach(d => {
-    const value = slot(d), last = rows[rows.length - 1];
+  DAYS.forEach((d, i) => {
+    const value = week[i].value, last = rows[rows.length - 1];
     if (last && last.value === value) last.to = d; else rows.push({ from: d, to: d, value });
   });
-  return rows.map(r => ({
-    days: r.from === r.to ? t(`days.${r.from}`) : `${t(`days.${r.from}`)} – ${t(`days.${r.to}`)}`,
-    value: r.value ?? t('site.closed'),
-    closed: !r.value,
-  }));
+  return {
+    week,
+    rows: rows.map(r => ({
+      days: r.from === r.to ? t(`days.${r.from}`) : `${t(`days.${r.from}`)} – ${t(`days.${r.to}`)}`,
+      value: r.value ?? t('site.closed'),
+      closed: !r.value,
+    })),
+  };
 }
 
 export function useSalon(data: SalonPublicData) {
@@ -106,6 +112,7 @@ export function useSalon(data: SalonPublicData) {
   const lower = categories.map((c, i) => (i === 0 ? c : c.toLocaleLowerCase(i18n.language)));
   const phone = profile.publicPhone || profile.phone || '';
   const address = profile.address?.trim() || '';
+  const { rows, week } = hoursOf(data, t);
   return {
     t,
     name: profile.establishmentName,
@@ -117,8 +124,11 @@ export function useSalon(data: SalonPublicData) {
     email: profile.email || '',
     address,
     mapsUrl: address ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${address} ${profile.establishmentName}`)}` : '',
-    hours: hoursRows(data, t),
-    price: (s: PublicService) => formatPrice(s, profile.serviceDisplay?.priceDisplay ?? 'fixed', profile.settings?.currency || 'DZD'),
+    hours: rows,
+    /** One entry per day, Monday first; `value` null when closed. Empty when the salon has no hours. */
+    week,
+    today: week.find(d => d.today),
+    price: (s: PublicService) => formatPrice(s, profile.serviceDisplay?.priceDisplay ?? 'fixed', profile.settings?.currency || 'DZD', amount => t('site.price_from', { amount })),
     duration: (s: PublicService) => formatDuration(s.duration),
   };
 }
@@ -286,4 +296,76 @@ export function useRating(data: SalonPublicData) {
   const n = data.reviews.length;
   const avg = n ? data.reviews.reduce((a, r) => a + r.rating, 0) / n : 0;
   return n ? t('site.rating_summary', { avg: avg.toLocaleString(i18n.language, { maximumFractionDigits: 1 }), count: n }) : '';
+}
+
+/* ── layout library helpers ────────────────────────────── */
+
+export const initials = (name: string) =>
+  name.split(/[\s&'’-]+/).filter(w => w.length > 1 || /\p{Lu}/u.test(w)).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+
+export const telHref = (phone: string) => `tel:${phone.replace(/\s+/g, '')}`;
+
+/** Every real photo of the salon: banner first, then each service's primary image. */
+export function photos(data: SalonPublicData) {
+  const list: { url: string; alt: string; service?: PublicService }[] = [];
+  if (data.profile.banner) list.push({ url: data.profile.banner, alt: '' });
+  data.services.forEach(s => {
+    const img = s.images?.find(i => i.isPrimary) ?? s.images?.[0];
+    if (img?.url) list.push({ url: img.url, alt: img.alt || s.name, service: s });
+  });
+  return list;
+}
+
+const ICONS = {
+  phone: 'M5 4h3.5l1.5 4.5-2.2 1.3a11 11 0 0 0 6.4 6.4l1.3-2.2L20 15.5V19a1.5 1.5 0 0 1-1.6 1.5A16.5 16.5 0 0 1 3.5 5.6 1.5 1.5 0 0 1 5 4z',
+  pin: 'M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11zM12 12.3a2.3 2.3 0 1 0 0-4.6 2.3 2.3 0 0 0 0 4.6z',
+  clock: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 7.5V12l3 2',
+  chevron: 'M6 9l6 6 6-6',
+} as const;
+
+/** Drawn line icons, one stroke weight. */
+export const Icon = ({ name, size = 18, className = '' }: { name: keyof typeof ICONS; size?: number; className?: string }) => (
+  <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden className={`shrink-0 ${className}`}>
+    <path d={ICONS[name]} />
+  </svg>
+);
+
+/** The salon's logo, or its initials set as a monogram in the display face. */
+export function Monogram({ data, className = '' }: { data: SalonPublicData; className?: string }) {
+  const { name } = useSalon(data);
+  if (data.profile.logo) return <img src={data.profile.logo} alt={name} className={`sp-logo object-contain ${className}`} />;
+  return <span role="img" aria-label={name} className={`sp-h sp-monogram ${className}`}>{initials(name)}</span>;
+}
+
+/** "Aujourd’hui · 09:00 – 19:00" / "Fermé aujourd’hui", or nothing when the salon has no hours. */
+export function TodayHours({ data, className = '' }: { data: SalonPublicData; className?: string }) {
+  const { t, today } = useSalon(data);
+  if (!today) return null;
+  return <span className={`sp-num ${className}`}>{today.value ? t('site.today_hours', { hours: today.value }) : t('site.closed_today')}</span>;
+}
+
+/** The template's ornament as one decorative strip. */
+export const Ornament = ({ template }: { template: DesignTemplate }) =>
+  template.ornament && template.ornament !== 'none'
+    ? <div aria-hidden className={`sp-ornament sp-orn-${template.ornament}`} />
+    : null;
+
+/** SVG filter mapping photos onto the template's darkest and lightest colors (imageTreatment: 'duotone'). */
+export function Duotone({ template, id }: { template: DesignTemplate; id: string }) {
+  const c = template.theme.colors;
+  const byLum = [c.primary, c.secondary, c.text, c.background, c.accent].sort((a, b) => lum(a) - lum(b));
+  const lo = rgb(mix(byLum[0], c.primary, 0.25)), hi = rgb(mix(byLum[byLum.length - 1], c.accent, 0.2));
+  const table = (i: number) => `${(lo[i] / 255).toFixed(3)} ${(hi[i] / 255).toFixed(3)}`;
+  return (
+    <svg width="0" height="0" className="absolute" aria-hidden focusable="false">
+      <filter id={id} colorInterpolationFilters="sRGB">
+        <feColorMatrix type="matrix" values="0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0 0 0 1 0" />
+        <feComponentTransfer>
+          <feFuncR type="table" tableValues={table(0)} />
+          <feFuncG type="table" tableValues={table(1)} />
+          <feFuncB type="table" tableValues={table(2)} />
+        </feComponentTransfer>
+      </filter>
+    </svg>
+  );
 }

@@ -1,13 +1,13 @@
 {
-  "title": "العملاء",
-  "new_client": "عميل جديد",
-  "edit_client": "تعديل العميل",
-  "client_details": "تفاصيل العميل",
-  "client_profile": "ملف العميل",
-  "all_clients": "جميع العملاء",
-  "active_clients": "العملاء النشطون",
-  "inactive_clients": "العملاء غير النشطين",
-  "vip_clients": "عملاء VIP",
+  "title": "الزبائن",
+  "new_client": "زبون جديد",
+  "edit_client": "تعديل الزبون",
+  "client_details": "تفاصيل الزبون",
+  "client_profile": "ملف الزبون",
+  "all_clients": "جميع الزبائن",
+  "active_clients": "الزبائن النشطون",
+  "inactive_clients": "الزبائن غير النشطين",
+  "vip_clients": "زبائن VIP",
   "form": {
     "first_name": "الاسم الأول",
     "last_name": "اسم العائلة",
@@ -23,28 +23,28 @@
     "allergies": "الحساسية",
     "skin_type": "نوع البشرة",
     "hair_type": "نوع الشعر",
-    "preferred_stylist": "مصفف الشعر المفضل",
+    "preferred_stylist": "عضو الفريق المفضّل",
     "marketing_consent": "موافقة التسويق",
     "emergency_contact": "جهة اتصال الطوارئ",
     "emergency_phone": "هاتف الطوارئ"
   },
   "placeholders": {
-    "first_name": "أدخل الاسم الأول",
-    "last_name": "أدخل اسم العائلة",
+    "first_name": "الاسم",
+    "last_name": "اللقب",
     "email": "example@email.com",
-    "phone": "06 12 34 56 78",
-    "address": "123 شارع السلام",
+    "phone": "0550 12 34 56",
+    "address": "12 شارع ديدوش مراد",
     "city": "الجزائر",
     "postal_code": "16000",
-    "notes": "ملاحظات حول العميل...",
-    "allergies": "الحساسية المعروفة...",
-    "preferences": "تفضيلات العميل..."
+    "notes": "ملاحظات حول الزبون…",
+    "allergies": "الحساسية المعروفة…",
+    "preferences": "تفضيلات الزبون…"
   },
   "gender": {
     "male": "ذكر",
     "female": "أنثى",
     "other": "آخر",
-    "prefer_not_to_say": "أفضل عدم القول"
+    "prefer_not_to_say": "أفضّل عدم التحديد"
   },
   "skin_type": {
     "normal": "عادية",
@@ -68,7 +68,7 @@
     "new": "جديد"
   },
   "actions": {
-    "add_client": "إضافة عميل",
+    "add_client": "إضافة زبون",
     "edit": "تعديل",
     "delete": "حذف",
     "view_history": "عرض التاريخ",
@@ -79,18 +79,18 @@
     "import": "استيراد"
   },
   "filters": {
-    "search": "البحث عن العملاء...",
+    "search": "البحث عن الزبائن…",
     "all_status": "جميع الحالات",
     "all_genders": "جميع الأجناس",
-    "all_stylists": "جميع المصففين",
+    "all_stylists": "كل أعضاء الفريق",
     "registration_date": "تاريخ التسجيل",
     "last_visit": "آخر زيارة"
   },
   "statistics": {
-    "total_clients": "إجمالي العملاء",
+    "total_clients": "إجمالي الزبائن",
     "new_this_month": "جديد هذا الشهر",
-    "active_clients": "العملاء النشطون",
-    "vip_clients": "عملاء VIP",
+    "active_clients": "الزبائن النشطون",
+    "vip_clients": "زبائن VIP",
     "average_visits": "متوسط الزيارات",
     "retention_rate": "معدل الاحتفاظ"
   },
@@ -103,60 +103,65 @@
     "no_history": "لا يوجد تاريخ متاح"
   },
   "messages": {
-    "client_created": "تم إنشاء العميل بنجاح",
-    "client_updated": "تم تحديث العميل بنجاح",
-    "client_deleted": "تم حذف العميل بنجاح",
-    "no_clients": "لم يتم العثور على عملاء",
-    "loading": "جاري تحميل العملاء...",
-    "confirm_delete": "هل أنت متأكد من حذف هذا العميل؟",
+    "client_created": "تم إنشاء الزبون بنجاح",
+    "client_updated": "تم تحديث الزبون بنجاح",
+    "client_deleted": "تم حذف الزبون بنجاح",
+    "no_clients": "لم يتم العثور على زبائن",
+    "loading": "جارٍ تحميل الزبائن…",
+    "confirm_delete": "حذف هذا الزبون نهائيًا؟",
     "email_exists": "عنوان البريد الإلكتروني موجود بالفعل",
     "phone_exists": "رقم الهاتف موجود بالفعل",
-    "export_success": "تم تصدير العملاء بنجاح",
-    "import_success": "تم استيراد العملاء بنجاح"
+    "export_success": "تم تصدير الزبائن بنجاح",
+    "import_success": "تم استيراد الزبائن بنجاح"
   },
   "import_export": {
-    "export_clients": "تصدير العملاء",
-    "import_clients": "استيراد العملاء",
+    "export_clients": "تصدير الزبائن",
+    "import_clients": "استيراد الزبائن",
     "download_template": "تحميل النموذج",
     "select_file": "اختيار ملف",
     "supported_formats": "التنسيقات المدعومة: CSV، Excel"
   },
-  "page_title": "العملاء",
-  "page_subtitle": "إدارة قاعدة عملائك وبناء علاقات دائمة",
+  "page_title": "الزبائن",
+  "page_subtitle": "إدارة قاعدة زبائنك وبناء علاقات دائمة",
   "loading": {
-    "clients": "جاري تحميل عملائك...",
-    "preparing": "تحضير قاعدة بيانات العملاء"
+    "clients": "جارٍ تحميل زبائنك…",
+    "preparing": "تحضير قاعدة بيانات الزبائن"
   },
   "stats": {
-    "clients_total_badge": "عميل إجمالي",
-    "vip_clients_badge": "عملاء VIP",
+    "clients_total_badge": "زبون إجمالي",
+    "vip_clients_badge": "زبائن VIP",
     "total": "الإجمالي",
-    "all_clients": "العملاء",
-    "vip_title": "عملاء VIP",
+    "all_clients": "الزبائن",
+    "vip_title": "زبائن VIP",
     "vip_description": "100+ نقطة ولاء",
-    "recent_title": "جديد (30ي)",
-    "recent_description": "عملاء حديثون",
+    "recent_title": "جدد (30 يومًا)",
+    "recent_description": "زبائن جدد",
     "loyalty_title": "نقاط الولاء",
     "loyalty_description": "نقاط متراكمة"
   },
   "search": {
-    "placeholder": "البحث عن عميل (الاسم، البريد الإلكتروني، الهاتف...)",
-    "results": "عميل موجود لـ"
+    "placeholder": "البحث عن زبون (الاسم، البريد الإلكتروني، الهاتف…)",
+    "results_zero": "نتائج البحث عن «{{term}}»: {{count}}",
+    "results_one": "نتائج البحث عن «{{term}}»: {{count}}",
+    "results_two": "نتائج البحث عن «{{term}}»: {{count}}",
+    "results_few": "نتائج البحث عن «{{term}}»: {{count}}",
+    "results_many": "نتائج البحث عن «{{term}}»: {{count}}",
+    "results_other": "نتائج البحث عن «{{term}}»: {{count}}"
   },
   "empty_state": {
-    "no_clients": "لم يتم العثور على عملاء",
-    "modify_filters": "جرب تعديل مرشحات البحث",
-    "create_first": "ابدأ بإنشاء عميلك الأول",
-    "create_client": "إنشاء عميل"
+    "no_clients": "لم يتم العثور على زبائن",
+    "modify_filters": "يمكن تعديل عوامل التصفية لعرض نتائج أخرى",
+    "create_first": "يمكنك البدء بإنشاء أول زبون",
+    "create_client": "إنشاء زبون"
   },
   "errors": {
-    "saving": "خطأ في حفظ العميل:",
-    "deleting": "خطأ في حذف العميل:"
+    "saving": "خطأ في حفظ الزبون:",
+    "deleting": "خطأ في حذف الزبون:"
   },
   "client_form": {
-    "title_new": "عميل جديد",
-    "title_edit": "تعديل العميل",
-    "subtitle": "املأ معلومات العميل لتخصيص تجربته",
+    "title_new": "زبون جديد",
+    "title_edit": "تعديل الزبون",
+    "subtitle": "معلومات الزبون لتقديم خدمة على مقاسه",
     "sections": {
       "personal_info": "المعلومات الشخصية",
       "preferences": "التفضيلات",
@@ -168,17 +173,17 @@
       "phone_required": "الهاتف *",
       "birth_date": "تاريخ الميلاد",
       "favorite_services": "الخدمات المفضلة",
-      "preferred_stylists": "المصففون المفضلون",
+      "preferred_stylists": "أعضاء الفريق المفضّلون",
       "sms_reminders": "تذكيرات SMS",
       "email_marketing": "التسويق عبر البريد الإلكتروني",
       "birthday_offers": "عروض أعياد الميلاد"
     },
     "placeholders": {
-      "enter_first_name": "أدخل الاسم الأول",
-      "enter_last_name": "أدخل اسم العائلة",
-      "phone_example": "+966 50 123 4567",
-      "address_example": "123 شارع الجمال، الرياض 12345",
-      "notes_placeholder": "ملاحظات إضافية حول العميل..."
+      "enter_first_name": "الاسم",
+      "enter_last_name": "اللقب",
+      "phone_example": "0550 12 34 56",
+      "address_example": "12 شارع ديدوش مراد، الجزائر 16000",
+      "notes_placeholder": "ملاحظات إضافية حول الزبون…"
     },
     "buttons": {
       "cancel": "إلغاء",
@@ -189,9 +194,9 @@
   },
   "client_list": {
     "empty_state": {
-      "title": "لا يوجد عملاء مسجلون",
-      "subtitle": "ابدأ بإضافة عملائك الأوائل",
-      "cta": "أنشئ ملف العميل الأول"
+      "title": "لا يوجد زبائن مسجلون",
+      "subtitle": "يمكنك البدء بإضافة زبائنك الأوائل",
+      "cta": "إنشاء أول ملف زبون"
     },
     "loyalty_levels": {
       "vip": "VIP",
@@ -210,7 +215,7 @@
       "loyalty_points": "نقاط الولاء",
       "communication": "التواصل",
       "favorite_services": "الخدمات المفضلة",
-      "preferred_stylists": "المصففون المفضلون",
+      "preferred_stylists": "أعضاء الفريق المفضّلون",
       "notes": "الملاحظات"
     },
     "hair_info": {
@@ -223,8 +228,8 @@
       "birthday": "عيد الميلاد"
     },
     "tooltips": {
-      "edit_client": "تعديل العميل",
-      "delete_client": "حذف العميل"
+      "edit_client": "تعديل الزبون",
+      "delete_client": "حذف الزبون"
     },
     "points_zero": "{{count}} نقطة",
     "points_one": "نقطة واحدة",
@@ -234,7 +239,7 @@
     "points_other": "{{count}} نقطة"
   },
   "limits": {
-    "title": "حد العملاء",
-    "resource": "عملاء"
+    "title": "حد الزبائن",
+    "resource": "زبائن"
   }
 }

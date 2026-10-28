@@ -1,330 +1,284 @@
 {
-  "title": "Abonelik",
-  "page_title": "Abonelik Planları",
-  "page_subtitle": "Salonunuz için mükemmel planı seçin",
-  "current_plan": "Mevcut Plan",
-  "upgrade": "Yükselt",
-  "downgrade": "Düşür",
-  "cancel": "İptal Et",
-  "renew": "Yenile",
-  "billing": {
-    "0": "F",
-    "1": "a",
-    "2": "t",
-    "3": "u",
-    "4": "r",
-    "5": "a",
-    "6": "l",
-    "7": "a",
-    "8": "n",
-    "9": "d",
-    "10": "ı",
-    "11": "r",
-    "12": "m",
-    "13": "a"
+  "plan_card": {
+    "recommended": "Önerilen",
+    "current": "Mevcut plan",
+    "choose": "Bu planı seç",
+    "contact": "Bize ulaşın",
+    "on_quote": "Teklif üzerine",
+    "per_month": "/ ay",
+    "equivalent": "aylık {{amount}}",
+    "savings": "{{amount}} tasarruf edin (−%{{percent}})",
+    "duration_hint": "Starter ve Pro'da süre uzadıkça fiyat düşer.",
+    "durations": {
+      "MONTHLY": "Aylık",
+      "YEARLY": "1 yıl",
+      "BIENNIAL": "2 yıl",
+      "TRIENNIAL": "3 yıl"
+    },
+    "count": "{{value}} {{label}}",
+    "unlimited": "Sınırsız {{label}}",
+    "limits": {
+      "appointments": "randevu",
+      "clients": "müşteri",
+      "services": "hizmet",
+      "team_members_one": "ekip üyesi",
+      "stock": "Stok yönetimi",
+      "online_booking": "Online randevu",
+      "custom_interface": "Kişiselleştirilebilir arayüz",
+      "team_members_other": "ekip üyesi"
+    }
   },
-  "payment_method": "Ödeme Yöntemi",
-  "next_billing": "Sonraki Faturalandırma",
-  "billing_history": "Faturalandırma Geçmişi",
+  "page": {
+    "title": "Planınızı seçin",
+    "subtitle": "Planınızı istediğiniz zaman değiştirin. SATIM üzerinden CIB kartıyla güvenli ödeme."
+  },
+  "faq": {
+    "title": "Sık sorulan sorular",
+    "change_plan": {
+      "q": "Planımı istediğim zaman değiştirebilir miyim?",
+      "a": "Evet, istediğiniz zaman üst veya alt bir plana geçebilirsiniz. Değişiklikler hemen geçerli olur."
+    },
+    "hidden_fees": {
+      "q": "Gizli ücret var mı?",
+      "a": "Hiçbir gizli ücret yok. Gösterilen fiyat her şey dahildir: kurulum ücreti yok, satışlardan komisyon yok."
+    },
+    "cancel": {
+      "q": "Aboneliğimi iptal edersem ne olur?",
+      "a": "Fatura döneminizin sonuna kadar erişiminiz devam eder. Verileriniz 30 gün boyunca saklanır."
+    }
+  },
+  "cta": {
+    "title": "Salonunuzu dönüştürmeye hazır mısınız?",
+    "subtitle": "Memnun binlerce profesyonele katılın",
+    "button": "Ücretsiz denemeyi başlat"
+  },
+  "payment": {
+    "cancel": "İptal",
+    "regular_price": "Normal fiyat",
+    "per_month_equivalent": "Aylık karşılığı",
+    "secure_payment": "Güvenli ödeme",
+    "plan": "Plan",
+    "duration": "Süre",
+    "monthly": "ay",
+    "total": "Toplam",
+    "total_amount": "Toplam tutar",
+    "discount": "indirim",
+    "economy": "Tasarruf edin",
+    "test_mode": {
+      "title": "Test modu etkin",
+      "description": "Test ortamındasınız. Ödemeler düşük tutarlarla simüle edilecektir."
+    },
+    "security_features": {
+      "satim": "SATIM ile güvenli ödeme",
+      "cards": "Tüm CIB kartlarıyla uyumlu"
+    },
+    "info": "\"Ödemeye geç\" butonuna tıkladığınızda, ödemenizi tamamlamak için güvenli SATIM platformuna yönlendirileceksiniz.",
+    "proceed": "Ödemeye geç",
+    "processing": "İşleniyor…",
+    "security_notice": "Ödemeniz SATIM protokolüyle güvence altındadır",
+    "accept_terms": "Genel satış koşullarını ve gizlilik politikasını kabul ediyorum",
+    "read_terms": "Koşulları oku",
+    "terms_title": "Genel satış koşulları",
+    "terms_content": "Bu ödemeyi yaparak Saloneo'nun genel satış koşullarını ve ödemelerin işlenmesine ilişkin SATIM koşullarını kabul etmiş olursunuz.",
+    "terms_content2": "Ödemeniz güvencededir ve banka bilgileriniz sunucularımızda saklanmaz.",
+    "terms_required": "Devam etmek için genel koşulları kabul etmelisiniz",
+    "captcha_required": "Devam etmek için lütfen captcha'yı doğrulayın"
+  },
+  "limits": {
+    "clients_reached": "Müşteri limitine ulaşıldı",
+    "team_reached": "Ekip üyesi limitine ulaşıldı",
+    "services_reached": "Hizmet limitine ulaşıldı",
+    "products_reached": "Ürün limitine ulaşıldı",
+    "upgrade_plan": "Planınızı yükseltin",
+    "back": "Geri",
+    "see_plans": "Planları gör",
+    "messages": {
+      "clients_one": "{{count}} müşteri limitine ulaşıldı. Devam etmek için üst bir plana geçin.",
+      "clients_other": "{{count}} müşteri limitine ulaşıldı. Devam etmek için üst bir plana geçin.",
+      "services_one": "{{count}} hizmet limitine ulaşıldı. Devam etmek için üst bir plana geçin.",
+      "services_other": "{{count}} hizmet limitine ulaşıldı. Devam etmek için üst bir plana geçin.",
+      "team_one": "{{count}} ekip üyesi limitine ulaşıldı. Devam etmek için üst bir plana geçin.",
+      "team_other": "{{count}} ekip üyesi limitine ulaşıldı. Devam etmek için üst bir plana geçin.",
+      "appointments_one": "{{count}} randevu limitine ulaşıldı. Devam etmek için üst bir plana geçin.",
+      "appointments_other": "{{count}} randevu limitine ulaşıldı. Devam etmek için üst bir plana geçin.",
+      "products_one": "{{plan}} planı için {{count}} ürün limitine ulaşıldı.",
+      "products_other": "{{plan}} planı için {{count}} ürün limitine ulaşıldı.",
+      "products_remaining_one": "{{count}} ürün daha oluşturabilirsiniz.",
+      "products_remaining_other": "{{count}} ürün daha oluşturabilirsiniz.",
+      "products_unlimited": "Sınırsız sayıda ürün oluşturabilirsiniz.",
+      "usage_error": "Kullanım istatistikleri yüklenemedi."
+    },
+    "upgrade": {
+      "FREE": "Daha fazla özellik için Starter planına geçin.",
+      "STARTER": "Limitlerinizi artırmak için Pro planına geçin.",
+      "PRO": "Sınırsız kullanım için Kurumsal plana geçin.",
+      "ENTERPRISE": "Size özel bir plan için bizimle iletişime geçin."
+    }
+  },
+  "widget": {
+    "usage": "{{plan}} planı · {{current}} / {{limit}} {{resource}}",
+    "usage_unlimited": "{{plan}} planı · sınırsız {{resource}}",
+    "near_limit": "{{current}} / {{limit}} {{resource}} kullanıldı, limite yaklaşıyorsunuz",
+    "at_limit": "{{limit}} {{resource}} limitine ulaşıldı",
+    "title": "Aboneliğiniz",
+    "manage": "Yönet",
+    "unlimited": "Sınırsız",
+    "used": "Kullanılan",
+    "remaining": "kalan",
+    "limit_reached": "Limite ulaşıldı",
+    "limit_near": "Limite yakın",
+    "available": "Kullanılabilir",
+    "upgrade": "Yükselt"
+  },
+  "success": {
+    "title": "Ödeme başarılı",
+    "message": "Tebrikler! {{planName}} planı aboneliğiniz başarıyla etkinleştirildi.",
+    "benefits": {
+      "title": "Artık şunları yapabilirsiniz:",
+      "premium": "Tüm premium özelliklere erişmek",
+      "unlimited": "Salonunuzu sınırsız yönetmek",
+      "support": "Öncelikli destekten yararlanmak"
+    },
+    "continue": "Gösterge panelime git",
+    "email_sent": "Adresinize bir onay e-postası gönderildi.",
+    "transaction": {
+      "title": "İşlem ayrıntıları",
+      "id": "İşlem numarası",
+      "date": "Tarih",
+      "time": "Saat",
+      "method": "Ödeme yöntemi",
+      "amount": "Tutar",
+      "disclaimer": "Bu işlem SATIM tarafından gerçekleştirildi. Bu bilgileri ileride başvurmak üzere saklayın.",
+      "support": "Ödemenizle ilgili sorularınız için 3020 numaralı SATIM destek hattını arayın."
+    }
+  },
+  "failed": {
+    "title": "Ödeme başarısız",
+    "help": {
+      "title": "Şimdi ne yapmalı?",
+      "check_card": "Kartınızın geçerli olduğunu ve yeterli bakiyesi bulunduğunu kontrol edin",
+      "check_info": "Bilgilerinizi doğru girdiğinizden emin olun",
+      "try_another": "Sorun devam ederse başka bir kart deneyin"
+    },
+    "retry": "Ödemeyi tekrar dene",
+    "back": "Aboneliklere dön",
+    "support": "Yardıma mı ihtiyacınız var?",
+    "transaction": {
+      "title": "Hata ayrıntıları",
+      "id": "İşlem numarası",
+      "error_code": "Hata kodu",
+      "date": "Tarih ve saat",
+      "disclaimer": "Bu işlem SATIM tarafından reddedildi. Lütfen bilgilerinizi kontrol edip tekrar deneyin.",
+      "support": "Her türlü yardım için 3020 numaralı SATIM destek hattını arayın."
+    }
+  },
   "plans": {
     "free": {
-      "name": "Gratuit",
-      "description": "Parfait pour commencer",
-      "price": "Gratuit",
+      "name": "Ücretsiz",
+      "description": "Başlamak için ideal",
+      "price": "Ücretsiz",
       "features": [
-        "Jusqu'à 10 rendez-vous par mois",
-        "Jusqu'à 5 clients",
-        "Gestion de services de base",
-        "Support par email"
+        "Ayda 10 randevuya kadar",
+        "5 müşteriye kadar",
+        "Temel hizmet yönetimi",
+        "E-posta desteği"
       ]
     },
     "starter": {
       "name": "Starter",
-      "description": "Idéal pour les petits salons",
-      "price": "$29",
+      "description": "Küçük salonlar için ideal",
       "features": [
-        "Jusqu'à 100 rendez-vous par mois",
-        "Jusqu'à 50 clients",
-        "Gestion complète des services",
-        "Gestion d'équipe (jusqu'à 3 membres)",
-        "Analyses de base",
-        "Support par email"
+        "Ayda 100 randevuya kadar",
+        "50 müşteriye kadar",
+        "Eksiksiz hizmet yönetimi",
+        "Ekip yönetimi (3 ekip üyesine kadar)",
+        "Temel analizler",
+        "E-posta desteği"
       ]
     },
     "professional": {
-      "name": "Professionnel",
-      "description": "Pour les entreprises en croissance",
-      "price": "$79",
+      "name": "Pro",
+      "description": "Büyüyen işletmeler için",
       "features": [
-        "Jusqu'à 500 rendez-vous par mois",
-        "Jusqu'à 200 clients",
-        "Gestion avancée des services",
-        "Gestion d'équipe (jusqu'à 10 membres)",
-        "Analyses avancées",
-        "Réservation en ligne",
-        "Support prioritaire"
+        "Ayda 500 randevuya kadar",
+        "200 müşteriye kadar",
+        "Gelişmiş hizmet yönetimi",
+        "Ekip yönetimi (10 ekip üyesine kadar)",
+        "Gelişmiş analizler",
+        "Online randevu",
+        "Öncelikli destek"
       ]
     },
     "enterprise": {
-      "name": "Entreprise",
-      "description": "Pour les grands salons et chaînes",
-      "price": "$199",
+      "name": "Kurumsal",
+      "description": "Büyük salonlar ve zincirler için",
       "features": [
-        "Rendez-vous illimités",
-        "Clients illimités",
-        "Accès complet aux fonctionnalités",
-        "Membres d'équipe illimités",
-        "Analyses et rapports avancés",
-        "Support multi-emplacements",
-        "Intégrations personnalisées",
-        "Support dédié"
+        "Sınırsız randevu",
+        "Sınırsız müşteri",
+        "Tüm özelliklere tam erişim",
+        "Sınırsız ekip üyesi",
+        "Gelişmiş analizler ve raporlar",
+        "Çoklu şube desteği",
+        "Özel entegrasyonlar",
+        "Özel destek"
       ]
     }
   },
-  "features": {
-    "appointments": "Randevular",
-    "clients": "Müşteriler",
-    "team_members": "Ekip Üyeleri",
-    "locations": "Lokasyonlar",
-    "storage": "Depolama",
-    "support": {
-      "0": "D",
-      "1": "e",
-      "2": "s",
-      "3": "t",
-      "4": "e",
-      "5": "k"
-    },
-    "analytics": "Analizler",
-    "integrations": "Entegrasyonlar",
-    "customization": "Özelleştirme",
-    "api_access": "API Erişimi",
-    "security": {
-      "title": "Sécurité Premium",
-      "description": "Vos données sont protégées avec un chiffrement de niveau bancaire"
-    },
-    "growth": {
-      "title": "Croissance Garantie",
-      "description": "Augmentez votre chiffre d'affaires de 30% en moyenne"
-    }
-  },
-  "billing_cycle": {
+  "billing": {
     "monthly": "Aylık",
     "yearly": "Yıllık",
-    "save": "{{discount}}% tasarruf edin"
-  },
-  "payment": {
-    "title": "Ödeme Bilgileri",
-    "card_number": "Kart Numarası",
-    "expiry_date": "Son Kullanma Tarihi",
-    "cvv": "CVV",
-    "cardholder_name": "Kart Sahibinin Adı",
-    "billing_address": "Fatura Adresi",
-    "country": "Ülke",
-    "city": "Şehir",
-    "postal_code": "Posta Kodu",
-    "process_payment": "Ödemeyi İşle",
-    "secure_payment": "Paiement Sécurisé",
-    "payment_methods": "Kabul Edilen Ödeme Yöntemleri",
-    "plan": "Plan",
-    "duration": "Durée",
-    "monthly": "mois",
-    "total": "Total",
-    "discount": "de réduction",
-    "economy": "Économisez",
-    "test_mode": {
-      "title": "Mode Test Activé",
-      "description": "Vous êtes en environnement de test. Les paiements seront simulés avec des montants réduits."
-    },
-    "security_features": {
-      "satim": "Paiement sécurisé par SATIM",
-      "cards": "Compatible avec toutes les cartes CIB"
-    },
-    "info": "En cliquant sur \"Procéder au paiement\", vous serez redirigé vers la plateforme sécurisée SATIM pour finaliser votre paiement.",
-    "proceed": "Procéder au paiement",
-    "processing": "Traitement en cours..."
-  },
-  "success": {
-    "title": "Paiement Réussi !",
-    "message": "Félicitations ! Votre abonnement au plan {{planName}} a été activé avec succès.",
-    "plan_activated": "{{plan}} planı etkinleştirildi",
-    "access_features": "Artık yeni planınızın tüm özelliklerine erişebilirsiniz",
-    "continue": "Accéder à mon tableau de bord",
-    "benefits": {
-      "title": "Vous pouvez maintenant :",
-      "premium": "Accéder à toutes les fonctionnalités premium",
-      "unlimited": "Gérer votre salon sans limites",
-      "support": "Bénéficier du support prioritaire"
-    },
-    "email_sent": "Un email de confirmation a été envoyé à votre adresse."
-  },
-  "failed": {
-    "title": "Paiement Échoué",
-    "message": "Ödemenizi işlerken bir sorun oluştu",
-    "try_again": "Tekrar Dene",
-    "contact_support": "Destek ile İletişime Geç",
-    "common_issues": "Yaygın Sorunlar",
-    "insufficient_funds": "Yetersiz bakiye",
-    "expired_card": "Süresi dolmuş kart",
-    "incorrect_details": "Yanlış bilgiler",
-    "help": {
-      "title": "Que faire maintenant ?",
-      "check_card": "Vérifiez que votre carte est valide et dispose de fonds suffisants",
-      "check_info": "Assurez-vous d'avoir saisi correctement vos informations",
-      "try_another": "Essayez avec une autre carte si le problème persiste"
-    },
-    "retry": "Réessayer le paiement",
-    "back": "Retour aux abonnements",
-    "support": "Besoin d'aide ?"
-  },
-  "limits": {
-    "title": "Plan Limitleri",
-    "current_usage": "Mevcut Kullanım",
-    "limit_reached": "Limite Ulaşıldı",
-    "upgrade_required": "Yükseltme Gerekli",
-    "appointments_limit": "Aylık randevu limitinize ulaştınız",
-    "clients_limit": "Müşteri limitinize ulaştınız",
-    "team_limit": "Ekip üyesi limitinize ulaştınız",
-    "upgrade_now": "Şimdi Yükselt",
-    "view_plans": "Planları Görüntüle",
-    "clients_reached": "Limite de clients atteinte",
-    "team_reached": "Limite de membres d'équipe atteinte",
-    "services_reached": "Limite de services atteinte",
-    "products_reached": "Limite de produits atteinte",
-    "upgrade_plan": "Mettre à niveau votre plan"
-  },
-  "cancel_subscription": {
-    "title": "Aboneliği İptal Et",
-    "confirm": "Aboneliğinizi iptal etmek istediğinizden emin misiniz?",
-    "consequences": "İptal etmenin sonuçları:",
-    "lose_access": "Premium özelliklere erişiminizi kaybedeceksiniz",
-    "data_retained": "Verileriniz 30 gün boyunca saklanacak",
-    "can_reactivate": "İstediğiniz zaman yeniden etkinleştirebilirsiniz",
-    "cancel_now": "Şimdi İptal Et",
-    "keep_subscription": "Aboneliği Koru"
-  },
-  "notifications": {
-    "payment_successful": "Ödeme başarıyla işlendi",
-    "payment_failed": "Ödeme başarısız",
-    "subscription_updated": "Abonelik güncellendi",
-    "subscription_cancelled": "Abonelik iptal edildi",
-    "trial_ending": "Deneme süreniz yakında sona eriyor",
-    "payment_due": "Ödeme bekliyor"
-  },
-  "page": {
-    "title": "Choisissez Votre Plan",
-    "subtitle": "Transformez votre salon avec Saloneo et rejoignez plus de 10,000+ professionnels qui ont révolutionné leur activité",
-    "why_choose": "Pourquoi choisir Saloneo ?",
-    "why_subtitle": "La solution complète pour faire prospérer votre salon de beauté"
-  },
-  "badges": {
-    "free_trial": "Essai gratuit 14 jours",
-    "no_commitment": "Sans engagement",
-    "premium_support": "Support premium"
-  },
-  "promotion": {
-    "limited_offer": "🔥 OFFRE LIMITÉE : -40% sur tous les plans ! 🔥"
-  },
-  "testimonials": {
-    "title": "Ce que disent nos clients",
-    "subtitle": "Plus de 10,000 professionnels nous font confiance",
-    "marie": {
-      "name": "Marie Dubois",
-      "salon": "Salon Élégance",
-      "text": "Saloneo a transformé ma façon de travailler. +50% de réservations en 3 mois !"
-    },
-    "sophie": {
-      "name": "Sophie Martin",
-      "salon": "Beauty Paradise",
-      "text": "Interface intuitive et support exceptionnel. Je recommande vivement !"
-    },
-    "amelie": {
-      "name": "Amélie Laurent",
-      "salon": "Coiffure Moderne",
-      "text": "Mes clients adorent pouvoir réserver en ligne. Un vrai plus pour mon salon !"
-    }
-  },
-  "faq": {
-    "title": "Questions Fréquentes",
-    "change_plan": {
-      "q": "Puis-je changer de plan à tout moment ?",
-      "a": "Oui, vous pouvez upgrader ou downgrader votre plan à tout moment. Les changements prennent effet immédiatement."
-    },
-    "hidden_fees": {
-      "q": "Y a-t-il des frais cachés ?",
-      "a": "Aucun frais caché ! Le prix affiché est tout compris. Pas de frais de setup, pas de commission sur les ventes."
-    },
-    "cancel": {
-      "q": "Que se passe-t-il si j'annule mon abonnement ?",
-      "a": "Vous gardez l'accès jusqu'à la fin de votre période de facturation. Vos données sont conservées 30 jours."
-    }
-  },
-  "cta": {
-    "title": "Prêt à transformer votre salon ?",
-    "subtitle": "Rejoignez des milliers de professionnels satisfaits",
-    "button": "Commencer l'essai gratuit"
-  },
-  "widget": {
-    "title": "Votre Abonnement",
-    "manage": "Gérer",
-    "unlimited": "Illimité",
-    "used": "Utilisés",
-    "remaining": "restants",
-    "limit_reached": "Limite atteinte",
-    "limit_near": "Limite proche",
-    "available": "Disponible",
-    "upgrade": "Upgrade"
+    "save_percent": "%{{percent}} tasarruf edin",
+    "billed_monthly": "Aylık faturalandırılır",
+    "billed_yearly": "Yıllık faturalandırılır",
+    "per_month": "aylık",
+    "per_year": "yıllık"
   },
   "actions": {
-    "choose_plan": "Choisir le Plan",
-    "current_plan": "Plan Actuel",
-    "upgrade": "Mettre à niveau",
-    "downgrade": "Rétrograder",
-    "cancel": "Annuler l'Abonnement",
-    "reactivate": "Réactiver",
-    "change_plan": "Changer de Plan"
+    "choose_plan": "Planı seç",
+    "current_plan": "Mevcut plan",
+    "upgrade": "Planı yükselt",
+    "downgrade": "Planı düşür",
+    "cancel": "Aboneliği iptal et",
+    "reactivate": "Yeniden etkinleştir",
+    "change_plan": "Planı değiştir"
   },
   "status": {
-    "active": "Actif",
-    "cancelled": "Annulé",
-    "expired": "Expiré",
-    "trial": "Essai",
-    "pending": "En attente"
+    "active": "Aktif",
+    "cancelled": "İptal edildi",
+    "expired": "Süresi doldu",
+    "trial": "Deneme",
+    "pending": "Beklemede"
   },
   "messages": {
-    "upgrade_success": "Plan mis à niveau avec succès",
-    "downgrade_success": "Plan rétrogradé avec succès",
-    "cancellation_success": "Abonnement annulé avec succès",
-    "reactivation_success": "Abonnement réactivé avec succès",
-    "payment_updated": "Méthode de paiement mise à jour avec succès",
-    "trial_ending": "Votre essai se termine bientôt",
-    "subscription_expired": "Votre abonnement a expiré",
-    "upgrade_required": "Veuillez mettre à niveau votre plan pour continuer à utiliser cette fonctionnalité"
+    "upgrade_success": "Plan başarıyla yükseltildi",
+    "downgrade_success": "Plan başarıyla düşürüldü",
+    "cancellation_success": "Abonelik başarıyla iptal edildi",
+    "reactivation_success": "Abonelik başarıyla yeniden etkinleştirildi",
+    "payment_updated": "Ödeme yöntemi başarıyla güncellendi",
+    "trial_ending": "Deneme süreniz yakında sona eriyor",
+    "subscription_expired": "Aboneliğinizin süresi doldu",
+    "upgrade_required": "Bu özelliği kullanmaya devam etmek için lütfen planınızı yükseltin"
   },
-  "invoice": "Tafaturt",
-  "subscription": "Ajerriḍ",
-  "trial": "Aɛeṛṛu",
-  "free": "Baṭel",
-  "premium": "Aɣalay",
-  "pro": "Aɣerfan",
-  "enterprise": "Takebbanit",
-  "monthly": "Aggur",
-  "yearly": "Aseggas",
-  "lifetime": "Tudert",
-  "usage": "Aseqdec",
-  "quota": "Azal",
-  "overage": "Azal n ufella",
-  "discount": "Aḥeṛṛi",
-  "coupon": "Takubunt",
-  "promo": "Abeṛṛani",
-  "refund": "Tuɣalin",
-  "chargeback": "Tuɣalin n uxelleṣ",
-  "dispute": "Anmegla",
-  "fraud": "Akukel",
-  "security": "Taɣellist",
-  "compliance": "Aḍfar",
-  "terms": "Tiwtilin",
-  "privacy": "Tudert tusligt",
-  "support": "Tallalt",
-  "contact": "Nermes"
+  "resources": {
+    "clients": "müşteri",
+    "team": "ekip üyesi",
+    "services": "hizmet",
+    "products": "ürün"
+  },
+  "payment_errors": {
+    "init": "Ödeme başlatılırken hata oluştu",
+    "status": "Ödeme durumu kontrol edilirken hata oluştu",
+    "history": "Geçmiş alınırken hata oluştu",
+    "fallback_link": "Ödeme sayfasına gitmek için buraya tıklayın",
+    "fallback_message": "Ödeme sayfasına otomatik olarak yönlendirilmezseniz aşağıdaki butona tıklayın:",
+    "redirect": "Yönlendirme sırasında bir hata oluştu. Lütfen tekrar deneyin veya destek ekibiyle iletişime geçin.",
+    "codes": {
+      "missing_transaction": "İşlem eksik",
+      "transaction_not_found": "İşlem bulunamadı",
+      "payment_failed": "Ödeme başarısız oldu",
+      "payment_cancelled": "Ödeme iptal edildi",
+      "processing_error": "İşleme sırasında hata oluştu",
+      "invalid_transaction": "Geçersiz işlem"
+    }
+  }
 }

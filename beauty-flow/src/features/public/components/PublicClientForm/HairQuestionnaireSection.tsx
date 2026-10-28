@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { HairQuestionnaire } from '../../../clients/types';
 
 interface HairQuestionnaireSectionProps {
@@ -10,6 +11,7 @@ const HairQuestionnaireSection: React.FC<HairQuestionnaireSectionProps> = ({
   values,
   onChange,
 }) => {
+  const { t } = useTranslation('public');
 
   const hairTypes = ['Raides', 'Ondulés', 'Bouclés', 'Crépus'] as const;
   const thicknessTypes = ['Fins', 'Moyens', 'Épais'] as const;
@@ -37,7 +39,7 @@ const HairQuestionnaireSection: React.FC<HairQuestionnaireSectionProps> = ({
         {/* Type de cheveux */}
         <div>
           <label className="bk-label">
-            Type de cheveux
+            {t('booking.questionnaire.hair_type')}
           </label>
           <div className="grid grid-cols-2 gap-2">
             {hairTypes.map((type) => (
@@ -47,7 +49,7 @@ const HairQuestionnaireSection: React.FC<HairQuestionnaireSectionProps> = ({
                 onClick={() => onChange('hairType', type as HairQuestionnaire['hairType'])}
                 className="bk-option" aria-pressed={values.hairType === type}
               >
-                {type}
+                {t(`booking.questionnaire.values.${type}`, type)}
               </button>
             ))}
           </div>
@@ -56,7 +58,7 @@ const HairQuestionnaireSection: React.FC<HairQuestionnaireSectionProps> = ({
         {/* Épaisseur */}
         <div>
           <label className="bk-label">
-            Épaisseur des cheveux
+            {t('booking.questionnaire.thickness')}
           </label>
           <div className="grid grid-cols-3 gap-2">
             {thicknessTypes.map((type) => (
@@ -66,7 +68,7 @@ const HairQuestionnaireSection: React.FC<HairQuestionnaireSectionProps> = ({
                 onClick={() => onChange('thickness', type as HairQuestionnaire['thickness'])}
                 className="bk-option" aria-pressed={values.thickness === type}
               >
-                {type}
+                {t(`booking.questionnaire.values.${type}`, type)}
               </button>
             ))}
           </div>
@@ -75,7 +77,7 @@ const HairQuestionnaireSection: React.FC<HairQuestionnaireSectionProps> = ({
         {/* État du cuir chevelu */}
         <div>
           <label className="bk-label">
-            État du cuir chevelu
+            {t('booking.questionnaire.scalp')}
           </label>
           <select
             value={values.scalpCondition}
@@ -84,7 +86,7 @@ const HairQuestionnaireSection: React.FC<HairQuestionnaireSectionProps> = ({
           >
             {scalpConditions.map((condition) => (
               <option key={condition} value={condition}>
-                {condition}
+                {t(`booking.questionnaire.values.${condition}`, condition)}
               </option>
             ))}
           </select>
@@ -93,7 +95,7 @@ const HairQuestionnaireSection: React.FC<HairQuestionnaireSectionProps> = ({
         {/* Porosité */}
         <div>
           <label className="bk-label">
-            Porosité
+            {t('booking.questionnaire.porosity')}
           </label>
           <div className="grid grid-cols-3 gap-2">
             {porosityLevels.map((level) => (
@@ -103,7 +105,7 @@ const HairQuestionnaireSection: React.FC<HairQuestionnaireSectionProps> = ({
                 onClick={() => onChange('porosity', level as HairQuestionnaire['porosity'])}
                 className="bk-option" aria-pressed={values.porosity === level}
               >
-                {level}
+                {t(`booking.questionnaire.values.${level}`, level)}
               </button>
             ))}
           </div>
@@ -112,7 +114,7 @@ const HairQuestionnaireSection: React.FC<HairQuestionnaireSectionProps> = ({
         {/* Traitements chimiques */}
         <div>
           <label className="bk-label">
-            Traitements chimiques
+            {t('booking.questionnaire.chemical_treatments')}
           </label>
           <div className="space-y-2">
             {chemicalTreatments.map((treatment) => (
@@ -129,7 +131,7 @@ const HairQuestionnaireSection: React.FC<HairQuestionnaireSectionProps> = ({
                   className="h-5 w-5 shrink-0 accent-[var(--bk-primary)]"
                 />
                 <span className="text-sm">
-                  {treatment}
+                  {t(`booking.questionnaire.values.${treatment}`, treatment)}
                 </span>
               </label>
             ))}
@@ -140,7 +142,7 @@ const HairQuestionnaireSection: React.FC<HairQuestionnaireSectionProps> = ({
         {values.chemicalTreatments.length > 0 && values.chemicalTreatments[0] !== 'Aucun' && (
           <div>
             <label className="bk-label">
-              Date du dernier traitement
+              {t('booking.questionnaire.last_treatment_date')}
             </label>
             <input
               type="date"
@@ -154,7 +156,7 @@ const HairQuestionnaireSection: React.FC<HairQuestionnaireSectionProps> = ({
         {/* Problèmes capillaires */}
         <div>
           <label className="bk-label">
-            Problèmes capillaires
+            {t('booking.questionnaire.hair_problems')}
           </label>
           <div className="space-y-2">
             {hairProblems.map((problem) => (
@@ -171,7 +173,7 @@ const HairQuestionnaireSection: React.FC<HairQuestionnaireSectionProps> = ({
                   className="h-5 w-5 shrink-0 accent-[var(--bk-primary)]"
                 />
                 <span className="text-sm">
-                  {problem}
+                  {t(`booking.questionnaire.values.${problem}`, problem)}
                 </span>
               </label>
             ))}
@@ -181,28 +183,28 @@ const HairQuestionnaireSection: React.FC<HairQuestionnaireSectionProps> = ({
         {/* Produits actuels */}
         <div>
           <label className="bk-label">
-            Produits actuellement utilisés
+            {t('booking.questionnaire.current_products')}
           </label>
           <textarea
             value={values.currentProducts || ''}
             onChange={(e) => onChange('currentProducts', e.target.value)}
             rows={3}
             className="bk-field"
-            placeholder="Listez les produits que vous utilisez actuellement..."
+            placeholder={t('booking.questionnaire.current_products_placeholder')}
           />
         </div>
 
         {/* Allergies */}
         <div>
           <label className="bk-label">
-            Allergies connues
+            {t('booking.questionnaire.allergies')}
           </label>
           <textarea
             value={values.allergies || ''}
             onChange={(e) => onChange('allergies', e.target.value)}
             rows={2}
             className="bk-field"
-            placeholder="Mentionnez toute allergie aux produits capillaires..."
+            placeholder={t('booking.questionnaire.hair_allergies_placeholder')}
           />
         </div>
       </div>

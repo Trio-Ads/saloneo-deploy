@@ -264,7 +264,7 @@ const DashboardPage: React.FC = () => {
           {
             label: t('kpis.daily_revenue'),
             value: formatPrice(stats.todayRevenue, profile.currency),
-            hint: `${stats.todayAppointments} ${t('kpis.appointments')}`,
+            hint: t('kpis.appointments', { count: stats.todayAppointments }),
             accent: true,
           },
           {

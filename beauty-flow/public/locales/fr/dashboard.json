@@ -4,7 +4,7 @@
   "overview": "Vue d'ensemble",
   "analytics": "Analyses",
   "reports": "Rapports",
-  "loading": "Chargement du tableau de bord...",
+  "loading": "Chargement du tableau de bord…",
   "widgets": {
     "revenue": "Chiffre d'affaires",
     "appointments": "Rendez-vous",
@@ -66,8 +66,8 @@
     "client_satisfaction": "Satisfaction client"
   },
   "overview_subtitle": "Voici un aperçu de votre activité aujourd'hui",
-  "demo_mode": "Mode Démo",
-  "real_data": "Données Réelles",
+  "demo_mode": "Mode démo",
+  "real_data": "Données réelles",
   "time_periods": {
     "day": "Jour",
     "week": "Semaine",
@@ -78,9 +78,10 @@
     "monthly_revenue": "Revenus du mois",
     "clients": "Clients",
     "occupancy": "Occupation",
-    "appointments": "rendez-vous",
     "this_month": "ce mois",
-    "upcoming": "à venir"
+    "upcoming": "à venir",
+    "appointments_one": "{{count}} rendez-vous",
+    "appointments_other": "{{count}} rendez-vous"
   },
   "charts_titles": {
     "revenue_evolution": "Évolution des revenus",
@@ -88,12 +89,13 @@
     "popular_services": "Services populaires"
   },
   "alerts": {
-    "subscription_limit": "Vous approchez de votre limite de rendez-vous ({{percentage}}% utilisé)",
+    "subscription_limit": "Vous approchez de votre limite de rendez-vous ({{percentage}} % utilisé)",
     "upgrade": "Mettre à niveau",
     "unconfirmed_appointments": "{{count}} rendez-vous à confirmer aujourd'hui",
     "view": "Voir",
-    "loyal_clients": "{{count}} clients fidèles méritent une récompense",
-    "manage": "Gérer"
+    "manage": "Gérer",
+    "loyal_clients_one": "{{count}} client fidèle mérite une récompense",
+    "loyal_clients_other": "{{count}} clients fidèles méritent une récompense"
   },
   "recent_activity": {
     "title": "Activité récente",
@@ -103,14 +105,14 @@
       "confirmed": "Rendez-vous confirmé",
       "completed": "Rendez-vous terminé",
       "cancelled": "Rendez-vous annulé",
-      "rescheduled": "Rendez-vous reprogrammé",
-      "no_show": "Client non présenté"
+      "rescheduled": "Rendez-vous reporté",
+      "no_show": "Client absent"
     },
     "time": {
       "just_now": "À l'instant",
       "minutes_ago": "Il y a {{minutes}} min",
-      "hours_ago": "Il y a {{hours}}h",
-      "days_ago": "Il y a {{days}}j"
+      "hours_ago": "Il y a {{hours}} h",
+      "days_ago": "Il y a {{days}} j"
     },
     "unknown_client": "Client inconnu"
   },
@@ -123,7 +125,7 @@
       "statuses": {
         "scheduled": "Planifié",
         "confirmed": "Confirmé",
-        "rescheduled": "Reprogrammé"
+        "rescheduled": "Reporté"
       }
     },
     "appointment_chart": {
@@ -135,19 +137,19 @@
         "confirmed": "Confirmés",
         "completed": "Terminés",
         "cancelled": "Annulés",
-        "noShow": "Non présentés",
-        "rescheduled": "Reprogrammés"
+        "noShow": "Absents",
+        "rescheduled": "Reportés"
       }
     },
     "business_insights": {
-      "title": "Insights Business",
+      "title": "Analyses de votre activité",
       "insights": {
         "high_cancellation_title": "Taux d'annulation élevé",
-        "high_cancellation_desc": "{{rate}}% d'annulations ce mois. Considérez l'envoi de rappels SMS.",
+        "high_cancellation_desc": "{{rate}} % d'annulations ce mois-ci. Pensez à envoyer des rappels SMS.",
         "top_service_title": "Service le plus rentable",
         "top_service_desc": "\"{{service}}\" génère {{revenue}} de revenus. Pensez à le promouvoir.",
         "loyal_clients_title": "Clients fidèles",
-        "loyal_clients_desc": "{{rate}}% de vos clients ont plus de 50 points de fidélité. Créez un programme de récompenses.",
+        "loyal_clients_desc": "{{rate}} % de vos clients ont plus de 50 points de fidélité. Créez un programme de récompenses.",
         "popular_slot_title": "Créneau le plus demandé",
         "popular_slot_desc": "{{slot}} est votre créneau le plus populaire. Optimisez votre planning en conséquence.",
         "low_acquisition_title": "Acquisition client faible",
@@ -165,10 +167,11 @@
     },
     "team_performance": {
       "title": "Performance de l'équipe",
-      "no_members": "Aucun membre d'équipe",
-      "completed": "terminés",
+      "no_members": "Aucun membre dans l'équipe",
       "unknown_member": "Membre inconnu",
-      "no_role": "Aucun rôle"
+      "no_role": "Aucun rôle",
+      "completed_one": "{{count}} terminé",
+      "completed_other": "{{count}} terminés"
     }
   }
 }

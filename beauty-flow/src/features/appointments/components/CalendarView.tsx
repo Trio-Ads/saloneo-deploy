@@ -75,7 +75,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ appointments, onEdit }) => 
       title={<span className="inline-block first-letter:uppercase">{format(weekDays[0], 'MMMM yyyy', { locale })}</span>}
       description={
         <>
-          {t('calendar_view.week_from')} {format(weekDays[0], 'd', { locale })} {t('calendar_view.week_to')} {format(weekDays[6], 'd MMMM', { locale })}
+          {t('calendar_view.week_range', { from: format(weekDays[0], 'd', { locale }), to: format(weekDays[6], 'd MMMM', { locale }) })}
           {' · '}
           {t('calendar_view.week_total', { count: weekTotal })}
         </>

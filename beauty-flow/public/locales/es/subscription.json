@@ -1,328 +1,284 @@
 {
-  "title": "Suscripción",
-  "page_title": "Planes de Suscripción",
-  "page_subtitle": "Elige el plan perfecto para tu salón",
-  "current_plan": "Plan Actual",
-  "upgrade": "Actualizar",
-  "downgrade": "Degradar",
-  "cancel": "Cancelar",
-  "renew": "Renovar",
-  "billing": {
-    "0": "F",
-    "1": "a",
-    "2": "c",
-    "3": "t",
-    "4": "u",
-    "5": "r",
-    "6": "a",
-    "7": "c",
-    "8": "i",
-    "9": "ó",
-    "10": "n"
+  "plan_card": {
+    "recommended": "Recomendado",
+    "current": "Plan actual",
+    "choose": "Elegir este plan",
+    "contact": "Contáctenos",
+    "on_quote": "Bajo presupuesto",
+    "per_month": "/ mes",
+    "equivalent": "es decir, {{amount}} / mes",
+    "savings": "Ahorre {{amount}} (−{{percent}} %)",
+    "duration_hint": "Cuanto más largo el compromiso, más bajo el precio en Starter y Pro.",
+    "durations": {
+      "MONTHLY": "Mensual",
+      "YEARLY": "1 año",
+      "BIENNIAL": "2 años",
+      "TRIENNIAL": "3 años"
+    },
+    "count": "{{value}} {{label}}",
+    "unlimited": "{{label}} ilimitados",
+    "limits": {
+      "appointments": "citas",
+      "clients": "clientes",
+      "services": "servicios",
+      "team_members_one": "miembro del equipo",
+      "stock": "Gestión del inventario",
+      "online_booking": "Reservas en línea",
+      "custom_interface": "Interfaz personalizable",
+      "team_members_other": "miembros del equipo"
+    }
   },
-  "payment_method": "Método de Pago",
-  "next_billing": "Próxima Facturación",
-  "billing_history": "Historial de Facturación",
+  "page": {
+    "title": "Elija su plan",
+    "subtitle": "Cambie de plan en cualquier momento. Pago seguro con tarjeta CIB a través de SATIM."
+  },
+  "faq": {
+    "title": "Preguntas frecuentes",
+    "change_plan": {
+      "q": "¿Puedo cambiar de plan en cualquier momento?",
+      "a": "Sí, puede pasar a un plan superior o inferior en cualquier momento. Los cambios se aplican de inmediato."
+    },
+    "hidden_fees": {
+      "q": "¿Hay costes ocultos?",
+      "a": "Ningún coste oculto. El precio mostrado lo incluye todo: sin gastos de instalación ni comisiones sobre las ventas."
+    },
+    "cancel": {
+      "q": "¿Qué pasa si cancelo mi suscripción?",
+      "a": "Conserva el acceso hasta el final de su periodo de facturación. Sus datos se guardan durante 30 días."
+    }
+  },
+  "cta": {
+    "title": "¿Listo para transformar su salón?",
+    "subtitle": "Únase a miles de profesionales satisfechos",
+    "button": "Empezar la prueba gratuita"
+  },
+  "payment": {
+    "cancel": "Cancelar",
+    "regular_price": "Precio habitual",
+    "per_month_equivalent": "Equivale al mes a",
+    "secure_payment": "Pago seguro",
+    "plan": "Plan",
+    "duration": "Duración",
+    "monthly": "meses",
+    "total": "Total",
+    "total_amount": "Importe total",
+    "discount": "de descuento",
+    "economy": "Ahorre",
+    "test_mode": {
+      "title": "Modo de prueba activado",
+      "description": "Está en un entorno de prueba. Los pagos se simularán con importes reducidos."
+    },
+    "security_features": {
+      "satim": "Pago seguro con SATIM",
+      "cards": "Compatible con todas las tarjetas CIB"
+    },
+    "info": "Al hacer clic en \"Proceder al pago\", se le redirigirá a la plataforma segura de SATIM para completar su pago.",
+    "proceed": "Proceder al pago",
+    "processing": "Procesando…",
+    "security_notice": "Su pago está protegido por el protocolo SATIM",
+    "accept_terms": "Acepto las condiciones generales de venta y la política de privacidad",
+    "read_terms": "Leer las condiciones",
+    "terms_title": "Condiciones generales de venta",
+    "terms_content": "Al realizar este pago, acepta las condiciones generales de venta de Saloneo y las condiciones de SATIM para el procesamiento de pagos.",
+    "terms_content2": "Su pago es seguro y sus datos bancarios no se almacenan en nuestros servidores.",
+    "terms_required": "Debe aceptar las condiciones generales para continuar",
+    "captcha_required": "Valide el captcha para continuar"
+  },
+  "limits": {
+    "clients_reached": "Límite de clientes alcanzado",
+    "team_reached": "Límite de miembros del equipo alcanzado",
+    "services_reached": "Límite de servicios alcanzado",
+    "products_reached": "Límite de productos alcanzado",
+    "upgrade_plan": "Mejorar su plan",
+    "back": "Volver",
+    "see_plans": "Ver los planes",
+    "messages": {
+      "clients_one": "Ha alcanzado el límite de {{count}} cliente. Pase a un plan superior para continuar.",
+      "clients_other": "Ha alcanzado el límite de {{count}} clientes. Pase a un plan superior para continuar.",
+      "services_one": "Ha alcanzado el límite de {{count}} servicio. Pase a un plan superior para continuar.",
+      "services_other": "Ha alcanzado el límite de {{count}} servicios. Pase a un plan superior para continuar.",
+      "team_one": "Ha alcanzado el límite de {{count}} miembro del equipo. Pase a un plan superior para continuar.",
+      "team_other": "Ha alcanzado el límite de {{count}} miembros del equipo. Pase a un plan superior para continuar.",
+      "appointments_one": "Ha alcanzado el límite de {{count}} cita. Pase a un plan superior para continuar.",
+      "appointments_other": "Ha alcanzado el límite de {{count}} citas. Pase a un plan superior para continuar.",
+      "products_one": "Ha alcanzado el límite de {{count}} producto del plan {{plan}}.",
+      "products_other": "Ha alcanzado el límite de {{count}} productos del plan {{plan}}.",
+      "products_remaining_one": "Todavía puede crear {{count}} producto.",
+      "products_remaining_other": "Todavía puede crear {{count}} productos.",
+      "products_unlimited": "Puede crear un número ilimitado de productos.",
+      "usage_error": "No se pudieron cargar las estadísticas de uso."
+    },
+    "upgrade": {
+      "FREE": "Pase al plan Starter para desbloquear más funciones.",
+      "STARTER": "Pase al plan Pro para ampliar sus límites.",
+      "PRO": "Pase al plan Empresa para un uso ilimitado.",
+      "ENTERPRISE": "Contáctenos para un plan a medida."
+    }
+  },
+  "widget": {
+    "usage": "Plan {{plan}} · {{current}} / {{limit}} {{resource}}",
+    "usage_unlimited": "Plan {{plan}} · {{resource}} ilimitados",
+    "near_limit": "{{current}} / {{limit}} {{resource}} utilizados, pronto alcanzará el límite",
+    "at_limit": "Límite de {{limit}} {{resource}} alcanzado",
+    "title": "Su suscripción",
+    "manage": "Gestionar",
+    "unlimited": "Ilimitado",
+    "used": "Utilizados",
+    "remaining": "restantes",
+    "limit_reached": "Límite alcanzado",
+    "limit_near": "Cerca del límite",
+    "available": "Disponible",
+    "upgrade": "Mejorar"
+  },
+  "success": {
+    "title": "Pago realizado",
+    "message": "¡Enhorabuena! Su suscripción al plan {{planName}} se ha activado correctamente.",
+    "benefits": {
+      "title": "Ahora puede:",
+      "premium": "Acceder a todas las funciones premium",
+      "unlimited": "Gestionar su salón sin límites",
+      "support": "Disfrutar del soporte prioritario"
+    },
+    "continue": "Ir a mi panel",
+    "email_sent": "Se ha enviado un correo de confirmación a su dirección.",
+    "transaction": {
+      "title": "Detalles de la transacción",
+      "id": "Número de transacción",
+      "date": "Fecha",
+      "time": "Hora",
+      "method": "Medio de pago",
+      "amount": "Importe",
+      "disclaimer": "Esta transacción ha sido procesada por SATIM. Guarde esta información como referencia.",
+      "support": "Para cualquier consulta sobre su pago, contacte con el soporte de SATIM en el 3020."
+    }
+  },
+  "failed": {
+    "title": "El pago no se pudo completar",
+    "help": {
+      "title": "¿Qué puede hacer ahora?",
+      "check_card": "Verifique que su tarjeta es válida y tiene fondos suficientes",
+      "check_info": "Asegúrese de haber introducido sus datos correctamente",
+      "try_another": "Pruebe con otra tarjeta si el problema persiste"
+    },
+    "retry": "Reintentar el pago",
+    "back": "Volver a las suscripciones",
+    "support": "¿Necesita ayuda?",
+    "transaction": {
+      "title": "Detalles del error",
+      "id": "Número de transacción",
+      "error_code": "Código de error",
+      "date": "Fecha y hora",
+      "disclaimer": "SATIM ha rechazado esta transacción. Verifique sus datos e inténtelo de nuevo.",
+      "support": "Para cualquier ayuda, contacte con el soporte de SATIM en el 3020."
+    }
+  },
   "plans": {
     "free": {
-      "name": "Gratuit",
-      "description": "Parfait pour commencer",
-      "price": "Gratuit",
+      "name": "Gratuito",
+      "description": "Perfecto para empezar",
+      "price": "Gratis",
       "features": [
-        "Jusqu'à 10 rendez-vous par mois",
-        "Jusqu'à 5 clients",
-        "Gestion de services de base",
-        "Support par email"
+        "Hasta 10 citas al mes",
+        "Hasta 5 clientes",
+        "Gestión básica de servicios",
+        "Soporte por correo electrónico"
       ]
     },
     "starter": {
       "name": "Starter",
-      "description": "Idéal pour les petits salons",
-      "price": "$29",
+      "description": "Ideal para salones pequeños",
       "features": [
-        "Jusqu'à 100 rendez-vous par mois",
-        "Jusqu'à 50 clients",
-        "Gestion complète des services",
-        "Gestion d'équipe (jusqu'à 3 membres)",
-        "Analyses de base",
-        "Support par email"
+        "Hasta 100 citas al mes",
+        "Hasta 50 clientes",
+        "Gestión completa de servicios",
+        "Gestión del equipo (hasta 3 miembros)",
+        "Análisis básicos",
+        "Soporte por correo electrónico"
       ]
     },
     "professional": {
-      "name": "Professionnel",
-      "description": "Pour les entreprises en croissance",
-      "price": "$79",
+      "name": "Pro",
+      "description": "Para negocios en crecimiento",
       "features": [
-        "Jusqu'à 500 rendez-vous par mois",
-        "Jusqu'à 200 clients",
-        "Gestion avancée des services",
-        "Gestion d'équipe (jusqu'à 10 membres)",
-        "Analyses avancées",
-        "Réservation en ligne",
-        "Support prioritaire"
+        "Hasta 500 citas al mes",
+        "Hasta 200 clientes",
+        "Gestión avanzada de servicios",
+        "Gestión del equipo (hasta 10 miembros)",
+        "Análisis avanzados",
+        "Reservas en línea",
+        "Soporte prioritario"
       ]
     },
     "enterprise": {
-      "name": "Entreprise",
-      "description": "Pour les grands salons et chaînes",
-      "price": "$199",
+      "name": "Empresa",
+      "description": "Para grandes salones y cadenas",
       "features": [
-        "Rendez-vous illimités",
-        "Clients illimités",
-        "Accès complet aux fonctionnalités",
-        "Membres d'équipe illimités",
-        "Analyses et rapports avancés",
-        "Support multi-emplacements",
-        "Intégrations personnalisées",
-        "Support dédié"
+        "Citas ilimitadas",
+        "Clientes ilimitados",
+        "Acceso completo a las funciones",
+        "Miembros del equipo ilimitados",
+        "Análisis e informes avanzados",
+        "Soporte para varios establecimientos",
+        "Integraciones personalizadas",
+        "Soporte dedicado"
       ]
     }
   },
-  "features": {
-    "appointments": "Citas",
-    "clients": "Clientes",
-    "team_members": "Miembros del Equipo",
-    "locations": "Ubicaciones",
-    "storage": "Almacenamiento",
-    "support": {
-      "0": "S",
-      "1": "o",
-      "2": "p",
-      "3": "o",
-      "4": "r",
-      "5": "t",
-      "6": "e"
-    },
-    "analytics": "Análisis",
-    "integrations": "Integraciones",
-    "customization": "Personalización",
-    "api_access": "Acceso API",
-    "security": {
-      "title": "Sécurité Premium",
-      "description": "Vos données sont protégées avec un chiffrement de niveau bancaire"
-    },
-    "growth": {
-      "title": "Croissance Garantie",
-      "description": "Augmentez votre chiffre d'affaires de 30% en moyenne"
-    }
-  },
-  "billing_cycle": {
+  "billing": {
     "monthly": "Mensual",
     "yearly": "Anual",
-    "save": "Ahorra {{discount}}%"
-  },
-  "payment": {
-    "title": "Información de Pago",
-    "card_number": "Número de Tarjeta",
-    "expiry_date": "Fecha de Vencimiento",
-    "cvv": "CVV",
-    "cardholder_name": "Nombre del Titular",
-    "billing_address": "Dirección de Facturación",
-    "country": "País",
-    "city": "Ciudad",
-    "postal_code": "Código Postal",
-    "process_payment": "Procesar Pago",
-    "secure_payment": "Paiement Sécurisé",
-    "payment_methods": "Métodos de Pago Aceptados",
-    "plan": "Plan",
-    "duration": "Durée",
-    "monthly": "mois",
-    "total": "Total",
-    "discount": "de réduction",
-    "economy": "Économisez",
-    "test_mode": {
-      "title": "Mode Test Activé",
-      "description": "Vous êtes en environnement de test. Les paiements seront simulés avec des montants réduits."
-    },
-    "security_features": {
-      "satim": "Paiement sécurisé par SATIM",
-      "cards": "Compatible avec toutes les cartes CIB"
-    },
-    "info": "En cliquant sur \"Procéder au paiement\", vous serez redirigé vers la plateforme sécurisée SATIM pour finaliser votre paiement.",
-    "proceed": "Procéder au paiement",
-    "processing": "Traitement en cours..."
-  },
-  "success": {
-    "title": "Paiement Réussi !",
-    "message": "Félicitations ! Votre abonnement au plan {{planName}} a été activé avec succès.",
-    "plan_activated": "Plan {{plan}} activado",
-    "access_features": "Ahora puedes acceder a todas las funciones de tu nuevo plan",
-    "continue": "Accéder à mon tableau de bord",
-    "benefits": {
-      "title": "Vous pouvez maintenant :",
-      "premium": "Accéder à toutes les fonctionnalités premium",
-      "unlimited": "Gérer votre salon sans limites",
-      "support": "Bénéficier du support prioritaire"
-    },
-    "email_sent": "Un email de confirmation a été envoyé à votre adresse."
-  },
-  "failed": {
-    "title": "Paiement Échoué",
-    "message": "Hubo un problema procesando tu pago",
-    "try_again": "Intentar de Nuevo",
-    "contact_support": "Contactar Soporte",
-    "common_issues": "Problemas Comunes",
-    "insufficient_funds": "Fondos insuficientes",
-    "expired_card": "Tarjeta vencida",
-    "incorrect_details": "Detalles incorrectos",
-    "help": {
-      "title": "Que faire maintenant ?",
-      "check_card": "Vérifiez que votre carte est valide et dispose de fonds suffisants",
-      "check_info": "Assurez-vous d'avoir saisi correctement vos informations",
-      "try_another": "Essayez avec une autre carte si le problème persiste"
-    },
-    "retry": "Réessayer le paiement",
-    "back": "Retour aux abonnements",
-    "support": "Besoin d'aide ?"
-  },
-  "limits": {
-    "title": "Límites del Plan",
-    "current_usage": "Uso Actual",
-    "limit_reached": "Límite Alcanzado",
-    "upgrade_required": "Actualización Requerida",
-    "appointments_limit": "Has alcanzado tu límite de citas mensuales",
-    "clients_limit": "Has alcanzado tu límite de clientes",
-    "team_limit": "Has alcanzado tu límite de miembros del equipo",
-    "upgrade_now": "Actualizar Ahora",
-    "view_plans": "Ver Planes",
-    "clients_reached": "Limite de clients atteinte",
-    "team_reached": "Limite de membres d'équipe atteinte",
-    "services_reached": "Limite de services atteinte",
-    "products_reached": "Limite de produits atteinte",
-    "upgrade_plan": "Mettre à niveau votre plan"
-  },
-  "cancel_subscription": {
-    "title": "Cancelar Suscripción",
-    "confirm": "¿Estás seguro de que quieres cancelar tu suscripción?",
-    "consequences": "Consecuencias de la cancelación:",
-    "lose_access": "Perderás acceso a las funciones premium",
-    "data_retained": "Tus datos se conservarán por 30 días",
-    "can_reactivate": "Puedes reactivar en cualquier momento",
-    "cancel_now": "Cancelar Ahora",
-    "keep_subscription": "Mantener Suscripción"
-  },
-  "notifications": {
-    "payment_successful": "Pago procesado exitosamente",
-    "payment_failed": "Error en el pago",
-    "subscription_updated": "Suscripción actualizada",
-    "subscription_cancelled": "Suscripción cancelada",
-    "trial_ending": "Tu período de prueba termina pronto",
-    "payment_due": "Pago pendiente"
-  },
-  "page": {
-    "title": "Choisissez Votre Plan",
-    "subtitle": "Transformez votre salon avec Saloneo et rejoignez plus de 10,000+ professionnels qui ont révolutionné leur activité",
-    "why_choose": "Pourquoi choisir Saloneo ?",
-    "why_subtitle": "La solution complète pour faire prospérer votre salon de beauté"
-  },
-  "badges": {
-    "free_trial": "Essai gratuit 14 jours",
-    "no_commitment": "Sans engagement",
-    "premium_support": "Support premium"
-  },
-  "promotion": {
-    "limited_offer": "🔥 OFFRE LIMITÉE : -40% sur tous les plans ! 🔥"
-  },
-  "testimonials": {
-    "title": "Ce que disent nos clients",
-    "subtitle": "Plus de 10,000 professionnels nous font confiance",
-    "marie": {
-      "name": "Marie Dubois",
-      "salon": "Salon Élégance",
-      "text": "Saloneo a transformé ma façon de travailler. +50% de réservations en 3 mois !"
-    },
-    "sophie": {
-      "name": "Sophie Martin",
-      "salon": "Beauty Paradise",
-      "text": "Interface intuitive et support exceptionnel. Je recommande vivement !"
-    },
-    "amelie": {
-      "name": "Amélie Laurent",
-      "salon": "Coiffure Moderne",
-      "text": "Mes clients adorent pouvoir réserver en ligne. Un vrai plus pour mon salon !"
-    }
-  },
-  "faq": {
-    "title": "Questions Fréquentes",
-    "change_plan": {
-      "q": "Puis-je changer de plan à tout moment ?",
-      "a": "Oui, vous pouvez upgrader ou downgrader votre plan à tout moment. Les changements prennent effet immédiatement."
-    },
-    "hidden_fees": {
-      "q": "Y a-t-il des frais cachés ?",
-      "a": "Aucun frais caché ! Le prix affiché est tout compris. Pas de frais de setup, pas de commission sur les ventes."
-    },
-    "cancel": {
-      "q": "Que se passe-t-il si j'annule mon abonnement ?",
-      "a": "Vous gardez l'accès jusqu'à la fin de votre période de facturation. Vos données sont conservées 30 jours."
-    }
-  },
-  "cta": {
-    "title": "Prêt à transformer votre salon ?",
-    "subtitle": "Rejoignez des milliers de professionnels satisfaits",
-    "button": "Commencer l'essai gratuit"
-  },
-  "widget": {
-    "title": "Votre Abonnement",
-    "manage": "Gérer",
-    "unlimited": "Illimité",
-    "used": "Utilisés",
-    "remaining": "restants",
-    "limit_reached": "Limite atteinte",
-    "limit_near": "Limite proche",
-    "available": "Disponible",
-    "upgrade": "Upgrade"
+    "save_percent": "Ahorre un {{percent}} %",
+    "billed_monthly": "Facturación mensual",
+    "billed_yearly": "Facturación anual",
+    "per_month": "al mes",
+    "per_year": "al año"
   },
   "actions": {
-    "choose_plan": "Choisir le Plan",
-    "current_plan": "Plan Actuel",
-    "upgrade": "Mettre à niveau",
-    "downgrade": "Rétrograder",
-    "cancel": "Annuler l'Abonnement",
-    "reactivate": "Réactiver",
-    "change_plan": "Changer de Plan"
+    "choose_plan": "Elegir el plan",
+    "current_plan": "Plan actual",
+    "upgrade": "Mejorar el plan",
+    "downgrade": "Bajar de plan",
+    "cancel": "Cancelar la suscripción",
+    "reactivate": "Reactivar",
+    "change_plan": "Cambiar de plan"
   },
   "status": {
-    "active": "Actif",
-    "cancelled": "Annulé",
-    "expired": "Expiré",
-    "trial": "Essai",
-    "pending": "En attente"
+    "active": "Activa",
+    "cancelled": "Cancelada",
+    "expired": "Vencida",
+    "trial": "Prueba",
+    "pending": "Pendiente"
   },
   "messages": {
-    "upgrade_success": "Plan mis à niveau avec succès",
-    "downgrade_success": "Plan rétrogradé avec succès",
-    "cancellation_success": "Abonnement annulé avec succès",
-    "reactivation_success": "Abonnement réactivé avec succès",
-    "payment_updated": "Méthode de paiement mise à jour avec succès",
-    "trial_ending": "Votre essai se termine bientôt",
-    "subscription_expired": "Votre abonnement a expiré",
-    "upgrade_required": "Veuillez mettre à niveau votre plan pour continuer à utiliser cette fonctionnalité"
+    "upgrade_success": "Plan mejorado correctamente",
+    "downgrade_success": "Cambio a un plan inferior realizado correctamente",
+    "cancellation_success": "Suscripción cancelada correctamente",
+    "reactivation_success": "Suscripción reactivada correctamente",
+    "payment_updated": "Método de pago actualizado correctamente",
+    "trial_ending": "Su periodo de prueba termina pronto",
+    "subscription_expired": "Su suscripción ha vencido",
+    "upgrade_required": "Mejore su plan para seguir usando esta función"
   },
-  "invoice": "Tafaturt",
-  "subscription": "Ajerriḍ",
-  "trial": "Aɛeṛṛu",
-  "free": "Baṭel",
-  "premium": "Aɣalay",
-  "pro": "Aɣerfan",
-  "enterprise": "Takebbanit",
-  "monthly": "Aggur",
-  "yearly": "Aseggas",
-  "lifetime": "Tudert",
-  "usage": "Aseqdec",
-  "quota": "Azal",
-  "overage": "Azal n ufella",
-  "discount": "Aḥeṛṛi",
-  "coupon": "Takubunt",
-  "promo": "Abeṛṛani",
-  "refund": "Tuɣalin",
-  "chargeback": "Tuɣalin n uxelleṣ",
-  "dispute": "Anmegla",
-  "fraud": "Akukel",
-  "security": "Taɣellist",
-  "compliance": "Aḍfar",
-  "terms": "Tiwtilin",
-  "privacy": "Tudert tusligt",
-  "support": "Tallalt",
-  "contact": "Nermes"
+  "resources": {
+    "clients": "clientes",
+    "team": "miembros del equipo",
+    "services": "servicios",
+    "products": "productos"
+  },
+  "payment_errors": {
+    "init": "Error al iniciar el pago",
+    "status": "Error al verificar el estado del pago",
+    "history": "Error al obtener el historial",
+    "fallback_link": "Haga clic aquí para ir a la página de pago",
+    "fallback_message": "Si no se le redirige automáticamente a la página de pago, haga clic en el botón de abajo:",
+    "redirect": "Se produjo un error durante la redirección. Inténtelo de nuevo o contacte con el soporte.",
+    "codes": {
+      "missing_transaction": "Falta la transacción",
+      "transaction_not_found": "Transacción no encontrada",
+      "payment_failed": "El pago no se pudo completar",
+      "payment_cancelled": "El pago fue cancelado",
+      "processing_error": "Error durante el procesamiento",
+      "invalid_transaction": "Transacción no válida"
+    }
+  }
 }

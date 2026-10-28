@@ -3,6 +3,7 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import { Profile, Language, Currency, CURRENCIES } from './types';
 import { profileAPI } from '../../services/api';
 import { generateSalonSlug } from '../../utils/slugify';
+import i18n from 'i18next';
 
 interface ProfileStore {
   profile: Profile;
@@ -59,7 +60,7 @@ const useProfileStore = create<ProfileStore>()(
             set({ 
               isLoading: false, 
               isInitialized: true,
-              error: 'Aucune donnée utilisateur trouvée'
+              error: i18n.t('errors:store.no_user_data')
             });
             return;
           }
@@ -88,7 +89,7 @@ const useProfileStore = create<ProfileStore>()(
         } catch (error: any) {
           console.error('Erreur lors du chargement du profil:', error);
           set({ 
-            error: error.response?.data?.error || 'Erreur lors du chargement du profil',
+            error: error.response?.data?.error || i18n.t('errors:store.load_profile'),
             isLoading: false,
             isInitialized: true
           });
@@ -153,7 +154,7 @@ const useProfileStore = create<ProfileStore>()(
         } catch (error: any) {
           console.error('❌ Erreur lors de la mise à jour du profil:', error);
           set({ 
-            error: error.response?.data?.error || 'Erreur lors de la mise à jour du profil',
+            error: error.response?.data?.error || i18n.t('errors:store.update_profile'),
             isLoading: false 
           });
           throw error;
@@ -189,7 +190,7 @@ const useProfileStore = create<ProfileStore>()(
         } catch (error: any) {
           console.error('❌ Erreur lors de la mise à jour de la langue:', error);
           set({ 
-            error: error.response?.data?.error || 'Erreur lors de la mise à jour de la langue',
+            error: error.response?.data?.error || i18n.t('errors:store.update_language'),
             isLoading: false 
           });
           throw error;

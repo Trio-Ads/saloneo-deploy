@@ -204,3 +204,34 @@
   .bk-overlay, .bk-sheet, .bk-step-fwd, .bk-step-back { animation: bk-fade .15s ease-out; }
   .bk *, .bk *::after { transition-duration: 0s !important; }
 }
+
+/* Container variants (template.booking.variant); steps and content are shared.
+   drawer: side panel from md (sheet on phones). page: full-screen steps with large type. */
+@media (min-width: 768px) {
+  .bk-v-drawer.bk-overlay { justify-content: flex-end; align-items: stretch; padding: 0; }
+  .bk-v-drawer .bk-sheet {
+    max-width: 520px; height: 100dvh; max-height: none; border-radius: var(--bk-sheet-radius) 0 0 var(--bk-sheet-radius);
+    box-shadow: -24px 0 64px rgb(0 0 0 / .22); animation: bk-drawer-in .3s var(--bk-ease);
+  }
+  [dir='rtl'] .bk-v-drawer .bk-sheet { border-radius: 0 var(--bk-sheet-radius) var(--bk-sheet-radius) 0; animation-name: bk-drawer-in-rtl; }
+  .bk-v-drawer .bk-footer { border-radius: 0; padding-bottom: calc(.75rem + env(safe-area-inset-bottom)); }
+}
+.bk-v-page.bk-overlay { padding: 0; align-items: stretch; background: var(--bk-bg); }
+.bk-v-page .bk-sheet {
+  max-width: none; height: 100dvh; max-height: none; border-radius: 0; box-shadow: none; animation: bk-page-in .3s var(--bk-ease);
+}
+.bk-v-page .bk-handle { display: none; }
+.bk-v-page .bk-sheet > header, .bk-v-page .bk-body > div, .bk-v-page .bk-footer { padding-inline: max(1.25rem, calc((100% - 40rem) / 2)); }
+.bk-v-page .bk-sheet > header { border-bottom: 0 !important; padding-top: 1.25rem; }
+.bk-v-page #bk-title { font-size: clamp(2rem, 1.4rem + 2.6vw, 3.25rem); line-height: 1.05; margin-top: .25rem; }
+.bk-v-page .bk-footer { border-radius: 0; padding-bottom: calc(.75rem + env(safe-area-inset-bottom)); }
+@media (min-width: 768px) {
+  .bk-v-page .bk-sheet > header { padding-top: 2.5rem; }
+  .bk-v-page .bk-footer { padding-block: 1rem; }
+}
+@keyframes bk-drawer-in { from { transform: translateX(100%); } }
+@keyframes bk-drawer-in-rtl { from { transform: translateX(-100%); } }
+@keyframes bk-page-in { from { opacity: 0; transform: translateY(12px); } }
+@media (prefers-reduced-motion: reduce) {
+  .bk-v-drawer .bk-sheet, .bk-v-page .bk-sheet { animation: bk-fade .15s ease-out; }
+}

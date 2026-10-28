@@ -1,44 +1,44 @@
 {
   "title": "Clients",
-  "new_client": "New Client",
-  "edit_client": "Edit Client",
-  "client_details": "Client Details",
-  "client_profile": "Client Profile",
-  "all_clients": "All Clients",
-  "active_clients": "Active Clients",
-  "inactive_clients": "Inactive Clients",
-  "vip_clients": "VIP Clients",
+  "new_client": "New client",
+  "edit_client": "Edit client",
+  "client_details": "Client details",
+  "client_profile": "Client profile",
+  "all_clients": "All clients",
+  "active_clients": "Active clients",
+  "inactive_clients": "Inactive clients",
+  "vip_clients": "VIP clients",
   "form": {
-    "first_name": "First Name",
-    "last_name": "Last Name",
+    "first_name": "First name",
+    "last_name": "Last name",
     "email": "Email",
     "phone": "Phone",
-    "date_of_birth": "Date of Birth",
+    "date_of_birth": "Date of birth",
     "gender": "Gender",
     "address": "Address",
     "city": "City",
-    "postal_code": "Postal Code",
+    "postal_code": "Postal code",
     "notes": "Notes",
     "preferences": "Preferences",
     "allergies": "Allergies",
-    "skin_type": "Skin Type",
-    "hair_type": "Hair Type",
-    "preferred_stylist": "Preferred Stylist",
-    "marketing_consent": "Marketing Consent",
-    "emergency_contact": "Emergency Contact",
-    "emergency_phone": "Emergency Phone"
+    "skin_type": "Skin type",
+    "hair_type": "Hair type",
+    "preferred_stylist": "Preferred team member",
+    "marketing_consent": "Marketing consent",
+    "emergency_contact": "Emergency contact",
+    "emergency_phone": "Emergency phone"
   },
   "placeholders": {
     "first_name": "Enter first name",
     "last_name": "Enter last name",
     "email": "example@email.com",
-    "phone": "06 12 34 56 78",
-    "address": "123 Peace Street",
-    "city": "Paris",
-    "postal_code": "75001",
-    "notes": "Notes about the client...",
-    "allergies": "Known allergies...",
-    "preferences": "Client preferences..."
+    "phone": "0550 12 34 56",
+    "address": "12 Didouche Mourad Street, Algiers",
+    "city": "Algiers",
+    "postal_code": "16000",
+    "notes": "Notes about the client…",
+    "allergies": "Known allergies…",
+    "preferences": "Client preferences…"
   },
   "gender": {
     "male": "Male",
@@ -68,130 +68,131 @@
     "new": "New"
   },
   "actions": {
-    "add_client": "Add Client",
+    "add_client": "Add client",
     "edit": "Edit",
     "delete": "Delete",
-    "view_history": "View History",
-    "book_appointment": "Book Appointment",
-    "send_message": "Send Message",
-    "mark_vip": "Mark VIP",
+    "view_history": "View history",
+    "book_appointment": "Book an appointment",
+    "send_message": "Send a message",
+    "mark_vip": "Mark as VIP",
     "export": "Export",
     "import": "Import"
   },
   "filters": {
-    "search": "Search clients...",
-    "all_status": "All Status",
-    "all_genders": "All Genders",
-    "all_stylists": "All Stylists",
-    "registration_date": "Registration Date",
-    "last_visit": "Last Visit"
+    "search": "Search clients…",
+    "all_status": "All statuses",
+    "all_genders": "All genders",
+    "all_stylists": "All team members",
+    "registration_date": "Date added",
+    "last_visit": "Last visit"
   },
   "statistics": {
-    "total_clients": "Total Clients",
-    "new_this_month": "New This Month",
-    "active_clients": "Active Clients",
-    "vip_clients": "VIP Clients",
-    "average_visits": "Average Visits",
-    "retention_rate": "Retention Rate"
+    "total_clients": "Total clients",
+    "new_this_month": "New this month",
+    "active_clients": "Active clients",
+    "vip_clients": "VIP clients",
+    "average_visits": "Average visits",
+    "retention_rate": "Retention rate"
   },
   "history": {
-    "appointment_history": "Appointment History",
-    "last_visit": "Last Visit",
-    "total_visits": "Total Visits",
-    "total_spent": "Total Spent",
-    "favorite_services": "Favorite Services",
+    "appointment_history": "Appointment history",
+    "last_visit": "Last visit",
+    "total_visits": "Total visits",
+    "total_spent": "Total spent",
+    "favorite_services": "Favorite services",
     "no_history": "No history available"
   },
   "messages": {
-    "client_created": "Client created successfully",
-    "client_updated": "Client updated successfully",
-    "client_deleted": "Client deleted successfully",
+    "client_created": "Client created",
+    "client_updated": "Client updated",
+    "client_deleted": "Client deleted",
     "no_clients": "No clients found",
-    "loading": "Loading clients...",
+    "loading": "Loading clients…",
     "confirm_delete": "Are you sure you want to delete this client?",
-    "email_exists": "This email address already exists",
-    "phone_exists": "This phone number already exists",
-    "export_success": "Clients exported successfully",
-    "import_success": "Clients imported successfully"
+    "email_exists": "This email address is already in use",
+    "phone_exists": "This phone number is already in use",
+    "export_success": "Clients exported",
+    "import_success": "Clients imported"
   },
   "import_export": {
-    "export_clients": "Export Clients",
-    "import_clients": "Import Clients",
-    "download_template": "Download Template",
-    "select_file": "Select File",
+    "export_clients": "Export clients",
+    "import_clients": "Import clients",
+    "download_template": "Download template",
+    "select_file": "Select a file",
     "supported_formats": "Supported formats: CSV, Excel"
   },
   "page_title": "Clients",
-  "page_subtitle": "Manage your client base and build lasting relationships",
+  "page_subtitle": "Your client list, their preferences and their loyalty.",
   "loading": {
-    "clients": "Loading your clients...",
-    "preparing": "Preparing your client database"
+    "clients": "Loading your clients…",
+    "preparing": "Preparing your client list"
   },
   "stats": {
-    "clients_total_badge": "clients total",
+    "clients_total_badge": "clients in total",
     "vip_clients_badge": "VIP clients",
     "total": "Total",
     "all_clients": "Clients",
-    "vip_title": "VIP Clients",
+    "vip_title": "VIP clients",
     "vip_description": "100+ loyalty points",
-    "recent_title": "New (30d)",
+    "recent_title": "New (30 days)",
     "recent_description": "Recent clients",
     "loyalty_title": "Loyalty points",
-    "loyalty_description": "Points accumulated"
+    "loyalty_description": "Points earned"
   },
   "search": {
-    "placeholder": "Search for a client (name, email, phone...)",
-    "results": "client(s) found for"
+    "placeholder": "Search for a client (name, email, phone…)",
+    "results_one": "{{count}} client found for “{{term}}”",
+    "results_other": "{{count}} clients found for “{{term}}”"
   },
   "empty_state": {
     "no_clients": "No clients found",
-    "modify_filters": "Try modifying your search filters",
-    "create_first": "Start by creating your first client",
-    "create_client": "Create client"
+    "modify_filters": "Try changing your search filters",
+    "create_first": "Start by adding your first client",
+    "create_client": "Add a client"
   },
   "errors": {
-    "saving": "Error saving client:",
-    "deleting": "Error deleting client:"
+    "saving": "Couldn't save the client:",
+    "deleting": "Couldn't delete the client:"
   },
   "client_form": {
     "title_new": "New client",
     "title_edit": "Edit client",
-    "subtitle": "Fill in the client information to personalize their experience",
+    "subtitle": "Fill in the client's details to personalize their experience",
     "sections": {
       "personal_info": "Personal information",
       "preferences": "Preferences",
       "communication": "Communication"
     },
     "labels": {
-      "first_name_required": "First Name *",
-      "last_name_required": "Last Name *",
+      "first_name_required": "First name *",
+      "last_name_required": "Last name *",
       "phone_required": "Phone *",
-      "birth_date": "Date of Birth",
-      "favorite_services": "Favorite Services",
-      "preferred_stylists": "Preferred Stylists",
-      "sms_reminders": "SMS Reminders",
-      "email_marketing": "Email Marketing",
-      "birthday_offers": "Birthday Offers"
+      "birth_date": "Date of birth",
+      "favorite_services": "Favorite services",
+      "preferred_stylists": "Preferred team members",
+      "sms_reminders": "SMS reminders",
+      "email_marketing": "Promotional emails",
+      "birthday_offers": "Birthday offers"
     },
     "placeholders": {
       "enter_first_name": "Enter first name",
       "enter_last_name": "Enter last name",
-      "phone_example": "+1 555 123 4567",
-      "address_example": "123 Beauty Street, New York, NY 10001",
-      "notes_placeholder": "Additional notes about the client..."
+      "phone_example": "+213 550 12 34 56",
+      "address_example": "12 Didouche Mourad Street, Algiers",
+      "notes_placeholder": "Additional notes about the client…"
     },
     "buttons": {
       "cancel": "Cancel",
       "add": "Add",
-      "modify": "Modify"
+      "modify": "Save"
     },
-    "error_message": "Error submitting form:"
+    "error_message": "Couldn't submit the form:"
   },
   "client_list": {
     "empty_state": {
-      "title": "No clients registered",
+      "title": "No clients yet",
       "subtitle": "Start by adding your first clients",
-      "cta": "Create your first client profile"
+      "cta": "Create your first client record"
     },
     "loyalty_levels": {
       "vip": "VIP",
@@ -202,15 +203,15 @@
     "info_labels": {
       "email": "Email",
       "phone": "Phone",
-      "birth_date": "Date of Birth",
-      "last_visit": "Last Visit"
+      "birth_date": "Date of birth",
+      "last_visit": "Last visit"
     },
     "profile_sections": {
-      "hair_profile": "Hair Profile",
-      "loyalty_points": "Loyalty Points",
+      "hair_profile": "Hair profile",
+      "loyalty_points": "Loyalty points",
       "communication": "Communication",
-      "favorite_services": "Favorite Services",
-      "preferred_stylists": "Preferred Stylists",
+      "favorite_services": "Favorite services",
+      "preferred_stylists": "Preferred team members",
       "notes": "Notes"
     },
     "hair_info": {

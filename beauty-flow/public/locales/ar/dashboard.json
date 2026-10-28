@@ -4,11 +4,11 @@
   "overview": "نظرة عامة",
   "analytics": "التحليلات",
   "reports": "التقارير",
-  "loading": "جاري تحميل لوحة التحكم...",
+  "loading": "جارٍ تحميل لوحة التحكم…",
   "widgets": {
     "revenue": "الإيرادات",
     "appointments": "المواعيد",
-    "clients": "العملاء",
+    "clients": "الزبائن",
     "services": "الخدمات",
     "team_performance": "أداء الفريق",
     "popular_services": "الخدمات الشائعة",
@@ -32,7 +32,7 @@
     "revenue_chart": "مخطط الإيرادات",
     "appointment_chart": "مخطط المواعيد",
     "service_popularity": "شعبية الخدمات",
-    "client_retention": "الاحتفاظ بالعملاء",
+    "client_retention": "الاحتفاظ بالزبائن",
     "daily": "يومي",
     "weekly": "أسبوعي",
     "monthly": "شهري",
@@ -42,8 +42,8 @@
     "title": "الإجراءات السريعة",
     "new_appointment": "موعد جديد",
     "new_appointment_desc": "جدولة موعد",
-    "new_client": "عميل جديد",
-    "new_client_desc": "إضافة عميل",
+    "new_client": "زبون جديد",
+    "new_client_desc": "إضافة زبون",
     "calendar": "التقويم",
     "calendar_desc": "عرض التقويم",
     "subscription": "الاشتراك",
@@ -63,7 +63,7 @@
     "top_service": "أفضل خدمة",
     "best_performer": "أفضل أداء",
     "revenue_trend": "اتجاه الإيرادات",
-    "client_satisfaction": "رضا العملاء"
+    "client_satisfaction": "رضا الزبائن"
   },
   "overview_subtitle": "إليك نظرة عامة على نشاطك اليوم",
   "demo_mode": "وضع التجريب",
@@ -76,11 +76,16 @@
   "kpis": {
     "daily_revenue": "الإيرادات اليومية",
     "monthly_revenue": "الإيرادات الشهرية",
-    "clients": "العملاء",
+    "clients": "الزبائن",
     "occupancy": "الإشغال",
-    "appointments": "مواعيد",
     "this_month": "هذا الشهر",
-    "upcoming": "قادمة"
+    "upcoming": "قادمة",
+    "appointments_zero": "لا مواعيد",
+    "appointments_one": "موعد واحد",
+    "appointments_two": "موعدان",
+    "appointments_few": "{{count}} مواعيد",
+    "appointments_many": "{{count}} موعدًا",
+    "appointments_other": "{{count}} موعد"
   },
   "charts_titles": {
     "revenue_evolution": "تطور الإيرادات",
@@ -88,12 +93,17 @@
     "popular_services": "الخدمات الشائعة"
   },
   "alerts": {
-    "subscription_limit": "أنت تقترب من حد المواعيد ({{percentage}}% مستخدم)",
+    "subscription_limit": "اقتربت من حد المواعيد (تم استخدام {{percentage}}%)",
     "upgrade": "ترقية",
-    "unconfirmed_appointments": "{{count}} مواعيد للتأكيد اليوم",
+    "unconfirmed_appointments": "مواعيد بانتظار التأكيد اليوم: {{count}}",
     "view": "عرض",
-    "loyal_clients": "{{count}} عملاء مخلصين يستحقون مكافأة",
-    "manage": "إدارة"
+    "manage": "إدارة",
+    "loyal_clients_zero": "زبائن أوفياء يستحقون مكافأة: {{count}}",
+    "loyal_clients_one": "زبائن أوفياء يستحقون مكافأة: {{count}}",
+    "loyal_clients_two": "زبائن أوفياء يستحقون مكافأة: {{count}}",
+    "loyal_clients_few": "زبائن أوفياء يستحقون مكافأة: {{count}}",
+    "loyal_clients_many": "زبائن أوفياء يستحقون مكافأة: {{count}}",
+    "loyal_clients_other": "زبائن أوفياء يستحقون مكافأة: {{count}}"
   },
   "recent_activity": {
     "title": "النشاط الأخير",
@@ -104,7 +114,7 @@
       "completed": "تم إكمال الموعد",
       "cancelled": "تم إلغاء الموعد",
       "rescheduled": "تم إعادة جدولة الموعد",
-      "no_show": "العميل لم يحضر"
+      "no_show": "غياب الزبون"
     },
     "time": {
       "just_now": "الآن",
@@ -112,7 +122,7 @@
       "hours_ago": "منذ {{hours}} ساعة",
       "days_ago": "منذ {{days}} يوم"
     },
-    "unknown_client": "عميل غير معروف"
+    "unknown_client": "زبون غير معروف"
   },
   "components": {
     "upcoming_appointments": {
@@ -135,7 +145,7 @@
         "confirmed": "مؤكدة",
         "completed": "مكتملة",
         "cancelled": "ملغاة",
-        "noShow": "لم يحضر",
+        "noShow": "غياب",
         "rescheduled": "معاد جدولتها"
       }
     },
@@ -143,15 +153,15 @@
       "title": "رؤى الأعمال",
       "insights": {
         "high_cancellation_title": "معدل إلغاء مرتفع",
-        "high_cancellation_desc": "{{rate}}% إلغاءات هذا الشهر. فكر في إرسال تذكيرات SMS.",
+        "high_cancellation_desc": "نسبة الإلغاء هذا الشهر {{rate}}%. قد تساعد تذكيرات SMS على خفضها.",
         "top_service_title": "الخدمة الأكثر ربحية",
-        "top_service_desc": "\"{{service}}\" تحقق {{revenue}} من الإيرادات. فكر في الترويج لها.",
-        "loyal_clients_title": "العملاء المخلصون",
-        "loyal_clients_desc": "{{rate}}% من عملائك لديهم أكثر من 50 نقطة ولاء. أنشئ برنامج مكافآت.",
+        "top_service_desc": "«{{service}}» تحقّق {{revenue}} من الإيرادات. يستحق الترويج لها.",
+        "loyal_clients_title": "الزبائن الأوفياء",
+        "loyal_clients_desc": "{{rate}}% من زبائنك لديهم أكثر من 50 نقطة ولاء. قد يكون برنامج مكافآت فكرة جيدة.",
         "popular_slot_title": "الوقت الأكثر شعبية",
-        "popular_slot_desc": "{{slot}} هو وقتك الأكثر شعبية. حسن جدولك وفقاً لذلك.",
-        "low_acquisition_title": "اكتساب عملاء منخفض",
-        "low_acquisition_desc": "لا يوجد عملاء جدد هذا الأسبوع. أطلق حملة ترويجية."
+        "popular_slot_desc": "{{slot}} هو الوقت الأكثر طلبًا. يمكن تنظيم الجدول على هذا الأساس.",
+        "low_acquisition_title": "قلة الزبائن الجدد",
+        "low_acquisition_desc": "لا زبائن جدد هذا الأسبوع. قد تكون حملة ترويجية مفيدة."
       }
     },
     "revenue_chart": {
@@ -166,7 +176,14 @@
     "team_performance": {
       "title": "أداء الفريق",
       "no_members": "لا يوجد أعضاء فريق",
-      "completed": "مكتمل"
+      "unknown_member": "عضو غير معروف",
+      "no_role": "بلا دور",
+      "completed_zero": "مكتملة: {{count}}",
+      "completed_one": "مكتملة: {{count}}",
+      "completed_two": "مكتملة: {{count}}",
+      "completed_few": "مكتملة: {{count}}",
+      "completed_many": "مكتملة: {{count}}",
+      "completed_other": "مكتملة: {{count}}"
     }
   }
 }

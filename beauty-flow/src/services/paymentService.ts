@@ -1,4 +1,5 @@
 import api from './api';
+import i18n from 'i18next';
 import { PlanType, SubscriptionDuration } from '../features/subscription/types';
 
 export interface PaymentInitiationResponse {
@@ -54,7 +55,7 @@ class PaymentService {
     } catch (error: any) {
       console.error('Failed to initiate SATIM payment:', error);
       throw new Error(
-        error.response?.data?.error || 'Erreur lors de l\'initialisation du paiement'
+        error.response?.data?.error || i18n.t('subscription:payment_errors.init')
       );
     }
   }
@@ -69,7 +70,7 @@ class PaymentService {
     } catch (error: any) {
       console.error('Failed to check transaction status:', error);
       throw new Error(
-        error.response?.data?.error || 'Erreur lors de la vérification du statut'
+        error.response?.data?.error || i18n.t('subscription:payment_errors.status')
       );
     }
   }
@@ -88,7 +89,7 @@ class PaymentService {
     } catch (error: any) {
       console.error('Failed to get transaction history:', error);
       throw new Error(
-        error.response?.data?.error || 'Erreur lors de la récupération de l\'historique'
+        error.response?.data?.error || i18n.t('subscription:payment_errors.history')
       );
     }
   }
@@ -113,7 +114,7 @@ class PaymentService {
         const link = document.createElement('a');
         link.href = formUrl;
         link.target = '_self';
-        link.textContent = 'Cliquez ici pour accéder à la page de paiement';
+        link.textContent = i18n.t('subscription:payment_errors.fallback_link');
         link.style.display = 'block';
         link.style.margin = '20px auto';
         link.style.padding = '15px 20px';
@@ -136,7 +137,7 @@ class PaymentService {
         container.style.maxWidth = '500px';
         
         const message = document.createElement('p');
-        message.textContent = 'Si vous n\'êtes pas automatiquement redirigé vers la page de paiement, veuillez cliquer sur le bouton ci-dessous:';
+        message.textContent = i18n.t('subscription:payment_errors.fallback_message');
         message.style.marginBottom = '20px';
         message.style.fontSize = '14px';
         
@@ -147,7 +148,7 @@ class PaymentService {
       
     } catch (error) {
       console.error('Erreur lors de la redirection vers SATIM:', error);
-      alert('Une erreur est survenue lors de la redirection. Veuillez réessayer ou contacter le support.');
+      alert(i18n.t('subscription:payment_errors.redirect'));
     }
   }
 
@@ -210,16 +211,8 @@ class PaymentService {
    * Obtient le message d'erreur approprié selon le code
    */
   getErrorMessage(errorCode?: string): string {
-    const errorMessages: Record<string, string> = {
-      'missing_transaction': 'Transaction manquante',
-      'transaction_not_found': 'Transaction introuvable',
-      'payment_failed': 'Le paiement a échoué',
-      'payment_cancelled': 'Le paiement a été annulé',
-      'processing_error': 'Erreur lors du traitement',
-      'invalid_transaction': 'Transaction invalide'
-    };
-
-    return errorMessages[errorCode || ''] || 'Une erreur est survenue';
+    const known = ['missing_transaction', 'transaction_not_found', 'payment_failed', 'payment_cancelled', 'processing_error', 'invalid_transaction'];
+    return known.includes(errorCode || '') ? i18n.t(`subscription:payment_errors.codes.${errorCode}`) : i18n.t('errors:general.generic');
   }
 
   /**

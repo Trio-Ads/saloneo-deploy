@@ -197,10 +197,10 @@ const AppointmentsPage: React.FC = () => {
     
     const actionText = action === 'noShow' ? t('past_appointments.no_show_status') : t('past_appointments.completed_status');
     
-    if (window.confirm(`${pastAppointmentsCount} ${t('past_appointments.found_message')} "${actionText}" ?`)) {
+    if (window.confirm(t('past_appointments.confirm_mark', { count: pastAppointmentsCount, status: actionText }))) {
       try {
         const processed = await processPastAppointments(action);
-        alert(`${processed} ${t('past_appointments.processed_message')}`);
+        alert(t('past_appointments.processed', { count: processed }));
         setPastAppointmentsCount(0);
       } catch (error) {
         console.error('Erreur lors du traitement des rendez-vous passés:', error);
@@ -216,7 +216,7 @@ const AppointmentsPage: React.FC = () => {
         subtitle={t('page_subtitle')}
         meta={
           <>
-            <span className="tabular-nums">{appointmentStats.total} {t('stats.total_appointments_badge')}</span>
+            <span className="tabular-nums">{t('stats.total_appointments_badge', { count: appointmentStats.total })}</span>
             {usageStats && (
               <SubscriptionLimitWidget
                 title={t('limits.title')}

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSubscriptionStore } from '../store';
 import { PLAN_LIMITS } from '../types';
 import subscriptionService, { UsageStats } from '../../../services/subscriptionService';
@@ -16,6 +17,7 @@ export interface LimitCheck {
 }
 
 export const useSubscriptionLimits = () => {
+  const { t } = useTranslation('subscription');
   const { subscription } = useSubscriptionStore();
   const [usageStats, setUsageStats] = useState<UsageStats | null>(null);
   const [loading, setLoading] = useState(true);
@@ -42,7 +44,7 @@ export const useSubscriptionLimits = () => {
         setError(null);
       } catch (err) {
         console.error('Erreur lors du chargement des statistiques:', err);
-        setError('Impossible de charger les statistiques d\'utilisation');
+        setError(t('limits.messages.usage_error'));
       } finally {
         setLoading(false);
       }
@@ -69,7 +71,7 @@ export const useSubscriptionLimits = () => {
       remaining: limit === -1 ? Infinity : remaining,
       limit,
       current,
-      message: !canAdd ? `Limite de ${limit} clients atteinte. Passez à un plan supérieur pour continuer.` : undefined
+      message: !canAdd ? t('limits.messages.clients', { count: limit }) : undefined
     };
   };
 
@@ -86,7 +88,7 @@ export const useSubscriptionLimits = () => {
       remaining: limit === -1 ? Infinity : remaining,
       limit,
       current,
-      message: !canAdd ? `Limite de ${limit} services atteinte. Passez à un plan supérieur pour continuer.` : undefined
+      message: !canAdd ? t('limits.messages.services', { count: limit }) : undefined
     };
   };
 
@@ -103,7 +105,7 @@ export const useSubscriptionLimits = () => {
       remaining: limit === -1 ? Infinity : remaining,
       limit,
       current,
-      message: !canAdd ? `Limite de ${limit} membres d'équipe atteinte. Passez à un plan supérieur pour continuer.` : undefined
+      message: !canAdd ? t('limits.messages.team', { count: limit }) : undefined
     };
   };
 
@@ -120,7 +122,7 @@ export const useSubscriptionLimits = () => {
       remaining: limit === -1 ? Infinity : remaining,
       limit,
       current,
-      message: !canAdd ? `Limite de ${limit} rendez-vous atteinte. Passez à un plan supérieur pour continuer.` : undefined
+      message: !canAdd ? t('limits.messages.appointments', { count: limit }) : undefined
     };
   };
 
@@ -144,8 +146,8 @@ export const useSubscriptionLimits = () => {
       remaining,
       canAdd,
       message: canAdd 
-        ? `Vous pouvez créer ${remaining === -1 ? 'un nombre illimité de' : remaining} produits`
-        : `Limite de ${limit} produits atteinte pour le plan ${currentPlan}`
+        ? (remaining === -1 ? t('limits.messages.products_unlimited') : t('limits.messages.products_remaining', { count: remaining }))
+        : t('limits.messages.products', { count: limit, plan: currentPlan })
     };
   };
 
@@ -159,13 +161,13 @@ export const useSubscriptionLimits = () => {
   const getUpgradeMessage = (): string => {
     switch (currentPlan) {
       case 'FREE':
-        return 'Passez au plan STARTER pour débloquer plus de fonctionnalités !';
+        return t('limits.upgrade.FREE');
       case 'STARTER':
-        return 'Passez au plan PRO pour augmenter vos limites !';
+        return t('limits.upgrade.STARTER');
       case 'PRO':
-        return 'Passez au plan ENTERPRISE pour un usage illimité !';
+        return t('limits.upgrade.PRO');
       default:
-        return 'Contactez-nous pour un plan personnalisé.';
+        return t('limits.upgrade.ENTERPRISE');
     }
   };
 
@@ -191,7 +193,7 @@ export const useSubscriptionLimits = () => {
         setError(null);
       } catch (err) {
         console.error('Erreur lors du chargement des statistiques:', err);
-        setError('Impossible de charger les statistiques d\'utilisation');
+        setError(t('limits.messages.usage_error'));
       } finally {
         setLoading(false);
       }

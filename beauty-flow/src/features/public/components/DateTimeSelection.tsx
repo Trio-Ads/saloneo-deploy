@@ -77,7 +77,7 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
       if (!ownerAlreadyInTeam && profile.showAsTeamMember) {
         const ownerAsStylist: TeamMember = {
           id: 'owner-' + (user?.id || 'default'),
-          firstName: profile.firstName || 'Propriétaire',
+          firstName: profile.firstName || t('booking.owner'),
           lastName: profile.lastName || '',
           email: user?.email || '',
           phone: '',
@@ -113,7 +113,7 @@ const DateTimeSelection: React.FC<DateTimeSelectionProps> = ({
       // Last resort: synthetic stylist so slot loading always works
       return [{
         id: 'stylist-any',
-        firstName: profile.firstName || 'Le salon',
+        firstName: profile.firstName || t('booking.the_salon'),
         lastName: '',
         email: '',
         phone: '',

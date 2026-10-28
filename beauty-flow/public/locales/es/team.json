@@ -1,381 +1,257 @@
 {
-  "title": "Équipe",
-  "new_member": "Nouveau membre",
-  "edit_member": "Modifier le membre",
-  "member_details": "Détails du membre",
-  "all_members": "Tous les membres",
-  "active_members": "Membres actifs",
-  "inactive_members": "Membres inactifs",
+  "title": "Equipo",
+  "subtitle": "Gestione su equipo de profesionales",
+  "new_member": "Nuevo miembro",
+  "edit_member": "Editar el miembro",
+  "member_details": "Detalles del miembro",
+  "all_members": "Todos los miembros",
+  "active_members": "Miembros activos",
+  "inactive_members": "Miembros inactivos",
+  "stylists": "Estilistas",
   "form": {
-    "first_name": "Prénom",
-    "last_name": "Nom",
-    "email": "Email",
-    "phone": "Téléphone",
-    "role": "Rôle",
-    "specialties": "Spécialités",
-    "hire_date": "Date d'embauche",
-    "salary": "Salaire",
-    "commission_rate": "Taux de commission",
-    "status": "Estado",
-    "bio": "Biographie",
-    "photo": "Photo",
-    "schedule": "Horario",
-    "services": "Servicios",
-    "working_hours": "Heures de travail",
-    "days_off": "Jours de congé",
-    "skills": "Compétences",
-    "certifications": "Certifications",
-    "languages": "Langues parlées",
-    "emergency_contact": "Contact d'urgence",
-    "address": "Adresse",
-    "personalInfo": "Talɣut tudmawant",
-    "contactInfo": "Talɣut n unermis",
-    "workInfo": "Talɣut n uxeddim",
-    "save": "Sekles",
-    "cancel": "Sefsex"
-  },
-  "placeholders": {
-    "first_name": "Ingrese el nombre",
-    "last_name": "Ingrese los apellidos",
-    "email": "ejemplo@email.com",
-    "phone": "06 12 34 56 78",
-    "bio": "Biografía del miembro del equipo...",
-    "salary": "2500.00",
-    "commission_rate": "15"
+    "first_name": "Nombre",
+    "last_name": "Apellido",
+    "email": "Correo electrónico",
+    "phone": "Teléfono",
+    "role": "Rol",
+    "specialties": "Especialidades",
+    "bio": "Biografía",
+    "photo": "Foto",
+    "hire_date": "Fecha de contratación",
+    "salary": "Salario",
+    "commission_rate": "Porcentaje de comisión",
+    "working_hours": "Horario de trabajo",
+    "days_off": "Días libres",
+    "skills": "Habilidades",
+    "certifications": "Certificaciones",
+    "languages": "Idiomas",
+    "emergency_contact": "Contacto de emergencia",
+    "address": "Dirección"
   },
   "roles": {
-    "stylist": "Coiffeur",
-    "colorist": "Colorista",
-    "barber": "Barbero",
-    "nail_technician": "Técnico en uñas",
-    "esthetician": "Esteticista",
-    "massage_therapist": "Masajista",
-    "receptionist": "Réceptionniste",
-    "manager": "Gérant",
-    "owner": "Propriétaire",
-    "assistant": "Assistant",
-    "senior_stylist": "Coiffeur senior",
-    "junior_stylist": "Coiffeur junior",
-    "apprentice": "Apprenti",
-    "cleaner": "Agent d'entretien",
-    "other": "Wayeḍ"
+    "owner": "Propietario",
+    "manager": "Gerente",
+    "senior_stylist": "Estilista sénior",
+    "stylist": "Estilista",
+    "junior_stylist": "Estilista júnior",
+    "apprentice": "Aprendiz",
+    "receptionist": "Recepcionista",
+    "assistant": "Asistente",
+    "cleaner": "Personal de limpieza"
   },
   "specialties": {
-    "haircut": "Coupe",
-    "coloring": "Coloration",
-    "styling": "Coiffage",
-    "extensions": "Extensions",
-    "wedding": "Bodas",
-    "men_grooming": "Soins masculins",
-    "beard": "Barba",
-    "manicure": "Manicura",
-    "pedicure": "Pedicura",
-    "facial": "Facial",
-    "massage": "Massage",
-    "waxing": "Depilación",
-    "eyebrows": "Cejas",
-    "makeup": "Maquillaje",
+    "haircut": "Corte",
+    "coloring": "Coloración",
+    "styling": "Peinado",
     "perming": "Permanente",
-    "straightening": "Lissage",
-    "bridal": "Mariée",
-    "beard_care": "Soins de barbe",
+    "straightening": "Alisado",
+    "extensions": "Extensiones",
+    "bridal": "Novias",
+    "men_grooming": "Cuidado masculino",
+    "beard_care": "Cuidado de la barba",
     "nail_art": "Nail art",
-    "facial_treatments": "Soins du visage"
-  },
-  "status": {
-    "active": "Activo",
-    "inactive": "Inactivo",
-    "on_leave": "De permiso",
-    "terminated": "Terminado"
-  },
-  "actions": {
-    "add_member": "Ajouter un membre",
-    "edit": "Modifier",
-    "delete": "Supprimer",
-    "activate": "Activer",
-    "deactivate": "Désactiver",
-    "view_schedule": "Voir le planning",
-    "view_performance": "Voir les performances",
-    "assign_services": "Assigner des services",
-    "set_commission": "Définir la commission",
-    "upload_photo": "Télécharger une photo"
-  },
-  "filters": {
-    "search": "Rechercher des membres...",
-    "all_roles": "Tous les rôles",
-    "all_status": "Todos los estados",
-    "all_specialties": "Toutes les spécialités",
-    "availability": "Disponibilité",
-    "performance": "Performance"
-  },
-  "statistics": {
-    "total_members": "Total des membres",
-    "active_members": "Membres actifs",
-    "top_performer": "Mejor rendimiento",
-    "average_rating": "Note moyenne",
-    "total_services": "Total de servicios",
-    "total_revenue": "Ingresos totales",
-    "stylists_count": "Nombre de coiffeurs",
-    "total_appointments": "Total des rendez-vous",
-    "revenue_generated": "Chiffre d'affaires généré",
-    "client_satisfaction": "Satisfaction client"
+    "massage": "Masaje",
+    "facial_treatments": "Tratamientos faciales"
   },
   "schedule": {
-    "monday": "Lundi",
-    "tuesday": "Mardi",
-    "wednesday": "Mercredi",
-    "thursday": "Jeudi",
-    "friday": "Vendredi",
-    "saturday": "Samedi",
-    "sunday": "Dimanche",
-    "start_time": "Heure de début",
-    "end_time": "Heure de fin",
-    "break_start": "Inicio de descanso",
-    "break_end": "Fin de descanso",
-    "day_off": "Jour de congé",
-    "break_time": "Pause",
+    "monday": "Lunes",
+    "tuesday": "Martes",
+    "wednesday": "Miércoles",
+    "thursday": "Jueves",
+    "friday": "Viernes",
+    "saturday": "Sábado",
+    "sunday": "Domingo",
+    "start_time": "Hora de inicio",
+    "end_time": "Hora de fin",
+    "break_time": "Pausa",
+    "day_off": "Día libre",
     "available": "Disponible",
-    "busy": "Occupé",
-    "vacation": "Vacances"
+    "busy": "Ocupado",
+    "vacation": "Vacaciones"
   },
-  "messages": {
-    "member_created": "Membre créé avec succès",
-    "member_updated": "Membre mis à jour avec succès",
-    "member_deleted": "Membre supprimé avec succès",
-    "member_activated": "Membre activé avec succès",
-    "member_deactivated": "Membre désactivé avec succès",
-    "no_members": "Aucun membre trouvé",
-    "loading": "Chargement des membres...",
-    "confirm_delete": "Êtes-vous sûr de vouloir supprimer ce membre ?",
-    "confirm_deactivate": "¿Estás seguro de que quieres desactivar este miembro?",
-    "delete_confirmation": "Êtes-vous sûr de vouloir supprimer ce membre ?",
-    "photo_uploaded": "Photo téléchargée avec succès",
-    "schedule_updated": "Planning mis à jour avec succès"
-  },
-  "page_title": "Gestión del Equipo",
-  "page_subtitle": "Gestiona tu equipo de profesionales de la belleza",
-  "loading": {
-    "team": "Cargando tu equipo...",
-    "preparing": "Preparando la gestión del equipo"
+  "actions": {
+    "add_member": "Añadir un miembro",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "activate": "Activar",
+    "deactivate": "Desactivar",
+    "view_schedule": "Ver la agenda",
+    "view_performance": "Ver el rendimiento",
+    "assign_services": "Asignar servicios",
+    "set_commission": "Definir la comisión",
+    "upload_photo": "Subir una foto"
   },
   "stats": {
-    "members_total_badge": "miembros en total",
-    "active_members_badge": "miembros activos",
-    "total": "Total",
-    "all_members": "Tous les membres",
-    "active_title": "Miembros Activos",
-    "active_description": "Trabajando actualmente",
-    "performance_title": "Rendimiento",
-    "performance_description": "Estadísticas del equipo",
-    "services_title": "Servicios Realizados",
-    "services_description": "Total de servicios",
-    "total_team": "Total Équipe",
-    "active": "Actifs",
-    "available_members": "Membres disponibles",
-    "roles": "Rôles",
-    "position_types": "Types de postes",
-    "avg_specialties": "Spécialités Moy.",
-    "per_member": "Par membre"
+    "total_team": "Miembros",
+    "all_members": "Todos los miembros",
+    "active": "Activos",
+    "available_members": "Miembros disponibles",
+    "roles": "Roles",
+    "position_types": "Tipos de puesto",
+    "avg_specialties": "Especialidades prom.",
+    "per_member": "Por miembro"
+  },
+  "badges": {
+    "members_one": "{{count}} miembro",
+    "members_other": "{{count}} miembros",
+    "active_one": "{{count}} activo",
+    "active_other": "{{count}} activos"
   },
   "search": {
-    "placeholder": "Rechercher un membre de l'équipe...",
-    "results": "membre(s) trouvé(s)",
-    "for": "pour",
-    "with_role": "avec le rôle"
+    "placeholder": "Buscar un miembro del equipo…",
+    "results_one": "{{count}} miembro encontrado",
+    "results_other": "{{count}} miembros encontrados"
   },
-  "empty_state": {
+  "limits": {
+    "title": "Límite de miembros del equipo",
+    "reached": "Límite alcanzado"
+  },
+  "errors": {
+    "save_error": "Error al guardar:"
+  },
+  "filters": {
+    "search": "Buscar miembros…",
+    "all_roles": "Todos los roles",
+    "all_specialties": "Todas las especialidades",
+    "availability": "Disponibilidad",
+    "performance": "Rendimiento"
+  },
+  "statistics": {
+    "total_members": "Total de miembros",
+    "active_members": "Miembros activos",
+    "stylists_count": "Número de estilistas",
+    "average_rating": "Valoración media",
+    "total_appointments": "Total de citas",
+    "revenue_generated": "Ingresos generados",
+    "client_satisfaction": "Satisfacción de los clientes"
+  },
+  "performance": {
+    "appointments_completed": "Citas completadas",
+    "revenue": "Ingresos",
+    "client_rating": "Valoración de los clientes",
+    "punctuality": "Puntualidad",
+    "sales": "Ventas",
+    "tips": "Propinas",
+    "repeat_clients": "Clientes fieles",
+    "no_shows": "Ausencias"
+  },
+  "messages": {
+    "member_created": "Miembro creado correctamente",
+    "member_updated": "Miembro actualizado correctamente",
+    "member_deleted": "Miembro eliminado correctamente",
+    "member_activated": "Miembro activado correctamente",
+    "member_deactivated": "Miembro desactivado correctamente",
     "no_members": "No se encontraron miembros",
-    "modify_filters": "Intenta modificar tus filtros de búsqueda",
-    "create_first": "Comienza añadiendo tu primer miembro del equipo",
-    "create_member": "Crear miembro"
+    "loading": "Cargando los miembros…",
+    "confirm_delete": "¿Seguro que desea eliminar este miembro?",
+    "delete_confirmation": "¿Seguro que desea eliminar este miembro?",
+    "photo_uploaded": "Foto subida correctamente",
+    "schedule_updated": "Agenda actualizada correctamente"
   },
-  "team_form": {
-    "title_new": "Nuevo Miembro del Equipo",
-    "title_edit": "Editar Miembro del Equipo",
-    "subtitle": "Añade un nuevo profesional a tu equipo",
+  "permissions": {
+    "manage_appointments": "Gestionar las citas",
+    "manage_clients": "Gestionar los clientes",
+    "manage_services": "Gestionar los servicios",
+    "manage_team": "Gestionar el equipo",
+    "view_reports": "Ver los informes",
+    "manage_payments": "Gestionar los pagos",
+    "manage_inventory": "Gestionar el inventario",
+    "admin_access": "Acceso de administrador"
+  },
+  "team_member_form": {
+    "title_new": "Nuevo miembro",
+    "title_edit": "Editar el miembro",
+    "subtitle": "Datos de contacto, servicios que realiza y horario de trabajo.",
     "sections": {
-      "personal_info": "Información Personal",
-      "professional_info": "Información Profesional",
-      "schedule": "Horario de Trabajo"
+      "personal_info": "Información personal",
+      "specialties": "Especialidades",
+      "working_hours": "Horario de trabajo"
     },
     "labels": {
       "first_name_required": "Nombre *",
-      "last_name_required": "Apellidos *",
-      "email_required": "Email *",
+      "last_name_required": "Apellido *",
+      "email_required": "Correo electrónico *",
       "phone_required": "Teléfono *",
-      "role_required": "Rol *",
-      "specialties": "Especialidades",
-      "hire_date": "Fecha de contratación",
-      "bio": "Biografía profesional",
-      "photo": "Foto de perfil"
+      "role_required": "Rol *"
     },
     "placeholders": {
-      "enter_first_name": "Ingresa el nombre",
-      "enter_last_name": "Ingresa los apellidos",
-      "enter_email": "ejemplo@email.com",
-      "phone_example": "+34 6 12 34 56 78",
-      "select_role": "Seleccionar rol...",
-      "bio_placeholder": "Describe la experiencia y especialidades del miembro..."
+      "first_name": "Nombre",
+      "last_name": "Apellido",
+      "email_example": "ejemplo@email.com",
+      "phone_example": "+213 555 12 34 56"
+    },
+    "working_days": {
+      "monday": "Lunes",
+      "tuesday": "Martes",
+      "wednesday": "Miércoles",
+      "thursday": "Jueves",
+      "friday": "Viernes",
+      "saturday": "Sábado",
+      "sunday": "Domingo"
+    },
+    "schedule_labels": {
+      "works": "Trabaja",
+      "from": "De:",
+      "to": "A:"
+    },
+    "help_messages": {
+      "specialties_help": "Marque los servicios que realiza este miembro.",
+      "order_help": "El orden de selección determina el orden de visualización.",
+      "no_services": "Añada primero servicios para poder asignarlos."
     },
     "buttons": {
       "cancel": "Cancelar",
-      "add": "Añadir Miembro",
+      "add": "Añadir",
       "modify": "Modificar"
-    },
-    "schedule_section": {
-      "title": "Horario de Trabajo",
-      "description": "Define los horarios de trabajo para cada día de la semana"
     }
   },
   "team_list": {
     "empty_state": {
-      "title": "Aucun membre d'équipe",
-      "subtitle": "Commencez par ajouter vos premiers collaborateurs",
-      "cta": "Constituez votre équipe"
-    },
-    "member_card": {
-      "role_label": "Rol:",
-      "specialties_label": "Especialidades:",
-      "hire_date_label": "Fecha de contratación:",
-      "status_label": "Estado:",
-      "no_specialties": "Sin especialidades definidas"
-    },
-    "tooltips": {
-      "edit_member": "Modifier le membre",
-      "delete_member": "Supprimer le membre",
-      "view_schedule": "Ver horario"
+      "title": "No hay miembros en el equipo",
+      "subtitle": "Empiece añadiendo a sus primeros colaboradores",
+      "cta": "Forme su equipo"
     },
     "info_labels": {
-      "email": "Email",
-      "phone": "Téléphone",
-      "working_days": "Jours travaillés",
-      "specialties": "Spécialités"
+      "email": "Correo electrónico",
+      "phone": "Teléfono",
+      "working_days": "Días de trabajo",
+      "specialties": "Especialidades"
     },
     "sections": {
-      "specialties": "Spécialités",
-      "weekly_schedule": "Planning de la semaine"
+      "specialties": "Especialidades",
+      "weekly_schedule": "Horario semanal"
     },
     "stats": {
-      "days_per_week": "jours/semaine",
-      "specialties_count": "spécialité(s)",
-      "average": "Moyenne",
-      "active": "Actif",
-      "services": "service(s)",
-      "level_of": "Niveau {{level}}/5"
+      "days_per_week": "días/semana",
+      "average": "Promedio",
+      "active": "Activo",
+      "level_of": "Nivel {{level}}/5",
+      "variable_hours": "Horario variable",
+      "specialties_count_one": "{{count}} especialidad",
+      "specialties_count_other": "{{count}} especialidades",
+      "services_one": "{{count}} servicio",
+      "services_other": "{{count}} servicios"
+    },
+    "tooltips": {
+      "edit_member": "Editar el miembro",
+      "delete_member": "Eliminar el miembro"
     },
     "days_short": {
       "monday": "Lun",
       "tuesday": "Mar",
-      "wednesday": "Mer",
-      "thursday": "Jeu",
-      "friday": "Ven",
-      "saturday": "Sam",
-      "sunday": "Dim"
+      "wednesday": "Mié",
+      "thursday": "Jue",
+      "friday": "Vie",
+      "saturday": "Sáb",
+      "sunday": "Dom"
     }
   },
-  "performance": {
-    "title": "Rendimiento del Equipo",
-    "individual_performance": "Rendimiento Individual",
-    "team_metrics": "Métricas del Equipo",
-    "appointments_completed": "Rendez-vous terminés",
-    "revenue_generated": "Ingresos generados",
-    "client_satisfaction": "Satisfacción del cliente",
-    "punctuality": "Ponctualité",
-    "this_month": "Este mes",
-    "last_month": "Mes pasado",
-    "growth": "Crecimiento",
-    "revenue": "Chiffre d'affaires",
-    "client_rating": "Note client",
-    "sales": "Ventes",
-    "tips": "Pourboires",
-    "repeat_clients": "Clients fidèles",
-    "no_shows": "Absences"
-  },
-  "subtitle": "Gérez votre équipe de professionnels",
-  "stylists": "Coiffeurs",
-  "badges": {
-    "members": "membre(s)",
-    "active": "actif(s)"
-  },
-  "limits": {
-    "title": "Limite de Membres d'Équipe",
-    "reached": "Limite atteinte"
-  },
-  "errors": {
-    "save_error": "Erreur lors de la sauvegarde:"
-  },
-  "permissions": {
-    "manage_appointments": "Gérer les rendez-vous",
-    "manage_clients": "Gérer les clients",
-    "manage_services": "Gérer les services",
-    "manage_team": "Gérer l'équipe",
-    "view_reports": "Voir les rapports",
-    "manage_payments": "Gérer les paiements",
-    "manage_inventory": "Gérer l'inventaire",
-    "admin_access": "Accès administrateur"
-  },
-  "team_member_form": {
-    "title_new": "Nouveau Membre",
-    "title_edit": "Modifier le Membre",
-    "subtitle": "Ajoutez un nouveau membre à votre équipe de beauté",
-    "sections": {
-      "personal_info": "Informations Personnelles",
-      "specialties": "Spécialités",
-      "working_hours": "Horaires de Travail"
-    },
-    "labels": {
-      "first_name_required": "Prénom *",
-      "last_name_required": "Nom *",
-      "email_required": "Email *",
-      "phone_required": "Téléphone *",
-      "role_required": "Rôle *"
-    },
-    "placeholders": {
-      "first_name": "Prénom",
-      "last_name": "Nom",
-      "email_example": "exemple@email.com",
-      "phone_example": "+33 6 12 34 56 78"
-    },
-    "working_days": {
-      "monday": "Lundi",
-      "tuesday": "Mardi",
-      "wednesday": "Mercredi",
-      "thursday": "Jeudi",
-      "friday": "Vendredi",
-      "saturday": "Samedi",
-      "sunday": "Dimanche"
-    },
-    "schedule_labels": {
-      "works": "Travaille",
-      "from": "De:",
-      "to": "À:"
-    },
-    "help_messages": {
-      "specialties_help": "Maintenez Ctrl/Cmd pour sélectionner plusieurs spécialités",
-      "order_help": "L'ordre de sélection détermine la priorité d'affichage"
-    },
-    "buttons": {
-      "cancel": "Annuler",
-      "add": "Ajouter",
-      "modify": "Modifier"
-    }
-  },
-  "addMember": "Rnu aɛeggal",
-  "editMember": "Ẓreg aɛeggal",
-  "deleteMember": "Kkes aɛeggal",
-  "memberName": "Isem n uɛeggal",
-  "firstName": "Isem amezwaru",
-  "lastName": "Isem n tawacult",
-  "email": "Imayl",
-  "phone": "Tiliɣri",
-  "role": "Tamlilt",
-  "salary": "Aɣaras",
-  "commission": "Taɛkkumt",
-  "hireDate": "Azemz n uxeddim",
-  "noMembers": "Ulac iɛeggalen",
-  "searchMembers": "Nadi iɛeggalen",
-  "totalMembers": "Amḍan n iɛeggalen",
-  "activeMembers": "Iɛeggalen urmiden",
-  "workingHours": "Isragen n uxeddim",
-  "availability": "Tiwejda"
+  "role_values": {
+    "Coiffeur(se)": "Peluquero(a)",
+    "Coloriste": "Colorista",
+    "Assistant(e)": "Asistente",
+    "Réceptionniste": "Recepcionista",
+    "Manager": "Gerente",
+    "Propriétaire": "Propietario(a)"
+  }
 }

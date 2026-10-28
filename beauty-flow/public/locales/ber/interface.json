@@ -1,34 +1,418 @@
 {
   "title": "Agrudem",
-  "theme": "Asentel",
-  "language": "Tutlayt",
-  "currency": "Tadrimt",
-  "timezone": "Izḍi n wakud",
-  "dateFormat": "Amasal n wzemz",
-  "timeFormat": "Amasal n wakud",
-  "notifications": "Ilɣa",
-  "emailNotifications": "Ilɣa s imayl",
-  "smsNotifications": "Ilɣa s SMS",
-  "pushNotifications": "Ilɣa n turrigin",
-  "appearance": "Arwes",
-  "darkMode": "Askar aberkan",
-  "lightMode": "Askar aceɛlal",
-  "autoMode": "Askar awurman",
-  "layout": "Asbeddi",
-  "sidebar": "Agalis",
-  "header": "Aqeṛṛu",
-  "footer": "Aḍaṛ",
-  "colors": "Initen",
-  "fonts": "Tisefsay",
-  "logo": "Alugu",
-  "branding": "Tacreḍt",
   "customization": "Asagen",
-  "backup": "Asekles",
-  "restore": "Ales asbeddi",
-  "export": "Sifeḍ",
-  "import": "Kter",
-  "reset": "Ales asbeddi",
+  "appearance": "Udem",
+  "settings": "Iɣewwaṛen",
+  "theme": "Asentel",
+  "colors": {
+    "primary": "Ini agejdan",
+    "secondary": "Ini wis sin",
+    "accent": "Ini n usebrureq",
+    "background": "Agilal",
+    "text": "Aḍris",
+    "border": "Iri",
+    "success": "Tirni",
+    "warning": "Ɣur-k",
+    "error": "Tuccḍa",
+    "info": "Talɣut"
+  },
+  "layout": {
+    "header": "Aqerru",
+    "sidebar": "Afeggag adisan",
+    "footer": "Aḍar n usebter",
+    "content": "Agbur",
+    "navigation": "Tunigin",
+    "logo_position": "Adeg n ulugu",
+    "menu_style": "Aɣanib n wumuɣ",
+    "spacing": "Tallunt",
+    "borders": "Iran",
+    "shadows": "Tili"
+  },
+  "branding": {
+    "logo": "Alugu",
+    "business_name": "Isem n usalun",
+    "tagline": "Taseddart n tmerna",
+    "description": "Aglam",
+    "contact_info": "Talɣut n unermis",
+    "social_media": "Iẓeḍwan inmettiyen",
+    "upload_logo": "Sali alugu",
+    "remove_logo": "Kkes alugu",
+    "logo_guidelines": "Iwellihen: amasal PNG neɣ JPG, teɣzi ugar 2MB"
+  },
+  "templates": {
+    "salon_classic": "Asalun aklasiki",
+    "modern_spa": "Spa atrar",
+    "barbershop": "Aḥeffaf",
+    "beauty_center": "Ammas n ucebbaḥ",
+    "nail_studio": "Asalun n yiccer",
+    "hair_salon": "Asalun n ucebbub",
+    "wellness_center": "Ammas n tifrat",
+    "medical_spa": "Spa n tujjya"
+  },
+  "preview": "Taskant",
   "save": "Sekles",
-  "cancel": "Sefsex",
-  "apply": "Snes"
+  "reset": "Ales awennez",
+  "apply": "Snes",
+  "themes": {
+    "modern": "Atrar",
+    "classic": "Aklasiki",
+    "minimal": "Afessas",
+    "elegant": "Acebḥan",
+    "bold": "Aqesḥan",
+    "soft": "Aleqqaq",
+    "dark": "Aberkan",
+    "light": "Aceɛlal"
+  },
+  "display": {
+    "show_prices": "Sken ssumat",
+    "show_duration": "Sken tanzagt",
+    "show_description": "Sken aglam",
+    "show_images": "Sken tugniwin",
+    "show_ratings": "Sken itran",
+    "show_availability": "Sken tallitin ilelliten",
+    "compact_view": "Taskant tussist",
+    "grid_view": "Taskant s yiẓiẓen",
+    "list_view": "Taskant s tebdart"
+  },
+  "public_page": {
+    "title": "Asebter azayez",
+    "enable": "Rmed asebter azayez",
+    "custom_url": "URL udmawan",
+    "seo_title": "Azwel SEO",
+    "seo_description": "Aglam SEO",
+    "meta_keywords": "Awalen n tsura",
+    "social_sharing": "Beṭṭu deg iẓeḍwan inmettiyen",
+    "booking_widget": "Awiǧit n uḥeǧǧez",
+    "contact_form": "Tiferkit n unermis",
+    "gallery": "Tamidelt",
+    "testimonials": "Inagan"
+  },
+  "notifications": {
+    "email_notifications": "Ilɣa s imayl",
+    "sms_notifications": "Ilɣa s SMS",
+    "push_notifications": "Ilɣa push",
+    "appointment_reminders": "Ismektiyen n tmlilin",
+    "booking_confirmations": "Asentem n yiḥeǧǧzen",
+    "payment_notifications": "Ilɣa n uxelleṣ",
+    "marketing_emails": "Imaylen n marketing"
+  },
+  "language": {
+    "interface_language": "Tutlayt n wegrudem",
+    "public_language": "Tutlayt n usebter azayez",
+    "date_format": "Amasal n wazemz",
+    "time_format": "Amasal n wakud",
+    "currency": "Tadrimt",
+    "timezone": "Tamnaḍt n usrag",
+    "rtl_support": "Tallelt RTL"
+  },
+  "advanced": {
+    "custom_css": "CSS udmawan",
+    "custom_js": "JavaScript udmawan",
+    "analytics": "Tasleḍt",
+    "tracking_code": "Tangalt n uḍfar",
+    "integrations": "Imsidaf",
+    "api_settings": "Iɣewwaṛen API",
+    "webhooks": "Webhooks",
+    "backup": "Aḥraz",
+    "export": "Sifeḍ",
+    "import": "Kter"
+  },
+  "messages": {
+    "settings_saved": "Iɣewwaṛen ttwaskelsen akken iwata",
+    "theme_applied": "Asentel yettusnes akken iwata",
+    "logo_uploaded": "Alugu yuli akken iwata",
+    "logo_removed": "Alugu yettwakkes akken iwata",
+    "preview_updated": "Taskant tettwaleqqem",
+    "changes_saved": "Ibeddilen ttwaskelsen",
+    "reset_confirm": "Tebɣiḍ s tidet ad talseḍ awennez n yiɣewwaṛen akk?",
+    "unsaved_changes": "Tesɛiḍ ibeddilen ur yettwaskelsen ara",
+    "invalid_file": "Amasal n ufaylu d armeɣtu",
+    "file_too_large": "Afaylu meqqer aṭas",
+    "upload_error": "Tuccḍa deg usali"
+  },
+  "page": {
+    "title": "Agrudem-iw",
+    "subtitle": "Tamudemt, initen d ugbur n usebter-ik n uḥeǧǧez",
+    "loading_subtitle": "Asali n yiɣewwaṛen…",
+    "loading_interface": "Asali n wegrudem…",
+    "view_page": "Wali asebter-iw"
+  },
+  "tabs": {
+    "templates": "Timudmiwin",
+    "colors": "Initen",
+    "images": "Tugniwin",
+    "content": "Agbur",
+    "settings": "Iɣewwaṛen",
+    "reviews": "Timawin n yimsaɣen"
+  },
+  "sections": {
+    "templates": {
+      "title": "Timudmiwin",
+      "description": "Fren tamudemt i usalun-ik"
+    },
+    "colors": {
+      "title": "Initen n usebter-ik",
+      "description": "Ad semselsen initen n tmudemt."
+    },
+    "images": {
+      "title": "Tugniwin n usalun",
+      "description": "Sali alugu-ik d ubennir-ik"
+    },
+    "content": {
+      "title": "Asissen",
+      "description": "Ayen ara ɣren yimsaɣen-ik deg usebter-ik."
+    },
+    "settings": {
+      "title": "Iɣewwaṛen leqqayen",
+      "description": "Tawila n tmlilin d beṭṭu"
+    }
+  },
+  "forms": {
+    "presentation": {
+      "label": "Asissen n usalun",
+      "placeholder": "Sissen-d asalun-ik, ayen tessneḍ ad t-txedmeḍ, tarbaɛt-ik…"
+    },
+    "public_phone": {
+      "label": "Uṭṭun n tiliɣri azayez",
+      "placeholder": "Md. 06 12 34 56 78",
+      "tip": "Awelleh:",
+      "description": "Uṭṭun-a ad d-iban deg usebter-ik azayez akken ad k-nermsen yimsaɣen-ik s sshala"
+    },
+    "services_display": "Askan n yimeẓla",
+    "appointments_settings": "Iɣewwaṛen n tmlilin",
+    "team_display": "Askan n terbaɛt",
+    "share_link": "Aseɣwen n beṭṭu"
+  },
+  "team": {
+    "show_on_public": "Sken tarbaɛt deg usebter azayez",
+    "description": "Ma tsenseḍ tixtiṛit-a, imsaɣen ur ttwalin ara tarbaɛt-ik, ur zmiren ara ad fernen aɛeggal mi ara ṭṭfen timlilit.",
+    "visible_message": "Imsaɣen ttwalin tarbaɛt-ik, zemren ad fernen aɛeggal ara ten-yeqablen.",
+    "hidden_message": "Tarbaɛt-ik teffer: yal timlilit, ad tt-tefkeḍ i yiwen n uɛeggal."
+  },
+  "images": {
+    "logo_label": "Alugu n usalun",
+    "banner_label": "Abennir",
+    "logo_tip": "Iwellihen: seqdec agilal afrawan (PNG) akken ad d-iban akken iwata deg tunigin",
+    "banner_tip": "Iwellihen: tugna s teɣzi tameqqrant i uskan ummid ɣef yigdilen akk (16:5)",
+    "logo_help": "PNG s ugilal afrawan yettban xir deg ufeggag n tunigin.",
+    "banner_help": "Tugna s teɣzi tameqqrant, amasal 16:5, ad d-tban deg uqerru n usebter-ik."
+  },
+  "actions": {
+    "save": "Sekles",
+    "saving": "Asekles…",
+    "saved": "Yettwasekles",
+    "save_error": "Asekles ur yeddi ara. Senqed tuqqna-ik, ɛreḍ tikkelt-nniḍen."
+  },
+  "colors_tab": {
+    "preview": "Taskant",
+    "reset": "Uɣal ɣer yiniten n tmudemt"
+  },
+  "gallery": {
+    "categories": {
+      "polyvalent": "Yal ameẓlu",
+      "coiffure": "Acebbub",
+      "barbier": "Aḥeffaf",
+      "ongles": "Iccer",
+      "bien-etre": "Tifrat",
+      "mariage": "Tameɣra",
+      "all": "Akk",
+      "minimal": "Afessas",
+      "modern": "Atrar",
+      "classic": "Aklasiki",
+      "creative": "Asnulfu",
+      "luxury": "Aɣlay",
+      "natural": "Agamawan",
+      "bold": "Aqesḥan"
+    },
+    "preview": "Taskant",
+    "preview_of": "Taskant n tmudemt {{name}}",
+    "applied": "Tettusnes",
+    "apply_template": "Snes tamudemt-a",
+    "close": "Mdel",
+    "search": "Nadi tamudemt",
+    "search_placeholder": "Nadi: isem, aɣanib, tagnit…",
+    "family": "Tawacult",
+    "all_families": "Akk tiwaculin",
+    "mode": {
+      "label": "Aceɛlal neɣ aberkan",
+      "all": "Aceɛlal d uberkan",
+      "light": "Aceɛlal",
+      "dark": "Aberkan"
+    },
+    "sort": {
+      "label": "Smizzwer",
+      "recommended": "Yettwawellhen",
+      "name": "Isem (A–Z)"
+    },
+    "favorites": "Inurifen",
+    "favorite": "Rnu ɣer yinurifen",
+    "unfavorite": "Kkes seg yinurifen",
+    "count_one": "{{count}} n tmudemt",
+    "count_other": "{{count}} n timudmiwin",
+    "reset_filters": "Ales awennez n yimsizdigen",
+    "recommended": "Yettwawellhen i usalun-ik",
+    "recommended_hint": "Ttwafernen almend n yimeẓla n usalun-ik.",
+    "all_templates": "Akk timudmiwin",
+    "show_more": "Sken ugar",
+    "shown": "{{shown}} seg {{total}}",
+    "empty_title": "Ulac tamudemt yemmezgen",
+    "empty_body": "Ɛreḍ awal-nniḍen neɣ kkes imsizdeg.",
+    "empty_favorites": "Sit ɣef yitri n tmudemt akken ad tt-tafeḍ da.",
+    "previous": "Tamudemt yezrin",
+    "next": "Tamudemt i d-iteddun",
+    "desktop": "Aselkim",
+    "mobile": "Aziraz",
+    "templates": {
+      "studio": {
+        "tagline": "Asalun n yal ameẓlu",
+        "description": "Aceɛlal, yeẓɣel, s uččinawi n Saloneo i usalun n yal ameẓlu i d-yettawin srid ɣer uḥeǧǧez."
+      },
+      "atelier": {
+        "tagline": "Aɣerbaz n ucebbub",
+        "description": "Aɣanib n tɣamsa: isem n usalun s umeqqran am uɣerraf, imeẓla am wumuɣ n tqahwa."
+      },
+      "hammam": {
+        "tagline": "Lḥemmam & spa",
+        "description": "Azegzaw aḥercaw, ijdi d nnḥas, taddart tamuṛit i lḥemmam d spa."
+      },
+      "barber": {
+        "tagline": "Aḥeffaf",
+        "description": "Aberkan n ufeḥmi, nnḥas awraɣ d yisekkilen yettwaẓemmen: talwiḥt n uḥeffaf n taddart."
+      },
+      "onglerie": {
+        "tagline": "Asalun n yiccer",
+        "description": "Axuxi d ubenfsaǧ, tibbucin n yiniten am tqerɛiwin n ṣṣbiɣa, i yisalunen n yiccer."
+      },
+      "mariee": {
+        "tagline": "Tislit & azewwaq",
+        "description": "Amellal n ujeǧǧig, ini n cambanya d uwraɣ-axuxi, tallunt d tafat i tslit d uzewwaq."
+      },
+      "institut": {
+        "tagline": "Ammas n ucebbaḥ",
+        "description": "Yeṣfa, yessehdan, azegzaw n uzenzu d tira tusdidt i wammas n ucebbaḥ."
+      },
+      "medina": {
+        "tagline": "Agemmay n Lezzayer",
+        "description": "Anili, zzeɛfran d zzlayej: i tkerrimt n Lqasba, i usalun yeṭṭfen deg wagemmay-is."
+      },
+      "noir": {
+        "tagline": "Asalun n uɣlay",
+        "description": "Aberkan aḥercaw d wureɣ, tarbaɛt deg uẓɣer: asalun n uɣlay."
+      },
+      "epure": {
+        "tagline": "Afessas",
+        "description": "Aberkan d umellal, ulac ayen ur nesɛi lmeɛna: taseddast tafessast akk deg tegrumma."
+      },
+      "soleil": {
+        "tagline": "Asalun n taddart",
+        "description": "Ini n lmerǧan d uwraɣ n yiṭij: asalun n taddart, n twacult, yeqqabalen s tumert."
+      },
+      "botanique": {
+        "tagline": "Lɛinaya tagamawant",
+        "description": "Ceṭṭiḥ, azemmur d talaxt: taseddast n tɣamsa i lɛinaya tagamawant."
+      }
+    }
+  },
+  "display_settings": {
+    "view": {
+      "title": "Amizwer n yimeẓla",
+      "description": "Amek ttwasmizzwaren yimeẓla-ik deg usebter-ik.",
+      "options": {
+        "category": {
+          "label": "S taggayt",
+          "description": "Ttwasdukklen s wanaw n umeẓlu"
+        },
+        "price": {
+          "label": "S ssuma",
+          "description": "Seg win yerxsen ɣer win yeɣlan"
+        },
+        "duration": {
+          "label": "S tanzagt",
+          "description": "Seg win awezlan ɣer win aɣezfan"
+        },
+        "popularity": {
+          "label": "S tmeẓra",
+          "description": "Wid yettwasutren aṭas d imezwura"
+        }
+      }
+    },
+    "price": {
+      "title": "Askan n ssumat",
+      "description": "Amek ara d-banent ssumat-ik.",
+      "options": {
+        "fixed": {
+          "label": "Ssuma tusdidt",
+          "description": "Md. 2 500 DA"
+        },
+        "from": {
+          "label": "Seg",
+          "description": "Md. seg 2 500 DA"
+        },
+        "range": {
+          "label": "Azilal",
+          "description": "Md. 2 000 – 3 000 DA"
+        },
+        "hidden": {
+          "label": "Ffer ssumat",
+          "description": "Ulac ssuma ara d-yettwaskanen"
+        }
+      }
+    }
+  },
+  "share": {
+    "description": "Bḍu aseɣwen-a akken ad d-afen yimsaɣen-ik imeẓla-ik, ad ṭṭfen timlilit srid.",
+    "copy": "Nɣel",
+    "copied": "Yettwanɣel",
+    "share_on": "Bḍu ɣef",
+    "tweet": "Af-d asalun-iw n ucebbaḥ!",
+    "qr_alt": "Tangalt QR n usebter-ik",
+    "qr_help": "Siggez tangalt-a QR i lkontwar neɣ i ttaq n usalun-ik.",
+    "qr_download": "Sader tangalt QR"
+  },
+  "reviews": {
+    "title": "Timawin n yimsaɣen",
+    "description": "Timawin yettbanen ad d-banent deg usebter-ik, s umizwer-a.",
+    "loading": "Asali…",
+    "empty_title": "Ulac timawin akka tura",
+    "empty_body": "Rnu-d ddaw-a timawin n yimsaɣen-ik akken ad tesfeṛḥeḍ wid imaynuten.",
+    "hidden": "Yeffer",
+    "visible": "Yettban",
+    "move_up": "Ali",
+    "move_down": "Ader",
+    "delete": "Kkes",
+    "confirm_delete": "Ad tekkseḍ tamawt-a?",
+    "add_title": "Rnu tamawt",
+    "author": "Isem n umsaɣ",
+    "rating": "Itran",
+    "comment": "Tamawt",
+    "add": "Rnu tamawt",
+    "adding": "Timerna…",
+    "errors": {
+      "load": "D awezɣi asali n tmawin.",
+      "create": "Tamawt ur tettwarna ara.",
+      "update": "Abeddel ur yettwasekles ara.",
+      "delete": "Tamawt ur tettwakkes ara."
+    }
+  },
+  "upload": {
+    "recommended": "Teɣzi yettwawellhen: {{width}}×{{height}} px",
+    "choose": "Fren tugna",
+    "replace": "Semselsi",
+    "dropzone": "Zuɣer tugna neɣ sit akken ad tinigeḍ",
+    "processing": "Asemɣer iteddu…",
+    "too_large": "Tugna teɛdda 10 Mo. Fren afaylu afessas ugar.",
+    "not_image": "Afaylu-a mačči d tugna. Fren JPG, PNG neɣ WebP.",
+    "unreadable": "D awezɣi taɣuri n tseddi n tugna-a.",
+    "wrong_size": "Tugna-a d {{width}}×{{height}} px, teɣzi yettwawellhen d {{expectedWidth}}×{{expectedHeight}} px.",
+    "resize_question": "Ad as-nbeddel teɣzi s wudem awurman?",
+    "resize": "Beddel teɣzi, azen",
+    "cancel": "Sefsex",
+    "perfect": "Tiseddi d timeɣtut.",
+    "resized": "Teɣzi n tugna tettwabeddel ɣer {{width}}×{{height}} px.",
+    "error": "Tugna ur tettwazen ara. Ɛreḍ tikkelt-nniḍen."
+  },
+  "errors": {
+    "upload": "Tuccḍa deg usali n tugna:",
+    "save": "Tuccḍa deg usekles:"
+  }
 }

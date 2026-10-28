@@ -42,7 +42,7 @@ const ProductList: React.FC<ProductListProps> = ({ products: propProducts, onEdi
 
               <div className="flex w-full items-center gap-x-3 sm:w-auto sm:gap-x-4">
                 <span className="whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 sm:w-32">
-                  {t('products.threshold', { value: product.minQuantity, unit: product.unit })}
+                  {t('products.threshold', { value: product.minQuantity, unit: t(`product_form.unit_values.${product.unit}`, { count: product.minQuantity, defaultValue: product.unit }) })}
                 </span>
                 <div className="flex items-center gap-1">
                   <IconButton
@@ -54,7 +54,7 @@ const ProductList: React.FC<ProductListProps> = ({ products: propProducts, onEdi
                     <MinusIcon className="size-4" />
                   </IconButton>
                   <span className="min-w-[4.5rem] whitespace-nowrap text-center text-sm font-medium tabular-nums text-gray-900 dark:text-gray-50">
-                    {product.quantity} {product.unit}
+                    {product.quantity} {t(`product_form.unit_values.${product.unit}`, { count: product.quantity, defaultValue: product.unit })}
                   </span>
                   <IconButton label={t('products.increase')} onClick={() => updateProductQuantity(product.id, 1)}>
                     <PlusIcon className="size-4" />

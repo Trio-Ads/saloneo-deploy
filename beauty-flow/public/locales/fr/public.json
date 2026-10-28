@@ -9,7 +9,7 @@
       "scheduled": "Planifié",
       "pending": "En attente",
       "confirmed": "Confirmé",
-      "rescheduled": "Modifié",
+      "rescheduled": "Reporté",
       "completed": "Terminé",
       "cancelled": "Annulé",
       "no_show": "Absent"
@@ -31,7 +31,7 @@
     "book_again": "Reprendre rendez-vous"
   },
   "list": {
-    "invalid_search": "Recherche incomplète : indiquez un email, un téléphone ou vos nom et prénom.",
+    "invalid_search": "Recherche incomplète : indiquez un e-mail, un téléphone ou vos nom et prénom.",
     "search_error": "La recherche n'a pas abouti. Réessayez dans un instant.",
     "empty_body": "Aucun rendez-vous à venir avec ces informations.",
     "book_new": "Prendre un rendez-vous"
@@ -56,14 +56,14 @@
       "manage_link": "Lien pour modifier ou annuler",
       "copy": "Copier le lien",
       "copied": "Lien copié",
-      "manage_hint": "Gardez ce lien : il vous permet de modifier ou d'annuler votre rendez-vous. Il vous a aussi été envoyé par email.",
+      "manage_hint": "Gardez ce lien : il vous permet de modifier ou d'annuler votre rendez-vous. Il vous a aussi été envoyé par e-mail.",
       "close": "Fermer"
     },
     "form": {
       "first_name": "Prénom",
       "last_name": "Nom",
       "phone": "Téléphone",
-      "email": "Email",
+      "email": "E-mail",
       "email_placeholder": "vous@exemple.com",
       "more_info": "Date de naissance et adresse (facultatif)",
       "birth_date": "Date de naissance",
@@ -72,7 +72,7 @@
       "skin_questionnaire": "Questionnaire peau (facultatif)",
       "preferences": "Rappels et offres",
       "pref_sms": "Rappel de rendez-vous par SMS",
-      "pref_marketing": "Offres et nouveautés par email",
+      "pref_marketing": "Offres et nouveautés par e-mail",
       "pref_birthday": "Une attention pour mon anniversaire",
       "privacy": "Modifiable à tout moment. Vos informations ne sont jamais partagées.",
       "notes": "Une précision pour le salon ? (facultatif)",
@@ -80,8 +80,8 @@
       "errors": {
         "first_name": "Indiquez votre prénom.",
         "last_name": "Indiquez votre nom.",
-        "email_required": "Indiquez votre email pour recevoir la confirmation.",
-        "email_invalid": "Cet email semble incomplet, vérifiez-le (ex. nom@exemple.com).",
+        "email_required": "Indiquez votre e-mail pour recevoir la confirmation.",
+        "email_invalid": "Cet e-mail semble incomplet, vérifiez-le (ex. nom@exemple.com).",
         "phone_required": "Indiquez votre numéro pour que le salon puisse vous joindre.",
         "phone_invalid": "Ce numéro semble incomplet, vérifiez-le."
       }
@@ -131,7 +131,72 @@
       "today": "Aujourd'hui",
       "available": "Disponible",
       "unavailable": "Indisponible"
-    }
+    },
+    "questionnaire": {
+      "hair_type": "Type de cheveux",
+      "thickness": "Épaisseur des cheveux",
+      "scalp": "État du cuir chevelu",
+      "porosity": "Porosité",
+      "chemical_treatments": "Traitements chimiques",
+      "last_treatment_date": "Date du dernier traitement",
+      "hair_problems": "Problèmes capillaires",
+      "current_products": "Produits actuellement utilisés",
+      "allergies": "Allergies connues",
+      "skin_type": "Type de peau",
+      "sensitivity": "Niveau de sensibilité",
+      "skin_problems": "Problèmes de peau",
+      "concern_areas": "Zones de préoccupation principales",
+      "past_reactions": "Réactions passées aux traitements",
+      "current_products_placeholder": "Listez les produits que vous utilisez actuellement…",
+      "hair_allergies_placeholder": "Mentionnez toute allergie aux produits capillaires…",
+      "skin_allergies_placeholder": "Mentionnez toute allergie aux produits cosmétiques…",
+      "past_reactions_placeholder": "Décrivez toute réaction négative passée à un traitement…",
+      "values": {
+        "Raides": "Raides",
+        "Ondulés": "Ondulés",
+        "Bouclés": "Bouclés",
+        "Crépus": "Crépus",
+        "Fins": "Fins",
+        "Moyens": "Moyens",
+        "Épais": "Épais",
+        "Normal": "Normal",
+        "Sec": "Sec",
+        "Gras": "Gras",
+        "Sensible": "Sensible",
+        "Pellicules": "Pellicules",
+        "Faible": "Faible",
+        "Moyenne": "Moyenne",
+        "Élevée": "Élevée",
+        "Aucun": "Aucun",
+        "Coloration": "Coloration",
+        "Mèches": "Mèches",
+        "Défrisage": "Défrisage",
+        "Permanente": "Permanente",
+        "Pointes fourchues": "Pointes fourchues",
+        "Cassure": "Cassure",
+        "Frisottis": "Frisottis",
+        "Sécheresse": "Sécheresse",
+        "Excès de sébum": "Excès de sébum",
+        "Normale": "Normale",
+        "Sèche": "Sèche",
+        "Grasse": "Grasse",
+        "Mixte": "Mixte",
+        "Pas sensible": "Pas sensible",
+        "Légèrement sensible": "Légèrement sensible",
+        "Très sensible": "Très sensible",
+        "Acné": "Acné",
+        "Vieillissement": "Vieillissement",
+        "Taches pigmentaires": "Taches pigmentaires",
+        "Rougeurs": "Rougeurs",
+        "Front": "Front",
+        "Joues": "Joues",
+        "Menton": "Menton",
+        "Nez": "Nez",
+        "Contour des yeux": "Contour des yeux"
+      }
+    },
+    "owner": "Propriétaire",
+    "the_salon": "Le salon"
   },
   "salon": {
     "about": "À propos",
@@ -155,7 +220,7 @@
       "call_us": "Ou appelez-nous au",
       "address": "Adresse",
       "phone": "Téléphone",
-      "email": "Email",
+      "email": "E-mail",
       "footer_text": "Votre salon de beauté de confiance depuis toujours",
       "all_rights": "Tous droits réservés",
       "closed": "Fermé",
@@ -185,7 +250,7 @@
       "title": "Réservation confirmée",
       "message": "Votre rendez-vous a été confirmé",
       "details": "Détails de la réservation",
-      "email_sent": "Un email de confirmation vous a été envoyé"
+      "email_sent": "Un e-mail de confirmation vous a été envoyé"
     },
     "error": {
       "title": "Erreur de réservation",
@@ -198,7 +263,7 @@
     }
   },
   "loading": {
-    "message": "Chargement en cours...",
+    "message": "Chargement en cours…",
     "please_wait": "Veuillez patienter"
   },
   "modal": {
@@ -209,10 +274,10 @@
   "search": {
     "title": "Gérer mes réservations",
     "how_search": "Comment souhaitez-vous rechercher vos rendez-vous ?",
-    "by_email": "Email",
+    "by_email": "E-mail",
     "by_phone": "Téléphone",
     "by_name": "Nom",
-    "email_label": "Email",
+    "email_label": "E-mail",
     "phone_label": "Téléphone",
     "first_name_label": "Prénom",
     "last_name_label": "Nom",
@@ -237,7 +302,7 @@
   },
   "days": {
     "monday": "Lundi",
-    "tuesday": "Mardi", 
+    "tuesday": "Mardi",
     "wednesday": "Mercredi",
     "thursday": "Jeudi",
     "friday": "Vendredi",
@@ -270,8 +335,21 @@
     "menu_close": "Fermer le menu",
     "previous": "Précédent",
     "next": "Suivant",
-    "credit": "Réservation en ligne par",
+    "credit_by": "Réservation en ligne par <b>{{brand}}</b>",
     "online_booking": "Réservation en ligne",
-    "not_found": "Ce salon est introuvable ou momentanément indisponible."
+    "not_found": "Ce salon est introuvable ou momentanément indisponible.",
+    "price_from": "Dès {{amount}}",
+    "about_title": "Le salon",
+    "gallery_title": "En images",
+    "cta_title": "Réservez votre prochain rendez-vous",
+    "today_hours": "Aujourd’hui · {{hours}}",
+    "closed_today": "Fermé aujourd’hui",
+    "choose_service": "Choisissez une prestation pour réserver",
+    "other_services": "Autres prestations",
+    "service_count_one": "{{count}} prestation",
+    "service_count_other": "{{count}} prestations",
+    "review_count_one": "{{count}} avis",
+    "review_count_other": "{{count}} avis",
+    "rating_row": "{{stars}} étoiles : {{n}} avis"
   }
 }

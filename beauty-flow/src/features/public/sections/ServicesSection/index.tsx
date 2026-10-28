@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { SectionProps } from '../types';
 import { PublicService } from '../../types';
-import { Arrow, BookButton, Meta, Section, ServiceVisual, Title, isDark, useSalon } from '../kit';
+import { Arrow, BookButton, Icon, Meta, Section, ServiceVisual, Title, isDark, useSalon } from '../kit';
 
 type P = SectionProps;
 
@@ -219,6 +219,154 @@ function ServicesGrid3col({ data, onBook }: P) {
   );
 }
 
+/** One disclosure per category, the first one open. */
+function ServicesAccordion({ data, onBook }: P) {
+  const { t, groups } = useSalon(data);
+  return (
+    <Section id="services">
+      <Title>{t('site.services_title')}</Title>
+      <div className="border-t sp-line">
+        {groups.map((g, i) => (
+          <details key={g.name} open={i === 0} className="sp-acc border-b sp-line">
+            <summary className="flex items-center justify-between gap-6 min-h-[4.5rem] py-4 cursor-pointer">
+              <span className="sp-h text-2xl md:text-3xl">{g.name || t('site.other_services')}</span>
+              <span className="flex items-center gap-4 sp-muted sp-num text-[0.95rem] shrink-0">
+                {t('site.service_count', { count: g.services.length })}
+                <Icon name="chevron" size={20} className="sp-acc-chevron" />
+              </span>
+            </summary>
+            <ul className="pb-2 [&>li:last-child]:border-0">
+              {g.services.map(s => <Row key={s._id} s={s} data={data} onBook={onBook} />)}
+            </ul>
+          </details>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+/** A tariff board: categories in columns, one ruled line per service (the whole line books). */
+function ServicesPricelist({ data, onBook }: P) {
+  const { t, groups, price, duration } = useSalon(data);
+  return (
+    <Section id="services" className="sp-surface">
+      <Title>{t('site.services_title')}</Title>
+      <div className="sm:columns-2 lg:columns-3 gap-10 lg:gap-14">
+        {groups.map(g => (
+          <div key={g.name} className="break-inside-avoid mb-10">
+            <h3 className="sp-ink text-xl md:text-2xl pb-3 border-b sp-line">{g.name || t('site.other_services')}</h3>
+            <ul>
+              {g.services.map(s => (
+                <li key={s._id}>
+                  <button type="button" onClick={() => onBook(s._id)} aria-label={t('site.book_service', { name: s.name })}
+                    className="sp-rowbtn w-full grid grid-cols-[1fr_auto_auto] items-baseline gap-x-4 py-3 border-b sp-line text-start">
+                    <span className="font-medium">{s.name}</span>
+                    <span className="sp-muted sp-num text-sm">{duration(s)}</span>
+                    <span className="sp-num sp-price">{price(s)}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+/** Image-forward: tall pictures with the price set on them; a typographic tile when there is no photo. */
+function ServicesLookbook({ data, onBook }: P) {
+  const { t, price, duration } = useSalon(data);
+  return (
+    <Section id="services">
+      <Title>{t('site.services_title')}</Title>
+      <ul className="grid grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-8 md:gap-x-6 md:gap-y-12">
+        {data.services.map((s, i) => (
+          <li key={s._id} className={`${i % 2 ? 'max-lg:mt-10' : ''} ${i % 3 === 1 ? 'lg:mt-16' : ''}`}>
+            <button type="button" onClick={() => onBook(s._id)} aria-label={t('site.book_service', { name: s.name })} className="sp-look block w-full text-start">
+              <span className="relative block overflow-hidden" style={{ borderRadius: 'var(--sp-r)' }}>
+                <ServiceVisual service={s} index={i} className="aspect-[3/4] !rounded-none" />
+                {price(s) && <span className="sp-look-price absolute top-2.5 end-2.5 md:top-4 md:end-4 sp-num">{price(s)}</span>}
+              </span>
+              <span className="sp-h block mt-3 md:mt-4 text-lg md:text-2xl">{s.name}</span>
+              <span className="block mt-1 sp-muted text-sm sp-num">{duration(s)}{s.category && ` · ${s.category}`}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </Section>
+  );
+}
+
+/** Compact chips grouped by category; the chosen one is summed up in a bar that follows the scroll. */
+function ServicesChips({ data, onBook }: P) {
+  const { t, groups, price } = useSalon(data);
+  const [sel, setSel] = useState<PublicService | null>(null);
+  return (
+    <Section id="services">
+      <Title>{t('site.services_title')}</Title>
+      <div className="grid gap-8">
+        {groups.map(g => (
+          <div key={g.name}>
+            {g.name && <h3 className="text-lg md:text-xl mb-3">{g.name}</h3>}
+            <div className="flex flex-wrap gap-2">
+              {g.services.map(s => (
+                <button key={s._id} type="button" aria-pressed={sel?._id === s._id} onClick={() => setSel(sel?._id === s._id ? null : s)} className="sp-chip gap-2">
+                  {s.name}{price(s) && <span className="sp-num opacity-70 text-sm">{price(s)}</span>}
+                </button>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="sp-chips-bar sticky bottom-3 mt-10 sp-card flex items-center gap-4 min-h-[4rem] p-3 ps-5" aria-live="polite">
+        {sel ? <>
+          <div className="flex-1 min-w-0">
+            <p className="font-semibold truncate">{sel.name}</p>
+            <Meta service={sel} data={data} className="text-sm" />
+          </div>
+          <BookButton service={sel} onBook={onBook} small />
+        </> : <p className="sp-muted">{t('site.choose_service')}</p>}
+      </div>
+    </Section>
+  );
+}
+
+/** Categories listed on one side (sticky on desktop), every service on the other. */
+function ServicesSplitCategories({ data, onBook }: P) {
+  const { t, groups } = useSalon(data);
+  const anchor = (i: number) => `services-${i}`;
+  return (
+    <Section id="services">
+      <Title>{t('site.services_title')}</Title>
+      <div className="grid md:grid-cols-[minmax(12rem,1fr)_2.6fr] gap-8 md:gap-16 items-start">
+        {groups.length > 1 && (
+          <nav aria-label={t('site.services_title')} className="md:sticky md:top-24">
+            <ul className="sp-scroller md:flex-col gap-2 md:gap-0 -mx-5 px-5 md:mx-0 md:px-0 md:border-t sp-line">
+              {groups.map((g, i) => (
+                <li key={g.name}>
+                  <a href={`#${anchor(i)}`} className="sp-chip md:!flex md:justify-between md:w-full md:min-h-[3.25rem] md:!px-0 md:!rounded-none md:!shadow-none md:border-b sp-line md:!text-lg">
+                    <span>{g.name || t('site.other_services')}</span>
+                    <span className="hidden md:inline sp-muted sp-num text-sm">{g.services.length}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
+        <div className="grid gap-12 md:col-start-2">
+          {groups.map((g, i) => (
+            <div key={g.name} id={anchor(i)} className="scroll-mt-24">
+              <h3 className="sp-ink text-2xl md:text-3xl pb-3 border-b sp-line">{g.name || t('site.other_services')}</h3>
+              <ul>{g.services.map(s => <Row key={s._id} s={s} data={data} onBook={onBook} />)}</ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </Section>
+  );
+}
+
 export function ServicesSection(props: SectionProps) {
   if (!props.data.services.length) return null;
   switch (props.template.sections.services.variant) {
@@ -228,6 +376,11 @@ export function ServicesSection(props: SectionProps) {
     case 'masonry':  return <ServicesMasonry {...props} />;
     case 'featured': return <ServicesFeatured {...props} />;
     case 'carousel': return <ServicesCarousel {...props} />;
+    case 'accordion': return <ServicesAccordion {...props} />;
+    case 'pricelist-columns': return <ServicesPricelist {...props} />;
+    case 'lookbook': return <ServicesLookbook {...props} />;
+    case 'chips':    return <ServicesChips {...props} />;
+    case 'split-categories': return <ServicesSplitCategories {...props} />;
     default:         return <ServicesGrid3col {...props} />;
   }
 }

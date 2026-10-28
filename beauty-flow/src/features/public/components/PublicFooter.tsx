@@ -1,3 +1,4 @@
+import { Trans } from 'react-i18next';
 import { SalonPublicData } from '../types';
 import { useSalon } from '../sections/kit';
 
@@ -39,7 +40,7 @@ export function PublicFooter({ data }: { data: SalonPublicData }) {
       <div className="sp-wrap py-6 border-t sp-line flex flex-wrap justify-between gap-3 text-sm sp-muted">
         <span>© {new Date().getFullYear()} {name}</span>
         <a href="https://saloneo.com" target="_blank" rel="noopener noreferrer" className="hover:underline underline-offset-4">
-          {t('site.credit')} <span className="font-semibold">Saloneo</span>
+          <Trans t={t} i18nKey="site.credit_by" values={{ brand: 'Saloneo' }} components={{ b: <span className="font-semibold" /> }} />
         </a>
       </div>
       {/* room for the pinned mobile "Réserver" bar */}

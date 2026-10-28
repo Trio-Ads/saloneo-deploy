@@ -4,24 +4,24 @@
   "overview": "Overview",
   "analytics": "Analytics",
   "reports": "Reports",
-  "loading": "Loading dashboard...",
+  "loading": "Loading dashboard…",
   "widgets": {
     "revenue": "Revenue",
     "appointments": "Appointments",
     "clients": "Clients",
     "services": "Services",
-    "team_performance": "Team Performance",
-    "popular_services": "Popular Services",
-    "recent_activity": "Recent Activity",
-    "upcoming_appointments": "Upcoming Appointments",
-    "quick_actions": "Quick Actions",
-    "business_insights": "Business Insights"
+    "team_performance": "Team performance",
+    "popular_services": "Popular services",
+    "recent_activity": "Recent activity",
+    "upcoming_appointments": "Upcoming appointments",
+    "quick_actions": "Quick actions",
+    "business_insights": "Business insights"
   },
   "metrics": {
     "today": "Today",
-    "this_week": "This Week",
-    "this_month": "This Month",
-    "this_year": "This Year",
+    "this_week": "This week",
+    "this_month": "This month",
+    "this_year": "This year",
     "total": "Total",
     "growth": "Growth",
     "vs_last_period": "vs last period",
@@ -29,74 +29,76 @@
     "decrease": "Decrease"
   },
   "charts": {
-    "revenue_chart": "Revenue Chart",
-    "appointment_chart": "Appointment Chart",
-    "service_popularity": "Service Popularity",
-    "client_retention": "Client Retention",
+    "revenue_chart": "Revenue chart",
+    "appointment_chart": "Appointments chart",
+    "service_popularity": "Service popularity",
+    "client_retention": "Client retention",
     "daily": "Daily",
     "weekly": "Weekly",
     "monthly": "Monthly",
     "yearly": "Yearly"
   },
   "quick_actions": {
-    "title": "Quick Actions",
-    "new_appointment": "New Appointment",
+    "title": "Quick actions",
+    "new_appointment": "New appointment",
     "new_appointment_desc": "Schedule an appointment",
     "new_client": "New client",
     "new_client_desc": "Add a client",
-    "calendar": "Calendar",
+    "calendar": "Schedule",
     "calendar_desc": "View calendar",
     "subscription": "Subscription",
     "subscription_desc": "Manage your plan",
     "statistics": "Statistics",
     "statistics_desc": "View history",
     "settings": "Settings",
-    "settings_desc": "Configuration",
-    "new_service": "New Service",
-    "view_calendar": "View Calendar",
-    "manage_team": "Manage Team",
+    "settings_desc": "Setup",
+    "new_service": "New service",
+    "view_calendar": "View calendar",
+    "manage_team": "Manage team",
     "reports": "Reports"
   },
   "insights": {
-    "peak_hours": "Peak Hours",
-    "busiest_day": "Busiest Day",
-    "top_service": "Top Service",
-    "best_performer": "Best Performer",
-    "revenue_trend": "Revenue Trend",
-    "client_satisfaction": "Client Satisfaction"
+    "peak_hours": "Peak hours",
+    "busiest_day": "Busiest day",
+    "top_service": "Top service",
+    "best_performer": "Top performer",
+    "revenue_trend": "Revenue trend",
+    "client_satisfaction": "Client satisfaction"
   },
-  "overview_subtitle": "Here's an overview of your activity today",
-  "demo_mode": "Demo Mode",
-  "real_data": "Real Data",
+  "overview_subtitle": "Here's an overview of your day",
+  "demo_mode": "Demo mode",
+  "real_data": "Real data",
   "time_periods": {
     "day": "Day",
     "week": "Week",
     "month": "Month"
   },
   "kpis": {
-    "daily_revenue": "Daily Revenue",
-    "monthly_revenue": "Monthly Revenue",
+    "daily_revenue": "Today's revenue",
+    "monthly_revenue": "This month's revenue",
     "clients": "Clients",
     "occupancy": "Occupancy",
-    "appointments": "appointments",
     "this_month": "this month",
-    "upcoming": "upcoming"
+    "upcoming": "upcoming",
+    "appointments_one": "{{count}} appointment",
+    "appointments_other": "{{count}} appointments"
   },
   "charts_titles": {
-    "revenue_evolution": "Revenue Evolution",
-    "appointments_by_status": "Appointments by Status",
-    "popular_services": "Popular Services"
+    "revenue_evolution": "Revenue over time",
+    "appointments_by_status": "Appointments by status",
+    "popular_services": "Popular services"
   },
   "alerts": {
     "subscription_limit": "You're approaching your appointment limit ({{percentage}}% used)",
     "upgrade": "Upgrade",
     "unconfirmed_appointments": "{{count}} appointments to confirm today",
     "view": "View",
-    "loyal_clients": "{{count}} loyal clients deserve a reward",
-    "manage": "Manage"
+    "manage": "Manage",
+    "loyal_clients_one": "{{count}} loyal client deserves a reward",
+    "loyal_clients_other": "{{count}} loyal clients deserve a reward"
   },
   "recent_activity": {
-    "title": "Recent Activity",
+    "title": "Recent activity",
     "no_activity": "No recent activity",
     "actions": {
       "created": "Appointment created",
@@ -104,19 +106,19 @@
       "completed": "Appointment completed",
       "cancelled": "Appointment cancelled",
       "rescheduled": "Appointment rescheduled",
-      "no_show": "Client no-show"
+      "no_show": "Client didn't show up"
     },
     "time": {
       "just_now": "Just now",
       "minutes_ago": "{{minutes}} min ago",
-      "hours_ago": "{{hours}}h ago",
-      "days_ago": "{{days}}d ago"
+      "hours_ago": "{{hours}} h ago",
+      "days_ago": "{{days}} d ago"
     },
     "unknown_client": "Unknown client"
   },
   "components": {
     "upcoming_appointments": {
-      "title": "Upcoming Appointments",
+      "title": "Upcoming appointments",
       "no_appointments": "No upcoming appointments",
       "today": "Today",
       "tomorrow": "Tomorrow",
@@ -127,7 +129,7 @@
       }
     },
     "appointment_chart": {
-      "title": "Appointments by Status",
+      "title": "Appointments by status",
       "no_data": "No appointments for this period",
       "total": "Total",
       "statuses": {
@@ -135,27 +137,27 @@
         "confirmed": "Confirmed",
         "completed": "Completed",
         "cancelled": "Cancelled",
-        "noShow": "No Show",
+        "noShow": "No-shows",
         "rescheduled": "Rescheduled"
       }
     },
     "business_insights": {
-      "title": "Business Insights",
+      "title": "Business insights",
       "insights": {
-        "high_cancellation_title": "High Cancellation Rate",
+        "high_cancellation_title": "High cancellation rate",
         "high_cancellation_desc": "{{rate}}% cancellations this month. Consider sending SMS reminders.",
-        "top_service_title": "Most Profitable Service",
-        "top_service_desc": "\"{{service}}\" generates {{revenue}} in revenue. Consider promoting it.",
-        "loyal_clients_title": "Loyal Clients",
-        "loyal_clients_desc": "{{rate}}% of your clients have over 50 loyalty points. Create a rewards program.",
-        "popular_slot_title": "Most Popular Time Slot",
-        "popular_slot_desc": "{{slot}} is your most popular time slot. Optimize your schedule accordingly.",
-        "low_acquisition_title": "Low Client Acquisition",
+        "top_service_title": "Most profitable service",
+        "top_service_desc": "“{{service}}” brings in {{revenue}}. Consider promoting it.",
+        "loyal_clients_title": "Loyal clients",
+        "loyal_clients_desc": "{{rate}}% of your clients have more than 50 loyalty points. Set up a rewards program.",
+        "popular_slot_title": "Most popular time slot",
+        "popular_slot_desc": "{{slot}} is your most popular time slot. Plan your schedule around it.",
+        "low_acquisition_title": "Few new clients",
         "low_acquisition_desc": "No new clients this week. Launch a promotional campaign."
       }
     },
     "revenue_chart": {
-      "title": "Revenue Evolution",
+      "title": "Revenue over time",
       "tooltip": "{{value}}"
     },
     "service_popularity": {
@@ -164,9 +166,12 @@
       "other_category": "Other"
     },
     "team_performance": {
-      "title": "Team Performance",
+      "title": "Team performance",
       "no_members": "No team members",
-      "completed": "completed"
+      "unknown_member": "Unknown team member",
+      "no_role": "No role",
+      "completed_one": "{{count}} completed",
+      "completed_other": "{{count}} completed"
     }
   }
 }

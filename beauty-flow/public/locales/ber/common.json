@@ -1,42 +1,100 @@
 {
-  "save": "Sekles",
-  "cancel": "Sefsex",
-  "delete": "Kkes",
-  "edit": "Ẓreg",
-  "add": "Rnu",
-  "search": "Nadi",
-  "loading": "Asali...",
-  "error": "Tuccḍa",
-  "success": "Yedda",
-  "confirm": "Sentem",
-  "close": "Mdel",
-  "open": "Ldi",
-  "yes": "Ih",
-  "no": "Uhu",
-  "next": "Ameḍfir",
-  "previous": "Azwir",
-  "finish": "Fakk",
-  "continue": "Kemmel",
-  "back": "Uɣal",
-  "select": "Fren",
-  "upload": "Sali",
-  "download": "Sader",
-  "print": "Siggez",
-  "export": "Sifeḍ",
-  "import": "Kter",
-  "refresh": "Smiren",
-  "clear": "Sfeḍ",
-  "reset": "Ales asbeddi",
-  "apply": "Snes",
-  "remove": "Kkes",
-  "view": "Ẓer",
-  "details": "Talqayt",
-  "settings": "Iɣewwaṛen",
-  "help": "Tallalt",
-  "about": "Ɣef",
-  "contact": "Nermes",
-  "home": "Agejdan",
-  "dashboard": "Tafelwit n usenqed",
-  "profile": "Amaɣnu",
-  "logout": "Ffeɣ"
+  "navigation": {
+    "dashboard": "Tafelwit n usenqed",
+    "appointments": "Timlilin",
+    "clients": "Imsaɣen",
+    "services": "Imeẓla",
+    "products": "Ifarisen",
+    "team": "Tarbaɛt",
+    "profile": "Amaɣnu-iw",
+    "interface": "Agrudem-iw",
+    "subscription": "Ajerred",
+    "admin": "Tadbelt",
+    "home": "Agejdan",
+    "toggle_theme": "Beddel asentel",
+    "main_menu": "Umuɣ agejdan",
+    "menu": "Umuɣ",
+    "language": "Tutlayt"
+  },
+  "actions": {
+    "cancel": "Sefsex",
+    "add": "Rnu",
+    "edit": "Ẓreg",
+    "delete": "Kkes",
+    "save": "Sekles",
+    "next": "Ameḍfir",
+    "back": "Uɣal",
+    "close": "Mdel",
+    "logout": "Ffeɣ",
+    "logging_out": "Tuffɣa…",
+    "add_product": "Rnu afaris"
+  },
+  "form": {
+    "required": "Urɣan yettwasra",
+    "invalid_email": "Imayl d arameɣtu",
+    "invalid_phone": "Uṭṭun n tiliɣri d arameɣtu"
+  },
+  "common": {
+    "app_subtitle": "Asefrek atrar",
+    "loading": "Asali"
+  },
+  "modal": {
+    "close": "Mdel"
+  },
+  "toast": {
+    "close": "Mdel alɣu"
+  },
+  "user_menu": {
+    "user_name": "Aseqdac n Saloneo",
+    "user_email": "user@saloneo.com",
+    "plan_prefix": "Aɣawas",
+    "plans": {
+      "FREE": "Baṭel",
+      "STARTER": "Starter",
+      "PRO": "Pro",
+      "ENTERPRISE": "Tasbeddit"
+    },
+    "menu_items": {
+      "profile": {
+        "description": "Sefrek talɣut-ik"
+      },
+      "interface": {
+        "description": "Sagen asalun-ik"
+      },
+      "subscription": {
+        "description": "Iɣawasen d tfaturin"
+      }
+    },
+    "language_section": {
+      "title": "Tutlayt",
+      "current": "Tutlayt tamirant"
+    },
+    "version": "Saloneo v2.0.0"
+  },
+  "service_form": {
+    "titles": {
+      "new": "Ameẓlu amaynut",
+      "edit": "Ẓreg ameẓlu"
+    },
+    "subtitle": "Rnu ameẓlu n ucebbaḥ i yimsaɣen-ik",
+    "sections": {
+      "basic_info": "Talɣut tagejdant",
+      "products": "Ifarisen yettwasqedcen",
+      "photos": "Tiwlafin n umeẓlu"
+    },
+    "placeholders": {
+      "name": "Md. Tuqqsa d brushing",
+      "description": "Glem-d ameẓlu-ik s telqayt…"
+    },
+    "labels": {
+      "product": "Afaris",
+      "quantity": "Taɣzi"
+    },
+    "messages": {
+      "no_products": "Ulac afaris yellan. Rnu ifarisen deg tgezmi Ifarisen akken ad ten-tesqedceḍ dagi."
+    },
+    "units": {
+      "min": "tsd"
+    }
+  }
 }

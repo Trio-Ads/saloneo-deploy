@@ -13,7 +13,7 @@
     "by_plan": "Par plan"
   },
   "search": {
-    "placeholder": "Rechercher par nom ou email..."
+    "placeholder": "Rechercher par nom ou e-mail…"
   },
   "filters": {
     "all_plans": "Tous les plans",
@@ -23,7 +23,7 @@
   },
   "table": {
     "salon": "Salon",
-    "email": "Email",
+    "email": "E-mail",
     "plan": "Plan",
     "status": "Statut",
     "expiry": "Expiration",
@@ -59,13 +59,19 @@
     "active": "Abonnement actif",
     "cancel": "Annuler",
     "save": "Enregistrer",
-    "saving": "Enregistrement...",
+    "saving": "Enregistrement…",
     "success": "Abonnement modifié avec succès",
     "error": "Erreur lors de la modification de l'abonnement"
   },
   "feedback": {
-    "send": "Envoyer l'email de feedback",
-    "sent": "Email de feedback envoyé à {{name}}",
-    "error": "Erreur lors de l'envoi de l'email de feedback."
+    "send": "Envoyer l'e-mail de feedback",
+    "sent": "E-mail de feedback envoyé à {{name}}",
+    "error": "Erreur lors de l'envoi de l'e-mail de feedback."
+  },
+  "errors": {
+    "load_users": "Impossible de charger les utilisateurs",
+    "load_user": "Impossible de charger les détails de l'utilisateur",
+    "load_stats": "Impossible de charger les statistiques de la plateforme",
+    "update_subscription": "Impossible de mettre à jour l'abonnement"
   }
 }

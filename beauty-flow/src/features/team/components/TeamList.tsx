@@ -68,7 +68,7 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete, onAdd })
               <div className="min-w-0">
                 <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
                   <span className="truncate font-medium text-gray-900 dark:text-gray-50">{member.firstName} {member.lastName}</span>
-                  <Badge>{member.role}</Badge>
+                  <Badge>{t(`role_values.${member.role}`, member.role)}</Badge>
                 </p>
                 <p className="mt-0.5 truncate text-sm text-gray-500 dark:text-gray-400">
                   {[member.email, member.phone].filter(Boolean).join(' · ')}

@@ -16,7 +16,7 @@ import { useAdminStore } from './store';
 import { useAuthStore } from '../auth/store';
 import { AdminUser, PlanType, SubscriptionDuration } from './types';
 import { format, addMonths, addYears } from 'date-fns';
-import { fr } from 'date-fns/locale';
+import { dateLocale } from '../dashboard/dateLocale';
 
 // SubscriptionEditor Component
 interface SubscriptionEditorProps {
@@ -171,7 +171,7 @@ const SubscriptionEditor: React.FC<SubscriptionEditorProps> = ({ user, onClose, 
 };
 
 const AdminPage: React.FC = () => {
-  const { t } = useTranslation('admin');
+  const { t, i18n } = useTranslation('admin');
   const { user } = useAuthStore();
   const {
     users,
@@ -351,7 +351,7 @@ const AdminPage: React.FC = () => {
                       <td className={td}>{getStatusBadge(user.subscription?.isActive || false, user.subscription?.expiresAt)}</td>
                       <td className={`${td} tabular-nums text-gray-600 dark:text-gray-400`}>
                         {user.subscription?.expiresAt
-                          ? format(new Date(user.subscription.expiresAt), 'dd MMM yyyy', { locale: fr })
+                          ? format(new Date(user.subscription.expiresAt), 'dd MMM yyyy', { locale: dateLocale(i18n.language) })
                           : t('table.no_expiry')}
                       </td>
                       <td className={`${td} text-end`}>

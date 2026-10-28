@@ -1,37 +1,100 @@
 {
-  "general": {
-    "unknown": "Tuccḍa ur nettwassen ara",
-    "network": "Tuccḍa n uẓeḍḍa",
-    "server": "Tuccḍa n uqeddac",
-    "timeout": "Akud yezri",
-    "unauthorized": "Ur tettalaseḍ ara",
-    "forbidden": "Yegdel",
-    "notFound": "Ur yettwaf ara",
-    "conflict": "Anmegla",
-    "validation": "Tuccḍa n usentem"
+  "validation": {
+    "required": "Urǧin ilaq",
+    "email": "Sekcem tansa imayl tameɣtut",
+    "phone": "Sekcem uṭṭun n tiliɣri ameɣtu",
+    "min_length": "Ma drus {{count}} n yisekkilen i ilaqen",
+    "max_length": "Ugar {{count}} n yisekkilen i yettusirgen",
+    "password_mismatch": "Awalen uffiren ur mṣadan ara",
+    "invalid_format": "Amasal d armeɣtu",
+    "invalid_date": "Sekcem azemz ameɣtu",
+    "invalid_time": "Sekcem akud ameɣtu",
+    "future_date": "Azemz ilaq ad yili deg wazekka",
+    "past_date": "Azemz ilaq ad yili yezri"
+  },
+  "network": {
+    "connection_error": "Tuccḍa n tuqqna",
+    "timeout": "Yekfa wakud n uraǧu",
+    "server_error": "Tuccḍa n uqeddac",
+    "not_found": "Ur yettwaf ara uɣbalu",
+    "unauthorized": "Anekcum ur yettusireg ara",
+    "forbidden": "Anekcum yegdel",
+    "too_many_requests": "Aṭas n yissuturen"
   },
   "auth": {
-    "invalidCredentials": "Isefka n ukcem d iḥeqqiyen",
-    "accountLocked": "Amiḍan yettwacekkel",
-    "passwordExpired": "Awal uffir yezri",
-    "sessionExpired": "Tiɣimit tezri",
-    "emailNotVerified": "Imayl ur yettusentem ara",
-    "accountNotFound": "Amiḍan ur yettwaf ara"
-  },
-  "validation": {
-    "required": "Yettwasra",
-    "email": "Imayl d aḥeqqi",
-    "phone": "Uṭṭun n tiliɣri d aḥeqqi",
-    "password": "Awal uffir d aḥeqqi",
-    "minLength": "Teḥwaǧ {min} isekkilen",
-    "maxLength": "Ur tezmireḍ ara ad tɛeddiḍ {max} isekkilen",
-    "numeric": "Yessefk ad yili d uṭṭun",
-    "alpha": "Yessefk ad yili d isekkilen kan"
+    "invalid_credentials": "Isem n useqdac neɣ awal uffir d armeɣtu",
+    "account_locked": "Amiḍan yettwasekker",
+    "session_expired": "Tiɣimit tfuk",
+    "login_required": "Ilaq ad tkecmeḍ",
+    "insufficient_permissions": "Ur tesɛiḍ ara tisirag i ilaqen"
   },
   "booking": {
-    "timeSlotTaken": "Akud-a yettwafren yakan",
-    "staffNotAvailable": "Axeddim ur yelli ara",
-    "serviceNotAvailable": "Ameẓlu ur yelli ara",
-    "pastDate": "Ur tezmireḍ ara ad tferneḍ azemz iɛeddan"
+    "slot_unavailable": "Tallit-a ur telli ara tura",
+    "service_unavailable": "Ameẓlu-a ur yelli ara",
+    "stylist_unavailable": "Aɛeggal-a n terbaɛt ur yelli ara",
+    "booking_failed": "Aḥeǧǧez ur yeddi ara",
+    "cancellation_failed": "Asefsex ur yeddi ara",
+    "modification_failed": "Aẓrag ur yeddi ara",
+    "error": "Teḍra-d tuccḍa mi ara d-yettwarna uḥeǧǧez. Ɛreḍ tikkelt-nniḍen.",
+    "select_datetime": "Fren azemz d wakud",
+    "no_salon": "Ur nezmir ara ad naf asalun"
+  },
+  "payment": {
+    "payment_failed": "Axelleṣ ur yeddi ara",
+    "invalid_card": "Talɣut n tkarḍa d tarmeɣtut",
+    "insufficient_funds": "Ur ssawḍen ara yidrimen",
+    "payment_declined": "Axelleṣ yettwagi",
+    "transaction_error": "Tuccḍa n temhelt"
+  },
+  "general": {
+    "unexpected_error": "Ihuh! Teḍra-d tuccḍa",
+    "application_error": "Asnas yemlal-d d wugur. Yezmer ad yili seg yisefka yexsren deg tkatut tuffirt.",
+    "reload_page": "Ales asali n usebter",
+    "reset_data": "Ales awennez n yisefka",
+    "error_details": "Talqayt n tuccḍa",
+    "close_notification": "Mdel alɣu",
+    "try_again": "Ɛreḍ tikkelt-nniḍen",
+    "contact_support": "Ma yeqqim wugur, nermes tallalt",
+    "reset_app": "Ales awennez n usnas",
+    "generic": "Teḍra-d tuccḍa"
+  },
+  "salon": {
+    "not_found": "Ur yettwaf ara usalun",
+    "not_found_description": "Asalun i tettnadiḍ ulac-it."
+  },
+  "template": {
+    "not_found": "Ur tettwaf ara tmudemt",
+    "not_found_description": "Tamudemt i tferneḍ ur telli ara."
+  },
+  "service": {
+    "not_found": "Ur yettwaf ara umeẓlu"
+  },
+  "loading": {
+    "please_wait": "Rǧu ciṭ…",
+    "loading": "Asali…"
+  },
+  "store": {
+    "load_clients": "Tuccḍa deg usali n yimsaɣen",
+    "create_client": "Tuccḍa deg tmerna n umsaɣ",
+    "update_client": "Tuccḍa deg uleqqem n umsaɣ",
+    "delete_client": "Tuccḍa deg tukksa n umsaɣ",
+    "load_services": "Tuccḍa deg usali n yimeẓla",
+    "create_service": "Tuccḍa deg tmerna n umeẓlu",
+    "update_service": "Tuccḍa deg uleqqem n umeẓlu",
+    "delete_service": "Tuccḍa deg tukksa n umeẓlu",
+    "load_products": "Tuccḍa deg usali n yifarisen",
+    "create_product": "Tuccḍa deg tmerna n ufaris",
+    "update_product": "Tuccḍa deg uleqqem n ufaris",
+    "delete_product": "Tuccḍa deg tukksa n ufaris",
+    "update_quantity": "Tuccḍa deg uleqqem n tkemmiyt",
+    "no_user_data": "Ulac isefka n useqdac",
+    "load_profile": "Tuccḍa deg usali n umaɣnu",
+    "update_profile": "Tuccḍa deg uleqqem n umaɣnu",
+    "update_language": "Tuccḍa deg uleqqem n tutlayt",
+    "load": "Tuccḍa deg usali",
+    "activate": "Tuccḍa deg urmad",
+    "update": "Tuccḍa deg uleqqem",
+    "generate": "Tuccḍa deg usirew",
+    "request": "Tuccḍa deg usuter"
   }
 }

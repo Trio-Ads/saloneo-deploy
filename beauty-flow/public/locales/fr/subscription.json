@@ -21,69 +21,26 @@
       "appointments": "rendez-vous",
       "clients": "clients",
       "services": "services",
-      "team_members_one": "membre d'équipe",
-      "team_members": "membres d'équipe",
+      "team_members_one": "membre de l'équipe",
       "stock": "Gestion de stock",
       "online_booking": "Réservation en ligne",
-      "custom_interface": "Interface personnalisable"
+      "custom_interface": "Interface personnalisable",
+      "team_members_other": "membres de l'équipe"
     }
   },
   "page": {
     "title": "Choisissez votre plan",
-    "subtitle": "Changez de plan à tout moment. Paiement sécurisé par carte CIB via SATIM.",
-    "why_choose": "Pourquoi choisir Saloneo ?",
-    "why_subtitle": "La solution complète pour faire prospérer votre salon de beauté"
-  },
-  "features": {
-    "security": {
-      "title": "Sécurité Premium",
-      "description": "Vos données sont protégées avec un chiffrement de niveau bancaire"
-    },
-    "growth": {
-      "title": "Croissance Garantie",
-      "description": "Augmentez votre chiffre d'affaires de 30% en moyenne"
-    },
-    "support": {
-      "title": "Support 24/7",
-      "description": "Une équipe dédiée pour vous accompagner à chaque étape"
-    }
-  },
-  "badges": {
-    "free_trial": "Essai gratuit 14 jours",
-    "no_commitment": "Sans engagement",
-    "premium_support": "Support premium"
-  },
-  "promotion": {
-    "limited_offer": "🔥 OFFRE LIMITÉE : -40% sur tous les plans ! 🔥"
-  },
-  "testimonials": {
-    "title": "Ce que disent nos clients",
-    "subtitle": "Plus de 10,000 professionnels nous font confiance",
-    "marie": {
-      "name": "Marie Dubois",
-      "salon": "Salon Élégance",
-      "text": "Saloneo a transformé ma façon de travailler. +50% de réservations en 3 mois !"
-    },
-    "sophie": {
-      "name": "Sophie Martin",
-      "salon": "Beauty Paradise",
-      "text": "Interface intuitive et support exceptionnel. Je recommande vivement !"
-    },
-    "amelie": {
-      "name": "Amélie Laurent",
-      "salon": "Coiffure Moderne",
-      "text": "Mes clients adorent pouvoir réserver en ligne. Un vrai plus pour mon salon !"
-    }
+    "subtitle": "Changez de plan à tout moment. Paiement sécurisé par carte CIB via SATIM."
   },
   "faq": {
     "title": "Questions fréquentes",
     "change_plan": {
       "q": "Puis-je changer de plan à tout moment ?",
-      "a": "Oui, vous pouvez upgrader ou downgrader votre plan à tout moment. Les changements prennent effet immédiatement."
+      "a": "Oui, vous pouvez passer à un plan supérieur ou inférieur à tout moment. Les changements prennent effet immédiatement."
     },
     "hidden_fees": {
       "q": "Y a-t-il des frais cachés ?",
-      "a": "Aucun frais caché ! Le prix affiché est tout compris. Pas de frais de setup, pas de commission sur les ventes."
+      "a": "Aucun frais caché. Le prix affiché est tout compris : pas de frais d'installation, pas de commission sur les ventes."
     },
     "cancel": {
       "q": "Que se passe-t-il si j'annule mon abonnement ?",
@@ -117,11 +74,11 @@
     },
     "info": "En cliquant sur \"Procéder au paiement\", vous serez redirigé vers la plateforme sécurisée SATIM pour finaliser votre paiement.",
     "proceed": "Procéder au paiement",
-    "processing": "Traitement en cours...",
+    "processing": "Traitement en cours…",
     "security_notice": "Votre paiement est sécurisé par le protocole SATIM",
     "accept_terms": "J'accepte les conditions générales de vente et la politique de confidentialité",
     "read_terms": "Lire les conditions",
-    "terms_title": "Conditions Générales de Vente",
+    "terms_title": "Conditions générales de vente",
     "terms_content": "En effectuant ce paiement, vous acceptez les conditions générales de vente de Saloneo ainsi que les conditions de SATIM pour le traitement des paiements.",
     "terms_content2": "Votre paiement est sécurisé et vos informations bancaires ne sont pas stockées sur nos serveurs.",
     "terms_required": "Vous devez accepter les conditions générales pour continuer",
@@ -129,19 +86,41 @@
   },
   "limits": {
     "clients_reached": "Limite de clients atteinte",
-    "team_reached": "Limite de membres d'équipe atteinte",
+    "team_reached": "Limite de membres de l'équipe atteinte",
     "services_reached": "Limite de services atteinte",
     "products_reached": "Limite de produits atteinte",
     "upgrade_plan": "Mettre à niveau votre plan",
     "back": "Retour",
-    "see_plans": "Voir les plans"
+    "see_plans": "Voir les plans",
+    "messages": {
+      "clients_one": "Limite de {{count}} client atteinte. Passez à un plan supérieur pour continuer.",
+      "clients_other": "Limite de {{count}} clients atteinte. Passez à un plan supérieur pour continuer.",
+      "services_one": "Limite de {{count}} service atteinte. Passez à un plan supérieur pour continuer.",
+      "services_other": "Limite de {{count}} services atteinte. Passez à un plan supérieur pour continuer.",
+      "team_one": "Limite de {{count}} membre de l'équipe atteinte. Passez à un plan supérieur pour continuer.",
+      "team_other": "Limite de {{count}} membres de l'équipe atteinte. Passez à un plan supérieur pour continuer.",
+      "appointments_one": "Limite de {{count}} rendez-vous atteinte. Passez à un plan supérieur pour continuer.",
+      "appointments_other": "Limite de {{count}} rendez-vous atteinte. Passez à un plan supérieur pour continuer.",
+      "products_one": "Limite de {{count}} produit atteinte pour le plan {{plan}}.",
+      "products_other": "Limite de {{count}} produits atteinte pour le plan {{plan}}.",
+      "products_remaining_one": "Vous pouvez encore créer {{count}} produit.",
+      "products_remaining_other": "Vous pouvez encore créer {{count}} produits.",
+      "products_unlimited": "Vous pouvez créer un nombre illimité de produits.",
+      "usage_error": "Impossible de charger les statistiques d'utilisation."
+    },
+    "upgrade": {
+      "FREE": "Passez au plan Starter pour débloquer plus de fonctionnalités.",
+      "STARTER": "Passez au plan Pro pour augmenter vos limites.",
+      "PRO": "Passez au plan Entreprise pour un usage illimité.",
+      "ENTERPRISE": "Contactez-nous pour un plan personnalisé."
+    }
   },
   "widget": {
     "usage": "Plan {{plan}} · {{current}} / {{limit}} {{resource}}",
     "usage_unlimited": "Plan {{plan}} · {{resource}} illimités",
     "near_limit": "{{current}} / {{limit}} {{resource}} utilisés, limite bientôt atteinte",
     "at_limit": "Limite de {{limit}} {{resource}} atteinte",
-    "title": "Votre Abonnement",
+    "title": "Votre abonnement",
     "manage": "Gérer",
     "unlimited": "Illimité",
     "used": "Utilisés",
@@ -161,20 +140,20 @@
       "support": "Bénéficier du support prioritaire"
     },
     "continue": "Accéder à mon tableau de bord",
-    "email_sent": "Un email de confirmation a été envoyé à votre adresse.",
+    "email_sent": "Un e-mail de confirmation a été envoyé à votre adresse.",
     "transaction": {
       "title": "Détails de la transaction",
       "id": "Numéro de transaction",
       "date": "Date",
       "time": "Heure",
-      "method": "Méthode de paiement",
+      "method": "Moyen de paiement",
       "amount": "Montant",
       "disclaimer": "Cette transaction a été traitée par SATIM. Conservez ces informations pour référence future.",
       "support": "Pour toute question concernant votre paiement, contactez le support SATIM au 3020."
     }
   },
   "failed": {
-    "title": "Paiement échoué",
+    "title": "Échec du paiement",
     "help": {
       "title": "Que faire maintenant ?",
       "check_card": "Vérifiez que votre carte est valide et dispose de fonds suffisants",
@@ -202,26 +181,24 @@
         "Jusqu'à 10 rendez-vous par mois",
         "Jusqu'à 5 clients",
         "Gestion de services de base",
-        "Support par email"
+        "Support par e-mail"
       ]
     },
     "starter": {
       "name": "Starter",
       "description": "Idéal pour les petits salons",
-      "price": "$29",
       "features": [
         "Jusqu'à 100 rendez-vous par mois",
         "Jusqu'à 50 clients",
         "Gestion complète des services",
         "Gestion d'équipe (jusqu'à 3 membres)",
         "Analyses de base",
-        "Support par email"
+        "Support par e-mail"
       ]
     },
     "professional": {
-      "name": "Professionnel",
+      "name": "Pro",
       "description": "Pour les entreprises en croissance",
-      "price": "$79",
       "features": [
         "Jusqu'à 500 rendez-vous par mois",
         "Jusqu'à 200 clients",
@@ -235,7 +212,6 @@
     "enterprise": {
       "name": "Entreprise",
       "description": "Pour les grands salons et chaînes",
-      "price": "$199",
       "features": [
         "Rendez-vous illimités",
         "Clients illimités",
@@ -251,20 +227,20 @@
   "billing": {
     "monthly": "Mensuel",
     "yearly": "Annuel",
-    "save_percent": "Économisez {{percent}}%",
+    "save_percent": "Économisez {{percent}} %",
     "billed_monthly": "Facturé mensuellement",
     "billed_yearly": "Facturé annuellement",
     "per_month": "par mois",
     "per_year": "par an"
   },
   "actions": {
-    "choose_plan": "Choisir le Plan",
-    "current_plan": "Plan Actuel",
+    "choose_plan": "Choisir le plan",
+    "current_plan": "Plan actuel",
     "upgrade": "Mettre à niveau",
     "downgrade": "Rétrograder",
-    "cancel": "Annuler l'Abonnement",
+    "cancel": "Annuler l'abonnement",
     "reactivate": "Réactiver",
-    "change_plan": "Changer de Plan"
+    "change_plan": "Changer de plan"
   },
   "status": {
     "active": "Actif",
@@ -285,8 +261,24 @@
   },
   "resources": {
     "clients": "clients",
-      "team": "membres d'équipe",
-      "services": "services",
-      "products": "produits"
+    "team": "membres de l'équipe",
+    "services": "services",
+    "products": "produits"
+  },
+  "payment_errors": {
+    "init": "Erreur lors de l'initialisation du paiement",
+    "status": "Erreur lors de la vérification du statut du paiement",
+    "history": "Erreur lors de la récupération de l'historique",
+    "fallback_link": "Cliquez ici pour accéder à la page de paiement",
+    "fallback_message": "Si vous n'êtes pas redirigé automatiquement vers la page de paiement, cliquez sur le bouton ci-dessous :",
+    "redirect": "Une erreur est survenue lors de la redirection. Veuillez réessayer ou contacter le support.",
+    "codes": {
+      "missing_transaction": "Transaction manquante",
+      "transaction_not_found": "Transaction introuvable",
+      "payment_failed": "Le paiement a échoué",
+      "payment_cancelled": "Le paiement a été annulé",
+      "processing_error": "Erreur lors du traitement",
+      "invalid_transaction": "Transaction invalide"
+    }
   }
 }

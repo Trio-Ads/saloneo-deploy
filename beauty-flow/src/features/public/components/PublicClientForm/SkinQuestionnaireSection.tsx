@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { SkinQuestionnaire } from '../../../clients/types';
 
 interface SkinQuestionnaireSectionProps {
@@ -10,6 +11,7 @@ const SkinQuestionnaireSection: React.FC<SkinQuestionnaireSectionProps> = ({
   values,
   onChange,
 }) => {
+  const { t } = useTranslation('public');
 
   const skinTypes = [
     'Normale',
@@ -48,7 +50,7 @@ const SkinQuestionnaireSection: React.FC<SkinQuestionnaireSectionProps> = ({
         {/* Type de peau */}
         <div>
           <label className="bk-label">
-            Type de peau
+            {t('booking.questionnaire.skin_type')}
           </label>
           <div className="grid grid-cols-2 gap-2">
             {skinTypes.map((type) => (
@@ -58,7 +60,7 @@ const SkinQuestionnaireSection: React.FC<SkinQuestionnaireSectionProps> = ({
                 onClick={() => onChange('skinType', type as SkinQuestionnaire['skinType'])}
                 className="bk-option" aria-pressed={values.skinType === type}
               >
-                {type}
+                {t(`booking.questionnaire.values.${type}`, type)}
               </button>
             ))}
           </div>
@@ -67,7 +69,7 @@ const SkinQuestionnaireSection: React.FC<SkinQuestionnaireSectionProps> = ({
         {/* Sensibilité */}
         <div>
           <label className="bk-label">
-            Niveau de sensibilité
+            {t('booking.questionnaire.sensitivity')}
           </label>
           <div className="grid grid-cols-3 gap-2">
             {sensitivityLevels.map((level) => (
@@ -77,7 +79,7 @@ const SkinQuestionnaireSection: React.FC<SkinQuestionnaireSectionProps> = ({
                 onClick={() => onChange('sensitivity', level as SkinQuestionnaire['sensitivity'])}
                 className="bk-option" aria-pressed={values.sensitivity === level as any}
               >
-                {level}
+                {t(`booking.questionnaire.values.${level}`, level)}
               </button>
             ))}
           </div>
@@ -86,7 +88,7 @@ const SkinQuestionnaireSection: React.FC<SkinQuestionnaireSectionProps> = ({
         {/* Problèmes de peau */}
         <div>
           <label className="bk-label">
-            Problèmes de peau
+            {t('booking.questionnaire.skin_problems')}
           </label>
           <div className="space-y-2">
             {skinProblems.map((problem) => (
@@ -103,7 +105,7 @@ const SkinQuestionnaireSection: React.FC<SkinQuestionnaireSectionProps> = ({
                   className="h-5 w-5 shrink-0 accent-[var(--bk-primary)]"
                 />
                 <span className="text-sm">
-                  {problem}
+                  {t(`booking.questionnaire.values.${problem}`, problem)}
                 </span>
               </label>
             ))}
@@ -113,7 +115,7 @@ const SkinQuestionnaireSection: React.FC<SkinQuestionnaireSectionProps> = ({
         {/* Zones de préoccupation */}
         <div>
           <label className="bk-label">
-            Zones de préoccupation principales
+            {t('booking.questionnaire.concern_areas')}
           </label>
           <div className="space-y-2">
             {concernAreas.map((area) => (
@@ -130,7 +132,7 @@ const SkinQuestionnaireSection: React.FC<SkinQuestionnaireSectionProps> = ({
                   className="h-5 w-5 shrink-0 accent-[var(--bk-primary)]"
                 />
                 <span className="text-sm">
-                  {area}
+                  {t(`booking.questionnaire.values.${area}`, area)}
                 </span>
               </label>
             ))}
@@ -140,42 +142,42 @@ const SkinQuestionnaireSection: React.FC<SkinQuestionnaireSectionProps> = ({
         {/* Produits actuels */}
         <div>
           <label className="bk-label">
-            Produits actuellement utilisés
+            {t('booking.questionnaire.current_products')}
           </label>
           <textarea
             value={values.currentProducts || ''}
             onChange={(e) => onChange('currentProducts', e.target.value)}
             rows={3}
             className="bk-field"
-            placeholder="Listez les produits que vous utilisez actuellement..."
+            placeholder={t('booking.questionnaire.current_products_placeholder')}
           />
         </div>
 
         {/* Allergies */}
         <div>
           <label className="bk-label">
-            Allergies connues
+            {t('booking.questionnaire.allergies')}
           </label>
           <textarea
             value={values.allergies || ''}
             onChange={(e) => onChange('allergies', e.target.value)}
             rows={2}
             className="bk-field"
-            placeholder="Mentionnez toute allergie aux produits cosmétiques..."
+            placeholder={t('booking.questionnaire.skin_allergies_placeholder')}
           />
         </div>
 
         {/* Réactions passées */}
         <div>
           <label className="bk-label">
-            Réactions passées aux traitements
+            {t('booking.questionnaire.past_reactions')}
           </label>
           <textarea
             value={values.pastReactions || ''}
             onChange={(e) => onChange('pastReactions', e.target.value)}
             rows={2}
             className="bk-field"
-            placeholder="Décrivez toute réaction négative passée à des traitements..."
+            placeholder={t('booking.questionnaire.past_reactions_placeholder')}
           />
         </div>
       </div>

@@ -1,7 +1,7 @@
 {
   "validation": {
     "required": "Ce champ est obligatoire",
-    "email": "Veuillez saisir une adresse email valide",
+    "email": "Veuillez saisir une adresse e-mail valide",
     "phone": "Veuillez saisir un numéro de téléphone valide",
     "min_length": "Minimum {{count}} caractères requis",
     "max_length": "Maximum {{count}} caractères autorisés",
@@ -16,7 +16,7 @@
     "connection_error": "Erreur de connexion",
     "timeout": "Délai d'attente dépassé",
     "server_error": "Erreur serveur",
-    "not_found": "Ressource non trouvée",
+    "not_found": "Ressource introuvable",
     "unauthorized": "Accès non autorisé",
     "forbidden": "Accès interdit",
     "too_many_requests": "Trop de requêtes"
@@ -31,11 +31,13 @@
   "booking": {
     "slot_unavailable": "Ce créneau horaire n'est plus disponible",
     "service_unavailable": "Ce service n'est pas disponible",
-    "stylist_unavailable": "Ce coiffeur n'est pas disponible",
+    "stylist_unavailable": "Ce membre de l'équipe n'est pas disponible",
     "booking_failed": "Échec de la réservation",
     "cancellation_failed": "Échec de l'annulation",
     "modification_failed": "Échec de la modification",
-    "error": "Une erreur est survenue lors de la création de la réservation. Veuillez réessayer."
+    "error": "Une erreur est survenue lors de la création de la réservation. Veuillez réessayer.",
+    "select_datetime": "Veuillez sélectionner une date et une heure",
+    "no_salon": "Impossible de déterminer le salon"
   },
   "payment": {
     "payment_failed": "Échec du paiement",
@@ -52,21 +54,47 @@
     "error_details": "Détails de l'erreur",
     "close_notification": "Fermer la notification",
     "try_again": "Veuillez réessayer",
-    "contact_support": "Veuillez contacter le support si le problème persiste"
+    "contact_support": "Veuillez contacter le support si le problème persiste",
+    "reset_app": "Réinitialiser l'application",
+    "generic": "Une erreur est survenue"
   },
   "salon": {
-    "not_found": "Salon non trouvé",
+    "not_found": "Salon introuvable",
     "not_found_description": "Le salon que vous recherchez n'existe pas."
   },
   "template": {
-    "not_found": "Template non trouvé",
-    "not_found_description": "Le template sélectionné n'est pas disponible."
+    "not_found": "Modèle introuvable",
+    "not_found_description": "Le modèle sélectionné n'est pas disponible."
   },
   "service": {
-    "not_found": "Service non trouvé"
+    "not_found": "Service introuvable"
   },
   "loading": {
     "please_wait": "Veuillez patienter",
-    "loading": "Chargement en cours..."
+    "loading": "Chargement en cours…"
+  },
+  "store": {
+    "load_clients": "Erreur lors du chargement des clients",
+    "create_client": "Erreur lors de la création du client",
+    "update_client": "Erreur lors de la mise à jour du client",
+    "delete_client": "Erreur lors de la suppression du client",
+    "load_services": "Erreur lors du chargement des services",
+    "create_service": "Erreur lors de la création du service",
+    "update_service": "Erreur lors de la mise à jour du service",
+    "delete_service": "Erreur lors de la suppression du service",
+    "load_products": "Erreur lors du chargement des produits",
+    "create_product": "Erreur lors de la création du produit",
+    "update_product": "Erreur lors de la mise à jour du produit",
+    "delete_product": "Erreur lors de la suppression du produit",
+    "update_quantity": "Erreur lors de la mise à jour de la quantité",
+    "no_user_data": "Aucune donnée utilisateur trouvée",
+    "load_profile": "Erreur lors du chargement du profil",
+    "update_profile": "Erreur lors de la mise à jour du profil",
+    "update_language": "Erreur lors de la mise à jour de la langue",
+    "load": "Erreur lors du chargement",
+    "activate": "Erreur lors de l'activation",
+    "update": "Erreur lors de la mise à jour",
+    "generate": "Erreur lors de la génération",
+    "request": "Erreur lors de la demande"
   }
 }

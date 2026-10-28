@@ -1,41 +1,35 @@
 {
-  "title": "Services",
-  "new_service": "Nouveau service",
-  "edit_service": "Modifier le service",
-  "service_details": "Détails du service",
-  "all_services": "Tous les services",
-  "active_services": "Services actifs",
-  "inactive_services": "Services inactifs",
-  "popular_services": "Services populaires",
+  "title": "Servicios",
+  "subtitle": "Cree y gestione sus servicios de belleza",
+  "new_service": "Nuevo servicio",
+  "edit_service": "Editar el servicio",
+  "service_details": "Detalles del servicio",
+  "all_services": "Todos los servicios",
+  "active_services": "Servicios activos",
+  "inactive_services": "Servicios inactivos",
+  "popular_services": "Servicios populares",
   "form": {
-    "name": "Nom du service",
-    "description": "Description",
-    "duration": "Durée",
-    "price": "Prix",
-    "category": "Catégorie",
-    "stylist": "Estilista",
-    "products": "Produits utilisés",
-    "images": "Imágenes",
-    "status": "Statut",
-    "notes": "Notas",
-    "preparation_time": "Tiempo de preparación",
-    "cleanup_time": "Tiempo de limpieza",
-    "image": "Image",
-    "tags": "Étiquettes",
-    "instructions": "Instructions",
-    "preparation": "Préparation",
-    "aftercare": "Soins post-traitement",
-    "equipment": "Équipement nécessaire",
-    "skill_level": "Niveau de compétence",
-    "commission": "Commission",
-    "discount": "Remise",
-    "add_image": "Ajouter une image",
-    "remove_image": "Supprimer l'image",
-    "save": "Sekles",
-    "cancel": "Sefsex",
+    "name": "Nombre del servicio",
+    "description": "Descripción",
+    "category": "Categoría",
+    "duration": "Duración",
+    "price": "Precio",
+    "image": "Imagen",
+    "status": "Estado",
+    "tags": "Etiquetas",
+    "instructions": "Instrucciones",
+    "preparation": "Preparación",
+    "aftercare": "Cuidados posteriores",
+    "equipment": "Equipo necesario",
+    "products": "Productos utilizados",
+    "skill_level": "Nivel de competencia",
+    "commission": "Comisión",
+    "discount": "Descuento",
+    "add_image": "Añadir una imagen",
+    "remove_image": "Eliminar la imagen",
     "online_settings": {
       "available_online": "Disponible en línea",
-      "minimum_booking_time": "Tiempo mínimo de reserva",
+      "minimum_booking_time": "Antelación mínima de reserva",
       "booking_times": {
         "1": "1 hora de antelación",
         "2": "2 horas de antelación",
@@ -43,294 +37,194 @@
         "12": "12 horas de antelación",
         "24": "24 horas de antelación (1 día)",
         "48": "48 horas de antelación (2 días)"
-      }
+      },
+      "section": "Reserva en línea",
+      "help": "Sus clientes pueden reservar este servicio desde su página pública."
     }
   },
-  "placeholders": {
-    "name": "Ej: Corte y peinado",
-    "description": "Describe tu servicio en detalle...",
-    "duration": "60",
-    "price": "50.00",
-    "notes": "Notas adicionales sobre el servicio..."
-  },
   "categories": {
-    "haircut": "Coupe",
-    "coloring": "Coloration",
-    "styling": "Coiffage",
-    "treatment": "Soin",
-    "manicure": "Manucure",
-    "pedicure": "Pédicure",
-    "facial": "Soin du visage",
-    "massage": "Massage",
-    "waxing": "Épilation",
-    "eyebrows": "Sourcils",
-    "makeup": "Maquillage",
-    "other": "Otro",
-    "eyelashes": "Cils"
+    "haircut": "Corte",
+    "coloring": "Coloración",
+    "styling": "Peinado",
+    "treatment": "Tratamiento",
+    "manicure": "Manicura",
+    "pedicure": "Pedicura",
+    "facial": "Tratamiento facial",
+    "massage": "Masaje",
+    "waxing": "Depilación",
+    "makeup": "Maquillaje",
+    "eyebrows": "Cejas",
+    "eyelashes": "Pestañas"
   },
-  "status": {
-    "active": "Activo",
-    "inactive": "Inactivo",
-    "draft": "Borrador"
-  },
-  "actions": {
-    "add_service": "Ajouter un service",
-    "edit": "Modifier",
-    "delete": "Supprimer",
-    "duplicate": "Dupliquer",
-    "activate": "Activer",
-    "deactivate": "Désactiver",
-    "view_bookings": "Voir les réservations",
-    "add_to_menu": "Añadir al menú",
-    "new_service": "Nouveau Service",
-    "create_service": "Créer un service",
-    "limit_reached": "Limite atteinte",
-    "set_price": "Définir le prix",
-    "upload_image": "Télécharger une image"
-  },
-  "filters": {
-    "search": "Rechercher des services...",
-    "all_categories": "Toutes les catégories",
-    "all_status": "Tous les statuts",
-    "all_stylists": "Todos los estilistas",
-    "price_range": "Gamme de prix",
-    "duration_range": "Durée",
-    "search_placeholder": "Rechercher un service...",
-    "popularity": "Popularité"
-  },
-  "statistics": {
-    "total_services": "Total des services",
-    "active_services": "Services actifs",
-    "most_popular": "Más popular",
-    "average_price": "Prix moyen",
-    "average_duration": "Durée moyenne",
-    "total_bookings": "Total des réservations",
-    "popular_services": "Services populaires",
-    "revenue": "Chiffre d'affaires"
-  },
-  "messages": {
-    "service_created": "Service créé avec succès",
-    "service_updated": "Service mis à jour avec succès",
-    "service_deleted": "Service supprimé avec succès",
-    "service_activated": "Service activé avec succès",
-    "service_deactivated": "Service désactivé avec succès",
-    "no_services": "Aucun service trouvé",
-    "loading": "Chargement des services...",
-    "confirm_delete": "Êtes-vous sûr de vouloir supprimer ce service ?",
-    "confirm_deactivate": "¿Estás seguro de que quieres desactivar este servicio?",
-    "delete_confirmation": "Êtes-vous sûr de vouloir supprimer ce service ?",
-    "try_filters": "Essayez de modifier vos filtres de recherche",
-    "create_first": "Commencez par créer votre premier service",
-    "image_uploaded": "Image téléchargée avec succès",
-    "image_upload_failed": "Échec du téléchargement de l'image"
-  },
-  "units": {
+  "duration": {
     "minutes": "minutos",
     "hours": "horas",
     "min": "min",
     "h": "h"
   },
-  "page_title": "Gestión de Servicios",
-  "page_subtitle": "Crea y gestiona tu carta de servicios de belleza",
-  "loading": {
-    "services": "Cargando tus servicios...",
-    "preparing": "Preparando tu carta de servicios"
+  "actions": {
+    "add_service": "Añadir un servicio",
+    "new_service": "Nuevo servicio",
+    "create_service": "Crear un servicio",
+    "limit_reached": "Límite alcanzado",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "duplicate": "Duplicar",
+    "activate": "Activar",
+    "deactivate": "Desactivar",
+    "view_bookings": "Ver las reservas",
+    "set_price": "Definir el precio",
+    "upload_image": "Subir una imagen"
   },
-  "stats": {
-    "services_total_badge": "servicios en total",
-    "active_services_badge": "servicios activos",
-    "total": "Total",
-    "all_services": "Tous les services",
-    "active_title": "Servicios Activos",
-    "active_description": "Disponibles para reserva",
-    "popular_title": "Más Populares",
-    "popular_description": "Servicios más solicitados",
-    "revenue_title": "Ingresos por Servicios",
-    "revenue_description": "Ingresos generados",
-    "categories": "Catégories",
-    "service_types": "Types de services",
-    "avg_duration": "Durée Moy.",
-    "avg_time": "Temps moyen",
-    "avg_price": "Prix Moyen",
-    "avg_rate": "Tarif moyen"
+  "filters": {
+    "search": "Buscar servicios…",
+    "search_placeholder": "Buscar un servicio…",
+    "all_categories": "Todas las categorías",
+    "all_status": "Todos los estados",
+    "price_range": "Rango de precios",
+    "duration_range": "Duración",
+    "popularity": "Popularidad"
   },
   "search": {
-    "placeholder": "Rechercher un service...",
-    "results": "service(s) trouvé(s)",
-    "for": "pour",
-    "in": "dans"
+    "placeholder": "Buscar un servicio…",
+    "results_one": "{{count}} servicio encontrado",
+    "results_other": "{{count}} servicios encontrados"
   },
-  "empty_state": {
+  "statistics": {
+    "total_services": "Total de servicios",
+    "active_services": "Servicios activos",
+    "popular_services": "Servicios populares",
+    "average_price": "Precio medio",
+    "average_duration": "Duración media",
+    "total_bookings": "Total de reservas",
+    "revenue": "Ingresos"
+  },
+  "stats": {
+    "total": "Total",
+    "categories": "Categorías",
+    "service_types": "Tipos de servicios",
+    "avg_duration": "Duración media",
+    "avg_time": "Tiempo medio",
+    "avg_price": "Precio medio",
+    "avg_rate": "Tarifa media",
+    "all_services": "Todos los servicios"
+  },
+  "stats_text": {
+    "total_services": "servicios en total",
+    "categories": "categorías"
+  },
+  "messages": {
+    "service_created": "Servicio creado correctamente",
+    "service_updated": "Servicio actualizado correctamente",
+    "service_deleted": "Servicio eliminado correctamente",
+    "service_activated": "Servicio activado correctamente",
+    "service_deactivated": "Servicio desactivado correctamente",
     "no_services": "No se encontraron servicios",
-    "modify_filters": "Intenta modificar tus filtros de búsqueda",
-    "create_first": "Comienza creando tu primer servicio",
-    "create_service": "Crear servicio"
+    "loading": "Cargando los servicios…",
+    "confirm_delete": "¿Seguro que desea eliminar este servicio?",
+    "delete_confirmation": "¿Seguro que desea eliminar este servicio?",
+    "try_filters": "Pruebe a cambiar los filtros de búsqueda",
+    "create_first": "Empiece creando su primer servicio",
+    "image_uploaded": "Imagen subida correctamente",
+    "image_upload_failed": "No se pudo subir la imagen"
   },
-  "service_form": {
-    "title_new": "Nuevo Servicio",
-    "title_edit": "Editar Servicio",
-    "subtitle": "Crea un servicio de belleza personalizado para tus clientes",
-    "sections": {
-      "basic_info": "Información Básica",
-      "pricing_duration": "Precio y Duración",
-      "products": "Productos utilizados",
-      "photos": "Fotos del Servicio"
-    },
-    "labels": {
-      "service_name": "Nombre del servicio *",
-      "category": "Categoría *",
-      "description": "Descripción",
-      "duration": "Duración (minutos) *",
-      "price": "Precio *",
-      "products_used": "Productos utilizados",
-      "service_photos": "Fotos del servicio"
-    },
-    "placeholders": {
-      "enter_name": "Ej: Corte y peinado",
-      "select_category": "Seleccionar categoría...",
-      "enter_description": "Describe tu servicio en detalle...",
-      "enter_duration": "60",
-      "enter_price": "50.00"
-    },
-    "buttons": {
-      "cancel": "Cancelar",
-      "create": "Crear Servicio",
-      "modify": "Modificar"
-    },
-    "messages": {
-      "no_products": "No hay productos disponibles. Añade productos en la sección Inventario para usarlos aquí."
-    },
-    "product_labels": {
-      "product": "Producto",
-      "quantity": "Cantidad"
-    }
-  },
-  "service_list": {
-    "empty_state": {
-      "title": "Ningún servicio creado",
-      "subtitle": "Comienza creando tu carta de servicios",
-      "cta": "Crea tu primer servicio"
-    },
-    "service_card": {
-      "duration_label": "Duración:",
-      "price_label": "Precio:",
-      "category_label": "Categoría:",
-      "products_used": "Productos utilizados:",
-      "no_products": "Sin productos"
-    },
-    "tooltips": {
-      "edit_service": "Editar servicio",
-      "delete_service": "Eliminar servicio",
-      "duplicate_service": "Duplicar servicio"
-    }
+  "limits": {
+    "title": "Límite de servicios",
+    "resource": "servicios"
   },
   "products": {
-    "title": "Gestion des Stocks",
-    "new_product": "Nuevo producto",
-    "edit_product": "Editar producto",
-    "product_details": "Detalles del producto",
-    "all_products": "Todos los productos",
-    "low_stock": "Stock faible",
-    "out_of_stock": "Sin stock",
-    "form": {
-      "name": "Nombre del producto",
-      "brand": "Marca",
-      "category": "Categoría",
-      "price": "Precio",
-      "cost": "Costo",
-      "stock": "Stock",
-      "min_stock": "Stock mínimo",
-      "supplier": "Proveedor",
-      "barcode": "Código de barras",
-      "description": "Descripción",
-      "expiry_date": "Fecha de vencimiento"
-    },
-    "categories": {
-      "shampoo": "Champú",
-      "conditioner": "Acondicionador",
-      "hair_color": "Tinte para cabello",
-      "styling_product": "Producto de peinado",
-      "nail_polish": "Esmalte de uñas",
-      "skincare": "Cuidado de la piel",
-      "makeup": "Maquillaje",
-      "tools": "Herramientas",
-      "other": "Otro"
-    },
-    "actions": {
-      "add_product": "Añadir producto",
-      "edit": "Editar",
-      "delete": "Eliminar",
-      "restock": "Reabastecer",
-      "view_usage": "Ver uso"
-    },
-    "messages": {
-      "product_created": "Producto creado con éxito",
-      "product_updated": "Producto actualizado con éxito",
-      "product_deleted": "Producto eliminado con éxito",
-      "low_stock_alert": "Stock bajo para algunos productos",
-      "out_of_stock_alert": "Algunos productos están agotados"
-    },
-    "subtitle": "Gérez vos produits et leurs quantités en stock",
-    "add_product": "Ajouter un Produit",
-    "stock_report": "Rapport de Stock",
+    "title": "Gestión del inventario",
+    "subtitle": "Gestione sus productos y sus cantidades en stock",
+    "add_product": "Añadir un producto",
+    "stock_report": "Informe de stock",
     "stats": {
-      "total": "Total Produits",
-      "all_products": "Tous les produits",
-      "units": "Unités",
-      "unit_types": "Types d'unités",
-      "low_stock": "Stock Faible",
-      "stock_alerts": "Alertes de stock",
-      "out_of_stock": "Rupture",
-      "stock_depleted": "Stock épuisé"
+      "total": "Total de productos",
+      "all_products": "Productos",
+      "units": "Unidades",
+      "unit_types": "Tipos de unidades",
+      "low_stock": "Stock bajo",
+      "stock_alerts": "Alertas de stock",
+      "out_of_stock": "Agotado",
+      "stock_depleted": "Stock agotado"
     },
-    "search_placeholder": "Rechercher un produit, description ou unité...",
-    "filters": "les filtres",
-    "unit": "Unité",
-    "all_units": "Toutes les unités",
-    "stock_status": "État du Stock",
-    "all_stocks": "Tous les stocks",
+    "search_placeholder": "Buscar un producto, una descripción o una unidad…",
+    "filters": "los filtros",
+    "unit": "Unidad",
+    "all_units": "Todas las unidades",
+    "stock_status": "Estado del stock",
+    "all_stocks": "Todo el stock",
     "available_stock": "Stock disponible",
-    "no_products_found": "Aucun produit trouvé",
-    "no_products": "Aucun produit en stock",
-    "modify_search": "Essayez de modifier vos critères de recherche",
-    "add_first_products": "Commencez par ajouter vos premiers produits",
-    "stock_alerts": "Alertes de Stock",
-    "products_out_of_stock": "produit(s) en rupture de stock",
-    "products_low_stock": "produit(s) avec un stock faible",
-    "products_found": "produit(s) trouvé(s)",
-    "with_unit": "avec l'unité",
-    "with_filter": "avec le filtre",
-    "confirm_delete": "Êtes-vous sûr de vouloir supprimer ce produit ?"
+    "low_stock": "Stock bajo",
+    "no_products_found": "No se encontraron productos",
+    "no_products": "No hay productos en stock",
+    "modify_search": "Pruebe a cambiar los criterios de búsqueda",
+    "add_first_products": "Empiece añadiendo sus primeros productos",
+    "stock_alerts": "Alertas de stock",
+    "confirm_delete": "¿Seguro que desea eliminar este producto?",
+    "limit_title": "Límite de productos",
+    "resource": "productos",
+    "reset": "Restablecer",
+    "in_stock": "En stock",
+    "threshold": "Umbral {{value}} {{unit}}",
+    "decrease": "Restar 1 del stock",
+    "increase": "Sumar 1 al stock",
+    "edit_product": "Editar el producto",
+    "delete_product": "Eliminar el producto",
+    "products_found_one": "{{count}} producto encontrado",
+    "products_found_other": "{{count}} productos encontrados",
+    "products_out_of_stock_one": "{{count}} producto agotado",
+    "products_out_of_stock_other": "{{count}} productos agotados",
+    "products_low_stock_one": "{{count}} producto con stock bajo",
+    "products_low_stock_other": "{{count}} productos con stock bajo"
   },
   "details": {
     "available": "disponible"
   },
-  "subtitle": "Créez et gérez vos services de beauté",
-  "duration": {
-    "minutes": "minutes",
-    "hours": "heures",
-    "min": "min",
-    "h": "h"
+  "list": {
+    "services_count_one": "{{count}} servicio",
+    "services_count_other": "{{count}} servicios",
+    "online": "En línea",
+    "active": "Activo",
+    "inactive": "Inactivo"
   },
-  "stats_text": {
-    "total_services": "services au total",
-    "categories": "catégories"
+  "photos": {
+    "hint": "JPG o PNG, se recomienda 1200 × 800 px, 5 fotos como máximo.",
+    "add": "Añadir una foto",
+    "uploading": "Subiendo…",
+    "none": "Aún no hay fotos",
+    "remove": "Quitar la foto",
+    "err_size": "La imagen no debe superar los 5 MB.",
+    "err_type": "Elija un archivo de imagen (JPG o PNG).",
+    "confirm_dimensions": "Esta imagen mide {{width}} × {{height}} px. Para un mejor resultado, use {{optimalWidth}} × {{optimalHeight}} px.\n\n¿Desea continuar de todos modos?",
+    "err_save_first": "Guarde primero el servicio y luego añada las fotos.",
+    "err_max": "Máximo 5 fotos por servicio.",
+    "err_read": "No se puede leer esta imagen. Pruebe con otro archivo.",
+    "err_remove": "No se pudo quitar la foto. Inténtelo de nuevo."
   },
-  "limits": {
-    "title": "Limite de Services"
-  },
-  "addService": "Rnu ameẓlu",
-  "editService": "Ẓreg ameẓlu",
-  "deleteService": "Kkes ameẓlu",
-  "serviceName": "Isem n umeẓlu",
-  "description": "Aglam",
-  "price": "Ssuma",
-  "category": "Taggayt",
-  "image": "Tugna",
-  "active": "Urmid",
-  "inactive": "Ur urmid ara",
-  "noServices": "Ulac imeẓla",
-  "searchServices": "Nadi imeẓla",
-  "filterByCategory": "Sizdeg s tggayt",
-  "allCategories": "Akk tiggayin"
+  "product_form": {
+    "title_new": "Nuevo producto",
+    "title_edit": "Editar el producto",
+    "subtitle": "Controle el stock de sus productos de belleza.",
+    "name": "Nombre del producto",
+    "name_placeholder": "Ej.: champú hidratante",
+    "description": "Descripción",
+    "description_placeholder": "Propiedades, uso…",
+    "section_stock": "Stock",
+    "quantity": "Cantidad actual",
+    "min_quantity": "Umbral de alerta",
+    "min_help": "Alerta cuando el stock baja hasta este umbral.",
+    "unit": "Unidad de medida",
+    "low_warning": "El stock está en el umbral de alerta o por debajo.",
+    "units": {
+      "ml": "Mililitros (ml)",
+      "g": "Gramos (g)",
+      "unit": "Unidad",
+      "l": "Litros (l)",
+      "kg": "Kilogramos (kg)"
+    },
+    "unit_values": {
+      "unité_one": "unidad",
+      "unité_other": "unidades"
+    }
+  }
 }

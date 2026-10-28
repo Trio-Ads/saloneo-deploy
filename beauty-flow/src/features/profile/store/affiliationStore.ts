@@ -8,6 +8,7 @@ import {
   AffiliateLink
 } from '../types/affiliation';
 import { affiliationAPI } from '../../../services/api';
+import i18n from 'i18next';
 
 interface AffiliationStore {
   affiliation: AffiliationData | null;
@@ -50,7 +51,7 @@ export const useAffiliationStore = create<AffiliationStore>()(
         } catch (error: any) {
           console.error('Erreur lors du chargement des données d\'affiliation:', error);
           set({ 
-            error: error.response?.data?.error || 'Erreur lors du chargement',
+            error: error.response?.data?.error || i18n.t('errors:store.load'),
             isLoading: false 
           });
         }
@@ -67,7 +68,7 @@ export const useAffiliationStore = create<AffiliationStore>()(
         } catch (error: any) {
           console.error('Erreur lors de l\'activation de l\'affiliation:', error);
           set({ 
-            error: error.response?.data?.error || 'Erreur lors de l\'activation',
+            error: error.response?.data?.error || i18n.t('errors:store.activate'),
             isLoading: false 
           });
           throw error;
@@ -85,7 +86,7 @@ export const useAffiliationStore = create<AffiliationStore>()(
         } catch (error: any) {
           console.error('Erreur lors de la mise à jour des paramètres:', error);
           set({ 
-            error: error.response?.data?.error || 'Erreur lors de la mise à jour',
+            error: error.response?.data?.error || i18n.t('errors:store.update'),
             isLoading: false 
           });
           throw error;
@@ -103,7 +104,7 @@ export const useAffiliationStore = create<AffiliationStore>()(
         } catch (error: any) {
           console.error('Erreur lors du chargement des commissions:', error);
           set({ 
-            error: error.response?.data?.error || 'Erreur lors du chargement',
+            error: error.response?.data?.error || i18n.t('errors:store.load'),
             isLoading: false 
           });
         }
@@ -120,7 +121,7 @@ export const useAffiliationStore = create<AffiliationStore>()(
         } catch (error: any) {
           console.error('Erreur lors du chargement du matériel marketing:', error);
           set({ 
-            error: error.response?.data?.error || 'Erreur lors du chargement',
+            error: error.response?.data?.error || i18n.t('errors:store.load'),
             isLoading: false 
           });
         }
@@ -141,7 +142,7 @@ export const useAffiliationStore = create<AffiliationStore>()(
         } catch (error: any) {
           console.error('Erreur lors de la génération du lien:', error);
           set({ 
-            error: error.response?.data?.error || 'Erreur lors de la génération',
+            error: error.response?.data?.error || i18n.t('errors:store.generate'),
             isLoading: false 
           });
           throw error;
@@ -166,7 +167,7 @@ export const useAffiliationStore = create<AffiliationStore>()(
         } catch (error: any) {
           console.error('Erreur lors de la demande de paiement:', error);
           set({ 
-            error: error.response?.data?.error || 'Erreur lors de la demande',
+            error: error.response?.data?.error || i18n.t('errors:store.request'),
             isLoading: false 
           });
           throw error;

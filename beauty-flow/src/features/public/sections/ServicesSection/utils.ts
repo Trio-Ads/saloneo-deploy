@@ -17,8 +17,8 @@ export function currencySymbol(code: string): string {
   }
 }
 
-export function formatPrice(service: PublicService, mode: string, currency: string): string {
+export function formatPrice(service: PublicService, mode: string, currency: string, from: (amount: string) => string): string {
   if (mode === 'hidden') return '';
   const amount = `${Number(service.price).toLocaleString('fr-FR')} ${currencySymbol(currency)}`;
-  return mode === 'from' || mode === 'range' ? `Dès ${amount}` : amount;
+  return mode === 'from' || mode === 'range' ? from(amount) : amount;
 }

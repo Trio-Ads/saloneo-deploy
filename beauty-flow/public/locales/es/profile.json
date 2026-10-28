@@ -1,704 +1,606 @@
 {
-  "title": "Profil",
-  "subtitle": "Gestiona tu información personal y configuración de cuenta",
-  "tabs": {
-    "personal": "Personal",
-    "business": "Negocio",
-    "security": "Seguridad",
-    "notifications": "Notificaciones",
-    "affiliation": "Afiliación"
+  "title": "Perfil",
+  "my_profile": "Mi perfil",
+  "account": "Cuenta",
+  "personal_info": "Información personal",
+  "business_info": "Información del negocio",
+  "security": {
+    "current_password": "Contraseña actual",
+    "new_password": "Nueva contraseña",
+    "confirm_password": "Confirmar la contraseña",
+    "change_password": "Cambiar la contraseña",
+    "two_factor": "Autenticación en dos pasos",
+    "enable_2fa": "Activar 2FA",
+    "disable_2fa": "Desactivar 2FA",
+    "backup_codes": "Códigos de respaldo",
+    "generate_codes": "Generar códigos",
+    "login_history": "Historial de inicios de sesión",
+    "active_sessions": "Sesiones activas",
+    "revoke_session": "Revocar la sesión"
   },
-  "personal": {
-    "title": "Información Personal",
-    "subtitle": "Actualiza tu información personal",
+  "preferences": {
+    "theme": "Tema",
+    "language": "Idioma",
+    "timezone": "Zona horaria",
+    "date_format": "Formato de fecha",
+    "time_format": "Formato de hora",
+    "currency": "Moneda",
+    "notifications": "Notificaciones",
+    "email_notifications": "Notificaciones por correo",
+    "sms_notifications": "Notificaciones por SMS",
+    "push_notifications": "Notificaciones push",
+    "marketing_emails": "Correos de marketing",
+    "privacy": "Privacidad",
+    "public_profile": "Perfil público",
+    "show_online_status": "Mostrar el estado en línea"
+  },
+  "affiliation": {
+    "title": "Programa de afiliados",
+    "status": "Estado",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "pending": "Pendiente",
+    "commission_rate": "Porcentaje de comisión",
+    "total_earnings": "Ganancias totales",
+    "pending_earnings": "Ganancias pendientes",
+    "paid_earnings": "Ganancias pagadas",
+    "referrals": "Referidos",
+    "referral_code": "Código de referido",
+    "referral_link": "Enlace de referido",
+    "copy_link": "Copiar el enlace",
+    "share_link": "Compartir el enlace",
+    "marketing_materials": "Material de marketing",
+    "banners": "Banners",
+    "email_templates": "Plantillas de correo",
+    "social_posts": "Publicaciones para redes",
+    "payout_settings": "Ajustes de pago",
+    "payment_method": "Medio de pago",
+    "bank_account": "Cuenta bancaria",
+    "paypal_email": "Correo de PayPal",
+    "minimum_payout": "Pago mínimo",
+    "payout_schedule": "Calendario de pagos",
+    "commission_history": "Historial de comisiones",
+    "performance": "Rendimiento",
+    "clicks": "Clics",
+    "conversions": "Conversiones",
+    "conversion_rate": "Tasa de conversión"
+  },
+  "subscription": {
+    "current_plan": "Plan actual",
+    "plan_details": "Detalles del plan",
+    "billing_cycle": "Ciclo de facturación",
+    "next_billing": "Próxima facturación",
+    "usage": "Uso",
+    "limits": "Límites",
+    "upgrade": "Mejorar el plan",
+    "downgrade": "Bajar de plan",
+    "cancel": "Cancelar",
+    "renew": "Renovar",
+    "payment_method": "Medio de pago",
+    "billing_history": "Historial de facturación",
+    "invoices": "Facturas",
+    "download_invoice": "Descargar la factura"
+  },
+  "billing": "Facturación",
+  "notifications": "Notificaciones",
+  "form": {
     "first_name": "Nombre",
-    "last_name": "Apellidos",
-    "email": "Email",
+    "last_name": "Apellido",
+    "email": "Correo electrónico",
     "phone": "Teléfono",
-    "date_of_birth": "Fecha de nacimiento",
-    "gender": "Género",
+    "avatar": "Foto de perfil",
+    "bio": "Biografía",
+    "website": "Sitio web",
+    "social_media": "Redes sociales",
     "address": "Dirección",
     "city": "Ciudad",
     "postal_code": "Código postal",
     "country": "País",
-    "bio": "Biografía",
-    "avatar": "Foto de perfil",
-    "upload_avatar": "Subir foto",
-    "remove_avatar": "Eliminar foto"
+    "timezone": "Zona horaria",
+    "language": "Idioma",
+    "currency": "Moneda",
+    "required": "Campo obligatorio"
   },
   "business": {
-    "title": "Información del Negocio",
-    "subtitle": "Configura los detalles de tu salón",
-    "salon_name": "Nombre del salón",
-    "business_type": "Type d'entreprise",
-    "registration_number": "Numéro d'enregistrement",
-    "tax_number": "Numéro de TVA",
-    "website": "Sitio web",
-    "social_media": "Redes sociales",
-    "facebook": "Facebook",
-    "instagram": "Instagram",
-    "twitter": "Twitter",
-    "linkedin": "LinkedIn",
-    "opening_hours": "Heures d'ouverture",
-    "services_offered": "Servicios ofrecidos",
-    "specialties": "Spécialités",
-    "years_experience": "Años de experiencia",
-    "certifications": "Certifications",
-    "languages": "Idiomas",
-    "establishment_name": "Nom de l'établissement",
-    "description": "Description",
-    "contact_email": "Email de contact",
-    "contact_phone": "Téléphone de contact",
-    "emergency_contact": "Contact d'urgence",
-    "insurance": "Assurance",
-    "licenses": "Licences"
-  },
-  "security": {
-    "title": "Seguridad",
-    "subtitle": "Gestiona tu seguridad de cuenta",
-    "current_password": "Mot de passe actuel",
-    "new_password": "Nouveau mot de passe",
-    "confirm_password": "Confirmer le mot de passe",
-    "change_password": "Changer le mot de passe",
-    "two_factor": "Authentification à deux facteurs",
-    "enable_2fa": "Activer 2FA",
-    "disable_2fa": "Désactiver 2FA",
-    "backup_codes": "Codes de sauvegarde",
-    "generate_codes": "Générer des codes",
-    "login_history": "Historique de connexion",
-    "active_sessions": "Sessions actives",
-    "revoke_session": "Révoquer la session",
-    "delete_account": "Eliminar cuenta",
-    "delete_warning": "Esta acción no se puede deshacer"
-  },
-  "notifications": "Notifications",
-  "affiliation": {
-    "title": "Programme d'affiliation",
-    "subtitle": "Gana dinero refiriendo nuevos usuarios",
-    "status": "Statut",
-    "active": "Actif",
-    "inactive": "Inactif",
-    "pending": "En attente",
-    "referral_code": "Code de parrainage",
-    "referral_link": "Lien de parrainage",
-    "copy_link": "Copier le lien",
-    "total_referrals": "Total de referidos",
-    "successful_referrals": "Referidos exitosos",
-    "pending_referrals": "Referidos pendientes",
-    "total_earnings": "Gains totaux",
-    "pending_earnings": "Gains en attente",
-    "paid_earnings": "Gains payés",
-    "commission_rate": "Taux de commission",
-    "payment_method": "Méthode de paiement",
-    "bank_account": "Compte bancaire",
-    "paypal": "PayPal",
-    "minimum_payout": "Paiement minimum",
-    "next_payout": "Próximo pago",
-    "payout_history": "Historial de pagos",
-    "marketing_materials": "Matériel marketing",
-    "banners": "Bannières",
-    "social_posts": "Publications sociales",
-    "email_templates": "Modèles d'email",
-    "referrals": "Parrainages",
-    "share_link": "Partager le lien",
-    "payout_settings": "Paramètres de paiement",
-    "paypal_email": "Email PayPal",
-    "payout_schedule": "Calendrier de paiement",
-    "commission_history": "Historique des commissions",
-    "performance": "Performance",
-    "clicks": "Clics",
-    "conversions": "Conversions",
-    "conversion_rate": "Taux de conversion"
-  },
-  "placeholders": {
-    "first_name": "Tu nombre",
-    "last_name": "Tus apellidos",
-    "email": "tu@email.com",
-    "phone": "+34 123 456 789",
-    "address": "Calle Principal 123",
-    "city": "Madrid",
-    "postal_code": "28001",
-    "bio": "Cuéntanos sobre ti...",
-    "salon_name": "Nombre de tu salón",
-    "website": "https://tusalon.com",
-    "current_password": "Contraseña actual",
-    "new_password": "Nueva contraseña",
-    "confirm_password": "Confirmar nueva contraseña"
-  },
-  "validation": {
-    "required": "Ce champ est requis",
-    "invalid_email": "Email no válido",
-    "invalid_phone": "Número de teléfono no válido",
-    "password_mismatch": "Las contraseñas no coinciden",
-    "password_too_short": "La contraseña debe tener al menos 8 caracteres",
-    "invalid_url": "URL no válida",
-    "email_invalid": "Format d'email invalide",
-    "phone_invalid": "Format de téléphone invalide",
-    "password_min_length": "Le mot de passe doit contenir au moins 8 caractères",
-    "password_complexity": "Le mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre",
-    "url_invalid": "Format d'URL invalide",
-    "postal_code_invalid": "Code postal invalide",
-    "tax_number_invalid": "Numéro de TVA invalide"
+    "establishment_name": "Nombre del establecimiento",
+    "business_type": "Tipo de negocio",
+    "registration_number": "Número de registro",
+    "tax_number": "Número de IVA",
+    "description": "Descripción",
+    "specialties": "Especialidades",
+    "opening_hours": "Horario de apertura",
+    "contact_email": "Correo de contacto",
+    "contact_phone": "Teléfono de contacto",
+    "emergency_contact": "Contacto de emergencia",
+    "insurance": "Seguro",
+    "certifications": "Certificaciones",
+    "licenses": "Licencias"
   },
   "actions": {
-    "save": "Enregistrer",
-    "cancel": "Annuler",
-    "edit": "Modifier",
-    "delete": "Supprimer",
-    "upload": "Télécharger",
-    "download": "Télécharger",
-    "copy": "Copier",
-    "generate": "Generar",
-    "enable": "Habilitar",
-    "disable": "Deshabilitar",
-    "revoke": "Revocar",
-    "remove": "Supprimer",
-    "change": "Changer",
-    "update": "Mettre à jour",
-    "verify": "Vérifier",
-    "resend": "Renvoyer",
-    "share": "Partager",
-    "export": "Exporter",
-    "import": "Importer",
-    "saving": "Sauvegarde..."
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "upload": "Subir",
+    "remove": "Quitar",
+    "change": "Cambiar",
+    "update": "Actualizar",
+    "verify": "Verificar",
+    "resend": "Reenviar",
+    "copy": "Copiar",
+    "share": "Compartir",
+    "download": "Descargar",
+    "export": "Exportar",
+    "import": "Importar",
+    "saving": "Guardando…"
   },
   "messages": {
-    "profile_updated": "Profil mis à jour avec succès",
-    "password_changed": "Mot de passe modifié avec succès",
-    "avatar_uploaded": "Photo de profil téléchargée avec succès",
-    "avatar_removed": "Photo de profil supprimée avec succès",
-    "settings_saved": "Paramètres enregistrés avec succès",
-    "link_copied": "Lien copié dans le presse-papiers",
-    "codes_generated": "Codes de sauvegarde générés",
-    "session_revoked": "Session révoquée avec succès",
-    "2fa_enabled": "Authentification à deux facteurs activée",
-    "2fa_disabled": "Authentification à deux facteurs désactivée",
-    "error_saving": "Error al guardar",
-    "error_uploading": "Error al subir archivo",
-    "invalid_file_type": "Type de fichier invalide",
-    "file_too_large": "Fichier trop volumineux",
-    "email_verified": "Email vérifié avec succès",
-    "phone_verified": "Téléphone vérifié avec succès",
-    "invalid_password": "Mot de passe invalide",
-    "passwords_not_match": "Les mots de passe ne correspondent pas",
-    "email_already_exists": "Cet email existe déjà",
-    "phone_already_exists": "Ce numéro de téléphone existe déjà",
-    "verification_sent": "Code de vérification envoyé",
-    "verification_failed": "Échec de la vérification",
-    "upload_error": "Erreur lors du téléchargement",
-    "network_error": "Erreur réseau",
-    "server_error": "Erreur serveur",
-    "changes_saved": "Modifications enregistrées",
-    "unsaved_changes": "Vous avez des modifications non enregistrées"
+    "profile_updated": "Perfil actualizado correctamente",
+    "password_changed": "Contraseña cambiada correctamente",
+    "email_verified": "Correo verificado correctamente",
+    "phone_verified": "Teléfono verificado correctamente",
+    "avatar_uploaded": "Foto de perfil subida correctamente",
+    "avatar_removed": "Foto de perfil eliminada correctamente",
+    "settings_saved": "Ajustes guardados correctamente",
+    "2fa_enabled": "Autenticación en dos pasos activada",
+    "2fa_disabled": "Autenticación en dos pasos desactivada",
+    "codes_generated": "Códigos de respaldo generados",
+    "session_revoked": "Sesión revocada correctamente",
+    "link_copied": "Enlace copiado al portapapeles",
+    "invalid_password": "Contraseña no válida",
+    "passwords_not_match": "Las contraseñas no coinciden",
+    "email_already_exists": "Este correo ya existe",
+    "phone_already_exists": "Este número de teléfono ya existe",
+    "verification_sent": "Código de verificación enviado",
+    "verification_failed": "La verificación no se pudo completar",
+    "upload_error": "Error al subir el archivo",
+    "file_too_large": "Archivo demasiado grande",
+    "invalid_file_type": "Tipo de archivo no válido",
+    "network_error": "Error de red",
+    "server_error": "Error del servidor",
+    "changes_saved": "Cambios guardados",
+    "unsaved_changes": "Tiene cambios sin guardar"
   },
-  "business_types": {
-    "salon": "Salón de belleza",
-    "barbershop": "Barbería",
-    "spa": "Spa",
-    "nail_salon": "Salón de uñas",
-    "beauty_clinic": "Clínica de belleza",
-    "wellness_center": "Centro de bienestar",
-    "other": "Otro"
-  },
-  "genders": {
-    "male": "Masculino",
-    "female": "Femenino",
-    "other": "Otro",
-    "prefer_not_to_say": "Prefiero no decir"
-  },
-  "countries": {
-    "spain": "España",
-    "france": "Francia",
-    "italy": "Italia",
-    "portugal": "Portugal",
-    "germany": "Alemania",
-    "uk": "Reino Unido",
-    "usa": "Estados Unidos",
-    "canada": "Canadá",
-    "mexico": "México",
-    "argentina": "Argentina",
-    "brazil": "Brasil",
-    "other": "Otro"
-  },
-  "languages": {
-    "spanish": "Español",
-    "english": "Inglés",
-    "french": "Francés",
-    "italian": "Italiano",
-    "portuguese": "Portugués",
-    "german": "Alemán",
-    "arabic": "Árabe",
-    "other": "Otro"
-  },
-  "currencies": {
-    "EUR": "Euro",
-    "USD": "Dollar américain",
-    "GBP": "Livre sterling",
-    "JPY": "Yen japonais",
-    "CAD": "Dollar canadien",
-    "AUD": "Dollar australien",
-    "CHF": "Franc suisse",
-    "CNY": "Yuan chinois",
-    "SEK": "Couronne suédoise",
-    "NOK": "Couronne norvégienne",
-    "DKK": "Couronne danoise",
-    "PLN": "Zloty polonais",
-    "CZK": "Couronne tchèque",
-    "HUF": "Forint hongrois",
-    "RUB": "Rouble russe",
-    "BRL": "Réal brésilien",
-    "INR": "Roupie indienne",
-    "KRW": "Won sud-coréen",
-    "SGD": "Dollar de Singapour",
-    "HKD": "Dollar de Hong Kong",
-    "NZD": "Dollar néo-zélandais",
-    "MXN": "Peso mexicain",
-    "ZAR": "Rand sud-africain",
-    "TRY": "Livre turque",
-    "AED": "Dirham des Émirats",
-    "SAR": "Riyal saoudien",
-    "QAR": "Riyal qatarien",
-    "KWD": "Dinar koweïtien",
-    "BHD": "Dinar bahreïni",
-    "OMR": "Rial omanais",
-    "JOD": "Dinar jordanien",
-    "LBP": "Livre libanaise",
-    "EGP": "Livre égyptienne",
-    "MAD": "Dirham marocain",
-    "TND": "Dinar tunisien",
-    "DZD": "Dinar algérien",
-    "LYD": "Dinar libyen"
-  },
-  "my_profile": "Mon Profil",
-  "account": "Compte",
-  "personal_info": "Informations personnelles",
-  "business_info": "Informations de l'entreprise",
-  "preferences": {
-    "theme": "Thème",
-    "language": "Langue",
-    "timezone": "Fuseau horaire",
-    "date_format": "Format de date",
-    "time_format": "Format d'heure",
-    "currency": "Devise",
-    "notifications": "Notifications",
-    "email_notifications": "Notifications par email",
-    "sms_notifications": "Notifications SMS",
-    "push_notifications": "Notifications push",
-    "marketing_emails": "Emails marketing",
-    "privacy": "Confidentialité",
-    "public_profile": "Profil public",
-    "show_online_status": "Afficher le statut en ligne"
-  },
-  "subscription": {
-    "current_plan": "Plan actuel",
-    "plan_details": "Détails du plan",
-    "billing_cycle": "Cycle de facturation",
-    "next_billing": "Prochaine facturation",
-    "usage": "Utilisation",
-    "limits": "Limites",
-    "upgrade": "Mettre à niveau",
-    "downgrade": "Rétrograder",
-    "cancel": "Annuler",
-    "renew": "Renouveler",
-    "payment_method": "Méthode de paiement",
-    "billing_history": "Historique de facturation",
-    "invoices": "Factures",
-    "download_invoice": "Télécharger la facture"
-  },
-  "billing": "Facturation",
-  "form": {
-    "first_name": "Prénom",
-    "last_name": "Nom",
-    "email": "Email",
-    "phone": "Téléphone",
-    "avatar": "Photo de profil",
-    "bio": "Biographie",
-    "website": "Site web",
-    "social_media": "Réseaux sociaux",
-    "address": "Adresse",
-    "city": "Ville",
-    "postal_code": "Code postal",
-    "country": "Pays",
-    "timezone": "Fuseau horaire",
-    "language": "Langue",
-    "currency": "Devise",
-    "required": "Champ requis"
+  "validation": {
+    "required": "Este campo es obligatorio",
+    "email_invalid": "Formato de correo no válido",
+    "phone_invalid": "Formato de teléfono no válido",
+    "password_min_length": "La contraseña debe tener al menos 8 caracteres",
+    "password_complexity": "La contraseña debe contener al menos una mayúscula, una minúscula y un número",
+    "url_invalid": "Formato de URL no válido",
+    "postal_code_invalid": "Código postal no válido",
+    "tax_number_invalid": "Número de IVA no válido"
   },
   "profile_form": {
     "tabs": {
-      "profile": "Mon Profil",
-      "affiliation": "Affiliation"
+      "profile": "Perfil",
+      "affiliation": "Afiliados"
     },
     "sections": {
-      "login_info": "Informations de connexion",
-      "personal_info": "Informations personnelles",
-      "salon_info": "Informations du salon",
-      "preferences": "Préférences",
-      "public_link": "Lien de réservation public"
+      "login_info": "Datos de acceso",
+      "personal_info": "Información personal",
+      "salon_info": "Información del salón",
+      "preferences": "Preferencias",
+      "public_link": "Enlace público de reservas"
     },
     "fields": {
-      "email": "Adresse email",
-      "current_password": "Mot de passe actuel",
-      "new_password": "Nouveau mot de passe",
-      "confirm_password": "Confirmer le nouveau mot de passe",
-      "first_name": "Prénom",
-      "last_name": "Nom",
-      "establishment_name": "Nom de l'établissement",
-      "address": "Adresse",
-      "language": "Langue",
-      "currency": "Devise"
+      "email": "Dirección de correo electrónico",
+      "current_password": "Contraseña actual",
+      "new_password": "Nueva contraseña",
+      "confirm_password": "Confirmar la nueva contraseña",
+      "first_name": "Nombre",
+      "last_name": "Apellido",
+      "establishment_name": "Nombre del establecimiento",
+      "address": "Dirección",
+      "language": "Idioma",
+      "currency": "Moneda",
+      "password": "Contraseña",
+      "full_address": "Dirección completa",
+      "show_as_team_member": "Aparecer como miembro del equipo"
     },
     "placeholders": {
-      "email": "votre@email.com",
+      "email": "su@correo.com",
       "password": "••••••••",
-      "first_name": "Votre prénom",
-      "last_name": "Votre nom",
-      "establishment_name": "Nom de votre salon",
-      "address": "Adresse complète de votre salon",
+      "first_name": "Su nombre",
+      "last_name": "Su apellido",
+      "establishment_name": "Nombre de su salón",
+      "address": "Dirección completa de su salón",
       "demo_email": "user@example.com",
-      "demo_link": "saloneo.tech/votre-salon"
+      "demo_link": "saloneo.tech/su-salon"
     },
     "buttons": {
-      "change_password": "Changer le mot de passe",
-      "cancel": "Annuler"
+      "change_password": "Cambiar la contraseña",
+      "cancel": "Cancelar",
+      "open": "Abrir",
+      "show_password": "Mostrar la contraseña",
+      "hide_password": "Ocultar la contraseña"
     },
     "messages": {
-      "password_required": "Veuillez saisir votre mot de passe actuel",
-      "password_min_length": "Le nouveau mot de passe doit contenir au moins 8 caractères",
-      "passwords_not_match": "Les mots de passe ne correspondent pas",
-      "password_updated": "Mot de passe mis à jour avec succès",
-      "currency_updated": "Devise mise à jour avec succès",
-      "currency_error": "Erreur lors du changement de devise",
-      "public_link_description": "Partagez ce lien avec vos clients pour qu'ils puissent prendre rendez-vous directement",
-      "public_link_label": "Votre lien de réservation",
-      "language_error": "Erreur lors du changement de langue",
-      "email_validation": "Veuillez saisir une adresse email valide"
+      "password_required": "Introduzca su contraseña actual",
+      "password_min_length": "La nueva contraseña debe tener al menos 8 caracteres",
+      "passwords_not_match": "Las contraseñas no coinciden",
+      "password_updated": "Contraseña actualizada correctamente",
+      "currency_updated": "Moneda actualizada correctamente",
+      "currency_error": "Error al cambiar la moneda",
+      "public_link_description": "Comparta este enlace con sus clientes para que puedan reservar cita directamente",
+      "public_link_label": "Su enlace de reservas",
+      "language_error": "Error al cambiar el idioma",
+      "email_validation": "Introduzca una dirección de correo válida",
+      "show_as_team_member_description": "Los clientes podrán elegirle al reservar y usted aparecerá en la página pública del salón.",
+      "team_member_on": "Ahora aparece en el equipo",
+      "team_member_off": "Ya no aparece en el equipo",
+      "team_member_error": "No se pudo cambiar esta opción. Inténtelo de nuevo.",
+      "current_password_incorrect": "La contraseña actual es incorrecta."
+    },
+    "descriptions": {
+      "login_info": "La dirección con la que inicia sesión.",
+      "personal_info": "Su nombre tal como aparece en la aplicación.",
+      "salon_info": "Se muestran en su página pública de reservas.",
+      "preferences": "Se aplican al instante, sin necesidad de guardar."
     }
   },
-  "firstName": "Prénom",
-  "lastName": "Nom",
-  "establishmentName": "Nom de l'établissement",
-  "address": "Adresse",
-  "language": "Langue",
-  "currency": "Devise",
-  "publicLinkCopied": "Lien copié dans le presse-papiers",
+  "firstName": "Nombre",
+  "lastName": "Apellido",
+  "establishmentName": "Nombre del establecimiento",
+  "address": "Dirección",
+  "language": "Idioma",
+  "currency": "Moneda",
+  "publicLinkCopied": "Enlace copiado al portapapeles",
   "success": {
-    "save": "Profil sauvegardé avec succès"
+    "save": "Perfil guardado"
   },
   "error": {
-    "save": "Erreur lors de la sauvegarde"
+    "save": "Error al guardar"
   },
   "affiliation_components": {
     "dashboard": {
-      "affiliate_link": "Votre lien d'affiliation",
-      "monthly_stats": "Statistiques mensuelles",
+      "affiliate_link": "Su enlace de afiliado",
+      "monthly_stats": "Estadísticas mensuales",
       "share_buttons": {
         "whatsapp": "WhatsApp",
         "facebook": "Facebook",
-        "twitter": "Twitter",
+        "twitter": "X (Twitter)",
         "linkedin": "LinkedIn",
-        "email": "Email"
+        "email": "Correo"
       },
       "table_headers": {
-        "month": "Mois",
+        "month": "Mes",
         "clicks": "Clics",
-        "conversions": "Conversions",
-        "conversion_rate": "Taux de conversion",
-        "revenue": "Revenus"
+        "conversions": "Conversiones",
+        "conversion_rate": "Tasa de conversión",
+        "revenue": "Ingresos"
       },
       "current_month": {
-        "clicks": "Clics ce mois",
-        "conversions": "Conversions ce mois",
-        "revenue": "Revenus ce mois"
+        "clicks": "Clics este mes",
+        "conversions": "Conversiones este mes",
+        "revenue": "Ingresos este mes"
       },
       "messages": {
-        "link_copied": "Lien copié dans le presse-papier",
-        "qr_downloaded": "QR Code téléchargé"
+        "link_copied": "Enlace copiado al portapapeles",
+        "qr_downloaded": "Código QR descargado"
       },
       "tips": {
-        "title": "💡 Conseils pour augmenter vos revenus",
-        "social_share": "Partagez votre lien sur vos réseaux sociaux professionnels",
-        "quality_content": "Créez du contenu de qualité sur les avantages de Saloneo",
-        "target_audience": "Ciblez les propriétaires de salons dans votre réseau",
-        "use_tools": "Utilisez les outils marketing fournis pour vos campagnes"
+        "title": "Consejos para aumentar sus ingresos",
+        "social_share": "Comparta su enlace en sus redes sociales profesionales",
+        "quality_content": "Cree contenido de calidad sobre las ventajas de Saloneo",
+        "target_audience": "Diríjase a los propietarios de salones de su red",
+        "use_tools": "Use las herramientas de marketing proporcionadas en sus campañas"
       },
-      "vs_last_month": "vs mois dernier"
+      "vs_last_month": "vs. mes anterior",
+      "share_text": "Descubra Saloneo, la solución de gestión para salones de belleza",
+      "share_subject": "Descubra Saloneo"
     },
     "commissions": {
       "status": {
-        "pending": "En attente",
-        "approved": "Approuvée",
-        "paid": "Payée",
-        "cancelled": "Annulée"
+        "pending": "Pendiente",
+        "approved": "Aprobada",
+        "paid": "Pagada",
+        "cancelled": "Cancelada"
       },
       "types": {
-        "subscription": "Nouvel abonnement",
-        "renewal": "Renouvellement",
-        "upgrade": "Mise à niveau"
+        "subscription": "Nueva suscripción",
+        "renewal": "Renovación",
+        "upgrade": "Mejora de plan"
       },
       "filters": {
-        "all": "Toutes les commissions",
-        "pending": "En attente",
-        "approved": "Approuvées",
-        "paid": "Payées"
+        "all": "Todas las comisiones",
+        "pending": "Pendientes",
+        "approved": "Aprobadas",
+        "paid": "Pagadas"
       },
       "table": {
-        "date": "Date",
-        "referred_client": "Client référé",
-        "type": "Type",
-        "original_amount": "Montant original",
-        "commission": "Commission",
-        "status": "Statut",
-        "payment_date": "Date paiement"
+        "date": "Fecha",
+        "referred_client": "Cliente referido",
+        "type": "Tipo",
+        "original_amount": "Importe original",
+        "commission": "Comisión",
+        "status": "Estado",
+        "payment_date": "Fecha de pago",
+        "rate": "Porcentaje"
       },
       "empty_state": {
-        "title": "Aucune commission",
-        "subtitle": "Commencez à partager votre lien d'affiliation pour gagner des commissions."
+        "title": "No hay comisiones",
+        "subtitle": "Empiece a compartir su enlace de afiliado para ganar comisiones."
       },
-      "export": "Exporter CSV",
-      "note": "Les commissions sont versées mensuellement une fois le seuil minimum de 50€ atteint. Les paiements sont effectués entre le 1er et le 5 de chaque mois.",
+      "export": "Exportar a CSV",
+      "note": "Las comisiones se pagan mensualmente una vez alcanzado el umbral mínimo de 50 €. Los pagos se realizan entre el 1 y el 5 de cada mes.",
       "payment_note": {
-        "title": "Note :",
-        "description": "Les commissions sont versées mensuellement une fois le seuil minimum de 50€ atteint. Les paiements sont effectués entre le 1er et le 5 de chaque mois."
+        "title": "Nota:",
+        "description": "Las comisiones se pagan mensualmente una vez alcanzado el umbral mínimo de 50 €. Los pagos se realizan entre el 1 y el 5 de cada mes."
       }
     },
     "payout": {
-      "title": "Paramètres de paiement",
-      "description": "Configurez vos informations de paiement pour recevoir vos commissions",
-      "available_balance": "Solde disponible",
-      "payment_method": "Méthode de paiement",
-      "minimum_threshold": "Seuil minimum de paiement",
-      "withdraw_amount": "Montant à retirer",
-      "request_payout": "Demander un paiement",
+      "title": "Ajustes de pago",
+      "description": "Configure sus datos de pago para recibir sus comisiones",
+      "available_balance": "Saldo disponible",
+      "payment_method": "Medio de pago",
+      "minimum_threshold": "Umbral mínimo de pago",
+      "withdraw_amount": "Importe a retirar",
+      "request_payout": "Solicitar un pago",
       "method": {
-        "title": "Méthode de paiement",
-        "bank_transfer": "Virement bancaire",
+        "title": "Medio de pago",
+        "bank_transfer": "Transferencia bancaria",
         "paypal": "PayPal",
-        "crypto": "Cryptomonnaie"
+        "crypto": "Criptomoneda"
       },
       "bank_details": {
-        "title": "Informations bancaires",
-        "account_holder": "Nom du titulaire",
+        "title": "Datos bancarios",
+        "account_holder": "Nombre del titular",
         "iban": "IBAN",
-        "bic": "Code BIC/SWIFT",
-        "bank_name": "Nom de la banque"
+        "bic": "Código BIC/SWIFT",
+        "bank_name": "Nombre del banco"
       },
       "paypal_details": {
-        "title": "Informations PayPal",
-        "email": "Email PayPal"
+        "title": "Datos de PayPal",
+        "email": "Correo de PayPal"
       },
       "crypto_details": {
-        "title": "Informations Crypto",
-        "wallet_address": "Adresse du portefeuille",
-        "currency": "Cryptomonnaie"
+        "title": "Datos de cripto",
+        "wallet_address": "Dirección de la billetera",
+        "currency": "Criptomoneda"
       },
       "minimum_payout": {
-        "title": "Seuil minimum",
-        "description": "Montant minimum requis pour effectuer un paiement : 50€"
+        "title": "Umbral mínimo",
+        "description": "Importe mínimo necesario para realizar un pago: 50 €"
       },
-      "save_button": "Enregistrer les paramètres",
+      "save_button": "Guardar los ajustes",
       "messages": {
-        "save_success": "Paramètres de paiement sauvegardés avec succès",
-        "save_error": "Erreur lors de la sauvegarde des paramètres",
-        "settings_updated": "Paramètres de paiement mis à jour",
-        "payout_requested": "Demande de paiement envoyée",
-        "minimum_error": "Le montant minimum est de {{amount}}€"
+        "save_success": "Ajustes de pago guardados correctamente",
+        "save_error": "Error al guardar los ajustes",
+        "settings_updated": "Ajustes de pago actualizados",
+        "payout_requested": "Solicitud de pago enviada",
+        "minimum_error": "El importe mínimo es de {{amount}} €",
+        "request_error": "Error al solicitar el pago"
       },
       "methods": {
-        "bank": "Virement bancaire",
+        "bank": "Transferencia bancaria",
         "paypal": "PayPal",
-        "crypto": "Crypto"
+        "crypto": "Cripto"
       },
       "bank_info": {
-        "title": "Informations bancaires",
-        "account_name": "Nom du titulaire",
-        "bank_name": "Nom de la banque",
+        "title": "Datos bancarios",
+        "account_name": "Nombre del titular",
+        "bank_name": "Nombre del banco",
         "iban": "IBAN",
-        "swift": "Code SWIFT/BIC"
+        "swift": "Código SWIFT/BIC"
       },
       "paypal_info": {
-        "title": "Informations PayPal",
-        "email": "Email PayPal"
+        "title": "Datos de PayPal",
+        "email": "Correo de PayPal"
       },
       "crypto_info": {
-        "title": "Informations Crypto",
-        "network": "Réseau",
-        "wallet_address": "Adresse du wallet"
+        "title": "Datos de cripto",
+        "network": "Red",
+        "wallet_address": "Dirección de la billetera"
       },
       "networks": {
         "ETH": "Ethereum (ETH)",
         "BTC": "Bitcoin (BTC)",
         "USDT": "Tether (USDT)"
       },
-      "save_settings": "Sauvegarder les paramètres",
-      "saving": "Sauvegarde...",
+      "save_settings": "Guardar los ajustes",
+      "saving": "Guardando…",
       "warning": {
-        "title": "Important :",
-        "payment_schedule": "Les paiements sont traités entre le 1er et le 5 de chaque mois",
-        "processing_time": "Un délai de 2-5 jours ouvrés est nécessaire selon la méthode choisie",
-        "transaction_fees": "Des frais de transaction peuvent s'appliquer selon votre banque"
-      }
+        "title": "Importante:",
+        "payment_schedule": "Los pagos se procesan entre el 1 y el 5 de cada mes",
+        "processing_time": "Se necesita un plazo de 2 a 5 días hábiles según el medio elegido",
+        "transaction_fees": "Su banco puede aplicar comisiones por transacción"
+      },
+      "minimum_help": "Los pagos se realizan automáticamente cuando su saldo alcanza este importe."
     },
     "activation": {
-      "title": "Devenez Affilié Saloneo",
-      "description": "Rejoignez notre programme d'affiliation et gagnez des commissions attractives en recommandant Saloneo à votre réseau professionnel",
-      "subtitle": "Recommandez Saloneo et gagnez des commissions sur chaque nouveau client",
+      "title": "Hágase afiliado de Saloneo",
+      "description": "Únase a nuestro programa de afiliados y gane atractivas comisiones recomendando Saloneo a su red profesional",
+      "subtitle": "Recomiende Saloneo y gane comisiones por cada nuevo cliente",
       "benefits": {
-        "title": "Avantages du programme",
+        "title": "Ventajas del programa",
         "items": {
-          "earn_commissions": "Gagnez 20% de commission sur chaque abonnement",
-          "marketing_tools": "Accédez à des outils marketing professionnels",
-          "real_time_tracking": "Suivez vos performances en temps réel",
-          "monthly_payments": "Recevez vos paiements chaque mois"
+          "earn_commissions": "Gane un 20 % de comisión por cada suscripción",
+          "marketing_tools": "Acceda a herramientas de marketing profesionales",
+          "real_time_tracking": "Siga su rendimiento en tiempo real",
+          "monthly_payments": "Reciba sus pagos cada mes"
         }
       },
       "how_it_works": {
-        "title": "Comment ça marche ?",
+        "title": "¿Cómo funciona?",
         "steps": {
-          "share_link": "Partagez votre lien d'affiliation unique",
-          "client_subscribes": "Vos contacts s'abonnent à Saloneo",
-          "earn_commission": "Gagnez 20% de commission sur chaque vente"
+          "share_link": "Comparta su enlace de afiliado único",
+          "client_subscribes": "Sus contactos se suscriben a Saloneo",
+          "earn_commission": "Gane un 20 % de comisión por cada venta"
         }
       },
       "commission_rates": {
-        "title": "Taux de commission",
-        "new_subscription": "20% sur les nouveaux abonnements",
-        "renewal": "10% sur les renouvellements",
-        "upgrade": "15% sur les mises à niveau"
+        "title": "Porcentajes de comisión",
+        "new_subscription": "20 % en las nuevas suscripciones",
+        "renewal": "10 % en las renovaciones",
+        "upgrade": "15 % en las mejoras de plan"
       },
       "terms": {
-        "title": "Conditions du programme",
+        "title": "Condiciones del programa",
         "items": {
-          "minimum_payout": "Seuil minimum de paiement : 50€",
-          "payment_schedule": "Paiements mensuels entre le 1er et le 5",
-          "tracking_period": "Durée de tracking : 30 jours",
-          "compliance": "Respect des conditions d'utilisation obligatoire"
+          "minimum_payout": "Umbral mínimo de pago: 50 €",
+          "payment_schedule": "Pagos mensuales entre el 1 y el 5",
+          "tracking_period": "Periodo de seguimiento: 30 días",
+          "compliance": "Es obligatorio respetar las condiciones de uso"
+        },
+        "intro": "Al activar el programa de afiliados de Saloneo, acepta las siguientes condiciones:",
+        "list": {
+          "rate": "Las comisiones son del 20 % sobre el importe sin impuestos de cada suscripción",
+          "payout": "Las comisiones se pagan mensualmente con un umbral mínimo de 50 €",
+          "cookie": "La cookie de seguimiento tiene una duración de 30 días",
+          "self_referral": "No se permite referirse a uno mismo",
+          "changes": "Saloneo se reserva el derecho de modificar o suspender el programa",
+          "fraud": "Cualquier fraude conllevará la suspensión inmediata de la cuenta de afiliado"
         }
       },
-      "activate_button": "Activer le programme d'affiliation",
+      "activate_button": "Activar el programa de afiliados",
       "messages": {
-        "activation_success": "Programme d'affiliation activé avec succès !",
-        "activation_error": "Erreur lors de l'activation du programme"
-      }
+        "activation_success": "¡Programa de afiliados activado correctamente!",
+        "activation_error": "Error al activar el programa",
+        "accept_required": "Acepte las condiciones del programa de afiliados"
+      },
+      "accept_terms": "Acepto las condiciones del programa de afiliados de Saloneo",
+      "activating": "Activando…"
     },
     "marketing": {
-      "title": "Outils Marketing",
-      "description": "Utilisez ces ressources pour promouvoir Saloneo et maximiser vos commissions",
+      "title": "Herramientas de marketing",
+      "description": "Use estos recursos para promocionar Saloneo y maximizar sus comisiones",
       "qr_code": {
-        "title": "QR Code de parrainage",
-        "description": "Partagez ce QR code pour permettre à vos contacts de s'inscrire facilement. Parfait pour les cartes de visite, flyers ou affiches.",
-        "generate": "Générer QR Code",
-        "download": "Télécharger le QR Code",
-        "generating": "Génération du QR Code...",
-        "modal_title": "QR Code d'affiliation",
-        "modal_description": "Scannez ce code pour accéder directement à votre lien d'affiliation"
+        "title": "Código QR de referido",
+        "description": "Comparta este código QR para que sus contactos se registren fácilmente. Perfecto para tarjetas de visita, folletos o carteles.",
+        "generate": "Generar código QR",
+        "download": "Descargar el código QR",
+        "generating": "Generando el código QR…",
+        "modal_title": "Código QR de afiliado",
+        "modal_description": "Escanee este código para acceder directamente a su enlace de afiliado"
       },
       "banners": {
-        "title": "Bannières publicitaires",
-        "description": "Bannières publicitaires prêtes à utiliser pour vos campagnes",
-        "horizontal": "Bannière horizontale 728x90",
-        "horizontal_desc": "Parfaite pour les sites web et blogs",
-        "square": "Bannière carrée 300x300",
-        "square_desc": "Idéale pour les réseaux sociaux",
-        "vertical": "Bannière verticale 160x600",
-        "vertical_desc": "Pour les sidebars de sites web",
-        "download": "Télécharger"
+        "title": "Banners publicitarios",
+        "description": "Banners publicitarios listos para usar en sus campañas",
+        "horizontal": "Banner horizontal 728x90",
+        "horizontal_desc": "Perfecto para sitios web y blogs",
+        "square": "Banner cuadrado 300x300",
+        "square_desc": "Ideal para redes sociales",
+        "vertical": "Banner vertical 160x600",
+        "vertical_desc": "Para barras laterales de sitios web",
+        "download": "Descargar"
       },
       "social_posts": {
-        "title": "Publications sociales",
-        "description": "Messages prêts à partager sur vos réseaux sociaux",
-        "copy": "Copier le texte"
+        "title": "Publicaciones para redes",
+        "description": "Mensajes listos para compartir en sus redes sociales",
+        "copy": "Copiar el texto"
       },
       "email_templates": {
-        "title": "Templates d'emails",
-        "description": "Modèles d'emails professionnels pour promouvoir Saloneo",
-        "copy": "Copier le modèle",
+        "title": "Plantillas de correo",
+        "description": "Plantillas de correo profesionales para promocionar Saloneo",
+        "copy": "Copiar la plantilla",
         "professional": {
-          "title": "Email de présentation professionnel",
-          "subject": "Découvrez Saloneo - La solution complète pour votre salon"
+          "title": "Correo de presentación profesional",
+          "subject": "Descubra Saloneo, la solución completa para su salón",
+          "content": "Buenos días:\n\nMe gustaría presentarle Saloneo, una solución de gestión completa diseñada especialmente para salones de belleza, spas y barberías.\n\nCon Saloneo puede:\n✓ Gestionar sus citas en línea 24/7\n✓ Fidelizar a su clientela con un sistema de puntos\n✓ Seguir su rendimiento con paneles detallados\n✓ Automatizar los recordatorios por SMS para reducir las citas perdidas\n✓ Gestionar su equipo y sus servicios fácilmente\n\nEl plan Gratuito le permite empezar sin tarjeta bancaria ni permanencia.\n\nRegístrese ahora: {{link}}\n\nAtentamente,\n[Su nombre]"
         },
         "personal": {
-          "title": "Email de recommandation personnelle",
-          "subject": "Mon secret pour gérer mon salon efficacement"
+          "title": "Correo de recomendación personal",
+          "subject": "Mi secreto para gestionar mi salón con eficacia",
+          "content": "¡Hola!\n\n¡Espero que estés bien! Quería compartir contigo la herramienta que uso para gestionar mi salón.\n\nDesde que uso Saloneo he podido:\n- Reducir mis citas perdidas un 40 %\n- Aumentar mis reservas en línea un 60 %\n- Ahorrar 2 h al día en tareas administrativas\n\n¿Lo mejor? Los clientes pueden reservar directamente desde su teléfono, incluso cuando el salón está cerrado.\n\nSi te interesa, puedes empezar gratis: {{link}}\n\n¡Escríbeme si tienes preguntas!\n\nHasta pronto,\n[Tu nombre]"
         }
       },
       "social_messages": {
-        "title": "Messages pour réseaux sociaux",
+        "title": "Mensajes para redes sociales",
         "linkedin": "LinkedIn",
         "whatsapp": "WhatsApp",
-        "instagram": "Instagram"
+        "instagram": "Instagram",
+        "linkedin_message": "🚀 Descubra Saloneo, la solución de gestión todo en uno para los profesionales de la belleza.\n\n✅ Reservas en línea 24/7\n✅ Gestión del equipo simplificada\n✅ Paneles de análisis\n✅ Recordatorios automáticos por SMS\n\nEmpiece gratis: {{link}}\n\n#BeautyTech #GestionDeSalones #TransformacionDigital",
+        "whatsapp_message": "¡Hola! 👋\n\n¿Buscas una herramienta para gestionar tu salón? ¡Te recomiendo Saloneo!\n\nEs muy sencillo y permite a tus clientes reservar en línea las 24 horas 📱\n\nPrueba gratis aquí: {{link}}",
+        "instagram_message": "✨ ¡Transforme su salón con Saloneo!\n\nLa solución digital que simplifica su día a día:\n📅 Reservas en línea\n💆‍♀️ Gestión de servicios\n👥 Seguimiento de clientes\n📊 Análisis detallados\n\nEnlace en mi bio 👆 {{link}}\n\n#SalonDeBelleza #GestionDeSalones #BeautyBusiness #Saloneo"
       },
       "best_practices": {
-        "title": "📚 Guide des bonnes pratiques",
-        "personalize": "Personnalisez vos messages",
-        "personalize_desc": "Adaptez les templates à votre style et votre audience pour de meilleurs résultats.",
-        "be_authentic": "Soyez authentique",
-        "be_authentic_desc": "Partagez votre expérience personnelle avec Saloneo pour créer de la confiance.",
-        "target_audience": "Ciblez votre audience",
-        "target_audience_desc": "Concentrez-vous sur les professionnels de la beauté dans votre réseau.",
-        "track_performance": "Suivez vos performances",
-        "track_performance_desc": "Utilisez le tableau de bord pour identifier ce qui fonctionne le mieux."
+        "title": "Buenas prácticas",
+        "personalize": "Personalice sus mensajes",
+        "personalize_desc": "Adapte las plantillas a su estilo y a su público para obtener mejores resultados.",
+        "be_authentic": "Sea auténtico",
+        "be_authentic_desc": "Comparta su experiencia personal con Saloneo para generar confianza.",
+        "target_audience": "Elija bien su público",
+        "target_audience_desc": "Céntrese en los profesionales de la belleza de su red.",
+        "track_performance": "Siga su rendimiento",
+        "track_performance_desc": "Use el panel para identificar qué funciona mejor."
       },
       "messages": {
-        "copied": "Texte copié dans le presse-papier",
-        "download_started": "Téléchargement démarré"
+        "copied": "Texto copiado al portapapeles",
+        "download_started": "Descarga iniciada"
       }
     },
     "tabs": {
-      "dashboard": "Tableau de bord",
-      "commissions": "Commissions",
-      "settings": "Paramètres",
-      "marketing": "Outils Marketing"
+      "dashboard": "Panel",
+      "commissions": "Comisiones",
+      "settings": "Ajustes",
+      "marketing": "Herramientas de marketing"
     },
     "status": {
-      "active": "Actif",
-      "inactive": "Inactif"
+      "active": "Activo",
+      "inactive": "Inactivo"
     },
     "stats": {
-      "total_referrals": "Total des parrainages",
-      "total_commissions": "Commissions totales",
-      "commission_rate": "Taux de commission",
-      "conversion_rate": "Taux de conversion"
+      "total_referrals": "Total de referidos",
+      "total_commissions": "Comisiones totales",
+      "commission_rate": "Porcentaje de comisión",
+      "conversion_rate": "Tasa de conversión"
     },
-    "program_title": "Programme d'Affiliation",
-    "affiliate_code": "Code affilié",
-    "loading": "Chargement des données d'affiliation..."
+    "program_title": "Programa de afiliados",
+    "affiliate_code": "Código de afiliado",
+    "loading": "Cargando los datos de afiliación…"
   },
   "affiliation_tab": {
-    "title": "Programme d'Affiliation",
-    "description": "Gagnez des commissions en recommandant Saloneo à votre réseau professionnel",
+    "title": "Programa de afiliados",
+    "description": "Gane comisiones recomendando Saloneo a su red profesional",
     "tabs": {
-      "dashboard": "Tableau de bord",
-      "commissions": "Commissions",
-      "marketing": "Outils Marketing",
-      "settings": "Paramètres"
+      "dashboard": "Panel",
+      "commissions": "Comisiones",
+      "marketing": "Herramientas de marketing",
+      "settings": "Ajustes"
     }
   },
-  "personalInfo": "Talɣut tudmawant",
-  "businessInfo": "Talɣut n uxeddim",
-  "contactInfo": "Talɣut n unermis",
-  "email": "Imayl",
-  "phone": "Tiliɣri",
-  "city": "Tamdint",
-  "country": "Tamurt",
-  "postalCode": "Tangalt n lpusṭa",
-  "businessName": "Isem n uxeddim",
-  "businessType": "Anaw n uxeddim",
-  "description": "Aglam",
-  "website": "Asmel web",
-  "socialMedia": "Iẓeḍwa inmettiyen",
-  "currentPassword": "Awal uffir amiran",
-  "newPassword": "Awal uffir amaynut",
-  "confirmPassword": "Sentem awal uffir",
-  "changePassword": "Beddel awal uffir",
-  "twoFactorAuth": "Asentem s sin iferdisen",
-  "loginHistory": "Amazray n ukcem",
-  "sessions": "Tiɣimiyin",
-  "privacy": "Tudert tusligt",
-  "timezone": "Izḍi n wakud",
-  "save": "Sekles",
-  "cancel": "Sefsex",
-  "update": "Leqqem",
-  "delete": "Kkes",
-  "deactivate": "Seḥbes"
+  "currencies": {
+    "EUR": "Euro",
+    "USD": "Dólar estadounidense",
+    "GBP": "Libra esterlina",
+    "JPY": "Yen japonés",
+    "CAD": "Dólar canadiense",
+    "AUD": "Dólar australiano",
+    "CHF": "Franco suizo",
+    "CNY": "Yuan chino",
+    "SEK": "Corona sueca",
+    "NOK": "Corona noruega",
+    "DKK": "Corona danesa",
+    "PLN": "Esloti polaco",
+    "CZK": "Corona checa",
+    "HUF": "Forinto húngaro",
+    "RUB": "Rublo ruso",
+    "BRL": "Real brasileño",
+    "INR": "Rupia india",
+    "KRW": "Won surcoreano",
+    "SGD": "Dólar de Singapur",
+    "HKD": "Dólar de Hong Kong",
+    "NZD": "Dólar neozelandés",
+    "MXN": "Peso mexicano",
+    "ZAR": "Rand sudafricano",
+    "TRY": "Lira turca",
+    "AED": "Dírham de los Emiratos",
+    "SAR": "Riyal saudí",
+    "QAR": "Riyal catarí",
+    "KWD": "Dinar kuwaití",
+    "BHD": "Dinar bareiní",
+    "OMR": "Rial omaní",
+    "JOD": "Dinar jordano",
+    "LBP": "Libra libanesa",
+    "EGP": "Libra egipcia",
+    "MAD": "Dírham marroquí",
+    "TND": "Dinar tunecino",
+    "DZD": "Dinar argelino",
+    "LYD": "Dinar libio"
+  },
+  "profile_page": {
+    "subtitle": "Sus datos, los del salón y sus preferencias",
+    "loading": "Cargando el perfil…"
+  }
 }

@@ -14,7 +14,7 @@
   },
   "network": {
     "connection_error": "Connection error",
-    "timeout": "Request timeout",
+    "timeout": "The request timed out",
     "server_error": "Server error",
     "not_found": "Resource not found",
     "unauthorized": "Unauthorized access",
@@ -31,11 +31,13 @@
   "booking": {
     "slot_unavailable": "This time slot is no longer available",
     "service_unavailable": "This service is not available",
-    "stylist_unavailable": "This stylist is not available",
+    "stylist_unavailable": "This team member is not available",
     "booking_failed": "Booking failed",
     "cancellation_failed": "Cancellation failed",
-    "modification_failed": "Modification failed",
-    "error": "An error occurred while creating the booking. Please try again."
+    "modification_failed": "Couldn't save the changes",
+    "error": "An error occurred while creating the booking. Please try again.",
+    "select_datetime": "Please select a date and time",
+    "no_salon": "Couldn't identify the salon"
   },
   "payment": {
     "payment_failed": "Payment failed",
@@ -45,14 +47,16 @@
     "transaction_error": "Transaction error"
   },
   "general": {
-    "unexpected_error": "Oops! An error occurred",
-    "application_error": "The application encountered a problem. This may be due to corrupted data in the cache.",
+    "unexpected_error": "Oops! Something went wrong",
+    "application_error": "The app ran into a problem. This may be caused by corrupted cached data.",
     "reload_page": "Reload page",
     "reset_data": "Reset data",
     "error_details": "Error details",
     "close_notification": "Close notification",
     "try_again": "Please try again",
-    "contact_support": "Please contact support if the problem persists"
+    "contact_support": "Please contact support if the problem persists",
+    "reset_app": "Reset the app",
+    "generic": "Something went wrong"
   },
   "salon": {
     "not_found": "Salon not found",
@@ -67,6 +71,30 @@
   },
   "loading": {
     "please_wait": "Please wait",
-    "loading": "Loading..."
+    "loading": "Loading…"
+  },
+  "store": {
+    "load_clients": "Couldn't load clients",
+    "create_client": "Couldn't create the client",
+    "update_client": "Couldn't update the client",
+    "delete_client": "Couldn't delete the client",
+    "load_services": "Couldn't load services",
+    "create_service": "Couldn't create the service",
+    "update_service": "Couldn't update the service",
+    "delete_service": "Couldn't delete the service",
+    "load_products": "Couldn't load products",
+    "create_product": "Couldn't create the product",
+    "update_product": "Couldn't update the product",
+    "delete_product": "Couldn't delete the product",
+    "update_quantity": "Couldn't update the quantity",
+    "no_user_data": "No user data found",
+    "load_profile": "Couldn't load the profile",
+    "update_profile": "Couldn't update the profile",
+    "update_language": "Couldn't update the language",
+    "load": "Couldn't load data",
+    "activate": "Couldn't activate",
+    "update": "Couldn't save changes",
+    "generate": "Couldn't generate",
+    "request": "Couldn't send the request"
   }
 }

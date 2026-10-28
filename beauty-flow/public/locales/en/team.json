@@ -1,39 +1,39 @@
 {
   "title": "Team",
   "subtitle": "Manage your team of professionals",
-  "new_member": "New Member",
-  "edit_member": "Edit Member",
-  "member_details": "Member Details",
-  "all_members": "All Members",
-  "active_members": "Active Members",
-  "inactive_members": "Inactive Members",
+  "new_member": "New team member",
+  "edit_member": "Edit team member",
+  "member_details": "Team member details",
+  "all_members": "All team members",
+  "active_members": "Active team members",
+  "inactive_members": "Inactive team members",
   "stylists": "Stylists",
   "form": {
-    "first_name": "First Name",
-    "last_name": "Last Name",
+    "first_name": "First name",
+    "last_name": "Last name",
     "email": "Email",
     "phone": "Phone",
     "role": "Role",
     "specialties": "Specialties",
-    "bio": "Biography",
+    "bio": "Bio",
     "photo": "Photo",
-    "hire_date": "Hire Date",
+    "hire_date": "Hire date",
     "salary": "Salary",
-    "commission_rate": "Commission Rate",
-    "working_hours": "Working Hours",
-    "days_off": "Days Off",
+    "commission_rate": "Commission rate",
+    "working_hours": "Working hours",
+    "days_off": "Days off",
     "skills": "Skills",
     "certifications": "Certifications",
-    "languages": "Languages Spoken",
-    "emergency_contact": "Emergency Contact",
+    "languages": "Languages spoken",
+    "emergency_contact": "Emergency contact",
     "address": "Address"
   },
   "roles": {
     "owner": "Owner",
     "manager": "Manager",
-    "senior_stylist": "Senior Stylist",
+    "senior_stylist": "Senior stylist",
     "stylist": "Stylist",
-    "junior_stylist": "Junior Stylist",
+    "junior_stylist": "Junior stylist",
     "apprentice": "Apprentice",
     "receptionist": "Receptionist",
     "assistant": "Assistant",
@@ -41,17 +41,17 @@
   },
   "specialties": {
     "haircut": "Haircut",
-    "coloring": "Coloring",
+    "coloring": "Color",
     "styling": "Styling",
-    "perming": "Perming",
+    "perming": "Perm",
     "straightening": "Straightening",
     "extensions": "Extensions",
     "bridal": "Bridal",
-    "men_grooming": "Men's Grooming",
-    "beard_care": "Beard Care",
-    "nail_art": "Nail Art",
+    "men_grooming": "Men's grooming",
+    "beard_care": "Beard care",
+    "nail_art": "Nail art",
     "massage": "Massage",
-    "facial_treatments": "Facial Treatments"
+    "facial_treatments": "Facials"
   },
   "schedule": {
     "monday": "Monday",
@@ -61,8 +61,8 @@
     "friday": "Friday",
     "saturday": "Saturday",
     "sunday": "Sunday",
-    "start_time": "Start Time",
-    "end_time": "End Time",
+    "start_time": "Start time",
+    "end_time": "End time",
     "break_time": "Break",
     "day_off": "Day off",
     "available": "Available",
@@ -70,82 +70,83 @@
     "vacation": "Vacation"
   },
   "actions": {
-    "add_member": "Add Member",
+    "add_member": "Add a team member",
     "edit": "Edit",
     "delete": "Delete",
     "activate": "Activate",
     "deactivate": "Deactivate",
-    "view_schedule": "View Schedule",
-    "view_performance": "View Performance",
-    "assign_services": "Assign Services",
-    "set_commission": "Set Commission",
-    "upload_photo": "Upload Photo"
+    "view_schedule": "View schedule",
+    "view_performance": "View performance",
+    "assign_services": "Assign services",
+    "set_commission": "Set commission",
+    "upload_photo": "Upload a photo"
   },
   "stats": {
-    "total_team": "Members",
-    "all_members": "All members",
+    "total_team": "Team members",
+    "all_members": "All team members",
     "active": "Active",
-    "available_members": "Available members",
+    "available_members": "Available team members",
     "roles": "Roles",
     "position_types": "Position types",
     "avg_specialties": "Avg. specialties",
-    "per_member": "Per member"
+    "per_member": "Per team member"
   },
   "badges": {
-    "members": "member(s)",
-    "active": "active"
+    "members_one": "{{count}} team member",
+    "members_other": "{{count}} team members",
+    "active_one": "{{count}} active",
+    "active_other": "{{count}} active"
   },
   "search": {
-    "placeholder": "Search for a team member...",
-    "results": "member(s) found",
-    "for": "for",
-    "with_role": "with role"
+    "placeholder": "Search for a team member…",
+    "results_one": "{{count}} team member found",
+    "results_other": "{{count}} team members found"
   },
   "limits": {
     "title": "Team member limit",
-    "reached": "Limit Reached"
+    "reached": "Limit reached"
   },
   "errors": {
-    "save_error": "Error saving:"
+    "save_error": "Couldn't save:"
   },
   "filters": {
-    "search": "Search members...",
-    "all_roles": "All Roles",
-    "all_specialties": "All Specialties",
+    "search": "Search team members…",
+    "all_roles": "All roles",
+    "all_specialties": "All specialties",
     "availability": "Availability",
     "performance": "Performance"
   },
   "statistics": {
-    "total_members": "Total Members",
-    "active_members": "Active Members",
-    "stylists_count": "Number of Stylists",
-    "average_rating": "Average Rating",
-    "total_appointments": "Total Appointments",
-    "revenue_generated": "Revenue Generated",
-    "client_satisfaction": "Client Satisfaction"
+    "total_members": "Total team members",
+    "active_members": "Active team members",
+    "stylists_count": "Number of stylists",
+    "average_rating": "Average rating",
+    "total_appointments": "Total appointments",
+    "revenue_generated": "Revenue generated",
+    "client_satisfaction": "Client satisfaction"
   },
   "performance": {
-    "appointments_completed": "Appointments Completed",
+    "appointments_completed": "Completed appointments",
     "revenue": "Revenue",
-    "client_rating": "Client Rating",
+    "client_rating": "Client rating",
     "punctuality": "Punctuality",
     "sales": "Sales",
     "tips": "Tips",
-    "repeat_clients": "Repeat Clients",
-    "no_shows": "No Shows"
+    "repeat_clients": "Repeat clients",
+    "no_shows": "No-shows"
   },
   "messages": {
-    "member_created": "Member created successfully",
-    "member_updated": "Member updated successfully",
-    "member_deleted": "Member deleted successfully",
-    "member_activated": "Member activated successfully",
-    "member_deactivated": "Member deactivated successfully",
-    "no_members": "No members found",
-    "loading": "Loading members...",
-    "confirm_delete": "Are you sure you want to delete this member?",
-    "delete_confirmation": "Are you sure you want to delete this member?",
-    "photo_uploaded": "Photo uploaded successfully",
-    "schedule_updated": "Schedule updated successfully"
+    "member_created": "Team member added",
+    "member_updated": "Team member updated",
+    "member_deleted": "Team member deleted",
+    "member_activated": "Team member activated",
+    "member_deactivated": "Team member deactivated",
+    "no_members": "No team members found",
+    "loading": "Loading team members…",
+    "confirm_delete": "Are you sure you want to delete this team member?",
+    "delete_confirmation": "Are you sure you want to delete this team member?",
+    "photo_uploaded": "Photo uploaded",
+    "schedule_updated": "Schedule updated"
   },
   "permissions": {
     "manage_appointments": "Manage appointments",
@@ -154,21 +155,21 @@
     "manage_team": "Manage team",
     "view_reports": "View reports",
     "manage_payments": "Manage payments",
-    "manage_inventory": "Manage inventory",
+    "manage_inventory": "Manage stock",
     "admin_access": "Admin access"
   },
   "team_member_form": {
-    "title_new": "New member",
-    "title_edit": "Edit member",
-    "subtitle": "Contact details, services and working hours.",
+    "title_new": "New team member",
+    "title_edit": "Edit team member",
+    "subtitle": "Contact details, services performed and working hours.",
     "sections": {
       "personal_info": "Personal information",
       "specialties": "Specialties",
       "working_hours": "Working hours"
     },
     "labels": {
-      "first_name_required": "First Name *",
-      "last_name_required": "Last Name *",
+      "first_name_required": "First name *",
+      "last_name_required": "Last name *",
       "email_required": "Email *",
       "phone_required": "Phone *",
       "role_required": "Role *"
@@ -177,7 +178,7 @@
       "first_name": "First name",
       "last_name": "Last name",
       "email_example": "example@email.com",
-      "phone_example": "+1 555 123 4567"
+      "phone_example": "+213 550 12 34 56"
     },
     "working_days": {
       "monday": "Monday",
@@ -194,20 +195,20 @@
       "to": "To:"
     },
     "help_messages": {
-      "specialties_help": "Tick the services this member performs.",
-      "order_help": "Selection order sets the display order.",
-      "no_services": "Add services first to assign them."
+      "specialties_help": "Tick the services this team member performs.",
+      "order_help": "The order you select them in sets the display order.",
+      "no_services": "Add services first so you can assign them."
     },
     "buttons": {
       "cancel": "Cancel",
       "add": "Add",
-      "modify": "Modify"
+      "modify": "Save"
     }
   },
   "team_list": {
     "empty_state": {
-      "title": "No team members",
-      "subtitle": "Start by adding your first collaborators",
+      "title": "No team members yet",
+      "subtitle": "Start by adding your first team members",
       "cta": "Build your team"
     },
     "info_labels": {
@@ -218,20 +219,22 @@
     },
     "sections": {
       "specialties": "Specialties",
-      "weekly_schedule": "Weekly Schedule"
+      "weekly_schedule": "Weekly schedule"
     },
     "stats": {
       "days_per_week": "days/week",
-      "specialties_count": "specialty(ies)",
       "average": "Average",
       "active": "Active",
-      "services": "service(s)",
       "level_of": "Level {{level}}/5",
-      "variable_hours": "Varying hours"
+      "variable_hours": "Varying hours",
+      "specialties_count_one": "{{count}} specialty",
+      "specialties_count_other": "{{count}} specialties",
+      "services_one": "{{count}} service",
+      "services_other": "{{count}} services"
     },
     "tooltips": {
-      "edit_member": "Edit member",
-      "delete_member": "Delete member"
+      "edit_member": "Edit team member",
+      "delete_member": "Delete team member"
     },
     "days_short": {
       "monday": "Mon",
@@ -242,5 +245,13 @@
       "saturday": "Sat",
       "sunday": "Sun"
     }
+  },
+  "role_values": {
+    "Coiffeur(se)": "Hairstylist",
+    "Coloriste": "Colorist",
+    "Assistant(e)": "Assistant",
+    "Réceptionniste": "Receptionist",
+    "Manager": "Manager",
+    "Propriétaire": "Owner"
   }
 }

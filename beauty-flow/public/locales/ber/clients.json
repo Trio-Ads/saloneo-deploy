@@ -1,35 +1,237 @@
 {
   "title": "Imsaɣen",
-  "addClient": "Rnu amsaɣ",
-  "editClient": "Ẓreg amsaɣ",
-  "deleteClient": "Kkes amsaɣ",
-  "clientName": "Isem n umsaɣ",
-  "firstName": "Isem amezwaru",
-  "lastName": "Isem n tawacult",
-  "email": "Imayl",
-  "phone": "Tiliɣri",
-  "address": "Tansa",
-  "birthDate": "Azemz n tlalit",
+  "new_client": "Amsaɣ amaynut",
+  "edit_client": "Ẓreg amsaɣ",
+  "client_details": "Talqayt n umsaɣ",
+  "client_profile": "Amaɣnu n umsaɣ",
+  "all_clients": "Imsaɣen meṛṛa",
+  "active_clients": "Imsaɣen urmiden",
+  "inactive_clients": "Imsaɣen arurmiden",
+  "vip_clients": "Imsaɣen VIP",
+  "form": {
+    "first_name": "Isem",
+    "last_name": "Isem n tawacult",
+    "email": "Imayl",
+    "phone": "Tiliɣri",
+    "date_of_birth": "Azemz n tlalit",
+    "gender": "Tawsit",
+    "address": "Tansa",
+    "city": "Tamdint",
+    "postal_code": "Tangalt n lpusta",
+    "notes": "Tizmilin",
+    "preferences": "Ismenyafen",
+    "allergies": "Aḥsas (allergies)",
+    "skin_type": "Anaw n uglim",
+    "hair_type": "Anaw n ucebbub",
+    "preferred_stylist": "Akwafur i ismenyaf",
+    "marketing_consent": "Aqbal n yiznan n Marketing",
+    "emergency_contact": "Anermis n tɛeǧǧalt",
+    "emergency_phone": "Tiliɣri n tɛeǧǧalt"
+  },
+  "placeholders": {
+    "first_name": "Sekcem isem",
+    "last_name": "Sekcem isem n tawacult",
+    "email": "amedya@email.com",
+    "phone": "05 55 12 34 56",
+    "address": "12 abrid Didouche Mourad, Lezzayer",
+    "city": "Tizi Wezzu",
+    "postal_code": "15000",
+    "notes": "Tizmilin ɣef umsaɣ…",
+    "allergies": "Aḥsas yettwassnen…",
+    "preferences": "Ismenyafen n umsaɣ…"
+  },
   "gender": {
     "male": "Argaz",
     "female": "Tameṭṭut",
-    "other": "Wayeḍ"
+    "other": "Wayeḍ",
+    "prefer_not_to_say": "Ur yebɣi ara ad yini"
   },
-  "notes": "Tizmilin",
-  "noClients": "Ulac imsaɣen",
-  "searchClients": "Nadi imsaɣen",
-  "totalClients": "Amḍan n imsaɣen",
-  "newClients": "Imsaɣen imaynuten",
-  "activeClients": "Imsaɣen urmiden",
-  "clientHistory": "Amazray n umsaɣ",
-  "appointments": "Isuraf",
-  "lastVisit": "Tirza taneggarut",
-  "totalSpent": "Amḍan yettwaxelṣen",
-  "form": {
-    "personalInfo": "Talɣut tudmawant",
-    "contactInfo": "Talɣut n unermis",
-    "additionalInfo": "Talɣut-nniḍen",
-    "save": "Sekles",
-    "cancel": "Sefsex"
+  "skin_type": {
+    "normal": "Amagnu",
+    "dry": "Yeqqur",
+    "oily": "S tlussi",
+    "combination": "Yemxallaḍ",
+    "sensitive": "Ḥessas"
+  },
+  "hair_type": {
+    "straight": "Ilwaẓen",
+    "wavy": "S tmewjin",
+    "curly": "Yeqqnen",
+    "coily": "Ikerkucen",
+    "fine": "Ilqaqen",
+    "thick": "Izuranen"
+  },
+  "status": {
+    "active": "Urmid",
+    "inactive": "Arurmid",
+    "vip": "VIP",
+    "new": "Amaynut"
+  },
+  "actions": {
+    "add_client": "Rnu amsaɣ",
+    "edit": "Ẓreg",
+    "delete": "Kkes",
+    "view_history": "Wali amazray",
+    "book_appointment": "Ṭṭef timlilit",
+    "send_message": "Azen izen",
+    "mark_vip": "Creḍ d VIP",
+    "export": "Sifeḍ",
+    "import": "Kter"
+  },
+  "filters": {
+    "search": "Nadi imsaɣen…",
+    "all_status": "Addaden meṛṛa",
+    "all_genders": "Tiwsatin meṛṛa",
+    "all_stylists": "Iɛeggalen n terbaɛt meṛṛa",
+    "registration_date": "Azemz n ujerred",
+    "last_visit": "Tirza taneggarut"
+  },
+  "statistics": {
+    "total_clients": "Amḍan n yimsaɣen",
+    "new_this_month": "Imaynuten deg waggur-a",
+    "active_clients": "Imsaɣen urmiden",
+    "vip_clients": "Imsaɣen VIP",
+    "average_visits": "Tirza (alemmas)",
+    "retention_rate": "Afmiḍi n tuɣalin"
+  },
+  "history": {
+    "appointment_history": "Amazray n tmlilin",
+    "last_visit": "Tirza taneggarut",
+    "total_visits": "Amḍan n tirza",
+    "total_spent": "Amḍan yettwaxelṣen",
+    "favorite_services": "Imeẓla ismenyaf",
+    "no_history": "Ulac amazray"
+  },
+  "messages": {
+    "client_created": "Amsaɣ yettwarna",
+    "client_updated": "Amsaɣ yettwaleqqem",
+    "client_deleted": "Amsaɣ yettwakkes",
+    "no_clients": "Ulac amsaɣ",
+    "loading": "Asali n yimsaɣen…",
+    "confirm_delete": "Tebɣiḍ s tidet ad tekkseḍ amsaɣ-a?",
+    "email_exists": "Tansa-a imayl tella yakan",
+    "phone_exists": "Uṭṭun-a n tiliɣri yella yakan",
+    "export_success": "Imsaɣen ttwasifḍen",
+    "import_success": "Imsaɣen ttwaketren"
+  },
+  "import_export": {
+    "export_clients": "Sifeḍ imsaɣen",
+    "import_clients": "Kter imsaɣen",
+    "download_template": "Sader tamudemt",
+    "select_file": "Fren afaylu",
+    "supported_formats": "Imasalen yettwasferken: CSV, Excel"
+  },
+  "page_title": "Imsaɣen",
+  "page_subtitle": "Tabdart n yimsaɣen-ik, ismenyafen-nsen d taɣlalt-nsen.",
+  "loading": {
+    "clients": "Asali n yimsaɣen-ik…",
+    "preparing": "Aheyyi n tbadut-ik n yimsaɣen"
+  },
+  "stats": {
+    "clients_total_badge": "imsaɣen s umata",
+    "vip_clients_badge": "imsaɣen VIP",
+    "total": "Asemday",
+    "all_clients": "Imsaɣen",
+    "vip_title": "Imsaɣen VIP",
+    "vip_description": "100 n tneqqiḍin n taɣlalt d wugar",
+    "recent_title": "Imaynuten (30 n wussan)",
+    "recent_description": "Imsaɣen imaynuten",
+    "loyalty_title": "Tineqqiḍin n taɣlalt",
+    "loyalty_description": "Tineqqiḍin yettwasemlen"
+  },
+  "search": {
+    "placeholder": "Nadi amsaɣ (isem, imayl, tiliɣri…)",
+    "results_one": "{{count}} n umsaɣ yettwaf i « {{term}} »",
+    "results_other": "{{count}} n yimsaɣen ttwafen i « {{term}} »"
+  },
+  "empty_state": {
+    "no_clients": "Ulac amsaɣ",
+    "modify_filters": "Ɛreḍ ad tbeddleḍ imsizdigen n unadi",
+    "create_first": "Bdu s tmerna n umsaɣ-ik amezwaru",
+    "create_client": "Rnu amsaɣ"
+  },
+  "errors": {
+    "saving": "Tuccḍa deg usekles n umsaɣ:",
+    "deleting": "Tuccḍa deg tukksa n umsaɣ:"
+  },
+  "client_form": {
+    "title_new": "Amsaɣ amaynut",
+    "title_edit": "Ẓreg amsaɣ",
+    "subtitle": "Ačar talɣut n umsaɣ akken ad tesbeddeḍ lɛinaya-s akken i s-ilaqen",
+    "sections": {
+      "personal_info": "Talɣut tudmawant",
+      "preferences": "Ismenyafen",
+      "communication": "Taywalt"
+    },
+    "labels": {
+      "first_name_required": "Isem *",
+      "last_name_required": "Isem n tawacult *",
+      "phone_required": "Tiliɣri *",
+      "birth_date": "Azemz n tlalit",
+      "favorite_services": "Imeẓla ismenyaf",
+      "preferred_stylists": "Iɛeggalen n terbaɛt i ismenyaf",
+      "sms_reminders": "Ismektiyen s SMS",
+      "email_marketing": "Imaylen n usenqes",
+      "birthday_offers": "Tisɣal n wass n tlalit"
+    },
+    "placeholders": {
+      "enter_first_name": "Sekcem isem",
+      "enter_last_name": "Sekcem isem n tawacult",
+      "phone_example": "+213 5 55 12 34 56",
+      "address_example": "12 abrid Didouche Mourad, Lezzayer",
+      "notes_placeholder": "Tizmilin-nniḍen ɣef umsaɣ…"
+    },
+    "buttons": {
+      "cancel": "Sefsex",
+      "add": "Rnu",
+      "modify": "Ẓreg"
+    },
+    "error_message": "Tuccḍa deg tuzna n tferkit:"
+  },
+  "client_list": {
+    "empty_state": {
+      "title": "Ulac amsaɣ yettwaskelsen",
+      "subtitle": "Bdu s tmerna n yimsaɣen-ik imezwura",
+      "cta": "Rnu tafelwit-ik tamezwarut n umsaɣ"
+    },
+    "loyalty_levels": {
+      "vip": "VIP",
+      "gold": "Ureɣ",
+      "silver": "Lfeṭṭa",
+      "bronze": "Abrunz"
+    },
+    "info_labels": {
+      "email": "Imayl",
+      "phone": "Tiliɣri",
+      "birth_date": "Azemz n tlalit",
+      "last_visit": "Tirza taneggarut"
+    },
+    "profile_sections": {
+      "hair_profile": "Amaɣnu n ucebbub",
+      "loyalty_points": "Tineqqiḍin n taɣlalt",
+      "communication": "Taywalt",
+      "favorite_services": "Imeẓla ismenyaf",
+      "preferred_stylists": "Iɛeggalen n terbaɛt i ismenyaf",
+      "notes": "Tizmilin"
+    },
+    "hair_info": {
+      "type": "Anaw:",
+      "thickness": "Tuzert:"
+    },
+    "communication_badges": {
+      "sms": "SMS",
+      "email": "Imayl",
+      "birthday": "Ass n tlalit"
+    },
+    "tooltips": {
+      "edit_client": "Ẓreg amsaɣ",
+      "delete_client": "Kkes amsaɣ"
+    },
+    "points_one": "{{count}} n tneqqiḍt",
+    "points_other": "{{count}} n tneqqiḍin"
+  },
+  "limits": {
+    "title": "Tilisa n yimsaɣen",
+    "resource": "imsaɣen"
   }
 }

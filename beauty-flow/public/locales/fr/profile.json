@@ -26,10 +26,10 @@
     "time_format": "Format d'heure",
     "currency": "Devise",
     "notifications": "Notifications",
-    "email_notifications": "Notifications par email",
+    "email_notifications": "Notifications par e-mail",
     "sms_notifications": "Notifications SMS",
     "push_notifications": "Notifications push",
-    "marketing_emails": "Emails marketing",
+    "marketing_emails": "E-mails marketing",
     "privacy": "Confidentialité",
     "public_profile": "Profil public",
     "show_online_status": "Afficher le statut en ligne"
@@ -51,12 +51,12 @@
     "share_link": "Partager le lien",
     "marketing_materials": "Matériel marketing",
     "banners": "Bannières",
-    "email_templates": "Modèles d'email",
+    "email_templates": "Modèles d'e-mail",
     "social_posts": "Publications sociales",
     "payout_settings": "Paramètres de paiement",
-    "payment_method": "Méthode de paiement",
+    "payment_method": "Moyen de paiement",
     "bank_account": "Compte bancaire",
-    "paypal_email": "Email PayPal",
+    "paypal_email": "E-mail PayPal",
     "minimum_payout": "Paiement minimum",
     "payout_schedule": "Calendrier de paiement",
     "commission_history": "Historique des commissions",
@@ -76,7 +76,7 @@
     "downgrade": "Rétrograder",
     "cancel": "Annuler",
     "renew": "Renouveler",
-    "payment_method": "Méthode de paiement",
+    "payment_method": "Moyen de paiement",
     "billing_history": "Historique de facturation",
     "invoices": "Factures",
     "download_invoice": "Télécharger la facture"
@@ -86,7 +86,7 @@
   "form": {
     "first_name": "Prénom",
     "last_name": "Nom",
-    "email": "Email",
+    "email": "E-mail",
     "phone": "Téléphone",
     "avatar": "Photo de profil",
     "bio": "Biographie",
@@ -109,7 +109,7 @@
     "description": "Description",
     "specialties": "Spécialités",
     "opening_hours": "Heures d'ouverture",
-    "contact_email": "Email de contact",
+    "contact_email": "E-mail de contact",
     "contact_phone": "Téléphone de contact",
     "emergency_contact": "Contact d'urgence",
     "insurance": "Assurance",
@@ -132,12 +132,12 @@
     "download": "Télécharger",
     "export": "Exporter",
     "import": "Importer",
-    "saving": "Sauvegarde..."
+    "saving": "Enregistrement…"
   },
   "messages": {
     "profile_updated": "Profil mis à jour avec succès",
     "password_changed": "Mot de passe modifié avec succès",
-    "email_verified": "Email vérifié avec succès",
+    "email_verified": "E-mail vérifié avec succès",
     "phone_verified": "Téléphone vérifié avec succès",
     "avatar_uploaded": "Photo de profil téléchargée avec succès",
     "avatar_removed": "Photo de profil supprimée avec succès",
@@ -149,7 +149,7 @@
     "link_copied": "Lien copié dans le presse-papiers",
     "invalid_password": "Mot de passe invalide",
     "passwords_not_match": "Les mots de passe ne correspondent pas",
-    "email_already_exists": "Cet email existe déjà",
+    "email_already_exists": "Cet e-mail existe déjà",
     "phone_already_exists": "Ce numéro de téléphone existe déjà",
     "verification_sent": "Code de vérification envoyé",
     "verification_failed": "Échec de la vérification",
@@ -163,7 +163,7 @@
   },
   "validation": {
     "required": "Ce champ est requis",
-    "email_invalid": "Format d'email invalide",
+    "email_invalid": "Format d'e-mail invalide",
     "phone_invalid": "Format de téléphone invalide",
     "password_min_length": "Le mot de passe doit contenir au moins 8 caractères",
     "password_complexity": "Le mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre",
@@ -184,7 +184,7 @@
       "public_link": "Lien de réservation public"
     },
     "fields": {
-      "email": "Adresse email",
+      "email": "Adresse e-mail",
       "current_password": "Mot de passe actuel",
       "new_password": "Nouveau mot de passe",
       "confirm_password": "Confirmer le nouveau mot de passe",
@@ -225,8 +225,8 @@
       "public_link_description": "Partagez ce lien avec vos clients pour qu'ils puissent prendre rendez-vous directement",
       "public_link_label": "Votre lien de réservation",
       "language_error": "Erreur lors du changement de langue",
-      "email_validation": "Veuillez saisir une adresse email valide",
-      "show_as_team_member_description": "Vous pourrez être choisi(e) dans les réservations et sur la page publique du salon.",
+      "email_validation": "Veuillez saisir une adresse e-mail valide",
+      "show_as_team_member_description": "Les clients pourront vous choisir lors de leur réservation, et vous apparaîtrez sur la page publique du salon.",
       "team_member_on": "Vous apparaissez maintenant dans l'équipe",
       "team_member_off": "Vous n'apparaissez plus dans l'équipe",
       "team_member_error": "Impossible de modifier cette option. Réessayez.",
@@ -247,7 +247,7 @@
   "currency": "Devise",
   "publicLinkCopied": "Lien copié dans le presse-papiers",
   "success": {
-    "save": "Profil sauvegardé avec succès"
+    "save": "Profil enregistré"
   },
   "error": {
     "save": "Erreur lors de la sauvegarde"
@@ -259,9 +259,9 @@
       "share_buttons": {
         "whatsapp": "WhatsApp",
         "facebook": "Facebook",
-        "twitter": "Twitter",
+        "twitter": "X (Twitter)",
         "linkedin": "LinkedIn",
-        "email": "Email"
+        "email": "E-mail"
       },
       "table_headers": {
         "month": "Mois",
@@ -276,8 +276,8 @@
         "revenue": "Revenus ce mois"
       },
       "messages": {
-        "link_copied": "Lien copié dans le presse-papier",
-        "qr_downloaded": "QR Code téléchargé"
+        "link_copied": "Lien copié dans le presse-papiers",
+        "qr_downloaded": "QR code téléchargé"
       },
       "tips": {
         "title": "Conseils pour augmenter vos revenus",
@@ -286,7 +286,9 @@
         "target_audience": "Ciblez les propriétaires de salons dans votre réseau",
         "use_tools": "Utilisez les outils marketing fournis pour vos campagnes"
       },
-      "vs_last_month": "vs mois dernier"
+      "vs_last_month": "vs mois dernier",
+      "share_text": "Découvrez Saloneo, la solution de gestion pour les salons de beauté",
+      "share_subject": "Découvrez Saloneo"
     },
     "commissions": {
       "status": {
@@ -308,34 +310,35 @@
       },
       "table": {
         "date": "Date",
-        "referred_client": "Client référé",
+        "referred_client": "Client parrainé",
         "type": "Type",
         "original_amount": "Montant original",
         "commission": "Commission",
         "status": "Statut",
-        "payment_date": "Date paiement"
+        "payment_date": "Date de paiement",
+        "rate": "Taux"
       },
       "empty_state": {
         "title": "Aucune commission",
         "subtitle": "Commencez à partager votre lien d'affiliation pour gagner des commissions."
       },
-      "export": "Exporter CSV",
-      "note": "Les commissions sont versées mensuellement une fois le seuil minimum de 50€ atteint. Les paiements sont effectués entre le 1er et le 5 de chaque mois.",
+      "export": "Exporter en CSV",
+      "note": "Les commissions sont versées mensuellement une fois le seuil minimum de 50 € atteint. Les paiements sont effectués entre le 1er et le 5 de chaque mois.",
       "payment_note": {
         "title": "Note :",
-        "description": "Les commissions sont versées mensuellement une fois le seuil minimum de 50€ atteint. Les paiements sont effectués entre le 1er et le 5 de chaque mois."
+        "description": "Les commissions sont versées mensuellement une fois le seuil minimum de 50 € atteint. Les paiements sont effectués entre le 1er et le 5 de chaque mois."
       }
     },
     "payout": {
       "title": "Paramètres de paiement",
       "description": "Configurez vos informations de paiement pour recevoir vos commissions",
       "available_balance": "Solde disponible",
-      "payment_method": "Méthode de paiement",
+      "payment_method": "Moyen de paiement",
       "minimum_threshold": "Seuil minimum de paiement",
       "withdraw_amount": "Montant à retirer",
       "request_payout": "Demander un paiement",
       "method": {
-        "title": "Méthode de paiement",
+        "title": "Moyen de paiement",
         "bank_transfer": "Virement bancaire",
         "paypal": "PayPal",
         "crypto": "Cryptomonnaie"
@@ -349,16 +352,16 @@
       },
       "paypal_details": {
         "title": "Informations PayPal",
-        "email": "Email PayPal"
+        "email": "E-mail PayPal"
       },
       "crypto_details": {
-        "title": "Informations Crypto",
+        "title": "Informations crypto",
         "wallet_address": "Adresse du portefeuille",
         "currency": "Cryptomonnaie"
       },
       "minimum_payout": {
         "title": "Seuil minimum",
-        "description": "Montant minimum requis pour effectuer un paiement : 50€"
+        "description": "Montant minimum requis pour effectuer un paiement : 50 €"
       },
       "save_button": "Enregistrer les paramètres",
       "messages": {
@@ -366,7 +369,7 @@
         "save_error": "Erreur lors de la sauvegarde des paramètres",
         "settings_updated": "Paramètres de paiement mis à jour",
         "payout_requested": "Demande de paiement envoyée",
-        "minimum_error": "Le montant minimum est de {{amount}}€",
+        "minimum_error": "Le montant minimum est de {{amount}} €",
         "request_error": "Erreur lors de la demande de paiement"
       },
       "methods": {
@@ -383,24 +386,24 @@
       },
       "paypal_info": {
         "title": "Informations PayPal",
-        "email": "Email PayPal"
+        "email": "E-mail PayPal"
       },
       "crypto_info": {
-        "title": "Informations Crypto",
+        "title": "Informations crypto",
         "network": "Réseau",
-        "wallet_address": "Adresse du wallet"
+        "wallet_address": "Adresse du portefeuille"
       },
       "networks": {
         "ETH": "Ethereum (ETH)",
         "BTC": "Bitcoin (BTC)",
         "USDT": "Tether (USDT)"
       },
-      "save_settings": "Sauvegarder les paramètres",
-      "saving": "Sauvegarde...",
+      "save_settings": "Enregistrer les paramètres",
+      "saving": "Enregistrement…",
       "warning": {
         "title": "Important :",
         "payment_schedule": "Les paiements sont traités entre le 1er et le 5 de chaque mois",
-        "processing_time": "Un délai de 2-5 jours ouvrés est nécessaire selon la méthode choisie",
+        "processing_time": "Un délai de 2 à 5 jours ouvrés est nécessaire selon le moyen choisi",
         "transaction_fees": "Des frais de transaction peuvent s'appliquer selon votre banque"
       },
       "minimum_help": "Les paiements sont effectués automatiquement lorsque votre solde atteint ce montant."
@@ -412,7 +415,7 @@
       "benefits": {
         "title": "Avantages du programme",
         "items": {
-          "earn_commissions": "Gagnez 20% de commission sur chaque abonnement",
+          "earn_commissions": "Gagnez 20 % de commission sur chaque abonnement",
           "marketing_tools": "Accédez à des outils marketing professionnels",
           "real_time_tracking": "Suivez vos performances en temps réel",
           "monthly_payments": "Recevez vos paiements chaque mois"
@@ -423,19 +426,19 @@
         "steps": {
           "share_link": "Partagez votre lien d'affiliation unique",
           "client_subscribes": "Vos contacts s'abonnent à Saloneo",
-          "earn_commission": "Gagnez 20% de commission sur chaque vente"
+          "earn_commission": "Gagnez 20 % de commission sur chaque vente"
         }
       },
       "commission_rates": {
         "title": "Taux de commission",
-        "new_subscription": "20% sur les nouveaux abonnements",
-        "renewal": "10% sur les renouvellements",
-        "upgrade": "15% sur les mises à niveau"
+        "new_subscription": "20 % sur les nouveaux abonnements",
+        "renewal": "10 % sur les renouvellements",
+        "upgrade": "15 % sur les mises à niveau"
       },
       "terms": {
         "title": "Conditions du programme",
         "items": {
-          "minimum_payout": "Seuil minimum de paiement : 50€",
+          "minimum_payout": "Seuil minimum de paiement : 50 €",
           "payment_schedule": "Paiements mensuels entre le 1er et le 5",
           "tracking_period": "Durée de tracking : 30 jours",
           "compliance": "Respect des conditions d'utilisation obligatoire"
@@ -460,15 +463,15 @@
       "activating": "Activation…"
     },
     "marketing": {
-      "title": "Outils Marketing",
+      "title": "Outils marketing",
       "description": "Utilisez ces ressources pour promouvoir Saloneo et maximiser vos commissions",
       "qr_code": {
-        "title": "QR Code de parrainage",
+        "title": "QR code de parrainage",
         "description": "Partagez ce QR code pour permettre à vos contacts de s'inscrire facilement. Parfait pour les cartes de visite, flyers ou affiches.",
-        "generate": "Générer QR Code",
-        "download": "Télécharger le QR Code",
-        "generating": "Génération du QR Code...",
-        "modal_title": "QR Code d'affiliation",
+        "generate": "Générer QR code",
+        "download": "Télécharger le QR code",
+        "generating": "Génération du QR code…",
+        "modal_title": "QR code d'affiliation",
         "modal_description": "Scannez ce code pour accéder directement à votre lien d'affiliation"
       },
       "banners": {
@@ -488,28 +491,33 @@
         "copy": "Copier le texte"
       },
       "email_templates": {
-        "title": "Templates d'emails",
-        "description": "Modèles d'emails professionnels pour promouvoir Saloneo",
+        "title": "Modèles d'e-mails",
+        "description": "Modèles d'e-mails professionnels pour promouvoir Saloneo",
         "copy": "Copier le modèle",
         "professional": {
-          "title": "Email de présentation professionnel",
-          "subject": "Découvrez Saloneo - La solution complète pour votre salon"
+          "title": "E-mail de présentation professionnel",
+          "subject": "Découvrez Saloneo, la solution complète pour votre salon",
+          "content": "Bonjour,\n\nJe souhaite vous présenter Saloneo, une solution de gestion complète spécialement conçue pour les salons de beauté, spas et barbiers.\n\nSaloneo vous permet de :\n✓ Gérer vos rendez-vous en ligne 24/7\n✓ Fidéliser votre clientèle avec un système de points\n✓ Suivre vos performances avec des tableaux de bord détaillés\n✓ Automatiser les rappels SMS pour réduire les rendez-vous manqués\n✓ Gérer votre équipe et vos services facilement\n\nLe plan Gratuit permet de commencer sans carte bancaire ni engagement.\n\nInscrivez-vous dès maintenant : {{link}}\n\nCordialement,\n[Votre nom]"
         },
         "personal": {
-          "title": "Email de recommandation personnelle",
-          "subject": "Mon secret pour gérer mon salon efficacement"
+          "title": "E-mail de recommandation personnelle",
+          "subject": "Mon secret pour gérer mon salon efficacement",
+          "content": "Salut,\n\nJ'espère que tu vas bien ! Je voulais partager avec toi l'outil que j'utilise pour gérer mon salon.\n\nDepuis que j'utilise Saloneo, j'ai pu :\n- Réduire mes rendez-vous manqués de 40 %\n- Augmenter mes réservations en ligne de 60 %\n- Gagner 2 h par jour sur les tâches administratives\n\nLe plus cool ? Les clients peuvent réserver directement depuis leur téléphone, même quand le salon est fermé.\n\nSi ça t'intéresse, tu peux commencer gratuitement : {{link}}\n\nN'hésite pas si tu as des questions !\n\nÀ bientôt,\n[Votre nom]"
         }
       },
       "social_messages": {
         "title": "Messages pour réseaux sociaux",
         "linkedin": "LinkedIn",
         "whatsapp": "WhatsApp",
-        "instagram": "Instagram"
+        "instagram": "Instagram",
+        "linkedin_message": "🚀 Découvrez Saloneo, la solution de gestion tout-en-un pour les professionnels de la beauté.\n\n✅ Réservation en ligne 24/7\n✅ Gestion d'équipe simplifiée\n✅ Tableaux de bord analytiques\n✅ Rappels SMS automatiques\n\nCommencez gratuitement : {{link}}\n\n#BeautyTech #SalonManagement #DigitalTransformation",
+        "whatsapp_message": "Hey ! 👋\n\nTu cherches un outil pour gérer ton salon ? Je te recommande Saloneo !\n\nC'est super simple et ça permet à tes clients de réserver en ligne 24h/24 📱\n\nEssai gratuit ici : {{link}}",
+        "instagram_message": "✨ Transformez votre salon avec Saloneo !\n\nLa solution digitale qui simplifie votre quotidien :\n📅 Réservations en ligne\n💆‍♀️ Gestion des services\n👥 Suivi clientèle\n📊 Analytics détaillés\n\nLien dans ma bio 👆 {{link}}\n\n#SalonDeBeaute #GestionSalon #BeautyBusiness #Saloneo"
       },
       "best_practices": {
         "title": "Bonnes pratiques",
         "personalize": "Personnalisez vos messages",
-        "personalize_desc": "Adaptez les templates à votre style et votre audience pour de meilleurs résultats.",
+        "personalize_desc": "Adaptez les modèles à votre style et à votre audience pour de meilleurs résultats.",
         "be_authentic": "Soyez authentique",
         "be_authentic_desc": "Partagez votre expérience personnelle avec Saloneo pour créer de la confiance.",
         "target_audience": "Ciblez votre audience",
@@ -518,7 +526,7 @@
         "track_performance_desc": "Utilisez le tableau de bord pour identifier ce qui fonctionne le mieux."
       },
       "messages": {
-        "copied": "Texte copié dans le presse-papier",
+        "copied": "Texte copié dans le presse-papiers",
         "download_started": "Téléchargement démarré"
       }
     },
@@ -540,10 +548,10 @@
     },
     "program_title": "Programme d'affiliation",
     "affiliate_code": "Code affilié",
-    "loading": "Chargement des données d'affiliation..."
+    "loading": "Chargement des données d'affiliation…"
   },
   "affiliation_tab": {
-    "title": "Programme d'Affiliation",
+    "title": "Programme d'affiliation",
     "description": "Gagnez des commissions en recommandant Saloneo à votre réseau professionnel",
     "tabs": {
       "dashboard": "Tableau de bord",

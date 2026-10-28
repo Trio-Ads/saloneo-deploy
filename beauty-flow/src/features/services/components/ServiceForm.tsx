@@ -238,7 +238,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
                 >
                   {products.map((p) => (
                     <option key={p.id} value={p.id}>
-                      {p.name} ({p.quantity} {p.unit} {t('details.available')})
+                      {p.name} ({p.quantity} {t(`product_form.unit_values.${p.unit}`, { count: p.quantity, defaultValue: p.unit })} {t('details.available')})
                     </option>
                   ))}
                 </select>

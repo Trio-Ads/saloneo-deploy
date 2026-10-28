@@ -1,31 +1,13 @@
 {
-  "title": "Interface",
+  "title": "Booking page",
   "customization": "Customization",
   "appearance": "Appearance",
   "settings": "Settings",
   "theme": "Theme",
-  "colors": "Colors",
-  "layout": "Layout",
-  "branding": "Branding",
-  "templates": "Templates",
-  "preview": "Preview",
-  "save": "Save",
-  "reset": "Reset",
-  "apply": "Apply",
-  "themes": {
-    "modern": "Modern",
-    "classic": "Classic",
-    "minimal": "Minimal",
-    "elegant": "Elegant",
-    "bold": "Bold",
-    "soft": "Soft",
-    "dark": "Dark",
-    "light": "Light"
-  },
   "colors": {
-    "primary": "Primary Color",
-    "secondary": "Secondary Color",
-    "accent": "Accent Color",
+    "primary": "Primary color",
+    "secondary": "Secondary color",
+    "accent": "Accent color",
     "background": "Background",
     "text": "Text",
     "border": "Border",
@@ -40,110 +22,124 @@
     "footer": "Footer",
     "content": "Content",
     "navigation": "Navigation",
-    "logo_position": "Logo Position",
-    "menu_style": "Menu Style",
+    "logo_position": "Logo position",
+    "menu_style": "Menu style",
     "spacing": "Spacing",
     "borders": "Borders",
     "shadows": "Shadows"
   },
   "branding": {
     "logo": "Logo",
-    "business_name": "Business Name",
+    "business_name": "Business name",
     "tagline": "Tagline",
     "description": "Description",
-    "contact_info": "Contact Information",
-    "social_media": "Social Media",
-    "upload_logo": "Upload Logo",
-    "remove_logo": "Remove Logo",
-    "logo_guidelines": "Guidelines: PNG or JPG format, maximum size 2MB"
+    "contact_info": "Contact details",
+    "social_media": "Social media",
+    "upload_logo": "Upload a logo",
+    "remove_logo": "Remove logo",
+    "logo_guidelines": "Guidelines: PNG or JPG, 2 MB max"
+  },
+  "templates": {
+    "salon_classic": "Classic salon",
+    "modern_spa": "Modern spa",
+    "barbershop": "Barbershop",
+    "beauty_center": "Beauty center",
+    "nail_studio": "Nail studio",
+    "hair_salon": "Hair salon",
+    "wellness_center": "Wellness center",
+    "medical_spa": "Medical spa"
+  },
+  "preview": "Preview",
+  "save": "Save",
+  "reset": "Reset",
+  "apply": "Apply",
+  "themes": {
+    "modern": "Modern",
+    "classic": "Classic",
+    "minimal": "Minimal",
+    "elegant": "Elegant",
+    "bold": "Bold",
+    "soft": "Soft",
+    "dark": "Dark",
+    "light": "Light"
   },
   "display": {
-    "show_prices": "Show Prices",
-    "show_duration": "Show Duration",
-    "show_description": "Show Description",
-    "show_images": "Show Images",
-    "show_ratings": "Show Ratings",
-    "show_availability": "Show Availability",
-    "compact_view": "Compact View",
-    "grid_view": "Grid View",
-    "list_view": "List View"
+    "show_prices": "Show prices",
+    "show_duration": "Show duration",
+    "show_description": "Show description",
+    "show_images": "Show images",
+    "show_ratings": "Show ratings",
+    "show_availability": "Show availability",
+    "compact_view": "Compact view",
+    "grid_view": "Grid view",
+    "list_view": "List view"
   },
   "public_page": {
-    "title": "Public Page",
-    "enable": "Enable Public Page",
+    "title": "Booking page",
+    "enable": "Enable booking page",
     "custom_url": "Custom URL",
-    "seo_title": "SEO Title",
-    "seo_description": "SEO Description",
-    "meta_keywords": "Meta Keywords",
-    "social_sharing": "Social Sharing",
-    "booking_widget": "Booking Widget",
-    "contact_form": "Contact Form",
+    "seo_title": "SEO title",
+    "seo_description": "SEO description",
+    "meta_keywords": "Keywords",
+    "social_sharing": "Social sharing",
+    "booking_widget": "Booking widget",
+    "contact_form": "Contact form",
     "gallery": "Gallery",
     "testimonials": "Testimonials"
   },
   "notifications": {
-    "email_notifications": "Email Notifications",
-    "sms_notifications": "SMS Notifications",
-    "push_notifications": "Push Notifications",
-    "appointment_reminders": "Appointment Reminders",
-    "booking_confirmations": "Booking Confirmations",
-    "payment_notifications": "Payment Notifications",
-    "marketing_emails": "Marketing Emails"
+    "email_notifications": "Email notifications",
+    "sms_notifications": "SMS notifications",
+    "push_notifications": "Push notifications",
+    "appointment_reminders": "Appointment reminders",
+    "booking_confirmations": "Booking confirmations",
+    "payment_notifications": "Payment notifications",
+    "marketing_emails": "Marketing emails"
   },
   "language": {
-    "interface_language": "Interface Language",
-    "public_language": "Public Language",
-    "date_format": "Date Format",
-    "time_format": "Time Format",
+    "interface_language": "App language",
+    "public_language": "Booking page language",
+    "date_format": "Date format",
+    "time_format": "Time format",
     "currency": "Currency",
-    "timezone": "Timezone",
-    "rtl_support": "RTL Support"
+    "timezone": "Time zone",
+    "rtl_support": "RTL support"
   },
   "advanced": {
     "custom_css": "Custom CSS",
     "custom_js": "Custom JavaScript",
     "analytics": "Analytics",
-    "tracking_code": "Tracking Code",
+    "tracking_code": "Tracking code",
     "integrations": "Integrations",
-    "api_settings": "API Settings",
+    "api_settings": "API settings",
     "webhooks": "Webhooks",
     "backup": "Backup",
     "export": "Export",
     "import": "Import"
   },
   "messages": {
-    "settings_saved": "Settings saved successfully",
-    "theme_applied": "Theme applied successfully",
-    "logo_uploaded": "Logo uploaded successfully",
-    "logo_removed": "Logo removed successfully",
+    "settings_saved": "Settings saved",
+    "theme_applied": "Theme applied",
+    "logo_uploaded": "Logo uploaded",
+    "logo_removed": "Logo removed",
     "preview_updated": "Preview updated",
     "changes_saved": "Changes saved",
     "reset_confirm": "Are you sure you want to reset all settings?",
     "unsaved_changes": "You have unsaved changes",
     "invalid_file": "Invalid file format",
-    "file_too_large": "File too large",
-    "upload_error": "Upload error"
-  },
-  "templates": {
-    "salon_classic": "Classic Salon",
-    "modern_spa": "Modern Spa",
-    "barbershop": "Barbershop",
-    "beauty_center": "Beauty Center",
-    "nail_studio": "Nail Studio",
-    "hair_salon": "Hair Salon",
-    "wellness_center": "Wellness Center",
-    "medical_spa": "Medical Spa"
+    "file_too_large": "File is too large",
+    "upload_error": "Couldn't upload the file"
   },
   "page": {
-    "title": "My interface",
+    "title": "My booking page",
     "subtitle": "The template, colors and content of your booking page",
-    "loading_subtitle": "Loading settings...",
-    "loading_interface": "Loading interface...",
+    "loading_subtitle": "Loading settings…",
+    "loading_interface": "Loading…",
     "view_page": "View my page"
   },
   "tabs": {
     "templates": "Templates",
-    "colors": "Colors", 
+    "colors": "Colors",
     "images": "Images",
     "content": "Content",
     "settings": "Settings",
@@ -151,30 +147,36 @@
   },
   "sections": {
     "templates": {
-      "title": "Design Templates",
+      "title": "Templates",
       "description": "Choose a template for your salon"
     },
     "colors": {
-      "title": "Theme Colors", 
-      "description": "Customize the color palette"
+      "title": "Your page colors",
+      "description": "These replace the template's palette."
     },
     "images": {
-      "title": "Salon Images",
+      "title": "Salon images",
       "description": "Upload your logo and banner"
     },
     "content": {
-      "title": "Salon Content",
-      "description": "Manage presentation and display"
+      "title": "About your salon",
+      "description": "What your clients read on your page."
     },
     "settings": {
-      "title": "Advanced Settings",
-      "description": "Appointment configuration and sharing"
+      "title": "Advanced settings",
+      "description": "Appointment settings and sharing"
     }
   },
   "forms": {
     "presentation": {
       "label": "Salon presentation",
-      "placeholder": "Present your salon, specialties, team..."
+      "placeholder": "Introduce your salon, your specialties, your team…"
+    },
+    "public_phone": {
+      "label": "Public phone number",
+      "placeholder": "E.g. 0550 12 34 56",
+      "tip": "Tip:",
+      "description": "This number will be shown on your booking page so clients can reach you easily"
     },
     "services_display": "Services display",
     "appointments_settings": "Appointment settings",
@@ -182,24 +184,24 @@
     "share_link": "Share link"
   },
   "team": {
-    "show_on_public": "Show team on public page",
-    "description": "If disabled, clients won't see your team and won't be able to choose a stylist when booking",
-    "visible_message": "Clients see your team and can choose their stylist.",
-    "hidden_message": "Your team is hidden: you assign the stylist to each appointment."
+    "show_on_public": "Show the team on your booking page",
+    "description": "If this is turned off, clients won't see your team and won't be able to choose a team member when booking.",
+    "visible_message": "Clients see your team and can choose who will look after them.",
+    "hidden_message": "Your team is hidden: you assign each appointment to a team member."
   },
   "images": {
     "logo_label": "Salon logo",
-    "banner_label": "Banner / Header",
-    "logo_tip": "💡 Tips: Use a transparent background (PNG) for optimal rendering in navigation",
-    "banner_tip": "💡 Tips: High resolution image for perfect display on all screens (16:5 ratio)",
+    "banner_label": "Banner",
+    "logo_tip": "Tip: use a transparent background (PNG) so it looks best in the navigation bar",
+    "banner_tip": "Tip: use a high-resolution image so it looks sharp on every screen (16:5 ratio)",
     "logo_help": "A PNG with a transparent background looks best in the navigation bar.",
     "banner_help": "High-resolution image, 16:5, shown at the top of your page."
   },
   "actions": {
     "save": "Save",
-    "saving": "Saving...",
+    "saving": "Saving…",
     "saved": "Saved",
-    "save_error": "Saving failed. Check your connection and try again."
+    "save_error": "Couldn't save. Check your connection and try again."
   },
   "colors_tab": {
     "preview": "Preview",
@@ -223,12 +225,93 @@
       "bold": "Bold"
     },
     "preview": "Preview",
-    "preview_of": "Preview of {{name}}",
+    "preview_of": "Preview of the {{name}} template",
     "applied": "Applied",
     "apply_template": "Apply this template",
     "close": "Close",
+    "search": "Search templates",
+    "search_placeholder": "Search: name, style, mood…",
+    "family": "Family",
+    "all_families": "All families",
+    "mode": {
+      "label": "Light or dark",
+      "all": "Light and dark",
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "sort": {
+      "label": "Sort",
+      "recommended": "Recommended",
+      "name": "Name (A–Z)"
+    },
+    "favorites": "Favorites",
+    "favorite": "Add to favorites",
+    "unfavorite": "Remove from favorites",
+    "count_one": "{{count}} template",
+    "count_other": "{{count}} templates",
+    "reset_filters": "Reset filters",
+    "recommended": "Recommended for your salon",
+    "recommended_hint": "Picked based on your salon’s services.",
+    "all_templates": "All templates",
+    "show_more": "Show more",
+    "shown": "{{shown}} of {{total}}",
+    "empty_title": "No template matches",
+    "empty_body": "Try another word or remove a filter.",
+    "empty_favorites": "Tap a template’s star to find it here.",
+    "previous": "Previous template",
+    "next": "Next template",
     "desktop": "Desktop",
-    "mobile": "Mobile"
+    "mobile": "Mobile",
+    "templates": {
+      "studio": {
+        "tagline": "All-round salon",
+        "description": "Bright and warm, in Saloneo orange, for an all-round salon that leads straight to booking."
+      },
+      "atelier": {
+        "tagline": "Hair studio",
+        "description": "Editorial feel: the salon name in large type like a poster, services laid out like a menu."
+      },
+      "hammam": {
+        "tagline": "Hammam & spa",
+        "description": "Deep green, sand and copper with a Moorish arch, for hammams and spas."
+      },
+      "barber": {
+        "tagline": "Barber",
+        "description": "Charcoal, brass and condensed lettering: the chalkboard of a neighborhood barber."
+      },
+      "onglerie": {
+        "tagline": "Nail studio",
+        "description": "Fuchsia and lilac, with color dots like polish bottles, for nail studios."
+      },
+      "mariee": {
+        "tagline": "Bridal & makeup",
+        "description": "Ivory, champagne and powder pink, with space and light for bridal and makeup."
+      },
+      "institut": {
+        "tagline": "Beauty institute",
+        "description": "Clean and calming, sage green and precise typography for a beauty institute."
+      },
+      "medina": {
+        "tagline": "Algiers heritage",
+        "description": "Indigo, saffron and zellige: a tribute to the Casbah for a salon rooted in its heritage."
+      },
+      "noir": {
+        "tagline": "High-end salon",
+        "description": "Deep black and gold, with the team in the spotlight: the high-end salon."
+      },
+      "epure": {
+        "tagline": "Minimal",
+        "description": "Black and white, nothing extra: the most understated layout in the collection."
+      },
+      "soleil": {
+        "tagline": "Neighborhood salon",
+        "description": "Coral and sunny yellow, for a friendly, welcoming, cheerful family salon."
+      },
+      "botanique": {
+        "tagline": "Natural care",
+        "description": "Linen, olive and clay, in a magazine-style layout for natural care."
+      }
+    }
   },
   "display_settings": {
     "view": {
@@ -259,15 +342,15 @@
       "options": {
         "fixed": {
           "label": "Exact price",
-          "description": "e.g. 2,500 DA"
+          "description": "E.g. 2,500 DA"
         },
         "from": {
-          "label": "About",
-          "description": "e.g. about 2,500 DA"
+          "label": "Starting from",
+          "description": "E.g. from 2,500 DA"
         },
         "range": {
           "label": "Range",
-          "description": "e.g. 2,000 – 3,000 DA"
+          "description": "E.g. 2,000 – 3,000 DA"
         },
         "hidden": {
           "label": "Hide prices",
@@ -277,11 +360,11 @@
     }
   },
   "share": {
-    "description": "Share this link so clients can discover your services and book online.",
+    "description": "Share this link so your clients can discover your services and book online.",
     "copy": "Copy",
     "copied": "Copied",
     "share_on": "Share on",
-    "tweet": "Discover my beauty salon!",
+    "tweet": "Check out my beauty salon!",
     "qr_alt": "QR code for your page",
     "qr_help": "Print this QR code for your counter or window.",
     "qr_download": "Download QR code"
@@ -305,10 +388,10 @@
     "add": "Add review",
     "adding": "Adding…",
     "errors": {
-      "load": "Could not load reviews.",
-      "create": "The review could not be added.",
-      "update": "The change was not saved.",
-      "delete": "The review could not be deleted."
+      "load": "Couldn't load reviews.",
+      "create": "Couldn't add the review.",
+      "update": "Couldn't save the change.",
+      "delete": "Couldn't delete the review."
     }
   },
   "upload": {
@@ -318,18 +401,18 @@
     "dropzone": "Drop an image or click to browse",
     "processing": "Optimizing…",
     "too_large": "The image is over 10 MB. Choose a lighter file.",
-    "not_image": "This file is not an image. Choose a JPG, PNG or WebP.",
-    "unreadable": "Could not read this image's dimensions.",
+    "not_image": "This file isn't an image. Choose a JPG, PNG or WebP.",
+    "unreadable": "Couldn't read this image's dimensions.",
     "wrong_size": "This image is {{width}}×{{height}} px; the recommended size is {{expectedWidth}}×{{expectedHeight}} px.",
     "resize_question": "Resize it automatically?",
     "resize": "Resize and upload",
     "cancel": "Cancel",
     "perfect": "Perfect dimensions.",
     "resized": "Image resized to {{width}}×{{height}} px.",
-    "error": "The image could not be uploaded. Try again."
+    "error": "Couldn't upload the image. Try again."
   },
   "errors": {
-    "upload": "Error uploading image:",
-    "save": "Error saving:"
+    "upload": "Couldn't upload the image:",
+    "save": "Couldn't save:"
   }
 }

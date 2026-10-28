@@ -6,8 +6,8 @@
     "services": "Services",
     "products": "Produits",
     "team": "Équipe",
-    "profile": "Mon Profil",
-    "interface": "Mon Interface",
+    "profile": "Mon profil",
+    "interface": "Mon interface",
     "subscription": "Abonnement",
     "admin": "Administration",
     "home": "Accueil",
@@ -26,16 +26,17 @@
     "back": "Retour",
     "close": "Fermer",
     "logout": "Se déconnecter",
-    "logging_out": "Déconnexion...",
+    "logging_out": "Déconnexion…",
     "add_product": "Ajouter un produit"
   },
   "form": {
     "required": "Champ requis",
-    "invalid_email": "Email invalide",
+    "invalid_email": "E-mail invalide",
     "invalid_phone": "Numéro de téléphone invalide"
   },
   "common": {
-    "app_subtitle": "Gestion moderne"
+    "app_subtitle": "Gestion moderne",
+    "loading": "Chargement"
   },
   "modal": {
     "close": "Fermer"
@@ -49,9 +50,9 @@
     "plan_prefix": "Plan",
     "plans": {
       "FREE": "Gratuit",
-      "STARTER": "Starter", 
+      "STARTER": "Starter",
       "PRO": "Pro",
-      "ENTERPRISE": "Enterprise"
+      "ENTERPRISE": "Entreprise"
     },
     "menu_items": {
       "profile": {
@@ -77,20 +78,20 @@
     },
     "subtitle": "Créez un service de beauté personnalisé pour vos clients",
     "sections": {
-      "basic_info": "Informations de Base",
+      "basic_info": "Informations de base",
       "products": "Produits utilisés",
-      "photos": "Photos du Service"
+      "photos": "Photos du service"
     },
     "placeholders": {
-      "name": "Ex: Coupe et brushing",
-      "description": "Décrivez votre service en détail..."
+      "name": "Ex. Coupe et brushing",
+      "description": "Décrivez votre service en détail…"
     },
     "labels": {
       "product": "Produit",
       "quantity": "Quantité"
     },
     "messages": {
-      "no_products": "Aucun produit disponible. Ajoutez des produits dans la section Stocks pour les utiliser ici."
+      "no_products": "Aucun produit disponible. Ajoutez des produits dans la section Produits pour les utiliser ici."
     },
     "units": {
       "min": "min"

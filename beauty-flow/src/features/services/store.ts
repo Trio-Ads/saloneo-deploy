@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { Service, ServiceFormData, Product, ProductFormData } from './types';
 import { servicesAPI, productsAPI } from '../../services/api';
 import { AxiosError } from 'axios';
+import i18n from 'i18next';
 
 export interface ServiceStore {
   services: Service[];
@@ -132,8 +133,8 @@ export const useServiceStore = create<ServiceStore>()((set, get) => ({
       set({ services, loading: false });
     } catch (error) {
       const message = error instanceof AxiosError 
-        ? error.response?.data?.error || 'Erreur lors du chargement des services'
-        : 'Une erreur est survenue';
+        ? error.response?.data?.error || i18n.t('errors:store.load_services')
+        : i18n.t('errors:general.generic');
       set({ loading: false, error: message });
     }
   },
@@ -153,8 +154,8 @@ export const useServiceStore = create<ServiceStore>()((set, get) => ({
       return newService;
     } catch (error) {
       const message = error instanceof AxiosError 
-        ? error.response?.data?.error || 'Erreur lors de la création du service'
-        : 'Une erreur est survenue';
+        ? error.response?.data?.error || i18n.t('errors:store.create_service')
+        : i18n.t('errors:general.generic');
       set({ loading: false, error: message });
       throw error;
     }
@@ -175,8 +176,8 @@ export const useServiceStore = create<ServiceStore>()((set, get) => ({
       }));
     } catch (error) {
       const message = error instanceof AxiosError 
-        ? error.response?.data?.error || 'Erreur lors de la mise à jour du service'
-        : 'Une erreur est survenue';
+        ? error.response?.data?.error || i18n.t('errors:store.update_service')
+        : i18n.t('errors:general.generic');
       set({ loading: false, error: message });
       throw error;
     }
@@ -192,8 +193,8 @@ export const useServiceStore = create<ServiceStore>()((set, get) => ({
       }));
     } catch (error) {
       const message = error instanceof AxiosError 
-        ? error.response?.data?.error || 'Erreur lors de la suppression du service'
-        : 'Une erreur est survenue';
+        ? error.response?.data?.error || i18n.t('errors:store.delete_service')
+        : i18n.t('errors:general.generic');
       set({ loading: false, error: message });
       throw error;
     }
@@ -234,8 +235,8 @@ export const useServiceStore = create<ServiceStore>()((set, get) => ({
       set({ products, activeProducts, loading: false });
     } catch (error) {
       const message = error instanceof AxiosError 
-        ? error.response?.data?.error || 'Erreur lors du chargement des produits'
-        : 'Une erreur est survenue';
+        ? error.response?.data?.error || i18n.t('errors:store.load_products')
+        : i18n.t('errors:general.generic');
       set({ loading: false, error: message });
     }
   },
@@ -256,8 +257,8 @@ export const useServiceStore = create<ServiceStore>()((set, get) => ({
       return newProduct;
     } catch (error) {
       const message = error instanceof AxiosError 
-        ? error.response?.data?.error || 'Erreur lors de la création du produit'
-        : 'Une erreur est survenue';
+        ? error.response?.data?.error || i18n.t('errors:store.create_product')
+        : i18n.t('errors:general.generic');
       set({ loading: false, error: message });
       throw error;
     }
@@ -282,8 +283,8 @@ export const useServiceStore = create<ServiceStore>()((set, get) => ({
       });
     } catch (error) {
       const message = error instanceof AxiosError 
-        ? error.response?.data?.error || 'Erreur lors de la mise à jour du produit'
-        : 'Une erreur est survenue';
+        ? error.response?.data?.error || i18n.t('errors:store.update_product')
+        : i18n.t('errors:general.generic');
       set({ loading: false, error: message });
       throw error;
     }
@@ -303,8 +304,8 @@ export const useServiceStore = create<ServiceStore>()((set, get) => ({
       });
     } catch (error) {
       const message = error instanceof AxiosError 
-        ? error.response?.data?.error || 'Erreur lors de la suppression du produit'
-        : 'Une erreur est survenue';
+        ? error.response?.data?.error || i18n.t('errors:store.delete_product')
+        : i18n.t('errors:general.generic');
       set({ loading: false, error: message });
       throw error;
     }
@@ -328,8 +329,8 @@ export const useServiceStore = create<ServiceStore>()((set, get) => ({
       });
     } catch (error) {
       const message = error instanceof AxiosError 
-        ? error.response?.data?.error || 'Erreur lors de la mise à jour de la quantité'
-        : 'Une erreur est survenue';
+        ? error.response?.data?.error || i18n.t('errors:store.update_quantity')
+        : i18n.t('errors:general.generic');
       set({ loading: false, error: message });
       throw error;
     }

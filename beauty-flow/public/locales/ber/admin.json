@@ -1,0 +1,77 @@
+{
+  "title": "Tadbelt",
+  "subtitle": "Asefrek n yiseqdacen d yijerriden",
+  "access_denied": {
+    "title": "Anekcum yettwagi",
+    "message": "Ur tesɛiḍ ara tisirag i yilaqen akken ad tkecmeḍ ɣer usebter-a."
+  },
+  "stats": {
+    "total_users": "Amḍan n yiseqdacen",
+    "active_users": "Iseqdacen urmiden",
+    "recent_users": "Iseqdacen imaynuten",
+    "last_30_days": "30 n wussan ineggura",
+    "by_plan": "S uɣawas"
+  },
+  "search": {
+    "placeholder": "Nadi s yisem neɣ s imayl…"
+  },
+  "filters": {
+    "all_plans": "Akk iɣawasen",
+    "all_status": "Akk addaden",
+    "active": "Urmiden",
+    "expired": "Immuten"
+  },
+  "table": {
+    "salon": "Asalun",
+    "email": "Imayl",
+    "plan": "Aɣawas",
+    "status": "Addad",
+    "expiry": "Taggara",
+    "actions": "Tigawin",
+    "no_expiry": "Ulac"
+  },
+  "status": {
+    "active": "Urmid",
+    "inactive": "Arurmid",
+    "expired": "Yemmut",
+    "expiring_soon": "Ad yemmet qrib"
+  },
+  "actions": {
+    "edit": "Ẓreg",
+    "view": "Wali talqayt"
+  },
+  "pagination": {
+    "showing": "Askan seg {{from}} ar {{to}} ɣef {{total}} n yigmaḍ",
+    "previous": "Uzwir",
+    "next": "Ameḍfir"
+  },
+  "no_users": "Ulac aseqdac i yettwafen",
+  "edit_modal": {
+    "title": "Ẓreg ajerred",
+    "plan": "Aɣawas n ujerred",
+    "duration": "Tanzagt",
+    "monthly": "S waggur",
+    "yearly": "S useggas",
+    "biennial": "Sin iseggasen",
+    "triennial": "Kraḍ iseggasen",
+    "expiry_date": "Azemz n taggara",
+    "expiry_help": "Eǧǧ-it d ilem akken ad yettwasiḍen s wudem awurman s tenzagt",
+    "active": "Ajerred urmid",
+    "cancel": "Sefsex",
+    "save": "Sekles",
+    "saving": "Asekles…",
+    "success": "Ajerred yettwabeddel akken iwata",
+    "error": "Tuccḍa deg ubeddel n ujerred"
+  },
+  "feedback": {
+    "send": "Azen imayl n tmuɣli",
+    "sent": "Imayl n tmuɣli yettwazen i {{name}}",
+    "error": "Tuccḍa deg tuzna n yimayl n tmuɣli."
+  },
+  "errors": {
+    "load_users": "Ur d-ttwasalayen ara yiseqdacen",
+    "load_user": "Ur d-tettwasali ara talqayt n useqdac",
+    "load_stats": "Ur d-ttwasalayent ara tidaddanin n tɣerɣert",
+    "update_subscription": "Ur yettwaleqqem ara ujerred"
+  }
+}

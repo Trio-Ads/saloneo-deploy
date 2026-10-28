@@ -7,7 +7,7 @@
   "all_members": "جميع الأعضاء",
   "active_members": "الأعضاء النشطون",
   "inactive_members": "الأعضاء غير النشطين",
-  "stylists": "المصففون",
+  "stylists": "أعضاء الفريق",
   "form": {
     "first_name": "الاسم الأول",
     "last_name": "اسم العائلة",
@@ -29,15 +29,15 @@
     "address": "العنوان"
   },
   "roles": {
-    "owner": "المالك",
-    "manager": "المدير",
-    "senior_stylist": "مصفف أول",
-    "stylist": "مصفف",
-    "junior_stylist": "مصفف مبتدئ",
-    "apprentice": "متدرب",
-    "receptionist": "موظف الاستقبال",
-    "assistant": "مساعد",
-    "cleaner": "عامل نظافة"
+    "owner": "المالك(ة)",
+    "manager": "المدير(ة)",
+    "senior_stylist": "مصفّف(ة) شعر أول",
+    "stylist": "مصفّف(ة) شعر",
+    "junior_stylist": "مصفّف(ة) شعر مبتدئ",
+    "apprentice": "متدرّب(ة)",
+    "receptionist": "موظف(ة) استقبال",
+    "assistant": "مساعد(ة)",
+    "cleaner": "عامل(ة) نظافة"
   },
   "specialties": {
     "haircut": "قص الشعر",
@@ -92,14 +92,27 @@
     "per_member": "لكل عضو"
   },
   "badges": {
-    "members": "عضو/أعضاء",
-    "active": "نشط"
+    "members_zero": "لا أعضاء",
+    "members_one": "عضو واحد",
+    "members_two": "عضوان",
+    "members_few": "{{count}} أعضاء",
+    "members_many": "{{count}} عضوًا",
+    "members_other": "{{count}} عضو",
+    "active_zero": "نشطون: {{count}}",
+    "active_one": "نشطون: {{count}}",
+    "active_two": "نشطون: {{count}}",
+    "active_few": "نشطون: {{count}}",
+    "active_many": "نشطون: {{count}}",
+    "active_other": "نشطون: {{count}}"
   },
   "search": {
-    "placeholder": "البحث عن عضو في الفريق...",
-    "results": "عضو/أعضاء موجود",
-    "for": "لـ",
-    "with_role": "بدور"
+    "placeholder": "البحث عن عضو في الفريق…",
+    "results_zero": "لا يوجد عضو",
+    "results_one": "عضو واحد",
+    "results_two": "عضوان",
+    "results_few": "{{count}} أعضاء",
+    "results_many": "{{count}} عضوًا",
+    "results_other": "{{count}} عضو"
   },
   "limits": {
     "title": "حدود أعضاء الفريق",
@@ -109,7 +122,7 @@
     "save_error": "خطأ في الحفظ:"
   },
   "filters": {
-    "search": "البحث عن الأعضاء...",
+    "search": "البحث عن الأعضاء…",
     "all_roles": "جميع الأدوار",
     "all_specialties": "جميع التخصصات",
     "availability": "التوفر",
@@ -118,20 +131,20 @@
   "statistics": {
     "total_members": "إجمالي الأعضاء",
     "active_members": "الأعضاء النشطون",
-    "stylists_count": "عدد المصففين",
+    "stylists_count": "عدد أعضاء الفريق",
     "average_rating": "متوسط التقييم",
     "total_appointments": "إجمالي المواعيد",
     "revenue_generated": "الإيرادات المحققة",
-    "client_satisfaction": "رضا العملاء"
+    "client_satisfaction": "رضا الزبائن"
   },
   "performance": {
     "appointments_completed": "المواعيد المكتملة",
     "revenue": "الإيرادات",
-    "client_rating": "تقييم العملاء",
+    "client_rating": "تقييم الزبائن",
     "punctuality": "الالتزام بالمواعيد",
     "sales": "المبيعات",
     "tips": "الإكراميات",
-    "repeat_clients": "العملاء المتكررون",
+    "repeat_clients": "الزبائن المتكررون",
     "no_shows": "عدم الحضور"
   },
   "messages": {
@@ -141,15 +154,15 @@
     "member_activated": "تم تفعيل العضو بنجاح",
     "member_deactivated": "تم إلغاء تفعيل العضو بنجاح",
     "no_members": "لم يتم العثور على أعضاء",
-    "loading": "جاري تحميل الأعضاء...",
-    "confirm_delete": "هل أنت متأكد من حذف هذا العضو؟",
-    "delete_confirmation": "هل أنت متأكد من حذف هذا العضو؟",
+    "loading": "جارٍ تحميل الأعضاء…",
+    "confirm_delete": "حذف هذا العضو نهائيًا؟",
+    "delete_confirmation": "حذف هذا العضو نهائيًا؟",
     "photo_uploaded": "تم رفع الصورة بنجاح",
     "schedule_updated": "تم تحديث الجدول بنجاح"
   },
   "permissions": {
     "manage_appointments": "إدارة المواعيد",
-    "manage_clients": "إدارة العملاء",
+    "manage_clients": "إدارة الزبائن",
     "manage_services": "إدارة الخدمات",
     "manage_team": "إدارة الفريق",
     "view_reports": "عرض التقارير",
@@ -174,10 +187,10 @@
       "role_required": "الدور *"
     },
     "placeholders": {
-      "first_name": "الاسم الأول",
-      "last_name": "اسم العائلة",
+      "first_name": "الاسم",
+      "last_name": "اللقب",
       "email_example": "example@email.com",
-      "phone_example": "+966 50 123 4567"
+      "phone_example": "0550 12 34 56"
     },
     "working_days": {
       "monday": "الاثنين",
@@ -189,14 +202,14 @@
       "sunday": "الأحد"
     },
     "schedule_labels": {
-      "works": "يعمل",
+      "works": "يوم عمل",
       "from": "من:",
       "to": "إلى:"
     },
     "help_messages": {
-      "specialties_help": "حدّد الخدمات التي يقدّمها هذا العضو.",
+      "specialties_help": "الخدمات التي يقدّمها هذا العضو.",
       "order_help": "ترتيب الاختيار يحدد ترتيب العرض.",
-      "no_services": "أضف خدمات أولًا لتتمكن من تعيينها."
+      "no_services": "يجب إضافة خدمات أولًا لتتمكن من تعيينها."
     },
     "buttons": {
       "cancel": "إلغاء",
@@ -207,8 +220,8 @@
   "team_list": {
     "empty_state": {
       "title": "لا يوجد أعضاء فريق",
-      "subtitle": "ابدأ بإضافة أول المتعاونين معك",
-      "cta": "بناء فريقك"
+      "subtitle": "يمكنك البدء بإضافة أول أعضاء فريقك",
+      "cta": "تكوين فريقك"
     },
     "info_labels": {
       "email": "البريد الإلكتروني",
@@ -222,12 +235,22 @@
     },
     "stats": {
       "days_per_week": "أيام/أسبوع",
-      "specialties_count": "تخصص(ات)",
       "average": "المتوسط",
       "active": "نشط",
-      "services": "خدمة/خدمات",
       "level_of": "المستوى {{level}}/5",
-      "variable_hours": "ساعات متغيرة"
+      "variable_hours": "ساعات متغيرة",
+      "specialties_count_zero": "لا تخصصات",
+      "specialties_count_one": "تخصص واحد",
+      "specialties_count_two": "تخصصان",
+      "specialties_count_few": "{{count}} تخصصات",
+      "specialties_count_many": "{{count}} تخصصًا",
+      "specialties_count_other": "{{count}} تخصص",
+      "services_zero": "لا خدمات",
+      "services_one": "خدمة واحدة",
+      "services_two": "خدمتان",
+      "services_few": "{{count}} خدمات",
+      "services_many": "{{count}} خدمة",
+      "services_other": "{{count}} خدمة"
     },
     "tooltips": {
       "edit_member": "تعديل العضو",
@@ -242,5 +265,13 @@
       "saturday": "س",
       "sunday": "ح"
     }
+  },
+  "role_values": {
+    "Coiffeur(se)": "مصفّف(ة) شعر",
+    "Coloriste": "اختصاصي(ة) ألوان",
+    "Assistant(e)": "مساعد(ة)",
+    "Réceptionniste": "موظف(ة) استقبال",
+    "Manager": "مدير(ة)",
+    "Propriétaire": "مالك(ة) الصالون"
   }
 }

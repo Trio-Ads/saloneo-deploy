@@ -77,8 +77,8 @@
     "upload_image": "Télécharger une image"
   },
   "filters": {
-    "search": "Rechercher des services...",
-    "search_placeholder": "Rechercher un service...",
+    "search": "Rechercher des services…",
+    "search_placeholder": "Rechercher un service…",
     "all_categories": "Toutes les catégories",
     "all_status": "Tous les statuts",
     "price_range": "Gamme de prix",
@@ -86,10 +86,9 @@
     "popularity": "Popularité"
   },
   "search": {
-    "placeholder": "Rechercher un service...",
-    "results": "service(s) trouvé(s)",
-    "for": "pour",
-    "in": "dans"
+    "placeholder": "Rechercher un service…",
+    "results_one": "{{count}} service trouvé",
+    "results_other": "{{count}} services trouvés"
   },
   "statistics": {
     "total_services": "Total des services",
@@ -121,13 +120,13 @@
     "service_activated": "Service activé avec succès",
     "service_deactivated": "Service désactivé avec succès",
     "no_services": "Aucun service trouvé",
-    "loading": "Chargement des services...",
+    "loading": "Chargement des services…",
     "confirm_delete": "Êtes-vous sûr de vouloir supprimer ce service ?",
     "delete_confirmation": "Êtes-vous sûr de vouloir supprimer ce service ?",
     "try_filters": "Essayez de modifier vos filtres de recherche",
     "create_first": "Commencez par créer votre premier service",
     "image_uploaded": "Image téléchargée avec succès",
-    "image_upload_failed": "Échec du téléchargement de l'image"
+    "image_upload_failed": "Échec de l'envoi de l'image"
   },
   "limits": {
     "title": "Limite de services",
@@ -137,9 +136,9 @@
     "title": "Gestion des stocks",
     "subtitle": "Gérez vos produits et leurs quantités en stock",
     "add_product": "Ajouter un produit",
-    "stock_report": "Rapport de Stock",
+    "stock_report": "Rapport de stock",
     "stats": {
-      "total": "Total Produits",
+      "total": "Total des produits",
       "all_products": "Produits",
       "units": "Unités",
       "unit_types": "Types d'unités",
@@ -148,7 +147,7 @@
       "out_of_stock": "Rupture",
       "stock_depleted": "Stock épuisé"
     },
-    "search_placeholder": "Rechercher un produit, description ou unité...",
+    "search_placeholder": "Rechercher un produit, une description ou une unité…",
     "filters": "les filtres",
     "unit": "Unité",
     "all_units": "Toutes les unités",
@@ -160,12 +159,7 @@
     "no_products": "Aucun produit en stock",
     "modify_search": "Essayez de modifier vos critères de recherche",
     "add_first_products": "Commencez par ajouter vos premiers produits",
-    "stock_alerts": "Alertes de Stock",
-    "products_out_of_stock": "produit(s) en rupture de stock",
-    "products_low_stock": "produit(s) avec un stock faible",
-    "products_found": "produit(s) trouvé(s)",
-    "with_unit": "avec l'unité",
-    "with_filter": "avec le filtre",
+    "stock_alerts": "Alertes de stock",
     "confirm_delete": "Êtes-vous sûr de vouloir supprimer ce produit ?",
     "limit_title": "Limite de produits",
     "resource": "produits",
@@ -175,7 +169,13 @@
     "decrease": "Retirer 1 du stock",
     "increase": "Ajouter 1 au stock",
     "edit_product": "Modifier le produit",
-    "delete_product": "Supprimer le produit"
+    "delete_product": "Supprimer le produit",
+    "products_found_one": "{{count}} produit trouvé",
+    "products_found_other": "{{count}} produits trouvés",
+    "products_out_of_stock_one": "{{count}} produit en rupture de stock",
+    "products_out_of_stock_other": "{{count}} produits en rupture de stock",
+    "products_low_stock_one": "{{count}} produit avec un stock faible",
+    "products_low_stock_other": "{{count}} produits avec un stock faible"
   },
   "details": {
     "available": "disponible"
@@ -218,9 +218,13 @@
     "units": {
       "ml": "Millilitres (ml)",
       "g": "Grammes (g)",
-      "unit": "Unité(s)",
+      "unit": "Unité",
       "l": "Litres (l)",
       "kg": "Kilogrammes (kg)"
+    },
+    "unit_values": {
+      "unité_one": "unité",
+      "unité_other": "unités"
     }
   }
 }

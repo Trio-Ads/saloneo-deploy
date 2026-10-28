@@ -52,7 +52,7 @@ const ClientList: React.FC<ClientListProps> = ({ clients, onEdit, onDelete }) =>
             [t('client_list.info_labels.email'), client.email],
             [t('client_list.info_labels.birth_date'), formatDate(client.birthDate)],
             [t('client_list.info_labels.last_visit'), formatDate(client.lastVisit)],
-            [t('client_list.profile_sections.hair_profile'), prefs?.hairQuestionnaire && [prefs.hairQuestionnaire.hairType, prefs.hairQuestionnaire.thickness].filter(Boolean).join(' · ')],
+            [t('client_list.profile_sections.hair_profile'), prefs?.hairQuestionnaire && [prefs.hairQuestionnaire.hairType, prefs.hairQuestionnaire.thickness].filter(Boolean).map((v) => t(`public:booking.questionnaire.values.${v}`, v)).join(' · ')],
             [t('client_list.profile_sections.favorite_services'), getServiceNames(prefs?.favoriteServices || [])],
             [t('client_list.profile_sections.preferred_stylists'), getStylistNames(prefs?.preferredStylists || [])],
             [t('client_list.profile_sections.communication'), comm && [

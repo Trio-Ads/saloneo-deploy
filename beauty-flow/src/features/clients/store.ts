@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { Client, ClientFormData, ClientHistory, LoyaltyTransaction } from './types';
 import { clientsAPI } from '../../services/api';
 import { AxiosError } from 'axios';
+import i18n from 'i18next';
 
 interface ClientStore {
   clients: Client[];
@@ -138,8 +139,8 @@ export const useClientStore = create<ClientStore>()((set, get) => ({
       set({ clients, loading: false });
     } catch (error) {
       const message = error instanceof AxiosError 
-        ? error.response?.data?.error || 'Erreur lors du chargement des clients'
-        : 'Une erreur est survenue';
+        ? error.response?.data?.error || i18n.t('errors:store.load_clients')
+        : i18n.t('errors:general.generic');
       set({ loading: false, error: message });
     }
   },
@@ -185,8 +186,8 @@ export const useClientStore = create<ClientStore>()((set, get) => ({
       return newClient;
     } catch (error) {
       const message = error instanceof AxiosError 
-        ? error.response?.data?.error || 'Erreur lors de la création du client'
-        : 'Une erreur est survenue';
+        ? error.response?.data?.error || i18n.t('errors:store.create_client')
+        : i18n.t('errors:general.generic');
       set({ loading: false, error: message });
       throw error;
     }
@@ -207,8 +208,8 @@ export const useClientStore = create<ClientStore>()((set, get) => ({
       }));
     } catch (error) {
       const message = error instanceof AxiosError 
-        ? error.response?.data?.error || 'Erreur lors de la mise à jour du client'
-        : 'Une erreur est survenue';
+        ? error.response?.data?.error || i18n.t('errors:store.update_client')
+        : i18n.t('errors:general.generic');
       set({ loading: false, error: message });
       throw error;
     }
@@ -224,8 +225,8 @@ export const useClientStore = create<ClientStore>()((set, get) => ({
       }));
     } catch (error) {
       const message = error instanceof AxiosError 
-        ? error.response?.data?.error || 'Erreur lors de la suppression du client'
-        : 'Une erreur est survenue';
+        ? error.response?.data?.error || i18n.t('errors:store.delete_client')
+        : i18n.t('errors:general.generic');
       set({ loading: false, error: message });
       throw error;
     }

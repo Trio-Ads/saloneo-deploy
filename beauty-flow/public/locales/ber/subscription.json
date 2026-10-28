@@ -1,38 +1,284 @@
 {
-  "title": "Ijerriḍen",
-  "plans": "Iɣawasen",
-  "billing": "After",
-  "payment": "Axelleṣ",
-  "invoice": "Tafaturt",
-  "subscription": "Ajerriḍ",
-  "upgrade": "Ɛli",
-  "downgrade": "Ader",
-  "cancel": "Sefsex",
-  "renew": "Smiren",
-  "trial": "Aɛeṛṛu",
-  "free": "Baṭel",
-  "premium": "Aɣalay",
-  "pro": "Aɣerfan",
-  "enterprise": "Takebbanit",
-  "monthly": "Aggur",
-  "yearly": "Aseggas",
-  "lifetime": "Tudert",
-  "features": "Timahilin",
-  "limits": "Tilisa",
-  "usage": "Aseqdec",
-  "quota": "Azal",
-  "overage": "Azal n ufella",
-  "discount": "Aḥeṛṛi",
-  "coupon": "Takubunt",
-  "promo": "Abeṛṛani",
-  "refund": "Tuɣalin",
-  "chargeback": "Tuɣalin n uxelleṣ",
-  "dispute": "Anmegla",
-  "fraud": "Akukel",
-  "security": "Taɣellist",
-  "compliance": "Aḍfar",
-  "terms": "Tiwtilin",
-  "privacy": "Tudert tusligt",
-  "support": "Tallalt",
-  "contact": "Nermes"
+  "plan_card": {
+    "recommended": "Yettwawelleh",
+    "current": "Aɣawas amiran",
+    "choose": "Fren aɣawas-a",
+    "contact": "Nermes-aɣ",
+    "on_quote": "S usuter n ssuma",
+    "per_month": "/ aggur",
+    "equivalent": "d {{amount}} / aggur",
+    "savings": "Ḥrez {{amount}} (−{{percent}} %)",
+    "duration_hint": "Ma teɣzif tanzagt, tenqes ssuma n Starter d Pro.",
+    "durations": {
+      "MONTHLY": "Yal aggur",
+      "YEARLY": "1 n useggas",
+      "BIENNIAL": "2 n yiseggasen",
+      "TRIENNIAL": "3 n yiseggasen"
+    },
+    "count": "{{value}} {{label}}",
+    "unlimited": "{{label}} war tilist",
+    "limits": {
+      "appointments": "timlilin",
+      "clients": "imsaɣen",
+      "services": "imeẓla",
+      "team_members_one": "aɛeggal n terbaɛt",
+      "stock": "Asefrek n uḥraz",
+      "online_booking": "Aḥeǧǧez srid",
+      "custom_interface": "Agrudem yettwasagnen",
+      "team_members_other": "iɛeggalen n terbaɛt"
+    }
+  },
+  "page": {
+    "title": "Fren aɣawas-ik",
+    "subtitle": "Beddel aɣawas melmi i k-yehwa. Axelleṣ yettwaḍemnen s tkarḍa CIB s SATIM."
+  },
+  "faq": {
+    "title": "Isteqsiyen yettuɣalen",
+    "change_plan": {
+      "q": "Zemreɣ ad beddleɣ aɣawas melmi i yi-yehwa?",
+      "a": "Ih, tzemreḍ ad tɛeddiḍ ɣer uɣawas yufraren neɣ yennernan melmi i k-yehwa. Ibeddilen ttwasnasen imir-a."
+    },
+    "hidden_fees": {
+      "q": "Llant tsuqqar yeffren?",
+      "a": "Ulac tisuqqar yeffren. Ssuma i d-yettbanen tegber kullec: ulac tisuqqar n usebded, ulac takumisyunt ɣef uznuzu."
+    },
+    "cancel": {
+      "q": "D acu ara yeḍrun ma sefsxeɣ ajerred-iw?",
+      "a": "Ad teqqimeḍ tkeččmeḍ alamma tfuk tallit n tfaturt-ik. Isefka-k ad ttwaḥerzen 30 n wussan."
+    }
+  },
+  "cta": {
+    "title": "Theggaḍ ad tbeddleḍ asalun-ik?",
+    "subtitle": "Rnu ɣer yigiman n yimsdaren yerḍan",
+    "button": "Bdu tirmit baṭel"
+  },
+  "payment": {
+    "cancel": "Sefsex",
+    "regular_price": "Ssuma tamagnut",
+    "per_month_equivalent": "D ayen i yal aggur",
+    "secure_payment": "Axelleṣ yettwaḍemnen",
+    "plan": "Aɣawas",
+    "duration": "Tanzagt",
+    "monthly": "aggur",
+    "total": "Asemday",
+    "total_amount": "Tasuqqilt tasemdayt",
+    "discount": "n usenqes",
+    "economy": "Ḥrez",
+    "test_mode": {
+      "title": "Askar n tirmit yermed",
+      "description": "Aql-ak deg twennaḍt n tirmit. Ixelleṣ ad ttwaserwesen s tesqamin timeẓyanin."
+    },
+    "security_features": {
+      "satim": "Axelleṣ yettwaḍemnen s SATIM",
+      "cards": "Yemṣada d akk tikarḍiwin CIB"
+    },
+    "info": "Ma tsiteḍ ɣef \"Kemmel ɣer uxelleṣ\", ad tettwawehleḍ ɣer tɣerɣert taɣellsant n SATIM akken ad tfakkeḍ axelleṣ.",
+    "proceed": "Kemmel ɣer uxelleṣ",
+    "processing": "Asesfer…",
+    "security_notice": "Axelleṣ-ik yettwaḍmen s uneggaf n SATIM",
+    "accept_terms": "Qebleɣ tiwtilin tigejdanin n uznuzu d tsertit n tbaḍnit",
+    "read_terms": "Ɣer tiwtilin",
+    "terms_title": "Tiwtilin tigejdanin n uznuzu",
+    "terms_content": "S uxelleṣ-a, ad tqebleḍ tiwtilin tigejdanin n uznuzu n Saloneo d tiwtilin n SATIM i usesfer n yixelleṣ.",
+    "terms_content2": "Axelleṣ-ik yettwaḍmen, talɣut-ik n tbankt ur tettwasekles ara ɣef yiqeddacen-nneɣ.",
+    "terms_required": "Ilaq ad tqebleḍ tiwtilin tigejdanin akken ad tkemmleḍ",
+    "captcha_required": "Ttxil-k, sentem captcha akken ad tkemmleḍ"
+  },
+  "limits": {
+    "clients_reached": "Tewweḍ tilist n yimsaɣen",
+    "team_reached": "Tewweḍ tilist n yiɛeggalen n terbaɛt",
+    "services_reached": "Tewweḍ tilist n yimeẓla",
+    "products_reached": "Tewweḍ tilist n yifarisen",
+    "upgrade_plan": "Leqqem aɣawas-ik",
+    "back": "Uɣal",
+    "see_plans": "Ẓer iɣawasen",
+    "messages": {
+      "clients_one": "Tewweḍ tilist n {{count}} n umsaɣ. Ɛeddi ɣer uɣawas yufraren akken ad tkemmleḍ.",
+      "clients_other": "Tewweḍ tilist n {{count}} n yimsaɣen. Ɛeddi ɣer uɣawas yufraren akken ad tkemmleḍ.",
+      "services_one": "Tewweḍ tilist n {{count}} n umeẓlu. Ɛeddi ɣer uɣawas yufraren akken ad tkemmleḍ.",
+      "services_other": "Tewweḍ tilist n {{count}} n yimeẓla. Ɛeddi ɣer uɣawas yufraren akken ad tkemmleḍ.",
+      "team_one": "Tewweḍ tilist n {{count}} n uɛeggal n terbaɛt. Ɛeddi ɣer uɣawas yufraren akken ad tkemmleḍ.",
+      "team_other": "Tewweḍ tilist n {{count}} n yiɛeggalen n terbaɛt. Ɛeddi ɣer uɣawas yufraren akken ad tkemmleḍ.",
+      "appointments_one": "Tewweḍ tilist n {{count}} n tmlilit. Ɛeddi ɣer uɣawas yufraren akken ad tkemmleḍ.",
+      "appointments_other": "Tewweḍ tilist n {{count}} n tmlilin. Ɛeddi ɣer uɣawas yufraren akken ad tkemmleḍ.",
+      "products_one": "Tewweḍ tilist n {{count}} n ufaris i uɣawas {{plan}}.",
+      "products_other": "Tewweḍ tilist n {{count}} n yifarisen i uɣawas {{plan}}.",
+      "products_remaining_one": "Mazal tzemreḍ ad ternuḍ {{count}} n ufaris.",
+      "products_remaining_other": "Mazal tzemreḍ ad ternuḍ {{count}} n yifarisen.",
+      "products_unlimited": "Tzemreḍ ad ternuḍ ifarisen war tilist.",
+      "usage_error": "D awezɣi asali n tidaddanin n useqdec."
+    },
+    "upgrade": {
+      "FREE": "Ɛeddi ɣer uɣawas Starter akken ad tawiḍ ugar n tmahilin.",
+      "STARTER": "Ɛeddi ɣer uɣawas Pro akken ad tesnernuḍ tilisa-k.",
+      "PRO": "Ɛeddi ɣer uɣawas Tasbeddit i useqdec war tilist.",
+      "ENTERPRISE": "Nermes-aɣ i uɣawas yettwasagnen i kečč."
+    }
+  },
+  "widget": {
+    "usage": "Aɣawas {{plan}} · {{current}} / {{limit}} {{resource}}",
+    "usage_unlimited": "Aɣawas {{plan}} · {{resource}} war tilist",
+    "near_limit": "{{current}} / {{limit}} {{resource}} yettwasqedcen, tilist qrib ad tewweḍ",
+    "at_limit": "Tewweḍ tilist n {{limit}} {{resource}}",
+    "title": "Ajerred-ik",
+    "manage": "Sefrek",
+    "unlimited": "War tilist",
+    "used": "Yettwasqedcen",
+    "remaining": "i d-yeqqimen",
+    "limit_reached": "Tewweḍ tilist",
+    "limit_near": "Tilist tqerb-d",
+    "available": "Yella",
+    "upgrade": "Leqqem"
+  },
+  "success": {
+    "title": "Axelleṣ yedda akken iwata",
+    "message": "Ayyuz! Ajerred-ik deg uɣawas {{planName}} yermed akken iwata.",
+    "benefits": {
+      "title": "Tura tzemreḍ:",
+      "premium": "Ad tkecmeḍ ɣer akk timahilin timeqqranin",
+      "unlimited": "Ad tsefrekeḍ asalun-ik war tilisa",
+      "support": "Ad tesɛuḍ tallalt s tazwart"
+    },
+    "continue": "Kcem ɣer tfelwit-iw n usenqed",
+    "email_sent": "Imayl n usentem yettwazen ɣer tansa-k.",
+    "transaction": {
+      "title": "Talqayt n temhelt",
+      "id": "Uṭṭun n temhelt",
+      "date": "Azemz",
+      "time": "Akud",
+      "method": "Tarrayt n uxelleṣ",
+      "amount": "Tasuqqilt",
+      "disclaimer": "Tamhelt-a tettwasesfer sɣur SATIM. Ḥrez talɣut-a i lmend n wayen d-iteddun.",
+      "support": "I yal asteqsi ɣef uxelleṣ-ik, nermes tallalt n SATIM deg 3020."
+    }
+  },
+  "failed": {
+    "title": "Axelleṣ ur yeddi ara",
+    "help": {
+      "title": "D acu ara txedmeḍ tura?",
+      "check_card": "Senqed ma takarḍa-k tṣeḥḥa yerna tesɛa idrimen yekfan",
+      "check_info": "Senqed ma teskecmeḍ talɣut-ik akken iwata",
+      "try_another": "Ɛreḍ s tkarḍa-nniḍen ma yella uguren yeqqim"
+    },
+    "retry": "Ɛreḍ axelleṣ tikkelt-nniḍen",
+    "back": "Uɣal ɣer yijerriden",
+    "support": "Tesriḍ tallalt?",
+    "transaction": {
+      "title": "Talqayt n tuccḍa",
+      "id": "Uṭṭun n temhelt",
+      "error_code": "Tangalt n tuccḍa",
+      "date": "Azemz d wakud",
+      "disclaimer": "Tamhelt-a tettwagi sɣur SATIM. Ttxil-k, senqed talɣut-ik sakin ɛreḍ tikkelt-nniḍen.",
+      "support": "I yal tallalt, nermes tallalt n SATIM deg 3020."
+    }
+  },
+  "plans": {
+    "free": {
+      "name": "Baṭel",
+      "description": "Igerrez i tazwara",
+      "price": "Baṭel",
+      "features": [
+        "Alamma d 10 n tmlilin deg waggur",
+        "Alamma d 5 n yimsaɣen",
+        "Asefrek azadur n yimeẓla",
+        "Tallalt s imayl"
+      ]
+    },
+    "starter": {
+      "name": "Starter",
+      "description": "Igerrez i yisalunen imeẓyanen",
+      "features": [
+        "Alamma d 100 n tmlilin deg waggur",
+        "Alamma d 50 n yimsaɣen",
+        "Asefrek ummid n yimeẓla",
+        "Asefrek n terbaɛt (alamma d 3 n yiɛeggalen)",
+        "Tislaḍin tizadurin",
+        "Tallalt s imayl"
+      ]
+    },
+    "professional": {
+      "name": "Pro",
+      "description": "I tsebbadin i yettnernin",
+      "features": [
+        "Alamma d 500 n tmlilin deg waggur",
+        "Alamma d 200 n yimsaɣen",
+        "Asefrek leqqayen n yimeẓla",
+        "Asefrek n terbaɛt (alamma d 10 n yiɛeggalen)",
+        "Tislaḍin leqqayen",
+        "Aḥeǧǧez srid",
+        "Tallalt s tazwart"
+      ]
+    },
+    "enterprise": {
+      "name": "Tasbeddit",
+      "description": "I yisalunen imeqqranen d yizeddigen",
+      "features": [
+        "Timlilin war tilist",
+        "Imsaɣen war tilist",
+        "Anekcum ummid ɣer akk timahilin",
+        "Iɛeggalen n terbaɛt war tilist",
+        "Tislaḍin d yineqqisen leqqayen",
+        "Tallalt i waṭas n yidgan",
+        "Imsidaf yettwasagnen",
+        "Tallalt i kečč kan"
+      ]
+    }
+  },
+  "billing": {
+    "monthly": "Yal aggur",
+    "yearly": "Yal aseggas",
+    "save_percent": "Ḥrez {{percent}} %",
+    "billed_monthly": "Tafaturt yal aggur",
+    "billed_yearly": "Tafaturt yal aseggas",
+    "per_month": "deg waggur",
+    "per_year": "deg useggas"
+  },
+  "actions": {
+    "choose_plan": "Fren aɣawas",
+    "current_plan": "Aɣawas amiran",
+    "upgrade": "Leqqem",
+    "downgrade": "Ader aɣawas",
+    "cancel": "Sefsex ajerred",
+    "reactivate": "Ales armed",
+    "change_plan": "Beddel aɣawas"
+  },
+  "status": {
+    "active": "Urmid",
+    "cancelled": "Yettwasefsex",
+    "expired": "Yemmut",
+    "trial": "Tirmit",
+    "pending": "Yettraǧu"
+  },
+  "messages": {
+    "upgrade_success": "Aɣawas yettwaleqqem akken iwata",
+    "downgrade_success": "Aɣawas yettwasader akken iwata",
+    "cancellation_success": "Ajerred yettwasefsex akken iwata",
+    "reactivation_success": "Ajerred yules armed akken iwata",
+    "payment_updated": "Tarrayt n uxelleṣ tettwaleqqem akken iwata",
+    "trial_ending": "Tirmit-ik qrib ad tfak",
+    "subscription_expired": "Ajerred-ik yemmut",
+    "upgrade_required": "Ttxil-k, leqqem aɣawas-ik akken ad tkemmleḍ aseqdec n tmahilt-a"
+  },
+  "resources": {
+    "clients": "imsaɣen",
+    "team": "iɛeggalen n terbaɛt",
+    "services": "imeẓla",
+    "products": "ifarisen"
+  },
+  "payment_errors": {
+    "init": "Tuccḍa deg usenker n uxelleṣ",
+    "status": "Tuccḍa deg usenqed n waddad n uxelleṣ",
+    "history": "Tuccḍa deg tririt n umazray",
+    "fallback_link": "Sit dagi akken ad tkecmeḍ ɣer usebter n uxelleṣ",
+    "fallback_message": "Ma ur tettwawehleḍ ara s wudem awurman ɣer usebter n uxelleṣ, sit ɣef tqeffalt-a ddaw-a:",
+    "redirect": "Teḍra-d tuccḍa deg uwelleh. Ttxil-k, ɛreḍ tikkelt-nniḍen neɣ nermes tallalt.",
+    "codes": {
+      "missing_transaction": "Tamhelt txuṣ",
+      "transaction_not_found": "Tamhelt ulac-itt",
+      "payment_failed": "Axelleṣ ur yeddi ara",
+      "payment_cancelled": "Axelleṣ yettwasefsex",
+      "processing_error": "Tuccḍa deg usesfer",
+      "invalid_transaction": "Tamhelt ur tṣeḥḥa ara"
+    }
+  }
 }

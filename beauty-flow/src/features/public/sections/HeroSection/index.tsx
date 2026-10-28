@@ -1,11 +1,14 @@
-import React, { useId } from 'react';
+import React, { useId, useState } from 'react';
 import { SectionProps } from '../types';
-import { CategoryStack, HeroCta, ServicePeek, isDark, onColor, useSalon } from '../kit';
+import {
+  Arrow, BookButton, CategoryStack, HeroCta, HoursTable, Icon, Meta, Monogram, ServicePeek, ServiceVisual, TodayHours,
+  initials, isDark, onColor, telHref, useSalon,
+} from '../kit';
 
 type P = SectionProps;
 
 const Logo = ({ data, className = '' }: Pick<P, 'data'> & { className?: string }) =>
-  data.profile.logo ? <img src={data.profile.logo} alt="" className={`h-12 w-auto object-contain ${className}`} /> : null;
+  data.profile.logo ? <img src={data.profile.logo} alt="" className={`sp-logo h-12 w-auto object-contain ${className}`} /> : null;
 
 const Banner = ({ data, className }: Pick<P, 'data'> & { className: string }) =>
   <img src={data.profile.banner} alt="" className={`w-full object-cover ${className}`} style={{ borderRadius: 'var(--sp-r)' }} />;
@@ -256,6 +259,255 @@ function HeroStatement({ data }: P) {
   );
 }
 
+/** Collage: the banner as the tall tile, up to three service photos around it; typographic tiles fill the gaps. */
+function HeroMosaic({ data }: P) {
+  const { name, about } = useSalon(data);
+  // Photos first; typographic tiles take one service per category so they don't repeat.
+  const seen = new Set<string>();
+  const picks = [
+    ...data.services.filter(s => s.images?.length),
+    ...data.services.filter(s => !s.images?.length && !seen.has(s.category) && !!seen.add(s.category)),
+  ].slice(0, 3);
+  const cells = ['row-span-2', '', '', 'row-span-2'];
+  return (
+    <section id="top" className="sp-section !pt-10 md:!pt-16">
+      <div className="sp-wrap grid md:grid-cols-12 gap-10 md:gap-12 items-center">
+        <div className="md:col-span-5 sp-rise">
+          <Logo data={data} className="mb-8" />
+          <h1 className="text-[clamp(2.75rem,1.4rem+4.4vw,5.5rem)] !leading-[0.95]">{name}</h1>
+          {about && <p className="mt-6 text-lg sp-muted max-w-[34rem]">{about}</p>}
+          <div className="mt-9"><HeroCta data={data} /></div>
+        </div>
+        <div className="md:col-span-7 grid grid-cols-2 grid-rows-3 grid-flow-col gap-3 md:gap-4 aspect-[4/5] sm:aspect-[5/4]">
+          <div className={cells[0]}>
+            {data.profile.banner
+              ? <Banner data={data} className="h-full" />
+              : <div aria-hidden className="sp-tile sp-tile-1 h-full" style={{ borderRadius: 'var(--sp-r)' }}><span className="sp-h !text-[clamp(3rem,2rem+4vw,6rem)]">{initials(name)}</span></div>}
+          </div>
+          {[0, 1, 2].map(i => (
+            <div key={i} className={cells[i + 1]}>
+              {picks[i]
+                ? <ServiceVisual service={picks[i]} index={i} className="h-full" />
+                : <div aria-hidden className={`sp-tile sp-tile-${(i + 2) % 3} h-full`} style={{ borderRadius: 'var(--sp-r)' }} />}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** The salon name runs as a slow band across the page (still under reduced motion). */
+function HeroMarquee({ data }: P) {
+  const { name, about } = useSalon(data);
+  const run = Array.from({ length: 4 }, () => name);
+  return (
+    <section id="top" className="sp-section !pt-8 md:!pt-14 overflow-hidden">
+      <h1 className="sr-only">{name}</h1>
+      <div className="sp-ticker-wrap sp-marquee-wrap overflow-hidden border-y sp-line py-5 md:py-8" aria-hidden>
+        <div className="sp-ticker sp-marquee">
+          {[...run, ...run].map((n, i) => (
+            <span key={i} className="sp-h flex items-center gap-[0.45em] pe-[0.45em] text-[clamp(4rem,2rem+8vw,9.5rem)] !leading-[1] whitespace-nowrap">
+              {n}<span className="sp-marquee-mark" />
+            </span>
+          ))}
+        </div>
+      </div>
+      <div className="sp-wrap mt-10 md:mt-14 flex flex-col md:flex-row md:items-end md:justify-between gap-8 sp-rise">
+        {about && <p className="text-lg sp-muted max-w-[36rem]">{about}</p>}
+        <HeroCta data={data} />
+      </div>
+      {data.profile.banner && <div className="sp-wrap mt-12 md:mt-16"><Banner data={data} className="aspect-[4/3] md:aspect-[21/9]" /></div>}
+    </section>
+  );
+}
+
+/** The photo set in a thick colored passe-partout; the name is lettered on the mat below it. */
+function HeroFrame({ template, data }: P) {
+  const { name, about } = useSalon(data);
+  const mat = template.theme.colors.custom?.band ?? template.theme.colors.primary;
+  const ink = onColor(mat);
+  return (
+    <section
+      id="top"
+      className="sp-mat px-[clamp(0.875rem,3.5vw,3.5rem)] pt-[clamp(0.875rem,3.5vw,3.5rem)] pb-12 md:pb-16"
+      style={{ background: mat, color: ink, '--sp-text': ink, '--sp-muted': `color-mix(in srgb, ${ink} 80%, ${mat})`, '--sp-mat': mat } as React.CSSProperties}
+    >
+      <div className="max-w-[90rem] mx-auto">
+        <div className="sp-mat-window aspect-[4/5] sm:aspect-[16/10] md:aspect-[2/1] overflow-hidden">
+          {data.profile.banner
+            ? <img src={data.profile.banner} alt="" className="w-full h-full object-cover" />
+            : <CategoryStack data={data} className="h-full p-6 md:p-12 italic" />}
+        </div>
+        <div className="mt-8 md:mt-12 flex flex-col md:flex-row md:items-end md:justify-between gap-8 sp-rise">
+          <div>
+            <Logo data={data} className="mb-6" />
+            <h1 className="text-[clamp(2.5rem,1.4rem+4.5vw,5.5rem)] !leading-[0.95]">{name}</h1>
+            {about && <p className="mt-5 text-lg sp-muted max-w-[36rem]">{about}</p>}
+          </div>
+          <HeroCta data={data} />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** The name set vertically along the edge; the photo fills the rest, the text follows below it. */
+function HeroVertical({ data }: P) {
+  const { name, about } = useSalon(data);
+  return (
+    <section id="top" className="grid grid-cols-[auto_1fr] border-b sp-line">
+      <div className="flex items-end justify-center px-2.5 md:px-8 py-6 md:py-10 border-e sp-line">
+        <h1 className="sp-vertical text-[clamp(2.75rem,1.5rem+6vw,8rem)] !leading-[0.9] max-h-[82svh]">{name}</h1>
+      </div>
+      <div className="flex flex-col min-w-0">
+        <div className="relative min-h-[58svh] md:min-h-[72vh]">
+          {data.profile.banner
+            ? <img src={data.profile.banner} alt="" className="absolute inset-0 w-full h-full object-cover" />
+            : <CategoryStack data={data} className="sp-tile-0 absolute inset-0 p-6 md:p-12" />}
+        </div>
+        <div className="px-5 md:px-12 py-8 md:py-12 flex flex-col md:flex-row md:items-end md:justify-between gap-7 sp-rise">
+          <div>
+            <Logo data={data} className="mb-6" />
+            {about && <p className="text-lg sp-muted max-w-[34rem]">{about}</p>}
+          </div>
+          <HeroCta data={data} />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Cinematic 2.39:1 banner, the name below it in large type. */
+function HeroLetterbox({ data }: P) {
+  const { name, about, categories } = useSalon(data);
+  return (
+    <section id="top" className="sp-section !pt-0">
+      {data.profile.banner
+        ? <img src={data.profile.banner} alt="" className="w-full aspect-[16/9] md:aspect-[2.39/1] object-cover" />
+        : categories.length > 0 && (
+          <div aria-hidden className="sp-tile-0 w-full aspect-[16/9] md:aspect-[2.39/1] flex items-center justify-center px-6">
+            <span className="sp-h italic text-center text-[clamp(1.5rem,1rem+2.5vw,3.25rem)] max-w-[24ch]">{categories.join(' · ')}</span>
+          </div>
+        )}
+      <div className="sp-wrap mt-10 md:mt-16 grid md:grid-cols-[1.4fr_1fr] gap-8 md:gap-16 md:items-end sp-rise">
+        <div>
+          <Logo data={data} className="mb-6" />
+          <h1 className="text-[clamp(3rem,1.2rem+6vw,7rem)] !leading-[0.92] [overflow-wrap:anywhere]">{name}</h1>
+        </div>
+        <div>
+          {about && <p className="text-lg sp-muted max-w-[34rem] mb-8">{about}</p>}
+          <HeroCta data={data} />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** The hero is the booking: pick a category, then one of its first three services. */
+function HeroBooking({ data, onBook }: P) {
+  const { t, name, about, phone, categories } = useSalon(data);
+  const [cat, setCat] = useState(categories[0] ?? '');
+  const shown = (cat ? data.services.filter(s => s.category === cat) : data.services).slice(0, 3);
+  return (
+    <section id="top" className="sp-section !pt-10 md:!pt-16">
+      <div className="sp-wrap grid md:grid-cols-[1fr_1.1fr] gap-10 md:gap-16 items-start [&>*]:min-w-0">
+        <div className="sp-rise">
+          <Logo data={data} className="mb-8" />
+          <h1 className="text-[clamp(2.5rem,1.4rem+3.8vw,4.75rem)]">{name}</h1>
+          {about && <p className="mt-5 text-lg sp-muted max-w-[34rem]">{about}</p>}
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 sp-muted">
+            <TodayHours data={data} />
+            {phone && <a href={telHref(phone)} className="sp-num hover:underline underline-offset-4">{phone}</a>}
+          </div>
+          {data.profile.banner && <Banner data={data} className="hidden md:block mt-10 aspect-[16/10]" />}
+        </div>
+        {data.services.length > 0 && (
+          <div className="sp-card p-5 md:p-8">
+            {categories.length > 1 && (
+              <div role="tablist" aria-label={t('site.services_title')} className="sp-scroller gap-2 -mx-5 px-5 md:-mx-8 md:px-8 mb-2">
+                {categories.map(c => (
+                  <button key={c} type="button" role="tab" aria-selected={cat === c} onClick={() => setCat(c)} className="sp-chip">{c}</button>
+                ))}
+              </div>
+            )}
+            <ul role="tabpanel">
+              {shown.map(s => (
+                <li key={s._id} className="flex items-center gap-4 py-4 border-b sp-line">
+                  <div className="flex-1 min-w-0">
+                    <h2 className="text-lg md:text-xl !leading-snug">{s.name}</h2>
+                    <Meta service={s} data={data} className="block mt-1 text-[0.95rem]" />
+                  </div>
+                  <BookButton service={s} onBook={onBook} small />
+                </li>
+              ))}
+            </ul>
+            <a href="#services" className="sp-link inline-flex items-center gap-2 mt-5">{t('site.all_services')} <Arrow /></a>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+/** The neighbourhood salon: where it is and whether it is open today, before anything else. */
+function HeroAddress({ data }: P) {
+  const { t, name, about, address, mapsUrl, today, hours } = useSalon(data);
+  return (
+    <section id="top" className="sp-section !pt-10 md:!pt-16">
+      <div className="sp-wrap grid md:grid-cols-12 gap-10 md:gap-12 items-end">
+        <div className="md:col-span-7 sp-rise">
+          <Logo data={data} className="mb-8" />
+          <h1 className="text-[clamp(2.75rem,1.4rem+4.4vw,5.5rem)] !leading-[0.95]">{name}</h1>
+          {about && <p className="mt-5 text-lg sp-muted max-w-[34rem]">{about}</p>}
+          {(address || today) && (
+            <dl className="mt-10 pt-7 border-t sp-line grid gap-6">
+              {address && (
+                <div className="flex gap-4">
+                  <Icon name="pin" size={24} className="sp-ink mt-1" />
+                  <div>
+                    <dt className="sr-only">{t('site.address')}</dt>
+                    <dd className="sp-h !normal-case text-[clamp(1.35rem,1.1rem+1vw,2rem)] !leading-[1.15]">{address}</dd>
+                    <dd className="mt-2"><a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="sp-link inline-flex items-center gap-2">{t('site.directions')} <Arrow /></a></dd>
+                  </div>
+                </div>
+              )}
+              {today && (
+                <div className="flex gap-4 items-center">
+                  <Icon name="clock" size={24} className="sp-ink" />
+                  <dt className="sr-only">{t('site.hours')}</dt>
+                  <dd className="text-lg"><TodayHours data={data} /></dd>
+                </div>
+              )}
+            </dl>
+          )}
+          <div className="mt-9"><HeroCta data={data} /></div>
+        </div>
+        <div className="md:col-span-5">
+          {data.profile.banner
+            ? <Banner data={data} className="aspect-[4/5]" />
+            : hours.length > 0 && <div className="sp-card p-6 md:p-8"><h2 className="text-xl mb-3">{t('site.hours')}</h2><HoursTable data={data} /></div>}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Logo-led: the logo (or a monogram of the initials) large, the name quiet under it, lots of air. */
+function HeroSignature({ data }: P) {
+  const { name, about } = useSalon(data);
+  return (
+    <section id="top" className="py-[calc(var(--sp-py)*1.1)] md:py-[calc(var(--sp-py)*1.5)]">
+      <div className="sp-wrap flex flex-col items-center text-center sp-rise">
+        <Monogram data={data} className="h-28 md:h-40 w-auto max-w-[80vw] text-[clamp(5.5rem,3rem+8vw,10rem)] !leading-none sp-ink" />
+        <h1 className="mt-10 md:mt-12 text-[clamp(1.5rem,1.2rem+1.2vw,2.25rem)]">{name}</h1>
+        {about && <p className="mt-4 sp-muted max-w-[34rem]">{about}</p>}
+        <div className="mt-10 flex justify-center"><HeroCta data={data} /></div>
+      </div>
+    </section>
+  );
+}
+
 export function HeroSection(props: SectionProps) {
   switch (props.template.sections.hero.variant) {
     case 'split':     return <HeroSplit {...props} />;
@@ -267,6 +519,14 @@ export function HeroSection(props: SectionProps) {
     case 'panel':     return <HeroPanel {...props} />;
     case 'capsule':   return <HeroCapsule {...props} />;
     case 'statement': return <HeroStatement {...props} />;
+    case 'mosaic':    return <HeroMosaic {...props} />;
+    case 'marquee':   return <HeroMarquee {...props} />;
+    case 'frame':     return <HeroFrame {...props} />;
+    case 'vertical':  return <HeroVertical {...props} />;
+    case 'letterbox': return <HeroLetterbox {...props} />;
+    case 'booking':   return <HeroBooking {...props} />;
+    case 'address':   return <HeroAddress {...props} />;
+    case 'signature': return <HeroSignature {...props} />;
     default:          return <HeroCentered {...props} />;
   }
 }

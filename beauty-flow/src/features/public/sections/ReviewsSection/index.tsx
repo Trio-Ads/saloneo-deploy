@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { SectionProps } from '../types';
 import { PublicReview } from '../../types';
 import { Arrow, Section, Stars, Title, useRating, useSalon } from '../kit';
@@ -127,12 +128,79 @@ function ReviewsTicker({ data }: P) {
   );
 }
 
+const QuoteMark = () => (
+  <svg viewBox="0 0 32 24" width="40" height="30" fill="currentColor" aria-hidden className="sp-ink mb-5">
+    <path d="M13 1C6 3 1 8.5 1 16v7h11V12H6.5C7 8 9.5 5.5 14 4.2zM31 1c-7 2-12 7.5-12 15v7h11V12h-5.5c.5-4 3-6.5 7.5-7.8z" />
+  </svg>
+);
+
+/** Pull quotes set large on a ruled wall; the first one across the full width. */
+function ReviewsQuoteWall({ data }: P) {
+  return (
+    <Section id="reviews">
+      <Head data={data} />
+      <div className="grid md:grid-cols-2 gap-x-14 gap-y-12 md:gap-y-16">
+        {data.reviews.slice(0, 7).map((r, i) => (
+          <figure key={r._id} className={`border-t sp-line pt-8 ${i === 0 ? 'md:col-span-2' : ''}`}>
+            <QuoteMark />
+            <blockquote>
+              <p className={`sp-h !normal-case !leading-[1.2] ${i === 0 ? 'text-[clamp(1.75rem,1.2rem+2.2vw,3rem)] max-w-[30ch]' : 'text-[clamp(1.35rem,1.1rem+1vw,1.85rem)]'}`}>{r.comment}</p>
+            </blockquote>
+            <figcaption className="mt-6 flex items-center gap-3 sp-muted"><Stars rating={r.rating} />{r.author}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+/** The real average and how the ratings spread, next to the three latest reviews. */
+function ReviewsRatingSummary({ data }: P) {
+  const { t, i18n } = useTranslation('public');
+  const n = data.reviews.length;
+  const avg = data.reviews.reduce((a, r) => a + r.rating, 0) / n;
+  const spread = [5, 4, 3, 2, 1].map(k => ({ k, count: data.reviews.filter(r => r.rating === k).length }));
+  const latest = [...data.reviews].sort((a, b) => +new Date(b.date) - +new Date(a.date)).slice(0, 3);
+  return (
+    <Section id="reviews">
+      <Title>{t('site.reviews_title')}</Title>
+      <div className="grid md:grid-cols-[minmax(16rem,1fr)_2fr] gap-12 md:gap-16">
+        <div>
+          <p className="sp-h sp-num text-[clamp(4rem,3rem+4vw,6rem)] !leading-none">
+            {avg.toLocaleString(i18n.language, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}
+            <span className="sr-only"> / 5</span>
+          </p>
+          <div className="mt-4 flex items-center gap-3">
+            <span aria-hidden><Stars rating={Math.round(avg)} /></span>
+            <span className="sp-muted sp-num">{t('site.review_count', { count: n })}</span>
+          </div>
+          <ul className="mt-8 grid gap-2.5">
+            {spread.map(({ k, count }) => (
+              <li key={k} className="grid grid-cols-[1rem_1fr_2rem] items-center gap-3 text-sm sp-num">
+                <span className="sr-only">{t('site.rating_row', { stars: k, n: count })}</span>
+                <span aria-hidden>{k}</span>
+                <span aria-hidden className="sp-bar"><span style={{ width: `${(count / n) * 100}%` }} /></span>
+                <span aria-hidden className="sp-muted text-end">{count}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="grid gap-8 content-start md:border-s sp-line md:ps-16">
+          {latest.map(r => <Quote key={r._id} r={r} className="text-[1.05rem] pb-8 border-b sp-line last:border-0 last:pb-0" />)}
+        </div>
+      </div>
+    </Section>
+  );
+}
+
 export function ReviewsSection(props: SectionProps) {
   if (!props.data.reviews.length) return null;
   switch (props.template.sections.reviews.variant) {
     case 'featured': return <ReviewsFeatured {...props} />;
     case 'masonry':  return <ReviewsMasonry {...props} />;
     case 'ticker':   return <ReviewsTicker {...props} />;
+    case 'quote-wall': return <ReviewsQuoteWall {...props} />;
+    case 'rating-summary': return <ReviewsRatingSummary {...props} />;
     default:         return <ReviewsCarousel {...props} />;
   }
 }

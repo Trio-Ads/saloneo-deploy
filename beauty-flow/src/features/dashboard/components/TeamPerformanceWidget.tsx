@@ -31,7 +31,7 @@ const TeamPerformanceWidget: React.FC<TeamPerformanceWidgetProps> = ({ appointme
         id: member.id,
         name: fullName,
         avatar: member.avatar,
-        role: member.role || t('components.team_performance.no_role'),
+        role: member.role ? t(`team:role_values.${member.role}`, member.role) : t('components.team_performance.no_role'),
         appointmentsCount: memberAppointments.length,
         completedCount: completedAppointments.length,
         revenue,
@@ -69,7 +69,7 @@ const TeamPerformanceWidget: React.FC<TeamPerformanceWidgetProps> = ({ appointme
                 </div>
                 <div className="flex items-baseline justify-between gap-3 text-xs text-gray-500 dark:text-gray-400">
                   <span className="truncate">{member.role}</span>
-                  <span className="shrink-0">{member.completedCount} {t('components.team_performance.completed')}</span>
+                  <span className="shrink-0">{t('components.team_performance.completed', { count: member.completedCount })}</span>
                 </div>
                 <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
                   <div className="h-full rounded-full bg-orange-500 dark:bg-orange-400" style={{ width: `${(member.revenue / maxRevenue) * 100}%` }} />

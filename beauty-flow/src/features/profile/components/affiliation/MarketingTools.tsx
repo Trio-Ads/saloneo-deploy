@@ -60,45 +60,13 @@ const MarketingTools: React.FC = () => {
       id: 'email-1',
       title: t('affiliation_components.marketing.email_templates.professional.title'),
       subject: t('affiliation_components.marketing.email_templates.professional.subject'),
-      content: `Bonjour,
-
-Je souhaite vous présenter Saloneo, une solution de gestion complète spécialement conçue pour les salons de beauté, spas et barbershops.
-
-Saloneo vous permet de :
-✓ Gérer vos rendez-vous en ligne 24/7
-✓ Fidéliser votre clientèle avec un système de points
-✓ Suivre vos performances avec des tableaux de bord détaillés
-✓ Automatiser les rappels SMS pour réduire les no-shows
-✓ Gérer votre équipe et vos services facilement
-
-Profitez d'un essai gratuit de 14 jours sans engagement.
-
-Inscrivez-vous dès maintenant : ${affiliateLink}
-
-Cordialement,
-[Votre nom]`
+      content: t('affiliation_components.marketing.email_templates.professional.content', { link: affiliateLink })
     },
     {
       id: 'email-2',
       title: t('affiliation_components.marketing.email_templates.personal.title'),
       subject: t('affiliation_components.marketing.email_templates.personal.subject'),
-      content: `Salut,
-
-J'espère que tu vas bien ! Je voulais partager avec toi l'outil que j'utilise pour gérer mon salon.
-
-Depuis que j'utilise Saloneo, j'ai pu :
-- Réduire mes no-shows de 40%
-- Augmenter mes réservations en ligne de 60%
-- Gagner 2h par jour sur les tâches administratives
-
-Le plus cool ? Les clients peuvent réserver directement depuis leur téléphone, même quand le salon est fermé.
-
-Si ça t'intéresse, tu peux tester gratuitement pendant 14 jours : ${affiliateLink}
-
-N'hésite pas si tu as des questions !
-
-À bientôt,
-[Votre nom]`
+      content: t('affiliation_components.marketing.email_templates.personal.content', { link: affiliateLink })
     }
   ];
 
@@ -107,42 +75,17 @@ N'hésite pas si tu as des questions !
     {
       id: 'social-1',
       platform: 'LinkedIn',
-      message: `🚀 Découvrez Saloneo, la solution de gestion tout-en-un pour les professionnels de la beauté.
-
-✅ Réservation en ligne 24/7
-✅ Gestion d'équipe simplifiée
-✅ Tableaux de bord analytiques
-✅ Rappels SMS automatiques
-
-Essai gratuit de 14 jours : ${affiliateLink}
-
-#BeautyTech #SalonManagement #DigitalTransformation`
+      message: t('affiliation_components.marketing.social_messages.linkedin_message', { link: affiliateLink })
     },
     {
       id: 'social-2',
       platform: 'WhatsApp',
-      message: `Hey ! 👋
-
-Tu cherches un outil pour gérer ton salon ? Je te recommande Saloneo !
-
-C'est super simple et ça permet à tes clients de réserver en ligne 24h/24 📱
-
-Essai gratuit ici : ${affiliateLink}`
+      message: t('affiliation_components.marketing.social_messages.whatsapp_message', { link: affiliateLink })
     },
     {
       id: 'social-3',
       platform: 'Instagram',
-      message: `✨ Transformez votre salon avec Saloneo ! 
-
-La solution digitale qui simplifie votre quotidien :
-📅 Réservations en ligne
-💆‍♀️ Gestion des services
-👥 Suivi clientèle
-📊 Analytics détaillés
-
-Lien dans ma bio 👆 ${affiliateLink}
-
-#SalonDeBeaute #GestionSalon #BeautyBusiness #Saloneo`
+      message: t('affiliation_components.marketing.social_messages.instagram_message', { link: affiliateLink })
     }
   ];
 

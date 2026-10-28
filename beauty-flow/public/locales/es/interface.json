@@ -1,351 +1,418 @@
 {
-  "title": "Interface",
-  "subtitle": "Personaliza la apariencia de tu salón",
-  "tabs": {
-    "branding": "Marca",
-    "colors": "Couleurs",
-    "layout": "Diseño",
-    "templates": "Templates",
-    "images": "Images",
-    "content": "Contenu",
-    "settings": "Paramètres"
-  },
-  "branding": {
-    "title": "Identidad de Marca",
-    "subtitle": "Configura el logo y la información de tu salón",
-    "salon_name": "Nombre del salón",
-    "salon_description": "Descripción del salón",
-    "logo": "Logo",
-    "upload_logo": "Télécharger un logo",
-    "remove_logo": "Supprimer le logo",
-    "logo_guidelines": "Recommandations : Format PNG ou JPG, taille maximale 2MB",
-    "contact_info": "Informations de contact",
-    "address": "Dirección",
-    "phone": "Teléfono",
-    "email": "Email",
-    "website": "Sitio web",
-    "social_media": "Réseaux sociaux",
-    "facebook": "Facebook",
-    "instagram": "Instagram",
-    "twitter": "Twitter",
-    "tiktok": "TikTok",
-    "business_name": "Nom de l'entreprise",
-    "tagline": "Slogan",
-    "description": "Description"
-  },
+  "title": "Interfaz",
+  "customization": "Personalización",
+  "appearance": "Apariencia",
+  "settings": "Ajustes",
+  "theme": "Tema",
   "colors": {
-    "title": "Esquema de Colores",
-    "subtitle": "Personaliza los colores de tu interfaz",
-    "primary_color": "Color primario",
-    "secondary_color": "Color secundario",
-    "accent_color": "Color de acento",
-    "background_color": "Color de fondo",
-    "text_color": "Color del texto",
-    "preset_themes": "Temas predefinidos",
-    "elegant": "Elegante",
-    "modern": "Moderno",
-    "warm": "Cálido",
-    "cool": "Fresco",
-    "bold": "Audaz",
-    "minimal": "Minimalista",
-    "preview": "Vista previa",
-    "apply_theme": "Aplicar tema",
-    "custom_colors": "Colores personalizados",
-    "reset_colors": "Restablecer colores",
-    "primary": "Couleur principale",
-    "secondary": "Couleur secondaire",
+    "primary": "Color principal",
+    "secondary": "Color secundario",
     "accent": "Color de acento",
-    "background": "Color de fondo",
-    "text": "Texte",
-    "border": "Bordure",
-    "success": "Succès",
-    "warning": "Avertissement",
-    "error": "Erreur",
-    "info": "Information"
+    "background": "Fondo",
+    "text": "Texto",
+    "border": "Borde",
+    "success": "Éxito",
+    "warning": "Advertencia",
+    "error": "Error",
+    "info": "Información"
   },
   "layout": {
-    "title": "Configuración de Diseño",
-    "subtitle": "Personaliza la disposición de tu interfaz",
-    "sidebar_position": "Posición de la barra lateral",
-    "left": "Izquierda",
-    "right": "Derecha",
-    "sidebar_style": "Estilo de la barra lateral",
-    "expanded": "Expandida",
-    "collapsed": "Contraída",
-    "auto": "Automático",
-    "header_style": "Estilo del encabezado",
-    "fixed": "Fijo",
-    "floating": "Flotante",
-    "transparent": "Transparente",
-    "card_style": "Estilo de tarjetas",
-    "rounded": "Redondeadas",
-    "square": "Cuadradas",
-    "shadow": "Con sombra",
-    "flat": "Planas",
-    "animation_level": "Nivel de animación",
-    "none": "Ninguna",
-    "subtle": "Sutil",
-    "normal": "Normal",
-    "enhanced": "Mejorada",
-    "header": "En-tête",
-    "sidebar": "Barre latérale",
-    "footer": "Pied de page",
-    "content": "Contenu",
-    "navigation": "Navigation",
-    "logo_position": "Position du logo",
-    "menu_style": "Style du menu",
-    "spacing": "Espacement",
-    "borders": "Bordures",
-    "shadows": "Ombres"
+    "header": "Encabezado",
+    "sidebar": "Barra lateral",
+    "footer": "Pie de página",
+    "content": "Contenido",
+    "navigation": "Navegación",
+    "logo_position": "Posición del logo",
+    "menu_style": "Estilo del menú",
+    "spacing": "Espaciado",
+    "borders": "Bordes",
+    "shadows": "Sombras"
+  },
+  "branding": {
+    "logo": "Logo",
+    "business_name": "Nombre del negocio",
+    "tagline": "Eslogan",
+    "description": "Descripción",
+    "contact_info": "Datos de contacto",
+    "social_media": "Redes sociales",
+    "upload_logo": "Subir un logo",
+    "remove_logo": "Eliminar el logo",
+    "logo_guidelines": "Recomendaciones: formato PNG o JPG, tamaño máximo 2 MB"
   },
   "templates": {
-    "title": "Plantillas de Diseño",
-    "subtitle": "Elige una plantilla prediseñada para tu salón",
-    "current_template": "Plantilla actual",
-    "available_templates": "Plantillas disponibles",
-    "preview_template": "Vista previa",
-    "apply_template": "Aplicar plantilla",
-    "template_applied": "Plantilla aplicada con éxito",
-    "modern_salon": "Salón Moderno",
-    "classic_beauty": "Belleza Clásica",
-    "minimalist": "Minimalista",
-    "luxury_spa": "Spa de Lujo",
-    "urban_style": "Estilo Urbano",
-    "vintage_charm": "Encanto Vintage",
-    "template_features": "Características de la plantilla",
-    "color_scheme": "Esquema de colores",
-    "layout_style": "Estilo de diseño",
-    "components": "Componentes incluidos",
-    "salon_classic": "Salon Classique",
-    "modern_spa": "Spa Moderne",
-    "barbershop": "Barbershop",
-    "beauty_center": "Centre de Beauté",
-    "nail_studio": "Studio d'Ongles",
-    "hair_salon": "Salon de Coiffure",
-    "wellness_center": "Centre de Bien-être",
-    "medical_spa": "Spa Médical"
+    "salon_classic": "Salón clásico",
+    "modern_spa": "Spa moderno",
+    "barbershop": "Barbería",
+    "beauty_center": "Centro de belleza",
+    "nail_studio": "Estudio de uñas",
+    "hair_salon": "Peluquería",
+    "wellness_center": "Centro de bienestar",
+    "medical_spa": "Spa médico"
+  },
+  "preview": "Vista previa",
+  "save": "Guardar",
+  "reset": "Restablecer",
+  "apply": "Aplicar",
+  "themes": {
+    "modern": "Moderno",
+    "classic": "Clásico",
+    "minimal": "Minimalista",
+    "elegant": "Elegante",
+    "bold": "Atrevido",
+    "soft": "Suave",
+    "dark": "Oscuro",
+    "light": "Claro"
   },
   "display": {
-    "title": "Configuración de Pantalla",
-    "subtitle": "Ajusta la configuración de visualización",
-    "language": "Idioma",
-    "currency": "Moneda",
-    "date_format": "Formato de fecha",
-    "time_format": "Formato de hora",
-    "timezone": "Zona horaria",
-    "density": "Densidad de la interfaz",
-    "compact": "Compacta",
-    "comfortable": "Cómoda",
-    "spacious": "Espaciosa",
-    "font_size": "Tamaño de fuente",
-    "small": "Pequeña",
-    "medium": "Mediana",
-    "large": "Grande",
-    "theme_mode": "Modo del tema",
-    "light": "Claro",
-    "dark": "Oscuro",
-    "system": "Sistema",
-    "show_prices": "Afficher les prix",
-    "show_duration": "Afficher la durée",
-    "show_description": "Afficher la description",
-    "show_images": "Afficher les images",
-    "show_ratings": "Afficher les évaluations",
-    "show_availability": "Afficher la disponibilité",
-    "compact_view": "Vue compacte",
-    "grid_view": "Vue en grille",
-    "list_view": "Vue en liste"
-  },
-  "actions": {
-    "save": "Enregistrer",
-    "cancel": "Cancelar",
-    "reset": "Restablecer",
-    "preview": "Vista previa",
-    "apply": "Aplicar",
-    "upload": "Subir",
-    "remove": "Eliminar",
-    "edit": "Editar",
-    "duplicate": "Duplicar",
-    "export": "Exportar",
-    "import": "Importar",
-    "saving": "Sauvegarde..."
-  },
-  "messages": {
-    "settings_saved": "Paramètres enregistrés avec succès",
-    "settings_reset": "Configuración restablecida",
-    "logo_uploaded": "Logo téléchargé avec succès",
-    "logo_removed": "Logo supprimé avec succès",
-    "template_applied": "Plantilla aplicada con éxito",
-    "colors_updated": "Colores actualizados",
-    "layout_updated": "Diseño actualizado",
-    "error_saving": "Error al guardar la configuración",
-    "error_uploading": "Error al subir el archivo",
-    "invalid_file_type": "Tipo de archivo no válido",
-    "file_too_large": "Fichier trop volumineux",
-    "theme_applied": "Thème appliqué avec succès",
-    "preview_updated": "Aperçu mis à jour",
-    "changes_saved": "Modifications enregistrées",
-    "reset_confirm": "Êtes-vous sûr de vouloir réinitialiser tous les paramètres ?",
-    "unsaved_changes": "Vous avez des modifications non enregistrées",
-    "invalid_file": "Format de fichier non valide",
-    "upload_error": "Erreur lors du téléchargement"
-  },
-  "placeholders": {
-    "salon_name": "Nombre de tu salón",
-    "salon_description": "Describe tu salón y servicios...",
-    "address": "Calle Principal 123, Ciudad",
-    "phone": "+34 123 456 789",
-    "email": "contacto@tusalon.com",
-    "website": "https://tusalon.com",
-    "facebook": "https://facebook.com/tusalon",
-    "instagram": "https://instagram.com/tusalon"
-  },
-  "validation": {
-    "required": "Este campo es obligatorio",
-    "invalid_email": "Email no válido",
-    "invalid_url": "URL no válida",
-    "invalid_phone": "Número de teléfono no válido",
-    "max_length": "Máximo {max} caracteres",
-    "min_length": "Mínimo {min} caracteres"
-  },
-  "tips": {
-    "logo_size": "Para mejores resultados, usa un logo de 200x200px",
-    "color_contrast": "Asegúrate de que haya suficiente contraste entre colores",
-    "mobile_friendly": "Todas las plantillas son compatibles con móviles",
-    "backup_settings": "Exporta tu configuración como respaldo"
-  },
-  "customization": "Personnalisation",
-  "appearance": "Apparence",
-  "settings": "Paramètres",
-  "theme": "Thème",
-  "preview": "Aperçu",
-  "save": "Enregistrer",
-  "reset": "Réinitialiser",
-  "apply": "Appliquer",
-  "themes": {
-    "modern": "Moderne",
-    "classic": "Classique",
-    "minimal": "Minimal",
-    "elegant": "Élégant",
-    "bold": "Audacieux",
-    "soft": "Doux",
-    "dark": "Sombre",
-    "light": "Clair"
+    "show_prices": "Mostrar los precios",
+    "show_duration": "Mostrar la duración",
+    "show_description": "Mostrar la descripción",
+    "show_images": "Mostrar las imágenes",
+    "show_ratings": "Mostrar las valoraciones",
+    "show_availability": "Mostrar la disponibilidad",
+    "compact_view": "Vista compacta",
+    "grid_view": "Vista en cuadrícula",
+    "list_view": "Vista en lista"
   },
   "public_page": {
-    "title": "Page publique",
-    "enable": "Activer la page publique",
-    "custom_url": "URL personnalisée",
-    "seo_title": "Titre SEO",
-    "seo_description": "Description SEO",
-    "meta_keywords": "Mots-clés",
-    "social_sharing": "Partage social",
-    "booking_widget": "Widget de réservation",
-    "contact_form": "Formulaire de contact",
-    "gallery": "Galerie",
-    "testimonials": "Témoignages"
+    "title": "Página pública",
+    "enable": "Activar la página pública",
+    "custom_url": "URL personalizada",
+    "seo_title": "Título SEO",
+    "seo_description": "Descripción SEO",
+    "meta_keywords": "Palabras clave",
+    "social_sharing": "Compartir en redes",
+    "booking_widget": "Widget de reservas",
+    "contact_form": "Formulario de contacto",
+    "gallery": "Galería",
+    "testimonials": "Testimonios"
   },
   "notifications": {
-    "email_notifications": "Notifications par email",
-    "sms_notifications": "Notifications SMS",
-    "push_notifications": "Notifications push",
-    "appointment_reminders": "Rappels de rendez-vous",
-    "booking_confirmations": "Confirmations de réservation",
-    "payment_notifications": "Notifications de paiement",
-    "marketing_emails": "Emails marketing"
+    "email_notifications": "Notificaciones por correo",
+    "sms_notifications": "Notificaciones por SMS",
+    "push_notifications": "Notificaciones push",
+    "appointment_reminders": "Recordatorios de citas",
+    "booking_confirmations": "Confirmaciones de reserva",
+    "payment_notifications": "Notificaciones de pago",
+    "marketing_emails": "Correos de marketing"
   },
   "language": {
-    "interface_language": "Langue de l'interface",
-    "public_language": "Langue publique",
-    "date_format": "Format de date",
-    "time_format": "Format d'heure",
-    "currency": "Devise",
-    "timezone": "Fuseau horaire",
-    "rtl_support": "Support RTL"
+    "interface_language": "Idioma de la interfaz",
+    "public_language": "Idioma de la página pública",
+    "date_format": "Formato de fecha",
+    "time_format": "Formato de hora",
+    "currency": "Moneda",
+    "timezone": "Zona horaria",
+    "rtl_support": "Compatibilidad RTL"
   },
   "advanced": {
-    "custom_css": "CSS personnalisé",
-    "custom_js": "JavaScript personnalisé",
-    "analytics": "Analytics",
-    "tracking_code": "Code de suivi",
-    "integrations": "Intégrations",
-    "api_settings": "Paramètres API",
+    "custom_css": "CSS personalizado",
+    "custom_js": "JavaScript personalizado",
+    "analytics": "Analítica",
+    "tracking_code": "Código de seguimiento",
+    "integrations": "Integraciones",
+    "api_settings": "Ajustes de la API",
     "webhooks": "Webhooks",
-    "backup": "Sauvegarde",
-    "export": "Exporter",
-    "import": "Importer"
+    "backup": "Copia de seguridad",
+    "export": "Exportar",
+    "import": "Importar"
+  },
+  "messages": {
+    "settings_saved": "Ajustes guardados correctamente",
+    "theme_applied": "Tema aplicado correctamente",
+    "logo_uploaded": "Logo subido correctamente",
+    "logo_removed": "Logo eliminado correctamente",
+    "preview_updated": "Vista previa actualizada",
+    "changes_saved": "Cambios guardados",
+    "reset_confirm": "¿Seguro que desea restablecer todos los ajustes?",
+    "unsaved_changes": "Tiene cambios sin guardar",
+    "invalid_file": "Formato de archivo no válido",
+    "file_too_large": "Archivo demasiado grande",
+    "upload_error": "Error al subir el archivo"
   },
   "page": {
-    "title": "Mon Interface",
-    "subtitle": "Personnalisez l'apparence de votre salon",
-    "loading_subtitle": "Chargement des paramètres...",
-    "loading_interface": "Chargement de l'interface..."
+    "title": "Mi interfaz",
+    "subtitle": "La plantilla, los colores y el contenido de su página de reservas",
+    "loading_subtitle": "Cargando los ajustes…",
+    "loading_interface": "Cargando la interfaz…",
+    "view_page": "Ver mi página"
+  },
+  "tabs": {
+    "templates": "Plantillas",
+    "colors": "Colores",
+    "images": "Imágenes",
+    "content": "Contenido",
+    "settings": "Ajustes",
+    "reviews": "Opiniones"
   },
   "sections": {
     "templates": {
-      "title": "Templates de Design",
-      "description": "Choisissez un template pour votre salon"
+      "title": "Plantillas",
+      "description": "Elija una plantilla para su salón"
     },
     "colors": {
-      "title": "Couleurs du Thème",
-      "description": "Personnalisez la palette de couleurs"
+      "title": "Colores de su página",
+      "description": "Sustituyen la paleta de la plantilla."
     },
     "images": {
-      "title": "Imágenes del Salón",
-      "description": "Sube tu logo y banner"
+      "title": "Imágenes del salón",
+      "description": "Suba su logo y su banner"
     },
     "content": {
-      "title": "Contenido del Salón",
-      "description": "Gestiona la presentación y visualización"
+      "title": "Presentación",
+      "description": "Lo que sus clientes leen en su página."
     },
     "settings": {
-      "title": "Paramètres Avancés",
-      "description": "Configuration des rendez-vous et partage"
+      "title": "Ajustes avanzados",
+      "description": "Configuración de las citas y opciones para compartir"
     }
   },
   "forms": {
     "presentation": {
       "label": "Presentación del salón",
-      "placeholder": "Presenta tu salón, tus especialidades, tu equipo..."
+      "placeholder": "Presente su salón, sus especialidades, su equipo…"
     },
-    "services_display": "Visualización de servicios",
-    "appointments_settings": "Configuración de citas",
+    "public_phone": {
+      "label": "Número de teléfono público",
+      "placeholder": "Ej.: 0555 12 34 56",
+      "tip": "Consejo:",
+      "description": "Este número aparecerá en su página pública para que sus clientes puedan contactarle fácilmente"
+    },
+    "services_display": "Visualización de los servicios",
+    "appointments_settings": "Ajustes de las citas",
     "team_display": "Visualización del equipo",
     "share_link": "Enlace para compartir"
   },
   "team": {
-    "show_on_public": "Mostrar equipo en la página pública",
-    "description": "Si está desactivado, los clientes no verán tu equipo y no podrán elegir estilista al reservar",
-    "visible_message": "✅ Equipo visible: Los clientes pueden ver tu equipo y elegir su estilista preferido",
-    "hidden_message": "🔒 Equipo oculto: Asignarás manualmente los estilistas a las citas desde tu interfaz de administración"
+    "show_on_public": "Mostrar el equipo en la página pública",
+    "description": "Si desactiva esta opción, los clientes no verán a su equipo y no podrán elegir a un miembro del equipo al reservar.",
+    "visible_message": "Los clientes ven a su equipo y pueden elegir al miembro que les atenderá.",
+    "hidden_message": "Su equipo está oculto: usted asigna cada cita a un miembro del equipo."
   },
   "images": {
     "logo_label": "Logo del salón",
-    "banner_label": "Banner / Cabecera",
-    "logo_tip": "💡 Consejos: Usa un fondo transparente (PNG) para un resultado óptimo en la navegación",
-    "banner_tip": "💡 Consejos: Imagen de alta resolución para una visualización perfecta en todas las pantallas (ratio 16:5)"
+    "banner_label": "Banner",
+    "logo_tip": "Consejo: use un fondo transparente (PNG) para que se vea mejor en la navegación",
+    "banner_tip": "Consejo: imagen de alta resolución para que se vea perfecta en todas las pantallas (proporción 16:5)",
+    "logo_help": "Un PNG con fondo transparente se ve mejor en la barra de navegación.",
+    "banner_help": "Imagen de alta resolución, formato 16:5, que se muestra en la parte superior de su página."
+  },
+  "actions": {
+    "save": "Guardar",
+    "saving": "Guardando…",
+    "saved": "Guardado",
+    "save_error": "No se pudo guardar. Verifique su conexión e inténtelo de nuevo."
+  },
+  "colors_tab": {
+    "preview": "Vista previa",
+    "reset": "Volver a los colores de la plantilla"
+  },
+  "gallery": {
+    "categories": {
+      "polyvalent": "Polivalente",
+      "coiffure": "Peluquería",
+      "barbier": "Barbería",
+      "ongles": "Uñas",
+      "bien-etre": "Bienestar",
+      "mariage": "Bodas",
+      "all": "Todas",
+      "minimal": "Minimalista",
+      "modern": "Moderna",
+      "classic": "Clásica",
+      "creative": "Creativa",
+      "luxury": "Lujo",
+      "natural": "Natural",
+      "bold": "Atrevida"
+    },
+    "preview": "Vista previa",
+    "preview_of": "Vista previa de la plantilla {{name}}",
+    "applied": "Aplicada",
+    "apply_template": "Aplicar esta plantilla",
+    "close": "Cerrar",
+    "search": "Buscar una plantilla",
+    "search_placeholder": "Buscar: nombre, estilo, ambiente…",
+    "family": "Familia",
+    "all_families": "Todas las familias",
+    "mode": {
+      "label": "Claro u oscuro",
+      "all": "Claro y oscuro",
+      "light": "Claro",
+      "dark": "Oscuro"
+    },
+    "sort": {
+      "label": "Ordenar",
+      "recommended": "Recomendadas",
+      "name": "Nombre (A–Z)"
+    },
+    "favorites": "Favoritas",
+    "favorite": "Añadir a favoritas",
+    "unfavorite": "Quitar de favoritas",
+    "count_one": "{{count}} plantilla",
+    "count_other": "{{count}} plantillas",
+    "reset_filters": "Restablecer los filtros",
+    "recommended": "Recomendadas para su salón",
+    "recommended_hint": "Elegidas según los servicios de su salón.",
+    "all_templates": "Todas las plantillas",
+    "show_more": "Mostrar más",
+    "shown": "{{shown}} de {{total}}",
+    "empty_title": "Ninguna plantilla coincide",
+    "empty_body": "Pruebe con otra palabra o quite un filtro.",
+    "empty_favorites": "Toque la estrella de una plantilla para encontrarla aquí.",
+    "previous": "Plantilla anterior",
+    "next": "Plantilla siguiente",
+    "desktop": "Escritorio",
+    "mobile": "Móvil",
+    "templates": {
+      "studio": {
+        "tagline": "Salón polivalente",
+        "description": "Luminoso y cálido, con el naranja de Saloneo, para un salón polivalente que lleva directo a la reserva."
+      },
+      "atelier": {
+        "tagline": "Taller de peluquería",
+        "description": "Estilo editorial: el nombre del salón en grande como un cartel y los servicios presentados como una carta."
+      },
+      "hammam": {
+        "tagline": "Hammam y spa",
+        "description": "Verde profundo, arena y cobre, con un arco morisco para hammams y spas."
+      },
+      "barber": {
+        "tagline": "Barbería",
+        "description": "Antracita, latón y letras condensadas: la pizarra de una barbería de barrio."
+      },
+      "onglerie": {
+        "tagline": "Estudio de uñas",
+        "description": "Fucsia y lila, con pastillas de color como frascos de esmalte, para estudios de uñas."
+      },
+      "mariee": {
+        "tagline": "Novias y maquillaje",
+        "description": "Marfil, champán y rosa empolvado, con espacio y luz para novias y maquillaje."
+      },
+      "institut": {
+        "tagline": "Centro de estética",
+        "description": "Limpio y relajante, verde salvia y tipografía precisa para un centro de estética."
+      },
+      "medina": {
+        "tagline": "Patrimonio de Argel",
+        "description": "Índigo, azafrán y zellige: un homenaje a la Casbah para un salón arraigado en su patrimonio."
+      },
+      "noir": {
+        "tagline": "Salón de alta gama",
+        "description": "Negro profundo y oro, con el equipo como protagonista: el salón de alta gama."
+      },
+      "epure": {
+        "tagline": "Minimalista",
+        "description": "Blanco y negro, nada superfluo: el diseño más sobrio de la colección."
+      },
+      "soleil": {
+        "tagline": "Salón de barrio",
+        "description": "Coral y amarillo sol: el salón de barrio familiar, acogedor y alegre."
+      },
+      "botanique": {
+        "tagline": "Cuidados naturales",
+        "description": "Lino, oliva y arcilla, con un diseño de revista para los cuidados naturales."
+      }
+    }
+  },
+  "display_settings": {
+    "view": {
+      "title": "Orden de los servicios",
+      "description": "Cómo se ordenan sus servicios en su página.",
+      "options": {
+        "category": {
+          "label": "Por categoría",
+          "description": "Agrupados por tipo de servicio"
+        },
+        "price": {
+          "label": "Por precio",
+          "description": "Del más barato al más caro"
+        },
+        "duration": {
+          "label": "Por duración",
+          "description": "Del más corto al más largo"
+        },
+        "popularity": {
+          "label": "Por popularidad",
+          "description": "Los más solicitados primero"
+        }
+      }
+    },
+    "price": {
+      "title": "Visualización de precios",
+      "description": "Cómo se presentan sus tarifas.",
+      "options": {
+        "fixed": {
+          "label": "Precio exacto",
+          "description": "Ej.: 2 500 DA"
+        },
+        "from": {
+          "label": "Desde",
+          "description": "Ej.: desde 2 500 DA"
+        },
+        "range": {
+          "label": "Rango",
+          "description": "Ej.: 2 000 – 3 000 DA"
+        },
+        "hidden": {
+          "label": "Ocultar los precios",
+          "description": "No se muestra ningún precio"
+        }
+      }
+    }
+  },
+  "share": {
+    "description": "Comparta este enlace para que sus clientes descubran sus servicios y reserven en línea.",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "share_on": "Compartir en",
+    "tweet": "¡Descubra mi salón de belleza!",
+    "qr_alt": "Código QR de su página",
+    "qr_help": "Imprima este código QR para su mostrador o su escaparate.",
+    "qr_download": "Descargar el código QR"
+  },
+  "reviews": {
+    "title": "Opiniones de clientes",
+    "description": "Las opiniones visibles aparecen en su página, en este orden.",
+    "loading": "Cargando…",
+    "empty_title": "Aún no hay opiniones",
+    "empty_body": "Añada abajo los comentarios de sus clientes para dar confianza a los nuevos.",
+    "hidden": "Oculta",
+    "visible": "Visible",
+    "move_up": "Subir",
+    "move_down": "Bajar",
+    "delete": "Eliminar",
+    "confirm_delete": "¿Eliminar esta opinión?",
+    "add_title": "Añadir una opinión",
+    "author": "Nombre del cliente",
+    "rating": "Valoración",
+    "comment": "Comentario",
+    "add": "Añadir la opinión",
+    "adding": "Añadiendo…",
+    "errors": {
+      "load": "No se pudieron cargar las opiniones.",
+      "create": "No se pudo añadir la opinión.",
+      "update": "No se guardó la modificación.",
+      "delete": "No se pudo eliminar la opinión."
+    }
+  },
+  "upload": {
+    "recommended": "Tamaño recomendado: {{width}}×{{height}} px",
+    "choose": "Elegir una imagen",
+    "replace": "Reemplazar",
+    "dropzone": "Arrastre una imagen o haga clic para buscarla",
+    "processing": "Optimizando…",
+    "too_large": "La imagen supera los 10 MB. Elija un archivo más ligero.",
+    "not_image": "Este archivo no es una imagen. Elija un JPG, PNG o WebP.",
+    "unreadable": "No se pueden leer las dimensiones de esta imagen.",
+    "wrong_size": "Esta imagen mide {{width}}×{{height}} px; el tamaño recomendado es {{expectedWidth}}×{{expectedHeight}} px.",
+    "resize_question": "¿Desea redimensionarla automáticamente?",
+    "resize": "Redimensionar y subir",
+    "cancel": "Cancelar",
+    "perfect": "Dimensiones perfectas.",
+    "resized": "Imagen redimensionada a {{width}}×{{height}} px.",
+    "error": "No se pudo subir la imagen. Inténtelo de nuevo."
   },
   "errors": {
-    "upload": "Erreur lors du téléchargement de l'image:",
-    "save": "Erreur lors de la sauvegarde:"
-  },
-  "currency": "Tadrimt",
-  "timezone": "Izḍi n wakud",
-  "dateFormat": "Amasal n wzemz",
-  "timeFormat": "Amasal n wakud",
-  "emailNotifications": "Ilɣa s imayl",
-  "smsNotifications": "Ilɣa s SMS",
-  "pushNotifications": "Ilɣa n turrigin",
-  "darkMode": "Askar aberkan",
-  "lightMode": "Askar aceɛlal",
-  "autoMode": "Askar awurman",
-  "sidebar": "Agalis",
-  "header": "Aqeṛṛu",
-  "footer": "Aḍaṛ",
-  "fonts": "Tisefsay",
-  "logo": "Alugu",
-  "backup": "Asekles",
-  "restore": "Ales asbeddi",
-  "export": "Sifeḍ",
-  "import": "Kter",
-  "cancel": "Sefsex"
+    "upload": "Error al subir la imagen:",
+    "save": "Error al guardar:"
+  }
 }

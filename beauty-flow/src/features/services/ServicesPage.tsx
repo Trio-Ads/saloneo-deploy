@@ -192,7 +192,7 @@ const ServicesPage: React.FC = () => {
             </select>
             {isFiltering && (
               <p className="text-sm text-gray-500 dark:text-gray-400 sm:ms-auto">
-                {filteredServices.length} {t('search.results')}
+                {t('search.results', { count: filteredServices.length })}
               </p>
             )}
           </div>

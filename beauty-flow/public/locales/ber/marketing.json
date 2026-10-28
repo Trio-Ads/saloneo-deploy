@@ -1,34 +1,204 @@
 {
-  "title": "Asuq",
-  "campaigns": "Tiɣaṛa",
-  "promotions": "Ibeṛṛaniyen",
-  "discounts": "Iḥeṛṛiyen",
-  "coupons": "Tikubunat",
-  "loyalty": "Taflayt",
-  "referrals": "Ibeṛṛaniyen",
-  "newsletter": "Tabratt n isallen",
-  "socialMedia": "Iẓeḍwa inmettiyen",
-  "advertising": "Asɣel",
-  "analytics": "Tasleḍt",
-  "reports": "Ineqqisen",
-  "roi": "Tuɣalin n usekcem",
-  "conversion": "Abeddel",
-  "engagement": "Armud",
-  "reach": "Taɣzi",
-  "impressions": "Tiwelhiyin",
-  "clicks": "Isiten",
-  "leads": "Imsaɣen izemlen",
-  "customers": "Imsaɣen",
-  "revenue": "Aɣaras",
-  "growth": "Akker",
-  "trends": "Tanila",
-  "insights": "Tifrat",
-  "optimization": "Asbeddi",
-  "targeting": "Asaḍas",
-  "segmentation": "Abeṭṭu",
-  "personalization": "Asagen",
-  "automation": "Awurman",
-  "integration": "Asdukel",
-  "tracking": "Aḍfar",
-  "measurement": "Aktazal"
+  "site": {
+    "nav": {
+      "features": "Timahilin",
+      "pricing": "Ssumat",
+      "login": "Kcem",
+      "signup": "Rnu asalun-iw",
+      "dashboard": "Tafelwit-iw n usenqed",
+      "menu": "Umuɣ"
+    },
+    "hero": {
+      "title": "Sefrek asalun-ik. Eǧǧ imsaɣen-ik ad ṭṭfen timlilin srid.",
+      "subtitle": "Saloneo yesdukkel awitay, tabdart n yimsaɣen, tarbaɛt d uḥraz n yifarisen, yerna yefka-d i usalun-ik asebter n uḥeǧǧez yeldin am wass am yiḍ. Yettwaxdem i yisalunen n Lezzayer, s DA, s tefransist d taɛrabt.",
+      "emailLabel": "Tansa-k imayl",
+      "emailPlaceholder": "kecc@asalun-ik.dz",
+      "cta": "Rnu asalun-iw",
+      "loading": "Ciṭṭuḥ…",
+      "note": "Aɣawas Baṭel, war takarḍa n lbanka",
+      "secondary": "Wali ssumat",
+      "captionAdmin": "S ufella: tafelwit-ik n usenqed.",
+      "captionSalon": "S yefus: asebter anida ṭṭfen imsaɣen-ik timlilin.",
+      "altDashboard": "Tafelwit n usenqed n Saloneo: timlilin n wass-a, idrimen, tarbaɛt",
+      "altSalon": "Asebter n uḥeǧǧez n usalun, deg tiliɣri"
+    },
+    "trades": {
+      "lead": "I",
+      "items": [
+        "isalunen n useggem n ucebbub",
+        "isalunen n useɣlef",
+        "isalunen n yiccer",
+        "iḥeffafen",
+        "spa"
+      ]
+    },
+    "stats": {
+      "line": "{{salons}} n yisalunen yettwajerden · {{appointments}} n tmlilin yettwaṭṭfen s Saloneo"
+    },
+    "features": {
+      "title": "Asalun meṛṛa, deg yiwen n ufecku",
+      "subtitle": "Ulac timukrisin ara d-tesdukleḍ: ayen tesriḍ gar snat n tmlilin yella yakan.",
+      "agenda": {
+        "title": "Awitay ur nettaǧǧa acemma ad iɛeddi",
+        "body": "Yal timlilit s umeẓlu-ines, s uɛeggal-ines d waddad-ines: yettusɣiwsen, yettwasentem, yemmed neɣ ur d-yusi ara. Saloneo ur yeqbil ara tallitin ara yemyenṭaḍen.",
+        "points": [
+          "Taskant n tebdart d tin n uwitay",
+          "Tiɣiba d tmlilin ara yettwamedlen ttwamlent-d",
+          "Aleqqem srid deg yibenkan-ik meṛṛa"
+        ],
+        "alt": "Tabdart n tmlilin deg Saloneo"
+      },
+      "booking": {
+        "title": "Asebter s yisem-ik, anida ttḥeǧǧizen srid",
+        "body": "Fren tamudemt, initen-ik d tewlafin-ik. Imsaɣen-ik ad walin imeẓla-k d ssumat-ik, ad fernen tallit-nsen, yerna zemren ad ẓergen neɣ ad sefesxen seg useɣwen i d-ṭṭfen.",
+        "points": [
+          "{{templates}} n tmudmiwin n usebter",
+          "Ssumat s DA",
+          "Aseɣwen ara tebḍuḍ deg Instagram, Facebook neɣ WhatsApp"
+        ],
+        "slug": "asalun-ik",
+        "alt": "Asebter n uḥeǧǧez n usalun deg tiliɣri"
+      },
+      "rest": {
+        "title": "D wayen nniḍen n yal ass",
+        "alt": "Tabdart n yimsaɣen deg Saloneo",
+        "clients": {
+          "title": "Tabdart n yimsaɣen",
+          "body": "Talɣut n unermis, amazray n tirza d tezmilin, akken ad d-tafeḍ tanfalit n yini neɣ tannumi n umsaɣ amaɣlal."
+        },
+        "team": {
+          "title": "Tarbaɛt",
+          "body": "Yal aɛeggal s tamlilt-is; yal timlilit tettunefk i yiwen."
+        },
+        "stock": {
+          "title": "Ifarisen d uḥraz",
+          "body": "Tabdart n yifarisen-ik d tbatin-nsen, d timaynutin."
+        },
+        "dashboard": {
+          "title": "Tafelwit n usenqed",
+          "body": "Idrimen n wass d waggur, afmiḍi n tiṭṭfin, imeẓla yettwasutren aṭas."
+        },
+        "mobile": {
+          "title": "Deg tiliɣri am deg uselkim",
+          "body": "Yettwaxdem akken ad t-tesqedceḍ s tbedda, gar snat n tmlilin."
+        },
+        "payment": {
+          "title": "Axelleṣ adigan",
+          "body": "Ajerred yettwaxelleṣ s takarḍa CIB neɣ Edahabia, s tewwurt SATIM."
+        }
+      }
+    },
+    "roi": {
+      "title": "Acḥal n yimeẓla i uxelleṣ n Saloneo?",
+      "body": "Sekcem ssuma talemmast n umeẓlu deg usalun-ik. Asiḍen d afessas: ssuma n uɣawas ɣef ssuma-k talemmast.",
+      "label": "Ssuma talemmast n umeẓlu",
+      "result": "imeẓla deg waggur ad d-rren ajerred",
+      "note": "Yettwazzi ɣer yiwen n wuṭṭun nniḍen. Aɣawas Baṭel ur yesɛi ssuma."
+    },
+    "pricing": {
+      "title": "Ssumat fessusen, s DA",
+      "subtitle": "Bdu baṭel. Ɛeddi ɣer uɣawas s uxelleṣ mi ara t-yesri usalun-ik, war tawalt.",
+      "monthly": "S waggur",
+      "yearly": "S useggas",
+      "perMonth": " / aggur",
+      "billedMonthly": "Yettwaxelleṣ yal aggur",
+      "billedYearly": "D {{amount}} yettwaxellṣen yiwet n tikkelt deg useggas",
+      "noCard": "War takarḍa n lbanka",
+      "recommended": "Yettwasumer",
+      "unlimited": "War tilisa",
+      "included": "Yella",
+      "notIncluded": "Ulac-it",
+      "onQuote": "S usuter",
+      "plans": {
+        "free": {
+          "name": "Baṭel",
+          "description": "I wakken ad tɛerḍeḍ s usalun amecṭuḥ.",
+          "cta": "Bdu baṭel"
+        },
+        "starter": {
+          "name": "Starter",
+          "description": "I usalun s terbaɛt tamecṭuḥt.",
+          "cta": "Bdu s Starter"
+        },
+        "pro": {
+          "name": "Pro",
+          "description": "I usalun yersan, s uɣawas yeččuren.",
+          "cta": "Bdu s Pro"
+        },
+        "enterprise": {
+          "name": "Tasbeddit"
+        }
+      },
+      "limits": {
+        "appointments": "Timlilin deg waggur",
+        "clients": "Imsaɣen",
+        "services": "Imeẓla",
+        "teamMembers": "Iɛeggalen n terbaɛt"
+      },
+      "features": {
+        "onlineBooking": "Asebter n uḥeǧǧez srid",
+        "customInterface": "Asebter yettwasagnen (tamudemt, initen)",
+        "stock": "Asefrek n uḥraz"
+      },
+      "startFree": "Yal amiḍan ad yebdu s uɣawas Baṭel; tzemreḍ ad tɛeddiḍ ɣer Starter neɣ Pro seg usebter n Ujerred.",
+      "payment": "Axelleṣ s takarḍa CIB neɣ Edahabia (SATIM).",
+      "compare": "Serwes iɣawasen s telqayt",
+      "compareTitle": "Serwes iɣawasen",
+      "feature": "Aɣawas",
+      "enterprise": "Aṭas n yisalunen neɣ tuttriwin tiẓlayin? Aɣawas Tasbeddit yella s usuter.",
+      "contactUs": "Aru-yaɣ-d"
+    },
+    "faq": {
+      "title": "Isteqsiyen yettuɣalen",
+      "more": "Ɣur-k asteqsi nniḍen? Aru-yaɣ-d:",
+      "items": {
+        "free": {
+          "q": "Aɣawas Baṭel yesra takarḍa n lbanka?",
+          "a": "Ala. Ad terneḍ amiḍan-ik s imayl d wawal uffir. Tilisa n uɣawas Baṭel (20 n tmlilin deg waggur, 10 n yimsaɣen, 5 n yimeẓla) qedrent i wakken ad tɛerḍeḍ Saloneo."
+        },
+        "payment": {
+          "q": "Amek ara xellṣeɣ ajerred?",
+          "a": "S takarḍa CIB neɣ Edahabia, s tewwurt taɣellsant SATIM, seg usebter n Ujerred n umiḍan-ik."
+        },
+        "change": {
+          "q": "Zemreɣ ad beddleɣ aɣawas ticki?",
+          "a": "Ih. Tzemreḍ ad tɛeddiḍ ɣer uɣawas yugaren melmi i tebɣiḍ, seg usebter n Ujerred. Timlilin-ik, imsaɣen-ik d yimeẓla-k ad qqimen."
+        },
+        "limit": {
+          "q": "D acu ara yeḍrun ma wwḍeɣ ɣer tilist?",
+          "a": "Saloneo ad k-id-yelɣu. Isefka-k ad qqimen akken llan; i wakken ad ternuḍ wiyaḍ, ɛeddi kan ɣer uɣawas yugaren."
+        },
+        "yearly": {
+          "q": "Amek iteddu uxelleṣ n useggas?",
+          "a": "Ad txelleṣeḍ tnac n wagguren yiwet n tikkelt, ad txelleṣeḍ {{discount}} % ddaw n uxelleṣ s waggur. Llan daɣen snat d kraḍ n yiseggasen, s usenqes ameqqran."
+        },
+        "data": {
+          "q": "Anwa i izemren ad iwali isefka n usalun-iw?",
+          "a": "Kečč d yimdanen n terbaɛt-ik. Amyeɣbar gar yibenk-ik d Saloneo yettwawgelhen (HTTPS)."
+        }
+      }
+    },
+    "founder": {
+      "title": "Saloneo yebda, s yisalunen imezwura",
+      "body": "Ur tettafeḍ dagi ara timawin tikerkas neɣ izwilen yettwasimɣuren: Saloneo akken kan i yeldi, nesmenyaf ad ak-d-nesken afaris akken yella.",
+      "body2": "Ma tebɣiḍ tallalt i usbeddi n usalun-ik — imeẓla, tarbaɛt, asebter n uḥeǧǧez — aru-yaɣ-d. D tarbaɛt i yesbennun Saloneo ara k-d-yerren.",
+      "cta": "Aru i terbaɛt",
+      "signature": "Tarbaɛt n Saloneo"
+    },
+    "cta": {
+      "title": "Asalun-ik yezmer ad yeṭṭef timlilin-is timezwura srid seg wass-a.",
+      "body": "Rnu amiḍan-ik, rnu imeẓla-k, bḍu aseɣwen-ik.",
+      "button": "Rnu asalun-iw",
+      "login": "Sɛiɣ yakan amiḍan"
+    },
+    "footer": {
+      "tagline": "Asefrek d uḥeǧǧez srid i yisalunen n ccbaḥa di Lezzayer.",
+      "product": "Afaris",
+      "account": "Amiḍan",
+      "contact": "Anermis",
+      "register": "Rnu amiḍan",
+      "faq": "Isteqsiyen yettuɣalen",
+      "rights": "Akk izerfan ttwaḥerzen."
+    }
+  }
 }

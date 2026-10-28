@@ -1,704 +1,606 @@
 {
   "title": "Profil",
-  "subtitle": "Kişisel bilgilerinizi ve hesap ayarlarınızı yönetin",
-  "tabs": {
-    "personal": "Kişisel",
-    "business": "İş",
-    "security": "Güvenlik",
-    "notifications": "Bildirimler",
-    "affiliation": "Ortaklık"
+  "my_profile": "Profilim",
+  "account": "Hesap",
+  "personal_info": "Kişisel bilgiler",
+  "business_info": "İşletme bilgileri",
+  "security": {
+    "current_password": "Mevcut şifre",
+    "new_password": "Yeni şifre",
+    "confirm_password": "Şifreyi onaylayın",
+    "change_password": "Şifreyi değiştir",
+    "two_factor": "İki adımlı doğrulama",
+    "enable_2fa": "2FA'yı etkinleştir",
+    "disable_2fa": "2FA'yı devre dışı bırak",
+    "backup_codes": "Yedek kodlar",
+    "generate_codes": "Kod oluştur",
+    "login_history": "Giriş geçmişi",
+    "active_sessions": "Aktif oturumlar",
+    "revoke_session": "Oturumu sonlandır"
   },
-  "personal": {
-    "title": "Kişisel Bilgiler",
-    "subtitle": "Kişisel bilgilerinizi güncelleyin",
+  "preferences": {
+    "theme": "Tema",
+    "language": "Dil",
+    "timezone": "Saat dilimi",
+    "date_format": "Tarih biçimi",
+    "time_format": "Saat biçimi",
+    "currency": "Para birimi",
+    "notifications": "Bildirimler",
+    "email_notifications": "E-posta bildirimleri",
+    "sms_notifications": "SMS bildirimleri",
+    "push_notifications": "Anlık bildirimler",
+    "marketing_emails": "Pazarlama e-postaları",
+    "privacy": "Gizlilik",
+    "public_profile": "Herkese açık profil",
+    "show_online_status": "Çevrimiçi durumunu göster"
+  },
+  "affiliation": {
+    "title": "Satış ortaklığı programı",
+    "status": "Durum",
+    "active": "Aktif",
+    "inactive": "Pasif",
+    "pending": "Beklemede",
+    "commission_rate": "Komisyon oranı",
+    "total_earnings": "Toplam kazanç",
+    "pending_earnings": "Bekleyen kazanç",
+    "paid_earnings": "Ödenen kazanç",
+    "referrals": "Yönlendirmeler",
+    "referral_code": "Davet kodu",
+    "referral_link": "Davet bağlantısı",
+    "copy_link": "Bağlantıyı kopyala",
+    "share_link": "Bağlantıyı paylaş",
+    "marketing_materials": "Pazarlama materyalleri",
+    "banners": "Banner'lar",
+    "email_templates": "E-posta şablonları",
+    "social_posts": "Sosyal medya gönderileri",
+    "payout_settings": "Ödeme ayarları",
+    "payment_method": "Ödeme yöntemi",
+    "bank_account": "Banka hesabı",
+    "paypal_email": "PayPal e-postası",
+    "minimum_payout": "Minimum ödeme",
+    "payout_schedule": "Ödeme takvimi",
+    "commission_history": "Komisyon geçmişi",
+    "performance": "Performans",
+    "clicks": "Tıklamalar",
+    "conversions": "Dönüşümler",
+    "conversion_rate": "Dönüşüm oranı"
+  },
+  "subscription": {
+    "current_plan": "Mevcut plan",
+    "plan_details": "Plan ayrıntıları",
+    "billing_cycle": "Faturalandırma dönemi",
+    "next_billing": "Sonraki fatura",
+    "usage": "Kullanım",
+    "limits": "Limitler",
+    "upgrade": "Planı yükselt",
+    "downgrade": "Planı düşür",
+    "cancel": "İptal et",
+    "renew": "Yenile",
+    "payment_method": "Ödeme yöntemi",
+    "billing_history": "Fatura geçmişi",
+    "invoices": "Faturalar",
+    "download_invoice": "Faturayı indir"
+  },
+  "billing": "Faturalandırma",
+  "notifications": "Bildirimler",
+  "form": {
     "first_name": "Ad",
     "last_name": "Soyad",
-    "email": "Email",
+    "email": "E-posta",
     "phone": "Telefon",
-    "date_of_birth": "Doğum tarihi",
-    "gender": "Cinsiyet",
+    "avatar": "Profil fotoğrafı",
+    "bio": "Biyografi",
+    "website": "Web sitesi",
+    "social_media": "Sosyal medya",
     "address": "Adres",
     "city": "Şehir",
     "postal_code": "Posta kodu",
     "country": "Ülke",
-    "bio": "Biyografi",
-    "avatar": "Profil fotoğrafı",
-    "upload_avatar": "Fotoğraf yükle",
-    "remove_avatar": "Fotoğrafı kaldır"
+    "timezone": "Saat dilimi",
+    "language": "Dil",
+    "currency": "Para birimi",
+    "required": "Zorunlu alan"
   },
   "business": {
-    "title": "İş Bilgileri",
-    "subtitle": "Salonunuzun detaylarını yapılandırın",
-    "salon_name": "Salon adı",
-    "business_type": "Type d'entreprise",
-    "registration_number": "Numéro d'enregistrement",
-    "tax_number": "Numéro de TVA",
-    "website": "Web sitesi",
-    "social_media": "Sosyal medya",
-    "facebook": "Facebook",
-    "instagram": "Instagram",
-    "twitter": "Twitter",
-    "linkedin": "LinkedIn",
-    "opening_hours": "Heures d'ouverture",
-    "services_offered": "Sunulan hizmetler",
-    "specialties": "Spécialités",
-    "years_experience": "Deneyim yılı",
-    "certifications": "Certifications",
-    "languages": "Diller",
-    "establishment_name": "Nom de l'établissement",
-    "description": "Description",
-    "contact_email": "Email de contact",
-    "contact_phone": "Téléphone de contact",
-    "emergency_contact": "Contact d'urgence",
-    "insurance": "Assurance",
-    "licenses": "Licences"
-  },
-  "security": {
-    "title": "Güvenlik",
-    "subtitle": "Hesap güvenliğinizi yönetin",
-    "current_password": "Mot de passe actuel",
-    "new_password": "Nouveau mot de passe",
-    "confirm_password": "Confirmer le mot de passe",
-    "change_password": "Changer le mot de passe",
-    "two_factor": "Authentification à deux facteurs",
-    "enable_2fa": "Activer 2FA",
-    "disable_2fa": "Désactiver 2FA",
-    "backup_codes": "Codes de sauvegarde",
-    "generate_codes": "Générer des codes",
-    "login_history": "Historique de connexion",
-    "active_sessions": "Sessions actives",
-    "revoke_session": "Révoquer la session",
-    "delete_account": "Hesabı sil",
-    "delete_warning": "Bu işlem geri alınamaz"
-  },
-  "notifications": "Notifications",
-  "affiliation": {
-    "title": "Programme d'affiliation",
-    "subtitle": "Yeni kullanıcıları yönlendirerek para kazanın",
-    "status": "Statut",
-    "active": "Actif",
-    "inactive": "Inactif",
-    "pending": "En attente",
-    "referral_code": "Code de parrainage",
-    "referral_link": "Lien de parrainage",
-    "copy_link": "Copier le lien",
-    "total_referrals": "Toplam yönlendirme",
-    "successful_referrals": "Başarılı yönlendirmeler",
-    "pending_referrals": "Bekleyen yönlendirmeler",
-    "total_earnings": "Gains totaux",
-    "pending_earnings": "Gains en attente",
-    "paid_earnings": "Gains payés",
-    "commission_rate": "Taux de commission",
-    "payment_method": "Méthode de paiement",
-    "bank_account": "Compte bancaire",
-    "paypal": "PayPal",
-    "minimum_payout": "Paiement minimum",
-    "next_payout": "Sonraki ödeme",
-    "payout_history": "Ödeme geçmişi",
-    "marketing_materials": "Matériel marketing",
-    "banners": "Bannières",
-    "social_posts": "Publications sociales",
-    "email_templates": "Modèles d'email",
-    "referrals": "Parrainages",
-    "share_link": "Partager le lien",
-    "payout_settings": "Paramètres de paiement",
-    "paypal_email": "Email PayPal",
-    "payout_schedule": "Calendrier de paiement",
-    "commission_history": "Historique des commissions",
-    "performance": "Performance",
-    "clicks": "Clics",
-    "conversions": "Conversions",
-    "conversion_rate": "Taux de conversion"
-  },
-  "placeholders": {
-    "first_name": "Adınız",
-    "last_name": "Soyadınız",
-    "email": "email@ornek.com",
-    "phone": "+90 532 123 45 67",
-    "address": "Ana Cadde 123",
-    "city": "İstanbul",
-    "postal_code": "34000",
-    "bio": "Kendiniz hakkında anlatın...",
-    "salon_name": "Salonunuzun adı",
-    "website": "https://salonunuz.com",
-    "current_password": "Mevcut şifre",
-    "new_password": "Yeni şifre",
-    "confirm_password": "Yeni şifreyi onayla"
-  },
-  "validation": {
-    "required": "Ce champ est requis",
-    "invalid_email": "Geçersiz email",
-    "invalid_phone": "Geçersiz telefon numarası",
-    "password_mismatch": "Şifreler eşleşmiyor",
-    "password_too_short": "Şifre en az 8 karakter olmalıdır",
-    "invalid_url": "Geçersiz URL",
-    "email_invalid": "Format d'email invalide",
-    "phone_invalid": "Format de téléphone invalide",
-    "password_min_length": "Le mot de passe doit contenir au moins 8 caractères",
-    "password_complexity": "Le mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre",
-    "url_invalid": "Format d'URL invalide",
-    "postal_code_invalid": "Code postal invalide",
-    "tax_number_invalid": "Numéro de TVA invalide"
+    "establishment_name": "İşletme adı",
+    "business_type": "İşletme türü",
+    "registration_number": "Sicil numarası",
+    "tax_number": "Vergi numarası",
+    "description": "Açıklama",
+    "specialties": "Uzmanlık alanları",
+    "opening_hours": "Çalışma saatleri",
+    "contact_email": "İletişim e-postası",
+    "contact_phone": "İletişim telefonu",
+    "emergency_contact": "Acil durum kişisi",
+    "insurance": "Sigorta",
+    "certifications": "Sertifikalar",
+    "licenses": "Lisanslar"
   },
   "actions": {
-    "save": "Enregistrer",
-    "cancel": "Annuler",
-    "edit": "Modifier",
-    "delete": "Supprimer",
-    "upload": "Télécharger",
-    "download": "Télécharger",
-    "copy": "Copier",
-    "generate": "Oluştur",
-    "enable": "Etkinleştir",
-    "disable": "Devre dışı bırak",
-    "revoke": "İptal et",
-    "remove": "Supprimer",
-    "change": "Changer",
-    "update": "Mettre à jour",
-    "verify": "Vérifier",
-    "resend": "Renvoyer",
-    "share": "Partager",
-    "export": "Exporter",
-    "import": "Importer",
-    "saving": "Sauvegarde..."
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "edit": "Düzenle",
+    "delete": "Sil",
+    "upload": "Yükle",
+    "remove": "Kaldır",
+    "change": "Değiştir",
+    "update": "Güncelle",
+    "verify": "Doğrula",
+    "resend": "Yeniden gönder",
+    "copy": "Kopyala",
+    "share": "Paylaş",
+    "download": "İndir",
+    "export": "Dışa aktar",
+    "import": "İçe aktar",
+    "saving": "Kaydediliyor…"
   },
   "messages": {
-    "profile_updated": "Profil mis à jour avec succès",
-    "password_changed": "Mot de passe modifié avec succès",
-    "avatar_uploaded": "Photo de profil téléchargée avec succès",
-    "avatar_removed": "Photo de profil supprimée avec succès",
-    "settings_saved": "Paramètres enregistrés avec succès",
-    "link_copied": "Lien copié dans le presse-papiers",
-    "codes_generated": "Codes de sauvegarde générés",
-    "session_revoked": "Session révoquée avec succès",
-    "2fa_enabled": "Authentification à deux facteurs activée",
-    "2fa_disabled": "Authentification à deux facteurs désactivée",
-    "error_saving": "Kaydetme hatası",
-    "error_uploading": "Dosya yükleme hatası",
-    "invalid_file_type": "Type de fichier invalide",
-    "file_too_large": "Fichier trop volumineux",
-    "email_verified": "Email vérifié avec succès",
-    "phone_verified": "Téléphone vérifié avec succès",
-    "invalid_password": "Mot de passe invalide",
-    "passwords_not_match": "Les mots de passe ne correspondent pas",
-    "email_already_exists": "Cet email existe déjà",
-    "phone_already_exists": "Ce numéro de téléphone existe déjà",
-    "verification_sent": "Code de vérification envoyé",
-    "verification_failed": "Échec de la vérification",
-    "upload_error": "Erreur lors du téléchargement",
-    "network_error": "Erreur réseau",
-    "server_error": "Erreur serveur",
-    "changes_saved": "Modifications enregistrées",
-    "unsaved_changes": "Vous avez des modifications non enregistrées"
+    "profile_updated": "Profil başarıyla güncellendi",
+    "password_changed": "Şifre başarıyla değiştirildi",
+    "email_verified": "E-posta başarıyla doğrulandı",
+    "phone_verified": "Telefon başarıyla doğrulandı",
+    "avatar_uploaded": "Profil fotoğrafı başarıyla yüklendi",
+    "avatar_removed": "Profil fotoğrafı başarıyla kaldırıldı",
+    "settings_saved": "Ayarlar başarıyla kaydedildi",
+    "2fa_enabled": "İki adımlı doğrulama etkinleştirildi",
+    "2fa_disabled": "İki adımlı doğrulama devre dışı bırakıldı",
+    "codes_generated": "Yedek kodlar oluşturuldu",
+    "session_revoked": "Oturum başarıyla sonlandırıldı",
+    "link_copied": "Bağlantı panoya kopyalandı",
+    "invalid_password": "Geçersiz şifre",
+    "passwords_not_match": "Şifreler eşleşmiyor",
+    "email_already_exists": "Bu e-posta zaten kayıtlı",
+    "phone_already_exists": "Bu telefon numarası zaten kayıtlı",
+    "verification_sent": "Doğrulama kodu gönderildi",
+    "verification_failed": "Doğrulama başarısız",
+    "upload_error": "Yükleme sırasında hata oluştu",
+    "file_too_large": "Dosya çok büyük",
+    "invalid_file_type": "Geçersiz dosya türü",
+    "network_error": "Ağ hatası",
+    "server_error": "Sunucu hatası",
+    "changes_saved": "Değişiklikler kaydedildi",
+    "unsaved_changes": "Kaydedilmemiş değişiklikleriniz var"
   },
-  "business_types": {
-    "salon": "Güzellik salonu",
-    "barbershop": "Berber",
-    "spa": "Spa",
-    "nail_salon": "Tırnak salonu",
-    "beauty_clinic": "Güzellik kliniği",
-    "wellness_center": "Sağlık merkezi",
-    "other": "Diğer"
-  },
-  "genders": {
-    "male": "Erkek",
-    "female": "Kadın",
-    "other": "Diğer",
-    "prefer_not_to_say": "Belirtmek istemiyorum"
-  },
-  "countries": {
-    "spain": "İspanya",
-    "france": "Fransa",
-    "italy": "İtalya",
-    "portugal": "Portekiz",
-    "germany": "Almanya",
-    "uk": "Birleşik Krallık",
-    "usa": "Amerika Birleşik Devletleri",
-    "canada": "Kanada",
-    "mexico": "Meksika",
-    "argentina": "Arjantin",
-    "brazil": "Brezilya",
-    "other": "Diğer"
-  },
-  "languages": {
-    "spanish": "İspanyolca",
-    "english": "İngilizce",
-    "french": "Fransızca",
-    "italian": "İtalyanca",
-    "portuguese": "Portekizce",
-    "german": "Almanca",
-    "arabic": "Arapça",
-    "other": "Diğer"
-  },
-  "currencies": {
-    "EUR": "Euro",
-    "USD": "Dollar américain",
-    "GBP": "Livre sterling",
-    "JPY": "Yen japonais",
-    "CAD": "Dollar canadien",
-    "AUD": "Dollar australien",
-    "CHF": "Franc suisse",
-    "CNY": "Yuan chinois",
-    "SEK": "Couronne suédoise",
-    "NOK": "Couronne norvégienne",
-    "DKK": "Couronne danoise",
-    "PLN": "Zloty polonais",
-    "CZK": "Couronne tchèque",
-    "HUF": "Forint hongrois",
-    "RUB": "Rouble russe",
-    "BRL": "Réal brésilien",
-    "INR": "Roupie indienne",
-    "KRW": "Won sud-coréen",
-    "SGD": "Dollar de Singapour",
-    "HKD": "Dollar de Hong Kong",
-    "NZD": "Dollar néo-zélandais",
-    "MXN": "Peso mexicain",
-    "ZAR": "Rand sud-africain",
-    "TRY": "Livre turque",
-    "AED": "Dirham des Émirats",
-    "SAR": "Riyal saoudien",
-    "QAR": "Riyal qatarien",
-    "KWD": "Dinar koweïtien",
-    "BHD": "Dinar bahreïni",
-    "OMR": "Rial omanais",
-    "JOD": "Dinar jordanien",
-    "LBP": "Livre libanaise",
-    "EGP": "Livre égyptienne",
-    "MAD": "Dirham marocain",
-    "TND": "Dinar tunisien",
-    "DZD": "Dinar algérien",
-    "LYD": "Dinar libyen"
-  },
-  "my_profile": "Mon Profil",
-  "account": "Compte",
-  "personal_info": "Informations personnelles",
-  "business_info": "Informations de l'entreprise",
-  "preferences": {
-    "theme": "Thème",
-    "language": "Langue",
-    "timezone": "Fuseau horaire",
-    "date_format": "Format de date",
-    "time_format": "Format d'heure",
-    "currency": "Devise",
-    "notifications": "Notifications",
-    "email_notifications": "Notifications par email",
-    "sms_notifications": "Notifications SMS",
-    "push_notifications": "Notifications push",
-    "marketing_emails": "Emails marketing",
-    "privacy": "Confidentialité",
-    "public_profile": "Profil public",
-    "show_online_status": "Afficher le statut en ligne"
-  },
-  "subscription": {
-    "current_plan": "Plan actuel",
-    "plan_details": "Détails du plan",
-    "billing_cycle": "Cycle de facturation",
-    "next_billing": "Prochaine facturation",
-    "usage": "Utilisation",
-    "limits": "Limites",
-    "upgrade": "Mettre à niveau",
-    "downgrade": "Rétrograder",
-    "cancel": "Annuler",
-    "renew": "Renouveler",
-    "payment_method": "Méthode de paiement",
-    "billing_history": "Historique de facturation",
-    "invoices": "Factures",
-    "download_invoice": "Télécharger la facture"
-  },
-  "billing": "Facturation",
-  "form": {
-    "first_name": "Prénom",
-    "last_name": "Nom",
-    "email": "Email",
-    "phone": "Téléphone",
-    "avatar": "Photo de profil",
-    "bio": "Biographie",
-    "website": "Site web",
-    "social_media": "Réseaux sociaux",
-    "address": "Adresse",
-    "city": "Ville",
-    "postal_code": "Code postal",
-    "country": "Pays",
-    "timezone": "Fuseau horaire",
-    "language": "Langue",
-    "currency": "Devise",
-    "required": "Champ requis"
+  "validation": {
+    "required": "Bu alan zorunludur",
+    "email_invalid": "Geçersiz e-posta biçimi",
+    "phone_invalid": "Geçersiz telefon biçimi",
+    "password_min_length": "Şifre en az 8 karakter olmalıdır",
+    "password_complexity": "Şifre en az bir büyük harf, bir küçük harf ve bir rakam içermelidir",
+    "url_invalid": "Geçersiz URL biçimi",
+    "postal_code_invalid": "Geçersiz posta kodu",
+    "tax_number_invalid": "Geçersiz vergi numarası"
   },
   "profile_form": {
     "tabs": {
-      "profile": "Mon Profil",
-      "affiliation": "Affiliation"
+      "profile": "Profil",
+      "affiliation": "Satış ortaklığı"
     },
     "sections": {
-      "login_info": "Informations de connexion",
-      "personal_info": "Informations personnelles",
-      "salon_info": "Informations du salon",
-      "preferences": "Préférences",
-      "public_link": "Lien de réservation public"
+      "login_info": "Giriş bilgileri",
+      "personal_info": "Kişisel bilgiler",
+      "salon_info": "Salon bilgileri",
+      "preferences": "Tercihler",
+      "public_link": "Herkese açık randevu bağlantısı"
     },
     "fields": {
-      "email": "Adresse email",
-      "current_password": "Mot de passe actuel",
-      "new_password": "Nouveau mot de passe",
-      "confirm_password": "Confirmer le nouveau mot de passe",
-      "first_name": "Prénom",
-      "last_name": "Nom",
-      "establishment_name": "Nom de l'établissement",
-      "address": "Adresse",
-      "language": "Langue",
-      "currency": "Devise"
+      "email": "E-posta adresi",
+      "current_password": "Mevcut şifre",
+      "new_password": "Yeni şifre",
+      "confirm_password": "Yeni şifreyi onaylayın",
+      "first_name": "Ad",
+      "last_name": "Soyad",
+      "establishment_name": "İşletme adı",
+      "address": "Adres",
+      "language": "Dil",
+      "currency": "Para birimi",
+      "password": "Şifre",
+      "full_address": "Açık adres",
+      "show_as_team_member": "Ekip üyesi olarak görün"
     },
     "placeholders": {
-      "email": "votre@email.com",
+      "email": "siz@email.com",
       "password": "••••••••",
-      "first_name": "Votre prénom",
-      "last_name": "Votre nom",
-      "establishment_name": "Nom de votre salon",
-      "address": "Adresse complète de votre salon",
+      "first_name": "Adınız",
+      "last_name": "Soyadınız",
+      "establishment_name": "Salonunuzun adı",
+      "address": "Salonunuzun açık adresi",
       "demo_email": "user@example.com",
-      "demo_link": "saloneo.tech/votre-salon"
+      "demo_link": "saloneo.tech/salonunuz"
     },
     "buttons": {
-      "change_password": "Changer le mot de passe",
-      "cancel": "Annuler"
+      "change_password": "Şifreyi değiştir",
+      "cancel": "İptal",
+      "open": "Aç",
+      "show_password": "Şifreyi göster",
+      "hide_password": "Şifreyi gizle"
     },
     "messages": {
-      "password_required": "Veuillez saisir votre mot de passe actuel",
-      "password_min_length": "Le nouveau mot de passe doit contenir au moins 8 caractères",
-      "passwords_not_match": "Les mots de passe ne correspondent pas",
-      "password_updated": "Mot de passe mis à jour avec succès",
-      "currency_updated": "Devise mise à jour avec succès",
-      "currency_error": "Erreur lors du changement de devise",
-      "public_link_description": "Partagez ce lien avec vos clients pour qu'ils puissent prendre rendez-vous directement",
-      "public_link_label": "Votre lien de réservation",
-      "language_error": "Erreur lors du changement de langue",
-      "email_validation": "Veuillez saisir une adresse email valide"
+      "password_required": "Lütfen mevcut şifrenizi girin",
+      "password_min_length": "Yeni şifre en az 8 karakter olmalıdır",
+      "passwords_not_match": "Şifreler eşleşmiyor",
+      "password_updated": "Şifre başarıyla güncellendi",
+      "currency_updated": "Para birimi başarıyla güncellendi",
+      "currency_error": "Para birimi değiştirilirken hata oluştu",
+      "public_link_description": "Müşterilerinizin doğrudan randevu alabilmesi için bu bağlantıyı onlarla paylaşın",
+      "public_link_label": "Randevu bağlantınız",
+      "language_error": "Dil değiştirilirken hata oluştu",
+      "email_validation": "Lütfen geçerli bir e-posta adresi girin",
+      "show_as_team_member_description": "Müşteriler randevu alırken sizi seçebilir ve salonun herkese açık sayfasında görünürsünüz.",
+      "team_member_on": "Artık ekipte görünüyorsunuz",
+      "team_member_off": "Artık ekipte görünmüyorsunuz",
+      "team_member_error": "Bu seçenek değiştirilemedi. Tekrar deneyin.",
+      "current_password_incorrect": "Mevcut şifre hatalı."
+    },
+    "descriptions": {
+      "login_info": "Giriş yaptığınız adres.",
+      "personal_info": "Uygulamada görünen adınız.",
+      "salon_info": "Herkese açık randevu sayfanızda gösterilir.",
+      "preferences": "Kaydetmeye gerek kalmadan hemen uygulanır."
     }
   },
-  "firstName": "Prénom",
-  "lastName": "Nom",
-  "establishmentName": "Nom de l'établissement",
-  "address": "Adresse",
-  "language": "Langue",
-  "currency": "Devise",
-  "publicLinkCopied": "Lien copié dans le presse-papiers",
+  "firstName": "Ad",
+  "lastName": "Soyad",
+  "establishmentName": "İşletme adı",
+  "address": "Adres",
+  "language": "Dil",
+  "currency": "Para birimi",
+  "publicLinkCopied": "Bağlantı panoya kopyalandı",
   "success": {
-    "save": "Profil sauvegardé avec succès"
+    "save": "Profil kaydedildi"
   },
   "error": {
-    "save": "Erreur lors de la sauvegarde"
+    "save": "Kaydedilirken hata oluştu"
   },
   "affiliation_components": {
     "dashboard": {
-      "affiliate_link": "Votre lien d'affiliation",
-      "monthly_stats": "Statistiques mensuelles",
+      "affiliate_link": "Satış ortaklığı bağlantınız",
+      "monthly_stats": "Aylık istatistikler",
       "share_buttons": {
         "whatsapp": "WhatsApp",
         "facebook": "Facebook",
-        "twitter": "Twitter",
+        "twitter": "X (Twitter)",
         "linkedin": "LinkedIn",
-        "email": "Email"
+        "email": "E-posta"
       },
       "table_headers": {
-        "month": "Mois",
-        "clicks": "Clics",
-        "conversions": "Conversions",
-        "conversion_rate": "Taux de conversion",
-        "revenue": "Revenus"
+        "month": "Ay",
+        "clicks": "Tıklamalar",
+        "conversions": "Dönüşümler",
+        "conversion_rate": "Dönüşüm oranı",
+        "revenue": "Gelir"
       },
       "current_month": {
-        "clicks": "Clics ce mois",
-        "conversions": "Conversions ce mois",
-        "revenue": "Revenus ce mois"
+        "clicks": "Bu ayki tıklamalar",
+        "conversions": "Bu ayki dönüşümler",
+        "revenue": "Bu ayki gelir"
       },
       "messages": {
-        "link_copied": "Lien copié dans le presse-papier",
-        "qr_downloaded": "QR Code téléchargé"
+        "link_copied": "Bağlantı panoya kopyalandı",
+        "qr_downloaded": "QR kod indirildi"
       },
       "tips": {
-        "title": "💡 Conseils pour augmenter vos revenus",
-        "social_share": "Partagez votre lien sur vos réseaux sociaux professionnels",
-        "quality_content": "Créez du contenu de qualité sur les avantages de Saloneo",
-        "target_audience": "Ciblez les propriétaires de salons dans votre réseau",
-        "use_tools": "Utilisez les outils marketing fournis pour vos campagnes"
+        "title": "Gelirinizi artırmak için ipuçları",
+        "social_share": "Bağlantınızı profesyonel sosyal medya hesaplarınızda paylaşın",
+        "quality_content": "Saloneo'nun avantajları hakkında kaliteli içerik üretin",
+        "target_audience": "Çevrenizdeki salon sahiplerini hedefleyin",
+        "use_tools": "Kampanyalarınız için sunulan pazarlama araçlarını kullanın"
       },
-      "vs_last_month": "vs mois dernier"
+      "vs_last_month": "geçen aya göre",
+      "share_text": "Güzellik salonları için yönetim çözümü Saloneo'yu keşfedin",
+      "share_subject": "Saloneo'yu keşfedin"
     },
     "commissions": {
       "status": {
-        "pending": "En attente",
-        "approved": "Approuvée",
-        "paid": "Payée",
-        "cancelled": "Annulée"
+        "pending": "Beklemede",
+        "approved": "Onaylandı",
+        "paid": "Ödendi",
+        "cancelled": "İptal edildi"
       },
       "types": {
-        "subscription": "Nouvel abonnement",
-        "renewal": "Renouvellement",
-        "upgrade": "Mise à niveau"
+        "subscription": "Yeni abonelik",
+        "renewal": "Yenileme",
+        "upgrade": "Plan yükseltme"
       },
       "filters": {
-        "all": "Toutes les commissions",
-        "pending": "En attente",
-        "approved": "Approuvées",
-        "paid": "Payées"
+        "all": "Tüm komisyonlar",
+        "pending": "Bekleyen",
+        "approved": "Onaylanan",
+        "paid": "Ödenen"
       },
       "table": {
-        "date": "Date",
-        "referred_client": "Client référé",
-        "type": "Type",
-        "original_amount": "Montant original",
-        "commission": "Commission",
-        "status": "Statut",
-        "payment_date": "Date paiement"
+        "date": "Tarih",
+        "referred_client": "Yönlendirilen müşteri",
+        "type": "Tür",
+        "original_amount": "Orijinal tutar",
+        "commission": "Komisyon",
+        "status": "Durum",
+        "payment_date": "Ödeme tarihi",
+        "rate": "Oran"
       },
       "empty_state": {
-        "title": "Aucune commission",
-        "subtitle": "Commencez à partager votre lien d'affiliation pour gagner des commissions."
+        "title": "Komisyon yok",
+        "subtitle": "Komisyon kazanmak için satış ortaklığı bağlantınızı paylaşmaya başlayın."
       },
-      "export": "Exporter CSV",
-      "note": "Les commissions sont versées mensuellement une fois le seuil minimum de 50€ atteint. Les paiements sont effectués entre le 1er et le 5 de chaque mois.",
+      "export": "CSV olarak dışa aktar",
+      "note": "Komisyonlar, 50 € minimum eşiğe ulaşıldığında aylık olarak ödenir. Ödemeler her ayın 1'i ile 5'i arasında yapılır.",
       "payment_note": {
-        "title": "Note :",
-        "description": "Les commissions sont versées mensuellement une fois le seuil minimum de 50€ atteint. Les paiements sont effectués entre le 1er et le 5 de chaque mois."
+        "title": "Not:",
+        "description": "Komisyonlar, 50 € minimum eşiğe ulaşıldığında aylık olarak ödenir. Ödemeler her ayın 1'i ile 5'i arasında yapılır."
       }
     },
     "payout": {
-      "title": "Paramètres de paiement",
-      "description": "Configurez vos informations de paiement pour recevoir vos commissions",
-      "available_balance": "Solde disponible",
-      "payment_method": "Méthode de paiement",
-      "minimum_threshold": "Seuil minimum de paiement",
-      "withdraw_amount": "Montant à retirer",
-      "request_payout": "Demander un paiement",
+      "title": "Ödeme ayarları",
+      "description": "Komisyonlarınızı almak için ödeme bilgilerinizi ayarlayın",
+      "available_balance": "Kullanılabilir bakiye",
+      "payment_method": "Ödeme yöntemi",
+      "minimum_threshold": "Minimum ödeme eşiği",
+      "withdraw_amount": "Çekilecek tutar",
+      "request_payout": "Ödeme talep et",
       "method": {
-        "title": "Méthode de paiement",
-        "bank_transfer": "Virement bancaire",
+        "title": "Ödeme yöntemi",
+        "bank_transfer": "Banka havalesi",
         "paypal": "PayPal",
-        "crypto": "Cryptomonnaie"
+        "crypto": "Kripto para"
       },
       "bank_details": {
-        "title": "Informations bancaires",
-        "account_holder": "Nom du titulaire",
+        "title": "Banka bilgileri",
+        "account_holder": "Hesap sahibinin adı",
         "iban": "IBAN",
-        "bic": "Code BIC/SWIFT",
-        "bank_name": "Nom de la banque"
+        "bic": "BIC/SWIFT kodu",
+        "bank_name": "Banka adı"
       },
       "paypal_details": {
-        "title": "Informations PayPal",
-        "email": "Email PayPal"
+        "title": "PayPal bilgileri",
+        "email": "PayPal e-postası"
       },
       "crypto_details": {
-        "title": "Informations Crypto",
-        "wallet_address": "Adresse du portefeuille",
-        "currency": "Cryptomonnaie"
+        "title": "Kripto bilgileri",
+        "wallet_address": "Cüzdan adresi",
+        "currency": "Kripto para"
       },
       "minimum_payout": {
-        "title": "Seuil minimum",
-        "description": "Montant minimum requis pour effectuer un paiement : 50€"
+        "title": "Minimum eşik",
+        "description": "Ödeme için gereken minimum tutar: 50 €"
       },
-      "save_button": "Enregistrer les paramètres",
+      "save_button": "Ayarları kaydet",
       "messages": {
-        "save_success": "Paramètres de paiement sauvegardés avec succès",
-        "save_error": "Erreur lors de la sauvegarde des paramètres",
-        "settings_updated": "Paramètres de paiement mis à jour",
-        "payout_requested": "Demande de paiement envoyée",
-        "minimum_error": "Le montant minimum est de {{amount}}€"
+        "save_success": "Ödeme ayarları başarıyla kaydedildi",
+        "save_error": "Ayarlar kaydedilirken hata oluştu",
+        "settings_updated": "Ödeme ayarları güncellendi",
+        "payout_requested": "Ödeme talebi gönderildi",
+        "minimum_error": "Minimum tutar {{amount}} €",
+        "request_error": "Ödeme talebi sırasında hata oluştu"
       },
       "methods": {
-        "bank": "Virement bancaire",
+        "bank": "Banka havalesi",
         "paypal": "PayPal",
-        "crypto": "Crypto"
+        "crypto": "Kripto"
       },
       "bank_info": {
-        "title": "Informations bancaires",
-        "account_name": "Nom du titulaire",
-        "bank_name": "Nom de la banque",
+        "title": "Banka bilgileri",
+        "account_name": "Hesap sahibinin adı",
+        "bank_name": "Banka adı",
         "iban": "IBAN",
-        "swift": "Code SWIFT/BIC"
+        "swift": "SWIFT/BIC kodu"
       },
       "paypal_info": {
-        "title": "Informations PayPal",
-        "email": "Email PayPal"
+        "title": "PayPal bilgileri",
+        "email": "PayPal e-postası"
       },
       "crypto_info": {
-        "title": "Informations Crypto",
-        "network": "Réseau",
-        "wallet_address": "Adresse du wallet"
+        "title": "Kripto bilgileri",
+        "network": "Ağ",
+        "wallet_address": "Cüzdan adresi"
       },
       "networks": {
         "ETH": "Ethereum (ETH)",
         "BTC": "Bitcoin (BTC)",
         "USDT": "Tether (USDT)"
       },
-      "save_settings": "Sauvegarder les paramètres",
-      "saving": "Sauvegarde...",
+      "save_settings": "Ayarları kaydet",
+      "saving": "Kaydediliyor…",
       "warning": {
-        "title": "Important :",
-        "payment_schedule": "Les paiements sont traités entre le 1er et le 5 de chaque mois",
-        "processing_time": "Un délai de 2-5 jours ouvrés est nécessaire selon la méthode choisie",
-        "transaction_fees": "Des frais de transaction peuvent s'appliquer selon votre banque"
-      }
+        "title": "Önemli:",
+        "payment_schedule": "Ödemeler her ayın 1'i ile 5'i arasında işlenir",
+        "processing_time": "Seçilen yönteme göre 2 ila 5 iş günü sürer",
+        "transaction_fees": "Bankanıza bağlı olarak işlem ücreti uygulanabilir"
+      },
+      "minimum_help": "Bakiyeniz bu tutara ulaştığında ödemeler otomatik olarak yapılır."
     },
     "activation": {
-      "title": "Devenez Affilié Saloneo",
-      "description": "Rejoignez notre programme d'affiliation et gagnez des commissions attractives en recommandant Saloneo à votre réseau professionnel",
-      "subtitle": "Recommandez Saloneo et gagnez des commissions sur chaque nouveau client",
+      "title": "Saloneo satış ortağı olun",
+      "description": "Satış ortaklığı programımıza katılın ve Saloneo'yu profesyonel çevrenize önererek cazip komisyonlar kazanın",
+      "subtitle": "Saloneo'yu önerin, her yeni müşteriden komisyon kazanın",
       "benefits": {
-        "title": "Avantages du programme",
+        "title": "Programın avantajları",
         "items": {
-          "earn_commissions": "Gagnez 20% de commission sur chaque abonnement",
-          "marketing_tools": "Accédez à des outils marketing professionnels",
-          "real_time_tracking": "Suivez vos performances en temps réel",
-          "monthly_payments": "Recevez vos paiements chaque mois"
+          "earn_commissions": "Her abonelikten %20 komisyon kazanın",
+          "marketing_tools": "Profesyonel pazarlama araçlarına erişin",
+          "real_time_tracking": "Performansınızı anlık olarak takip edin",
+          "monthly_payments": "Ödemelerinizi her ay alın"
         }
       },
       "how_it_works": {
-        "title": "Comment ça marche ?",
+        "title": "Nasıl çalışır?",
         "steps": {
-          "share_link": "Partagez votre lien d'affiliation unique",
-          "client_subscribes": "Vos contacts s'abonnent à Saloneo",
-          "earn_commission": "Gagnez 20% de commission sur chaque vente"
+          "share_link": "Size özel satış ortaklığı bağlantınızı paylaşın",
+          "client_subscribes": "Tanıdıklarınız Saloneo'ya abone olur",
+          "earn_commission": "Her satıştan %20 komisyon kazanın"
         }
       },
       "commission_rates": {
-        "title": "Taux de commission",
-        "new_subscription": "20% sur les nouveaux abonnements",
-        "renewal": "10% sur les renouvellements",
-        "upgrade": "15% sur les mises à niveau"
+        "title": "Komisyon oranları",
+        "new_subscription": "Yeni aboneliklerde %20",
+        "renewal": "Yenilemelerde %10",
+        "upgrade": "Plan yükseltmelerinde %15"
       },
       "terms": {
-        "title": "Conditions du programme",
+        "title": "Program koşulları",
         "items": {
-          "minimum_payout": "Seuil minimum de paiement : 50€",
-          "payment_schedule": "Paiements mensuels entre le 1er et le 5",
-          "tracking_period": "Durée de tracking : 30 jours",
-          "compliance": "Respect des conditions d'utilisation obligatoire"
+          "minimum_payout": "Minimum ödeme eşiği: 50 €",
+          "payment_schedule": "Aylık ödemeler, ayın 1'i ile 5'i arasında",
+          "tracking_period": "Takip süresi: 30 gün",
+          "compliance": "Kullanım koşullarına uymak zorunludur"
+        },
+        "intro": "Saloneo satış ortaklığı programını etkinleştirerek aşağıdaki koşulları kabul etmiş olursunuz:",
+        "list": {
+          "rate": "Komisyonlar, her aboneliğin KDV hariç tutarı üzerinden %20'dir",
+          "payout": "Komisyonlar, 50 € minimum eşikle aylık olarak ödenir",
+          "cookie": "Takip çerezinin geçerlilik süresi 30 gündür",
+          "self_referral": "Kendi kendini yönlendirmeye izin verilmez",
+          "changes": "Saloneo programı değiştirme veya askıya alma hakkını saklı tutar",
+          "fraud": "Her türlü sahtecilik, satış ortaklığı hesabının derhal askıya alınmasına yol açar"
         }
       },
-      "activate_button": "Activer le programme d'affiliation",
+      "activate_button": "Satış ortaklığı programını etkinleştir",
       "messages": {
-        "activation_success": "Programme d'affiliation activé avec succès !",
-        "activation_error": "Erreur lors de l'activation du programme"
-      }
+        "activation_success": "Satış ortaklığı programı başarıyla etkinleştirildi!",
+        "activation_error": "Program etkinleştirilirken hata oluştu",
+        "accept_required": "Lütfen satış ortaklığı koşullarını kabul edin"
+      },
+      "accept_terms": "Saloneo satış ortaklığı programı koşullarını kabul ediyorum",
+      "activating": "Etkinleştiriliyor…"
     },
     "marketing": {
-      "title": "Outils Marketing",
-      "description": "Utilisez ces ressources pour promouvoir Saloneo et maximiser vos commissions",
+      "title": "Pazarlama araçları",
+      "description": "Saloneo'yu tanıtmak ve komisyonlarınızı artırmak için bu kaynakları kullanın",
       "qr_code": {
-        "title": "QR Code de parrainage",
-        "description": "Partagez ce QR code pour permettre à vos contacts de s'inscrire facilement. Parfait pour les cartes de visite, flyers ou affiches.",
-        "generate": "Générer QR Code",
-        "download": "Télécharger le QR Code",
-        "generating": "Génération du QR Code...",
-        "modal_title": "QR Code d'affiliation",
-        "modal_description": "Scannez ce code pour accéder directement à votre lien d'affiliation"
+        "title": "Davet QR kodu",
+        "description": "Tanıdıklarınızın kolayca kaydolabilmesi için bu QR kodu paylaşın. Kartvizitler, el ilanları veya afişler için ideal.",
+        "generate": "QR kod oluştur",
+        "download": "QR kodu indir",
+        "generating": "QR kod oluşturuluyor…",
+        "modal_title": "Satış ortaklığı QR kodu",
+        "modal_description": "Satış ortaklığı bağlantınıza doğrudan ulaşmak için bu kodu tarayın"
       },
       "banners": {
-        "title": "Bannières publicitaires",
-        "description": "Bannières publicitaires prêtes à utiliser pour vos campagnes",
-        "horizontal": "Bannière horizontale 728x90",
-        "horizontal_desc": "Parfaite pour les sites web et blogs",
-        "square": "Bannière carrée 300x300",
-        "square_desc": "Idéale pour les réseaux sociaux",
-        "vertical": "Bannière verticale 160x600",
-        "vertical_desc": "Pour les sidebars de sites web",
-        "download": "Télécharger"
+        "title": "Reklam banner'ları",
+        "description": "Kampanyalarınız için kullanıma hazır reklam banner'ları",
+        "horizontal": "Yatay banner 728x90",
+        "horizontal_desc": "Web siteleri ve bloglar için ideal",
+        "square": "Kare banner 300x300",
+        "square_desc": "Sosyal medya için ideal",
+        "vertical": "Dikey banner 160x600",
+        "vertical_desc": "Web sitesi kenar çubukları için",
+        "download": "İndir"
       },
       "social_posts": {
-        "title": "Publications sociales",
-        "description": "Messages prêts à partager sur vos réseaux sociaux",
-        "copy": "Copier le texte"
+        "title": "Sosyal medya gönderileri",
+        "description": "Sosyal medya hesaplarınızda paylaşmaya hazır mesajlar",
+        "copy": "Metni kopyala"
       },
       "email_templates": {
-        "title": "Templates d'emails",
-        "description": "Modèles d'emails professionnels pour promouvoir Saloneo",
-        "copy": "Copier le modèle",
+        "title": "E-posta şablonları",
+        "description": "Saloneo'yu tanıtmak için profesyonel e-posta şablonları",
+        "copy": "Şablonu kopyala",
         "professional": {
-          "title": "Email de présentation professionnel",
-          "subject": "Découvrez Saloneo - La solution complète pour votre salon"
+          "title": "Profesyonel tanıtım e-postası",
+          "subject": "Salonunuz için eksiksiz çözüm Saloneo'yu keşfedin",
+          "content": "Merhaba,\n\nSize güzellik salonları, spalar ve berberler için özel olarak tasarlanmış eksiksiz bir yönetim çözümü olan Saloneo'yu tanıtmak istiyorum.\n\nSaloneo ile:\n✓ Randevularınızı 7/24 online yönetebilirsiniz\n✓ Puan sistemiyle müşteri sadakati oluşturabilirsiniz\n✓ Ayrıntılı gösterge panelleriyle performansınızı takip edebilirsiniz\n✓ Kaçırılan randevuları azaltmak için SMS hatırlatmalarını otomatikleştirebilirsiniz\n✓ Ekibinizi ve hizmetlerinizi kolayca yönetebilirsiniz\n\nÜcretsiz plan ile kredi kartı ve taahhüt olmadan başlayabilirsiniz.\n\nHemen kaydolun: {{link}}\n\nSaygılarımla,\n[Adınız]"
         },
         "personal": {
-          "title": "Email de recommandation personnelle",
-          "subject": "Mon secret pour gérer mon salon efficacement"
+          "title": "Kişisel tavsiye e-postası",
+          "subject": "Salonumu verimli yönetmenin sırrı",
+          "content": "Selam,\n\nUmarım iyisindir! Salonumu yönetmek için kullandığım aracı seninle paylaşmak istedim.\n\nSaloneo'yu kullanmaya başladığımdan beri:\n- Kaçırılan randevularımı %40 azalttım\n- Online randevularımı %60 artırdım\n- İdari işlerde günde 2 saat kazandım\n\nEn güzel yanı ne mi? Müşteriler, salon kapalıyken bile doğrudan telefonlarından randevu alabiliyor.\n\nİlgini çekerse ücretsiz başlayabilirsin: {{link}}\n\nSorun olursa çekinmeden sor!\n\nGörüşmek üzere,\n[Adınız]"
         }
       },
       "social_messages": {
-        "title": "Messages pour réseaux sociaux",
+        "title": "Sosyal medya mesajları",
         "linkedin": "LinkedIn",
         "whatsapp": "WhatsApp",
-        "instagram": "Instagram"
+        "instagram": "Instagram",
+        "linkedin_message": "🚀 Güzellik profesyonelleri için hepsi bir arada yönetim çözümü Saloneo'yu keşfedin.\n\n✅ 7/24 online randevu\n✅ Kolay ekip yönetimi\n✅ Analitik gösterge panelleri\n✅ Otomatik SMS hatırlatmaları\n\nÜcretsiz başlayın: {{link}}\n\n#BeautyTech #SalonManagement #DigitalTransformation",
+        "whatsapp_message": "Selam! 👋\n\nSalonunu yönetmek için bir araç mı arıyorsun? Sana Saloneo'yu öneririm!\n\nÇok basit ve müşterilerin 7/24 online randevu alabiliyor 📱\n\nÜcretsiz deneme: {{link}}",
+        "instagram_message": "✨ Salonunuzu Saloneo ile dönüştürün!\n\nGünlük işlerinizi kolaylaştıran dijital çözüm:\n📅 Online randevular\n💆‍♀️ Hizmet yönetimi\n👥 Müşteri takibi\n📊 Ayrıntılı analizler\n\nBağlantı biyografimde 👆 {{link}}\n\n#GüzellikSalonu #SalonYönetimi #BeautyBusiness #Saloneo"
       },
       "best_practices": {
-        "title": "📚 Guide des bonnes pratiques",
-        "personalize": "Personnalisez vos messages",
-        "personalize_desc": "Adaptez les templates à votre style et votre audience pour de meilleurs résultats.",
-        "be_authentic": "Soyez authentique",
-        "be_authentic_desc": "Partagez votre expérience personnelle avec Saloneo pour créer de la confiance.",
-        "target_audience": "Ciblez votre audience",
-        "target_audience_desc": "Concentrez-vous sur les professionnels de la beauté dans votre réseau.",
-        "track_performance": "Suivez vos performances",
-        "track_performance_desc": "Utilisez le tableau de bord pour identifier ce qui fonctionne le mieux."
+        "title": "İyi uygulamalar",
+        "personalize": "Mesajlarınızı kişiselleştirin",
+        "personalize_desc": "Daha iyi sonuçlar için şablonları kendi tarzınıza ve kitlenize göre uyarlayın.",
+        "be_authentic": "Samimi olun",
+        "be_authentic_desc": "Güven oluşturmak için Saloneo ile ilgili kişisel deneyiminizi paylaşın.",
+        "target_audience": "Kitlenizi hedefleyin",
+        "target_audience_desc": "Çevrenizdeki güzellik profesyonellerine odaklanın.",
+        "track_performance": "Performansınızı takip edin",
+        "track_performance_desc": "En iyi neyin işe yaradığını görmek için gösterge panelini kullanın."
       },
       "messages": {
-        "copied": "Texte copié dans le presse-papier",
-        "download_started": "Téléchargement démarré"
+        "copied": "Metin panoya kopyalandı",
+        "download_started": "İndirme başladı"
       }
     },
     "tabs": {
-      "dashboard": "Tableau de bord",
-      "commissions": "Commissions",
-      "settings": "Paramètres",
-      "marketing": "Outils Marketing"
+      "dashboard": "Gösterge paneli",
+      "commissions": "Komisyonlar",
+      "settings": "Ayarlar",
+      "marketing": "Pazarlama araçları"
     },
     "status": {
-      "active": "Actif",
-      "inactive": "Inactif"
+      "active": "Aktif",
+      "inactive": "Pasif"
     },
     "stats": {
-      "total_referrals": "Total des parrainages",
-      "total_commissions": "Commissions totales",
-      "commission_rate": "Taux de commission",
-      "conversion_rate": "Taux de conversion"
+      "total_referrals": "Toplam yönlendirme",
+      "total_commissions": "Toplam komisyon",
+      "commission_rate": "Komisyon oranı",
+      "conversion_rate": "Dönüşüm oranı"
     },
-    "program_title": "Programme d'Affiliation",
-    "affiliate_code": "Code affilié",
-    "loading": "Chargement des données d'affiliation..."
+    "program_title": "Satış ortaklığı programı",
+    "affiliate_code": "Satış ortağı kodu",
+    "loading": "Satış ortaklığı verileri yükleniyor…"
   },
   "affiliation_tab": {
-    "title": "Programme d'Affiliation",
-    "description": "Gagnez des commissions en recommandant Saloneo à votre réseau professionnel",
+    "title": "Satış ortaklığı programı",
+    "description": "Saloneo'yu profesyonel çevrenize önererek komisyon kazanın",
     "tabs": {
-      "dashboard": "Tableau de bord",
-      "commissions": "Commissions",
-      "marketing": "Outils Marketing",
-      "settings": "Paramètres"
+      "dashboard": "Gösterge paneli",
+      "commissions": "Komisyonlar",
+      "marketing": "Pazarlama araçları",
+      "settings": "Ayarlar"
     }
   },
-  "personalInfo": "Talɣut tudmawant",
-  "businessInfo": "Talɣut n uxeddim",
-  "contactInfo": "Talɣut n unermis",
-  "email": "Imayl",
-  "phone": "Tiliɣri",
-  "city": "Tamdint",
-  "country": "Tamurt",
-  "postalCode": "Tangalt n lpusṭa",
-  "businessName": "Isem n uxeddim",
-  "businessType": "Anaw n uxeddim",
-  "description": "Aglam",
-  "website": "Asmel web",
-  "socialMedia": "Iẓeḍwa inmettiyen",
-  "currentPassword": "Awal uffir amiran",
-  "newPassword": "Awal uffir amaynut",
-  "confirmPassword": "Sentem awal uffir",
-  "changePassword": "Beddel awal uffir",
-  "twoFactorAuth": "Asentem s sin iferdisen",
-  "loginHistory": "Amazray n ukcem",
-  "sessions": "Tiɣimiyin",
-  "privacy": "Tudert tusligt",
-  "timezone": "Izḍi n wakud",
-  "save": "Sekles",
-  "cancel": "Sefsex",
-  "update": "Leqqem",
-  "delete": "Kkes",
-  "deactivate": "Seḥbes"
+  "currencies": {
+    "EUR": "Euro",
+    "USD": "ABD doları",
+    "GBP": "İngiliz sterlini",
+    "JPY": "Japon yeni",
+    "CAD": "Kanada doları",
+    "AUD": "Avustralya doları",
+    "CHF": "İsviçre frangı",
+    "CNY": "Çin yuanı",
+    "SEK": "İsveç kronu",
+    "NOK": "Norveç kronu",
+    "DKK": "Danimarka kronu",
+    "PLN": "Polonya zlotisi",
+    "CZK": "Çek korunası",
+    "HUF": "Macar forinti",
+    "RUB": "Rus rublesi",
+    "BRL": "Brezilya reali",
+    "INR": "Hindistan rupisi",
+    "KRW": "Güney Kore wonu",
+    "SGD": "Singapur doları",
+    "HKD": "Hong Kong doları",
+    "NZD": "Yeni Zelanda doları",
+    "MXN": "Meksika pesosu",
+    "ZAR": "Güney Afrika randı",
+    "TRY": "Türk lirası",
+    "AED": "BAE dirhemi",
+    "SAR": "Suudi Arabistan riyali",
+    "QAR": "Katar riyali",
+    "KWD": "Kuveyt dinarı",
+    "BHD": "Bahreyn dinarı",
+    "OMR": "Umman riyali",
+    "JOD": "Ürdün dinarı",
+    "LBP": "Lübnan lirası",
+    "EGP": "Mısır lirası",
+    "MAD": "Fas dirhemi",
+    "TND": "Tunus dinarı",
+    "DZD": "Cezayir dinarı",
+    "LYD": "Libya dinarı"
+  },
+  "profile_page": {
+    "subtitle": "Sizin ve salonunuzun bilgileri ile tercihleriniz",
+    "loading": "Profil yükleniyor…"
+  }
 }

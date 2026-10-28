@@ -8,6 +8,7 @@ import { Client, ClientFormData } from '../clients/types';
 import { v4 as uuidv4 } from 'uuid';
 import { addMinutes, format } from 'date-fns';
 import { publicAPI } from '../../services/api';
+import i18n from 'i18next';
 
 interface PublicBookingStore {
   // État
@@ -147,7 +148,7 @@ export const usePublicBookingStore = create<PublicBookingStore>((set, get) => ({
       case 'datetime':
         // stylistId is optional — if showTeamOnPublicPage is false the client doesn't pick one
         if (!bookingData.date || !bookingData.startTime) {
-          state.setError({ step: 'datetime', message: "Veuillez sélectionner une date et une heure" });
+          state.setError({ step: 'datetime', message: i18n.t('errors:booking.select_datetime') });
           return false;
         }
 
@@ -171,7 +172,7 @@ export const usePublicBookingStore = create<PublicBookingStore>((set, get) => ({
           });
 
           if (!isAvailable) {
-            state.setError({ step: 'datetime', message: "Ce créneau n'est plus disponible" });
+            state.setError({ step: 'datetime', message: i18n.t('errors:booking.slot_unavailable') });
             return false;
           }
         }
@@ -197,7 +198,7 @@ export const usePublicBookingStore = create<PublicBookingStore>((set, get) => ({
       const slug = currentPath.split('/').pop(); // Récupère le dernier segment de l'URL
       
       if (!slug) {
-        throw new Error("Impossible de déterminer le salon");
+        throw new Error(i18n.t('errors:booking.no_salon'));
       }
 
       console.log('🚀 Soumission de la réservation pour le salon:', slug);
@@ -247,7 +248,7 @@ export const usePublicBookingStore = create<PublicBookingStore>((set, get) => ({
       console.error('❌ Réponse backend:', error.response?.data);
 
       // Gestion d'erreur améliorée
-      let errorMessage = 'Erreur lors de la création du rendez-vous';
+      let errorMessage = i18n.t('errors:booking.error');
 
       if (error.response?.data?.error) {
         errorMessage = error.response.data.error;

@@ -1,4 +1,5 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
+import i18n from 'i18next';
 
 interface Props {
   children: ReactNode;
@@ -71,11 +72,11 @@ class ErrorBoundary extends Component<Props, State> {
             </div>
             
             <h1 className="font-display text-xl font-semibold text-gray-900 text-center mb-2 dark:text-gray-50">
-              Oups ! Une erreur s'est produite
+              {i18n.t('errors:general.unexpected_error')}
             </h1>
             
             <p className="text-sm text-gray-500 text-center mb-6 dark:text-gray-400">
-              L'application a rencontré un problème. Cela peut être dû à des données corrompues dans le cache.
+              {i18n.t('errors:general.application_error')}
             </p>
             
             <div className="flex flex-col gap-2">
@@ -83,21 +84,21 @@ class ErrorBoundary extends Component<Props, State> {
                 onClick={this.handleReload}
                 className="btn-primary w-full justify-center"
               >
-                Recharger la page
+                {i18n.t('errors:general.reload_page')}
               </button>
               
               <button
                 onClick={this.handleReset}
                 className="btn-secondary w-full justify-center"
               >
-                Réinitialiser l'application
+                {i18n.t('errors:general.reset_app')}
               </button>
             </div>
             
             {this.state.error && (
               <details className="mt-4 p-3 bg-gray-50 rounded-lg text-sm dark:bg-gray-800">
                 <summary className="cursor-pointer text-gray-700 font-medium dark:text-gray-300">
-                  Détails de l'erreur
+                  {i18n.t('errors:general.error_details')}
                 </summary>
                 <pre className="mt-2 text-xs text-gray-600 overflow-auto dark:text-gray-400">
                   {this.state.error.message}

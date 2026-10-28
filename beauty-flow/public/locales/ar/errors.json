@@ -3,8 +3,8 @@
     "required": "هذا الحقل مطلوب",
     "email": "يرجى إدخال عنوان بريد إلكتروني صحيح",
     "phone": "يرجى إدخال رقم هاتف صحيح",
-    "min_length": "الحد الأدنى {{count}} أحرف مطلوب",
-    "max_length": "الحد الأقصى {{count}} أحرف مسموح",
+    "min_length": "الحد الأدنى لعدد الأحرف: {{count}}",
+    "max_length": "الحد الأقصى لعدد الأحرف: {{count}}",
     "password_mismatch": "كلمات المرور غير متطابقة",
     "invalid_format": "تنسيق غير صحيح",
     "invalid_date": "يرجى إدخال تاريخ صحيح",
@@ -31,16 +31,18 @@
   "booking": {
     "slot_unavailable": "هذا الوقت لم يعد متاحاً",
     "service_unavailable": "هذه الخدمة غير متاحة",
-    "stylist_unavailable": "هذا المصفف غير متاح",
-    "booking_failed": "فشل في الحجز",
-    "cancellation_failed": "فشل في الإلغاء",
-    "modification_failed": "فشل في التعديل",
-    "error": "حدث خطأ أثناء إنشاء الحجز. يرجى المحاولة مرة أخرى."
+    "stylist_unavailable": "عضو الفريق هذا غير متاح",
+    "booking_failed": "تعذّر الحجز",
+    "cancellation_failed": "تعذّر الإلغاء",
+    "modification_failed": "تعذّر التعديل",
+    "error": "حدث خطأ أثناء إنشاء الحجز. يرجى المحاولة مرة أخرى.",
+    "select_datetime": "يرجى اختيار التاريخ والوقت",
+    "no_salon": "تعذّر تحديد الصالون"
   },
   "payment": {
-    "payment_failed": "فشل في الدفع",
+    "payment_failed": "تعذّر الدفع",
     "invalid_card": "معلومات البطاقة غير صحيحة",
-    "insufficient_funds": "أموال غير كافية",
+    "insufficient_funds": "الرصيد غير كافٍ",
     "payment_declined": "تم رفض الدفع",
     "transaction_error": "خطأ في المعاملة"
   },
@@ -52,11 +54,13 @@
     "error_details": "تفاصيل الخطأ",
     "close_notification": "إغلاق الإشعار",
     "try_again": "يرجى المحاولة مرة أخرى",
-    "contact_support": "يرجى الاتصال بالدعم إذا استمرت المشكلة"
+    "contact_support": "يرجى الاتصال بالدعم إذا استمرت المشكلة",
+    "reset_app": "إعادة تعيين التطبيق",
+    "generic": "حدث خطأ"
   },
   "salon": {
     "not_found": "الصالون غير موجود",
-    "not_found_description": "الصالون الذي تبحث عنه غير موجود."
+    "not_found_description": "الصالون المطلوب غير موجود."
   },
   "template": {
     "not_found": "القالب غير موجود",
@@ -67,6 +71,30 @@
   },
   "loading": {
     "please_wait": "يرجى الانتظار",
-    "loading": "جاري التحميل..."
+    "loading": "جارٍ التحميل…"
+  },
+  "store": {
+    "load_clients": "خطأ أثناء تحميل الزبائن",
+    "create_client": "خطأ أثناء إنشاء الزبون",
+    "update_client": "خطأ أثناء تحديث الزبون",
+    "delete_client": "خطأ أثناء حذف الزبون",
+    "load_services": "خطأ أثناء تحميل الخدمات",
+    "create_service": "خطأ أثناء إنشاء الخدمة",
+    "update_service": "خطأ أثناء تحديث الخدمة",
+    "delete_service": "خطأ أثناء حذف الخدمة",
+    "load_products": "خطأ أثناء تحميل المنتجات",
+    "create_product": "خطأ أثناء إنشاء المنتج",
+    "update_product": "خطأ أثناء تحديث المنتج",
+    "delete_product": "خطأ أثناء حذف المنتج",
+    "update_quantity": "خطأ أثناء تحديث الكمية",
+    "no_user_data": "لم يُعثر على بيانات المستخدم",
+    "load_profile": "خطأ أثناء تحميل الملف الشخصي",
+    "update_profile": "خطأ أثناء تحديث الملف الشخصي",
+    "update_language": "خطأ أثناء تغيير اللغة",
+    "load": "خطأ أثناء التحميل",
+    "activate": "خطأ أثناء التفعيل",
+    "update": "خطأ أثناء التحديث",
+    "generate": "خطأ أثناء الإنشاء",
+    "request": "خطأ أثناء إرسال الطلب"
   }
 }

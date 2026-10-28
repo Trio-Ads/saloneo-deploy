@@ -357,7 +357,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               ) : openSlots.length === 0 ? (
                 <p className={clsx(helpClass, 'text-red-600 dark:text-red-400')}>{t('appointment_form.messages.no_slots_available')}</p>
               ) : (
-                <p className={helpClass}>{openSlots.length} {t('appointment_form.messages.slots_available')}</p>
+                <p className={helpClass}>{t('appointment_form.messages.slots_available', { count: openSlots.length })}</p>
               )}
             </div>
 

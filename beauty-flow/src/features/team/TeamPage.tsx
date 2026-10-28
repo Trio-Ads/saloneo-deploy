@@ -185,13 +185,13 @@ const TeamPage: React.FC = () => {
                 <option value="all">{t('filters.all_roles')}</option>
                 {uniqueRoles.map((role) => (
                   <option key={role} value={role}>
-                    {role}
+                    {t(`role_values.${role}`, role)}
                   </option>
                 ))}
               </select>
               {isFiltering && (
                 <p className="text-sm text-gray-500 dark:text-gray-400 sm:ms-auto tabular-nums">
-                  {filteredMembers.length} {t('search.results')}
+                  {t('search.results', { count: filteredMembers.length })}
                 </p>
               )}
             </div>

@@ -52,7 +52,7 @@ const CommissionTable: React.FC = () => {
 
   const handleExportCSV = () => {
     const csvContent = [
-      ['Date', 'Client référé', 'Type', 'Montant original', 'Commission', 'Taux', 'Statut', 'Date paiement'],
+      [t('affiliation_components.commissions.table.date'), t('affiliation_components.commissions.table.referred_client'), t('affiliation_components.commissions.table.type'), t('affiliation_components.commissions.table.original_amount'), t('affiliation_components.commissions.table.commission'), t('affiliation_components.commissions.table.rate'), t('affiliation_components.commissions.table.status'), t('affiliation_components.commissions.table.payment_date')],
       ...filteredCommissions.map(c => [
         new Date(c.createdAt).toLocaleDateString(i18n.language),
         c.referredUserName,

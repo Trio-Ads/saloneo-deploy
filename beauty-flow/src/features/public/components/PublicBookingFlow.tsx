@@ -115,9 +115,7 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
       try {
         await submitBooking();
       } catch (err: any) {
-        const msg = err?.message && err.message !== 'Erreur lors de la création du rendez-vous'
-          ? err.message
-          : t('errors:booking.error');
+        const msg = err?.message || t('errors:booking.error');
         setError({ step: 'client', message: msg });
       } finally {
         setLoading(false);
@@ -143,7 +141,7 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
 
   // Portal: keeps the salon page's own CSS (.sp headings, focus rings) out of the sheet
   return createPortal(
-    <div className="bk bk-overlay" style={bookingVars(template)} onClick={(e) => e.target === e.currentTarget && close()}>
+    <div className={`bk bk-overlay bk-v-${template.booking?.variant ?? 'sheet'}`} style={bookingVars(template)} onClick={(e) => e.target === e.currentTarget && close()}>
       <div className="bk-sheet" role="dialog" aria-modal="true" aria-labelledby="bk-title">
         <div className="bk-handle" aria-hidden="true" />
 

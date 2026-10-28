@@ -2,7 +2,7 @@
   "manage": {
     "title": "My appointment",
     "invalid_link": "Link not found",
-    "invalid_link_body": "This link is invalid, expired, or the appointment was cancelled.",
+    "invalid_link_body": "This link is invalid or has expired, or the appointment was cancelled.",
     "back_to_salon": "Back to the salon page",
     "status_label": "Status",
     "status": {
@@ -19,9 +19,9 @@
     "new_slot": "Pick a new time",
     "confirm_new_slot": "Confirm this time",
     "modified": "Your appointment has been moved.",
-    "modify_error": "This appointment couldn't be changed. Pick another time or contact the salon.",
+    "modify_error": "Couldn't change this appointment. Pick another time or contact the salon.",
     "cancel_title": "Cancel this appointment?",
-    "cancel_body": "The salon will be notified and the slot released.",
+    "cancel_body": "The salon will be notified and the time slot freed up.",
     "cancel_reason": "Reason (optional)",
     "cancel_reason_placeholder": "E.g. something came up",
     "keep": "Keep my appointment",
@@ -65,8 +65,8 @@
       "phone": "Phone",
       "email": "Email",
       "email_placeholder": "you@example.com",
-      "more_info": "Birth date and address (optional)",
-      "birth_date": "Birth date",
+      "more_info": "Date of birth and address (optional)",
+      "birth_date": "Date of birth",
       "address": "Address",
       "hair_questionnaire": "Hair questionnaire (optional)",
       "skin_questionnaire": "Skin questionnaire (optional)",
@@ -74,23 +74,23 @@
       "pref_sms": "Appointment reminder by SMS",
       "pref_marketing": "Offers and news by email",
       "pref_birthday": "A birthday treat",
-      "privacy": "You can change this anytime. Your details are never shared.",
+      "privacy": "You can change this at any time. Your details are never shared.",
       "notes": "Anything the salon should know? (optional)",
       "notes_placeholder": "Allergies, desired length, access…",
       "errors": {
         "first_name": "Enter your first name.",
         "last_name": "Enter your last name.",
         "email_required": "Enter your email to receive the confirmation.",
-        "email_invalid": "This email looks incomplete, check it (e.g. name@example.com).",
+        "email_invalid": "This email looks incomplete. Please check it (e.g. name@example.com).",
         "phone_required": "Enter your number so the salon can reach you.",
-        "phone_invalid": "This number looks incomplete, check it."
+        "phone_invalid": "This number looks incomplete. Please check it."
       }
     },
-    "title": "Online Booking",
+    "title": "Online booking",
     "steps": {
       "service": "Choose a service",
       "datetime": "Choose date and time",
-      "information": "Your information",
+      "information": "Your details",
       "confirmation": "Confirmation"
     },
     "progress": {
@@ -100,21 +100,21 @@
       "finish": "Finish"
     },
     "flow": {
-      "choose_slot": "Choose your slot",
-      "your_info": "Your information",
-      "choose_stylist": "Choose your stylist",
+      "choose_slot": "Choose your time slot",
+      "your_info": "Your details",
+      "choose_stylist": "Choose a team member",
       "choose_date": "Choose a date",
       "choose_time": "Choose a time",
       "your_selection": "Your selection",
       "selected": "Selected",
       "chosen": "Chosen",
-      "no_slots": "No slots",
-      "no_slots_available": "No slots available for this date",
+      "no_slots": "No time slots",
+      "no_slots_available": "No time slots available on this date",
       "choose_another_date": "Please choose another date",
-      "stylist": "Stylist",
+      "stylist": "Team member",
       "date": "Date",
       "time": "Time",
-      "with_who": "With whom?",
+      "with_who": "Who with?",
       "any_stylist": "No preference",
       "continue": "Continue",
       "back": "Back",
@@ -124,7 +124,79 @@
       "no_stylist": "No team member is available right now.",
       "previous_month": "Previous month",
       "next_month": "Next month"
-    }
+    },
+    "calendar": {
+      "month_view": "Month",
+      "week_view": "Week",
+      "today": "Today",
+      "available": "Available",
+      "unavailable": "Unavailable"
+    },
+    "questionnaire": {
+      "hair_type": "Hair type",
+      "thickness": "Hair thickness",
+      "scalp": "Scalp condition",
+      "porosity": "Porosity",
+      "chemical_treatments": "Chemical treatments",
+      "last_treatment_date": "Date of last treatment",
+      "hair_problems": "Hair concerns",
+      "current_products": "Products you currently use",
+      "allergies": "Known allergies",
+      "skin_type": "Skin type",
+      "sensitivity": "Sensitivity level",
+      "skin_problems": "Skin concerns",
+      "concern_areas": "Main areas of concern",
+      "past_reactions": "Past reactions to treatments",
+      "current_products_placeholder": "List the products you currently use…",
+      "hair_allergies_placeholder": "Mention any allergies to hair products…",
+      "skin_allergies_placeholder": "Mention any allergies to cosmetics…",
+      "past_reactions_placeholder": "Describe any bad reaction you've had to a treatment…",
+      "values": {
+        "Raides": "Straight",
+        "Ondulés": "Wavy",
+        "Bouclés": "Curly",
+        "Crépus": "Coily",
+        "Fins": "Fine",
+        "Moyens": "Medium",
+        "Épais": "Thick",
+        "Normal": "Normal",
+        "Sec": "Dry",
+        "Gras": "Oily",
+        "Sensible": "Sensitive",
+        "Pellicules": "Dandruff",
+        "Faible": "Low",
+        "Moyenne": "Medium",
+        "Élevée": "High",
+        "Aucun": "None",
+        "Coloration": "Color",
+        "Mèches": "Highlights",
+        "Défrisage": "Relaxer",
+        "Permanente": "Perm",
+        "Pointes fourchues": "Split ends",
+        "Cassure": "Breakage",
+        "Frisottis": "Frizz",
+        "Sécheresse": "Dryness",
+        "Excès de sébum": "Excess oil",
+        "Normale": "Normal",
+        "Sèche": "Dry",
+        "Grasse": "Oily",
+        "Mixte": "Combination",
+        "Pas sensible": "Not sensitive",
+        "Légèrement sensible": "Slightly sensitive",
+        "Très sensible": "Very sensitive",
+        "Acné": "Acne",
+        "Vieillissement": "Signs of aging",
+        "Taches pigmentaires": "Dark spots",
+        "Rougeurs": "Redness",
+        "Front": "Forehead",
+        "Joues": "Cheeks",
+        "Menton": "Chin",
+        "Nez": "Nose",
+        "Contour des yeux": "Eye area"
+      }
+    },
+    "owner": "Owner",
+    "the_salon": "The salon"
   },
   "salon": {
     "about": "About",
@@ -139,20 +211,20 @@
       "team_title": "Team",
       "contact_title": "Contact",
       "book_button": "Book",
-      "discover_services": "Discover our complete range of beauty and wellness services,",
+      "discover_services": "Discover our full range of beauty and wellness services,",
       "professional_team": "Passionate professionals at your service",
       "opening_hours": "Opening hours",
       "information": "Information",
       "quick_booking": "Quick booking",
-      "quick_booking_desc": "Book an appointment in just a few clicks",
-      "call_us": "Or call us at",
+      "quick_booking_desc": "Book an appointment in a few clicks",
+      "call_us": "Or call us on",
       "address": "Address",
       "phone": "Phone",
       "email": "Email",
-      "footer_text": "Your trusted beauty salon since always",
+      "footer_text": "Your trusted beauty salon",
       "all_rights": "All rights reserved",
       "closed": "Closed",
-      "professional_service": "Professional quality service"
+      "professional_service": "Quality professional service"
     }
   },
   "datetime": {
@@ -161,8 +233,8 @@
     "morning": "Morning",
     "afternoon": "Afternoon",
     "evening": "Evening",
-    "no_slots": "No slots available",
-    "available_slots": "Available slots"
+    "no_slots": "No time slots available",
+    "available_slots": "Available time slots"
   },
   "service_card": {
     "duration": "Duration",
@@ -182,7 +254,7 @@
     },
     "error": {
       "title": "Booking error",
-      "message": "An error occurred",
+      "message": "Something went wrong",
       "try_again": "Please try again"
     },
     "pending": {
@@ -191,7 +263,7 @@
     }
   },
   "loading": {
-    "message": "Loading...",
+    "message": "Loading…",
     "please_wait": "Please wait"
   },
   "modal": {
@@ -200,7 +272,7 @@
     "confirm": "Confirm"
   },
   "search": {
-    "title": "Manage my bookings",
+    "title": "Manage my appointments",
     "how_search": "How would you like to search for your appointments?",
     "by_email": "Email",
     "by_phone": "Phone",
@@ -210,7 +282,7 @@
     "first_name_label": "First name",
     "last_name_label": "Last name",
     "email_placeholder": "your@email.com",
-    "phone_placeholder": "06 12 34 56 78",
+    "phone_placeholder": "0550 12 34 56",
     "first_name_placeholder": "Your first name",
     "last_name_placeholder": "Your last name",
     "search_button": "Search"
@@ -219,10 +291,10 @@
     "your_appointments": "Your appointments",
     "no_appointments": "No appointments found",
     "back_home": "Back to home",
-    "modify": "Modify",
+    "modify": "Change",
     "cancel": "Cancel",
     "cancel_confirmation": "Are you sure you want to cancel this appointment?",
-    "cancel_reason_placeholder": "Cancellation reason (optional)"
+    "cancel_reason_placeholder": "Reason for cancelling (optional)"
   },
   "gallery": {
     "previous": "Previous image",
@@ -230,7 +302,7 @@
   },
   "days": {
     "monday": "Monday",
-    "tuesday": "Tuesday", 
+    "tuesday": "Tuesday",
     "wednesday": "Wednesday",
     "thursday": "Thursday",
     "friday": "Friday",
@@ -251,8 +323,7 @@
     "services_title": "Our services",
     "team_title": "The team",
     "reviews_title": "Client reviews",
-    "rating_summary_one": "{{avg}} out of 5 · {{count}} review",
-    "rating_summary_other": "{{avg}} out of 5 · {{count}} reviews",
+    "rating_summary": "{{avg}} out of 5 · {{count}} reviews",
     "contact_title": "Find us",
     "hours": "Opening hours",
     "closed": "Closed",
@@ -264,8 +335,21 @@
     "menu_close": "Close menu",
     "previous": "Previous",
     "next": "Next",
-    "credit": "Online booking by",
+    "credit_by": "Online booking by <b>{{brand}}</b>",
     "online_booking": "Online booking",
-    "not_found": "This salon could not be found or is temporarily unavailable."
+    "not_found": "This salon can't be found or is temporarily unavailable.",
+    "price_from": "From {{amount}}",
+    "about_title": "The salon",
+    "gallery_title": "In pictures",
+    "cta_title": "Book your next appointment",
+    "today_hours": "Today · {{hours}}",
+    "closed_today": "Closed today",
+    "choose_service": "Choose a service to book",
+    "other_services": "Other services",
+    "service_count_one": "{{count}} service",
+    "service_count_other": "{{count}} services",
+    "review_count_one": "{{count}} review",
+    "review_count_other": "{{count}} reviews",
+    "rating_row": "{{stars}} stars: {{n}} reviews"
   }
 }

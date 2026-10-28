@@ -1,0 +1,77 @@
+{
+  "title": "Yönetim",
+  "subtitle": "Kullanıcı ve abonelik yönetimi",
+  "access_denied": {
+    "title": "Erişim reddedildi",
+    "message": "Bu sayfaya erişmek için gerekli izinlere sahip değilsiniz."
+  },
+  "stats": {
+    "total_users": "Toplam kullanıcı",
+    "active_users": "Aktif kullanıcılar",
+    "recent_users": "Yeni kullanıcılar",
+    "last_30_days": "Son 30 gün",
+    "by_plan": "Plana göre"
+  },
+  "search": {
+    "placeholder": "Ad veya e-posta ile arayın…"
+  },
+  "filters": {
+    "all_plans": "Tüm planlar",
+    "all_status": "Tüm durumlar",
+    "active": "Aktif",
+    "expired": "Süresi dolmuş"
+  },
+  "table": {
+    "salon": "Salon",
+    "email": "E-posta",
+    "plan": "Plan",
+    "status": "Durum",
+    "expiry": "Bitiş",
+    "actions": "İşlemler",
+    "no_expiry": "Yok"
+  },
+  "status": {
+    "active": "Aktif",
+    "inactive": "Pasif",
+    "expired": "Süresi doldu",
+    "expiring_soon": "Yakında sona eriyor"
+  },
+  "actions": {
+    "edit": "Düzenle",
+    "view": "Ayrıntıları gör"
+  },
+  "pagination": {
+    "showing": "{{total}} sonuçtan {{from}}–{{to}} arası gösteriliyor",
+    "previous": "Önceki",
+    "next": "Sonraki"
+  },
+  "no_users": "Kullanıcı bulunamadı",
+  "edit_modal": {
+    "title": "Aboneliği düzenle",
+    "plan": "Abonelik planı",
+    "duration": "Süre",
+    "monthly": "Aylık",
+    "yearly": "Yıllık",
+    "biennial": "2 yıllık",
+    "triennial": "3 yıllık",
+    "expiry_date": "Bitiş tarihi",
+    "expiry_help": "Süreye göre otomatik hesaplanması için boş bırakın",
+    "active": "Abonelik aktif",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "saving": "Kaydediliyor…",
+    "success": "Abonelik başarıyla güncellendi",
+    "error": "Abonelik güncellenirken bir hata oluştu"
+  },
+  "feedback": {
+    "send": "Geri bildirim e-postası gönder",
+    "sent": "Geri bildirim e-postası {{name}} adlı kullanıcıya gönderildi",
+    "error": "Geri bildirim e-postası gönderilirken bir hata oluştu."
+  },
+  "errors": {
+    "load_users": "Kullanıcılar yüklenemedi",
+    "load_user": "Kullanıcı ayrıntıları yüklenemedi",
+    "load_stats": "Platform istatistikleri yüklenemedi",
+    "update_subscription": "Abonelik güncellenemedi"
+  }
+}

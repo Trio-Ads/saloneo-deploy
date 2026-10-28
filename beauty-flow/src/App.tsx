@@ -30,6 +30,9 @@ import LandingPage from './features/marketing/pages/LandingPage';
 import PricingPage from './features/marketing/pages/PricingPage';
 import AdminPage from './features/admin/AdminPage';
 
+// Dev server only: every public layout variant on one page (/dev/layouts).
+const DevLayouts = import.meta.env.DEV ? React.lazy(() => import('./features/public/dev/LayoutsPage')) : null;
+
 export const App: React.FC = () => {
   const { t } = useTranslation('common');
   const checkImages = useInterfaceStore((state) => state.checkImages);
@@ -58,6 +61,7 @@ export const App: React.FC = () => {
         {/* Alias used by emails */}
         <Route path="modify-appointment/:token" element={<PublicAppointmentManager />} />
         <Route path="appointments/list" element={<PublicAppointmentList />} />
+        {DevLayouts && <Route path="dev/layouts" element={<React.Suspense fallback={null}><DevLayouts /></React.Suspense>} />}
         {/* Targets of the password-reset and verification e-mails */}
         <Route path="reset-password" element={<ResetPasswordPage />} />
         <Route path="verify-email" element={<VerifyEmailPage />} />

@@ -1,0 +1,77 @@
+{
+  "title": "Administração",
+  "subtitle": "Gestão de utilizadores e subscrições",
+  "access_denied": {
+    "title": "Acesso negado",
+    "message": "Não tem as permissões necessárias para aceder a esta página."
+  },
+  "stats": {
+    "total_users": "Total de utilizadores",
+    "active_users": "Utilizadores ativos",
+    "recent_users": "Novos utilizadores",
+    "last_30_days": "Últimos 30 dias",
+    "by_plan": "Por plano"
+  },
+  "search": {
+    "placeholder": "Pesquisar por nome ou e-mail…"
+  },
+  "filters": {
+    "all_plans": "Todos os planos",
+    "all_status": "Todos os estados",
+    "active": "Ativos",
+    "expired": "Expirados"
+  },
+  "table": {
+    "salon": "Salão",
+    "email": "E-mail",
+    "plan": "Plano",
+    "status": "Estado",
+    "expiry": "Expiração",
+    "actions": "Ações",
+    "no_expiry": "Nenhuma"
+  },
+  "status": {
+    "active": "Ativo",
+    "inactive": "Inativo",
+    "expired": "Expirado",
+    "expiring_soon": "Expira em breve"
+  },
+  "actions": {
+    "edit": "Editar",
+    "view": "Ver detalhes"
+  },
+  "pagination": {
+    "showing": "A mostrar {{from}} a {{to}} de {{total}} resultados",
+    "previous": "Anterior",
+    "next": "Seguinte"
+  },
+  "no_users": "Nenhum utilizador encontrado",
+  "edit_modal": {
+    "title": "Editar subscrição",
+    "plan": "Plano de subscrição",
+    "duration": "Duração",
+    "monthly": "Mensal",
+    "yearly": "Anual",
+    "biennial": "Bienal (2 anos)",
+    "triennial": "Trienal (3 anos)",
+    "expiry_date": "Data de expiração",
+    "expiry_help": "Deixe em branco para calcular automaticamente com base na duração",
+    "active": "Subscrição ativa",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "saving": "A guardar…",
+    "success": "Subscrição atualizada com sucesso",
+    "error": "Erro ao atualizar a subscrição"
+  },
+  "feedback": {
+    "send": "Enviar e-mail de feedback",
+    "sent": "E-mail de feedback enviado a {{name}}",
+    "error": "Erro ao enviar o e-mail de feedback."
+  },
+  "errors": {
+    "load_users": "Não foi possível carregar os utilizadores",
+    "load_user": "Não foi possível carregar os detalhes do utilizador",
+    "load_stats": "Não foi possível carregar as estatísticas da plataforma",
+    "update_subscription": "Não foi possível atualizar a subscrição"
+  }
+}

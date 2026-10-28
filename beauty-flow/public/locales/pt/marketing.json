@@ -1,530 +1,204 @@
 {
-  "header": {
+  "site": {
     "nav": {
-      "features": "Fonctionnalités",
-      "pricing": "Tarifs",
-      "testimonials": "Témoignages",
-      "blog": "Blog",
-      "contact": "Contact"
+      "features": "Funcionalidades",
+      "pricing": "Preços",
+      "login": "Entrar",
+      "signup": "Criar o meu salão",
+      "dashboard": "O meu painel",
+      "menu": "Menu"
+    },
+    "hero": {
+      "title": "Faça a gestão do seu salão. Deixe os seus clientes reservarem online.",
+      "subtitle": "O Saloneo reúne a agenda, a base de clientes, a equipa e o stock, e dá ao seu salão uma página de reservas aberta dia e noite. Pensado para os salões da Argélia, em dinares, em francês e em árabe.",
+      "emailLabel": "O seu endereço de e-mail",
+      "emailPlaceholder": "voce@oseusalao.dz",
+      "cta": "Criar o meu salão",
+      "loading": "Um momento…",
+      "note": "Plano gratuito, sem cartão bancário",
+      "secondary": "Ver os preços",
+      "captionAdmin": "Em cima: o seu painel.",
+      "captionSalon": "À direita: a página onde os seus clientes reservam.",
+      "altDashboard": "Painel do Saloneo: marcações do dia, faturação, equipa",
+      "altSalon": "Página de reservas de um salão, vista num telemóvel"
+    },
+    "trades": {
+      "lead": "Para",
+      "items": [
+        "cabeleireiros",
+        "institutos de estética",
+        "estúdios de unhas",
+        "barbearias",
+        "spas"
+      ]
+    },
+    "stats": {
+      "line": "{{salons}} salões registados · {{appointments}} marcações feitas com o Saloneo"
+    },
+    "features": {
+      "title": "Todo o salão, numa só ferramenta",
+      "subtitle": "Sem módulos para montar: o que é útil entre duas marcações já lá está.",
+      "agenda": {
+        "title": "Uma agenda que não deixa escapar nada",
+        "body": "Cada marcação tem o seu serviço, o seu responsável e o seu estado: agendada, confirmada, concluída ou falta. O Saloneo recusa horários sobrepostos.",
+        "points": [
+          "Vista em lista e vista de calendário",
+          "Faltas e marcações por encerrar assinaladas",
+          "Atualização em tempo real em todos os seus dispositivos"
+        ],
+        "alt": "Lista de marcações no Saloneo"
+      },
+      "booking": {
+        "title": "Uma página com o seu nome, onde se reserva online",
+        "body": "Escolha um modelo, as suas cores e as suas fotos. Os seus clientes veem os seus serviços e preços, escolhem o horário e podem alterar ou cancelar a partir do link recebido.",
+        "points": [
+          "{{templates}} modelos de página",
+          "Preços apresentados em dinares",
+          "Um link para partilhar no Instagram, Facebook ou WhatsApp"
+        ],
+        "slug": "o-seu-salao",
+        "alt": "Página de reservas de um salão num telemóvel"
+      },
+      "rest": {
+        "title": "E o resto do dia a dia",
+        "alt": "Base de clientes no Saloneo",
+        "clients": {
+          "title": "Base de clientes",
+          "body": "Contactos, histórico de visitas e notas, para encontrar uma fórmula de cor ou os hábitos de um cliente habitual."
+        },
+        "team": {
+          "title": "Equipa",
+          "body": "Cada membro tem a sua função; cada marcação é atribuída a alguém."
+        },
+        "stock": {
+          "title": "Produtos e stock",
+          "body": "A lista dos seus produtos e respetivas quantidades, sempre atualizada."
+        },
+        "dashboard": {
+          "title": "Painel",
+          "body": "Faturação do dia e do mês, taxa de ocupação, serviços mais procurados."
+        },
+        "mobile": {
+          "title": "No telemóvel como no computador",
+          "body": "Pensado para ser usado de pé, entre duas marcações."
+        },
+        "payment": {
+          "title": "Pagamento local",
+          "body": "Subscrição paga com cartão CIB ou Edahabia, através da plataforma SATIM."
+        }
+      }
+    },
+    "roi": {
+      "title": "Quantos serviços para pagar o Saloneo?",
+      "body": "Indique o preço médio de um serviço no seu salão. O cálculo é simples: o preço do plano dividido pelo seu preço médio.",
+      "label": "Preço médio de um serviço",
+      "result": "serviços por mês cobrem a subscrição",
+      "note": "Arredondado à unidade superior. O plano Gratuito não custa nada."
+    },
+    "pricing": {
+      "title": "Preços simples, em dinares",
+      "subtitle": "Comece gratuitamente. Passe para um plano pago quando o seu salão precisar, sem fidelização.",
+      "monthly": "Mensal",
+      "yearly": "Anual",
+      "perMonth": " / mês",
+      "billedMonthly": "Faturado todos os meses",
+      "billedYearly": "Ou seja, {{amount}} faturados uma vez por ano",
+      "noCard": "Sem cartão bancário",
+      "recommended": "Recomendado",
+      "unlimited": "Ilimitado",
+      "included": "Incluído",
+      "notIncluded": "Não incluído",
+      "onQuote": "Sob orçamento",
+      "plans": {
+        "free": {
+          "name": "Gratuito",
+          "description": "Para experimentar com um salão pequeno.",
+          "cta": "Começar gratuitamente"
+        },
+        "starter": {
+          "name": "Starter",
+          "description": "Para um salão com uma equipa pequena.",
+          "cta": "Começar com o Starter"
+        },
+        "pro": {
+          "name": "Pro",
+          "description": "Para um salão estabelecido, com a agenda cheia.",
+          "cta": "Começar com o Pro"
+        },
+        "enterprise": {
+          "name": "Empresa"
+        }
+      },
+      "limits": {
+        "appointments": "Marcações por mês",
+        "clients": "Clientes",
+        "services": "Serviços",
+        "teamMembers": "Membros da equipa"
+      },
+      "features": {
+        "onlineBooking": "Página de reservas online",
+        "customInterface": "Página personalizada (modelo, cores)",
+        "stock": "Gestão de stock"
+      },
+      "startFree": "Todas as contas começam no plano Gratuito; pode passar para Starter ou Pro na página Subscrição.",
+      "payment": "Pagamento com cartão CIB ou Edahabia (SATIM).",
+      "compare": "Comparar os planos em detalhe",
+      "compareTitle": "Comparar os planos",
+      "feature": "Plano",
+      "enterprise": "Vários salões ou necessidades específicas? O plano Empresa é sob orçamento.",
+      "contactUs": "Escrever-nos"
+    },
+    "faq": {
+      "title": "Perguntas frequentes",
+      "more": "Outra pergunta? Escreva-nos:",
+      "items": {
+        "free": {
+          "q": "O plano Gratuito pede um cartão bancário?",
+          "a": "Não. Cria a sua conta com um e-mail e uma palavra-passe. Os limites do plano Gratuito (20 marcações por mês, 10 clientes, 5 serviços) chegam para experimentar o Saloneo."
+        },
+        "payment": {
+          "q": "Como pagar uma subscrição?",
+          "a": "Com cartão CIB ou Edahabia, através da plataforma segura SATIM, a partir da página Subscrição da sua conta."
+        },
+        "change": {
+          "q": "Posso mudar de plano mais tarde?",
+          "a": "Sim. Passa para um plano superior quando quiser, na página Subscrição. As suas marcações, clientes e serviços são mantidos."
+        },
+        "limit": {
+          "q": "O que acontece se atingir um limite?",
+          "a": "O Saloneo avisa-o. Os seus dados ficam intactos; para adicionar mais, basta passar para o plano superior."
+        },
+        "yearly": {
+          "q": "Como funciona o pagamento anual?",
+          "a": "Paga doze meses de uma só vez e paga menos {{discount}} % do que mensalmente. Também existem durações de dois e três anos, com um desconto maior."
+        },
+        "data": {
+          "q": "Quem tem acesso aos dados do meu salão?",
+          "a": "Você e as pessoas da sua equipa. As comunicações entre o seu dispositivo e o Saloneo são encriptadas (HTTPS)."
+        }
+      }
+    },
+    "founder": {
+      "title": "O Saloneo está a começar, com os primeiros salões",
+      "body": "Aqui não vai encontrar avaliações falsas nem números inflacionados: o Saloneo acabou de abrir e preferimos mostrar-lhe o produto tal como é.",
+      "body2": "Se quiser ajuda para configurar o seu salão — serviços, equipa, página de reservas — escreva-nos. Quem lhe responde é a equipa que constrói o Saloneo.",
+      "cta": "Escrever à equipa",
+      "signature": "A equipa Saloneo"
     },
     "cta": {
-      "login": "Connexion",
-      "trial": "Essai Gratuit",
-      "trial_free": "Essai gratuit"
+      "title": "O seu salão pode receber as primeiras marcações online já hoje.",
+      "body": "Crie a sua conta, adicione os seus serviços, partilhe o seu link.",
+      "button": "Criar o meu salão",
+      "login": "Já tenho conta"
     },
-    "stats": {
-      "active_salons": "Salons actifs",
-      "ca_increase": "+47% CA"
+    "footer": {
+      "tagline": "Gestão e reservas online para salões de beleza na Argélia.",
+      "product": "Produto",
+      "account": "Conta",
+      "contact": "Contacto",
+      "register": "Criar uma conta",
+      "faq": "Perguntas frequentes",
+      "rights": "Todos os direitos reservados."
     }
-  },
-  "hero": {
-    "badge": "La solution n°1 en Algérie",
-    "title": "Votre salon mérite une infrastructure à la hauteur de vos ambitions",
-    "title_static": "Transformez votre salon en entreprise digitale prospère",
-    "title_gradient": " entreprise digitale prospère",
-    "subtitle": "La plateforme de gestion qui équipe les salons les plus performants d'Algérie. Transformez votre expertise beauté en machine de croissance.",
-    "subtitle_static": "Saloneo équipe les meilleurs salons, barbershops et spas d'Algérie avec une plateforme tout-en-un qui automatise la gestion, booste les revenus et fidélise la clientèle.",
-    "loading_3d": "Chargement de l'expérience 3D...",
-    "form": {
-      "placeholder": "Votre email professionnel",
-      "button": "Commencer Gratuitement",
-      "button_static": "Démarrer gratuitement",
-      "loading": "Chargement...",
-      "note": "30 jours d'essai gratuit • Sans carte bancaire • Installation en 5 minutes"
-    },
-    "stats": {
-      "salons_count": "847+ salons nous font confiance",
-      "salons_active": "847+ Salons actifs",
-      "growth": "+47% Augmentation CA",
-      "time_saved": "15h Économisées/semaine",
-      "appointments": "127K+ Rendez-vous gérés",
-      "satisfaction": "98% Satisfaction client",
-      "support": "24/7 Support dédié"
-    },
-    "buttons": {
-      "demo": "Voir la démo (2 min)",
-      "toggle_3d": "2D",
-      "toggle_2d": "3D"
-    },
-    "clients": {
-      "rating": "Noté 4.9/5 par nos clients"
-    }
-  },
-  "problem_solution": {
-    "title": "Transformez les défis en opportunités",
-    "title_static": "Libérez-vous des contraintes qui freinent votre croissance",
-    "subtitle": "Saloneo résout les problèmes quotidiens des salons modernes avec une infrastructure digitale complète",
-    "subtitle_static": "Saloneo transforme chaque défi en opportunité de développement",
-    "before": {
-      "title": "Avant Saloneo",
-      "title_static": "Sans Saloneo",
-      "items": [
-        {
-          "title": "Agenda papier chaotique",
-          "description": "Rendez-vous perdus, doubles réservations, confusion"
-        },
-        {
-          "title": "Clients invisibles en ligne",
-          "description": "Pas de présence digitale, clients perdus au profit de la concurrence"
-        },
-        {
-          "title": "Gestion financière approximative",
-          "description": "Revenus non optimisés, fuites de trésorerie"
-        },
-        {
-          "title": "Clients perdus faute de rappels",
-          "description": ""
-        },
-        {
-          "title": "Pas de présence en ligne professionnelle",
-          "description": ""
-        },
-        {
-          "title": "Équipe désorganisée et stressée",
-          "description": ""
-        }
-      ]
-    },
-    "after": {
-      "title": "Avec Saloneo",
-      "items": [
-        {
-          "title": "Calendrier intelligent synchronisé",
-          "description": "Zéro conflit, notifications automatiques, gestion optimale"
-        },
-        {
-          "title": "Page salon professionnelle",
-          "description": "Réservation 24/7, SEO local optimisé, avis clients"
-        },
-        {
-          "title": "Analytics et insights business",
-          "description": "KPIs en temps réel, optimisation des revenus, croissance pilotée"
-        },
-        {
-          "title": "Rappels SMS automatiques (0% no-show)",
-          "description": ""
-        },
-        {
-          "title": "Analytics et rapports financiers détaillés",
-          "description": ""
-        },
-        {
-          "title": "Équipe coordonnée et productive",
-          "description": ""
-        }
-      ]
-    }
-  },
-  "features": {
-    "title": "Une infrastructure complète pour votre succès",
-    "title_static": "Tout ce dont vous avez besoin pour dominer votre marché",
-    "subtitle": "Chaque fonctionnalité a été pensée pour maximiser votre efficacité et votre rentabilité",
-    "subtitle_static": "Une plateforme complète conçue par des experts du secteur beauté",
-    "items": {
-      "calendar": {
-        "title": "Gestion des Rendez-vous",
-        "title_static": "Agenda Intelligent",
-        "description": "Calendrier intelligent avec gestion des conflits, rappels automatiques, et synchronisation temps réel sur tous vos appareils.",
-        "description_static": "Gestion automatisée des rendez-vous avec détection des conflits, optimisation du planning et synchronisation multi-appareils.",
-        "benefits": [
-          "Zéro double booking",
-          "Rappels SMS auto",
-          "Sync Google Calendar"
-        ]
-      },
-      "clients": {
-        "title": "Base Clients Enrichie",
-        "title_static": "CRM Clients Avancé",
-        "description": "Historique complet, préférences, questionnaires personnalisés. Transformez chaque visite en expérience sur-mesure.",
-        "description_static": "Base clients enrichie avec historique complet, préférences, notes privées et segmentation automatique.",
-        "benefits": [
-          "Fiches détaillées",
-          "Historique complet",
-          "Marketing ciblé"
-        ]
-      },
-      "digital": {
-        "title": "Présence Digitale",
-        "title_static": "Présence Digitale Pro",
-        "description": "Page salon professionnelle avec réservation en ligne 24/7. 10 templates premium inclus, SEO local optimisé.",
-        "description_static": "Page salon personnalisée avec réservation en ligne, galerie photos, avis clients et SEO local optimisé.",
-        "benefits": [
-          "Réservation 24/7",
-          "10 templates premium",
-          "SEO optimisé"
-        ]
-      },
-      "payments": {
-        "title": "Paiements Sécurisés",
-        "description": "Intégration SATIM native pour cartes algériennes. Facturation automatisée, suivi des revenus en temps réel.",
-        "description_static": "Intégration SATIM native pour accepter toutes les cartes algériennes. Facturation automatisée et suivi en temps réel.",
-        "benefits": [
-          "Cartes CIB/EDAHABIA",
-          "Factures auto",
-          "Export comptable"
-        ]
-      },
-      "analytics": {
-        "title": "Analytics Avancés",
-        "title_static": "Analytics & Insights",
-        "description": "KPIs de performance, analyse clientèle, prévisions de croissance. Prenez des décisions basées sur les données.",
-        "description_static": "Tableaux de bord en temps réel avec KPIs essentiels, prévisions de croissance et recommandations IA.",
-        "benefits": [
-          "Revenus en direct",
-          "Taux de remplissage",
-          "Prévisions IA"
-        ]
-      },
-      "mobile": {
-        "title": "Mobile First",
-        "description": "Interface responsive parfaite sur tous les écrans. Gérez votre salon depuis n'importe où, n'importe quand.",
-        "description_static": "Application responsive parfaite sur tous les écrans. Gérez votre salon depuis n'importe où, à tout moment.",
-        "benefits": [
-          "iOS & Android",
-          "Mode hors ligne",
-          "Notifications push"
-        ]
-      }
-    }
-  },
-  "targets": {
-    "title": "Une solution adaptée à chaque métier de la beauté",
-    "subtitle": "Que vous soyez coiffeur, barbier, esthéticienne ou spa manager",
-    "items": {
-      "salon": {
-        "title": "Salons de Coiffure",
-        "description": "Gérez vos colorations, suivez les formules clients, optimisez le temps de vos coiffeurs."
-      },
-      "barbershop": {
-        "title": "Barbershops",
-        "description": "File d'attente virtuelle, fidélisation masculine, gestion des walk-ins optimisée."
-      },
-      "beauty": {
-        "title": "Instituts de Beauté",
-        "description": "Protocoles de soins, gestion des cabines, vente de produits intégrée."
-      },
-      "spa": {
-        "title": "Spas & Wellness",
-        "description": "Packages et forfaits, gestion multi-praticiens, expérience client premium."
-      }
-    },
-    "discover": "Découvrir"
-  },
-  "roi": {
-    "title": "Calculez votre retour sur investissement",
-    "title_static": "Un investissement qui se rentabilise rapidement",
-    "subtitle": "Découvrez combien Saloneo peut augmenter vos revenus dès le premier mois",
-    "subtitle_static": "Nos clients constatent en moyenne un retour sur investissement en moins de 30 jours",
-    "calculator": {
-      "appointments_label": "Nombre de rendez-vous par mois",
-      "price_label": "Prix moyen par service (DZD)",
-      "current_revenue": "Revenus actuels",
-      "revenue_with_saloneo": "Revenus avec Saloneo (+35%)",
-      "monthly_gain": "Gain mensuel"
-    },
-    "stats": {
-      "roi_average": "ROI moyen : 3 700% la première année",
-      "revenue_increase": "+47% Augmentation du CA",
-      "revenue_increase_note": "En moyenne après 3 mois",
-      "no_show_reduction": "-68% Réduction des no-shows",
-      "no_show_note": "Grâce aux rappels automatiques",
-      "time_saved": "15h Économisées par semaine",
-      "time_saved_note": "En tâches administratives"
-    }
-  },
-  "pricing": {
-    "title": "Des tarifs adaptés à vos ambitions",
-    "title_detailed": "Des tarifs transparents, adaptés à votre croissance",
-    "title_static": "Des tarifs transparents qui s'adaptent à votre croissance",
-    "subtitle": "Commencez gratuitement, évoluez à votre rythme. Sans engagement, sans surprise.",
-    "subtitle_detailed": "Commencez gratuitement, évoluez à votre rythme. Économisez jusqu'à 50% avec nos forfaits annuels.",
-    "subtitle_static": "Commencez gratuitement, évoluez sans limites",
-    "toggle": {
-      "monthly": "Mensuel",
-      "yearly": "Annuel",
-      "save": "-50%",
-      "save_40": "-40%"
-    },
-    "plans": {
-      "free": {
-        "name": "GRATUIT",
-        "name_simple": "Gratuit",
-        "price": "0 DZD",
-        "period": "/mois",
-        "description": "Pour découvrir Saloneo",
-        "features": [
-          "20 rendez-vous/mois",
-          "10 clients max",
-          "5 services",
-          "Réservation en ligne",
-          "Agenda basique",
-          "Support par email"
-        ],
-        "button": "Commencer Gratuitement"
-      },
-      "starter": {
-        "name": "STARTER",
-        "name_simple": "Starter",
-        "price": "1 900 DZD",
-        "original_price": "3 167 DZD",
-        "period": "/mois",
-        "description": "Pour les salons en croissance",
-        "popular": "POPULAIRE",
-        "popular_alt": "Plus populaire",
-        "save_note": "Économisez 40%",
-        "save_amount": "Économisez 15 204 DZD/an",
-        "features": [
-          "60 rendez-vous/mois",
-          "200 clients",
-          "20 services",
-          "5 membres d'équipe",
-          "Interface personnalisée",
-          "Gestion des stocks",
-          "Page salon pro",
-          "Rappels SMS",
-          "Analytics basiques",
-          "Support prioritaire"
-        ],
-        "button": "Essai Gratuit 30 Jours"
-      },
-      "pro": {
-        "name": "PRO",
-        "name_simple": "Pro",
-        "price": "3 500 DZD",
-        "original_price": "5 000 DZD",
-        "period": "/mois",
-        "description": "Pour les salons établis",
-        "description_alt": "Pour les leaders du marché",
-        "save_note": "Économisez 30%",
-        "save_amount": "Économisez 18 000 DZD/an",
-        "features": [
-          "200 rendez-vous/mois",
-          "1000 clients",
-          "50 services",
-          "10 membres d'équipe",
-          "Toutes les fonctionnalités",
-          "Support prioritaire",
-          "Analytics avancés",
-          "Paiements SATIM",
-          "Rendez-vous illimités",
-          "Clients illimités",
-          "Services illimités",
-          "Équipe illimitée",
-          "Multi-établissements",
-          "API & Intégrations",
-          "Support VIP 24/7"
-        ],
-        "button": "Essai Gratuit 30 Jours"
-      },
-      "enterprise": {
-        "name": "ENTERPRISE",
-        "name_simple": "Enterprise",
-        "price": "Sur mesure",
-        "price_alt": "custom",
-        "description": "Pour les chaînes de salons",
-        "features": [
-          "Tout illimité",
-          "Multi-établissements",
-          "API & Intégrations",
-          "Formation dédiée",
-          "Account Manager",
-          "Formation personnalisée"
-        ],
-        "button": "Contactez-nous"
-      }
-    },
-    "comparison": {
-      "title": "Comparaison détaillée des forfaits",
-      "subtitle": "Choisissez le plan qui correspond le mieux à vos besoins actuels. Vous pouvez changer de forfait à tout moment.",
-      "features": {
-        "appointments": "Rendez-vous par mois",
-        "clients": "Clients",
-        "services": "Services",
-        "team": "Membres d'équipe",
-        "products": "Produits",
-        "booking": "Réservation en ligne 24/7",
-        "sms": "Rappels SMS automatiques",
-        "interface": "Interface personnalisée",
-        "inventory": "Gestion des stocks",
-        "analytics": "Analytics avancés",
-        "payments": "Paiements SATIM intégrés",
-        "multi": "Multi-établissements",
-        "api": "API & Intégrations",
-        "support": "Support prioritaire",
-        "training": "Formation personnalisée"
-      },
-      "values": {
-        "unlimited": "Illimité"
-      }
-    },
-    "note": "💰 Économisez jusqu'à 50% avec nos forfaits annuels",
-    "note_static": "Garantie satisfait ou remboursé 30 jours • Sans engagement • Annulation à tout moment",
-    "view_all": "Voir tous les forfaits et options →"
-  },
-  "faq": {
-    "title": "Questions fréquentes",
-    "items": [
-      {
-        "question": "Puis-je changer de forfait à tout moment ?",
-        "answer": "Oui, vous pouvez passer à un forfait supérieur à tout moment. Le changement prend effet immédiatement et vous ne payez que la différence."
-      },
-      {
-        "question": "Y a-t-il des frais cachés ?",
-        "answer": "Non, nos tarifs sont transparents. Pas de frais d'installation, pas de commission sur les réservations, pas de surprises."
-      },
-      {
-        "question": "Comment fonctionne l'essai gratuit ?",
-        "answer": "Vous avez accès à toutes les fonctionnalités du plan choisi pendant 30 jours. Aucune carte bancaire n'est requise pour commencer."
-      },
-      {
-        "question": "Que se passe-t-il si je dépasse mes limites ?",
-        "answer": "Nous vous prévenons avant d'atteindre vos limites. Vous pouvez alors passer au forfait supérieur ou attendre le mois suivant."
-      }
-    ]
-  },
-  "testimonials": {
-    "title": "Ils ont transformé leur salon avec Saloneo",
-    "title_static": "Ils ont transformé leur business avec Saloneo",
-    "subtitle": "Découvrez comment nos clients ont révolutionné leur business",
-    "subtitle_static": "Découvrez les success stories de nos clients",
-    "items": [
-      {
-        "quote": "Saloneo a complètement transformé notre façon de travailler. Nous avons augmenté notre chiffre d'affaires de 45% en seulement 3 mois. L'interface est intuitive et nos clients adorent pouvoir réserver en ligne.",
-        "quote_alt": "Saloneo a révolutionné notre salon. +45% de CA en 3 mois, zéro no-show grâce aux rappels SMS, et une équipe enfin organisée. Le meilleur investissement de ma carrière !",
-        "author": "Amina Benali",
-        "role": "Salon Élégance, Alger"
-      },
-      {
-        "quote": "Je gagne 15 heures par semaine grâce à l'automatisation. Plus de double réservations, plus de confusion. Mon équipe est plus efficace et mes clients plus satisfaits.",
-        "quote_alt": "La réservation en ligne a changé la donne. Mes clients adorent, je reçois des bookings même la nuit ! Mon agenda est plein 2 semaines à l'avance maintenant.",
-        "author": "Sarah Khelifi",
-        "author_alt": "Karim Mezouar",
-        "role": "Beauty Center, Oran",
-        "role_alt": "Barber Shop Premium, Oran"
-      },
-      {
-        "quote": "L'investissement le plus rentable que j'ai fait pour mon salon. ROI en moins d'un mois. Les analytics m'aident à prendre les bonnes décisions au bon moment.",
-        "quote_alt": "Les analytics m'ont ouvert les yeux. J'ai découvert mes services les plus rentables et optimisé mes prix. Résultat : +30% de marge sans perdre un seul client !",
-        "author": "Mohamed Rahmani",
-        "author_alt": "Sarah Khelifi",
-        "role": "Barber Shop Pro, Constantine",
-        "role_alt": "Beauty Center Luxe, Constantine"
-      }
-    ]
-  },
-  "security": {
-    "title": "Sécurité et conformité garanties",
-    "subtitle": "Vos données et celles de vos clients sont protégées selon les plus hauts standards",
-    "features": [
-      {
-        "title": "Paiements sécurisés SATIM",
-        "description": "Intégration officielle avec le système de paiement algérien. Transactions 100% sécurisées et conformes."
-      },
-      {
-        "title": "Données chiffrées",
-        "description": "Chiffrement SSL/TLS de bout en bout. Vos données sont hébergées sur des serveurs sécurisés."
-      },
-      {
-        "title": "Conformité RGPD",
-        "description": "Respect total de la vie privée. Contrôle total sur vos données."
-      }
-    ]
-  },
-  "cta": {
-    "title": "Prêt à transformer votre salon ?",
-    "title_static": "Prêt à rejoindre l'élite des salons digitalisés ?",
-    "subtitle": "Rejoignez les 847+ salons qui ont déjà révolutionné leur business avec Saloneo",
-    "subtitle_static": "847 salons nous font déjà confiance. Et vous ?",
-    "buttons": {
-      "start": "Commencer l'essai gratuit",
-      "start_now": "Démarrer maintenant",
-      "demo": "Voir la démo",
-      "contact": "Parler à un expert"
-    },
-    "benefits": [
-      "30 jours gratuits",
-      "Sans carte bancaire",
-      "Installation en 5 minutes"
-    ],
-    "note": "✓ 30 jours gratuits • ✓ Sans carte bancaire • ✓ Installation en 5 minutes"
-  },
-  "footer": {
-    "description": "L'infrastructure digitale des salons modernes",
-    "description_static": "L'infrastructure digitale qui propulse les salons de beauté vers le succès.",
-    "sections": {
-      "product": "Produit",
-      "company": "Entreprise",
-      "support": "Support",
-      "contact": "Contact"
-    },
-    "links": {
-      "features": "Fonctionnalités",
-      "pricing": "Tarifs",
-      "security": "Sécurité",
-      "integrations": "Intégrations",
-      "updates": "Nouveautés",
-      "about": "À propos",
-      "blog": "Blog",
-      "careers": "Carrières",
-      "press": "Presse",
-      "help": "Centre d'aide",
-      "docs": "Documentation",
-      "api": "API",
-      "status": "Statut",
-      "privacy": "Confidentialité",
-      "terms": "Conditions",
-      "cookies": "Cookies"
-    },
-    "contact": {
-      "email": "contact@saloneo.com",
-      "phone": "+213 555 123 456",
-      "address": "Alger, Algérie"
-    },
-    "copyright": "© 2025 Saloneo. Tous droits réservés."
-  },
-  "video": {
-    "close": "✕ Fermer",
-    "demo": "Vidéo de démonstration"
-  },
-  "social_proof": {
-    "appointments_managed": "127K+ Rendez-vous gérés",
-    "satisfaction": "98% Satisfaction client",
-    "support": "24/7 Support dédié"
-  },
-  "floating_cards": {
-    "clients_month": "+127 clients ce mois",
-    "appointments_today": "32 RDV aujourd'hui",
-    "satisfaction_rate": "Taux satisfaction 98%"
-  },
-  "title": "Asuq",
-  "campaigns": "Tiɣaṛa",
-  "promotions": "Ibeṛṛaniyen",
-  "discounts": "Iḥeṛṛiyen",
-  "coupons": "Tikubunat",
-  "loyalty": "Taflayt",
-  "referrals": "Ibeṛṛaniyen",
-  "newsletter": "Tabratt n isallen",
-  "socialMedia": "Iẓeḍwa inmettiyen",
-  "advertising": "Asɣel",
-  "analytics": "Tasleḍt",
-  "reports": "Ineqqisen",
-  "conversion": "Abeddel",
-  "engagement": "Armud",
-  "reach": "Taɣzi",
-  "impressions": "Tiwelhiyin",
-  "clicks": "Isiten",
-  "leads": "Imsaɣen izemlen",
-  "customers": "Imsaɣen",
-  "revenue": "Aɣaras",
-  "growth": "Akker",
-  "trends": "Tanila",
-  "insights": "Tifrat",
-  "optimization": "Asbeddi",
-  "targeting": "Asaḍas",
-  "segmentation": "Abeṭṭu",
-  "personalization": "Asagen",
-  "automation": "Awurman",
-  "integration": "Asdukel",
-  "tracking": "Aḍfar",
-  "measurement": "Aktazal"
+  }
 }

@@ -1,0 +1,77 @@
+{
+  "title": "Administración",
+  "subtitle": "Gestión de usuarios y suscripciones",
+  "access_denied": {
+    "title": "Acceso denegado",
+    "message": "No tiene los permisos necesarios para acceder a esta página."
+  },
+  "stats": {
+    "total_users": "Total de usuarios",
+    "active_users": "Usuarios activos",
+    "recent_users": "Nuevos usuarios",
+    "last_30_days": "Últimos 30 días",
+    "by_plan": "Por plan"
+  },
+  "search": {
+    "placeholder": "Buscar por nombre o correo electrónico…"
+  },
+  "filters": {
+    "all_plans": "Todos los planes",
+    "all_status": "Todos los estados",
+    "active": "Activos",
+    "expired": "Vencidos"
+  },
+  "table": {
+    "salon": "Salón",
+    "email": "Correo electrónico",
+    "plan": "Plan",
+    "status": "Estado",
+    "expiry": "Vencimiento",
+    "actions": "Acciones",
+    "no_expiry": "Ninguno"
+  },
+  "status": {
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "expired": "Vencido",
+    "expiring_soon": "Vence pronto"
+  },
+  "actions": {
+    "edit": "Editar",
+    "view": "Ver detalles"
+  },
+  "pagination": {
+    "showing": "Mostrando {{from}} a {{to}} de {{total}} resultados",
+    "previous": "Anterior",
+    "next": "Siguiente"
+  },
+  "no_users": "No se encontraron usuarios",
+  "edit_modal": {
+    "title": "Editar la suscripción",
+    "plan": "Plan de suscripción",
+    "duration": "Duración",
+    "monthly": "Mensual",
+    "yearly": "Anual",
+    "biennial": "Bienal (2 años)",
+    "triennial": "Trienal (3 años)",
+    "expiry_date": "Fecha de vencimiento",
+    "expiry_help": "Déjelo vacío para calcularla automáticamente según la duración",
+    "active": "Suscripción activa",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "saving": "Guardando…",
+    "success": "Suscripción modificada correctamente",
+    "error": "Error al modificar la suscripción"
+  },
+  "feedback": {
+    "send": "Enviar el correo de opinión",
+    "sent": "Correo de opinión enviado a {{name}}",
+    "error": "Error al enviar el correo de opinión."
+  },
+  "errors": {
+    "load_users": "No se pudieron cargar los usuarios",
+    "load_user": "No se pudieron cargar los detalles del usuario",
+    "load_stats": "No se pudieron cargar las estadísticas de la plataforma",
+    "update_subscription": "No se pudo actualizar la suscripción"
+  }
+}

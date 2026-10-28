@@ -1,38 +1,606 @@
 {
   "title": "Amaɣnu",
-  "personalInfo": "Talɣut tudmawant",
-  "businessInfo": "Talɣut n uxeddim",
-  "contactInfo": "Talɣut n unermis",
-  "security": "Taɣellist",
-  "preferences": "Ismenyifen",
-  "firstName": "Isem amezwaru",
-  "lastName": "Isem n tawacult",
-  "email": "Imayl",
-  "phone": "Tiliɣri",
-  "address": "Tansa",
-  "city": "Tamdint",
-  "country": "Tamurt",
-  "postalCode": "Tangalt n lpusṭa",
-  "businessName": "Isem n uxeddim",
-  "businessType": "Anaw n uxeddim",
-  "description": "Aglam",
-  "website": "Asmel web",
-  "socialMedia": "Iẓeḍwa inmettiyen",
-  "currentPassword": "Awal uffir amiran",
-  "newPassword": "Awal uffir amaynut",
-  "confirmPassword": "Sentem awal uffir",
-  "changePassword": "Beddel awal uffir",
-  "twoFactorAuth": "Asentem s sin iferdisen",
-  "loginHistory": "Amazray n ukcem",
-  "sessions": "Tiɣimiyin",
-  "privacy": "Tudert tusligt",
+  "my_profile": "Amaɣnu-iw",
+  "account": "Amiḍan",
+  "personal_info": "Talɣut tudmawant",
+  "business_info": "Talɣut n usalun",
+  "security": {
+    "current_password": "Awal uffir amiran",
+    "new_password": "Awal uffir amaynut",
+    "confirm_password": "Sentem awal uffir",
+    "change_password": "Beddel awal uffir",
+    "two_factor": "Asesteb s snat n tarrayin",
+    "enable_2fa": "Rmed 2FA",
+    "disable_2fa": "Sens 2FA",
+    "backup_codes": "Tingalin n uḥraz",
+    "generate_codes": "Sirew tingalin",
+    "login_history": "Amazray n tuqqniwin",
+    "active_sessions": "Tiɣimiyin turmidin",
+    "revoke_session": "Sefsex tiɣimit"
+  },
+  "preferences": {
+    "theme": "Asentel",
+    "language": "Tutlayt",
+    "timezone": "Tamnaḍt n wakud",
+    "date_format": "Amasal n uzemz",
+    "time_format": "Amasal n wakud",
+    "currency": "Tadrimt",
+    "notifications": "Ilɣa",
+    "email_notifications": "Ilɣa s imayl",
+    "sms_notifications": "Ilɣa s SMS",
+    "push_notifications": "Ilɣa push",
+    "marketing_emails": "Imaylen n marketing",
+    "privacy": "Tabaḍnit",
+    "public_profile": "Amaɣnu azayez",
+    "show_online_status": "Sken addad srid"
+  },
+  "affiliation": {
+    "title": "Ahil n tdukla",
+    "status": "Addad",
+    "active": "Urmid",
+    "inactive": "Arurmid",
+    "pending": "Yettraǧu",
+    "commission_rate": "Afmiḍi n tkumisyunt",
+    "total_earnings": "Arbaḥ meṛṛa",
+    "pending_earnings": "Arbaḥ yettraǧun",
+    "paid_earnings": "Arbaḥ yettwaxelṣen",
+    "referrals": "Tinubgiwin",
+    "referral_code": "Tangalt n tinubga",
+    "referral_link": "Aseɣwen n tinubga",
+    "copy_link": "Nɣel aseɣwen",
+    "share_link": "Bḍu aseɣwen",
+    "marketing_materials": "Allalen n marketing",
+    "banners": "Ibenniren",
+    "email_templates": "Timudmiwin n yimaylen",
+    "social_posts": "Tisuffaɣ i iẓeḍwa inmettiyen",
+    "payout_settings": "Iɣewwaṛen n uxelleṣ",
+    "payment_method": "Tarrayt n uxelleṣ",
+    "bank_account": "Amiḍan n lbanka",
+    "paypal_email": "Imayl n PayPal",
+    "minimum_payout": "Axelleṣ adday",
+    "payout_schedule": "Awitay n uxelleṣ",
+    "commission_history": "Amazray n tkumisyunin",
+    "performance": "Igmaḍ",
+    "clicks": "Asiti",
+    "conversions": "Ibeddilen",
+    "conversion_rate": "Afmiḍi n ubeddel"
+  },
+  "subscription": {
+    "current_plan": "Aɣawas amiran",
+    "plan_details": "Talqayt n uɣawas",
+    "billing_cycle": "Tallit n ufatur",
+    "next_billing": "Afatur i d-iteddun",
+    "usage": "Aseqdec",
+    "limits": "Talast",
+    "upgrade": "Leqqem aɣawas",
+    "downgrade": "Ader aɣawas",
+    "cancel": "Sefsex",
+    "renew": "Smiren",
+    "payment_method": "Tarrayt n uxelleṣ",
+    "billing_history": "Amazray n ufatur",
+    "invoices": "Tifaturin",
+    "download_invoice": "Sader tafaturt"
+  },
+  "billing": "Afatur",
   "notifications": "Ilɣa",
+  "form": {
+    "first_name": "Isem",
+    "last_name": "Isem n twacult",
+    "email": "Imayl",
+    "phone": "Tiliɣri",
+    "avatar": "Tawlaft n umaɣnu",
+    "bio": "Tameddurt",
+    "website": "Asmel web",
+    "social_media": "Iẓeḍwa inmettiyen",
+    "address": "Tansa",
+    "city": "Tamdint",
+    "postal_code": "Tangalt tusnakt",
+    "country": "Tamurt",
+    "timezone": "Tamnaḍt n wakud",
+    "language": "Tutlayt",
+    "currency": "Tadrimt",
+    "required": "Urɣan yettwasra"
+  },
+  "business": {
+    "establishment_name": "Isem n usalun",
+    "business_type": "Anaw n usalun",
+    "registration_number": "Uṭṭun n ujerred",
+    "tax_number": "Uṭṭun n TVA",
+    "description": "Aglam",
+    "specialties": "Tiẓeṛṛiyin",
+    "opening_hours": "Isragen n twuri",
+    "contact_email": "Imayl n unermis",
+    "contact_phone": "Tiliɣri n unermis",
+    "emergency_contact": "Anermis n uɣilif",
+    "insurance": "Aḍman",
+    "certifications": "Iselkinen",
+    "licenses": "Turagin"
+  },
+  "actions": {
+    "save": "Sekles",
+    "cancel": "Sefsex",
+    "edit": "Ẓreg",
+    "delete": "Kkes",
+    "upload": "Sali",
+    "remove": "Kkes",
+    "change": "Beddel",
+    "update": "Leqqem",
+    "verify": "Senqed",
+    "resend": "Ales tuzna",
+    "copy": "Nɣel",
+    "share": "Bḍu",
+    "download": "Sader",
+    "export": "Sifeḍ",
+    "import": "Kter",
+    "saving": "Asekles…"
+  },
+  "messages": {
+    "profile_updated": "Amaɣnu yettwaleqqem akken iwata",
+    "password_changed": "Awal uffir yettwabeddel akken iwata",
+    "email_verified": "Imayl yettwasenqed akken iwata",
+    "phone_verified": "Tiliɣri tettwasenqed akken iwata",
+    "avatar_uploaded": "Tawlaft n umaɣnu tettwasali akken iwata",
+    "avatar_removed": "Tawlaft n umaɣnu tettwakkes akken iwata",
+    "settings_saved": "Iɣewwaṛen ttwaskelsen akken iwata",
+    "2fa_enabled": "Asesteb s snat n tarrayin yermed",
+    "2fa_disabled": "Asesteb s snat n tarrayin yensa",
+    "codes_generated": "Tingalin n uḥraz ttwasirwent",
+    "session_revoked": "Tiɣimit tettwasefsex akken iwata",
+    "link_copied": "Aseɣwen yettwanɣel",
+    "invalid_password": "Awal uffir d arameɣtu",
+    "passwords_not_match": "Awalen uffiren ur mṣadan ara",
+    "email_already_exists": "Imayl-a yella yakan",
+    "phone_already_exists": "Uṭṭun-a n tiliɣri yella yakan",
+    "verification_sent": "Tangalt n usenqed tettwazen",
+    "verification_failed": "Asenqed ur yeddi ara",
+    "upload_error": "Tuccḍa deg usali",
+    "file_too_large": "Afaylu meqqer aṭas",
+    "invalid_file_type": "Anaw n ufaylu d arameɣtu",
+    "network_error": "Tuccḍa n uẓeṭṭa",
+    "server_error": "Tuccḍa n uqeddac",
+    "changes_saved": "Ibeddilen ttwaskelsen",
+    "unsaved_changes": "Tesɛiḍ ibeddilen ur yettwaskelsen ara"
+  },
+  "validation": {
+    "required": "Urɣan-a yettwasra",
+    "email_invalid": "Amasal n yimayl d arameɣtu",
+    "phone_invalid": "Amasal n tiliɣri d arameɣtu",
+    "password_min_length": "Awal uffir ilaq ad yesɛu ma drus 8 n yisekkilen",
+    "password_complexity": "Awal uffir ilaq ad yesɛu ma drus yiwen n usekkil ameqqran, yiwen amecṭuḥ d yiwen n wuṭṭun",
+    "url_invalid": "Amasal n URL d arameɣtu",
+    "postal_code_invalid": "Tangalt tusnakt d tarameɣtut",
+    "tax_number_invalid": "Uṭṭun n TVA d arameɣtu"
+  },
+  "profile_form": {
+    "tabs": {
+      "profile": "Amaɣnu",
+      "affiliation": "Tidukla"
+    },
+    "sections": {
+      "login_info": "Talɣut n tuqqna",
+      "personal_info": "Talɣut tudmawant",
+      "salon_info": "Talɣut n usalun",
+      "preferences": "Ismenyifen",
+      "public_link": "Aseɣwen azayez n uḥeǧǧez"
+    },
+    "fields": {
+      "email": "Tansa imayl",
+      "current_password": "Awal uffir amiran",
+      "new_password": "Awal uffir amaynut",
+      "confirm_password": "Sentem awal uffir amaynut",
+      "first_name": "Isem",
+      "last_name": "Isem n twacult",
+      "establishment_name": "Isem n usalun",
+      "address": "Tansa",
+      "language": "Tutlayt",
+      "currency": "Tadrimt",
+      "password": "Awal uffir",
+      "full_address": "Tansa ummidet",
+      "show_as_team_member": "Ban am uɛeggal n terbaɛt"
+    },
+    "placeholders": {
+      "email": "nek@email.com",
+      "password": "••••••••",
+      "first_name": "Isem-ik",
+      "last_name": "Isem-ik n twacult",
+      "establishment_name": "Isem n usalun-ik",
+      "address": "Tansa ummidet n usalun-ik",
+      "demo_email": "user@example.com",
+      "demo_link": "saloneo.tech/asalun-ik"
+    },
+    "buttons": {
+      "change_password": "Beddel awal uffir",
+      "cancel": "Sefsex",
+      "open": "Ldi",
+      "show_password": "Sken awal uffir",
+      "hide_password": "Ffer awal uffir"
+    },
+    "messages": {
+      "password_required": "Ttxil-k sekcem awal-ik uffir amiran",
+      "password_min_length": "Awal uffir amaynut ilaq ad yesɛu ma drus 8 n yisekkilen",
+      "passwords_not_match": "Awalen uffiren ur mṣadan ara",
+      "password_updated": "Awal uffir yettwaleqqem akken iwata",
+      "currency_updated": "Tadrimt tettwaleqqem akken iwata",
+      "currency_error": "Tuccḍa deg ubeddel n tedrimt",
+      "public_link_description": "Bḍu aseɣwen-a d yimsaɣen-ik akken ad ṭṭfen timlilit srid",
+      "public_link_label": "Aseɣwen-ik n uḥeǧǧez",
+      "language_error": "Tuccḍa deg ubeddel n tutlayt",
+      "email_validation": "Ttxil-k sekcem tansa imayl tameɣtut",
+      "show_as_team_member_description": "Imsaɣen ad k-fernen mi ara ṭṭfen timlilit, ad d-tbaneḍ daɣen deg usebter azayez n usalun.",
+      "team_member_on": "Tura tbaneḍ deg terbaɛt",
+      "team_member_off": "Ur tettbaneḍ ara deg terbaɛt",
+      "team_member_error": "Ur yezmir ara ad yettwabeddel uɣewwaṛ-a. Ɛreḍ tikkelt-nniḍen.",
+      "current_password_incorrect": "Awal uffir amiran d arameɣtu."
+    },
+    "descriptions": {
+      "login_info": "Tansa s wacu teqqneḍ.",
+      "personal_info": "Isem-ik akken i d-yettban deg usnas.",
+      "salon_info": "Ttbanen-d deg usebter-ik azayez n uḥeǧǧez.",
+      "preferences": "Ttwasnasen imir-a, war asekles."
+    }
+  },
+  "firstName": "Isem",
+  "lastName": "Isem n twacult",
+  "establishmentName": "Isem n usalun",
+  "address": "Tansa",
   "language": "Tutlayt",
-  "timezone": "Izḍi n wakud",
   "currency": "Tadrimt",
-  "save": "Sekles",
-  "cancel": "Sefsex",
-  "update": "Leqqem",
-  "delete": "Kkes",
-  "deactivate": "Seḥbes"
+  "publicLinkCopied": "Aseɣwen yettwanɣel",
+  "success": {
+    "save": "Amaɣnu yettwasekles"
+  },
+  "error": {
+    "save": "Tuccḍa deg usekles"
+  },
+  "affiliation_components": {
+    "dashboard": {
+      "affiliate_link": "Aseɣwen-ik n tdukla",
+      "monthly_stats": "Tidaddanin n waggur",
+      "share_buttons": {
+        "whatsapp": "WhatsApp",
+        "facebook": "Facebook",
+        "twitter": "X (Twitter)",
+        "linkedin": "LinkedIn",
+        "email": "Imayl"
+      },
+      "table_headers": {
+        "month": "Aggur",
+        "clicks": "Asiti",
+        "conversions": "Ibeddilen",
+        "conversion_rate": "Afmiḍi n ubeddel",
+        "revenue": "Idrimen"
+      },
+      "current_month": {
+        "clicks": "Asiti deg waggur-a",
+        "conversions": "Ibeddilen deg waggur-a",
+        "revenue": "Idrimen deg waggur-a"
+      },
+      "messages": {
+        "link_copied": "Aseɣwen yettwanɣel",
+        "qr_downloaded": "Tangalt QR tettwasader"
+      },
+      "tips": {
+        "title": "Iwellihen i usnerni n yidrimen-ik",
+        "social_share": "Bḍu aseɣwen-ik deg yiẓeḍwa-ik inmettiyen n uxeddim",
+        "quality_content": "Aru agbur yelhan ɣef wayen yelhan deg Saloneo",
+        "target_audience": "Wehhi ɣer bab n yisalunen yellan deg uẓeṭṭa-ik",
+        "use_tools": "Seqdec allalen n marketing i d-nefka i tmesbalin-ik"
+      },
+      "vs_last_month": "ɣef waggur yezrin",
+      "share_text": "Issin Saloneo, afecku n usefrek i yisalunen n ucebbaḥ",
+      "share_subject": "Issin Saloneo"
+    },
+    "commissions": {
+      "status": {
+        "pending": "Tettraǧu",
+        "approved": "Tettwaqbel",
+        "paid": "Tettwaxelleṣ",
+        "cancelled": "Tettwasefsex"
+      },
+      "types": {
+        "subscription": "Ajerred amaynut",
+        "renewal": "Asmiren",
+        "upgrade": "Aleqqem n uɣawas"
+      },
+      "filters": {
+        "all": "Akk tikumisyunin",
+        "pending": "Ttraǧunt",
+        "approved": "Ttwaqblent",
+        "paid": "Ttwaxelṣent"
+      },
+      "table": {
+        "date": "Azemz",
+        "referred_client": "Amsaɣ yettwaɛerḍen",
+        "type": "Anaw",
+        "original_amount": "Tasuqqilt tamenzut",
+        "commission": "Takumisyunt",
+        "status": "Addad",
+        "payment_date": "Azemz n uxelleṣ",
+        "rate": "Afmiḍi"
+      },
+      "empty_state": {
+        "title": "Ulac takumisyunt",
+        "subtitle": "Bdu bḍu aseɣwen-ik n tdukla akken ad trebḥeḍ tikumisyunin."
+      },
+      "export": "Sifeḍ s CSV",
+      "note": "Tikumisyunin ttwaxelṣent yal aggur ticki tewweḍ tesqamt tadday n 50 €. Axelleṣ yettili gar 1 d 5 deg yal aggur.",
+      "payment_note": {
+        "title": "Tazmilt:",
+        "description": "Tikumisyunin ttwaxelṣent yal aggur ticki tewweḍ tesqamt tadday n 50 €. Axelleṣ yettili gar 1 d 5 deg yal aggur."
+      }
+    },
+    "payout": {
+      "title": "Iɣewwaṛen n uxelleṣ",
+      "description": "Sbadu talɣut-ik n uxelleṣ akken ad d-teṭṭfeḍ tikumisyunin-ik",
+      "available_balance": "Tasqamt yellan",
+      "payment_method": "Tarrayt n uxelleṣ",
+      "minimum_threshold": "Tasqamt tadday n uxelleṣ",
+      "withdraw_amount": "Tasuqqilt ara d-tekkseḍ",
+      "request_payout": "Suter axelleṣ",
+      "method": {
+        "title": "Tarrayt n uxelleṣ",
+        "bank_transfer": "Asiweḍ n lbanka",
+        "paypal": "PayPal",
+        "crypto": "Tadrimt tawgelhant"
+      },
+      "bank_details": {
+        "title": "Talɣut n lbanka",
+        "account_holder": "Isem n bab n umiḍan",
+        "iban": "IBAN",
+        "bic": "Tangalt BIC/SWIFT",
+        "bank_name": "Isem n lbanka"
+      },
+      "paypal_details": {
+        "title": "Talɣut n PayPal",
+        "email": "Imayl n PayPal"
+      },
+      "crypto_details": {
+        "title": "Talɣut n crypto",
+        "wallet_address": "Tansa n tqerqabt",
+        "currency": "Tadrimt tawgelhant"
+      },
+      "minimum_payout": {
+        "title": "Tasqamt tadday",
+        "description": "Tasuqqilt tadday i yilaqen i uxelleṣ: 50 €"
+      },
+      "save_button": "Sekles iɣewwaṛen",
+      "messages": {
+        "save_success": "Iɣewwaṛen n uxelleṣ ttwaskelsen akken iwata",
+        "save_error": "Tuccḍa deg usekles n yiɣewwaṛen",
+        "settings_updated": "Iɣewwaṛen n uxelleṣ ttwaleqqmen",
+        "payout_requested": "Asuter n uxelleṣ yettwazen",
+        "minimum_error": "Tasuqqilt tadday d {{amount}} €",
+        "request_error": "Tuccḍa deg usuter n uxelleṣ"
+      },
+      "methods": {
+        "bank": "Asiweḍ n lbanka",
+        "paypal": "PayPal",
+        "crypto": "Crypto"
+      },
+      "bank_info": {
+        "title": "Talɣut n lbanka",
+        "account_name": "Isem n bab n umiḍan",
+        "bank_name": "Isem n lbanka",
+        "iban": "IBAN",
+        "swift": "Tangalt SWIFT/BIC"
+      },
+      "paypal_info": {
+        "title": "Talɣut n PayPal",
+        "email": "Imayl n PayPal"
+      },
+      "crypto_info": {
+        "title": "Talɣut n crypto",
+        "network": "Aẓeṭṭa",
+        "wallet_address": "Tansa n tqerqabt"
+      },
+      "networks": {
+        "ETH": "Ethereum (ETH)",
+        "BTC": "Bitcoin (BTC)",
+        "USDT": "Tether (USDT)"
+      },
+      "save_settings": "Sekles iɣewwaṛen",
+      "saving": "Asekles…",
+      "warning": {
+        "title": "Ilaq ad teẓreḍ:",
+        "payment_schedule": "Axelleṣ yettwaxdam gar 1 d 5 deg yal aggur",
+        "processing_time": "Ilaq-d seg 2 ar 5 n wussan n uxeddim, ɣef leḥsab n tarrayt i tferneḍ",
+        "transaction_fees": "Zemren ad ilin yiṣuṛdiyen n temhelt ɣef leḥsab n lbanka-ik"
+      },
+      "minimum_help": "Axelleṣ yettili s wudem awurman mi ara tawweḍ tesqamt-ik ɣer tsuqqilt-a."
+    },
+    "activation": {
+      "title": "Uɣal d amdukel n Saloneo",
+      "description": "Kcem ɣer wahil-nneɣ n tdukla, rbeḥ tikumisyunin igerrzen mi ara tesmektiḍ Saloneo i uẓeṭṭa-ik n uxeddim",
+      "subtitle": "Smekti Saloneo, rbeḥ takumisyunt ɣef yal amsaɣ amaynut",
+      "benefits": {
+        "title": "Ayen yelhan deg wahil",
+        "items": {
+          "earn_commissions": "Rbeḥ 20 % n tkumisyunt ɣef yal ajerred",
+          "marketing_tools": "Kcem ɣer yallalen n marketing imusnawen",
+          "real_time_tracking": "Ḍfer igmaḍ-ik srid",
+          "monthly_payments": "Ṭṭef axelleṣ-ik yal aggur"
+        }
+      },
+      "how_it_works": {
+        "title": "Amek iteddu?",
+        "steps": {
+          "share_link": "Bḍu aseɣwen-ik asuf n tdukla",
+          "client_subscribes": "Wid tessneḍ ad jerrden ɣer Saloneo",
+          "earn_commission": "Rbeḥ 20 % n tkumisyunt ɣef yal azenzi"
+        }
+      },
+      "commission_rates": {
+        "title": "Afmiḍi n tkumisyunt",
+        "new_subscription": "20 % ɣef yijerriden imaynuten",
+        "renewal": "10 % ɣef usmiren",
+        "upgrade": "15 % ɣef uleqqem n uɣawas"
+      },
+      "terms": {
+        "title": "Tiwtilin n wahil",
+        "items": {
+          "minimum_payout": "Tasqamt tadday n uxelleṣ: 50 €",
+          "payment_schedule": "Axelleṣ yal aggur gar 1 d 5",
+          "tracking_period": "Tanzagt n uḍfar: 30 n wussan",
+          "compliance": "Ilaq ad ttwaqadrent tewtilin n useqdec"
+        },
+        "intro": "Mi ara tesremdeḍ ahil n tdukla n Saloneo, tqebleḍ tiwtilin-a:",
+        "list": {
+          "rate": "Takumisyunt d 20 % ɣef tsuqqilt war TVA n yal ajerred",
+          "payout": "Tikumisyunin ttwaxelṣent yal aggur s tesqamt tadday n 50 €",
+          "cookie": "Akukiz n uḍfar yettidir 30 n wussan",
+          "self_referral": "Ur yettwasireg ara ad tɛerḍeḍ iman-ik",
+          "changes": "Saloneo tettaǧǧa i yiman-is azref ad tbeddel neɣ ad tseḥbes ahil",
+          "fraud": "Yal tikerkas ad d-tawi aseḥbes n umiḍan n tdukla imir-a"
+        }
+      },
+      "activate_button": "Rmed ahil n tdukla",
+      "messages": {
+        "activation_success": "Ahil n tdukla yermed akken iwata!",
+        "activation_error": "Tuccḍa deg usermed n wahil",
+        "accept_required": "Ttxil-k qbel tiwtilin n tdukla"
+      },
+      "accept_terms": "Qebleɣ tiwtilin n wahil n tdukla n Saloneo",
+      "activating": "Asermed…"
+    },
+    "marketing": {
+      "title": "Allalen n marketing",
+      "description": "Seqdec tiɣbula-a akken ad tesnerniḍ Saloneo, ad tesnerniḍ tikumisyunin-ik",
+      "qr_code": {
+        "title": "Tangalt QR n tinubga",
+        "description": "Bḍu tangalt-a QR akken ad jerrden wid tessneḍ s sshala. Tlaq i tkarḍiwin n tmerna, i yifurayen neɣ i yiwerqen n ussuɣer.",
+        "generate": "Sirew tangalt QR",
+        "download": "Sader tangalt QR",
+        "generating": "Asirew n tengalt QR…",
+        "modal_title": "Tangalt QR n tdukla",
+        "modal_description": "Sneqd tangalt-a akken ad tkecmeḍ srid ɣer useɣwen-ik n tdukla"
+      },
+      "banners": {
+        "title": "Ibenniren n ussuɣer",
+        "description": "Ibenniren n ussuɣer heggan i tmesbalin-ik",
+        "horizontal": "Abennir aglawan 728x90",
+        "horizontal_desc": "Ilaq i yismal web d yiblugen",
+        "square": "Abennir amkuẓ 300x300",
+        "square_desc": "Yelha i yiẓeḍwa inmettiyen",
+        "vertical": "Abennir ubdid 160x600",
+        "vertical_desc": "I yifeggagen n yidis n yismal web",
+        "download": "Sader"
+      },
+      "social_posts": {
+        "title": "Tisuffaɣ i iẓeḍwa inmettiyen",
+        "description": "Iznan heggan ad ten-tebḍuḍ deg yiẓeḍwa-ik inmettiyen",
+        "copy": "Nɣel aḍris"
+      },
+      "email_templates": {
+        "title": "Timudmiwin n yimaylen",
+        "description": "Timudmiwin n yimaylen imusnawen i usnerni n Saloneo",
+        "copy": "Nɣel tamudemt",
+        "professional": {
+          "title": "Imayl n usissen amusnaw",
+          "subject": "Issin Saloneo, afecku ummid i usalun-ik",
+          "content": "Azul,\n\nBɣiɣ ad ak-d-sekneɣ Saloneo, afecku ummid n usefrek i yettwaxedmen i yisalunen n ucebbaḥ, i spa d yiḥeffafen.\n\nS Saloneo tzemreḍ:\n✓ Ad tesferkeḍ timlilin-ik srid 24/7\n✓ Ad teṭṭfeḍ imsaɣen-ik s unagraw n tenqiḍin\n✓ Ad tḍefreḍ igmaḍ-ik s tfelwiyin n usenqed\n✓ Ad tesmektiḍ imsaɣen s SMS s wudem awurman akken ad ttwaṭṭfent kter n tmlilin\n✓ Ad tesferkeḍ tarbaɛt-ik d yimeẓla-ik s sshala\n\nAɣawas Baṭel yeǧǧa-k ad tebduḍ war takarḍa n lbanka, war asewḥel.\n\nJerred tura: {{link}}\n\nS tegrawla,\n[Isem-ik]"
+        },
+        "personal": {
+          "title": "Imayl n usmekti udmawan",
+          "subject": "Tabaḍnit-iw i usefrek n usalun-iw",
+          "content": "Azul,\n\nSsaramaɣ telhiḍ! Bɣiɣ ad ak-d-bḍuɣ afecku i seqdaceɣ i usefrek n usalun-iw.\n\nSeg wasmi i bdiɣ Saloneo:\n- Timlilin i yettwaǧǧan nqesent s 40 %\n- Iḥeǧǧzen srid rnan s 60 %\n- Rebḥeɣ 2 n yisragen yal ass ɣef yixeddimen n tedbelt\n\nAyen yelhan akk? Imsaɣen zemren ad ṭṭfen timlilit seg tiliɣri-nsen, ula ma yemdel usalun.\n\nMa yehwa-yak, tzemreḍ ad tebduḍ baṭel: {{link}}\n\nMa tesɛiḍ asteqsi, ur ttḥaz ara!\n\nAr tufat,\n[Isem-ik]"
+        }
+      },
+      "social_messages": {
+        "title": "Iznan i yiẓeḍwa inmettiyen",
+        "linkedin": "LinkedIn",
+        "whatsapp": "WhatsApp",
+        "instagram": "Instagram",
+        "linkedin_message": "🚀 Issin Saloneo, afecku n usefrek meṛṛa deg yiwen i yimusnawen n ucebbaḥ.\n\n✅ Aḥeǧǧez srid 24/7\n✅ Asefrek n terbaɛt s sshala\n✅ Tifelwiyin n usenqed d tesleḍt\n✅ Ismektiyen SMS iwurmanen\n\nBdu baṭel: {{link}}\n\n#BeautyTech #SalonManagement #DigitalTransformation",
+        "whatsapp_message": "Azul! 👋\n\nTettnadiḍ afecku i usefrek n usalun-ik? Ad ak-d-smektiɣ Saloneo!\n\nFessus aṭas, imsaɣen-ik zemren ad ṭṭfen timlilit srid 24/24 📱\n\nƐreḍ-it baṭel dagi: {{link}}",
+        "instagram_message": "✨ Beddel asalun-ik s Saloneo!\n\nAfecku umḍin i yessefsusen ussan-ik:\n📅 Iḥeǧǧzen srid\n💆‍♀️ Asefrek n yimeẓla\n👥 Aḍfar n yimsaɣen\n📊 Tasleḍt s telqayt\n\nAseɣwen deg bio-inu 👆 {{link}}\n\n#SalonDeBeaute #GestionSalon #BeautyBusiness #Saloneo"
+      },
+      "best_practices": {
+        "title": "Tikli yelhan",
+        "personalize": "Sagen iznan-ik",
+        "personalize_desc": "Serwes timudmiwin ɣer tɣessra-k d wid ara ten-yeɣren akken ad tawiḍ igmaḍ igerrzen.",
+        "be_authentic": "Ili d ahelmun",
+        "be_authentic_desc": "Bḍu tarmit-ik s Saloneo akken ad d-tesnulfuḍ laman.",
+        "target_audience": "Fren wid ara twehhiḍ",
+        "target_audience_desc": "Ɛiwez ɣef yimusnawen n ucebbaḥ yellan deg uẓeṭṭa-ik.",
+        "track_performance": "Ḍfer igmaḍ-ik",
+        "track_performance_desc": "Seqdec tafelwit n usenqed akken ad tissineḍ ayen iteddun akk ugar."
+      },
+      "messages": {
+        "copied": "Aḍris yettwanɣel",
+        "download_started": "Asader yebda"
+      }
+    },
+    "tabs": {
+      "dashboard": "Tafelwit n usenqed",
+      "commissions": "Tikumisyunin",
+      "settings": "Iɣewwaṛen",
+      "marketing": "Allalen n marketing"
+    },
+    "status": {
+      "active": "Urmid",
+      "inactive": "Arurmid"
+    },
+    "stats": {
+      "total_referrals": "Amḍan n tinubgiwin",
+      "total_commissions": "Tikumisyunin meṛṛa",
+      "commission_rate": "Afmiḍi n tkumisyunt",
+      "conversion_rate": "Afmiḍi n ubeddel"
+    },
+    "program_title": "Ahil n tdukla",
+    "affiliate_code": "Tangalt n umdukel",
+    "loading": "Asali n yisefka n tdukla…"
+  },
+  "affiliation_tab": {
+    "title": "Ahil n tdukla",
+    "description": "Rbeḥ tikumisyunin mi ara tesmektiḍ Saloneo i uẓeṭṭa-ik n uxeddim",
+    "tabs": {
+      "dashboard": "Tafelwit n usenqed",
+      "commissions": "Tikumisyunin",
+      "marketing": "Allalen n marketing",
+      "settings": "Iɣewwaṛen"
+    }
+  },
+  "currencies": {
+    "EUR": "Uṛu",
+    "USD": "Dular amarikani",
+    "GBP": "Apund sterling",
+    "JPY": "Yen ajapuni",
+    "CAD": "Dular akanadi",
+    "AUD": "Dular usṭrali",
+    "CHF": "Frank aswisri",
+    "CNY": "Yuan acinwi",
+    "SEK": "Akurun aswidi",
+    "NOK": "Akurun anurvijiyan",
+    "DKK": "Akurun adanimarki",
+    "PLN": "Zloty apuluni",
+    "CZK": "Akurun ačiki",
+    "HUF": "Forint ahungari",
+    "RUB": "Rubl arusi",
+    "BRL": "Real abrazili",
+    "INR": "Rupi ahindi",
+    "KRW": "Won n Kurya n unẓul",
+    "SGD": "Dular n Singapur",
+    "HKD": "Dular n Hong Kong",
+    "NZD": "Dular n Ziland Tamaynutt",
+    "MXN": "Peso amiksiki",
+    "ZAR": "Rand n Tefriqt n unẓul",
+    "TRY": "Lira aturki",
+    "AED": "Derhem n Tgeldiwin",
+    "SAR": "Riyal asuɛudi",
+    "QAR": "Riyal aqaṭari",
+    "KWD": "Dinar akuwiti",
+    "BHD": "Dinar abaḥrini",
+    "OMR": "Riyal aɛumani",
+    "JOD": "Dinar urduni",
+    "LBP": "Apund alubnani",
+    "EGP": "Apund amaṣri",
+    "MAD": "Derhem amerrukan",
+    "TND": "Dinar atunsi",
+    "DZD": "Dinar azzayri",
+    "LYD": "Dinar alibi"
+  },
+  "profile_page": {
+    "subtitle": "Talɣut-ik, tin n usalun d yismenyifen-ik",
+    "loading": "Asali n umaɣnu…"
+  }
 }

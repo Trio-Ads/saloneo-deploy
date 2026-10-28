@@ -163,7 +163,7 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
               <select id="role" name="role" value={formData.role} onChange={handleChange} required className="field">
                 {TEAM_ROLES.map((role) => (
                   <option key={role} value={role}>
-                    {role}
+                    {t(`role_values.${role}`, role)}
                   </option>
                 ))}
               </select>

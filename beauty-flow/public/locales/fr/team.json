@@ -11,7 +11,7 @@
   "form": {
     "first_name": "Prénom",
     "last_name": "Nom",
-    "email": "Email",
+    "email": "E-mail",
     "phone": "Téléphone",
     "role": "Rôle",
     "specialties": "Spécialités",
@@ -92,24 +92,25 @@
     "per_member": "Par membre"
   },
   "badges": {
-    "members": "membre(s)",
-    "active": "actif(s)"
+    "members_one": "{{count}} membre",
+    "members_other": "{{count}} membres",
+    "active_one": "{{count}} actif",
+    "active_other": "{{count}} actifs"
   },
   "search": {
-    "placeholder": "Rechercher un membre de l'équipe...",
-    "results": "membre(s) trouvé(s)",
-    "for": "pour",
-    "with_role": "avec le rôle"
+    "placeholder": "Rechercher un membre de l'équipe…",
+    "results_one": "{{count}} membre trouvé",
+    "results_other": "{{count}} membres trouvés"
   },
   "limits": {
-    "title": "Limite de membres d'équipe",
+    "title": "Limite de membres de l'équipe",
     "reached": "Limite atteinte"
   },
   "errors": {
-    "save_error": "Erreur lors de la sauvegarde:"
+    "save_error": "Erreur lors de la sauvegarde :"
   },
   "filters": {
-    "search": "Rechercher des membres...",
+    "search": "Rechercher des membres…",
     "all_roles": "Tous les rôles",
     "all_specialties": "Toutes les spécialités",
     "availability": "Disponibilité",
@@ -141,7 +142,7 @@
     "member_activated": "Membre activé avec succès",
     "member_deactivated": "Membre désactivé avec succès",
     "no_members": "Aucun membre trouvé",
-    "loading": "Chargement des membres...",
+    "loading": "Chargement des membres…",
     "confirm_delete": "Êtes-vous sûr de vouloir supprimer ce membre ?",
     "delete_confirmation": "Êtes-vous sûr de vouloir supprimer ce membre ?",
     "photo_uploaded": "Photo téléchargée avec succès",
@@ -169,7 +170,7 @@
     "labels": {
       "first_name_required": "Prénom *",
       "last_name_required": "Nom *",
-      "email_required": "Email *",
+      "email_required": "E-mail *",
       "phone_required": "Téléphone *",
       "role_required": "Rôle *"
     },
@@ -190,8 +191,8 @@
     },
     "schedule_labels": {
       "works": "Travaille",
-      "from": "De:",
-      "to": "À:"
+      "from": "De :",
+      "to": "À :"
     },
     "help_messages": {
       "specialties_help": "Cochez les services que ce membre réalise.",
@@ -206,12 +207,12 @@
   },
   "team_list": {
     "empty_state": {
-      "title": "Aucun membre d'équipe",
+      "title": "Aucun membre dans l'équipe",
       "subtitle": "Commencez par ajouter vos premiers collaborateurs",
       "cta": "Constituez votre équipe"
     },
     "info_labels": {
-      "email": "Email",
+      "email": "E-mail",
       "phone": "Téléphone",
       "working_days": "Jours travaillés",
       "specialties": "Spécialités"
@@ -222,12 +223,14 @@
     },
     "stats": {
       "days_per_week": "jours/semaine",
-      "specialties_count": "spécialité(s)",
       "average": "Moyenne",
       "active": "Actif",
-      "services": "service(s)",
       "level_of": "Niveau {{level}}/5",
-      "variable_hours": "Horaires variables"
+      "variable_hours": "Horaires variables",
+      "specialties_count_one": "{{count}} spécialité",
+      "specialties_count_other": "{{count}} spécialités",
+      "services_one": "{{count}} service",
+      "services_other": "{{count}} services"
     },
     "tooltips": {
       "edit_member": "Modifier le membre",
@@ -242,5 +245,13 @@
       "saturday": "Sam",
       "sunday": "Dim"
     }
+  },
+  "role_values": {
+    "Coiffeur(se)": "Coiffeur(se)",
+    "Coloriste": "Coloriste",
+    "Assistant(e)": "Assistant(e)",
+    "Réceptionniste": "Réceptionniste",
+    "Manager": "Manager",
+    "Propriétaire": "Propriétaire"
   }
 }

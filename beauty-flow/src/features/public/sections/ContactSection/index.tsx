@@ -1,5 +1,5 @@
 import { SectionProps } from '../types';
-import { ContactItems, HoursTable, Section, Title, useSalon } from '../kit';
+import { Arrow, ContactItems, HoursTable, Icon, Section, Title, TodayHours, telHref, useSalon } from '../kit';
 
 type P = SectionProps;
 
@@ -71,10 +71,76 @@ function ContactMinimal({ data }: P) {
   );
 }
 
+/** The opening hours are the visual: one large line per day, today highlighted. */
+function ContactHoursBoard(props: P) {
+  const { data } = props;
+  const { t, week } = useSalon(data);
+  if (!week.length) return <ContactSplit {...props} />;
+  return (
+    <Section id="contact">
+      <div className="grid md:grid-cols-[1.5fr_1fr] gap-12 md:gap-20">
+        <div>
+          <Title>{t('site.hours')}</Title>
+          <ol className="border-t sp-line">
+            {week.map(d => (
+              <li key={d.day} aria-current={d.today ? 'date' : undefined}
+                className={`sp-hb-row flex items-baseline justify-between gap-4 py-3 md:py-4 border-b sp-line ${d.today ? 'is-today' : ''}`}>
+                <span className="sp-h text-2xl md:text-4xl">{d.day}</span>
+                <span className={`sp-num text-lg md:text-2xl ${d.value ? '' : 'sp-muted'}`}>{d.value ?? t('site.closed')}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div className="md:pt-24">
+          <h3 className="text-xl md:text-2xl mb-6">{t('site.contact_title')}</h3>
+          <ContactItems data={data} className="grid gap-7" />
+          <div className="mt-10"><BookLink data={data} /></div>
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+/** One compact card: address, call, directions, today's hours (the week folds out). */
+function ContactCard({ data }: P) {
+  const { t, name, address, mapsUrl, phone, hours, today } = useSalon(data);
+  return (
+    <Section id="contact" className="sp-surface">
+      <h2 className="sr-only">{t('site.contact_title')}</h2>
+      <div className="sp-contact-card max-w-md mx-auto p-6 md:p-8">
+        <p className="sp-h text-3xl md:text-4xl">{name}</p>
+        <div className="mt-5 grid gap-3">
+          {address && <p className="flex gap-3"><Icon name="pin" size={20} className="sp-ink mt-0.5" />{address}</p>}
+          {today && <p className="flex gap-3"><Icon name="clock" size={20} className="sp-ink mt-0.5" /><TodayHours data={data} /></p>}
+        </div>
+        {(phone || address) && (
+          <div className="mt-7 flex flex-wrap gap-2 [&>*]:flex-1">
+            {phone && <a href={telHref(phone)} className="sp-btn"><Icon name="phone" size={18} />{t('site.call')}</a>}
+            {address && <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="sp-btn sp-btn-ghost"><Icon name="pin" size={18} />{t('site.directions')}</a>}
+          </div>
+        )}
+        {hours.length > 0 && (
+          <details className="sp-acc mt-6 border-t sp-line">
+            <summary className="flex items-center justify-between min-h-[3.25rem] cursor-pointer font-medium">
+              {t('site.hours')}<Icon name="chevron" size={18} className="sp-acc-chevron sp-muted" />
+            </summary>
+            <HoursTable data={data} className="pb-2" />
+          </details>
+        )}
+        {data.services.length > 0 && (
+          <a href="#services" className="sp-link inline-flex items-center gap-2 mt-6">{t('site.book')} <Arrow /></a>
+        )}
+      </div>
+    </Section>
+  );
+}
+
 export function ContactSection(props: SectionProps) {
   switch (props.template.sections.contact.variant) {
     case 'centered': return <ContactCentered {...props} />;
     case 'minimal':  return <ContactMinimal {...props} />;
+    case 'hours-board': return <ContactHoursBoard {...props} />;
+    case 'card':     return <ContactCard {...props} />;
     default:         return <ContactSplit {...props} />;
   }
 }

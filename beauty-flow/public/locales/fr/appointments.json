@@ -1,6 +1,6 @@
 {
   "title": "Rendez-vous",
-  "page_title": "Gestion des Rendez-vous",
+  "page_title": "Gestion des rendez-vous",
   "page_subtitle": "Planifiez, confirmez et suivez les rendez-vous du salon.",
   "new_appointment": "Nouveau rendez-vous",
   "edit_appointment": "Modifier le rendez-vous",
@@ -37,7 +37,7 @@
     "select_time": "Sélectionner une heure",
     "add_notes": "Ajouter des notes",
     "client_phone": "Téléphone du client",
-    "client_email": "Email du client",
+    "client_email": "E-mail du client",
     "reminder_sent": "Rappel envoyé",
     "payment_status": "Statut du paiement"
   },
@@ -70,7 +70,7 @@
     "appointment_completed": "Rendez-vous terminé avec succès",
     "reminder_sent": "Rappel envoyé avec succès",
     "no_appointments": "Aucun rendez-vous trouvé",
-    "loading": "Chargement des rendez-vous...",
+    "loading": "Chargement des rendez-vous…",
     "confirm_cancel": "Êtes-vous sûr de vouloir annuler ce rendez-vous ?",
     "confirm_delete": "Êtes-vous sûr de vouloir supprimer ce rendez-vous ?",
     "slot_unavailable": "Ce créneau n'est plus disponible",
@@ -96,11 +96,10 @@
     "revenue": "Chiffre d'affaires"
   },
   "loading": {
-    "planning": "Chargement de votre planning...",
+    "planning": "Chargement de votre planning…",
     "interface_preparation": "Préparation de l'interface"
   },
   "stats": {
-    "total_appointments_badge": "rendez-vous au total",
     "pending_badge": "en attente",
     "total": "Total",
     "all_appointments": "Tous les rendez-vous",
@@ -109,10 +108,12 @@
     "confirmed": "Confirmés",
     "ready_to_perform": "Prêts à être réalisés",
     "completed": "Terminés",
-    "services_performed": "Services réalisés"
+    "services_performed": "Services réalisés",
+    "total_appointments_badge_one": "{{count}} rendez-vous au total",
+    "total_appointments_badge_other": "{{count}} rendez-vous au total"
   },
   "search": {
-    "placeholder": "Rechercher un client ou service..."
+    "placeholder": "Rechercher un client ou un service…"
   },
   "view_modes": {
     "list": "Liste",
@@ -127,11 +128,13 @@
   "past_appointments": {
     "complete_action": "Terminer",
     "no_show_action": "Non présentés",
-    "found_message": "rendez-vous passés trouvés. Souhaitez-vous les marquer comme",
+    "confirm_mark_one": "{{count}} rendez-vous passé trouvé. Voulez-vous le marquer comme « {{status}} » ?",
+    "confirm_mark_other": "{{count}} rendez-vous passés trouvés. Voulez-vous les marquer comme « {{status}} » ?",
     "completed_status": "Terminés",
-    "no_show_status": "Non présentés",
+    "no_show_status": "Absents",
     "none_to_process": "Aucun rendez-vous passé à traiter.",
-    "processed_message": "rendez-vous ont été traités.",
+    "processed_one": "{{count}} rendez-vous a été traité.",
+    "processed_other": "{{count}} rendez-vous ont été traités.",
     "processing_error": "Erreur lors du traitement des rendez-vous passés.",
     "notice_one": "{{count}} rendez-vous passé n'a pas été clôturé.",
     "notice_other": "{{count}} rendez-vous passés n'ont pas été clôturés.",
@@ -150,7 +153,8 @@
     "modificationNotAllowed": "Modification non autorisée",
     "modificationFailed": "Échec de la modification",
     "cancellationFailed": "Échec de l'annulation",
-    "reasonRequired": "Veuillez fournir une raison"
+    "reasonRequired": "Veuillez fournir une raison",
+    "form_submission": "Erreur lors de l'envoi du formulaire :"
   },
   "appointment_form": {
     "title_new": "Nouveau rendez-vous",
@@ -167,25 +171,26 @@
     "labels": {
       "select_client": "Client",
       "choose_client": "Choisir un client…",
-      "client_selected": "Client sélectionné:",
+      "client_selected": "Client sélectionné :",
       "select_service": "Service",
       "choose_service": "Choisir un service…",
-      "service_selected": "Service:",
+      "service_selected": "Service :",
       "select_stylist": "Membre de l'équipe",
       "choose_stylist": "Choisir un membre…",
-      "stylist_selected": "Coiffeur:",
+      "stylist_selected": "Membre de l'équipe :",
       "date": "Date",
       "time": "Heure",
       "select_time": "Choisir une heure…",
       "additional_notes": "Notes",
-      "notes_placeholder": "Ajoutez des notes sur le rendez-vous, les préférences du client...",
+      "notes_placeholder": "Ajoutez des notes sur le rendez-vous, les préférences du client…",
       "new": "Nouveau"
     },
     "messages": {
       "select_service_stylist_first": "Choisissez d'abord un service et un membre de l'équipe.",
       "no_slots_available": "Aucun créneau disponible pour cette date",
-      "slots_available": "créneaux disponibles",
-      "invalid_date": "Date invalide"
+      "invalid_date": "Date invalide",
+      "slots_available_one": "{{count}} créneau disponible",
+      "slots_available_other": "{{count}} créneaux disponibles"
     },
     "summary_labels": {
       "client": "Client",
@@ -211,14 +216,13 @@
     "no_appointments": "Aucun rendez-vous",
     "no_appointments_period": "Aucun rendez-vous prévu pour cette période",
     "schedule_first": "Planifiez vos premiers rendez-vous",
-    "appointments_count": "rendez-vous",
     "past_appointment": "Date passée",
     "invalid_date": "Date invalide",
     "tooltips": {
       "confirm": "Confirmer le rendez-vous",
       "edit": "Modifier le rendez-vous",
       "complete": "Marquer comme terminé",
-      "no_show": "Marquer comme non présenté",
+      "no_show": "Marquer comme absent",
       "cancel": "Annuler le rendez-vous"
     },
     "details": {
@@ -231,19 +235,19 @@
       "confirmed": "Confirmé",
       "completed": "Terminé",
       "cancelled": "Annulé",
-      "no_show": "Non présenté"
+      "no_show": "Absent"
     },
     "overdue": "Date passée",
-    "with": "avec {{name}}"
+    "with": "avec {{name}}",
+    "appointments_count_one": "{{count}} rendez-vous",
+    "appointments_count_other": "{{count}} rendez-vous"
   },
   "calendar_view": {
     "today": "Aujourd'hui",
     "previous_week": "Semaine précédente",
     "next_week": "Semaine suivante",
-    "week_from": "Semaine du",
-    "week_to": "au",
     "stats": {
-      "total": "Total RDV",
+      "total": "Rendez-vous",
       "confirmed": "Confirmés",
       "completed": "Terminés"
     },
@@ -255,7 +259,8 @@
       "title": "Légende des statuts"
     },
     "week_total_one": "{{count}} rendez-vous cette semaine",
-    "week_total_other": "{{count}} rendez-vous cette semaine"
+    "week_total_other": "{{count}} rendez-vous cette semaine",
+    "week_range": "Semaine du {{from}} au {{to}}"
   },
   "appointment_settings": {
     "buffer_time": "Temps de battement entre rendez-vous",
@@ -275,7 +280,7 @@
     "lunch_start": "Début de pause",
     "lunch_end": "Fin de pause",
     "save_settings": "Enregistrer les paramètres",
-    "saving": "Enregistrement...",
+    "saving": "Enregistrement…",
     "success_message": "Paramètres de rendez-vous sauvegardés avec succès !",
     "error_message": "Erreur lors de la sauvegarde des paramètres",
     "units": {
@@ -285,11 +290,11 @@
       "hours_before": "heures avant le rendez-vous"
     }
   },
-  "bookingConfirmed": "Réservation Confirmée !",
+  "bookingConfirmed": "Réservation confirmée !",
   "bookingSuccessMessage": "Votre rendez-vous a été confirmé avec succès",
   "modificationLinkInfo": "Utilisez ce lien pour modifier ou annuler votre rendez-vous",
   "modificationLinkWarning": "Conservez ce lien précieusement, il vous permettra de gérer votre rendez-vous",
-  "yourAppointments": "Vos Rendez-vous",
+  "yourAppointments": "Vos rendez-vous",
   "noAppointments": "Aucun rendez-vous trouvé",
   "bookNew": "Prendre un nouveau rendez-vous",
   "modify": "Modifier",
@@ -310,7 +315,7 @@
     "first_name": "Prénom",
     "last_name": "Nom",
     "phone": "Téléphone",
-    "email": "Email",
+    "email": "E-mail",
     "service_name": "Nom du service",
     "category": "Catégorie",
     "duration": "Durée (minutes)",

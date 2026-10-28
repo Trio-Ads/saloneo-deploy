@@ -1,4 +1,4 @@
-import { DesignTemplate, TemplateCategory, TemplateSections } from './types';
+import { AboutVariant, CtaVariant, DesignTemplate, GalleryVariant, SectionKey, TemplateCategory, TemplateSections } from './types';
 
 // Collection 2026: each template is a world (type, palette, radius, density, section structure).
 // Everything not listed here is shared plumbing, filled in by `define`.
@@ -23,8 +23,29 @@ interface Spec {
   variants: Variants;
   /** section order, default hero → services → team → reviews → contact */
   order?: [hero: number, services: number, team: number, reviews: number, contact: number];
+  /** Optional sections, off unless given. Default places: about after the hero, gallery after services, cta before contact. */
+  about?: AboutVariant;
+  gallery?: GalleryVariant;
+  cta?: CtaVariant;
+  /** Full page order (overrides `order`), e.g. ['hero', 'about', 'services', 'gallery', 'team', 'reviews', 'cta', 'contact']. */
+  flow?: SectionKey[];
+  family?: string;
+  tags?: string[];
+  /** Derived from the background when absent. */
+  mode?: DesignTemplate['mode'];
+  ornament?: DesignTemplate['ornament'];
+  booking?: NonNullable<DesignTemplate['booking']>['variant'];
+  density?: DesignTemplate['density'];
+  imageTreatment?: DesignTemplate['imageTreatment'];
   patterns?: string[];
 }
+
+const luminance = (hex: string) => {
+  const h = hex.replace('#', '');
+  const f = h.length === 3 ? h.split('').map(c => c + c).join('') : h;
+  const [r, g, b] = [0, 2, 4].map(i => parseInt(f.slice(i, i + 2), 16) / 255);
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+};
 
 const fallback = (family: string, serif: boolean) =>
   `'${family}', 'Noto Sans Arabic', ${serif ? "Georgia, 'Times New Roman', serif" : 'system-ui, sans-serif'}`;
@@ -35,6 +56,7 @@ function define(s: Spec): DesignTemplate {
   const [primary, secondary, accent, background, surface, text, textSecondary] = s.colors;
   const [hero, services, team, reviews, contact] = s.variants;
   const [o0, o1, o2, o3, o4] = s.order ?? [0, 1, 2, 3, 4];
+  const at = (k: SectionKey, d: number) => (s.flow?.includes(k) ? s.flow.indexOf(k) : d);
   const [hFamily, hWeight, hTracking, upper] = s.heading;
   const serif = (f: string) => /Fraunces|Marcellus|Cormorant|Amiri|Lora|Playfair|Serif/.test(f);
   return {
@@ -45,13 +67,23 @@ function define(s: Spec): DesignTemplate {
     description: s.description,
     preview: '',
     fonts: fonts(s.fonts),
+    family: s.family ?? s.id,
+    tags: s.tags ?? [],
+    mode: s.mode ?? (luminance(background) < 0.45 ? 'dark' : 'light'),
     sections: {
-      hero:     { variant: hero, order: o0 },
-      services: { variant: services, order: o1 },
-      team:     { variant: team, order: o2, enabled: true },
-      reviews:  { variant: reviews, order: o3, enabled: true },
-      contact:  { variant: contact, order: o4 },
+      hero:     { variant: hero, order: at('hero', o0) },
+      services: { variant: services, order: at('services', o1) },
+      team:     { variant: team, order: at('team', o2), enabled: !s.flow || s.flow.includes('team') },
+      reviews:  { variant: reviews, order: at('reviews', o3), enabled: !s.flow || s.flow.includes('reviews') },
+      contact:  { variant: contact, order: at('contact', o4) },
+      ...(s.about && { about: { variant: s.about, order: at('about', 0.5), enabled: true } }),
+      ...(s.gallery && { gallery: { variant: s.gallery, order: at('gallery', 1.5), enabled: true } }),
+      ...(s.cta && { cta: { variant: s.cta, order: at('cta', 3.5), enabled: true } }),
     },
+    ...(s.ornament && { ornament: s.ornament }),
+    ...(s.booking && { booking: { variant: s.booking } }),
+    ...(s.density && { density: s.density }),
+    ...(s.imageTreatment && { imageTreatment: s.imageTreatment }),
     theme: {
       colors: { primary, secondary, accent, background, surface, text, textSecondary, ...(s.band && { custom: { band: s.band } }) },
       typography: {

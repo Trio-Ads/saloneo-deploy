@@ -1,96 +1,100 @@
 {
   "validation": {
-    "required": "Ce champ est obligatoire",
-    "email": "Veuillez saisir une adresse email valide",
-    "phone": "Veuillez saisir un numéro de téléphone valide",
-    "min_length": "Minimum {{count}} caractères requis",
-    "max_length": "Maximum {{count}} caractères autorisés",
-    "password_mismatch": "Les mots de passe ne correspondent pas",
-    "invalid_format": "Format invalide",
-    "invalid_date": "Veuillez saisir une date valide",
-    "invalid_time": "Veuillez saisir une heure valide",
-    "future_date": "La date doit être dans le futur",
-    "past_date": "La date doit être dans le passé",
-    "password": "Awal uffir d aḥeqqi",
-    "minLength": "Teḥwaǧ {min} isekkilen",
-    "maxLength": "Ur tezmireḍ ara ad tɛeddiḍ {max} isekkilen",
-    "numeric": "Yessefk ad yili d uṭṭun",
-    "alpha": "Yessefk ad yili d isekkilen kan"
+    "required": "Este campo é obrigatório",
+    "email": "Introduza um endereço de e-mail válido",
+    "phone": "Introduza um número de telefone válido",
+    "min_length": "São necessários pelo menos {{count}} caracteres",
+    "max_length": "São permitidos no máximo {{count}} caracteres",
+    "password_mismatch": "As palavras-passe não coincidem",
+    "invalid_format": "Formato inválido",
+    "invalid_date": "Introduza uma data válida",
+    "invalid_time": "Introduza uma hora válida",
+    "future_date": "A data tem de ser no futuro",
+    "past_date": "A data tem de ser no passado"
   },
   "network": {
-    "connection_error": "Erreur de connexion",
-    "timeout": "Délai d'attente dépassé",
-    "server_error": "Erreur serveur",
-    "not_found": "Ressource non trouvée",
-    "unauthorized": "Accès non autorisé",
-    "forbidden": "Accès interdit",
-    "too_many_requests": "Trop de requêtes"
+    "connection_error": "Erro de ligação",
+    "timeout": "Tempo de espera esgotado",
+    "server_error": "Erro do servidor",
+    "not_found": "Recurso não encontrado",
+    "unauthorized": "Acesso não autorizado",
+    "forbidden": "Acesso proibido",
+    "too_many_requests": "Demasiados pedidos"
   },
   "auth": {
-    "invalid_credentials": "Identifiants invalides",
-    "account_locked": "Compte verrouillé",
-    "session_expired": "Session expirée",
-    "login_required": "Connexion requise",
-    "insufficient_permissions": "Permissions insuffisantes",
-    "invalidCredentials": "Isefka n ukcem d iḥeqqiyen",
-    "accountLocked": "Amiḍan yettwacekkel",
-    "passwordExpired": "Awal uffir yezri",
-    "sessionExpired": "Tiɣimit tezri",
-    "emailNotVerified": "Imayl ur yettusentem ara",
-    "accountNotFound": "Amiḍan ur yettwaf ara"
+    "invalid_credentials": "Credenciais inválidas",
+    "account_locked": "Conta bloqueada",
+    "session_expired": "Sessão expirada",
+    "login_required": "É necessário iniciar sessão",
+    "insufficient_permissions": "Permissões insuficientes"
   },
   "booking": {
-    "slot_unavailable": "Ce créneau horaire n'est plus disponible",
-    "service_unavailable": "Ce service n'est pas disponible",
-    "stylist_unavailable": "Ce coiffeur n'est pas disponible",
-    "booking_failed": "Échec de la réservation",
-    "cancellation_failed": "Échec de l'annulation",
-    "modification_failed": "Échec de la modification",
-    "error": "Une erreur est survenue lors de la création de la réservation. Veuillez réessayer.",
-    "timeSlotTaken": "Akud-a yettwafren yakan",
-    "staffNotAvailable": "Axeddim ur yelli ara",
-    "serviceNotAvailable": "Ameẓlu ur yelli ara",
-    "pastDate": "Ur tezmireḍ ara ad tferneḍ azemz iɛeddan"
+    "slot_unavailable": "Este horário já não está disponível",
+    "service_unavailable": "Este serviço não está disponível",
+    "stylist_unavailable": "Este membro da equipa não está disponível",
+    "booking_failed": "A reserva falhou",
+    "cancellation_failed": "O cancelamento falhou",
+    "modification_failed": "A alteração falhou",
+    "error": "Ocorreu um erro ao criar a reserva. Tente novamente.",
+    "select_datetime": "Selecione uma data e uma hora",
+    "no_salon": "Não foi possível identificar o salão"
   },
   "payment": {
-    "payment_failed": "Échec du paiement",
-    "invalid_card": "Informations de carte invalides",
-    "insufficient_funds": "Fonds insuffisants",
-    "payment_declined": "Paiement refusé",
-    "transaction_error": "Erreur de transaction"
+    "payment_failed": "O pagamento falhou",
+    "invalid_card": "Dados do cartão inválidos",
+    "insufficient_funds": "Saldo insuficiente",
+    "payment_declined": "Pagamento recusado",
+    "transaction_error": "Erro na transação"
   },
   "general": {
-    "unexpected_error": "Oups ! Une erreur s'est produite",
-    "application_error": "L'application a rencontré un problème. Cela peut être dû à des données corrompues dans le cache.",
-    "reload_page": "Recharger la page",
-    "reset_data": "Réinitialiser les données",
-    "error_details": "Détails de l'erreur",
-    "close_notification": "Fermer la notification",
-    "try_again": "Veuillez réessayer",
-    "contact_support": "Veuillez contacter le support si le problème persiste",
-    "unknown": "Tuccḍa ur nettwassen ara",
-    "network": "Tuccḍa n uẓeḍḍa",
-    "server": "Tuccḍa n uqeddac",
-    "timeout": "Akud yezri",
-    "unauthorized": "Ur tettalaseḍ ara",
-    "forbidden": "Yegdel",
-    "notFound": "Ur yettwaf ara",
-    "conflict": "Anmegla",
-    "validation": "Tuccḍa n usentem"
+    "unexpected_error": "Ups! Ocorreu um erro",
+    "application_error": "A aplicação encontrou um problema. Isto pode dever-se a dados corrompidos na cache.",
+    "reload_page": "Recarregar a página",
+    "reset_data": "Repor os dados",
+    "error_details": "Detalhes do erro",
+    "close_notification": "Fechar a notificação",
+    "try_again": "Tente novamente",
+    "contact_support": "Contacte o suporte se o problema persistir",
+    "reset_app": "Repor a aplicação",
+    "generic": "Ocorreu um erro"
   },
   "salon": {
-    "not_found": "Salon non trouvé",
-    "not_found_description": "Le salon que vous recherchez n'existe pas."
+    "not_found": "Salão não encontrado",
+    "not_found_description": "O salão que procura não existe."
   },
   "template": {
-    "not_found": "Template non trouvé",
-    "not_found_description": "Le template sélectionné n'est pas disponible."
+    "not_found": "Modelo não encontrado",
+    "not_found_description": "O modelo selecionado não está disponível."
   },
   "service": {
-    "not_found": "Service non trouvé"
+    "not_found": "Serviço não encontrado"
   },
   "loading": {
-    "please_wait": "Veuillez patienter",
-    "loading": "Chargement en cours..."
+    "please_wait": "Aguarde, por favor",
+    "loading": "A carregar…"
+  },
+  "store": {
+    "load_clients": "Erro ao carregar os clientes",
+    "create_client": "Erro ao criar o cliente",
+    "update_client": "Erro ao atualizar o cliente",
+    "delete_client": "Erro ao eliminar o cliente",
+    "load_services": "Erro ao carregar os serviços",
+    "create_service": "Erro ao criar o serviço",
+    "update_service": "Erro ao atualizar o serviço",
+    "delete_service": "Erro ao eliminar o serviço",
+    "load_products": "Erro ao carregar os produtos",
+    "create_product": "Erro ao criar o produto",
+    "update_product": "Erro ao atualizar o produto",
+    "delete_product": "Erro ao eliminar o produto",
+    "update_quantity": "Erro ao atualizar a quantidade",
+    "no_user_data": "Nenhum dado de utilizador encontrado",
+    "load_profile": "Erro ao carregar o perfil",
+    "update_profile": "Erro ao atualizar o perfil",
+    "update_language": "Erro ao atualizar o idioma",
+    "load": "Erro ao carregar",
+    "activate": "Erro na ativação",
+    "update": "Erro na atualização",
+    "generate": "Erro na geração",
+    "request": "Erro no pedido"
   }
 }

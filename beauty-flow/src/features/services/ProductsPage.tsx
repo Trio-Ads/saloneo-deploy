@@ -199,7 +199,7 @@ const ProductsPage: React.FC = () => {
               <select value={selectedUnit} onChange={(e) => setSelectedUnit(e.target.value)} aria-label={t('products.unit')} className="field sm:w-44">
                 <option value="all">{t('products.all_units')}</option>
                 {uniqueUnits.map((unit) => (
-                  <option key={unit} value={unit}>{unit}</option>
+                  <option key={unit} value={unit}>{t(`product_form.unit_values.${unit}`, { count: 2, defaultValue: unit })}</option>
                 ))}
               </select>
               <select value={stockFilter} onChange={(e) => setStockFilter(e.target.value)} aria-label={t('products.stock_status')} className="field sm:w-48">
@@ -211,7 +211,7 @@ const ProductsPage: React.FC = () => {
             </div>
             {isFiltering && (
               <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400 sm:ms-auto">
-                <span>{filteredProducts.length} {t('products.products_found')}</span>
+                <span>{t('products.products_found', { count: filteredProducts.length })}</span>
                 <button type="button" onClick={resetFilters} className="btn-ghost">{t('products.reset')}</button>
               </div>
             )}

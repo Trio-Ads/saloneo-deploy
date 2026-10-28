@@ -1,43 +1,257 @@
 {
   "title": "Tarbaɛt",
-  "addMember": "Rnu aɛeggal",
-  "editMember": "Ẓreg aɛeggal",
-  "deleteMember": "Kkes aɛeggal",
-  "memberName": "Isem n uɛeggal",
-  "firstName": "Isem amezwaru",
-  "lastName": "Isem n tawacult",
-  "email": "Imayl",
-  "phone": "Tiliɣri",
-  "role": "Tamlilt",
-  "specialties": "Tiɣaṛa",
-  "schedule": "Ahil",
-  "salary": "Aɣaras",
-  "commission": "Taɛkkumt",
-  "hireDate": "Azemz n uxeddim",
-  "status": "Addad",
-  "noMembers": "Ulac iɛeggalen",
-  "searchMembers": "Nadi iɛeggalen",
-  "totalMembers": "Amḍan n iɛeggalen",
-  "activeMembers": "Iɛeggalen urmiden",
-  "performance": "Tamellit",
-  "workingHours": "Isragen n uxeddim",
-  "availability": "Tiwejda",
-  "roles": {
-    "owner": "Bab",
-    "manager": "Amsefrak",
-    "stylist": "Asbedday",
-    "colorist": "Asemlay",
-    "barber": "Amqess",
-    "esthetician": "Asaḥay",
-    "receptionist": "Amseɣbel",
-    "assistant": "Aɛiwen",
-    "other": "Wayeḍ"
-  },
+  "subtitle": "Sefrek tarbaɛt-ik n yimusnawen",
+  "new_member": "Aɛeggal amaynut",
+  "edit_member": "Ẓreg aɛeggal",
+  "member_details": "Talqayt n uɛeggal",
+  "all_members": "Iɛeggalen meṛṛa",
+  "active_members": "Iɛeggalen urmiden",
+  "inactive_members": "Iɛeggalen arurmiden",
+  "stylists": "Ikwafuren",
   "form": {
-    "personalInfo": "Talɣut tudmawant",
-    "contactInfo": "Talɣut n unermis",
-    "workInfo": "Talɣut n uxeddim",
-    "save": "Sekles",
-    "cancel": "Sefsex"
+    "first_name": "Isem",
+    "last_name": "Isem n tawacult",
+    "email": "Imayl",
+    "phone": "Tiliɣri",
+    "role": "Tamlilt",
+    "specialties": "Tiẓeṛṛit",
+    "bio": "Tameddurt",
+    "photo": "Tawlaft",
+    "hire_date": "Azemz n ukeččum ɣer uxeddim",
+    "salary": "Lexlaṣ",
+    "commission_rate": "Afmiḍi n tkumisyunt",
+    "working_hours": "Isragen n uxeddim",
+    "days_off": "Ussan n usteɛfu",
+    "skills": "Tizemmar",
+    "certifications": "Iselkinen",
+    "languages": "Tutlayin",
+    "emergency_contact": "Anermis n tɛeǧǧalt",
+    "address": "Tansa"
+  },
+  "roles": {
+    "owner": "Bab n usalun",
+    "manager": "Amsefrak",
+    "senior_stylist": "Akwafur amaẓuɣ",
+    "stylist": "Akwafur",
+    "junior_stylist": "Akwafur amenzu",
+    "apprentice": "Anelmad",
+    "receptionist": "Amsenṣef",
+    "assistant": "Amɛiwen",
+    "cleaner": "Amseɣẓef"
+  },
+  "specialties": {
+    "haircut": "Tukksa n ucebbub",
+    "coloring": "Asebɣ n ucebbub",
+    "styling": "Aseggem n ucebbub",
+    "perming": "Asekref n ucebbub",
+    "straightening": "Asegdel n ucebbub",
+    "extensions": "Asmeɣer n ucebbub",
+    "bridal": "Tislit",
+    "men_grooming": "Lɛinaya n yirgazen",
+    "beard_care": "Lɛinaya n tmart",
+    "nail_art": "Tawerdit n yiccer",
+    "massage": "Amassaj",
+    "facial_treatments": "Lɛinaya n wudem"
+  },
+  "schedule": {
+    "monday": "Sanass",
+    "tuesday": "Kraḍass",
+    "wednesday": "Kuẓass",
+    "thursday": "Samass",
+    "friday": "Sḍisass",
+    "saturday": "Sayass",
+    "sunday": "Yanass",
+    "start_time": "Asrag n tazwara",
+    "end_time": "Asrag n taggara",
+    "break_time": "Asteɛfu",
+    "day_off": "Ass n usteɛfu",
+    "available": "Yella",
+    "busy": "Yeččur",
+    "vacation": "Asteɛfu"
+  },
+  "actions": {
+    "add_member": "Rnu aɛeggal",
+    "edit": "Ẓreg",
+    "delete": "Kkes",
+    "activate": "Rmed",
+    "deactivate": "Sens",
+    "view_schedule": "Wali asɣiwes n uxeddim",
+    "view_performance": "Wali igmaḍ",
+    "assign_services": "Mudd imeẓla",
+    "set_commission": "Sbadu takumisyunt",
+    "upload_photo": "Sali tawlaft"
+  },
+  "stats": {
+    "total_team": "Iɛeggalen",
+    "all_members": "Iɛeggalen meṛṛa",
+    "active": "Urmiden",
+    "available_members": "Iɛeggalen yellan",
+    "roles": "Timlilin n uxeddim",
+    "position_types": "Anawen n yimukan",
+    "avg_specialties": "Tiẓeṛṛit (alemmas)",
+    "per_member": "I yal aɛeggal"
+  },
+  "badges": {
+    "members_one": "{{count}} n uɛeggal",
+    "members_other": "{{count}} n yiɛeggalen",
+    "active_one": "{{count}} d urmid",
+    "active_other": "{{count}} d urmiden"
+  },
+  "search": {
+    "placeholder": "Nadi aɛeggal n terbaɛt…",
+    "results_one": "{{count}} n uɛeggal yettwaf",
+    "results_other": "{{count}} n yiɛeggalen ttwafen"
+  },
+  "limits": {
+    "title": "Tilisa n yiɛeggalen n terbaɛt",
+    "reached": "Tewweḍ tlisa"
+  },
+  "errors": {
+    "save_error": "Tuccḍa deg usekles:"
+  },
+  "filters": {
+    "search": "Nadi iɛeggalen…",
+    "all_roles": "Timlilin meṛṛa",
+    "all_specialties": "Tiẓeṛṛit meṛṛa",
+    "availability": "Tilin",
+    "performance": "Igmaḍ"
+  },
+  "statistics": {
+    "total_members": "Amḍan n yiɛeggalen",
+    "active_members": "Iɛeggalen urmiden",
+    "stylists_count": "Amḍan n yikwafuren",
+    "average_rating": "Itran (alemmas)",
+    "total_appointments": "Amḍan n tmlilin",
+    "revenue_generated": "Idrimen i d-yekcmen",
+    "client_satisfaction": "Tadawsa n yimsaɣen"
+  },
+  "performance": {
+    "appointments_completed": "Timlilin yemmden",
+    "revenue": "Idrimen i d-yekcmen",
+    "client_rating": "Itran n yimsaɣen",
+    "punctuality": "Asqader n wakud",
+    "sales": "Tizenzin",
+    "tips": "Ttbeqcic",
+    "repeat_clients": "Imsaɣen imaɣlalen",
+    "no_shows": "Tiɣiba"
+  },
+  "messages": {
+    "member_created": "Aɛeggal yettwarna",
+    "member_updated": "Aɛeggal yettwaleqqem",
+    "member_deleted": "Aɛeggal yettwakkes",
+    "member_activated": "Aɛeggal yermed",
+    "member_deactivated": "Aɛeggal yensa",
+    "no_members": "Ulac aɛeggal",
+    "loading": "Asali n yiɛeggalen…",
+    "confirm_delete": "Tebɣiḍ s tidet ad tekkseḍ aɛeggal-a?",
+    "delete_confirmation": "Tebɣiḍ s tidet ad tekkseḍ aɛeggal-a?",
+    "photo_uploaded": "Tawlaft tettwasali",
+    "schedule_updated": "Asɣiwes n uxeddim yettwaleqqem"
+  },
+  "permissions": {
+    "manage_appointments": "Sefrek timlilin",
+    "manage_clients": "Sefrek imsaɣen",
+    "manage_services": "Sefrek imeẓla",
+    "manage_team": "Sefrek tarbaɛt",
+    "view_reports": "Wali ineqqisen",
+    "manage_payments": "Sefrek axelleṣ",
+    "manage_inventory": "Sefrek aḥraz",
+    "admin_access": "Anekcum n unedbal"
+  },
+  "team_member_form": {
+    "title_new": "Aɛeggal amaynut",
+    "title_edit": "Ẓreg aɛeggal",
+    "subtitle": "Talɣut n unermis, imeẓla i ixeddem d yisragen n uxeddim.",
+    "sections": {
+      "personal_info": "Talɣut tudmawant",
+      "specialties": "Tiẓeṛṛit",
+      "working_hours": "Isragen n uxeddim"
+    },
+    "labels": {
+      "first_name_required": "Isem *",
+      "last_name_required": "Isem n tawacult *",
+      "email_required": "Imayl *",
+      "phone_required": "Tiliɣri *",
+      "role_required": "Tamlilt *"
+    },
+    "placeholders": {
+      "first_name": "Isem",
+      "last_name": "Isem n tawacult",
+      "email_example": "amedya@email.com",
+      "phone_example": "+213 5 55 12 34 56"
+    },
+    "working_days": {
+      "monday": "Sanass",
+      "tuesday": "Kraḍass",
+      "wednesday": "Kuẓass",
+      "thursday": "Samass",
+      "friday": "Sḍisass",
+      "saturday": "Sayass",
+      "sunday": "Yanass"
+    },
+    "schedule_labels": {
+      "works": "Ixeddem",
+      "from": "Seg:",
+      "to": "Ar:"
+    },
+    "help_messages": {
+      "specialties_help": "Creḍ imeẓla i ixeddem uɛeggal-a.",
+      "order_help": "Amizzwer n tefrant d netta ara yesbadun amizzwer n uskan.",
+      "no_services": "Rnu qbel imeẓla akken ad ten-tmuddeḍ."
+    },
+    "buttons": {
+      "cancel": "Sefsex",
+      "add": "Rnu",
+      "modify": "Ẓreg"
+    }
+  },
+  "team_list": {
+    "empty_state": {
+      "title": "Ulac aɛeggal deg terbaɛt",
+      "subtitle": "Bdu s tmerna n yiɛeggalen-ik imezwura",
+      "cta": "Bnu tarbaɛt-ik"
+    },
+    "info_labels": {
+      "email": "Imayl",
+      "phone": "Tiliɣri",
+      "working_days": "Ussan n uxeddim",
+      "specialties": "Tiẓeṛṛit"
+    },
+    "sections": {
+      "specialties": "Tiẓeṛṛit",
+      "weekly_schedule": "Asɣiwes n dduṛt"
+    },
+    "stats": {
+      "days_per_week": "ussan/dduṛt",
+      "average": "Alemmas",
+      "active": "Urmid",
+      "level_of": "Aswir {{level}}/5",
+      "variable_hours": "Isragen yettbeddilen",
+      "specialties_count_one": "{{count}} n tẓeṛṛit",
+      "specialties_count_other": "{{count}} n tẓeṛṛit",
+      "services_one": "{{count}} n umeẓlu",
+      "services_other": "{{count}} n yimeẓla"
+    },
+    "tooltips": {
+      "edit_member": "Ẓreg aɛeggal",
+      "delete_member": "Kkes aɛeggal"
+    },
+    "days_short": {
+      "monday": "San",
+      "tuesday": "Kṛa",
+      "wednesday": "Kuẓ",
+      "thursday": "Sam",
+      "friday": "Sḍi",
+      "saturday": "Say",
+      "sunday": "Yan"
+    }
+  },
+  "role_values": {
+    "Coiffeur(se)": "Akwafur / Takwafurt",
+    "Coloriste": "Amsebɣ n ucebbub",
+    "Assistant(e)": "Amɛiwen / Tamɛiwent",
+    "Réceptionniste": "Amsenṣef",
+    "Manager": "Amsefrak",
+    "Propriétaire": "Bab n usalun"
   }
 }

@@ -1,133 +1,100 @@
 {
   "navigation": {
-    "dashboard": "Tableau de bord",
-    "appointments": "Rendez-vous",
-    "clients": "Clients",
-    "services": "Services",
-    "products": "Stocks",
-    "team": "Équipe",
-    "interface": "Mon Interface",
-    "profile": "Mon Profil",
-    "subscription": "Abonnement"
+    "dashboard": "Gösterge paneli",
+    "appointments": "Randevular",
+    "clients": "Müşteriler",
+    "services": "Hizmetler",
+    "products": "Ürünler",
+    "team": "Ekip",
+    "profile": "Profilim",
+    "interface": "Arayüzüm",
+    "subscription": "Abonelik",
+    "admin": "Yönetim",
+    "home": "Ana sayfa",
+    "toggle_theme": "Temayı değiştir",
+    "main_menu": "Ana menü",
+    "menu": "Menü",
+    "language": "Dil"
   },
   "actions": {
-    "cancel": "Annuler",
-    "add": "Ajouter",
-    "edit": "Modifier",
-    "delete": "Supprimer",
-    "save": "Enregistrer",
-    "next": "Suivant",
-    "back": "Retour",
-    "close": "Fermer",
-    "logout": "Se déconnecter",
-    "logging_out": "Déconnexion...",
-    "add_product": "Ajouter un produit"
+    "cancel": "İptal",
+    "add": "Ekle",
+    "edit": "Düzenle",
+    "delete": "Sil",
+    "save": "Kaydet",
+    "next": "İleri",
+    "back": "Geri",
+    "close": "Kapat",
+    "logout": "Çıkış yap",
+    "logging_out": "Çıkış yapılıyor…",
+    "add_product": "Ürün ekle"
   },
   "form": {
-    "required": "Champ requis",
-    "invalid_email": "Email invalide",
-    "invalid_phone": "Numéro de téléphone invalide"
+    "required": "Zorunlu alan",
+    "invalid_email": "Geçersiz e-posta",
+    "invalid_phone": "Geçersiz telefon numarası"
   },
   "common": {
-    "app_subtitle": "Gestion moderne"
+    "app_subtitle": "Modern yönetim",
+    "loading": "Yükleniyor"
   },
   "modal": {
-    "close": "Fermer"
+    "close": "Kapat"
   },
   "toast": {
-    "close": "Fermer la notification"
+    "close": "Bildirimi kapat"
   },
   "user_menu": {
-    "user_name": "Utilisateur Saloneo",
+    "user_name": "Saloneo kullanıcısı",
     "user_email": "user@saloneo.com",
     "plan_prefix": "Plan",
     "plans": {
-      "FREE": "Gratuit",
+      "FREE": "Ücretsiz",
       "STARTER": "Starter",
       "PRO": "Pro",
-      "ENTERPRISE": "Enterprise"
+      "ENTERPRISE": "Kurumsal"
     },
     "menu_items": {
       "profile": {
-        "description": "Gérer vos informations"
+        "description": "Bilgilerinizi yönetin"
       },
       "interface": {
-        "description": "Personnaliser votre salon"
+        "description": "Salonunuzu kişiselleştirin"
       },
       "subscription": {
-        "description": "Plans et facturation"
+        "description": "Planlar ve faturalandırma"
       }
     },
     "language_section": {
-      "title": "Langue",
-      "current": "Langue actuelle"
+      "title": "Dil",
+      "current": "Geçerli dil"
     },
     "version": "Saloneo v2.0.0"
   },
   "service_form": {
     "titles": {
-      "new": "Nouveau Service",
-      "edit": "Modifier le Service"
+      "new": "Yeni hizmet",
+      "edit": "Hizmeti düzenle"
     },
-    "subtitle": "Créez un service de beauté personnalisé pour vos clients",
+    "subtitle": "Müşterileriniz için kişiye özel bir güzellik hizmeti oluşturun",
     "sections": {
-      "basic_info": "Informations de Base",
-      "products": "Produits utilisés",
-      "photos": "Photos du Service"
+      "basic_info": "Temel bilgiler",
+      "products": "Kullanılan ürünler",
+      "photos": "Hizmet fotoğrafları"
     },
     "placeholders": {
-      "name": "Ex: Coupe et brushing",
-      "description": "Décrivez votre service en détail..."
+      "name": "Örn. Kesim ve fön",
+      "description": "Hizmetinizi ayrıntılı olarak anlatın…"
     },
     "labels": {
-      "product": "Produit",
-      "quantity": "Quantité"
+      "product": "Ürün",
+      "quantity": "Miktar"
     },
     "messages": {
-      "no_products": "Aucun produit disponible. Ajoutez des produits dans la section Stocks pour les utiliser ici."
+      "no_products": "Kullanılabilir ürün yok. Burada kullanmak için Ürünler bölümünden ürün ekleyin."
     },
     "units": {
-      "min": "min"
+      "min": "dk"
     }
-  },
-  "save": "Kaydet",
-  "cancel": "İptal",
-  "delete": "Sil",
-  "edit": "Düzenle",
-  "add": "Ekle",
-  "search": "Ara",
-  "loading": "Yükleniyor...",
-  "error": "Hata",
-  "success": "Başarılı",
-  "confirm": "Sentem",
-  "close": "Mdel",
-  "open": "Ldi",
-  "yes": "Ih",
-  "no": "Uhu",
-  "next": "Ameḍfir",
-  "previous": "Azwir",
-  "finish": "Fakk",
-  "continue": "Kemmel",
-  "back": "Uɣal",
-  "select": "Fren",
-  "upload": "Sali",
-  "download": "Sader",
-  "print": "Siggez",
-  "export": "Sifeḍ",
-  "import": "Kter",
-  "refresh": "Smiren",
-  "clear": "Sfeḍ",
-  "reset": "Ales asbeddi",
-  "apply": "Snes",
-  "remove": "Kkes",
-  "view": "Ẓer",
-  "details": "Talqayt",
-  "settings": "Iɣewwaṛen",
-  "help": "Tallalt",
-  "about": "Ɣef",
-  "contact": "Nermes",
-  "home": "Agejdan",
-  "dashboard": "Tafelwit n usenqed",
-  "profile": "Amaɣnu",
-  "logout": "Ffeɣ"
+  }
 }
