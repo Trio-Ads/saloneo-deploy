@@ -472,7 +472,6 @@ async function managedAppointmentView(appointment: any) {
     stylistId: appointment.stylistId,
     stylistName: stylist ? `${(stylist as any).firstName} ${(stylist as any).lastName || ''}`.trim() : undefined,
     clientInfo: appointment.clientInfo,
-    client: appointment.clientId,
     salon: appointment.userId,
     canModify: appointment.status === 'scheduled' || appointment.status === 'confirmed' || appointment.status === 'rescheduled',
     modificationToken: appointment.tokens.modification,
