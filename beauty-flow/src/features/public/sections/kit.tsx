@@ -176,7 +176,7 @@ export function Meta({ service, data, className = '' }: { service: PublicService
 
 export function Avatar({ member, className = '' }: { member: PublicTeamMember; className?: string }) {
   const name = `${member.firstName} ${member.lastName}`.trim();
-  if (member.avatar) return <img src={member.avatar} alt={name} className={`sp-avatar object-cover ${className}`} />;
+  if (member.avatar) return <img decoding="async" loading="lazy" src={member.avatar} alt={name} className={`sp-avatar object-cover ${className}`} />;
   const initials = `${member.firstName?.[0] ?? ''}${member.lastName?.[0] ?? ''}`.toUpperCase();
   return <span role="img" aria-label={name} className={`sp-avatar sp-initials ${className}`}>{initials}</span>;
 }
@@ -184,7 +184,7 @@ export function Avatar({ member, className = '' }: { member: PublicTeamMember; c
 /** Image when the service has one, otherwise a typographic tile in the template's display face. */
 export function ServiceVisual({ service, index, className = '' }: { service: PublicService; index: number; className?: string }) {
   const img = service.images?.find(i => i.isPrimary) ?? service.images?.[0];
-  if (img) return <img src={img.url} alt={img.alt || service.name} loading="lazy" className={`sp-visual object-cover ${className}`} />;
+  if (img) return <img decoding="async" src={img.url} alt={img.alt || service.name} loading="lazy" className={`sp-visual object-cover ${className}`} />;
   return (
     <div className={`sp-visual sp-tile sp-tile-${index % 3} ${className}`} aria-hidden>
       <span className="sp-h">{service.category || service.name}</span>
@@ -333,7 +333,7 @@ export const Icon = ({ name, size = 18, className = '' }: { name: keyof typeof I
 /** The salon's logo, or its initials set as a monogram in the display face. */
 export function Monogram({ data, className = '' }: { data: SalonPublicData; className?: string }) {
   const { name } = useSalon(data);
-  if (data.profile.logo) return <img src={data.profile.logo} alt={name} className={`sp-logo object-contain ${className}`} />;
+  if (data.profile.logo) return <img decoding="async" src={data.profile.logo} alt={name} className={`sp-logo object-contain ${className}`} />;
   return <span role="img" aria-label={name} className={`sp-h sp-monogram ${className}`}>{initials(name)}</span>;
 }
 

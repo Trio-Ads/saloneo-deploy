@@ -2,40 +2,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import clsx from 'clsx';
 import { DesignTemplate } from '../../templates';
+import { sampleSalons, withoutPhotos } from '../../templates/samples';
 import { SalonPageRenderer } from '../../public/SalonPageRenderer';
 import { SalonPublicData } from '../../public/types';
 import { useSalonPublicData } from '../../public/hooks/useSalonPublicData';
 import { useProfileStore } from '../../profile/store';
 
 // Shown when the salon has no services/team/reviews yet, so every template still previews as a full page.
-const sample: SalonPublicData = {
-  profile: {
-    _id: 'sample',
-    establishmentName: 'Maison Lina Beauté',
-    slug: 'sample',
-    description: 'Coiffure, soins et beauté des mains au cœur d’Alger.',
-    address: '12 rue Didouche Mourad, Alger',
-    publicPhone: '0550 12 34 56',
-    settings: { currency: 'DZD' },
-    showTeamOnPublicPage: true,
-  },
-  services: [
-    { _id: 's1', name: 'Brushing', description: 'Lavage, soin et brushing.', category: 'Coiffure', duration: 45, price: 1500, images: [] },
-    { _id: 's2', name: 'Coloration', description: 'Couleur complète et soin.', category: 'Coiffure', duration: 120, price: 6000, images: [] },
-    { _id: 's3', name: 'Soin du visage', description: 'Nettoyage et hydratation.', category: 'Esthétique', duration: 60, price: 3500, images: [] },
-    { _id: 's4', name: 'Manucure', description: 'Mise en forme et vernis.', category: 'Ongles', duration: 40, price: 1200, images: [] },
-  ],
-  team: [
-    { _id: 't1', firstName: 'Lina', lastName: 'B.', role: 'Coiffeuse' },
-    { _id: 't2', firstName: 'Sara', lastName: 'K.', role: 'Esthéticienne' },
-    { _id: 't3', firstName: 'Amel', lastName: 'D.', role: 'Prothésiste ongulaire' },
-  ],
-  reviews: [
-    { _id: 'r1', author: 'Nadia', rating: 5, comment: 'Accueil chaleureux et résultat parfait.', date: '2026-09-12' },
-    { _id: 'r2', author: 'Yasmine', rating: 5, comment: 'Ma coloration tient depuis des semaines.', date: '2026-08-30' },
-    { _id: 'r3', author: 'Imane', rating: 4, comment: 'Très professionnel, je reviendrai.', date: '2026-08-02' },
-  ],
-};
+// Without photos: "Mon salon" never shows stock pictures as if they were the salon's.
+const sample = withoutPhotos(sampleSalons.coiffure);
 
 /** The salon's real public data, topped up with sample content where it is empty. */
 export function usePreviewData() {

@@ -245,6 +245,7 @@
     "recommended_hint": "Choisis d’après les prestations de votre salon.",
     "all_templates": "Tous les modèles",
     "show_more": "Afficher plus",
+    "data": { "label": "Aperçu", "sample": "Exemple", "mine": "Mon salon", "caption": "Photos d’exemple" },
     "shown": "{{shown}} sur {{total}}",
     "empty_title": "Aucun modèle ne correspond",
     "empty_body": "Essayez un autre mot ou retirez un filtre.",

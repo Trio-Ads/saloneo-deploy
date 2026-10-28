@@ -8,10 +8,10 @@ import {
 type P = SectionProps;
 
 const Logo = ({ data, className = '' }: Pick<P, 'data'> & { className?: string }) =>
-  data.profile.logo ? <img src={data.profile.logo} alt="" className={`sp-logo h-12 w-auto object-contain ${className}`} /> : null;
+  data.profile.logo ? <img decoding="async" src={data.profile.logo} alt="" className={`sp-logo h-12 w-auto object-contain ${className}`} /> : null;
 
 const Banner = ({ data, className }: Pick<P, 'data'> & { className: string }) =>
-  <img src={data.profile.banner} alt="" className={`w-full object-cover ${className}`} style={{ borderRadius: 'var(--sp-r)' }} />;
+  <img decoding="async" src={data.profile.banner} alt="" className={`w-full object-cover ${className}`} style={{ borderRadius: 'var(--sp-r)' }} />;
 
 /** Text and photo side by side; without a photo, the menu takes the photo's place. */
 function HeroSplit({ data }: P) {
@@ -100,7 +100,7 @@ function HeroFullbleed({ data }: P) {
   return (
     <section id="top" className={`relative flex items-end overflow-hidden ${banner ? 'min-h-[78svh] md:min-h-[88vh]' : 'min-h-[60svh] md:min-h-[68vh]'}`}>
       {banner && <>
-        <img src={banner} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <img decoding="async" src={banner} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, var(--sp-bg) 4%, color-mix(in srgb, var(--sp-bg) 62%, transparent) 46%, color-mix(in srgb, var(--sp-bg) 18%, transparent))' }} />
       </>}
       <div className="sp-wrap relative w-full pt-28 pb-12 md:pb-20 sp-rise">
@@ -199,7 +199,7 @@ function HeroPanel({ template, data }: P) {
       </div>
       <div className="order-2 md:order-1 relative min-h-[18rem]">
         {data.profile.banner
-          ? <img src={data.profile.banner} alt="" className="absolute inset-0 w-full h-full object-cover" />
+          ? <img decoding="async" src={data.profile.banner} alt="" className="absolute inset-0 w-full h-full object-cover" />
           : <div className="h-full flex items-center px-5 py-12 md:px-16 sp-surface"><ServicePeek data={data} className="w-full max-w-md md:ms-auto" /></div>}
       </div>
     </section>
@@ -231,7 +231,7 @@ function HeroCapsule({ data }: P) {
         <div className="relative mx-auto w-[min(100%,22rem)]">
           <span aria-hidden className="absolute -top-6 -end-10 w-44 h-44 rounded-full" style={{ background: 'color-mix(in srgb, var(--sp-secondary) 45%, var(--sp-bg))' }} />
           {data.profile.banner
-            ? <img src={data.profile.banner} alt="" className="relative w-full aspect-[3/5] object-cover rounded-full" />
+            ? <img decoding="async" src={data.profile.banner} alt="" className="relative w-full aspect-[3/5] object-cover rounded-full" />
             : <CategoryStack data={data} className="sp-tile-0 relative aspect-[3/5] rounded-full items-center text-center px-8 pb-[22%]" />}
         </div>
       </div>
@@ -253,7 +253,7 @@ function HeroStatement({ data }: P) {
         </div>
       </div>
       {data.profile.banner
-        ? <img src={data.profile.banner} alt="" className="mt-14 md:mt-20 w-full h-[7.5rem] md:h-[11rem] object-cover" />
+        ? <img decoding="async" src={data.profile.banner} alt="" className="mt-14 md:mt-20 w-full h-[7.5rem] md:h-[11rem] object-cover" />
         : <div className="sp-wrap"><div className="mt-14 md:mt-20 border-b sp-line" /></div>}
     </section>
   );
@@ -336,7 +336,7 @@ function HeroFrame({ template, data }: P) {
       <div className="max-w-[90rem] mx-auto">
         <div className="sp-mat-window aspect-[4/5] sm:aspect-[16/10] md:aspect-[2/1] overflow-hidden">
           {data.profile.banner
-            ? <img src={data.profile.banner} alt="" className="w-full h-full object-cover" />
+            ? <img decoding="async" src={data.profile.banner} alt="" className="w-full h-full object-cover" />
             : <CategoryStack data={data} className="h-full p-6 md:p-12 italic" />}
         </div>
         <div className="mt-8 md:mt-12 flex flex-col md:flex-row md:items-end md:justify-between gap-8 sp-rise">
@@ -363,7 +363,7 @@ function HeroVertical({ data }: P) {
       <div className="flex flex-col min-w-0">
         <div className="relative min-h-[58svh] md:min-h-[72vh]">
           {data.profile.banner
-            ? <img src={data.profile.banner} alt="" className="absolute inset-0 w-full h-full object-cover" />
+            ? <img decoding="async" src={data.profile.banner} alt="" className="absolute inset-0 w-full h-full object-cover" />
             : <CategoryStack data={data} className="sp-tile-0 absolute inset-0 p-6 md:p-12" />}
         </div>
         <div className="px-5 md:px-12 py-8 md:py-12 flex flex-col md:flex-row md:items-end md:justify-between gap-7 sp-rise">
@@ -384,7 +384,7 @@ function HeroLetterbox({ data }: P) {
   return (
     <section id="top" className="sp-section !pt-0">
       {data.profile.banner
-        ? <img src={data.profile.banner} alt="" className="w-full aspect-[16/9] md:aspect-[2.39/1] object-cover" />
+        ? <img decoding="async" src={data.profile.banner} alt="" className="w-full aspect-[16/9] md:aspect-[2.39/1] object-cover" />
         : categories.length > 0 && (
           <div aria-hidden className="sp-tile-0 w-full aspect-[16/9] md:aspect-[2.39/1] flex items-center justify-center px-6">
             <span className="sp-h italic text-center text-[clamp(1.5rem,1rem+2.5vw,3.25rem)] max-w-[24ch]">{categories.join(' · ')}</span>
@@ -485,7 +485,7 @@ function HeroAddress(props: P) {
         </div>
         {banner && (
           <div className="md:col-span-4 p-2.5 md:p-3 border sp-line" style={{ borderRadius: 'var(--sp-r)' }}>
-            <img src={banner} alt="" className="w-full aspect-[4/3] md:aspect-[3/4] object-cover" style={{ borderRadius: 'calc(var(--sp-r) * 0.6)' }} />
+            <img decoding="async" src={banner} alt="" className="w-full aspect-[4/3] md:aspect-[3/4] object-cover" style={{ borderRadius: 'calc(var(--sp-r) * 0.6)' }} />
           </div>
         )}
       </div>

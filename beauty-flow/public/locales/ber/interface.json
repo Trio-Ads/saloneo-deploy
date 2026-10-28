@@ -254,6 +254,7 @@
     "recommended_hint": "Ttwafernen almend n yimeẓla n usalun-ik.",
     "all_templates": "Akk timudmiwin",
     "show_more": "Sken ugar",
+    "data": { "label": "Taskant", "sample": "Amedya", "mine": "Asalun-iw", "caption": "Tugniwin n umedya" },
     "shown": "{{shown}} seg {{total}}",
     "empty_title": "Ulac tamudemt yemmezgen",
     "empty_body": "Ɛreḍ awal-nniḍen neɣ kkes imsizdeg.",

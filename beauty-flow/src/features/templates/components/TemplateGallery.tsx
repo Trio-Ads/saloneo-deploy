@@ -10,6 +10,7 @@ import { StarIcon as StarSolidIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { allTemplates, DesignTemplate, getTemplateById } from '../index';
 import { familyOf, fold, modeOf, salonProfile, scoreTemplate, tagsOf } from '../gallery';
+import { sampleSalonFor } from '../samples';
 import { useInterfaceStore } from '../../interface/store';
 import { TemplateFrame, usePreviewData } from '../../interface/components/TemplatePreview';
 import { useServiceStore } from '../../services/store';
@@ -145,6 +146,9 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onTemplateSele
   const fetchServices = useServiceStore((s) => s.fetchServices);
   const salonName = useProfileStore((s) => s.profile.establishmentName) || '';
   const [params, setParams] = useSearchParams();
+  // Previews show the sample salon of the template's trade (with photos) unless the owner asks for their own data.
+  const view = params.get('data') === 'mine' ? 'mine' : 'sample';
+  const dataFor = (tpl: DesignTemplate) => (view === 'mine' ? data : sampleSalonFor(tpl));
   const [limit, setLimit] = useState(PAGE);
   const [previewing, setPreviewing] = useState<{ list: DesignTemplate[]; index: number } | null>(null);
 
@@ -215,7 +219,7 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onTemplateSele
   const card = (template: DesignTemplate, list: DesignTemplate[], index: number) => (
     <TemplateCard
       template={template}
-      data={data}
+      data={dataFor(template)}
       isCurrent={template.id === currentId}
       isFav={favs.includes(template.id)}
       onPreview={() => setPreviewing({ list, index })}
@@ -288,13 +292,27 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onTemplateSele
           })}
         </div>
 
-        <div className="flex items-center justify-between gap-3 text-sm text-gray-500 dark:text-gray-400">
-          <p aria-live="polite" className="tabular-nums">{t('gallery.count', { count: results.length })}</p>
-          {filtering && (
-            <button type="button" onClick={reset} className="font-medium text-orange-600 hover:text-orange-700 dark:text-orange-400">
-              {t('gallery.reset_filters')}
-            </button>
-          )}
+        <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 text-sm text-gray-500 dark:text-gray-400">
+          <div className="flex items-center gap-3">
+            <p aria-live="polite" className="tabular-nums">{t('gallery.count', { count: results.length })}</p>
+            {filtering && (
+              <button type="button" onClick={reset} className="font-medium text-orange-600 hover:text-orange-700 dark:text-orange-400">
+                {t('gallery.reset_filters')}
+              </button>
+            )}
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="max-sm:sr-only">{t('gallery.data.label')}</span>
+            <Segmented
+              value={view}
+              onChange={(v) => set('data', v === 'mine' ? 'mine' : null)}
+              options={[
+                { value: 'sample', label: t('gallery.data.sample') },
+                { value: 'mine', label: t('gallery.data.mine') },
+              ]}
+            />
+            {view === 'sample' && <span className="text-xs">{t('gallery.data.caption')}</span>}
+          </div>
         </div>
       </div>
 
@@ -336,7 +354,8 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onTemplateSele
 
       <PreviewDialog
         state={previewing}
-        data={data}
+        dataFor={dataFor}
+        sample={view === 'sample'}
         currentId={currentId}
         favs={favs}
         onFav={toggle}
@@ -348,9 +367,10 @@ export const TemplateGallery: React.FC<TemplateGalleryProps> = ({ onTemplateSele
   );
 };
 
-function PreviewDialog({ state, data, currentId, favs, onFav, onMove, onClose, onApply }: {
+function PreviewDialog({ state, dataFor, sample, currentId, favs, onFav, onMove, onClose, onApply }: {
   state: { list: DesignTemplate[]; index: number } | null;
-  data: SalonPublicData;
+  dataFor: (template: DesignTemplate) => SalonPublicData;
+  sample: boolean;
   currentId: string;
   favs: string[];
   onFav: (id: string) => void;
@@ -403,7 +423,10 @@ function PreviewDialog({ state, data, currentId, favs, onFav, onMove, onClose, o
                   </div>
                 )}
                 <div className="min-w-0 flex-1">
-                  <DialogTitle className="truncate text-base font-semibold text-gray-900 dark:text-gray-50">{shown.name}</DialogTitle>
+                  <div className="flex items-baseline gap-2">
+                    <DialogTitle className="truncate text-base font-semibold text-gray-900 dark:text-gray-50">{shown.name}</DialogTitle>
+                    {sample && <span className="shrink-0 text-xs text-gray-500 dark:text-gray-400">{t('gallery.data.caption')}</span>}
+                  </div>
                   <p className="truncate text-sm text-gray-500 dark:text-gray-400">{t(`gallery.templates.${shown.id}.description`, shown.description)}</p>
                 </div>
                 <IconButton label={t('gallery.close')} onClick={onClose} className="order-2 sm:order-3"><XMarkIcon className="size-5" /></IconButton>
@@ -430,7 +453,7 @@ function PreviewDialog({ state, data, currentId, favs, onFav, onMove, onClose, o
                 <TemplateFrame
                   key={`${shown.id}-${device}`}
                   template={shown}
-                  data={data}
+                  data={dataFor(shown)}
                   interactive
                   width={device === 'desktop' ? 1280 : 390}
                   className={`h-full rounded-xl border border-gray-200 shadow-sm dark:border-gray-800 ${device === 'desktop' ? 'w-full' : 'w-[390px] max-w-full'}`}

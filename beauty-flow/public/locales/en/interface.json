@@ -254,6 +254,7 @@
     "recommended_hint": "Picked based on your salon’s services.",
     "all_templates": "All templates",
     "show_more": "Show more",
+    "data": { "label": "Preview", "sample": "Example", "mine": "My salon", "caption": "Example photos" },
     "shown": "{{shown}} of {{total}}",
     "empty_title": "No template matches",
     "empty_body": "Try another word or remove a filter.",

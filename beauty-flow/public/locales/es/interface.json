@@ -254,6 +254,7 @@
     "recommended_hint": "Elegidas según los servicios de su salón.",
     "all_templates": "Todas las plantillas",
     "show_more": "Mostrar más",
+    "data": { "label": "Vista previa", "sample": "Ejemplo", "mine": "Mi salón", "caption": "Fotos de ejemplo" },
     "shown": "{{shown}} de {{total}}",
     "empty_title": "Ninguna plantilla coincide",
     "empty_body": "Pruebe con otra palabra o quite un filtro.",

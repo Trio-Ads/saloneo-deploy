@@ -254,6 +254,7 @@
     "recommended_hint": "Escolhidos com base nos serviços do seu salão.",
     "all_templates": "Todos os modelos",
     "show_more": "Mostrar mais",
+    "data": { "label": "Pré-visualização", "sample": "Exemplo", "mine": "O meu salão", "caption": "Fotos de exemplo" },
     "shown": "{{shown}} de {{total}}",
     "empty_title": "Nenhum modelo corresponde",
     "empty_body": "Experimente outra palavra ou retire um filtro.",

@@ -18,7 +18,7 @@ export function GallerySection({ template, data }: SectionProps) {
         <ul className="sp-scroller gap-3 md:gap-5 px-5 md:px-8 pb-1">
           {imgs.map((p, i) => (
             <li key={p.url + i} className="w-[72%] sm:w-[40%] lg:w-[26rem]">
-              <img src={p.url} alt={p.alt} loading="lazy" className={`sp-visual object-cover w-full ${i % 2 ? 'aspect-[4/5]' : 'aspect-[3/4]'}`} />
+              <img decoding="async" src={p.url} alt={p.alt} loading="lazy" className={`sp-visual object-cover w-full ${i % 2 ? 'aspect-[4/5]' : 'aspect-[3/4]'}`} />
               {p.service && <p className="mt-3 sp-muted text-[0.95rem]">{p.service.name}</p>}
             </li>
           ))}
@@ -33,7 +33,7 @@ export function GallerySection({ template, data }: SectionProps) {
       <ul className={`grid grid-cols-2 gap-3 md:gap-4 auto-rows-[9.5rem] sm:auto-rows-[13rem] ${wide ? 'md:grid-cols-4' : 'md:grid-cols-3'}`}>
         {imgs.map((p, i) => (
           <li key={p.url + i} className={i === 0 ? 'col-span-2 row-span-2' : ''}>
-            <img src={p.url} alt={p.alt} loading="lazy" className="sp-visual object-cover w-full h-full" />
+            <img decoding="async" src={p.url} alt={p.alt} loading="lazy" className="sp-visual object-cover w-full h-full" />
           </li>
         ))}
       </ul>

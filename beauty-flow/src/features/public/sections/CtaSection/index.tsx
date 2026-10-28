@@ -22,7 +22,7 @@ export function CtaSection({ template, data }: SectionProps) {
       <section id="cta" className="sp-section">
         <div className="sp-wrap grid md:grid-cols-2 gap-10 md:gap-16 items-center">
           {data.profile.banner
-            ? <img src={data.profile.banner} alt="" loading="lazy" className="sp-visual object-cover aspect-[4/3] order-last md:order-none" />
+            ? <img decoding="async" src={data.profile.banner} alt="" loading="lazy" className="sp-visual object-cover aspect-[4/3] order-last md:order-none" />
             : <div aria-hidden className="sp-tile sp-tile-0 aspect-[4/3] hidden md:flex" style={{ borderRadius: 'var(--sp-r)' }}><span className="sp-h">{name}</span></div>}
           <div>
             <h2 className="text-[clamp(2rem,1.3rem+2.8vw,3.5rem)] max-w-[16ch]">{t('site.cta_title')}</h2>

@@ -254,6 +254,7 @@
     "recommended_hint": "Salonunuzun hizmetlerine göre seçildi.",
     "all_templates": "Tüm şablonlar",
     "show_more": "Daha fazla göster",
+    "data": { "label": "Önizleme", "sample": "Örnek", "mine": "Salonum", "caption": "Örnek fotoğraflar" },
     "shown": "{{total}} şablondan {{shown}} tanesi",
     "empty_title": "Eşleşen şablon yok",
     "empty_body": "Başka bir kelime deneyin veya bir filtreyi kaldırın.",
