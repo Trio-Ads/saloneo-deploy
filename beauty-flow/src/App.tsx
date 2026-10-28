@@ -28,6 +28,7 @@ import { AuthGuard, PublicOnlyGuard } from './features/auth/components/AuthGuard
 import ErrorBoundary from './components/ErrorBoundary';
 import LandingPage from './features/marketing/pages/LandingPage';
 import PricingPage from './features/marketing/pages/PricingPage';
+import DirectoryPage from './features/directory/DirectoryPage';
 import AdminPage from './features/admin/AdminPage';
 
 // Dev server only: every public layout variant on one page (/dev/layouts).
@@ -51,6 +52,7 @@ export const App: React.FC = () => {
         {/* Marketing routes - MUST BE FIRST to catch "/" */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/pricing" element={<PricingPage />} />
+        <Route path="/salons/:a?/:b?" element={<DirectoryPage />} />
         <Route path="/login" element={<Navigate to="/auth/login" replace />} />
         <Route path="/register" element={<Navigate to="/auth/register" replace />} />
 

@@ -17,6 +17,10 @@ export default defineConfig({
     watch: {
       usePolling: true,
     },
+    // Dev only: uploaded files are served by the API (same domain in production)
+    proxy: {
+      '/uploads': (process.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/api\/?$/, ''),
+    },
   },
   build: {
     outDir: 'dist',

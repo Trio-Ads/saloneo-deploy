@@ -165,7 +165,8 @@
     "sections": {
       "personal_info": "Personal information",
       "specialties": "Specialties",
-      "working_hours": "Working hours"
+      "working_hours": "Working hours",
+      "absences": "Time off"
     },
     "labels": {
       "first_name_required": "First name *",
@@ -192,17 +193,44 @@
     "schedule_labels": {
       "works": "Works",
       "from": "From:",
-      "to": "To:"
+      "to": "To:",
+      "add_break": "Break",
+      "break": "Break",
+      "remove_break": "Remove break"
     },
     "help_messages": {
       "specialties_help": "Tick the services this team member performs.",
       "order_help": "The order you select them in sets the display order.",
-      "no_services": "Add services first so you can assign them."
+      "no_services": "Add services first so you can assign them.",
+      "hours_help": "Times also follow the salon’s opening hours and closures.",
+      "absences_help": "Holidays, sick leave: no appointment is offered with them on those days."
     },
     "buttons": {
       "cancel": "Cancel",
       "add": "Add",
       "modify": "Save"
+    },
+    "absences": {
+      "none": "No time off planned.",
+      "from": "From",
+      "to": "To (optional)",
+      "reason": "Reason",
+      "reason_placeholder": "Holiday",
+      "add": "Add",
+      "remove": "Remove time off",
+      "hours": "Hours (optional)",
+      "start": "Start",
+      "end": "End",
+      "hours_help": "Leave empty for the whole day (e.g. 14:00–16:00 for a medical appointment).",
+      "hours_invalid": "Enter a start and an end, the end after the start."
+    },
+    "photo": {
+      "add": "Add a photo",
+      "change": "Change photo",
+      "remove": "Remove",
+      "help": "JPG, PNG or WebP. Cropped to a centred square.",
+      "uploading": "Uploading photo…",
+      "error": "The photo could not be uploaded. Choose a JPG, PNG or WebP image under 5 MB."
     }
   },
   "team_list": {

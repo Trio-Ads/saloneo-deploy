@@ -7,6 +7,7 @@ import { publicAPI } from '../../../services/api';
 import { Badge, statusTone } from '../../../components/ui';
 import { formatPrice } from '../../../utils/currency';
 import DateTimeSelection from './DateTimeSelection';
+import { availabilityCode } from '../../appointments/availability';
 import { bookingVars, dateLocale, formatDuration } from './bookingTheme';
 import { salonTemplate } from '../../templates';
 
@@ -31,6 +32,7 @@ export const PublicAppointmentManager: React.FC = () => {
   const [newDate, setNewDate] = useState<string | null>(null);
   const [newTime, setNewTime] = useState<string | null>(null);
   const [actionLoading, setActionLoading] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     if (!token) {
@@ -62,7 +64,13 @@ export const PublicAppointmentManager: React.FC = () => {
       switchMode('view');
       setNotice(t('manage.modified'));
     } catch (err) {
-      setError(apiError(err, t('manage.modify_error')));
+      const code = availabilityCode(err);
+      if (code) {
+        // Slot taken meanwhile: say so and show fresh slots
+        setNewTime(null);
+        setRefreshKey((k) => k + 1);
+      }
+      setError(code ? t(`errors:availability.${code}`) : apiError(err, t('manage.modify_error')));
     } finally {
       setActionLoading(false);
     }
@@ -174,15 +182,16 @@ export const PublicAppointmentManager: React.FC = () => {
             <h2 id="bk-modify-title" className="bk-h text-lg">{t('manage.new_slot')}</h2>
             <DateTimeSelection
               serviceId={String(appointment.serviceId)}
-              serviceDuration={appointment.duration}
               selectedDate={newDate || undefined}
               selectedTime={newTime || undefined}
               stylistId={appointment.stylistId}
               showTeamSelection={false}
               slug={salon?.slug}
+              token={token}
+              refreshKey={refreshKey}
               onSelect={(date, time) => {
-                setNewDate(date);
-                setNewTime(time);
+                setNewDate(date || null);
+                setNewTime(time || null);
               }}
             />
             <div className="flex gap-3">

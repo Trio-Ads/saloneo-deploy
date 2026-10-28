@@ -353,9 +353,14 @@ class EmailService {
   }
 
   private getSubjectForTemplate(template: string, data: EmailTemplateData): string {
+    // Callers pass either a formatted date or an ISO string: never show the raw ISO in a subject
+    const raw = String(data.appointmentDate ?? '');
+    const day = /^\d{4}-\d{2}-\d{2}T/.test(raw)
+      ? new Date(raw).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
+      : raw;
     const subjects: Record<string, string> = {
-      'appointment-confirmation': `Confirmation de rendez-vous - ${data.appointmentDate}`,
-      'appointment-reminder': `Rappel: Rendez-vous ${data.appointmentDate} à ${data.appointmentTime}`,
+      'appointment-confirmation': `Confirmation de rendez-vous - ${day}`,
+      'appointment-reminder': `Rappel: Rendez-vous ${day} à ${data.appointmentTime}`,
       'appointment-cancellation': 'Annulation de votre rendez-vous',
       'subscription-welcome': `Bienvenue sur Saloneo - ${data.planName}`,
       'subscription-expiry-reminder': `⏰ Votre abonnement expire dans ${data.daysRemaining} jours`,

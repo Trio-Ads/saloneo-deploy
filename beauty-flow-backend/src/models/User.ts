@@ -76,6 +76,18 @@ export interface IUser extends Document {
     modification?: string;
   };
   businessHours?: any;
+  /** Online booking rules (see services/availability.ts for defaults). */
+  bookingSettings?: {
+    slotInterval?: number;
+    minNoticeMinutes?: number;
+    maxAdvanceDays?: number;
+    allowAnyStaff?: boolean;
+    bufferMinutes?: number;
+    allowCancellation?: boolean;
+    cancellationDeadlineHours?: number;
+  };
+  /** Exceptional closures (Aïd, fermeture exceptionnelle): inclusive 'YYYY-MM-DD' days. */
+  closures?: Array<{ from: string; to: string; reason?: string }>;
   logo?: string;
   banner?: string;
   presentation?: string;
@@ -83,6 +95,12 @@ export interface IUser extends Document {
   theme?: any;
   showTeamOnPublicPage?: boolean;
   showAsTeamMember?: boolean;
+  /** Saloneo public directory (/salons): opt-out flag and the location shown on the card. */
+  directory?: {
+    listed?: boolean;
+    city?: string;
+    wilaya?: string;
+  };
   serviceDisplay?: {
     defaultView: 'category' | 'price' | 'duration' | 'popularity';
     priceDisplay: 'fixed' | 'from' | 'range' | 'hidden';
@@ -247,6 +265,21 @@ const userSchema = new Schema<IUser>(
       modification: { type: String, index: true },
     },
     businessHours: Schema.Types.Mixed,
+    bookingSettings: {
+      slotInterval: { type: Number, enum: [10, 15, 20, 30, 60] },
+      minNoticeMinutes: { type: Number, min: 0 },
+      maxAdvanceDays: { type: Number, min: 1, max: 365 },
+      allowAnyStaff: Boolean,
+      bufferMinutes: { type: Number, min: 0, max: 120 },
+      allowCancellation: Boolean,
+      cancellationDeadlineHours: { type: Number, min: 0 },
+    },
+    closures: [{
+      _id: false,
+      from: { type: String, required: true, match: /^\d{4}-\d{2}-\d{2}$/ },
+      to: { type: String, required: true, match: /^\d{4}-\d{2}-\d{2}$/ },
+      reason: { type: String, trim: true, maxlength: 120 },
+    }],
     logo: String,
     banner: String,
     presentation: String,
@@ -259,6 +292,11 @@ const userSchema = new Schema<IUser>(
     showAsTeamMember: {
       type: Boolean,
       default: false,
+    },
+    directory: {
+      listed: { type: Boolean, default: true },
+      city: { type: String, trim: true, maxlength: 60 },
+      wilaya: { type: String, trim: true },
     },
     serviceDisplay: {
       defaultView: {
@@ -343,6 +381,8 @@ userSchema.index({ isAdmin: 1 });
 userSchema.index({ 'subscription.plan': 1, 'subscription.isActive': 1 });
 userSchema.index({ 'affiliation.affiliateCode': 1 });
 userSchema.index({ 'affiliation.referredBy': 1 });
+// Public directory: listed salon accounts
+userSchema.index({ isActive: 1, 'subscription.isActive': 1, 'directory.listed': 1 });
 
 // Keep a unique public slug in sync with the establishment name
 userSchema.pre('save', async function (next) {

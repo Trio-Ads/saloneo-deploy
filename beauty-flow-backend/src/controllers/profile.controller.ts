@@ -3,6 +3,8 @@ import { validationResult } from 'express-validator';
 import { User } from '../models/User';
 import { AuthRequest } from '../middleware/auth';
 import { logger } from '../utils/logger';
+import { clearDirectoryCache } from './directory.controller';
+import { findWilaya } from '../utils/wilayas';
 import bcrypt from 'bcryptjs';
 
 export const getProfile = async (req: AuthRequest, res: Response): Promise<void> => {
@@ -62,6 +64,13 @@ export const updateProfile = async (req: AuthRequest, res: Response): Promise<vo
     }
     if (updates.businessHours !== undefined) updateData.businessHours = updates.businessHours;
     if (updates.showTeamOnPublicPage !== undefined) updateData.showTeamOnPublicPage = updates.showTeamOnPublicPage;
+    // Saloneo directory card: opt-out + location (wilaya must be one of the 58, empty clears it)
+    if (updates.directory && typeof updates.directory === 'object') {
+      const d = updates.directory;
+      if (typeof d.listed === 'boolean') updateData['directory.listed'] = d.listed;
+      if (typeof d.city === 'string') updateData['directory.city'] = d.city.trim().slice(0, 60);
+      if (typeof d.wilaya === 'string') updateData['directory.wilaya'] = findWilaya(d.wilaya) || '';
+    }
     
     // Handle settings object - use dot notation to preserve other settings
     if (updates.settings) {
@@ -91,6 +100,7 @@ export const updateProfile = async (req: AuthRequest, res: Response): Promise<vo
     }
 
     logger.info('Profile updated successfully:', { userId, user: user.toObject() });
+    clearDirectoryCache();
     res.json({ user });
   } catch (error) {
     logger.error('Update profile error:', error);

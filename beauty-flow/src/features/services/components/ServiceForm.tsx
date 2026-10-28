@@ -204,16 +204,39 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
               <span className="block text-xs text-gray-500 dark:text-gray-400">{t('form.online_settings.help')}</span>
             </span>
           </label>
+          <div className="grid gap-4 sm:grid-cols-2 sm:max-w-md">
+            {(['bufferTimeBefore', 'bufferTimeAfter'] as const).map((key) => (
+              <div key={key}>
+                <label htmlFor={key} className={labelClass}>{t(`form.online_settings.${key === 'bufferTimeBefore' ? 'buffer_before' : 'buffer_after'}`)}</label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="number"
+                    id={key}
+                    min={0}
+                    max={120}
+                    step={5}
+                    inputMode="numeric"
+                    value={formData[key] ?? 0}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, [key]: Math.min(120, Math.max(0, parseInt(e.target.value, 10) || 0)) }))}
+                    className="field w-24 tabular-nums"
+                  />
+                  <span className="text-sm text-gray-500 dark:text-gray-400">{t('form.online_settings.minutes')}</span>
+                </div>
+              </div>
+            ))}
+            <p className="text-xs text-gray-500 sm:col-span-2 dark:text-gray-400">{t('form.online_settings.buffer_help')}</p>
+          </div>
           {formData.isOnline && (
             <div className="sm:w-72">
               <label htmlFor="minimumBookingTime" className={labelClass}>{t('form.online_settings.minimum_booking_time')}</label>
               <select
                 id="minimumBookingTime"
-                value={formData.minimumBookingTime ?? 24}
-                onChange={(e) => setFormData((prev) => ({ ...prev, minimumBookingTime: Number(e.target.value) }))}
+                value={formData.minimumBookingTime ?? ''}
+                onChange={(e) => setFormData((prev) => ({ ...prev, minimumBookingTime: e.target.value === '' ? null : Number(e.target.value) }))}
                 className="field"
               >
-                {[1, 2, 4, 12, 24, 48].map((h) => (
+                <option value="">{t('form.online_settings.booking_times.salon')}</option>
+                {[1, 2, 4, 12, 48].map((h) => (
                   <option key={h} value={h}>{t(`form.online_settings.booking_times.${h}`)}</option>
                 ))}
               </select>

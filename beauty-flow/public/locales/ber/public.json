@@ -123,7 +123,13 @@
       "service_not_found": "Ameẓlu-a ur yelli ara tura.",
       "no_stylist": "Ulac aɛeggal n terbaɛt ilellin tura.",
       "previous_month": "Aggur yezrin",
-      "next_month": "Aggur d-iteddun"
+      "next_month": "Aggur d-iteddun",
+      "morning": "Taṣebḥit",
+      "afternoon": "Tameddit",
+      "evening": "Tameddit taneggarut",
+      "load_error": "Ur d-ttwasalayen ara wakuden ilellin.",
+      "retry": "Ɛreḍ tikkelt-nniḍen",
+      "no_slots_month": "Ulac akud ilellin ayyur-a. Wali ayyur d-iteddun."
     },
     "calendar": {
       "month_view": "Aggur",

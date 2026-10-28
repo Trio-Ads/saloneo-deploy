@@ -6,7 +6,8 @@
       "login": "Connexion",
       "signup": "Créer mon salon",
       "dashboard": "Mon tableau de bord",
-      "menu": "Menu"
+      "menu": "Menu",
+      "directory": "Trouver un salon"
     },
     "hero": {
       "title": "Gérez votre salon. Laissez vos clients réserver en ligne.",
@@ -199,6 +200,90 @@
       "register": "Créer un compte",
       "faq": "Questions fréquentes",
       "rights": "Tous droits réservés."
+    }
+  },
+  "directory": {
+    "nav": "Annuaire des salons",
+    "breadcrumb": "Fil d'Ariane",
+    "heading": {
+      "all": "Trouvez un salon et réservez en ligne",
+      "wilaya": "Salons de beauté à {{wilaya}}",
+      "category": "{{what}} en Algérie",
+      "both": "{{what}} à {{wilaya}}"
+    },
+    "subtitle": "Uniquement des salons inscrits sur Saloneo : prestations et prix affichés, réservation en ligne en quelques secondes.",
+    "search": {
+      "label": "Rechercher un salon",
+      "placeholder": "Nom du salon, ville ou prestation"
+    },
+    "wilaya": {
+      "label": "Wilaya",
+      "all": "Toutes les wilayas"
+    },
+    "categoriesLabel": "Métiers",
+    "allCategories": "Tous les salons",
+    "categories": {
+      "coiffure": "Coiffure",
+      "barbier": "Barbier",
+      "ongles": "Ongles",
+      "esthetique": "Esthétique",
+      "spa-hammam": "Spa & hammam",
+      "maquillage-mariee": "Maquillage & mariée"
+    },
+    "plural": {
+      "coiffure": "Salons de coiffure",
+      "barbier": "Barbiers",
+      "ongles": "Salons d'onglerie",
+      "esthetique": "Instituts d'esthétique",
+      "spa-hammam": "Spas et hammams",
+      "maquillage-mariee": "Maquillage et coiffure de mariée"
+    },
+    "count_one": "{{formatted}} salon",
+    "count_other": "{{formatted}} salons",
+    "more": "Afficher plus de salons",
+    "loadingMore": "Chargement…",
+    "card": {
+      "reviews_one": "{{count}} avis",
+      "reviews_other": "{{count}} avis",
+      "new": "Nouveau sur Saloneo",
+      "from": "Dès {{price}}",
+      "book": "Réserver",
+      "nextSlot": "Prochain créneau :",
+      "today": "aujourd'hui {{time}}",
+      "tomorrow": "demain {{time}}",
+      "day": "{{day}} {{time}}"
+    },
+    "empty": {
+      "title": "Aucun salon ne correspond à votre recherche",
+      "wilayaTitle": "Pas encore de salon à {{wilaya}} sur Saloneo",
+      "body": "Essayez une autre wilaya, un autre métier ou un autre mot.",
+      "reset": "Voir tous les salons",
+      "noneTitle": "Les premiers salons arrivent",
+      "noneBody": "Les salons apparaissent ici dès qu'ils ouvrent la réservation en ligne sur Saloneo."
+    },
+    "error": {
+      "title": "L'annuaire n'a pas pu être chargé",
+      "body": "Vérifiez votre connexion, puis réessayez.",
+      "retry": "Réessayer"
+    },
+    "owner": {
+      "title": "Vous avez un salon ?",
+      "body": "Créez votre page Saloneo gratuitement : elle apparaît dans l'annuaire dès qu'une prestation est réservable en ligne.",
+      "cta": "Inscrire mon salon"
+    },
+    "showcase": {
+      "title": "Ils sont sur Saloneo",
+      "body": "Des salons qui prennent déjà leurs rendez-vous en ligne avec Saloneo.",
+      "all": "Voir tous les salons"
+    },
+    "seo": {
+      "salons": "Salons de beauté",
+      "description": "{{what}} à {{wilaya}} inscrits sur Saloneo : prestations, prix et avis, réservation en ligne.",
+      "descriptionAll": "{{what}} en Algérie inscrits sur Saloneo : prestations, prix et avis, réservation en ligne.",
+      "salonTitle": "{{name}} — {{category}} à {{city}} | Réservation en ligne",
+      "salonTitleShort": "{{name}} | Réservation en ligne",
+      "salonDescription": "Réservez en ligne chez {{name}}, {{city}} : prestations, prix et disponibilités.",
+      "salonDescriptionShort": "Réservez en ligne chez {{name}} : prestations, prix et disponibilités."
     }
   }
 }

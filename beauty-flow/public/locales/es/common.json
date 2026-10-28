@@ -96,5 +96,11 @@
     "units": {
       "min": "min"
     }
+  },
+  "unsaved": {
+    "title": "Cambios sin guardar",
+    "message": "Algunos cambios no están guardados. Si sales ahora, se perderán.",
+    "leave": "Salir sin guardar",
+    "stay": "Quedarme"
   }
 }

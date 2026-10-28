@@ -183,7 +183,8 @@
       "select_time": "Choisir une heure…",
       "additional_notes": "Notes",
       "notes_placeholder": "Ajoutez des notes sur le rendez-vous, les préférences du client…",
-      "new": "Nouveau"
+      "new": "Nouveau",
+      "owner": "Propriétaire"
     },
     "messages": {
       "select_service_stylist_first": "Choisissez d'abord un service et un membre de l'équipe.",
@@ -288,7 +289,51 @@
       "hours_advance": "heures à l'avance",
       "days": "jours",
       "hours_before": "heures avant le rendez-vous"
-    }
+    },
+    "hours_title": "Horaires d'ouverture",
+    "hours_description": "Les créneaux proposés suivent ces horaires et leurs pauses, croisés avec les horaires de chaque membre de l'équipe.",
+    "not_configured": "Vos horaires ne sont pas encore définis : en attendant, les créneaux suivent samedi–jeudi 09:00–18:00, vendredi fermé.",
+    "closed": "Fermé",
+    "add_break": "Ajouter une pause",
+    "remove_break": "Supprimer la pause",
+    "break_label": "Pause",
+    "invalid_hours": "L'heure de fermeture doit être après l'heure d'ouverture.",
+    "invalid_break": "Chaque pause doit être comprise dans les horaires du jour.",
+    "fix_errors": "Corrigez les horaires en rouge pour enregistrer.",
+    "booking_title": "Réservation en ligne",
+    "booking_description": "Ces règles s’appliquent à la page de réservation et sont vérifiées à chaque rendez-vous.",
+    "slot_interval": "Intervalle des créneaux",
+    "slot_interval_description": "Un horaire est proposé toutes les…",
+    "min_notice": "Délai minimum avant un rendez-vous",
+    "min_notice_description": "Une cliente ne peut pas réserver moins longtemps à l’avance (sauf réglage propre à un service).",
+    "notice_options": {
+      "0": "Aucun",
+      "30": "30 minutes",
+      "60": "1 heure",
+      "120": "2 heures",
+      "240": "4 heures",
+      "720": "12 heures",
+      "1440": "24 heures",
+      "2880": "48 heures"
+    },
+    "allow_any_staff": "Proposer « Peu importe »",
+    "allow_any_staff_description": "La cliente peut laisser le salon choisir le membre de l'équipe disponible le moins chargé.",
+    "closures_title": "Fermetures exceptionnelles",
+    "closures_description": "Aïd, jours fériés, congés du salon : aucun créneau n’est proposé ces jours-là.",
+    "closure_from": "Du",
+    "closure_to": "Au (facultatif)",
+    "closure_reason": "Motif",
+    "closure_reason_placeholder": "Aïd el-Fitr",
+    "add_closure": "Ajouter",
+    "remove_closure": "Supprimer la fermeture",
+    "no_closures": "Aucune fermeture prévue.",
+    "saved": "Paramètres enregistrés",
+    "save_hours": "Enregistrer les horaires",
+    "save_booking": "Enregistrer les règles de réservation",
+    "save_closures": "Enregistrer les fermetures",
+    "unsaved": "Modifications non enregistrées",
+    "copy_to_open_days": "Copier sur tous les jours ouverts",
+    "leave_confirm": "Des modifications ne sont pas enregistrées. Quitter quand même ?"
   },
   "bookingConfirmed": "Réservation confirmée !",
   "bookingSuccessMessage": "Votre rendez-vous a été confirmé avec succès",
@@ -359,5 +404,19 @@
     "no_results_title": "Aucun résultat",
     "noResults": "Aucun rendez-vous ne correspond à ces filtres.",
     "unknown": "Inconnu"
+  },
+  "availability": {
+    "short": {
+      "SLOT_TAKEN": "occupé",
+      "OUTSIDE_HOURS": "hors horaires",
+      "TOO_SOON": "passé",
+      "TOO_FAR": "trop loin",
+      "STAFF_UNAVAILABLE": "absent"
+    },
+    "loading": "Recherche des créneaux…",
+    "force_hint": "Vous pourrez l’ajouter quand même.",
+    "force_confirm": "Ajouter quand même ?",
+    "hours_not_configured": "Vos horaires d'ouverture ne sont pas configurés : les clientes voient samedi–jeudi 09:00–18:00 par défaut.",
+    "configure_hours": "Configurer les horaires"
   }
 }

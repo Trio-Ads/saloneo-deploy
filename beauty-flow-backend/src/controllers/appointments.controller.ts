@@ -2,12 +2,15 @@ import { Response } from 'express';
 import { validationResult } from 'express-validator';
 import { Types } from 'mongoose';
 import { Appointment } from '../models/Appointment';
-import { Service } from '../models/Service';
 import { Client } from '../models/Client';
-import { TeamMember } from '../models/Team';
+import { User } from '../models/User';
 import { AuthRequest } from '../middleware/auth';
 import { logger } from '../utils/logger';
 import { subscriptionEmailService } from '../services/subscriptionEmailService';
+import {
+  DAYS, availabilityDays, bookWithLock, canDo, checkSlot, dateKey, dayNum, fmt, isDateKey, keyOf, loadContext,
+  normalizeBooking, normalizeBusinessHours, normalizeRanges, resolveStylistId, sendAvailabilityError, toMin, weekday,
+} from '../services/availability';
 
 // Helper function to validate and convert ObjectId
 const validateObjectId = (id: string): Types.ObjectId | null => {
@@ -51,26 +54,27 @@ export const getAllAppointments = async (req: AuthRequest, res: Response): Promi
     if (serviceId) query.serviceId = serviceId;
     if (teamMemberId) query.stylistId = teamMemberId;
 
-    const skip = (Number(page) - 1) * Number(limit);
+    const perPage = Math.min(500, Math.max(1, Number(limit) || 10));
+    const skip = (Math.max(1, Number(page) || 1) - 1) * perPage;
     
     const [appointments, total] = await Promise.all([
       Appointment.find(query)
         .populate('clientId', 'firstName lastName email phone')
         .populate('serviceId', 'name duration price color')
         .populate('stylistId', 'firstName lastName')
-        .sort({ date: -1, startTime: -1 })
+        .sort({ date: -1, startTime: -1, _id: -1 }) // _id: stable order across pages
         .skip(skip)
-        .limit(Number(limit)),
+        .limit(perPage),
       Appointment.countDocuments(query),
     ]);
 
     res.json({
       appointments,
       pagination: {
-        page: Number(page),
-        limit: Number(limit),
+        page: Math.max(1, Number(page) || 1),
+        limit: perPage,
         total,
-        pages: Math.ceil(total / Number(limit)),
+        pages: Math.ceil(total / perPage),
       },
     });
   } catch (error) {
@@ -145,58 +149,33 @@ export const createAppointment = async (req: AuthRequest, res: Response): Promis
     // Note: In a full implementation, these should also be stored in the database
     logger.info('Using local store IDs for service and team member:', { serviceId, teamMemberId });
 
-    // Duration and price come from the salon's service; fall back when the id is not a stored service
-    const service = Types.ObjectId.isValid(serviceId)
-      ? await Service.findOne({ _id: serviceId, userId }).select('duration price')
-      : null;
-    const defaultDuration = service?.duration || 30;
-    const defaultPrice = service?.price ?? 0;
-
-    // Calculate end time based on default service duration
-    const [startHours, startMinutes] = startTime.split(':').map(Number);
-    const totalMinutes = startHours * 60 + startMinutes + defaultDuration;
-    const endHours = Math.floor(totalMinutes / 60);
-    const endMinutes = totalMinutes % 60;
-    const endTime = `${endHours.toString().padStart(2, '0')}:${endMinutes.toString().padStart(2, '0')}`;
-
-    // Check for conflicts (simplified - using teamMemberId as string)
-    const conflict = await checkAppointmentConflict(
-      userId!,
-      date,
-      startTime,
-      endTime,
-      teamMemberId
-    );
-
-    if (conflict) {
-      res.status(400).json({ error: 'Time slot is not available' });
-      return;
-    }
-
-    const appointmentData = {
-      userId,
-      clientId: validClientId,
-      serviceId: serviceId, // Store as UUID string
-      stylistId: teamMemberId, // Store as UUID string
-      date: new Date(date),
-      startTime,
-      endTime,
-      duration: defaultDuration,
-      price: defaultPrice,
-      status: 'scheduled',
-      notes,
-      clientInfo: {
-        firstName: client.firstName,
-        lastName: client.lastName,
-        phone: client.phone,
-        email: client.email,
-      },
-    };
-
-    logger.info('Processed appointment data:', JSON.stringify(appointmentData, null, 2));
-
-    const appointment = new Appointment(appointmentData);
-    await appointment.save();
+    // Duration and price come from the salon's service; fall back when the id is not a stored service.
+    // The availability engine decides under the salon-day lock (force = "Ajouter quand même" from the owner).
+    const day = dateKey(date);
+    const appointment = await bookWithLock(userId!, String(serviceId), day, startTime, resolveStylistId(teamMemberId), async (stylistId, { service }) => {
+      const duration = service?.duration || 30;
+      const appt = new Appointment({
+        userId,
+        clientId: validClientId,
+        serviceId: String(serviceId),
+        stylistId,
+        date: new Date(`${day}T00:00:00.000Z`),
+        startTime,
+        endTime: fmt(toMin(startTime) + duration),
+        duration,
+        price: service?.price ?? 0,
+        status: 'scheduled',
+        notes,
+        clientInfo: {
+          firstName: client.firstName,
+          lastName: client.lastName,
+          phone: client.phone,
+          email: client.email,
+        },
+      });
+      await appt.save();
+      return appt;
+    }, { staffMode: true, force: req.body.force === true, forceOverlap: req.body.forceOverlap === true });
 
     await appointment.populate([
       { path: 'clientId', select: 'firstName lastName email phone' },
@@ -220,6 +199,7 @@ export const createAppointment = async (req: AuthRequest, res: Response): Promis
       // Don't fail the request if socket fails
     }
   } catch (error: any) {
+    if (sendAvailabilityError(res, error)) return;
     logger.error('Create appointment error:', {
       message: error.message,
       stack: error.stack,
@@ -271,42 +251,40 @@ export const updateAppointment = async (req: AuthRequest, res: Response): Promis
       return;
     }
 
-    // If changing time/date/team member, check for conflicts
-    if (updates.date || updates.startTime || updates.teamMemberId) {
-      const date = updates.date || appointment.date;
-      const startTime = updates.startTime || appointment.startTime;
-      const teamMemberId = updates.teamMemberId || appointment.stylistId;
+    // Only known fields are written; teamMemberId maps to stylistId
+    const set: Record<string, any> = {};
+    if (updates.clientId) set.clientId = updates.clientId;
+    if (updates.notes !== undefined) set.notes = updates.notes;
 
-      // Duration best-effort: keep existing appointment duration
-      const duration = appointment.duration || 30;
-
-      const startDateIso = (date instanceof Date ? date.toISOString().slice(0, 10) : new Date(date).toISOString().slice(0, 10));
-      const startDateTime = new Date(`${startDateIso}T${startTime}`);
-      const endDateTime = new Date(startDateTime.getTime() + duration * 60000);
-      const endTime = endDateTime.toTimeString().slice(0, 5);
-
-      const conflict = await checkAppointmentConflict(
-        userId!,
-        date,
-        startTime,
-        endTime,
-        teamMemberId?.toString(),
-        id
-      );
-
-      if (conflict) {
-        res.status(400).json({ error: 'Time slot is not available' });
-        return;
-      }
-
-      updates.endTime = endTime;
+    // Moving the appointment (date, time, staff or service) goes through the availability engine, own slot excluded
+    const serviceChanged = !!updates.serviceId && String(updates.serviceId) !== String(appointment.serviceId);
+    const day = dateKey(updates.date || appointment.date);
+    const time = updates.startTime || appointment.startTime;
+    const wanted = resolveStylistId(updates.teamMemberId) ?? appointment.stylistId;
+    const moved = serviceChanged || wanted !== appointment.stylistId || day !== dateKey(appointment.date) || toMin(time) !== toMin(appointment.startTime);
+    if (moved) {
+      const serviceId = String(updates.serviceId || appointment.serviceId);
+      await bookWithLock(userId!, serviceId, day, time, wanted, async (stylistId, { service }) => {
+        const duration = serviceChanged ? service?.duration || 30 : appointment.duration || 30;
+        Object.assign(set, {
+          serviceId, stylistId, startTime: time, duration,
+          date: new Date(`${day}T00:00:00.000Z`),
+          endTime: fmt(toMin(time) + duration),
+          ...(serviceChanged && service ? { price: service.price } : {}),
+        });
+        await Appointment.updateOne({ _id: id }, { $set: set }, { runValidators: true });
+      }, {
+        excludeAppointmentId: appointment._id,
+        staffMode: true,
+        duration: serviceChanged ? undefined : appointment.duration,
+        force: updates.force === true,
+        forceOverlap: updates.forceOverlap === true,
+      });
+    } else if (Object.keys(set).length) {
+      await Appointment.updateOne({ _id: id }, { $set: set }, { runValidators: true });
     }
 
-    const updatedAppointment = await Appointment.findByIdAndUpdate(
-      id,
-      { $set: updates },
-      { new: true, runValidators: true }
-    ).populate([
+    const updatedAppointment = await Appointment.findById(id).populate([
       { path: 'clientId', select: 'firstName lastName email phone' },
       { path: 'serviceId', select: 'name duration price color' },
       { path: 'stylistId', select: 'firstName lastName' },
@@ -328,6 +306,7 @@ export const updateAppointment = async (req: AuthRequest, res: Response): Promis
 
     // Emit socket event (disabled for deployment)
   } catch (error) {
+    if (sendAvailabilityError(res, error)) return;
     logger.error('Update appointment error:', error);
     res.status(500).json({ error: 'Server error' });
   }
@@ -396,160 +375,100 @@ export const deleteAppointment = async (req: AuthRequest, res: Response): Promis
   }
 };
 
+// GET /appointments/available-slots?serviceId&teamMemberId?&date=YYYY-MM-DD | from&days(<=14) &includeBusy=1 &excludeId
+// Same engine as the public page (staff mode: no minimum notice). includeBusy adds, for the day's opening range,
+// every aligned time with the reason it cannot be booked (null = free) — the form offers "Ajouter quand même".
 export const getAvailableSlots = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
-    const { date, serviceId, teamMemberId } = req.query;
-    const userId = req.userId;
-
-    if (!date || !serviceId) {
+    const { serviceId, teamMemberId, includeBusy, excludeId } = req.query as Record<string, string | undefined>;
+    const date = req.query.date ? dateKey(req.query.date as any) : undefined;
+    const from = date || (isDateKey(req.query.from) ? (req.query.from as string) : undefined);
+    if (!from || !serviceId) {
       res.status(400).json({ error: 'Date and service ID are required' });
       return;
     }
+    const days = date ? 1 : Math.min(14, Math.max(1, parseInt(String(req.query.days || '7'), 10) || 7));
+    const exclude = excludeId && Types.ObjectId.isValid(excludeId) ? new Types.ObjectId(excludeId) : undefined;
+    const loaded = await loadContext(req.userId!, serviceId, { from, to: keyOf(dayNum(from) + days - 1) }, { staffMode: true, excludeAppointmentId: exclude });
+    if (!loaded) {
+      res.status(404).json({ error: 'Salon not found' });
+      return;
+    }
+    const { ctx, staffViews, configured } = loaded;
+    const stylistId = resolveStylistId(teamMemberId);
+    const result = availabilityDays(ctx, from, days, stylistId);
 
-    // serviceId may be a DB ObjectId or a UUID from local store.
-    // We only need duration here; if service not found, use a safe default.
-    const service = await Service.findOne({ _id: serviceId, userId });
-    const serviceDuration = service?.duration || 30;
-
-    // Get team member working hours
-    let workingHours = {
-      start: '09:00',
-      end: '18:00',
-      breaks: [{ start: '12:00', end: '13:00' }],
-    };
-
-    if (teamMemberId) {
-      const teamMember = await TeamMember.findOne({ _id: teamMemberId, userId });
-      if (teamMember) {
-        const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-        const dayOfWeek = days[new Date(date as string).getDay()];
-        // Access workingHours as a plain object
-        const daySchedule = (teamMember.workingHours as any)[dayOfWeek];
-        if (daySchedule && daySchedule.isWorking) {
-          workingHours = {
-            start: daySchedule.start || '09:00',
-            end: daySchedule.end || '18:00',
-            breaks: (daySchedule.breaks as any[]) || [],
-          };
-        }
+    let busy: { time: string; reason: string | null; staff: string[] }[] | undefined;
+    if (includeBusy === '1' || includeBusy === 'true') {
+      const day = ctx.hours[weekday(from)];
+      const pool = stylistId ? ctx.staff.filter((m) => m.id === stylistId) : ctx.staff.filter((m) => canDo(m, ctx.service.id));
+      busy = [];
+      for (let t = toMin(day.start); t < toMin(day.end); t += ctx.booking.slotInterval) {
+        // An actual booking is reported before hours/notice (those can be forced, a double booking rarely should)
+        const reasons = pool.map((m) => ({ id: m.id, reason: checkSlot(ctx, m, from, t, { ignoreHours: true }) || checkSlot(ctx, m, from, t) }));
+        const free = reasons.filter((r) => !r.reason).map((r) => r.id);
+        busy.push({
+          time: fmt(t),
+          reason: free.length ? null : reasons.some((r) => r.reason === 'SLOT_TAKEN') ? 'SLOT_TAKEN' : reasons[0]?.reason || 'STAFF_UNAVAILABLE',
+          staff: free,
+        });
       }
     }
 
-    // Get existing appointments for the day
-    const appointments = await Appointment.find({
-      userId,
-      date: new Date(date as string),
-      stylistId: teamMemberId,
-      status: { $ne: 'cancelled' },
+    res.json({
+      slots: result[0].slots.map((s) => s.time),
+      days: result,
+      ...(busy ? { busy } : {}),
+      staff: staffViews,
+      configured,
     });
-
-    // Generate available slots
-    const slots = generateAvailableSlots(
-      workingHours,
-      appointments,
-      serviceDuration,
-      undefined // buffer will be added later when we update the Service model
-    );
-
-    res.json({ slots });
   } catch (error) {
     logger.error('Get available slots error:', error);
     res.status(500).json({ error: 'Server error' });
   }
 };
 
-// Helper functions
-async function checkAppointmentConflict(
-  userId: string,
-  date: Date | string,
-  startTime: string,
-  endTime: string,
-  teamMemberId?: string,
-  excludeId?: string
-): Promise<boolean> {
-  const query: any = {
-    userId,
-    date: new Date(date),
-    status: { $ne: 'cancelled' },
-  };
-
-  if (teamMemberId) {
-    query.stylistId = teamMemberId;
-  }
-
-  if (excludeId) {
-    query._id = { $ne: excludeId };
-  }
-
-  const conflicts = await Appointment.find(query);
-
-  return conflicts.some(appointment => {
-    const existingStart = appointment.startTime;
-    const existingEnd = appointment.endTime;
-    
-    return (
-      (startTime >= existingStart && startTime < existingEnd) ||
-      (endTime > existingStart && endTime <= existingEnd) ||
-      (startTime <= existingStart && endTime >= existingEnd)
-    );
-  });
-}
-
-function generateAvailableSlots(
-  workingHours: any,
-  appointments: any[],
-  duration: number,
-  buffer?: { before?: number; after?: number }
-): string[] {
-  const slots: string[] = [];
-  const slotDuration = duration + (buffer?.before || 0) + (buffer?.after || 0);
-  
-  // Convert time to minutes for easier calculation
-  const startMinutes = timeToMinutes(workingHours.start);
-  const endMinutes = timeToMinutes(workingHours.end);
-  
-  // Generate all possible slots
-  for (let time = startMinutes; time + slotDuration <= endMinutes; time += 15) {
-    const slotStart = minutesToTime(time + (buffer?.before || 0));
-    // const slotEnd = minutesToTime(time + (buffer?.before || 0) + duration);
-    
-    // Check if slot overlaps with breaks
-    const inBreak = workingHours.breaks.some((breakTime: any) => {
-      const breakStart = timeToMinutes(breakTime.start);
-      const breakEnd = timeToMinutes(breakTime.end);
-      return (
-        (time >= breakStart && time < breakEnd) ||
-        (time + slotDuration > breakStart && time + slotDuration <= breakEnd)
-      );
-    });
-    
-    if (inBreak) continue;
-    
-    // Check if slot overlaps with existing appointments
-    const hasConflict = appointments.some(appointment => {
-      const apptStart = timeToMinutes(appointment.startTime) - (buffer?.before || 0);
-      const apptEnd = timeToMinutes(appointment.endTime) + (buffer?.after || 0);
-      return (
-        (time >= apptStart && time < apptEnd) ||
-        (time + slotDuration > apptStart && time + slotDuration <= apptEnd)
-      );
-    });
-    
-    if (!hasConflict) {
-      slots.push(slotStart);
+// Salon hours, booking rules and closures — normalized, with defaults filled in.
+export const getBookingSettings = async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const user: any = await User.findById(req.userId).select('businessHours bookingSettings closures').lean();
+    if (!user) {
+      res.status(404).json({ error: 'User not found' });
+      return;
     }
+    const { hours, configured } = normalizeBusinessHours(user.businessHours);
+    res.json({ hours, configured, bookingSettings: normalizeBooking(user.bookingSettings), closures: normalizeRanges(user.closures) });
+  } catch (error) {
+    logger.error('Get booking settings error:', error);
+    res.status(500).json({ error: 'Server error' });
   }
-  
-  return slots;
-}
+};
 
-function timeToMinutes(time: string): number {
-  const [hours, minutes] = time.split(':').map(Number);
-  return hours * 60 + minutes;
-}
-
-function minutesToTime(minutes: number): string {
-  const hours = Math.floor(minutes / 60);
-  const mins = minutes % 60;
-  return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
-}
+export const updateBookingSettings = async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const { hours, bookingSettings, closures } = req.body || {};
+    const set: Record<string, any> = {};
+    if (hours && typeof hours === 'object') {
+      const normalized = normalizeBusinessHours(hours);
+      if (!normalized.configured) {
+        res.status(400).json({ error: 'Invalid hours' });
+        return;
+      }
+      // Stored per day; the legacy single-range shape is converted on first save
+      set.businessHours = Object.fromEntries(DAYS.map((d) => [d, normalized.hours[d]]));
+    }
+    if (bookingSettings && typeof bookingSettings === 'object') set.bookingSettings = normalizeBooking(bookingSettings);
+    if (Array.isArray(closures)) set.closures = normalizeRanges(closures).slice(0, 200);
+    const user: any = await User.findByIdAndUpdate(req.userId, { $set: set }, { new: true, runValidators: true })
+      .select('businessHours bookingSettings closures').lean();
+    if (!user) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+    const n = normalizeBusinessHours(user.businessHours);
+    res.json({ hours: n.hours, configured: n.configured, bookingSettings: normalizeBooking(user.bookingSettings), closures: normalizeRanges(user.closures) });
+  } catch (error) {
+    logger.error('Update booking settings error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};

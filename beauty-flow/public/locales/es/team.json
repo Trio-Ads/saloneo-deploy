@@ -165,7 +165,8 @@
     "sections": {
       "personal_info": "Información personal",
       "specialties": "Especialidades",
-      "working_hours": "Horario de trabajo"
+      "working_hours": "Horario de trabajo",
+      "absences": "Ausencias"
     },
     "labels": {
       "first_name_required": "Nombre *",
@@ -192,17 +193,44 @@
     "schedule_labels": {
       "works": "Trabaja",
       "from": "De:",
-      "to": "A:"
+      "to": "A:",
+      "add_break": "Pausa",
+      "break": "Pausa",
+      "remove_break": "Eliminar la pausa"
     },
     "help_messages": {
       "specialties_help": "Marque los servicios que realiza este miembro.",
       "order_help": "El orden de selección determina el orden de visualización.",
-      "no_services": "Añada primero servicios para poder asignarlos."
+      "no_services": "Añada primero servicios para poder asignarlos.",
+      "hours_help": "Las horas también respetan el horario y los cierres del salón.",
+      "absences_help": "Vacaciones, baja: esos días no se ofrece ninguna cita con esta persona."
     },
     "buttons": {
       "cancel": "Cancelar",
       "add": "Añadir",
       "modify": "Modificar"
+    },
+    "absences": {
+      "none": "Ninguna ausencia prevista.",
+      "from": "Del",
+      "to": "Al (opcional)",
+      "reason": "Motivo",
+      "reason_placeholder": "Vacaciones",
+      "add": "Añadir",
+      "remove": "Eliminar la ausencia",
+      "hours": "Horas (opcional)",
+      "start": "Inicio",
+      "end": "Fin",
+      "hours_help": "Déjalo vacío para todo el día (p. ej. 14:00–16:00 para una cita médica).",
+      "hours_invalid": "Indica un inicio y un fin, el fin después del inicio."
+    },
+    "photo": {
+      "add": "Añadir una foto",
+      "change": "Cambiar la foto",
+      "remove": "Quitar",
+      "help": "JPG, PNG o WebP. Recortada en cuadrado, centrada.",
+      "uploading": "Subiendo la foto…",
+      "error": "No se pudo subir la foto. Elige una imagen JPG, PNG o WebP de menos de 5 MB."
     }
   },
   "team_list": {

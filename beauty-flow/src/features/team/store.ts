@@ -55,6 +55,7 @@ const mapTeamMemberFromAPI = (apiMember: any): TeamMember => ({
     saturday: { isWorking: true, start: '09:00', end: '18:00', breaks: [{ start: '12:00', end: '13:00' }] },
     sunday: { isWorking: false }
   },
+  absences: apiMember.absences || [],
   isActive: apiMember.isActive !== false,
   avatar: apiMember.avatar,
   color: apiMember.color || '#3B82F6'
@@ -78,6 +79,7 @@ const mapTeamMemberToAPI = (member: TeamMemberFormData) => ({
     saturday: { isWorking: true, start: '09:00', end: '18:00', breaks: [{ start: '12:00', end: '13:00' }] },
     sunday: { isWorking: false }
   },
+  ...(member.absences && { absences: member.absences }),
   avatar: member.avatar,
   color: member.color || '#3B82F6'
 });
@@ -131,7 +133,7 @@ export const useTeamStore = create<TeamStore>()((set, get) => ({
     try {
       const apiData = mapTeamMemberToAPI(memberData);
       const response = await teamAPI.create(apiData);
-      const newMember = mapTeamMemberFromAPI(response.data.member || response.data);
+      const newMember = mapTeamMemberFromAPI(response.data.teamMember || response.data.member || response.data);
       
       set((state) => ({
         members: [...state.members, newMember],
@@ -170,7 +172,7 @@ export const useTeamStore = create<TeamStore>()((set, get) => ({
     try {
       const apiData = mapTeamMemberToAPI(memberData as TeamMemberFormData);
       const response = await teamAPI.update(id, apiData);
-      const updatedMember = mapTeamMemberFromAPI(response.data.member || response.data);
+      const updatedMember = mapTeamMemberFromAPI(response.data.teamMember || response.data.member || response.data);
       
       set((state) => ({
         members: state.members.map((member) =>

@@ -183,7 +183,8 @@
       "select_time": "Saat seçin…",
       "additional_notes": "Notlar",
       "notes_placeholder": "Randevu ve müşteri tercihleriyle ilgili notlar ekleyin…",
-      "new": "Yeni"
+      "new": "Yeni",
+      "owner": "Salon sahibi"
     },
     "messages": {
       "select_service_stylist_first": "Önce bir hizmet ve ekip üyesi seçin.",
@@ -288,7 +289,51 @@
       "hours_advance": "saat önceden",
       "days": "gün",
       "hours_before": "saat önce (randevudan)"
-    }
+    },
+    "hours_title": "Çalışma saatleri",
+    "hours_description": "Sunulan saatler bu çalışma saatlerine ve molalara, ekipteki herkesin kendi saatleriyle birlikte uyar.",
+    "not_configured": "Çalışma saatleriniz henüz belirlenmedi: o zamana kadar saatler cumartesi–perşembe 09:00–18:00, cuma kapalı olarak sunulur.",
+    "closed": "Kapalı",
+    "add_break": "Mola ekle",
+    "remove_break": "Molayı kaldır",
+    "break_label": "Mola",
+    "invalid_hours": "Kapanış saati açılış saatinden sonra olmalı.",
+    "invalid_break": "Her mola günün çalışma saatleri içinde olmalı.",
+    "fix_errors": "Kaydetmek için kırmızı saatleri düzeltin.",
+    "booking_title": "Online randevu",
+    "booking_description": "Bu kurallar randevu sayfasına uygulanır ve her randevuda kontrol edilir.",
+    "slot_interval": "Saat aralığı",
+    "slot_interval_description": "Şu aralıkla bir saat sunulur…",
+    "min_notice": "En az önceden bildirim",
+    "min_notice_description": "Müşteri bundan daha kısa süre önce randevu alamaz (hizmetin kendi ayarı yoksa).",
+    "notice_options": {
+      "0": "Yok",
+      "30": "30 dakika",
+      "60": "1 saat",
+      "120": "2 saat",
+      "240": "4 saat",
+      "720": "12 saat",
+      "1440": "24 saat",
+      "2880": "48 saat"
+    },
+    "allow_any_staff": "“Fark etmez” seçeneğini sun",
+    "allow_any_staff_description": "Müşteri, uygun ve en az yoğun ekip üyesini salonun seçmesine bırakabilir.",
+    "closures_title": "Olağan dışı kapanışlar",
+    "closures_description": "Bayram, resmî tatiller, salon tatili: bu günlerde hiçbir saat sunulmaz.",
+    "closure_from": "Başlangıç",
+    "closure_to": "Bitiş (isteğe bağlı)",
+    "closure_reason": "Neden",
+    "closure_reason_placeholder": "Ramazan Bayramı",
+    "add_closure": "Ekle",
+    "remove_closure": "Kapanışı kaldır",
+    "no_closures": "Planlanmış kapanış yok.",
+    "saved": "Ayarlar kaydedildi",
+    "save_hours": "Çalışma saatlerini kaydet",
+    "save_booking": "Randevu kurallarını kaydet",
+    "save_closures": "Kapanışları kaydet",
+    "unsaved": "Kaydedilmemiş değişiklikler",
+    "copy_to_open_days": "Tüm açık günlere kopyala",
+    "leave_confirm": "Kaydedilmemiş değişiklikler var. Yine de çıkılsın mı?"
   },
   "bookingConfirmed": "Randevunuz onaylandı!",
   "bookingSuccessMessage": "Randevunuz başarıyla onaylandı",
@@ -359,5 +404,19 @@
     "no_results_title": "Sonuç yok",
     "noResults": "Bu filtrelere uyan randevu yok.",
     "unknown": "Bilinmiyor"
+  },
+  "availability": {
+    "short": {
+      "SLOT_TAKEN": "dolu",
+      "OUTSIDE_HOURS": "saat dışı",
+      "TOO_SOON": "geçmiş",
+      "TOO_FAR": "çok ileri",
+      "STAFF_UNAVAILABLE": "yok"
+    },
+    "loading": "Saatler aranıyor…",
+    "force_hint": "Yine de ekleyebilirsiniz.",
+    "force_confirm": "Yine de eklensin mi?",
+    "hours_not_configured": "Çalışma saatleriniz ayarlanmadı: müşteriler varsayılan olarak cumartesi–perşembe 09:00–18:00 görüyor.",
+    "configure_hours": "Çalışma saatlerini ayarla"
   }
 }

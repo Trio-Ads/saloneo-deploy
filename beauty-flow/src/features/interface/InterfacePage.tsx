@@ -22,8 +22,11 @@ import { getTemplateById, salonTemplate } from '../templates';
 import { ReviewsManager } from './components/ReviewsManager';
 import { TemplateFrame, usePreviewData } from './components/TemplatePreview';
 import { Toggle } from './components/Toggle';
+import DirectorySettings from '../directory/DirectorySettings';
 import { PageHeader, Panel, Segmented } from '../../components/ui';
 import { InterfaceSettings } from './types';
+import { profileAPI } from '../../services/api';
+import { confirmLeave, hasUnsavedChanges } from '../../hooks/useUnsavedChanges';
 
 type TabType = 'templates' | 'colors' | 'images' | 'content' | 'settings' | 'reviews';
 
@@ -59,7 +62,9 @@ const InterfacePage: React.FC = () => {
   } = useInterfaceStore();
   const { url: publicUrl } = usePublicUrl();
 
-  const [activeTab, setActiveTab] = useState<TabType>('templates');
+  // ?tab=settings deep-links here (e.g. the "hours not configured" notice on the appointments page)
+  const [activeTab, setActiveTab] = useState<TabType>(() =>
+    new URLSearchParams(window.location.search).get('tab') === 'settings' ? 'settings' : 'templates');
   const [saveState, setSaveState] = useState<'idle' | 'saved' | 'error'>('idle');
   // Only the first load blocks the page; later reloads (e.g. after a banner upload) keep the tab mounted.
   const [ready, setReady] = useState(false);
@@ -110,6 +115,20 @@ const InterfacePage: React.FC = () => {
       setSaveState('error');
     }
     setTimeout(() => setSaveState('idle'), 2500);
+  };
+
+  // Team visibility saves itself as soon as it is switched (one setting, no separate button)
+  const [teamSave, setTeamSave] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+  const toggleTeamVisibility = async (visible: boolean) => {
+    updateSettings({ showTeamOnPublicPage: visible });
+    setTeamSave('saving');
+    try {
+      await profileAPI.update({ showTeamOnPublicPage: visible });
+      setTeamSave('saved');
+    } catch {
+      updateSettings({ showTeamOnPublicPage: !visible });
+      setTeamSave('error');
+    }
   };
 
   const inputClass = 'field w-full dark:bg-gray-900 dark:border-gray-700 dark:text-gray-100';
@@ -224,15 +243,23 @@ const InterfacePage: React.FC = () => {
                 </div>
                 <Toggle
                   checked={settings.showTeamOnPublicPage}
-                  onChange={(v) => updateSettings({ showTeamOnPublicPage: v })}
+                  onChange={toggleTeamVisibility}
                   label={t('team.show_on_public')}
                 />
               </div>
+              {teamSave !== 'idle' && (
+                <p className={teamSave === 'error' ? 'mt-3 text-sm text-red-600 dark:text-red-400' : 'mt-3 flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400'} role="status">
+                  {teamSave === 'saved' && <CheckIcon className="size-4" />}
+                  {t(teamSave === 'error' ? 'actions.save_error' : teamSave === 'saving' ? 'actions.saving' : 'actions.saved')}
+                </p>
+              )}
             </Panel>
 
             <Panel title={t('forms.share_link')}>
               <ShareableLink />
             </Panel>
+
+            <DirectorySettings />
           </div>
         );
 
@@ -259,7 +286,8 @@ const InterfacePage: React.FC = () => {
                 <ArrowTopRightOnSquareIcon className="size-4" />
                 {t('page.view_page')}
               </a>
-              <button type="button" onClick={handleSave} disabled={isSaving || !ready} className="btn-primary min-w-[8.5rem]">
+              {/* The Paramètres tab saves panel by panel, so the global button would be ambiguous there */}
+              {activeTab !== 'settings' && <button type="button" onClick={handleSave} disabled={isSaving || !ready} className="btn-primary min-w-[8.5rem]">
                 {isSaving ? (
                   <>
                     <span className="size-4 rounded-full border-2 border-white/40 border-t-white animate-spin" />
@@ -273,15 +301,20 @@ const InterfacePage: React.FC = () => {
                 ) : (
                   t('actions.save')
                 )}
-              </button>
+              </button>}
             </>
           }
         />
-        {saveState === 'error' && (
+        {saveState === 'error' && activeTab !== 'settings' && (
           <p role="alert" className="-mt-3 mb-5 text-sm text-red-600 dark:text-red-400">{t('actions.save_error')}</p>
         )}
 
-        <Segmented value={activeTab} onChange={setActiveTab} options={tabs} className="mb-6" />
+        <Segmented
+          value={activeTab}
+          onChange={async (tab) => { if (!hasUnsavedChanges() || await confirmLeave()) setActiveTab(tab); }}
+          options={tabs}
+          className="mb-6"
+        />
 
         {!ready ? (
           <div className="panel flex items-center justify-center gap-3 py-16 text-sm text-gray-500 dark:bg-gray-900 dark:border-gray-800 dark:text-gray-400">

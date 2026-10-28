@@ -165,7 +165,8 @@
     "sections": {
       "personal_info": "Informações pessoais",
       "specialties": "Especialidades",
-      "working_hours": "Horário de trabalho"
+      "working_hours": "Horário de trabalho",
+      "absences": "Ausências"
     },
     "labels": {
       "first_name_required": "Nome próprio *",
@@ -192,17 +193,44 @@
     "schedule_labels": {
       "works": "Trabalha",
       "from": "Das:",
-      "to": "Às:"
+      "to": "Às:",
+      "add_break": "Pausa",
+      "break": "Pausa",
+      "remove_break": "Remover a pausa"
     },
     "help_messages": {
       "specialties_help": "Assinale os serviços que este membro realiza.",
       "order_help": "A ordem de seleção define a ordem de apresentação.",
-      "no_services": "Adicione primeiro serviços para os poder atribuir."
+      "no_services": "Adicione primeiro serviços para os poder atribuir.",
+      "hours_help": "Os horários respeitam também o horário e os encerramentos do salão.",
+      "absences_help": "Férias, doença: nesses dias não é proposta nenhuma marcação com esta pessoa."
     },
     "buttons": {
       "cancel": "Cancelar",
       "add": "Adicionar",
       "modify": "Editar"
+    },
+    "absences": {
+      "none": "Nenhuma ausência prevista.",
+      "from": "De",
+      "to": "Até (opcional)",
+      "reason": "Motivo",
+      "reason_placeholder": "Férias",
+      "add": "Adicionar",
+      "remove": "Remover a ausência",
+      "hours": "Horas (opcional)",
+      "start": "Início",
+      "end": "Fim",
+      "hours_help": "Deixe vazio para o dia inteiro (ex. 14:00–16:00 para uma consulta médica).",
+      "hours_invalid": "Indique um início e um fim, o fim depois do início."
+    },
+    "photo": {
+      "add": "Adicionar uma foto",
+      "change": "Mudar a foto",
+      "remove": "Remover",
+      "help": "JPG, PNG ou WebP. Recortada em quadrado, ao centro.",
+      "uploading": "A enviar a foto…",
+      "error": "Não foi possível enviar a foto. Escolha uma imagem JPG, PNG ou WebP com menos de 5 MB."
     }
   },
   "team_list": {

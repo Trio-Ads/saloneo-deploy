@@ -123,7 +123,13 @@
       "service_not_found": "Ce service n'est plus disponible.",
       "no_stylist": "Aucun membre de l'équipe n'est disponible pour le moment.",
       "previous_month": "Mois précédent",
-      "next_month": "Mois suivant"
+      "next_month": "Mois suivant",
+      "morning": "Matin",
+      "afternoon": "Après-midi",
+      "evening": "Soir",
+      "load_error": "Impossible de charger les disponibilités.",
+      "retry": "Réessayer",
+      "no_slots_month": "Aucun créneau libre ce mois-ci. Regardez le mois suivant."
     },
     "calendar": {
       "month_view": "Mois",

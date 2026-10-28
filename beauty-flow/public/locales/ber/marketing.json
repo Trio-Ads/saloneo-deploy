@@ -6,7 +6,8 @@
       "login": "Kcem",
       "signup": "Rnu asalun-iw",
       "dashboard": "Tafelwit-iw n usenqed",
-      "menu": "Umuɣ"
+      "menu": "Umuɣ",
+      "directory": "Af-d asalun"
     },
     "hero": {
       "title": "Sefrek asalun-ik. Eǧǧ imsaɣen-ik ad ṭṭfen timlilin srid.",
@@ -199,6 +200,90 @@
       "register": "Rnu amiḍan",
       "faq": "Isteqsiyen yettuɣalen",
       "rights": "Akk izerfan ttwaḥerzen."
+    }
+  },
+  "directory": {
+    "nav": "Akaram n yisalunen",
+    "breadcrumb": "Abrid n tunigin",
+    "heading": {
+      "all": "Af-d asalun, ṭṭef timlilit srid",
+      "wilaya": "Isalunen n ccbaḥa deg {{wilaya}}",
+      "category": "{{what}} di Lezzayer",
+      "both": "{{what}} deg {{wilaya}}"
+    },
+    "subtitle": "D isalunen yettwajerden deg Saloneo kan: imeẓla d ssumat ttbanen, aḥeǧǧez srid deg kra n tsinin.",
+    "search": {
+      "label": "Nadi asalun",
+      "placeholder": "Isem n usalun, tamdint neɣ ameẓlu"
+    },
+    "wilaya": {
+      "label": "Tawilayt",
+      "all": "Akk tiwilayin"
+    },
+    "categoriesLabel": "Tizenzaɣin",
+    "allCategories": "Akk isalunen",
+    "categories": {
+      "coiffure": "Aseggem n ucebbub",
+      "barbier": "Aḥeffaf",
+      "ongles": "Iccer",
+      "esthetique": "Ccbaḥa d uglim",
+      "spa-hammam": "Spa d lḥemmam",
+      "maquillage-mariee": "Aseɣlef d tislit"
+    },
+    "plural": {
+      "coiffure": "Isalunen n useggem n ucebbub",
+      "barbier": "Iḥeffafen",
+      "ongles": "Isalunen n yiccer",
+      "esthetique": "Tiɣerbal n ccbaḥa",
+      "spa-hammam": "Spa d lḥemmamat",
+      "maquillage-mariee": "Aseɣlef d ucebbub n tislit"
+    },
+    "count_one": "{{formatted}} n usalun",
+    "count_other": "{{formatted}} n yisalunen",
+    "more": "Sken-d ugar n yisalunen",
+    "loadingMore": "Asali…",
+    "card": {
+      "reviews_one": "{{count}} n twenna",
+      "reviews_other": "{{count}} n twenniwin",
+      "new": "D amaynut deg Saloneo",
+      "from": "Seg {{price}}",
+      "book": "Ṭṭef timlilit",
+      "nextSlot": "Akud ilelli d-iteddun:",
+      "today": "ass-a {{time}}",
+      "tomorrow": "azekka {{time}}",
+      "day": "{{day}} {{time}}"
+    },
+    "empty": {
+      "title": "Ulac asalun yemmezgen d unadi-k",
+      "wilayaTitle": "Ulac yakan asalun deg {{wilaya}} di Saloneo",
+      "body": "Ɛreḍ tawilayt-nniḍen, tazenzaɣt-nniḍen neɣ awal-nniḍen.",
+      "reset": "Wali akk isalunen",
+      "noneTitle": "Isalunen imezwura ad d-awḍen",
+      "noneBody": "Isalunen ttbanen-d dagi mi ara ldin aḥeǧǧez srid deg Saloneo."
+    },
+    "error": {
+      "title": "Akaram ur d-yuli ara",
+      "body": "Senqed tuqqna-k, syin ɛreḍ tikkelt-nniḍen.",
+      "retry": "Ɛreḍ tikkelt-nniḍen"
+    },
+    "owner": {
+      "title": "Tesɛiḍ asalun?",
+      "body": "Rnu asebter-ik Saloneo baṭel: ad d-iban deg ukaram mi ara yili yiwen umeẓlu yettwaḥeǧǧez srid.",
+      "cta": "Sekcem asalun-iw"
+    },
+    "showcase": {
+      "title": "Atan deg Saloneo",
+      "body": "Isalunen yeṭṭfen yakan timlilin-nsen srid s Saloneo.",
+      "all": "Wali akk isalunen"
+    },
+    "seo": {
+      "salons": "Isalunen n ccbaḥa",
+      "description": "{{what}} deg {{wilaya}} yettwajerden deg Saloneo: imeẓla, ssumat d twenniwin, aḥeǧǧez srid.",
+      "descriptionAll": "{{what}} di Lezzayer yettwajerden deg Saloneo: imeẓla, ssumat d twenniwin, aḥeǧǧez srid.",
+      "salonTitle": "{{name}} — {{category}} deg {{city}} | Aḥeǧǧez srid",
+      "salonTitleShort": "{{name}} | Aḥeǧǧez srid",
+      "salonDescription": "Ṭṭef timlilit srid ɣer {{name}}, {{city}}: imeẓla, ssumat d wakud ilelli.",
+      "salonDescriptionShort": "Ṭṭef timlilit srid ɣer {{name}}: imeẓla, ssumat d wakud ilelli."
     }
   }
 }

@@ -36,10 +36,15 @@
         "4": "4 saat önceden",
         "12": "12 saat önceden",
         "24": "24 saat önceden (1 gün)",
-        "48": "48 saat önceden (2 gün)"
+        "48": "48 saat önceden (2 gün)",
+        "salon": "Salon ayarlarına göre"
       },
       "section": "Online randevu",
-      "help": "Müşterileriniz bu hizmet için herkese açık sayfanızdan randevu alabilir."
+      "help": "Müşterileriniz bu hizmet için herkese açık sayfanızdan randevu alabilir.",
+      "buffer_before": "Önce hazırlık",
+      "buffer_after": "Sonra temizlik",
+      "buffer_help": "Bu hizmetten önce ve sonra ajandada ayrılan süre. 0 ise salonun ara süresi sonrasına uygulanır.",
+      "minutes": "dk"
     }
   },
   "categories": {

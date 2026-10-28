@@ -17,7 +17,7 @@ export function SiteNav() {
   const { t } = useTranslation('marketing', { keyPrefix: 'site' });
   const [open, setOpen] = useState(false);
   const loggedIn = !!localStorage.getItem('token');
-  const links = [['/#features', t('nav.features')], ['/pricing', t('nav.pricing')]];
+  const links = [['/#features', t('nav.features')], ['/pricing', t('nav.pricing')], ['/salons', t('nav.directory')]];
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-[#0F1419]">
@@ -82,6 +82,7 @@ export function SiteFooter() {
             <li><a href="/#features" className={link}>{t('nav.features')}</a></li>
             <li><Link to="/pricing" className={link}>{t('nav.pricing')}</Link></li>
             <li><a href="/pricing#faq" className={link}>{t('footer.faq')}</a></li>
+            <li><Link to="/salons" className={link}>{t('nav.directory')}</Link></li>
           </ul>
         </div>
         <div>

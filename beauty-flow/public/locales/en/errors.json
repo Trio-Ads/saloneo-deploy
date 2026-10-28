@@ -96,5 +96,12 @@
     "update": "Couldn't save changes",
     "generate": "Couldn't generate",
     "request": "Couldn't send the request"
+  },
+  "availability": {
+    "SLOT_TAKEN": "This time was just booked. Please choose another one.",
+    "OUTSIDE_HOURS": "This time is outside the salon’s opening hours.",
+    "TOO_SOON": "This time is too soon to be booked.",
+    "TOO_FAR": "This time is too far ahead to be booked.",
+    "STAFF_UNAVAILABLE": "This team member is not available at that time."
   }
 }

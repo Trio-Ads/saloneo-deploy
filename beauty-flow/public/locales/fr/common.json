@@ -96,5 +96,11 @@
     "units": {
       "min": "min"
     }
+  },
+  "unsaved": {
+    "title": "Modifications non enregistrées",
+    "message": "Certaines modifications ne sont pas enregistrées. Si vous quittez maintenant, elles seront perdues.",
+    "leave": "Quitter sans enregistrer",
+    "stay": "Rester"
   }
 }

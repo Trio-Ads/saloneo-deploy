@@ -165,7 +165,8 @@
     "sections": {
       "personal_info": "Talɣut tudmawant",
       "specialties": "Tiẓeṛṛit",
-      "working_hours": "Isragen n uxeddim"
+      "working_hours": "Isragen n uxeddim",
+      "absences": "Tiwaḍin"
     },
     "labels": {
       "first_name_required": "Isem *",
@@ -192,17 +193,44 @@
     "schedule_labels": {
       "works": "Ixeddem",
       "from": "Seg:",
-      "to": "Ar:"
+      "to": "Ar:",
+      "add_break": "Asgunfu",
+      "break": "Asgunfu",
+      "remove_break": "Kkes asgunfu"
     },
     "help_messages": {
       "specialties_help": "Creḍ imeẓla i ixeddem uɛeggal-a.",
       "order_help": "Amizzwer n tefrant d netta ara yesbadun amizzwer n uskan.",
-      "no_services": "Rnu qbel imeẓla akken ad ten-tmuddeḍ."
+      "no_services": "Rnu qbel imeẓla akken ad ten-tmuddeḍ.",
+      "hours_help": "Akuden ṭṭafaren ula d isragen d imdalen n usalun.",
+      "absences_help": "Asteɛfu, aṭan: ulac tamlilit ara d-yettwasumren yid-s deg wussan-nni."
     },
     "buttons": {
       "cancel": "Sefsex",
       "add": "Rnu",
       "modify": "Ẓreg"
+    },
+    "absences": {
+      "none": "Ulac tiwaḍin yettwahegan.",
+      "from": "Seg",
+      "to": "Ar (ma tebɣiḍ)",
+      "reason": "Taɣẓint",
+      "reason_placeholder": "Asteɛfu",
+      "add": "Rnu",
+      "remove": "Kkes tiwaḍin",
+      "hours": "Isragen (ma tebɣiḍ)",
+      "start": "Tazwara",
+      "end": "Taggara",
+      "hours_help": "Eǧǧ-it d ilem i wass akk (amedya 14:00–16:00 i tmlilit n umejjay).",
+      "hours_invalid": "Sekcem tazwara d taggara, taggara deffir tazwara."
+    },
+    "photo": {
+      "add": "Rnu tawlaft",
+      "change": "Beddel tawlaft",
+      "remove": "Kkes",
+      "help": "JPG, PNG neɣ WebP. Ad tettwagzem s umkuẓ, deg tlemmast.",
+      "uploading": "Asali n tewlaft…",
+      "error": "Ur tettwasali ara tewlaft. Fren tugna JPG, PNG neɣ WebP ddaw 5 MB."
     }
   },
   "team_list": {

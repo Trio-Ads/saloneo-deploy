@@ -27,6 +27,7 @@ import adminRoutes from './routes/admin.routes';
 import feedbackRoutes from './routes/feedback.routes';
 import reviewRoutes from './routes/review.routes';
 import { emailService } from './services/emailService';
+import { sitemap } from './controllers/directory.controller';
 
 // Load environment variables
 dotenv.config();
@@ -161,7 +162,11 @@ app.use('/uploads', (_req, res, next) => {
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Cross-Origin-Resource-Policy', 'cross-origin');
   next();
-}, express.static(path.join(__dirname, '../uploads')));
+}, ...[
+  // Where local storage writes (UPLOAD_DIR), then the historical folder so existing files keep resolving.
+  ...(process.env.UPLOAD_DIR ? [express.static(path.resolve(process.env.UPLOAD_DIR))] : []),
+  express.static(path.join(__dirname, '../uploads')),
+]);
 
 // Health check endpoint
 app.get('/health', (_req: Request, res: Response) => {
@@ -172,6 +177,8 @@ app.get('/health', (_req: Request, res: Response) => {
     environment: process.env.NODE_ENV,
   });
 });
+
+app.get('/sitemap.xml', sitemap);
 
 // Debug middleware for feedback routes
 app.use('/api/feedback', (req, res, next) => {

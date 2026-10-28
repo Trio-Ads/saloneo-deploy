@@ -6,7 +6,8 @@
       "login": "Log in",
       "signup": "Create my salon",
       "dashboard": "My dashboard",
-      "menu": "Menu"
+      "menu": "Menu",
+      "directory": "Find a salon"
     },
     "hero": {
       "title": "Run your salon. Let your clients book online.",
@@ -199,6 +200,90 @@
       "register": "Create an account",
       "faq": "FAQ",
       "rights": "All rights reserved."
+    }
+  },
+  "directory": {
+    "nav": "Salon directory",
+    "breadcrumb": "Breadcrumb",
+    "heading": {
+      "all": "Find a salon and book online",
+      "wilaya": "Beauty salons in {{wilaya}}",
+      "category": "{{what}} in Algeria",
+      "both": "{{what}} in {{wilaya}}"
+    },
+    "subtitle": "Only salons registered on Saloneo: services and prices shown, online booking in a few seconds.",
+    "search": {
+      "label": "Search for a salon",
+      "placeholder": "Salon name, town or service"
+    },
+    "wilaya": {
+      "label": "Province (wilaya)",
+      "all": "All provinces"
+    },
+    "categoriesLabel": "Trades",
+    "allCategories": "All salons",
+    "categories": {
+      "coiffure": "Hair",
+      "barbier": "Barber",
+      "ongles": "Nails",
+      "esthetique": "Beauty & skin",
+      "spa-hammam": "Spa & hammam",
+      "maquillage-mariee": "Makeup & bridal"
+    },
+    "plural": {
+      "coiffure": "Hair salons",
+      "barbier": "Barbers",
+      "ongles": "Nail salons",
+      "esthetique": "Beauty institutes",
+      "spa-hammam": "Spas and hammams",
+      "maquillage-mariee": "Bridal makeup and hair"
+    },
+    "count_one": "{{formatted}} salon",
+    "count_other": "{{formatted}} salons",
+    "more": "Show more salons",
+    "loadingMore": "Loading…",
+    "card": {
+      "reviews_one": "{{count}} review",
+      "reviews_other": "{{count}} reviews",
+      "new": "New on Saloneo",
+      "from": "From {{price}}",
+      "book": "Book",
+      "nextSlot": "Next slot:",
+      "today": "today {{time}}",
+      "tomorrow": "tomorrow {{time}}",
+      "day": "{{day}} {{time}}"
+    },
+    "empty": {
+      "title": "No salon matches your search",
+      "wilayaTitle": "No salon in {{wilaya}} on Saloneo yet",
+      "body": "Try another province, trade or word.",
+      "reset": "See all salons",
+      "noneTitle": "The first salons are on their way",
+      "noneBody": "Salons show up here as soon as they open online booking on Saloneo."
+    },
+    "error": {
+      "title": "The directory could not be loaded",
+      "body": "Check your connection, then try again.",
+      "retry": "Try again"
+    },
+    "owner": {
+      "title": "Do you run a salon?",
+      "body": "Create your Saloneo page for free: it appears in the directory as soon as one service can be booked online.",
+      "cta": "List my salon"
+    },
+    "showcase": {
+      "title": "They are on Saloneo",
+      "body": "Salons already taking their appointments online with Saloneo.",
+      "all": "See all salons"
+    },
+    "seo": {
+      "salons": "Beauty salons",
+      "description": "{{what}} in {{wilaya}} registered on Saloneo: services, prices and reviews, online booking.",
+      "descriptionAll": "{{what}} in Algeria registered on Saloneo: services, prices and reviews, online booking.",
+      "salonTitle": "{{name}} — {{category}} in {{city}} | Online booking",
+      "salonTitleShort": "{{name}} | Online booking",
+      "salonDescription": "Book online at {{name}}, {{city}}: services, prices and availability.",
+      "salonDescriptionShort": "Book online at {{name}}: services, prices and availability."
     }
   }
 }

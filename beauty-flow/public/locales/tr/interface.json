@@ -779,5 +779,24 @@
   "errors": {
     "upload": "Görsel yüklenirken hata oluştu:",
     "save": "Kaydedilirken hata oluştu:"
+  },
+  "directory": {
+    "title": "Saloneo rehberi",
+    "description": "Müşteriler salonunuzu saloneo.app/salons adresinde bulur.",
+    "listed": "Saloneo rehberinde görün",
+    "listed_on": "Bir hizmet çevrimiçi rezerve edilebilir olduğu anda salonunuz rehberde görünür.",
+    "listed_off": "Salonunuz rehberde görünmüyor. Sayfanıza bağlantısıyla erişilmeye devam edilir.",
+    "not_eligible": "Çevrimiçi rezerve edilebilen hizmet yok: rehberde görünmek için en az bir hizmette (Hizmetler) çevrimiçi randevuyu açın.",
+    "wilaya": "Vilayet",
+    "wilaya_none": "Bir vilayet seçin",
+    "city": "Şehir veya ilçe",
+    "city_placeholder": "Örn. Bab Ezzouar",
+    "location_help": "Kartınızda gösterilir ve vilayete göre aramada kullanılır.",
+    "see_card": "Rehberdeki kartımı gör",
+    "save": "Rehber kaydını kaydet",
+    "saving": "Kaydediliyor…",
+    "saved": "Kaydedildi",
+    "save_error": "Kaydedilemedi. Tekrar deneyin.",
+    "load_error": "Rehber ayarları yüklenemedi."
   }
 }

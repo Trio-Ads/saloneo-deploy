@@ -6,7 +6,8 @@
       "login": "Entrar",
       "signup": "Criar o meu salão",
       "dashboard": "O meu painel",
-      "menu": "Menu"
+      "menu": "Menu",
+      "directory": "Encontrar um salão"
     },
     "hero": {
       "title": "Faça a gestão do seu salão. Deixe os seus clientes reservarem online.",
@@ -199,6 +200,90 @@
       "register": "Criar uma conta",
       "faq": "Perguntas frequentes",
       "rights": "Todos os direitos reservados."
+    }
+  },
+  "directory": {
+    "nav": "Diretório de salões",
+    "breadcrumb": "Trilha de navegação",
+    "heading": {
+      "all": "Encontre um salão e reserve online",
+      "wilaya": "Salões de beleza em {{wilaya}}",
+      "category": "{{what}} na Argélia",
+      "both": "{{what}} em {{wilaya}}"
+    },
+    "subtitle": "Apenas salões registados no Saloneo: serviços e preços visíveis, reserva online em poucos segundos.",
+    "search": {
+      "label": "Procurar um salão",
+      "placeholder": "Nome do salão, cidade ou serviço"
+    },
+    "wilaya": {
+      "label": "Província (wilaya)",
+      "all": "Todas as províncias"
+    },
+    "categoriesLabel": "Ofícios",
+    "allCategories": "Todos os salões",
+    "categories": {
+      "coiffure": "Cabeleireiro",
+      "barbier": "Barbearia",
+      "ongles": "Unhas",
+      "esthetique": "Estética",
+      "spa-hammam": "Spa e hammam",
+      "maquillage-mariee": "Maquilhagem e noivas"
+    },
+    "plural": {
+      "coiffure": "Cabeleireiros",
+      "barbier": "Barbearias",
+      "ongles": "Salões de unhas",
+      "esthetique": "Institutos de estética",
+      "spa-hammam": "Spas e hammams",
+      "maquillage-mariee": "Maquilhagem e penteado de noiva"
+    },
+    "count_one": "{{formatted}} salão",
+    "count_other": "{{formatted}} salões",
+    "more": "Mostrar mais salões",
+    "loadingMore": "A carregar…",
+    "card": {
+      "reviews_one": "{{count}} avaliação",
+      "reviews_other": "{{count}} avaliações",
+      "new": "Novo no Saloneo",
+      "from": "A partir de {{price}}",
+      "book": "Reservar",
+      "nextSlot": "Próxima vaga:",
+      "today": "hoje {{time}}",
+      "tomorrow": "amanhã {{time}}",
+      "day": "{{day}} {{time}}"
+    },
+    "empty": {
+      "title": "Nenhum salão corresponde à sua pesquisa",
+      "wilayaTitle": "Ainda não há salões em {{wilaya}} no Saloneo",
+      "body": "Experimente outra província, outro ofício ou outra palavra.",
+      "reset": "Ver todos os salões",
+      "noneTitle": "Os primeiros salões estão a chegar",
+      "noneBody": "Os salões aparecem aqui assim que abrem a reserva online no Saloneo."
+    },
+    "error": {
+      "title": "Não foi possível carregar o diretório",
+      "body": "Verifique a sua ligação e tente novamente.",
+      "retry": "Tentar novamente"
+    },
+    "owner": {
+      "title": "Tem um salão?",
+      "body": "Crie a sua página Saloneo gratuitamente: aparece no diretório assim que um serviço puder ser reservado online.",
+      "cta": "Inscrever o meu salão"
+    },
+    "showcase": {
+      "title": "Já estão no Saloneo",
+      "body": "Salões que já recebem as suas marcações online com o Saloneo.",
+      "all": "Ver todos os salões"
+    },
+    "seo": {
+      "salons": "Salões de beleza",
+      "description": "{{what}} em {{wilaya}} registados no Saloneo: serviços, preços e avaliações, reserva online.",
+      "descriptionAll": "{{what}} na Argélia registados no Saloneo: serviços, preços e avaliações, reserva online.",
+      "salonTitle": "{{name}} — {{category}} em {{city}} | Reserva online",
+      "salonTitleShort": "{{name}} | Reserva online",
+      "salonDescription": "Reserve online em {{name}}, {{city}}: serviços, preços e disponibilidade.",
+      "salonDescriptionShort": "Reserve online em {{name}}: serviços, preços e disponibilidade."
     }
   }
 }

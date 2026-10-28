@@ -123,7 +123,13 @@
       "service_not_found": "Bu hizmet artık sunulmuyor.",
       "no_stylist": "Şu anda müsait ekip üyesi yok.",
       "previous_month": "Önceki ay",
-      "next_month": "Sonraki ay"
+      "next_month": "Sonraki ay",
+      "morning": "Sabah",
+      "afternoon": "Öğleden sonra",
+      "evening": "Akşam",
+      "load_error": "Müsaitlik yüklenemedi.",
+      "retry": "Tekrar dene",
+      "no_slots_month": "Bu ay boş saat yok. Sonraki aya bakın."
     },
     "calendar": {
       "month_view": "Ay",

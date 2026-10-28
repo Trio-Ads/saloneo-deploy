@@ -123,7 +123,13 @@
       "service_not_found": "Este serviço já não está disponível.",
       "no_stylist": "Nenhum membro da equipa está disponível de momento.",
       "previous_month": "Mês anterior",
-      "next_month": "Mês seguinte"
+      "next_month": "Mês seguinte",
+      "morning": "Manhã",
+      "afternoon": "Tarde",
+      "evening": "Noite",
+      "load_error": "Não foi possível carregar a disponibilidade.",
+      "retry": "Tentar novamente",
+      "no_slots_month": "Sem horários livres este mês. Veja o mês seguinte."
     },
     "calendar": {
       "month_view": "Mês",

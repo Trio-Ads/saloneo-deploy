@@ -12,6 +12,10 @@ import crypto from 'crypto';
 
 // Helper function to generate slug
 import { findSalonBySlug } from '../services/salonLookup';
+import {
+  availabilityDays, bookWithLock, canDo, dateKey, dayNum, fmt, isDateKey, keyOf, loadContext, nowIn,
+  resolveStylistId, sendAvailabilityError, staffName, toMin,
+} from '../services/availability';
 
 // Get salon info by slug
 export const getSalonBySlug = async (req: Request, res: Response): Promise<void> => {
@@ -38,33 +42,43 @@ export const getSalonBySlug = async (req: Request, res: Response): Promise<void>
   }
 };
 
-// Busy time ranges of the salon (optionally one stylist) for the next ~6 months — no client data
-export const getBusySlotsBySlug = async (req: Request, res: Response): Promise<void> => {
+// Bookable days and times for one service (optionally one staff member) — no client data.
+// GET /public/availability/:slug?serviceId&stylistId?&from=YYYY-MM-DD&days=N(<=14)&token? (token = own appointment when rescheduling)
+export const getAvailability = async (req: Request, res: Response): Promise<void> => {
   try {
-    const salon = await findSalonBySlug(req.params.slug);
+    const salon = await findSalonBySlug(req.params.slug, 'settings');
     if (!salon) {
       res.status(404).json({ error: 'Salon not found' });
       return;
     }
-    const from = new Date();
-    from.setUTCHours(0, 0, 0, 0);
-    const to = new Date(from.getTime() + 190 * 24 * 3600 * 1000);
-    const { stylistId } = req.query;
-    const appointments = await Appointment.find({
-      userId: salon._id,
-      status: { $ne: 'cancelled' },
-      date: { $gte: from, $lt: to },
-      ...(typeof stylistId === 'string' && stylistId ? { stylistId } : {}),
-    }).select('date startTime endTime stylistId').lean();
-    const pad = (t: string) => (t || '').padStart(5, '0');
-    res.json(appointments.map((a: any) => ({
-      date: new Date(a.date).toISOString().slice(0, 10),
-      startTime: pad(a.startTime),
-      endTime: pad(a.endTime),
-      stylistId: a.stylistId,
-    })));
+    const { serviceId, stylistId, from, days, token } = req.query as Record<string, string | undefined>;
+    if (!serviceId) {
+      res.status(400).json({ error: 'serviceId is required' });
+      return;
+    }
+    const count = Math.min(14, Math.max(1, parseInt(days || '7', 10) || 7));
+    const start = isDateKey(from) ? from : nowIn(salon.settings?.timezone || 'Africa/Algiers').date;
+    const own = token
+      ? await Appointment.findOne({ 'tokens.modification': String(token), userId: salon._id }).select('_id').lean()
+      : null;
+    const loaded = await loadContext(salon._id as any, serviceId, { from: start, to: keyOf(dayNum(start) + count - 1) }, { excludeAppointmentId: own?._id });
+    if (!loaded?.service || loaded.service.isActive === false) {
+      res.status(404).json({ error: 'Service not found' });
+      return;
+    }
+    const { ctx, staffViews } = loaded;
+    const eligible = new Set(ctx.staff.filter((m) => canDo(m, ctx.service.id)).map((m) => m.id));
+    res.json({
+      days: availabilityDays(ctx, start, count, resolveStylistId(stylistId)),
+      staff: staffViews.filter((m) => eligible.has(m.id)),
+      today: ctx.now.date,
+      horizon: keyOf(dayNum(ctx.now.date) + ctx.service.horizonDays),
+      slotInterval: ctx.booking.slotInterval,
+      allowAnyStaff: ctx.booking.allowAnyStaff,
+      duration: ctx.service.duration,
+    });
   } catch (error) {
-    logger.error('Get busy slots error:', error);
+    logger.error('Get availability error:', error);
     res.status(500).json({ error: 'Server error' });
   }
 };
@@ -223,7 +237,7 @@ export const getPublicTeamMembers = async (req: Request, res: Response): Promise
   }
 };
 
-// Get available slots
+// Get available slots (legacy token API) — same engine as everything else
 export const getPublicAvailableSlots = async (req: Request, res: Response): Promise<void> => {
   try {
     const { token } = req.params;
@@ -234,81 +248,28 @@ export const getPublicAvailableSlots = async (req: Request, res: Response): Prom
       return;
     }
 
-    const user = await User.findOne({ 
-      'tokens.public': token,
-      isActive: true 
-    });
-
+    const user = await User.findOne({ 'tokens.public': token, isActive: true }).select('_id');
     if (!user) {
       res.status(404).json({ error: 'Salon not found' });
       return;
     }
 
-    const service = await Service.findOne({ 
-      _id: serviceId,
-      userId: user._id,
-      isActive: true,
-      isPublic: true
-    });
-
-    if (!service) {
+    const day = dateKey(String(date));
+    const loaded = isDateKey(day) ? await loadContext(user._id as any, String(serviceId), { from: day, to: day }) : null;
+    if (!loaded?.service || loaded.service.isActive === false || loaded.service.isPublic === false) {
       res.status(404).json({ error: 'Service not found' });
       return;
     }
 
-    // Get team member working hours
-    let workingHours = {
-      start: '09:00',
-      end: '18:00',
-      breaks: [{ start: '12:00', end: '13:00' }],
-    };
-
-    if (teamMemberId) {
-      const teamMember = await TeamMember.findOne({ 
-        _id: teamMemberId, 
-        userId: user._id,
-        isActive: true
-      });
-      
-      if (teamMember) {
-        const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-        const dayOfWeek = days[new Date(date as string).getDay()];
-        const daySchedule = (teamMember.workingHours as any)[dayOfWeek];
-        
-        if (daySchedule && daySchedule.isWorking) {
-          workingHours = {
-            start: daySchedule.start || '09:00',
-            end: daySchedule.end || '18:00',
-            breaks: (daySchedule.breaks as any[]) || [],
-          };
-        }
-      }
-    }
-
-    // Get existing appointments
-    const appointments = await Appointment.find({
-      userId: user._id,
-      date: new Date(date as string),
-      stylistId: teamMemberId,
-      status: { $ne: 'cancelled' },
-    });
-
-    // Generate available slots (reuse logic from appointments controller)
-    const slots = generateAvailableSlots(
-      workingHours,
-      appointments,
-      service.duration,
-      service.buffer
-    );
-
-    res.json({ slots });
+    const [result] = availabilityDays(loaded.ctx, day, 1, resolveStylistId(teamMemberId));
+    res.json({ slots: result.slots.map((s) => s.time) });
   } catch (error) {
     logger.error('Get public available slots error:', error);
     res.status(500).json({ error: 'Server error' });
   }
 };
 
-// Create appointment
+// Create appointment (legacy token API)
 export const createPublicAppointment = async (req: Request, res: Response): Promise<void> => {
   try {
     const errors = validationResult(req);
@@ -318,100 +279,57 @@ export const createPublicAppointment = async (req: Request, res: Response): Prom
     }
 
     const { token } = req.params;
-    const { 
-      serviceId, 
-      teamMemberId, 
-      date, 
-      startTime,
-      clientInfo,
-      notes 
-    } = req.body;
+    const { serviceId, teamMemberId, date, startTime, clientInfo, notes } = req.body;
 
-    // Vérifier que teamMemberId est présent
-    if (!teamMemberId) {
-      logger.error('Tentative de création de rendez-vous sans coiffeur');
-      res.status(400).json({ error: 'Un coiffeur doit être sélectionné pour créer un rendez-vous' });
-      return;
-    }
-
-    const user = await User.findOne({ 
-      'tokens.public': token,
-      isActive: true 
-    });
-
+    const user = await User.findOne({ 'tokens.public': token, isActive: true });
     if (!user) {
       res.status(404).json({ error: 'Salon not found' });
       return;
     }
 
-    // Verify service
-    const service = await Service.findOne({ 
-      _id: serviceId,
-      userId: user._id,
-      isActive: true,
-      isPublic: true
-    });
-
+    const service = await Service.findOne({ _id: serviceId, userId: user._id, isActive: true, isPublic: true });
     if (!service) {
       res.status(404).json({ error: 'Service not found' });
       return;
     }
 
-    // Create or find client
-    let client = await Client.findOne({
-      userId: user._id,
-      email: clientInfo.email
-    });
-
-    if (!client) {
-      client = new Client({
-        userId: user._id,
-        ...clientInfo,
-        source: 'online',
-        preferences: {
-          language: 'fr',
-          currency: 'EUR',
-          notifications: {
-            email: true,
-            sms: true,
-            whatsapp: false,
+    const day = dateKey(date);
+    const appointment = await bookWithLock(user._id as any, String(service._id), day, startTime, resolveStylistId(teamMemberId), async (stylistId) => {
+      let client = await Client.findOne({ userId: user._id, email: clientInfo.email });
+      if (!client) {
+        client = new Client({
+          userId: user._id,
+          ...clientInfo,
+          source: 'online',
+          preferences: {
+            language: 'fr',
+            currency: 'EUR',
+            notifications: { email: true, sms: true, whatsapp: false },
           },
-        },
+        });
+        await client.save();
+      }
+      const appt = new Appointment({
+        userId: user._id,
+        clientId: client._id,
+        serviceId: String(service._id),
+        stylistId,
+        date: new Date(`${day}T00:00:00.000Z`),
+        startTime,
+        endTime: fmt(toMin(startTime) + service.duration),
+        duration: service.duration,
+        price: service.price,
+        status: 'scheduled',
+        notes,
+        source: 'online',
+        confirmationToken: crypto.randomBytes(16).toString('hex'),
+        clientInfo: { firstName: client.firstName, lastName: client.lastName, phone: client.phone, email: client.email },
       });
-      await client.save();
-    }
-
-    // Calculate end time
-    const startDateTime = new Date(`${date}T${startTime}`);
-    const endDateTime = new Date(startDateTime.getTime() + service.duration * 60000);
-    const endTime = endDateTime.toTimeString().slice(0, 5);
-
-    // Create appointment
-    const appointment = new Appointment({
-      userId: user._id,
-      clientId: client._id,
-      serviceId,
-      stylistId: teamMemberId,
-      date: new Date(date),
-      startTime,
-      endTime,
-      duration: service.duration,
-      price: service.price,
-      status: 'scheduled',
-      notes,
-      source: 'online',
-      confirmationToken: crypto.randomBytes(16).toString('hex'),
-      clientInfo: {
-        firstName: client.firstName,
-        lastName: client.lastName,
-        phone: client.phone,
-        email: client.email,
-      },
+      await appt.save();
+      return appt;
     });
 
-    await appointment.save();
-
-    res.status(201).json({ 
+    res.status(201).json({
       appointment: {
         id: appointment._id,
         confirmationToken: appointment.confirmationToken,
@@ -423,6 +341,7 @@ export const createPublicAppointment = async (req: Request, res: Response): Prom
       message: 'Appointment created successfully'
     });
   } catch (error) {
+    if (sendAvailabilityError(res, error)) return;
     logger.error('Create public appointment error:', error);
     res.status(500).json({ error: 'Server error' });
   }
@@ -454,9 +373,7 @@ const MANAGED_SALON_FIELDS = 'establishmentName slug address publicPhone theme s
 async function managedAppointmentView(appointment: any) {
   const [service, stylist] = await Promise.all([
     Service.findById(appointment.serviceId).select('name').lean(),
-    appointment.stylistId && Types.ObjectId.isValid(appointment.stylistId)
-      ? TeamMember.findById(appointment.stylistId).select('firstName lastName').lean()
-      : null,
+    staffName(appointment.userId, appointment.stylistId),
   ]);
   return {
     id: appointment._id,
@@ -470,7 +387,7 @@ async function managedAppointmentView(appointment: any) {
     serviceId: appointment.serviceId,
     serviceName: (service as any)?.name,
     stylistId: appointment.stylistId,
-    stylistName: stylist ? `${(stylist as any).firstName} ${(stylist as any).lastName || ''}`.trim() : undefined,
+    stylistName: stylist,
     clientInfo: appointment.clientInfo,
     salon: appointment.userId,
     canModify: appointment.status === 'scheduled' || appointment.status === 'confirmed' || appointment.status === 'rescheduled',
@@ -537,89 +454,24 @@ export const modifyAppointmentByModificationToken = async (req: Request, res: Re
       return;
     }
 
-    // Apply changes
-    const changes: Record<string, any> = {};
+    // Re-check the new slot with the same engine as booking (own appointment excluded), under the day lock
+    const day = date ? dateKey(date) : dateKey(appointment.date);
+    const time = startTime || appointment.startTime;
+    const wantedStylist = resolveStylistId(stylistId) ?? appointment.stylistId;
+    await bookWithLock(appointment.userId, appointment.serviceId, day, time, wantedStylist, async (assigned) => {
+      const changes: Record<string, any> = {};
+      if (date) { appointment.date = new Date(`${day}T00:00:00.000Z`); changes.date = day; }
+      if (startTime) { appointment.startTime = startTime; changes.startTime = startTime; }
+      if (assigned !== appointment.stylistId) { appointment.stylistId = assigned; changes.stylistId = assigned; }
+      appointment.endTime = fmt(toMin(time) + (appointment.duration || 30));
+      changes.endTime = appointment.endTime;
 
-    // Determine effective values for conflict check / recalculation
-    const effectiveDate = date ? new Date(date) : appointment.date;
-    const effectiveStartTime = startTime || appointment.startTime;
-    const effectiveStylistId = stylistId || appointment.stylistId;
-
-    if (date) {
-      appointment.date = new Date(date);
-      changes.date = date;
-    }
-
-    if (startTime) {
-      appointment.startTime = startTime;
-      changes.startTime = startTime;
-    }
-
-    if (stylistId) {
-      appointment.stylistId = stylistId;
-      changes.stylistId = stylistId;
-    }
-
-    // Recalculate end time when startTime (or date) changes
-    // Best-effort duration: keep existing duration
-    const duration = appointment.duration || 30;
-    const startDateIso = effectiveDate.toISOString().slice(0, 10);
-    const startDateTime = new Date(`${startDateIso}T${effectiveStartTime}`);
-    const endDateTime = new Date(startDateTime.getTime() + duration * 60000);
-    const effectiveEndTime = endDateTime.toTimeString().slice(0, 5);
-
-    // Conflict check (exclude current appointment)
-    const conflicts = await Appointment.find({
-      userId: appointment.userId,
-      _id: { $ne: appointment._id },
-      date: new Date(startDateIso),
-      stylistId: effectiveStylistId,
-      status: { $ne: 'cancelled' },
-      $or: [
-        {
-          $and: [
-            { startTime: { $lte: effectiveStartTime } },
-            { endTime: { $gt: effectiveStartTime } }
-          ]
-        },
-        {
-          $and: [
-            { startTime: { $lt: effectiveEndTime } },
-            { endTime: { $gte: effectiveEndTime } }
-          ]
-        },
-        {
-          $and: [
-            { startTime: { $gte: effectiveStartTime } },
-            { endTime: { $lte: effectiveEndTime } }
-          ]
-        }
-      ]
-    });
-
-    if (conflicts.length > 0) {
-      res.status(400).json({ error: "Ce créneau n'est plus disponible" });
-      return;
-    }
-
-    appointment.endTime = effectiveEndTime;
-    changes.endTime = appointment.endTime;
-
-    // Track modification
-    appointment.modifications = appointment.modifications || [];
-    appointment.modifications.push({
-      date: new Date(),
-      modifiedBy: 'client',
-      changes,
-      reason,
-    });
-
-    // Mark as rescheduled when modified
-    if (Object.keys(changes).length > 0) {
-      appointment.status = AppointmentStatus.RESCHEDULED;
-    }
-
-    await appointment.save();
+      appointment.modifications = appointment.modifications || [];
+      appointment.modifications.push({ date: new Date(), modifiedBy: 'client', changes, reason });
+      // Mark as rescheduled when modified
+      if (changes.date || changes.startTime || changes.stylistId) appointment.status = AppointmentStatus.RESCHEDULED;
+      await appointment.save();
+    }, { excludeAppointmentId: appointment._id, duration: appointment.duration });
 
     // Return updated appointment (reuse formatter)
     const populated = await Appointment.findById(appointment._id)
@@ -628,6 +480,7 @@ export const modifyAppointmentByModificationToken = async (req: Request, res: Re
 
     res.json({ success: true, appointment: await managedAppointmentView(populated) });
   } catch (error) {
+    if (sendAvailabilityError(res, error)) return;
     logger.error('Modify appointment by modification token error:', error);
     res.status(500).json({ error: 'Server error' });
   }
@@ -690,13 +543,6 @@ export const createPublicBooking = async (req: Request, res: Response): Promise<
       notes 
     } = req.body;
 
-    // Vérifier que stylistId est présent
-    if (!stylistId) {
-      logger.error('Tentative de création de rendez-vous sans coiffeur');
-      res.status(400).json({ error: 'Un coiffeur doit être sélectionné pour créer un rendez-vous' });
-      return;
-    }
-
     logger.info('Creating public booking:', { slug, serviceId, stylistId, date, startTime, clientData: { ...clientData, phone: '***' } });
 
     const matchingUser = await findSalonBySlug(slug);
@@ -719,207 +565,123 @@ export const createPublicBooking = async (req: Request, res: Response): Promise<
       return;
     }
 
-    // Handle owner vs team member
-    let actualStylistId = stylistId;
+    // Slot decided by the availability engine under the salon-day lock; no stylist = "peu importe" (least busy free staff)
+    const day = dateKey(date);
     let stylistName = '';
+    const { appointment, client } = await bookWithLock(matchingUser._id as any, String(service._id), day, startTime, resolveStylistId(stylistId), async (actualStylistId, loaded) => {
+      stylistName = loaded.ctx.staff.find((m) => m.id === actualStylistId)?.name || '';
+      const endTime = fmt(toMin(startTime) + service.duration);
 
-    // 'stylist-any' means "assign to the salon owner" (used when no specific stylist is selected)
-    const resolvedStylistId = stylistId === 'stylist-any'
-      ? `owner-${(matchingUser._id as any).toString()}`
-      : stylistId;
-
-    // Check if stylistId has "owner-" prefix
-    if (resolvedStylistId.startsWith('owner-')) {
-      // Extract the actual user ID from resolvedStylistId (handles both original and 'stylist-any' cases)
-      const ownerId = resolvedStylistId.replace('owner-', '');
-
-      // Verify it matches the salon owner
-      if (ownerId !== (matchingUser._id as any).toString()) {
-        logger.error('Owner ID mismatch:', { provided: ownerId, expected: matchingUser._id });
-        res.status(400).json({ error: 'ID propriétaire invalide' });
-        return;
-      }
-
-      // Use the owner's ID directly
-      actualStylistId = (matchingUser._id as any).toString();
-      stylistName = `${matchingUser.firstName} ${matchingUser.lastName}`;
-
-      logger.info('Using salon owner as stylist:', {
-        ownerId: actualStylistId,
-        ownerName: stylistName
-      });
-    } else {
-      // Verify team member exists
-      const teamMember = await TeamMember.findOne({
-        _id: resolvedStylistId,
+      // Create or find client
+      let client = await Client.findOne({
         userId: matchingUser._id,
-        isActive: true
+        $or: [
+          { email: clientData.email },
+          { 
+            firstName: clientData.firstName,
+            lastName: clientData.lastName,
+            phone: clientData.phone
+          }
+        ]
       });
 
-      if (!teamMember) {
-        logger.error('Team member not found:', resolvedStylistId);
-        res.status(404).json({ error: 'Coiffeur non trouvé' });
-        return;
-      }
-
-      stylistName = `${teamMember.firstName} ${teamMember.lastName}`;
-    }
-
-    logger.info('Service and stylist verified:', {
-      serviceName: service.name,
-      duration: service.duration,
-      price: service.price,
-      stylistName: stylistName
-    });
-
-    // Calculate end time using service duration
-    const [startHours, startMinutes] = startTime.split(':').map(Number);
-    const totalMinutes = startHours * 60 + startMinutes + service.duration;
-    const endHours = Math.floor(totalMinutes / 60);
-    const endMinutes = totalMinutes % 60;
-    const endTime = `${endHours.toString().padStart(2, '0')}:${endMinutes.toString().padStart(2, '0')}`;
-
-    // Check for appointment conflicts
-    const existingAppointments = await Appointment.find({
-      userId: matchingUser._id,
-      date: new Date(date),
-      stylistId: actualStylistId,
-      status: { $ne: 'cancelled' },
-      $or: [
-        {
-          $and: [
-            { startTime: { $lte: startTime } },
-            { endTime: { $gt: startTime } }
-          ]
-        },
-        {
-          $and: [
-            { startTime: { $lt: endTime } },
-            { endTime: { $gte: endTime } }
-          ]
-        },
-        {
-          $and: [
-            { startTime: { $gte: startTime } },
-            { endTime: { $lte: endTime } }
-          ]
-        }
-      ]
-    });
-
-    if (existingAppointments.length > 0) {
-      res.status(400).json({ error: 'Ce créneau n\'est plus disponible' });
-      return;
-    }
-
-    // Create or find client
-    let client = await Client.findOne({
-      userId: matchingUser._id,
-      $or: [
-        { email: clientData.email },
-        { 
+      if (!client) {
+        // Create new client
+        client = new Client({
+          userId: matchingUser._id,
           firstName: clientData.firstName,
           lastName: clientData.lastName,
-          phone: clientData.phone
-        }
-      ]
-    });
-
-    if (!client) {
-      // Create new client
-      client = new Client({
-        userId: matchingUser._id,
-        firstName: clientData.firstName,
-        lastName: clientData.lastName,
-        email: clientData.email || '',
-        phone: clientData.phone,
-        birthDate: clientData.birthDate ? new Date(clientData.birthDate) : undefined,
-        address: clientData.address || '',
-        source: 'online',
-        isActive: true,
-        preferences: {
-          favoriteServices: [],
-          preferredStylists: [actualStylistId],
-          communicationPreferences: clientData.preferences?.communicationPreferences || {
-            smsReminders: true,
-            emailMarketing: false,
-            birthdayOffers: false
+          email: clientData.email || '',
+          phone: clientData.phone,
+          birthDate: clientData.birthDate ? new Date(clientData.birthDate) : undefined,
+          address: clientData.address || '',
+          source: 'online',
+          isActive: true,
+          preferences: {
+            favoriteServices: [],
+            preferredStylists: [actualStylistId],
+            communicationPreferences: clientData.preferences?.communicationPreferences || {
+              smsReminders: true,
+              emailMarketing: false,
+              birthdayOffers: false
+            },
+            hairQuestionnaire: clientData.hairQuestionnaire,
+            skinQuestionnaire: clientData.skinQuestionnaire,
           },
-          hairQuestionnaire: clientData.hairQuestionnaire,
-          skinQuestionnaire: clientData.skinQuestionnaire,
+          loyaltyPoints: 10, // Points de bienvenue
+          notes: clientData.notes || '',
+          history: {
+            lastVisit: new Date(),
+            totalVisits: 1,
+            totalSpent: 0,
+            averageSpent: 0,
+          },
+        });
+
+        await client.save();
+        logger.info('New client created:', client._id);
+      } else {
+        // Update existing client
+        client.email = clientData.email || client.email;
+        client.address = clientData.address || client.address;
+        if (clientData.birthDate) {
+          client.dateOfBirth = new Date(clientData.birthDate);
+        }
+      
+        // Update preferences
+        if (clientData.preferences?.communicationPreferences) {
+          client.preferences.communicationPreferences = {
+            ...client.preferences.communicationPreferences,
+            ...clientData.preferences.communicationPreferences
+          };
+        }
+      
+        if (clientData.hairQuestionnaire) {
+          client.preferences.hairQuestionnaire = clientData.hairQuestionnaire;
+        }
+      
+        if (clientData.skinQuestionnaire) {
+          client.preferences.skinQuestionnaire = clientData.skinQuestionnaire;
+        }
+
+        // Add loyalty points for return visit
+        client.loyaltyPoints = (client.loyaltyPoints || 0) + 5;
+        client.history.lastVisit = new Date();
+      
+        await client.save();
+        logger.info('Existing client updated:', client._id);
+      }
+
+      // Create appointment
+      const appointment = new Appointment({
+        userId: matchingUser._id,
+        clientId: client._id,
+        serviceId: service._id,
+        stylistId: actualStylistId,
+        date: new Date(`${day}T00:00:00.000Z`),
+        startTime,
+        endTime,
+        duration: service.duration,
+        price: service.price,
+        status: 'scheduled',
+        notes: notes || '',
+        source: 'online',
+        confirmationToken: crypto.randomBytes(16).toString('hex'),
+        tokens: {
+          public: crypto.randomBytes(16).toString('hex'),
+          modification: crypto.randomBytes(16).toString('hex'),
         },
-        loyaltyPoints: 10, // Points de bienvenue
-        notes: clientData.notes || '',
-        history: {
-          lastVisit: new Date(),
-          totalVisits: 1,
-          totalSpent: 0,
-          averageSpent: 0,
+        clientInfo: {
+          firstName: client.firstName,
+          lastName: client.lastName,
+          phone: client.phone,
+          email: client.email,
         },
       });
 
-      await client.save();
-      logger.info('New client created:', client._id);
-    } else {
-      // Update existing client
-      client.email = clientData.email || client.email;
-      client.address = clientData.address || client.address;
-      if (clientData.birthDate) {
-        client.dateOfBirth = new Date(clientData.birthDate);
-      }
-      
-      // Update preferences
-      if (clientData.preferences?.communicationPreferences) {
-        client.preferences.communicationPreferences = {
-          ...client.preferences.communicationPreferences,
-          ...clientData.preferences.communicationPreferences
-        };
-      }
-      
-      if (clientData.hairQuestionnaire) {
-        client.preferences.hairQuestionnaire = clientData.hairQuestionnaire;
-      }
-      
-      if (clientData.skinQuestionnaire) {
-        client.preferences.skinQuestionnaire = clientData.skinQuestionnaire;
-      }
-
-      // Add loyalty points for return visit
-      client.loyaltyPoints = (client.loyaltyPoints || 0) + 5;
-      client.history.lastVisit = new Date();
-      
-      await client.save();
-      logger.info('Existing client updated:', client._id);
-    }
-
-    // Create appointment
-    const appointment = new Appointment({
-      userId: matchingUser._id,
-      clientId: client._id,
-      serviceId: service._id,
-      stylistId: actualStylistId,
-      date: new Date(date),
-      startTime,
-      endTime,
-      duration: service.duration,
-      price: service.price,
-      status: 'scheduled',
-      notes: notes || '',
-      source: 'online',
-      confirmationToken: crypto.randomBytes(16).toString('hex'),
-      tokens: {
-        public: crypto.randomBytes(16).toString('hex'),
-        modification: crypto.randomBytes(16).toString('hex'),
-      },
-      clientInfo: {
-        firstName: client.firstName,
-        lastName: client.lastName,
-        phone: client.phone,
-        email: client.email,
-      },
+      await appointment.save();
+      return { appointment, client };
     });
-
-    await appointment.save();
     logger.info('Appointment created successfully:', appointment._id);
 
     // Envoyer les emails de confirmation
@@ -991,6 +753,8 @@ export const createPublicBooking = async (req: Request, res: Response): Promise<
         duration: appointment.duration,
         price: appointment.price,
         status: appointment.status,
+        stylistId: appointment.stylistId,
+        stylistName,
       },
       client: {
         id: client._id,
@@ -1004,6 +768,7 @@ export const createPublicBooking = async (req: Request, res: Response): Promise<
     });
 
   } catch (error: any) {
+    if (sendAvailabilityError(res, error)) return;
     logger.error('Create public booking error:', {
       message: error.message,
       stack: error.stack,
@@ -1164,58 +929,3 @@ export const cancelPublicAppointment = async (req: Request, res: Response): Prom
     res.status(500).json({ error: 'Server error' });
   }
 };
-
-// Helper function (reused from appointments controller)
-function generateAvailableSlots(
-  workingHours: any,
-  appointments: any[],
-  duration: number,
-  buffer?: { before?: number; after?: number }
-): string[] {
-  const slots: string[] = [];
-  const slotDuration = duration + (buffer?.before || 0) + (buffer?.after || 0);
-  
-  const startMinutes = timeToMinutes(workingHours.start);
-  const endMinutes = timeToMinutes(workingHours.end);
-  
-  for (let time = startMinutes; time + slotDuration <= endMinutes; time += 15) {
-    const slotStart = minutesToTime(time + (buffer?.before || 0));
-    
-    const inBreak = workingHours.breaks.some((breakTime: any) => {
-      const breakStart = timeToMinutes(breakTime.start);
-      const breakEnd = timeToMinutes(breakTime.end);
-      return (
-        (time >= breakStart && time < breakEnd) ||
-        (time + slotDuration > breakStart && time + slotDuration <= breakEnd)
-      );
-    });
-    
-    if (inBreak) continue;
-    
-    const hasConflict = appointments.some(appointment => {
-      const apptStart = timeToMinutes(appointment.startTime) - (buffer?.before || 0);
-      const apptEnd = timeToMinutes(appointment.endTime) + (buffer?.after || 0);
-      return (
-        (time >= apptStart && time < apptEnd) ||
-        (time + slotDuration > apptStart && time + slotDuration <= apptEnd)
-      );
-    });
-    
-    if (!hasConflict) {
-      slots.push(slotStart);
-    }
-  }
-  
-  return slots;
-}
-
-function timeToMinutes(time: string): number {
-  const [hours, minutes] = time.split(':').map(Number);
-  return hours * 60 + minutes;
-}
-
-function minutesToTime(minutes: number): string {
-  const hours = Math.floor(minutes / 60);
-  const mins = minutes % 60;
-  return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
-}

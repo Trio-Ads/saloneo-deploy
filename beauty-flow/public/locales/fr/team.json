@@ -165,7 +165,8 @@
     "sections": {
       "personal_info": "Informations personnelles",
       "specialties": "Spécialités",
-      "working_hours": "Horaires de travail"
+      "working_hours": "Horaires de travail",
+      "absences": "Absences"
     },
     "labels": {
       "first_name_required": "Prénom *",
@@ -192,17 +193,44 @@
     "schedule_labels": {
       "works": "Travaille",
       "from": "De :",
-      "to": "À :"
+      "to": "À :",
+      "add_break": "Pause",
+      "break": "Pause",
+      "remove_break": "Supprimer la pause"
     },
     "help_messages": {
       "specialties_help": "Cochez les services que ce membre réalise.",
       "order_help": "L'ordre de sélection détermine l'ordre d'affichage.",
-      "no_services": "Ajoutez d'abord des services pour pouvoir les attribuer."
+      "no_services": "Ajoutez d'abord des services pour pouvoir les attribuer.",
+      "hours_help": "Les créneaux respectent aussi les horaires et fermetures du salon.",
+      "absences_help": "Congés, maladie : aucun rendez-vous ne lui est proposé ces jours-là."
     },
     "buttons": {
       "cancel": "Annuler",
       "add": "Ajouter",
       "modify": "Modifier"
+    },
+    "absences": {
+      "none": "Aucune absence prévue.",
+      "from": "Du",
+      "to": "Au (facultatif)",
+      "reason": "Motif",
+      "reason_placeholder": "Congé",
+      "add": "Ajouter",
+      "remove": "Supprimer l'absence",
+      "hours": "Heures (facultatif)",
+      "start": "Début",
+      "end": "Fin",
+      "hours_help": "Laissez vide pour une absence sur toute la journée (ex. 14:00–16:00 pour un rendez-vous médical).",
+      "hours_invalid": "Indiquez un début et une fin, la fin après le début."
+    },
+    "photo": {
+      "add": "Ajouter une photo",
+      "change": "Changer la photo",
+      "remove": "Retirer",
+      "help": "JPG, PNG ou WebP. Recadrée au carré, centrée.",
+      "uploading": "Envoi de la photo…",
+      "error": "La photo n'a pas pu être envoyée. Choisissez une image JPG, PNG ou WebP de moins de 5 Mo."
     }
   },
   "team_list": {

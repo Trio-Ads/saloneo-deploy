@@ -96,5 +96,12 @@
     "update": "Güncelleme sırasında hata oluştu",
     "generate": "Oluşturma sırasında hata oluştu",
     "request": "İstek sırasında hata oluştu"
+  },
+  "availability": {
+    "SLOT_TAKEN": "Bu saat az önce alındı. Lütfen başka bir saat seçin.",
+    "OUTSIDE_HOURS": "Bu saat salonun çalışma saatleri dışında.",
+    "TOO_SOON": "Bu saat randevu için çok yakın.",
+    "TOO_FAR": "Bu saat randevu için çok ileride.",
+    "STAFF_UNAVAILABLE": "Bu ekip üyesi o saatte müsait değil."
   }
 }

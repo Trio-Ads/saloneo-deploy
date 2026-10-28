@@ -1,12 +1,8 @@
 import { create } from 'zustand';
 import { BookingData, BookingStep, BookingError } from './types';
-import { useAppointmentStore } from '../appointments/store';
 import { useClientStore } from '../clients/store';
-import { useServiceStore } from '../services/store';
-import { useTeamStore } from '../team/store';
 import { Client, ClientFormData } from '../clients/types';
 import { v4 as uuidv4 } from 'uuid';
-import { addMinutes, format } from 'date-fns';
 import { publicAPI } from '../../services/api';
 import i18n from 'i18next';
 
@@ -152,31 +148,7 @@ export const usePublicBookingStore = create<PublicBookingStore>((set, get) => ({
           return false;
         }
 
-        // Vérifier la disponibilité du créneau si le service est dans le store admin
-        // (sur la page publique le store admin peut être vide — le backend valide côté serveur)
-        const service = useServiceStore.getState().services.find(s => s.id === bookingData.serviceId);
-        if (service) {
-          const endTime = format(
-            addMinutes(
-              new Date(`2000-01-01 ${bookingData.startTime}`),
-              service.duration
-            ),
-            'HH:mm'
-          );
-
-          const isAvailable = useAppointmentStore.getState().isSlotAvailable({
-            date: bookingData.date,
-            startTime: bookingData.startTime,
-            endTime,
-            stylistId: bookingData.stylistId,
-          });
-
-          if (!isAvailable) {
-            state.setError({ step: 'datetime', message: i18n.t('errors:booking.slot_unavailable') });
-            return false;
-          }
-        }
-
+        // Availability itself is decided (and re-checked under a lock) by the server on submit
         return true;
 
       case 'client':
@@ -229,17 +201,14 @@ export const usePublicBookingStore = create<PublicBookingStore>((set, get) => ({
 
       console.log('✅ Réponse de l\'API:', response.data);
       
-      // Mettre à jour l'état avec les informations de confirmation
-      const stylist = bookingData.stylistId
-        ? useTeamStore.getState().members.find(m => m.id === bookingData.stylistId)
-        : null;
+      // Confirmation shows who got the appointment (assigned by the server after "peu importe")
       set({
         showConfirmation: true,
         lastBookingInfo: {
           date: bookingData.date,
           time: bookingData.startTime,
           modificationLink: response.data.appointment.modificationToken,
-          stylistName: stylist ? `${stylist.firstName} ${stylist.lastName}` : undefined,
+          stylistName: response.data.appointment.stylistName || undefined,
         },
       });
 
@@ -261,7 +230,8 @@ export const usePublicBookingStore = create<PublicBookingStore>((set, get) => ({
         errorMessage = error.message;
       }
 
-      throw new Error(errorMessage);
+      // code (SLOT_TAKEN, OUTSIDE_HOURS, …) lets the flow translate and send the client back to the slots
+      throw Object.assign(new Error(errorMessage), { code: error.response?.data?.code });
     }
   },
 

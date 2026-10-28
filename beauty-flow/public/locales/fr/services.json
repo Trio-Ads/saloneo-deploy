@@ -36,10 +36,15 @@
         "4": "4 heures à l'avance",
         "12": "12 heures à l'avance",
         "24": "24 heures à l'avance (1 jour)",
-        "48": "48 heures à l'avance (2 jours)"
+        "48": "48 heures à l'avance (2 jours)",
+        "salon": "Selon les réglages du salon"
       },
       "section": "Réservation en ligne",
-      "help": "Vos clients peuvent réserver ce service depuis votre page publique."
+      "help": "Vos clients peuvent réserver ce service depuis votre page publique.",
+      "buffer_before": "Préparation avant",
+      "buffer_after": "Nettoyage après",
+      "buffer_help": "Temps bloqué dans l'agenda avant et après ce service. À 0, le temps de battement du salon s'applique après.",
+      "minutes": "min"
     }
   },
   "categories": {

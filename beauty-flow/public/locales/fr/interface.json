@@ -770,5 +770,24 @@
   "errors": {
     "upload": "Erreur lors du téléchargement de l'image :",
     "save": "Erreur lors de la sauvegarde :"
+  },
+  "directory": {
+    "title": "Annuaire Saloneo",
+    "description": "Les clients trouvent votre salon sur saloneo.app/salons.",
+    "listed": "Apparaître dans l'annuaire Saloneo",
+    "listed_on": "Votre salon est visible dans l'annuaire dès qu'une prestation est réservable en ligne.",
+    "listed_off": "Votre salon n'apparaît pas dans l'annuaire. Votre page reste accessible par son lien.",
+    "not_eligible": "Aucune prestation n'est réservable en ligne : activez la réservation en ligne sur au moins une prestation (Services) pour apparaître dans l'annuaire.",
+    "wilaya": "Wilaya",
+    "wilaya_none": "Choisir une wilaya",
+    "city": "Ville ou commune",
+    "city_placeholder": "Ex. Bab Ezzouar",
+    "location_help": "Affichées sur votre fiche et utilisées pour la recherche par wilaya.",
+    "see_card": "Voir ma fiche dans l'annuaire",
+    "save": "Enregistrer l'annuaire",
+    "saving": "Enregistrement…",
+    "saved": "Enregistré",
+    "save_error": "L'enregistrement a échoué. Réessayez.",
+    "load_error": "Impossible de charger les réglages de l'annuaire."
   }
 }

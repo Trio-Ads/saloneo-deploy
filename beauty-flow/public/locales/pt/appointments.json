@@ -183,7 +183,8 @@
       "select_time": "Escolher uma hora…",
       "additional_notes": "Notas",
       "notes_placeholder": "Adicione notas sobre a marcação, as preferências do cliente…",
-      "new": "Novo"
+      "new": "Novo",
+      "owner": "Proprietária"
     },
     "messages": {
       "select_service_stylist_first": "Escolha primeiro um serviço e um membro da equipa.",
@@ -288,7 +289,51 @@
       "hours_advance": "horas de antecedência",
       "days": "dias",
       "hours_before": "horas antes da marcação"
-    }
+    },
+    "hours_title": "Horário de funcionamento",
+    "hours_description": "Os horários propostos seguem este horário e as suas pausas, cruzado com o horário de cada membro da equipa.",
+    "not_configured": "O seu horário ainda não está definido: entretanto, os horários seguem sábado–quinta 09:00–18:00, sexta fechado.",
+    "closed": "Fechado",
+    "add_break": "Adicionar uma pausa",
+    "remove_break": "Remover a pausa",
+    "break_label": "Pausa",
+    "invalid_hours": "A hora de fecho deve ser depois da hora de abertura.",
+    "invalid_break": "Cada pausa deve estar dentro do horário do dia.",
+    "fix_errors": "Corrija os horários a vermelho para guardar.",
+    "booking_title": "Reserva online",
+    "booking_description": "Estas regras aplicam-se à página de reservas e são verificadas em cada marcação.",
+    "slot_interval": "Intervalo dos horários",
+    "slot_interval_description": "É proposto um horário a cada…",
+    "min_notice": "Antecedência mínima",
+    "min_notice_description": "Uma cliente não pode reservar com menos antecedência (salvo definição própria de um serviço).",
+    "notice_options": {
+      "0": "Nenhuma",
+      "30": "30 minutos",
+      "60": "1 hora",
+      "120": "2 horas",
+      "240": "4 horas",
+      "720": "12 horas",
+      "1440": "24 horas",
+      "2880": "48 horas"
+    },
+    "allow_any_staff": "Propor «Tanto faz»",
+    "allow_any_staff_description": "A cliente pode deixar o salão escolher o membro da equipa disponível menos ocupado.",
+    "closures_title": "Encerramentos excecionais",
+    "closures_description": "Eid, feriados, férias do salão: nesses dias não é proposto nenhum horário.",
+    "closure_from": "De",
+    "closure_to": "Até (opcional)",
+    "closure_reason": "Motivo",
+    "closure_reason_placeholder": "Eid al-Fitr",
+    "add_closure": "Adicionar",
+    "remove_closure": "Remover o encerramento",
+    "no_closures": "Nenhum encerramento previsto.",
+    "saved": "Definições guardadas",
+    "save_hours": "Guardar o horário",
+    "save_booking": "Guardar as regras de reserva",
+    "save_closures": "Guardar os encerramentos",
+    "unsaved": "Alterações não guardadas",
+    "copy_to_open_days": "Copiar para todos os dias abertos",
+    "leave_confirm": "Há alterações não guardadas. Sair mesmo assim?"
   },
   "bookingConfirmed": "Reserva confirmada!",
   "bookingSuccessMessage": "A sua marcação foi confirmada com sucesso",
@@ -359,5 +404,19 @@
     "no_results_title": "Sem resultados",
     "noResults": "Nenhuma marcação corresponde a estes filtros.",
     "unknown": "Desconhecido"
+  },
+  "availability": {
+    "short": {
+      "SLOT_TAKEN": "ocupado",
+      "OUTSIDE_HOURS": "fora do horário",
+      "TOO_SOON": "passado",
+      "TOO_FAR": "demasiado longe",
+      "STAFF_UNAVAILABLE": "ausente"
+    },
+    "loading": "A procurar horários…",
+    "force_hint": "Pode adicioná-la mesmo assim.",
+    "force_confirm": "Adicionar mesmo assim?",
+    "hours_not_configured": "O seu horário de funcionamento não está configurado: as clientes veem sábado–quinta 09:00–18:00 por defeito.",
+    "configure_hours": "Configurar o horário"
   }
 }

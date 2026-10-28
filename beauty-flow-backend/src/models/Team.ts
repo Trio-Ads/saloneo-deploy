@@ -20,6 +20,8 @@ export interface ITeamMember extends Document {
       }>;
     };
   };
+  /** Days off (congés, maladie): inclusive 'YYYY-MM-DD' days. */
+  absences: Array<{ from: string; to: string; start?: string; end?: string; reason?: string }>;
   avatar?: string;
   color: string;
   isActive: boolean;
@@ -104,6 +106,15 @@ const teamMemberSchema = new Schema<ITeamMember>(
         return defaultHours;
       },
     },
+    absences: [{
+      _id: false,
+      from: { type: String, required: true, match: /^\d{4}-\d{2}-\d{2}$/ },
+      to: { type: String, required: true, match: /^\d{4}-\d{2}-\d{2}$/ },
+      // Optional time window (partial-day absence); none = whole days
+      start: { type: String, match: /^([01]\d|2[0-3]):[0-5]\d$/ },
+      end: { type: String, match: /^([01]\d|2[0-3]):[0-5]\d$/ },
+      reason: { type: String, trim: true, maxlength: 120 },
+    }],
     avatar: {
       type: String,
     },

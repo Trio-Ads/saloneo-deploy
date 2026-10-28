@@ -8,6 +8,7 @@ import { usePublicStats } from '../hooks/usePublicStats';
 import { formatPrice } from '../../../utils/currency';
 import { PlanType, DURATION_PRICES } from '../../subscription/types';
 import { allTemplates } from '../../templates';
+import DirectoryShowcase from '../../directory/DirectoryShowcase';
 import { SiteNav, SiteFooter, BrowserFrame, PhoneFrame, PlanCards, BillingToggle, Billing, CONTACT_EMAIL, container } from '../components/site';
 
 const IMG = '/images/marketing';
@@ -158,6 +159,8 @@ const LandingPage: React.FC = () => {
             </div>
           </div>
         </section>
+
+        <DirectoryShowcase />
 
         {/* Break-even calculator: plain arithmetic, no promised growth */}
         <section className="border-y border-gray-200 bg-gray-50 py-20 dark:border-gray-800 dark:bg-gray-900/40">

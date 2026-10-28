@@ -12,7 +12,8 @@ import {
   MagnifyingGlassIcon,
 } from '@heroicons/react/24/outline';
 import { Appointment, AppointmentStatus, AppointmentFormData } from './types';
-import { useAppointmentStore } from './store';
+import { useAppointmentStore, ForceOptions } from './store';
+import { availabilityAPI, availabilityCode } from './availability';
 import { useServiceStore } from '../services/store';
 import { useClientStore } from '../clients/store';
 import { useTeamStore } from '../team/store';
@@ -73,6 +74,12 @@ const AppointmentsPage: React.FC = () => {
   }, [loadAppointments, fetchClients]);
 
   
+  // Salon hours never set → the engine uses Sat–Thu 09:00–18:00; tell the owner
+  const [hoursConfigured, setHoursConfigured] = useState<boolean | null>(null);
+  useEffect(() => {
+    availabilityAPI.getSettings().then((r) => setHoursConfigured(r.data.configured)).catch(() => undefined);
+  }, []);
+
   // Vérifier les rendez-vous passés au chargement
   useEffect(() => {
     const pastAppointments = getPastAppointments();
@@ -142,18 +149,31 @@ const AppointmentsPage: React.FC = () => {
     setShowForm(true);
   };
 
+  // The server refuses times outside hours / taken (409 + code); the owner can confirm "Ajouter quand même"
   const handleFormSubmit = async (data: AppointmentFormData) => {
-    try {
-      if (editingAppointment) {
-        updateAppointment(editingAppointment.id, data);
-      } else {
-        await addAppointment(data);
-        alert(t('success_messages.appointment_created'));
+    let opts: ForceOptions = {};
+    for (;;) {
+      try {
+        if (editingAppointment) {
+          await updateAppointment(editingAppointment.id, data, opts);
+        } else {
+          await addAppointment(data, opts);
+          alert(t('success_messages.appointment_created'));
+        }
+        setShowForm(false);
+        setEditingAppointment(null);
+        return;
+      } catch (error: any) {
+        const code = availabilityCode(error);
+        const forced = code === 'SLOT_TAKEN' ? opts.forceOverlap : opts.force;
+        if (!code || forced) {
+          console.error(t('errors.form_submission'), error);
+          alert(error?.response?.data?.error || t('errors.form_submission'));
+          return;
+        }
+        if (!window.confirm(`${t(`errors:availability.${code}`)}\n\n${t('availability.force_confirm')}`)) return;
+        opts = { ...opts, ...(code === 'SLOT_TAKEN' ? { forceOverlap: true } : { force: true }) };
       }
-      setShowForm(false);
-      setEditingAppointment(null);
-    } catch (error) {
-      console.error(t('errors.form_submission'), error);
     }
   };
 
@@ -241,6 +261,16 @@ const AppointmentsPage: React.FC = () => {
         }
       />
 
+      {hoursConfigured === false && (
+        <div className="panel mb-6 flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center dark:bg-gray-900 dark:border-gray-800" role="status">
+          <div className="flex flex-1 items-start gap-3 text-sm">
+            <ExclamationTriangleIcon className="size-5 shrink-0 text-amber-500" />
+            <p className="text-gray-700 dark:text-gray-300">{t('availability.hours_not_configured')}</p>
+          </div>
+          <Link to="/interface?tab=settings" className="btn-secondary">{t('availability.configure_hours')}</Link>
+        </div>
+      )}
+
       {pastAppointmentsCount > 0 && (
         <div className="panel mb-6 flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center dark:bg-gray-900 dark:border-gray-800">
           <div className="flex flex-1 items-start gap-3 text-sm">
@@ -309,6 +339,7 @@ const AppointmentsPage: React.FC = () => {
       <div ref={formRef} className="scroll-mt-24">
         {showForm ? (
           <AppointmentForm
+            appointmentId={editingAppointment?.id}
             initialData={editingAppointment ? {
               clientId: editingAppointment.clientId,
               serviceId: editingAppointment.serviceId,

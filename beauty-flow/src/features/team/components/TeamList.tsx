@@ -4,6 +4,7 @@ import { PencilIcon, PlusIcon, TrashIcon, UserGroupIcon } from '@heroicons/react
 import clsx from 'clsx';
 import { TeamMember, Specialty } from '../types';
 import { useServiceStore } from '../../services/store';
+import { StaffAvatar } from '../StaffAvatar';
 import { Badge, EmptyState, IconButton } from '../../../components/ui';
 
 interface TeamListProps {
@@ -57,14 +58,11 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete, onAdd })
         const schedule = member.workingHours || (member as any).schedule || {};
         const workedDays = DAYS.filter((day) => schedule[day]?.isWorking);
         const hours = Array.from(new Set(workedDays.map((day) => `${schedule[day].start || '09:00'}–${schedule[day].end || '18:00'}`)));
-        const initials = `${member.firstName?.[0] || ''}${member.lastName?.[0] || ''}`.toUpperCase();
 
         return (
           <li key={member.id} className="flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:gap-4">
             <div className="flex min-w-0 flex-1 items-center gap-3">
-              <span className="grid size-10 shrink-0 place-items-center rounded-full bg-gray-100 text-sm font-semibold text-gray-700 dark:bg-gray-800 dark:text-gray-300">
-                {initials}
-              </span>
+              <StaffAvatar member={member} />
               <div className="min-w-0">
                 <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
                   <span className="truncate font-medium text-gray-900 dark:text-gray-50">{member.firstName} {member.lastName}</span>

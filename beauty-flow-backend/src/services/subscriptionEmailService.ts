@@ -5,7 +5,14 @@ import { Client } from '../models/Client';
 import { Appointment } from '../models/Appointment';
 import { Service } from '../models/Service';
 import { EmailTemplateData } from '../types/email.types';
+import { staffName } from './availability';
 import * as cron from 'node-cron';
+
+// Appointment.serviceId is a plain string (populate does nothing): load the service itself
+const serviceOf = async (appointment: any): Promise<any> =>
+  typeof appointment.serviceId === 'object' && appointment.serviceId?.name
+    ? appointment.serviceId
+    : (await Service.findById(appointment.serviceId).select('name price duration').lean()) || {};
 
 class SubscriptionEmailService {
   constructor() {
@@ -328,9 +335,8 @@ class SubscriptionEmailService {
   private async sendAppointmentReminder(appointment: any, type: '24h' | '2h') {
     try {
       const client = appointment.clientId;
-      const service = appointment.serviceId;
+      const service = await serviceOf(appointment);
       const user = appointment.userId;
-      const teamMember = appointment.stylistId;
 
       const templateData: EmailTemplateData = {
         clientName: `${client.firstName} ${client.lastName}`,
@@ -343,9 +349,7 @@ class SubscriptionEmailService {
         serviceName: service.name,
         servicePrice: service.price,
         serviceDuration: service.duration,
-        staffName: teamMember ? 
-          `${teamMember.firstName} ${teamMember.lastName}` : 
-          `${user.firstName} ${user.lastName}`,
+        staffName: (await staffName(user, appointment.stylistId)) || `${user.firstName || ''} ${user.lastName || ''}`.trim(),
         appointmentId: (appointment._id as any).toString()
       };
 
@@ -375,9 +379,8 @@ class SubscriptionEmailService {
         return;
       }
 
-      const service = appointment.serviceId as any;
+      const service = await serviceOf(appointment);
       const user = appointment.userId as any;
-      const teamMember = appointment.stylistId as any;
 
       const templateData: EmailTemplateData = {
         clientName: `${client.firstName} ${client.lastName}`,
@@ -390,9 +393,7 @@ class SubscriptionEmailService {
         serviceName: service.name,
         servicePrice: service.price,
         serviceDuration: service.duration,
-        staffName: teamMember ? 
-          `${teamMember.firstName} ${teamMember.lastName}` : 
-          `${user.firstName} ${user.lastName}`,
+        staffName: (await staffName(user, appointment.stylistId)) || `${user.firstName || ''} ${user.lastName || ''}`.trim(),
         appointmentId: (appointment._id as any).toString()
       };
 
@@ -498,9 +499,8 @@ class SubscriptionEmailService {
         return;
       }
 
-      const service = appointment.serviceId as any;
+      const service = await serviceOf(appointment);
       const user = appointment.userId as any;
-      const teamMember = appointment.stylistId as any;
 
       const templateData: EmailTemplateData = {
         clientName: `${client.firstName} ${client.lastName}`,
@@ -515,9 +515,7 @@ class SubscriptionEmailService {
         serviceName: service.name,
         servicePrice: service.price,
         serviceDuration: service.duration,
-        staffName: teamMember ? 
-          `${teamMember.firstName} ${teamMember.lastName}` : 
-          `${user.firstName} ${user.lastName}`,
+        staffName: (await staffName(user, appointment.stylistId)) || `${user.firstName || ''} ${user.lastName || ''}`.trim(),
         appointmentId: (appointment._id as any).toString()
       };
 
@@ -547,7 +545,7 @@ class SubscriptionEmailService {
         return;
       }
 
-      const service = appointment.serviceId as any;
+      const service = await serviceOf(appointment);
       const user = appointment.userId as any;
 
       const templateData: EmailTemplateData = {

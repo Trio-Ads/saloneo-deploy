@@ -11,6 +11,7 @@ import PublicClientForm from './PublicClientForm';
 import { BookingConfirmation } from './BookingConfirmation';
 import { DesignTemplate } from '../../templates/types';
 import { formatPrice } from '../../../utils/currency';
+import { availabilityCode } from '../../appointments/availability';
 import { bookingVars, dateLocale, formatDuration } from './bookingTheme';
 
 interface PublicBookingFlowProps {
@@ -77,8 +78,10 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
   const currentService = services?.find((s) => s._id === serviceId);
   const currency = profile?.settings?.currency || 'DZD';
   const priceLabel = currentService?.price ? formatPrice(currentService.price, currency) : undefined;
-  const stylist = team?.find((m) => m._id === bookingData.stylistId);
-  const stylistName = stylist ? `${stylist.firstName} ${stylist.lastName || ''}`.trim() : lastBookingInfo?.stylistName;
+  // Name of the picked staff (from the availability staff list); after "peu importe" the server tells who got it
+  const [pickedName, setPickedName] = React.useState<string | undefined>();
+  const [refreshKey, setRefreshKey] = React.useState(0);
+  const stylistName = lastBookingInfo?.stylistName || (bookingData.stylistId ? pickedName : undefined);
 
   // Initialise the store with the serviceId on mount (parent conditionally renders this)
   React.useEffect(() => {
@@ -104,7 +107,10 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
   }, [close]);
 
   const handleDateTimeSelect = React.useCallback(
-    (date: string, time: string, stylistId: string) => updateBookingData({ date, startTime: time, stylistId }),
+    (date: string, time: string, stylistId: string, name?: string) => {
+      setPickedName(name);
+      updateBookingData({ date, startTime: time, stylistId });
+    },
     [updateBookingData]
   );
 
@@ -115,13 +121,21 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
       try {
         await submitBooking();
       } catch (err: any) {
-        const msg = err?.message || t('errors:booking.error');
-        setError({ step: 'client', message: msg });
+        const code = availabilityCode(err);
+        if (code) {
+          // The slot went in the meantime: back to the slots (fresh), the client's details are kept
+          updateBookingData({ startTime: '' });
+          setStep('datetime');
+          setRefreshKey((k) => k + 1);
+          setError({ step: 'datetime', message: t(`errors:availability.${code}`) });
+        } else {
+          setError({ step: 'client', message: err?.message || t('errors:booking.error') });
+        }
       } finally {
         setLoading(false);
       }
     },
-    [updateBookingData, setError, setLoading, submitBooking, t]
+    [updateBookingData, setError, setLoading, setStep, submitBooking, t]
   );
 
   const step: 1 | 2 | 3 = showConfirmation && lastBookingInfo ? 3 : currentStep === 'client' ? 2 : 1;
@@ -184,13 +198,12 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
             {step === 1 && (
               <DateTimeSelection
                 serviceId={bookingData.serviceId}
-                serviceDuration={currentService?.duration}
-                publicTeamMembers={team}
                 selectedDate={bookingData.date}
                 selectedTime={bookingData.startTime}
                 stylistId={bookingData.stylistId}
                 showTeamSelection={profile?.showTeamOnPublicPage ?? settings.showTeamOnPublicPage}
                 slug={slug}
+                refreshKey={refreshKey}
                 onSelect={handleDateTimeSelect}
               />
             )}
@@ -199,6 +212,7 @@ const PublicBookingFlow: React.FC<PublicBookingFlowProps> = ({
               <PublicClientForm
                 serviceId={bookingData.serviceId}
                 publicService={currentService}
+                initialData={bookingData.clientData.firstName ? bookingData.clientData : undefined}
                 onSubmit={handleClientSubmit}
               />
             )}

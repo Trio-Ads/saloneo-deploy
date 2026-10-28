@@ -165,7 +165,8 @@
     "sections": {
       "personal_info": "Kişisel bilgiler",
       "specialties": "Uzmanlık alanları",
-      "working_hours": "Çalışma saatleri"
+      "working_hours": "Çalışma saatleri",
+      "absences": "İzinler"
     },
     "labels": {
       "first_name_required": "Ad *",
@@ -192,17 +193,44 @@
     "schedule_labels": {
       "works": "Çalışıyor",
       "from": "Başlangıç:",
-      "to": "Bitiş:"
+      "to": "Bitiş:",
+      "add_break": "Mola",
+      "break": "Mola",
+      "remove_break": "Molayı kaldır"
     },
     "help_messages": {
       "specialties_help": "Bu ekip üyesinin verdiği hizmetleri işaretleyin.",
       "order_help": "Seçim sırası, görüntülenme sırasını belirler.",
-      "no_services": "Atayabilmek için önce hizmet ekleyin."
+      "no_services": "Atayabilmek için önce hizmet ekleyin.",
+      "hours_help": "Saatler salonun çalışma saatlerine ve kapanışlarına da uyar.",
+      "absences_help": "İzin, hastalık: bu günlerde bu kişiyle randevu sunulmaz."
     },
     "buttons": {
       "cancel": "İptal",
       "add": "Ekle",
       "modify": "Güncelle"
+    },
+    "absences": {
+      "none": "Planlanmış izin yok.",
+      "from": "Başlangıç",
+      "to": "Bitiş (isteğe bağlı)",
+      "reason": "Neden",
+      "reason_placeholder": "Yıllık izin",
+      "add": "Ekle",
+      "remove": "İzni kaldır",
+      "hours": "Saatler (isteğe bağlı)",
+      "start": "Başlangıç",
+      "end": "Bitiş",
+      "hours_help": "Tüm gün için boş bırakın (ör. doktor randevusu için 14:00–16:00).",
+      "hours_invalid": "Bir başlangıç ve bitiş girin; bitiş başlangıçtan sonra olmalı."
+    },
+    "photo": {
+      "add": "Fotoğraf ekle",
+      "change": "Fotoğrafı değiştir",
+      "remove": "Kaldır",
+      "help": "JPG, PNG veya WebP. Ortadan kare kırpılır.",
+      "uploading": "Fotoğraf yükleniyor…",
+      "error": "Fotoğraf yüklenemedi. 5 MB altında bir JPG, PNG veya WebP görsel seçin."
     }
   },
   "team_list": {

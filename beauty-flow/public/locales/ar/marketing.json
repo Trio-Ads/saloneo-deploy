@@ -6,7 +6,8 @@
       "login": "تسجيل الدخول",
       "signup": "إنشاء صالونك",
       "dashboard": "لوحة التحكم",
-      "menu": "القائمة"
+      "menu": "القائمة",
+      "directory": "ابحث عن صالون"
     },
     "hero": {
       "title": "صالونك منظَّم، وزبائنك يحجزون عبر الإنترنت.",
@@ -199,6 +200,98 @@
       "register": "إنشاء حساب",
       "faq": "أسئلة شائعة",
       "rights": "جميع الحقوق محفوظة."
+    }
+  },
+  "directory": {
+    "nav": "دليل الصالونات",
+    "breadcrumb": "مسار التنقل",
+    "heading": {
+      "all": "ابحث عن صالون واحجز عبر الإنترنت",
+      "wilaya": "صالونات التجميل في {{wilaya}}",
+      "category": "{{what}} في الجزائر",
+      "both": "{{what}} في {{wilaya}}"
+    },
+    "subtitle": "صالونات مسجّلة في Saloneo فقط: الخدمات والأسعار معروضة، والحجز عبر الإنترنت في ثوانٍ.",
+    "search": {
+      "label": "ابحث عن صالون",
+      "placeholder": "اسم الصالون أو المدينة أو الخدمة"
+    },
+    "wilaya": {
+      "label": "الولاية",
+      "all": "كل الولايات"
+    },
+    "categoriesLabel": "المهن",
+    "allCategories": "كل الصالونات",
+    "categories": {
+      "coiffure": "تصفيف الشعر",
+      "barbier": "حلاقة رجالية",
+      "ongles": "الأظافر",
+      "esthetique": "التجميل والعناية",
+      "spa-hammam": "سبا وحمّام",
+      "maquillage-mariee": "مكياج وعرائس"
+    },
+    "plural": {
+      "coiffure": "صالونات الحلاقة والتصفيف",
+      "barbier": "الحلاقون",
+      "ongles": "صالونات الأظافر",
+      "esthetique": "معاهد التجميل",
+      "spa-hammam": "السبا والحمّامات",
+      "maquillage-mariee": "مكياج وتسريحات العرائس"
+    },
+    "count_zero": "{{formatted}} صالون",
+    "count_one": "صالون واحد ({{formatted}})",
+    "count_two": "صالونان ({{formatted}})",
+    "count_few": "{{formatted}} صالونات",
+    "count_many": "{{formatted}} صالونًا",
+    "count_other": "{{formatted}} صالون",
+    "more": "عرض المزيد من الصالونات",
+    "loadingMore": "جارٍ التحميل…",
+    "card": {
+      "reviews_zero": "{{count}} تقييم",
+      "reviews_one": "تقييم واحد ({{count}})",
+      "reviews_two": "تقييمان ({{count}})",
+      "reviews_few": "{{count}} تقييمات",
+      "reviews_many": "{{count}} تقييمًا",
+      "reviews_other": "{{count}} تقييم",
+      "new": "جديد على Saloneo",
+      "from": "ابتداءً من {{price}}",
+      "book": "احجز",
+      "nextSlot": "أقرب موعد:",
+      "today": "اليوم {{time}}",
+      "tomorrow": "غدًا {{time}}",
+      "day": "{{day}} {{time}}"
+    },
+    "empty": {
+      "title": "لا يوجد صالون يطابق بحثك",
+      "wilayaTitle": "لا يوجد بعد صالون في {{wilaya}} على Saloneo",
+      "body": "جرّب ولاية أخرى أو مهنة أخرى أو كلمة أخرى.",
+      "reset": "عرض كل الصالونات",
+      "noneTitle": "الصالونات الأولى في الطريق",
+      "noneBody": "تظهر الصالونات هنا بمجرد فتح الحجز عبر الإنترنت على Saloneo."
+    },
+    "error": {
+      "title": "تعذّر تحميل الدليل",
+      "body": "تحقّق من اتصالك ثم أعد المحاولة.",
+      "retry": "إعادة المحاولة"
+    },
+    "owner": {
+      "title": "هل لديك صالون؟",
+      "body": "أنشئ صفحتك على Saloneo مجانًا: تظهر في الدليل بمجرد أن تصبح خدمة واحدة قابلة للحجز عبر الإنترنت.",
+      "cta": "سجّل صالوني"
+    },
+    "showcase": {
+      "title": "إنهم على Saloneo",
+      "body": "صالونات تستقبل حجوزاتها عبر الإنترنت مع Saloneo.",
+      "all": "عرض كل الصالونات"
+    },
+    "seo": {
+      "salons": "صالونات التجميل",
+      "description": "{{what}} في {{wilaya}} المسجّلة في Saloneo: الخدمات والأسعار والتقييمات، والحجز عبر الإنترنت.",
+      "descriptionAll": "{{what}} في الجزائر المسجّلة في Saloneo: الخدمات والأسعار والتقييمات، والحجز عبر الإنترنت.",
+      "salonTitle": "{{name}} — {{category}} في {{city}} | حجز عبر الإنترنت",
+      "salonTitleShort": "{{name}} | حجز عبر الإنترنت",
+      "salonDescription": "احجز عبر الإنترنت لدى {{name}}، {{city}}: الخدمات والأسعار والمواعيد المتاحة.",
+      "salonDescriptionShort": "احجز عبر الإنترنت لدى {{name}}: الخدمات والأسعار والمواعيد المتاحة."
     }
   }
 }

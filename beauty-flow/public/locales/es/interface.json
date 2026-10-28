@@ -779,5 +779,24 @@
   "errors": {
     "upload": "Error al subir la imagen:",
     "save": "Error al guardar:"
+  },
+  "directory": {
+    "title": "Directorio Saloneo",
+    "description": "Los clientes encuentran tu salón en saloneo.app/salons.",
+    "listed": "Aparecer en el directorio de Saloneo",
+    "listed_on": "Tu salón aparece en el directorio en cuanto un servicio se puede reservar en línea.",
+    "listed_off": "Tu salón no aparece en el directorio. Tu página sigue accesible desde su enlace.",
+    "not_eligible": "Ningún servicio se puede reservar en línea: activa la reserva en línea en al menos un servicio (Servicios) para aparecer en el directorio.",
+    "wilaya": "Provincia (wilaya)",
+    "wilaya_none": "Elige una provincia",
+    "city": "Ciudad o municipio",
+    "city_placeholder": "Ej. Bab Ezzouar",
+    "location_help": "Se muestran en tu ficha y sirven para la búsqueda por provincia.",
+    "see_card": "Ver mi ficha en el directorio",
+    "save": "Guardar la ficha del directorio",
+    "saving": "Guardando…",
+    "saved": "Guardado",
+    "save_error": "No se pudo guardar. Inténtalo de nuevo.",
+    "load_error": "No se pudieron cargar los ajustes del directorio."
   }
 }

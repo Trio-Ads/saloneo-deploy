@@ -2,8 +2,14 @@ import { Router } from 'express';
 import { body } from 'express-validator';
 import * as publicController from '../controllers/public.controller';
 import { getPublicReviews } from '../controllers/review.controller';
+import * as directoryController from '../controllers/directory.controller';
 
 const router = Router();
+
+// Saloneo directory (/salons): listed salons, filter facets, one salon's card
+router.get('/directory', directoryController.listDirectory);
+router.get('/directory/facets', directoryController.directoryFacets);
+router.get('/directory/salon/:slug', directoryController.directoryCard);
 
 // Get salon info by slug
 router.get('/salon/:slug', publicController.getSalonBySlug);
@@ -14,8 +20,8 @@ router.get('/services/:slug', publicController.getServicesBySlug);
 // Get team by slug
 router.get('/team/:slug', publicController.getTeamBySlug);
 
-// Busy time ranges (no client data) so the booking calendar hides taken slots
-router.get('/busy/:slug', publicController.getBusySlotsBySlug);
+// Bookable days and times (availability engine; no client data)
+router.get('/availability/:slug', publicController.getAvailability);
 
 // Search appointments by client info
 router.get('/appointments/search/:slug', publicController.searchAppointmentsByClient);
@@ -25,7 +31,7 @@ router.post(
   '/appointments/:slug',
   [
     body('serviceId').notEmpty().trim(),
-    body('stylistId').notEmpty().trim(),
+    body('stylistId').optional({ values: 'falsy' }).isString().trim(), // empty = peu importe
     body('date').notEmpty().isISO8601(),
     body('startTime').notEmpty().matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/),
     body('clientData.firstName').notEmpty().trim(),

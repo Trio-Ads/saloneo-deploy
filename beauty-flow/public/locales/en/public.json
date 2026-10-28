@@ -123,7 +123,13 @@
       "service_not_found": "This service is no longer available.",
       "no_stylist": "No team member is available right now.",
       "previous_month": "Previous month",
-      "next_month": "Next month"
+      "next_month": "Next month",
+      "morning": "Morning",
+      "afternoon": "Afternoon",
+      "evening": "Evening",
+      "load_error": "Could not load availability.",
+      "retry": "Try again",
+      "no_slots_month": "No free time this month. Have a look at next month."
     },
     "calendar": {
       "month_view": "Month",

@@ -6,7 +6,7 @@ import { ArrowPathIcon, ArrowLeftIcon, MagnifyingGlassIcon } from '@heroicons/re
 import { useAppointmentStore } from './store';
 import { AppointmentHistoryFilters, AppointmentStatus, Appointment } from './types';
 import { useClientStore } from '../clients/store';
-import { useTeamStore } from '../team/store';
+import { useStaff, useStaffName } from '../team/staff';
 import { useServiceStore } from '../services/store';
 import { PageHeader, Panel, StatGroup, Badge, statusTone, EmptyState } from '../../components/ui';
 import { getDateLocale, dayKey, sortKey, durationMinutes, statusKey } from './utils';
@@ -27,7 +27,8 @@ const AppointmentHistoryPage: React.FC = () => {
 
   const { appointments: allAppointments, loadAppointments } = useAppointmentStore();
   const { clients, fetchClients } = useClientStore();
-  const members = useTeamStore((state) => state.members);
+  const members = useStaff();
+  const getStylistName = useStaffName(t('history.unknown'));
   const { services } = useServiceStore();
 
   // Page can be opened directly: make sure appointments and client names are loaded.
@@ -90,11 +91,6 @@ const AppointmentHistoryPage: React.FC = () => {
     if (apt.clientInfo?.firstName) return `${apt.clientInfo.firstName} ${apt.clientInfo.lastName || ''}`.trim();
     const client = clients.find((c) => c.id === apt.clientId);
     return client ? `${client.firstName} ${client.lastName}` : t('history.unknown');
-  };
-
-  const getStylistName = (stylistId: string) => {
-    const member = members.find((m) => m.id === stylistId);
-    return member ? `${member.firstName} ${member.lastName}` : t('history.unknown');
   };
 
   const getServiceName = (apt: Pick<Appointment, 'serviceId' | 'serviceName'>) =>

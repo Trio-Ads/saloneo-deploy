@@ -12,7 +12,7 @@ import {
 import { Appointment } from '../types';
 import { useClientStore } from '../../clients/store';
 import { useServiceStore } from '../../services/store';
-import { useTeamStore } from '../../team/store';
+import { useStaffName } from '../../team/staff';
 import { useAppointmentStore } from '../store';
 import { Panel, Badge, statusTone, IconButton, EmptyState } from '../../../components/ui';
 import { getDateLocale, dayKey, sortKey, durationMinutes, statusKey } from '../utils';
@@ -37,7 +37,7 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
   const { t, i18n } = useTranslation('appointments');
   const clients = useClientStore((state) => state.clients);
   const services = useServiceStore((state) => state.services);
-  const stylists = useTeamStore((state) => state.members);
+  const getStylistName = useStaffName();
   const isPastAppointment = useAppointmentStore((state) => state.isPastAppointment);
 
   const getClientName = (appointment: Appointment) => {
@@ -50,11 +50,6 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
 
   const getServiceName = (appointment: Appointment) =>
     services.find((s) => s.id === appointment.serviceId)?.name || appointment.serviceName || t('appointment_form.unknown.service');
-
-  const getStylistName = (stylistId: string) => {
-    const stylist = stylists.find((s) => s.id === stylistId);
-    return stylist ? `${stylist.firstName} ${stylist.lastName}` : t('appointment_form.unknown.stylist');
-  };
 
   const formatDay = (day: string) => {
     const date = new Date(`${day}T00:00:00`);

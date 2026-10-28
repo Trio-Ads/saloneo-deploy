@@ -183,7 +183,8 @@
       "select_time": "Fren akud…",
       "additional_notes": "Tizmilin",
       "notes_placeholder": "Rnu tizmilin ɣef tmlilit, ayen yesmenyaf umsaɣ…",
-      "new": "Amaynut"
+      "new": "Amaynut",
+      "owner": "Bab n usalun"
     },
     "messages": {
       "select_service_stylist_first": "Fren qbel ameẓlu d uɛeggal n terbaɛt.",
@@ -288,7 +289,51 @@
       "hours_advance": "n yisragen s zdat",
       "days": "ussan",
       "hours_before": "n yisragen send tamlilit"
-    }
+    },
+    "hours_title": "Isragen n twuri",
+    "hours_description": "Akuden yettwasumren ṭṭafaren isragen-a d usgunfu-nsen, akked yisragen n yal aɛeggal deg terbaɛt.",
+    "not_configured": "Mazal ur d-tesbaneḍ ara isragen-ik: alamma d imir-nni, akuden ad ilin seg Ssebt ar Lexmis 09:00–18:00, Lǧemɛa d amdil.",
+    "closed": "Yemdel",
+    "add_break": "Rnu asgunfu",
+    "remove_break": "Kkes asgunfu",
+    "break_label": "Asgunfu",
+    "invalid_hours": "Asrag n umdal ilaq ad yili deffir usrag n tulya.",
+    "invalid_break": "Yal asgunfu ilaq ad yili daxel n yisragen n wass.",
+    "fix_errors": "Seɣti isragen s uzeggaɣ akken ad teskelseḍ.",
+    "booking_title": "Aḥeǧǧez srid",
+    "booking_description": "Ilugan-a ttwasnasen ɣef usebter n uḥeǧǧez, ttusenqaden deg yal tamlilit.",
+    "slot_interval": "Tallunt gar wakuden",
+    "slot_interval_description": "Yettwasumer wakud yal…",
+    "min_notice": "Akud adday send tamlilit",
+    "min_notice_description": "Amsaɣ ur yezmir ara ad iḥeǧǧez s wakud yesɣaren ugar n wa (ma ulac aɣewwaṛ n tenfiɛt).",
+    "notice_options": {
+      "0": "Ulac",
+      "30": "30 n tesdatin",
+      "60": "1 n usrag",
+      "120": "2 n yisragen",
+      "240": "4 n yisragen",
+      "720": "12 n yisragen",
+      "1440": "24 n yisragen",
+      "2880": "48 n yisragen"
+    },
+    "allow_any_staff": "Sumer « Ulac aɣilif »",
+    "allow_any_staff_description": "Amsaɣ yezmer ad yeǧǧ asalun ad yefren aɛeggal ilellin yesɛan drus n uxeddim.",
+    "closures_title": "Imdalen usligen",
+    "closures_description": "Lɛid, ussan n usteɛfu, asteɛfu n usalun: ulac akud ara d-yettwasumren deg wussan-nni.",
+    "closure_from": "Seg",
+    "closure_to": "Ar (ma tebɣiḍ)",
+    "closure_reason": "Taɣẓint",
+    "closure_reason_placeholder": "Lɛid Tameẓyant",
+    "add_closure": "Rnu",
+    "remove_closure": "Kkes amdal",
+    "no_closures": "Ulac amdal yettwaheggan.",
+    "saved": "Iɣewwaṛen ttwaskelsen",
+    "save_hours": "Sekles isragen",
+    "save_booking": "Sekles ilugan n uḥeǧǧez",
+    "save_closures": "Sekles imdalen",
+    "unsaved": "Ibeddilen ur yettwaskelsen ara",
+    "copy_to_open_days": "Nɣel ɣer wussan akk yeldin",
+    "leave_confirm": "Kra n yibeddilen ur ttwaskelsen ara. Ad teffɣeḍ ɣas akken?"
   },
   "bookingConfirmed": "Aḥeǧǧez yettwasentem!",
   "bookingSuccessMessage": "Timlilit-ik tettwasentem akken iwata",
@@ -359,5 +404,19 @@
     "no_results_title": "Ulac igmaḍ",
     "noResults": "Ulac timlilit yemmezgen d yimsizdigen-a.",
     "unknown": "Arussin"
+  },
+  "availability": {
+    "short": {
+      "SLOT_TAKEN": "yettwaṭṭef",
+      "OUTSIDE_HOURS": "beṛṛa n yisragen",
+      "TOO_SOON": "yezri",
+      "TOO_FAR": "yebɛed aṭas",
+      "STAFF_UNAVAILABLE": "ulac-it"
+    },
+    "loading": "Anadi ɣef wakuden…",
+    "force_hint": "Tzemreḍ ad t-ternuḍ ɣas akken.",
+    "force_confirm": "Ad t-ternuḍ ɣas akken?",
+    "hours_not_configured": "Isragen n twuri ur ttwasbadun ara: imsaɣen ttwalin s lexṣas Ssebt–Lexmis 09:00–18:00.",
+    "configure_hours": "Sbadu isragen"
   }
 }

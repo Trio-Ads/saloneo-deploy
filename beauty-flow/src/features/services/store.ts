@@ -38,13 +38,14 @@ const mapServiceFromAPI = (apiService: any): Service => ({
   products: apiService.products || [],
   image: apiService.image,
   images: apiService.images || [],
-  bufferTimeBefore: apiService.bufferTimeBefore || 0,
-  bufferTimeAfter: apiService.bufferTimeAfter || 0,
+  bufferTimeBefore: apiService.buffer?.before || 0,
+  bufferTimeAfter: apiService.buffer?.after || 0,
   maxAdvanceBooking: apiService.maxAdvanceBooking || 30,
   minAdvanceBooking: apiService.minAdvanceBooking || 0,
   isOnlineBookingEnabled: apiService.isOnlineBookingEnabled || false,
   isOnline: apiService.settings?.isOnline ?? false,
-  minimumBookingTime: apiService.settings?.minimumBookingTime ?? 24
+  // 24 h was the old schema default on every service: it means "salon setting" (same rule as the availability engine)
+  minimumBookingTime: [undefined, null, 24].includes(apiService.settings?.minimumBookingTime) ? null : apiService.settings.minimumBookingTime
 });
 
 // Fonction pour mapper les données du frontend vers le backend
@@ -55,8 +56,7 @@ const mapServiceToAPI = (service: ServiceFormData) => ({
   duration: service.duration,
   price: service.price,
   image: service.image,
-  bufferTimeBefore: service.bufferTimeBefore || 0,
-  bufferTimeAfter: service.bufferTimeAfter || 0,
+  buffer: { before: service.bufferTimeBefore || 0, after: service.bufferTimeAfter || 0 },
   maxAdvanceBooking: service.maxAdvanceBooking || 30,
   minAdvanceBooking: service.minAdvanceBooking || 0,
   isOnlineBookingEnabled: service.isOnlineBookingEnabled || false,

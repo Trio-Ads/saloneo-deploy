@@ -9,10 +9,15 @@ const router = Router();
 // All routes require authentication
 router.use(authenticate);
 
-// Get available slots
+// Salon hours, booking rules and closures (availability engine settings)
+router.get('/booking-settings', appointmentsController.getBookingSettings);
+router.put('/booking-settings', appointmentsController.updateBookingSettings);
+
+// Get available slots (one date, or from + days)
 router.get('/available-slots', 
   [
-    query('date').isISO8601().toDate(),
+    query('date').optional().isISO8601(),
+    query('from').optional().isISO8601(),
     // serviceId can be a Mongo ObjectId (DB) or a UUID (legacy/local)
     query('serviceId').isString().isLength({ min: 1 }),
     // teamMemberId can be a Mongo ObjectId (DB) or a UUID (legacy/local)

@@ -11,6 +11,8 @@ interface PublicClientFormProps {
   serviceId: string;
   publicService?: PublicService;
   onSubmit: (data: PublicClientFormData) => void;
+  /** Details typed earlier (kept when the client goes back to change the slot) */
+  initialData?: PublicClientFormData;
   /** id of the <form>, so a submit button outside it (sheet footer) can use form={formId} */
   formId?: string;
 }
@@ -19,6 +21,7 @@ const PublicClientForm: React.FC<PublicClientFormProps> = ({
   serviceId,
   publicService,
   onSubmit,
+  initialData,
   formId = 'bk-client-form',
 }) => {
   const { t } = useTranslation('public');
@@ -28,7 +31,7 @@ const PublicClientForm: React.FC<PublicClientFormProps> = ({
   // Use admin store service if available, otherwise fall back to the public service data
   const service = serviceFromStore ?? publicService;
 
-  const [formData, setFormData] = useState<PublicClientFormData>({
+  const [formData, setFormData] = useState<PublicClientFormData>(() => initialData ?? {
     firstName: '',
     lastName: '',
     email: '',

@@ -1,5 +1,5 @@
 // beauty-flow/src/features/public/SalonPage.tsx
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { salonTemplate } from '../templates';
@@ -10,6 +10,7 @@ import { PublicNavbar } from './components/PublicNavbar';
 import { PublicFooter } from './components/PublicFooter';
 import LoadingSpinner from './components/LoadingSpinner';
 import { themeVars } from './sections/kit';
+import { useSalonSeo } from '../directory/seo';
 
 export default function SalonPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -18,9 +19,7 @@ export default function SalonPage() {
   const [bookingServiceId, setBookingServiceId] = useState<string | null>(null);
   const template = useMemo(() => salonTemplate(data?.profile.theme), [data]);
 
-  useEffect(() => {
-    if (data) document.title = `${data.profile.establishmentName} · ${t('site.online_booking')}`;
-  }, [data, t]);
+  useSalonSeo(slug || '', data);
 
   if (loading) return <LoadingSpinner message={t('loading.message')} />;
   if (error || !data) {

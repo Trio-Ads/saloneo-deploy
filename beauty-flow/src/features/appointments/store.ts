@@ -28,6 +28,8 @@ interface PreBooking {
   timestamp: string;
 }
 
+export interface ForceOptions { force?: boolean; forceOverlap?: boolean }
+
 interface AppointmentStore {
   appointments: Appointment[];
   preBookings: PreBooking[];
@@ -41,8 +43,9 @@ interface AppointmentStore {
   loadAppointments: () => Promise<void>;
   syncWithBackend: () => Promise<void>;
   clearLocalData: () => void;
-  addAppointment: (appointmentData: AppointmentFormData) => Promise<{ appointment: Appointment; publicToken: string; modificationToken: string }>;
-  updateAppointment: (id: string, appointmentData: Partial<AppointmentFormData>) => void;
+  /** force: owner's "Ajouter quand même" (outside hours / notice); forceOverlap: also over another booking */
+  addAppointment: (appointmentData: AppointmentFormData, opts?: ForceOptions) => Promise<{ appointment: Appointment; publicToken: string; modificationToken: string }>;
+  updateAppointment: (id: string, appointmentData: Partial<AppointmentFormData>, opts?: ForceOptions) => Promise<void>;
   cancelAppointment: (id: string, reason?: string) => void;
   completeAppointment: (id: string) => void;
   markAsNoShow: (id: string) => void;
@@ -80,6 +83,7 @@ const BUSINESS_HOURS = {
   slotDuration: 15, // in minutes
 };
 
+const APPOINTMENTS_PAGE = 500; // = the API's maximum page size
 const PRE_BOOKING_EXPIRY = 15 * 60 * 1000; // 15 minutes in milliseconds
 
 // Default cancellation policy configuration
@@ -221,24 +225,24 @@ export const useAppointmentStore = create<AppointmentStore>()((set, get) => ({
   loadAppointments: async () => {
     set({ isLoading: true, error: null });
     try {
-      const response = await appointmentsAPI.getAll();
-      
-      let appointmentsData = [];
-      if (response.data && typeof response.data === 'object') {
-        if (Array.isArray(response.data)) {
-          appointmentsData = response.data;
-        } else if (response.data.appointments && Array.isArray(response.data.appointments)) {
-          appointmentsData = response.data.appointments;
-        } else {
-          console.warn('⚠️ Appointments data is not an array:', response.data);
-          appointmentsData = [];
-        }
+      // Every page (the API pages by 10 by default): list, calendar, history, dashboard and client stats all read this store
+      // ponytail: loads the salon's whole history; switch to a visible-period date range if salons reach tens of thousands
+      const appointmentsData: any[] = [];
+      for (let page = 1; ; page++) {
+        const response = await appointmentsAPI.getAll({ page, limit: APPOINTMENTS_PAGE });
+        const batch = Array.isArray(response.data) ? response.data : response.data?.appointments ?? [];
+        appointmentsData.push(...batch);
+        if (Array.isArray(response.data) || batch.length < APPOINTMENTS_PAGE || page >= (response.data?.pagination?.pages ?? 1)) break;
       }
       
       // Normaliser les IDs pour s'assurer qu'ils sont corrects
       const normalizedAppointments = appointmentsData.map((appointment: any) => ({
         ...appointment,
         id: appointment._id || appointment.id, // Utiliser _id de MongoDB si disponible
+        // The API populates these; the app works with plain ids
+        clientId: appointment.clientId?._id ?? appointment.clientId,
+        serviceId: appointment.serviceId?._id ?? appointment.serviceId,
+        serviceName: appointment.serviceName ?? appointment.serviceId?.name,
       }));
       
       console.log('📋 Rendez-vous chargés:', normalizedAppointments.length);
@@ -274,7 +278,7 @@ export const useAppointmentStore = create<AppointmentStore>()((set, get) => ({
     });
   },
 
-  addAppointment: async (appointmentData: AppointmentFormData) => {
+  addAppointment: async (appointmentData: AppointmentFormData, opts: ForceOptions = {}) => {
     set({ isLoading: true, error: null });
     
     try {
@@ -284,7 +288,8 @@ export const useAppointmentStore = create<AppointmentStore>()((set, get) => ({
         teamMemberId: appointmentData.stylistId,
         date: appointmentData.date,
         startTime: appointmentData.startTime,
-        notes: appointmentData.notes || ''
+        notes: appointmentData.notes || '',
+        ...opts,
       };
       
       console.log('🔍 Données envoyées à l\'API:', apiData);
@@ -310,36 +315,19 @@ export const useAppointmentStore = create<AppointmentStore>()((set, get) => ({
     }
   },
 
-  updateAppointment: (id: string, appointmentData: Partial<AppointmentFormData>) => {
-    set((state) => {
-      const appointments = state.appointments.map((appointment) => {
-        if (appointment.id !== id) return appointment;
-
-        let endTime = appointment.endTime;
-        if (appointmentData.startTime || appointmentData.serviceDuration) {
-          const startTime = parse(
-            appointmentData.startTime || appointment.startTime,
-            'HH:mm',
-            new Date()
-          );
-          const duration = appointmentData.serviceDuration || 
-            (parse(appointment.endTime, 'HH:mm', new Date()).getTime() - 
-             parse(appointment.startTime, 'HH:mm', new Date()).getTime()) / 60000;
-          
-          endTime = format(addMinutes(startTime, duration), 'HH:mm');
-        }
-
-        return {
-          ...appointment,
-          ...appointmentData,
-          endTime,
-          lastModified: new Date().toISOString(),
-          status: appointment.status === 'scheduled' ? 'rescheduled' : appointment.status
-        };
-      });
-
-      return { appointments };
+  // Saved on the server (availability re-checked there), then the list is reloaded
+  updateAppointment: async (id: string, appointmentData: Partial<AppointmentFormData>, opts: ForceOptions = {}) => {
+    const { clientId, serviceId, stylistId, date, startTime, notes } = appointmentData;
+    await appointmentsAPI.update(id, {
+      ...(clientId && { clientId }),
+      ...(serviceId && { serviceId }),
+      ...(stylistId && { teamMemberId: stylistId }),
+      ...(date && { date }),
+      ...(startTime && { startTime }),
+      ...(notes !== undefined && { notes }),
+      ...opts,
     });
+    await get().loadAppointments();
   },
 
   cancelAppointment: async (id: string, reason?: string) => {

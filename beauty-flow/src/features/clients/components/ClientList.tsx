@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { PencilIcon, TrashIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { Client } from '../types';
 import { useServiceStore } from '../../services/store';
-import { useTeamStore } from '../../team/store';
+import { useStaffName } from '../../team/staff';
 import { Panel, Badge, IconButton, BadgeTone } from '../../../components/ui';
 
 interface ClientListProps {
@@ -15,7 +15,7 @@ interface ClientListProps {
 const ClientList: React.FC<ClientListProps> = ({ clients, onEdit, onDelete }) => {
   const { t, i18n } = useTranslation('clients');
   const services = useServiceStore((state) => state.services);
-  const teamMembers = useTeamStore((state) => state.members);
+  const staffName = useStaffName('');
   const activeClients = clients.filter((client) => client.isActive);
 
   const getServiceNames = (serviceIds: string[]) =>
@@ -23,10 +23,7 @@ const ClientList: React.FC<ClientListProps> = ({ clients, onEdit, onDelete }) =>
 
   const getStylistNames = (stylistIds: string[]) =>
     stylistIds
-      .map((id) => {
-        const member = teamMembers.find((m) => m.id === id);
-        return member ? `${member.firstName} ${member.lastName}` : null;
-      })
+      .map((id) => staffName(id))
       .filter(Boolean)
       .join(', ');
 

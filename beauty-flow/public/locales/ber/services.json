@@ -36,10 +36,15 @@
         "4": "4 n yisragen uqbel",
         "12": "12 n yisragen uqbel",
         "24": "24 n yisragen uqbel (1 n wass)",
-        "48": "48 n yisragen uqbel (2 n wussan)"
+        "48": "48 n yisragen uqbel (2 n wussan)",
+        "salon": "Am yiɣewwaṛen n usalun"
       },
       "section": "Aḥeǧǧez srid",
-      "help": "Imsaɣen-ik zemren ad ḥeǧǧzen ameẓlu-a seg usebter-ik azayez."
+      "help": "Imsaɣen-ik zemren ad ḥeǧǧzen ameẓlu-a seg usebter-ik azayez.",
+      "buffer_before": "Aheggi uqbel",
+      "buffer_after": "Asizdeg seld",
+      "buffer_help": "Akud yettwaṭṭfen deg uɣmis uqbel d seld tenfiɛt-a. Ma d 0, akud n usgunfu n usalun ad yettwasnes seld.",
+      "minutes": "tsd"
     }
   },
   "categories": {

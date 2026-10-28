@@ -96,5 +96,11 @@
     "units": {
       "min": "tsd"
     }
+  },
+  "unsaved": {
+    "title": "Ibeddilen ur yettwaskelsen ara",
+    "message": "Kra n yibeddilen ur ttwaskelsen ara. Ma teffɣeḍ tura, ad ruḥen.",
+    "leave": "Ffeɣ war asekles",
+    "stay": "Qqim"
   }
 }

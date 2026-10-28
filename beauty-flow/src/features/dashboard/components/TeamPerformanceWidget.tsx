@@ -5,6 +5,8 @@ import { Panel, EmptyState } from '../../../components/ui';
 import { AppointmentWithPrice } from '../types';
 import { TeamMember } from '../../team/types';
 import { useProfileStore } from '../../profile/store';
+import { useStaff } from '../../team/staff';
+import { StaffAvatar } from '../../team/StaffAvatar';
 import { formatPrice } from '../../../utils/currency';
 
 interface TeamPerformanceWidgetProps {
@@ -15,9 +17,12 @@ interface TeamPerformanceWidgetProps {
 const TeamPerformanceWidget: React.FC<TeamPerformanceWidgetProps> = ({ appointments, members }) => {
   const { t } = useTranslation('dashboard');
   const { profile } = useProfileStore();
+  // The owner counts too when they take appointments (useStaff adds them in front of the team)
+  const staff = useStaff();
+  const owner = staff.find((s) => !members.some((m) => m.id === s.id));
   const teamStats = useMemo(() => {
     // Calculer les statistiques par membre de l'équipe
-    const stats = members.map(member => {
+    const stats = (owner ? [owner, ...members] : members).map(member => {
       const memberAppointments = appointments.filter(apt => apt.stylistId === member.id);
       const completedAppointments = memberAppointments.filter(apt => apt.status === 'completed');
       const revenue = completedAppointments.reduce((sum, apt) => sum + (apt.price || 0), 0);
@@ -30,6 +35,8 @@ const TeamPerformanceWidget: React.FC<TeamPerformanceWidgetProps> = ({ appointme
       return {
         id: member.id,
         name: fullName,
+        firstName,
+        lastName,
         avatar: member.avatar,
         role: member.role ? t(`team:role_values.${member.role}`, member.role) : t('components.team_performance.no_role'),
         appointmentsCount: memberAppointments.length,
@@ -43,7 +50,7 @@ const TeamPerformanceWidget: React.FC<TeamPerformanceWidgetProps> = ({ appointme
 
     // Trier par revenu décroissant
     return stats.sort((a, b) => b.revenue - a.revenue).slice(0, 5);
-  }, [appointments, members, t]);
+  }, [appointments, members, owner, t]);
 
   const maxRevenue = Math.max(...teamStats.map(s => s.revenue), 1);
 
@@ -55,13 +62,7 @@ const TeamPerformanceWidget: React.FC<TeamPerformanceWidgetProps> = ({ appointme
         <ul className="space-y-4">
           {teamStats.map((member) => (
             <li key={member.id} className="flex items-center gap-3">
-              {member.avatar ? (
-                <img src={member.avatar} alt="" className="size-9 shrink-0 rounded-full object-cover" />
-              ) : (
-                <span className="grid size-9 shrink-0 place-items-center rounded-full bg-gray-100 text-sm font-semibold text-gray-700 dark:bg-gray-800 dark:text-gray-200">
-                  {member.name.charAt(0)}
-                </span>
-              )}
+              <StaffAvatar member={member} className="size-9 text-sm" />
               <div className="min-w-0 flex-1">
                 <div className="flex items-baseline justify-between gap-3">
                   <p className="truncate text-sm font-medium text-gray-900 dark:text-gray-50">{member.name}</p>

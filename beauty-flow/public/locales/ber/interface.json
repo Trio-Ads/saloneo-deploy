@@ -779,5 +779,24 @@
   "errors": {
     "upload": "Tuccḍa deg usali n tugna:",
     "save": "Tuccḍa deg usekles:"
+  },
+  "directory": {
+    "title": "Akaram n Saloneo",
+    "description": "Imsaɣen ad afen asalun-ik deg saloneo.app/salons.",
+    "listed": "Ban-d deg ukaram n Saloneo",
+    "listed_on": "Asalun-ik ad d-iban deg ukaram mi ara yili yiwen umeẓlu yettwaḥeǧǧez srid.",
+    "listed_off": "Asalun-ik ur d-yettban ara deg ukaram. Asebter-ik yeqqim yeldi s useɣwen-is.",
+    "not_eligible": "Ulac ameẓlu yettwaḥeǧǧez srid: rmed aḥeǧǧez srid ɣef yiwen umeẓlu ma drus (Imeẓla) akken ad d-tbaneḍ deg ukaram.",
+    "wilaya": "Tawilayt",
+    "wilaya_none": "Fren tawilayt",
+    "city": "Tamdint neɣ taɣiwant",
+    "city_placeholder": "Amedya: Bab Ezzouar",
+    "location_help": "Ttbanent-d deg tkarḍa-k, ttwasqedcent deg unadi s twilayt.",
+    "see_card": "Wali takarḍa-w deg ukaram",
+    "save": "Sekles talɣut n umaɣnu",
+    "saving": "Asekles…",
+    "saved": "Yettwasekles",
+    "save_error": "Asekles ur yeddi ara. Ɛreḍ tikkelt-nniḍen.",
+    "load_error": "Iɣewwaṛen n ukaram ur d-alin ara."
   }
 }

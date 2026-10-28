@@ -96,5 +96,12 @@
     "update": "Tuccḍa deg uleqqem",
     "generate": "Tuccḍa deg usirew",
     "request": "Tuccḍa deg usuter"
+  },
+  "availability": {
+    "SLOT_TAKEN": "Akud-a yettwaḥeǧǧez tura kan. Fren akud-nniḍen.",
+    "OUTSIDE_HOURS": "Akud-a beṛṛa n yisragen n usalun.",
+    "TOO_SOON": "Akud-a d aqrib aṭas i uḥeǧǧez.",
+    "TOO_FAR": "Akud-a yebɛed aṭas i uḥeǧǧez.",
+    "STAFF_UNAVAILABLE": "Aɛeggal-a ulac-it deg wakud-nni."
   }
 }

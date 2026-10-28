@@ -36,10 +36,15 @@
         "4": "4 hours in advance",
         "12": "12 hours in advance",
         "24": "24 hours in advance (1 day)",
-        "48": "48 hours in advance (2 days)"
+        "48": "48 hours in advance (2 days)",
+        "salon": "Use the salon settings"
       },
       "section": "Online booking",
-      "help": "Your clients can book this service from your booking page."
+      "help": "Your clients can book this service from your booking page.",
+      "buffer_before": "Preparation before",
+      "buffer_after": "Clean-up after",
+      "buffer_help": "Time blocked in the diary before and after this service. At 0, the salon's buffer applies after.",
+      "minutes": "min"
     }
   },
   "categories": {

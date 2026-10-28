@@ -8,6 +8,8 @@ export interface TeamMember {
   specialties: string[]; // Array of service IDs
   services?: string[]; // Array of service IDs for backend compatibility
   workingHours: WorkingHours;
+  /** Days off (congés, maladie): inclusive 'YYYY-MM-DD' — no slot is offered with this member then */
+  absences?: Absence[];
   isActive: boolean;
   avatar?: string;
   color?: string;
@@ -20,6 +22,15 @@ export interface WorkingHours {
     end?: string; // Format "HH:mm"
     breaks?: Break[];
   };
+}
+
+export interface Absence {
+  from: string;
+  to: string;
+  /** Optional 'HH:mm' window (e.g. 14:00–16:00 médical); none = whole days */
+  start?: string;
+  end?: string;
+  reason?: string;
 }
 
 export interface Break {

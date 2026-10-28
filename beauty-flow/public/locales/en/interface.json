@@ -779,5 +779,24 @@
   "errors": {
     "upload": "Couldn't upload the image:",
     "save": "Couldn't save:"
+  },
+  "directory": {
+    "title": "Saloneo directory",
+    "description": "Clients find your salon on saloneo.app/salons.",
+    "listed": "Appear in the Saloneo directory",
+    "listed_on": "Your salon shows in the directory as soon as one service can be booked online.",
+    "listed_off": "Your salon does not appear in the directory. Your page stays reachable through its link.",
+    "not_eligible": "No service can be booked online: turn on online booking for at least one service (Services) to appear in the directory.",
+    "wilaya": "Province (wilaya)",
+    "wilaya_none": "Choose a province",
+    "city": "Town or district",
+    "city_placeholder": "E.g. Bab Ezzouar",
+    "location_help": "Shown on your listing and used for the search by province.",
+    "see_card": "See my listing in the directory",
+    "save": "Save directory listing",
+    "saving": "Saving…",
+    "saved": "Saved",
+    "save_error": "Saving failed. Try again.",
+    "load_error": "The directory settings could not be loaded."
   }
 }

@@ -96,5 +96,12 @@
     "update": "Error al actualizar",
     "generate": "Error al generar",
     "request": "Error en la solicitud"
+  },
+  "availability": {
+    "SLOT_TAKEN": "Esta hora acaba de reservarse. Elige otra.",
+    "OUTSIDE_HOURS": "Esta hora está fuera del horario del salón.",
+    "TOO_SOON": "Esta hora está demasiado próxima para reservarla.",
+    "TOO_FAR": "Esta hora está demasiado lejos para reservarla.",
+    "STAFF_UNAVAILABLE": "Este miembro del equipo no está disponible a esa hora."
   }
 }

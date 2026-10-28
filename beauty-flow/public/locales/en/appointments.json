@@ -183,7 +183,8 @@
       "select_time": "Choose a time…",
       "additional_notes": "Notes",
       "notes_placeholder": "Add notes about the appointment, the client's preferences…",
-      "new": "New"
+      "new": "New",
+      "owner": "Owner"
     },
     "messages": {
       "select_service_stylist_first": "Choose a service and a team member first.",
@@ -288,7 +289,51 @@
       "hours_advance": "hours in advance",
       "days": "days",
       "hours_before": "hours before the appointment"
-    }
+    },
+    "hours_title": "Opening hours",
+    "hours_description": "Offered times follow these hours and breaks, combined with each team member’s own hours.",
+    "not_configured": "Your hours are not set yet: until then, times follow Saturday–Thursday 09:00–18:00, closed on Friday.",
+    "closed": "Closed",
+    "add_break": "Add a break",
+    "remove_break": "Remove break",
+    "break_label": "Break",
+    "invalid_hours": "Closing time must be after opening time.",
+    "invalid_break": "Each break must fall within the day’s hours.",
+    "fix_errors": "Fix the hours in red to save.",
+    "booking_title": "Online booking",
+    "booking_description": "These rules apply to the booking page and are checked for every appointment.",
+    "slot_interval": "Time slot interval",
+    "slot_interval_description": "A start time is offered every…",
+    "min_notice": "Minimum notice",
+    "min_notice_description": "Clients cannot book with less notice than this (unless a service has its own setting).",
+    "notice_options": {
+      "0": "None",
+      "30": "30 minutes",
+      "60": "1 hour",
+      "120": "2 hours",
+      "240": "4 hours",
+      "720": "12 hours",
+      "1440": "24 hours",
+      "2880": "48 hours"
+    },
+    "allow_any_staff": "Offer “No preference”",
+    "allow_any_staff_description": "Clients can let the salon pick the least busy available team member.",
+    "closures_title": "Exceptional closures",
+    "closures_description": "Eid, public holidays, salon holidays: no time is offered on those days.",
+    "closure_from": "From",
+    "closure_to": "To (optional)",
+    "closure_reason": "Reason",
+    "closure_reason_placeholder": "Eid al-Fitr",
+    "add_closure": "Add",
+    "remove_closure": "Remove closure",
+    "no_closures": "No closure planned.",
+    "saved": "Settings saved",
+    "save_hours": "Save opening hours",
+    "save_booking": "Save booking rules",
+    "save_closures": "Save closures",
+    "unsaved": "Unsaved changes",
+    "copy_to_open_days": "Copy to all open days",
+    "leave_confirm": "Some changes are not saved. Leave anyway?"
   },
   "bookingConfirmed": "Booking confirmed!",
   "bookingSuccessMessage": "Your appointment is confirmed",
@@ -359,5 +404,19 @@
     "no_results_title": "No results",
     "noResults": "No appointment matches these filters.",
     "unknown": "Unknown"
+  },
+  "availability": {
+    "short": {
+      "SLOT_TAKEN": "taken",
+      "OUTSIDE_HOURS": "outside hours",
+      "TOO_SOON": "past",
+      "TOO_FAR": "too far",
+      "STAFF_UNAVAILABLE": "away"
+    },
+    "loading": "Looking for times…",
+    "force_hint": "You can still add it.",
+    "force_confirm": "Add it anyway?",
+    "hours_not_configured": "Your opening hours are not set: clients see Saturday–Thursday 09:00–18:00 by default.",
+    "configure_hours": "Set opening hours"
   }
 }

@@ -6,7 +6,8 @@
       "login": "Giriş yap",
       "signup": "Salonumu oluştur",
       "dashboard": "Gösterge panelim",
-      "menu": "Menü"
+      "menu": "Menü",
+      "directory": "Salon bul"
     },
     "hero": {
       "title": "Salonunuzu yönetin. Müşterileriniz online randevu alsın.",
@@ -199,6 +200,90 @@
       "register": "Hesap oluştur",
       "faq": "Sık sorulan sorular",
       "rights": "Tüm hakları saklıdır."
+    }
+  },
+  "directory": {
+    "nav": "Salon rehberi",
+    "breadcrumb": "Gezinme yolu",
+    "heading": {
+      "all": "Bir salon bulun, çevrimiçi randevu alın",
+      "wilaya": "{{wilaya}} güzellik salonları",
+      "category": "Cezayir'de {{what}}",
+      "both": "{{wilaya}} — {{what}}"
+    },
+    "subtitle": "Yalnızca Saloneo'ya kayıtlı salonlar: hizmetler ve fiyatlar açıkça görünür, çevrimiçi randevu birkaç saniyede.",
+    "search": {
+      "label": "Salon ara",
+      "placeholder": "Salon adı, şehir veya hizmet"
+    },
+    "wilaya": {
+      "label": "Vilayet",
+      "all": "Tüm vilayetler"
+    },
+    "categoriesLabel": "Meslekler",
+    "allCategories": "Tüm salonlar",
+    "categories": {
+      "coiffure": "Kuaför",
+      "barbier": "Berber",
+      "ongles": "Tırnak",
+      "esthetique": "Güzellik ve cilt",
+      "spa-hammam": "Spa ve hamam",
+      "maquillage-mariee": "Makyaj ve gelin"
+    },
+    "plural": {
+      "coiffure": "Kuaförler",
+      "barbier": "Berberler",
+      "ongles": "Tırnak salonları",
+      "esthetique": "Güzellik merkezleri",
+      "spa-hammam": "Spa ve hamamlar",
+      "maquillage-mariee": "Gelin makyajı ve saçı"
+    },
+    "count_one": "{{formatted}} salon",
+    "count_other": "{{formatted}} salon",
+    "more": "Daha fazla salon göster",
+    "loadingMore": "Yükleniyor…",
+    "card": {
+      "reviews_one": "{{count}} yorum",
+      "reviews_other": "{{count}} yorum",
+      "new": "Saloneo'da yeni",
+      "from": "{{price}} başlayan fiyatlarla",
+      "book": "Randevu al",
+      "nextSlot": "İlk uygun saat:",
+      "today": "bugün {{time}}",
+      "tomorrow": "yarın {{time}}",
+      "day": "{{day}} {{time}}"
+    },
+    "empty": {
+      "title": "Aramanızla eşleşen salon yok",
+      "wilayaTitle": "Saloneo'da henüz {{wilaya}} için salon yok",
+      "body": "Başka bir vilayet, meslek veya kelime deneyin.",
+      "reset": "Tüm salonları gör",
+      "noneTitle": "İlk salonlar yolda",
+      "noneBody": "Salonlar, Saloneo'da çevrimiçi randevuyu açtıkları anda burada görünür."
+    },
+    "error": {
+      "title": "Rehber yüklenemedi",
+      "body": "Bağlantınızı kontrol edip tekrar deneyin.",
+      "retry": "Tekrar dene"
+    },
+    "owner": {
+      "title": "Bir salonunuz mu var?",
+      "body": "Saloneo sayfanızı ücretsiz oluşturun: bir hizmet çevrimiçi rezerve edilebilir olduğu anda rehberde görünür.",
+      "cta": "Salonumu ekle"
+    },
+    "showcase": {
+      "title": "Saloneo'dalar",
+      "body": "Randevularını şimdiden Saloneo ile çevrimiçi alan salonlar.",
+      "all": "Tüm salonları gör"
+    },
+    "seo": {
+      "salons": "Güzellik salonları",
+      "description": "Saloneo'ya kayıtlı {{wilaya}} {{what}}: hizmetler, fiyatlar ve yorumlar, çevrimiçi randevu.",
+      "descriptionAll": "Saloneo'ya kayıtlı Cezayir {{what}}: hizmetler, fiyatlar ve yorumlar, çevrimiçi randevu.",
+      "salonTitle": "{{name}} — {{city}}, {{category}} | Çevrimiçi randevu",
+      "salonTitleShort": "{{name}} | Çevrimiçi randevu",
+      "salonDescription": "{{name}}, {{city}} için çevrimiçi randevu alın: hizmetler, fiyatlar ve uygun saatler.",
+      "salonDescriptionShort": "{{name}} için çevrimiçi randevu alın: hizmetler, fiyatlar ve uygun saatler."
     }
   }
 }

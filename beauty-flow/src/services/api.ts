@@ -141,10 +141,6 @@ export const appointmentsAPI = {
   create: (data: any) => api.post('/appointments', data),
   update: (id: string, data: any) => api.put(`/appointments/${id}`, data),
   delete: (id: string) => api.delete(`/appointments/${id}`),
-  getAvailableSlots: (date: string, serviceId: string, teamMemberId?: string) => 
-    api.get('/appointments/available-slots', { 
-      params: { date, serviceId, teamMemberId } 
-    }),
   updateStatus: (id: string, status: string) => 
     api.patch(`/appointments/${id}/status`, { status }),
 };
@@ -188,10 +184,6 @@ export const publicAPI = {
   getSalonInfo: (salonId: string) => api.get(`/public/salon/${salonId}`),
   getServices: (salonId: string) => api.get(`/public/salon/${salonId}/services`),
   getTeamMembers: (salonId: string) => api.get(`/public/salon/${salonId}/team`),
-  getAvailableSlots: (salonId: string, date: string, serviceId: string) => 
-    api.get(`/public/salon/${salonId}/available-slots`, { 
-      params: { date, serviceId } 
-    }),
   bookAppointment: (salonId: string, data: any) => 
     api.post(`/public/salon/${salonId}/book`, data),
   // Nouvelle API pour la réservation par slug

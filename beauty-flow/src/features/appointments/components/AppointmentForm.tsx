@@ -1,13 +1,15 @@
 import React, { useReducer, useMemo, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { format, addMinutes, parse } from 'date-fns';
+import { format } from 'date-fns';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { Panel } from '../../../components/ui';
 import { formatPrice } from '../../../utils/currency';
 import { useProfileStore } from '../../profile/store';
 import { dayKey, getDateLocale } from '../utils';
-import { AppointmentFormData, TimeSlot } from '../types';
+import { AppointmentFormData } from '../types';
+import { availabilityAPI, DashboardAvailability } from '../availability';
+import { useStaff } from '../../team/staff';
 import { Service } from '../../services/types';
 import { useAppointmentForm } from '../hooks/useAppointmentForm';
 import { useClientStore } from '../../clients/store';
@@ -27,18 +29,18 @@ const helpClass = 'mt-1.5 text-xs text-gray-500 dark:text-gray-400';
 
 interface AppointmentFormProps {
   initialData?: Partial<AppointmentFormData>;
+  /** Appointment being edited: its own slot does not count as taken */
+  appointmentId?: string;
   onSubmit: (data: AppointmentFormData) => void;
   onCancel: () => void;
 }
 
 type FormAction = 
   | { type: 'SET_FIELD'; field: keyof AppointmentFormData; value: string | number }
-  | { type: 'SET_TIME_SLOTS'; slots: TimeSlot[] }
   | { type: 'SET_SERVICE'; service: Service };
 
 type FormState = {
   formData: AppointmentFormData;
-  availableTimeSlots: TimeSlot[];
 };
 
 function formReducer(state: FormState, action: FormAction): FormState {
@@ -50,11 +52,6 @@ function formReducer(state: FormState, action: FormAction): FormState {
           ...state.formData,
           [action.field]: action.value
         }
-      };
-    case 'SET_TIME_SLOTS':
-      return {
-        ...state,
-        availableTimeSlots: action.slots
       };
     case 'SET_SERVICE':
       return {
@@ -72,20 +69,16 @@ function formReducer(state: FormState, action: FormAction): FormState {
 
 const AppointmentForm: React.FC<AppointmentFormProps> = ({
   initialData,
+  appointmentId,
   onSubmit,
   onCancel,
 }) => {
   const { t, i18n } = useTranslation('appointments');
   const { profile } = useProfileStore();
-  const {
-    clients,
-    services,
-    stylists,
-    getDaySchedule,
-    addPreBooking,
-    removePreBooking,
-    cleanupExpiredPreBookings
-  } = useAppointmentForm();
+  const { clients, services } = useAppointmentForm();
+  // Team + the owner when they take appointments (same rule as the server)
+  const staff = useStaff();
+  const stylists = useMemo(() => staff.filter((m) => m.isActive), [staff]);
 
   const initialState: FormState = {
     formData: {
@@ -93,16 +86,14 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
       serviceId: initialData?.serviceId || '',
       stylistId: initialData?.stylistId || '',
       date: initialData?.date ? dayKey(initialData.date) : format(new Date(), 'yyyy-MM-dd'),
-      startTime: initialData?.startTime || '09:00',
+      startTime: initialData?.startTime || '',
       serviceDuration: initialData?.serviceDuration || 0,
       notes: initialData?.notes || '',
     },
-    availableTimeSlots: []
   };
 
   const [state, dispatch] = useReducer(formReducer, initialState);
-  const { formData, availableTimeSlots } = state;
-  const [preBookingId, setPreBookingId] = React.useState<string | null>(null);
+  const { formData } = state;
 
   // États pour les modales de création rapide
   const [showClientModal, setShowClientModal] = useState(false);
@@ -163,75 +154,20 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     [stylists, formData.stylistId]
   );
 
-  // Nettoyer les pré-réservations expirées toutes les minutes
+  // Times of the day from the availability engine: free ones, and taken ones with the reason
+  // (the owner may still pick those — the server then asks for "Ajouter quand même")
+  const [grid, setGrid] = useState<DashboardAvailability['busy'] | null>(null);
+  const [gridLoading, setGridLoading] = useState(false);
   useEffect(() => {
-    const interval = setInterval(cleanupExpiredPreBookings, 60000);
-    return () => clearInterval(interval);
-  }, [cleanupExpiredPreBookings]);
-
-  // Gérer la pré-réservation
-  useEffect(() => {
-    if (formData.date && formData.startTime && formData.stylistId && selectedService) {
-      // Supprimer l'ancienne pré-réservation si elle existe
-      if (preBookingId) {
-        removePreBooking(preBookingId);
-      }
-
-      // Calculer l'heure de fin basée sur la durée du service
-      const endTime = format(
-        addMinutes(
-          new Date(`2000-01-01 ${formData.startTime}`),
-          selectedService.duration
-        ),
-        'HH:mm'
-      );
-
-      // Créer une nouvelle pré-réservation
-      const newPreBookingId = addPreBooking({
-        date: formData.date,
-        startTime: formData.startTime,
-        endTime,
-        stylistId: formData.stylistId,
-      });
-
-      setPreBookingId(newPreBookingId);
-    }
-
-    return () => {
-      if (preBookingId) {
-        removePreBooking(preBookingId);
-      }
-    };
-  }, [formData.date, formData.startTime, formData.stylistId, selectedService, addPreBooking, removePreBooking, preBookingId]);
-
-  // Mettre à jour les créneaux disponibles
-  useEffect(() => {
-    if (!formData.serviceId || !formData.stylistId || !formData.date || !selectedService) {
-      dispatch({ type: 'SET_TIME_SLOTS', slots: [] });
-      return;
-    }
-
-    const schedule = getDaySchedule(formData.date, formData.stylistId);
-    const slots = schedule.timeSlots.filter(slot => {
-      // Vérifier si le créneau est assez long pour le service
-      const slotStart = parse(slot.startTime, 'HH:mm', new Date());
-      const slotEnd = addMinutes(slotStart, selectedService.duration);
-      const nextSlotIndex = schedule.timeSlots.findIndex(
-        s => s.startTime === format(slotEnd, 'HH:mm')
-      );
-
-      // Vérifier que tous les créneaux nécessaires sont disponibles
-      for (let i = schedule.timeSlots.indexOf(slot); i < nextSlotIndex; i++) {
-        if (!schedule.timeSlots[i]?.available) {
-          return false;
-        }
-      }
-
-      return true;
-    });
-
-    dispatch({ type: 'SET_TIME_SLOTS', slots });
-  }, [formData.date, formData.serviceId, formData.stylistId, selectedService, getDaySchedule]);
+    if (!formData.serviceId || !formData.stylistId || !formData.date) { setGrid(null); return; }
+    let alive = true;
+    setGridLoading(true);
+    availabilityAPI.dashboard({ serviceId: formData.serviceId, teamMemberId: formData.stylistId, date: dayKey(formData.date), includeBusy: 1, excludeId: appointmentId })
+      .then((r) => alive && setGrid(r.data.busy ?? []))
+      .catch(() => alive && setGrid(null))
+      .finally(() => alive && setGridLoading(false));
+    return () => { alive = false; };
+  }, [formData.serviceId, formData.stylistId, formData.date, appointmentId]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -254,7 +190,12 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
 
   const isFormComplete = formData.clientId && formData.serviceId && formData.stylistId && formData.date && formData.startTime;
   const summaryDate = formData.date ? format(new Date(`${dayKey(formData.date)}T00:00:00`), 'EEEE d MMMM yyyy', { locale: getDateLocale(i18n.language) }) : '';
-  const openSlots = availableTimeSlots.filter((slot) => slot.available);
+  const openSlots = (grid ?? []).filter((slot) => !slot.reason);
+  const timeOptions = [...(grid ?? [])];
+  if (formData.startTime && !timeOptions.some((o) => o.time === formData.startTime)) {
+    timeOptions.unshift({ time: formData.startTime, reason: null, staff: [] }); // keep an edited appointment's own time
+  }
+  const pickedReason = grid?.find((o) => o.time === formData.startTime)?.reason;
   const price = (value?: number) => formatPrice(value || 0, profile.currency);
 
   const newButton = (onClick: () => void) => (
@@ -346,14 +287,20 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
                 disabled={!formData.serviceId || !formData.stylistId || !formData.date}
               >
                 <option value="">{t('appointment_form.labels.select_time')}</option>
-                {openSlots.map((slot) => (
-                  <option key={slot.startTime} value={slot.startTime}>
-                    {slot.startTime}
+                {timeOptions.map((slot) => (
+                  <option key={slot.time} value={slot.time}>
+                    {slot.reason ? `${slot.time} · ${t(`availability.short.${slot.reason}`)}` : slot.time}
                   </option>
                 ))}
               </select>
               {!formData.serviceId || !formData.stylistId || !formData.date ? (
                 <p className={helpClass}>{t('appointment_form.messages.select_service_stylist_first')}</p>
+              ) : gridLoading && !grid ? (
+                <p className={helpClass}>{t('availability.loading')}</p>
+              ) : pickedReason ? (
+                <p className={clsx(helpClass, 'text-amber-700 dark:text-amber-400')}>
+                  {t(`errors:availability.${pickedReason}`)} {t('availability.force_hint')}
+                </p>
               ) : openSlots.length === 0 ? (
                 <p className={clsx(helpClass, 'text-red-600 dark:text-red-400')}>{t('appointment_form.messages.no_slots_available')}</p>
               ) : (

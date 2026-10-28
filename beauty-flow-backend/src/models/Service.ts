@@ -19,8 +19,8 @@ export interface IService extends Document {
   }>;
   settings: {
     isOnline: boolean;
-    minimumBookingTime: number; // hours before appointment
-    maximumBookingAdvance: number; // days in advance
+    minimumBookingTime?: number; // hours before appointment (unset = salon setting)
+    maximumBookingAdvance?: number; // days in advance (unset = salon setting)
     requiresDeposit: boolean;
     depositAmount?: number;
     depositPercentage?: number;
@@ -108,14 +108,13 @@ const serviceSchema = new Schema<IService>(
         type: Boolean,
         default: false,
       },
+      // No default: unset = the salon's booking settings (User.bookingSettings) apply.
       minimumBookingTime: {
-        type: Number,
-        default: 24, // 24 hours
+        type: Number, // hours
         min: [0, 'Minimum booking time cannot be negative'],
       },
       maximumBookingAdvance: {
-        type: Number,
-        default: 30, // 30 days
+        type: Number, // days
         min: [1, 'Maximum booking advance must be at least 1 day'],
       },
       requiresDeposit: {
@@ -173,22 +172,5 @@ serviceSchema.virtual('durationInHours').get(function () {
   if (minutes === 0) return `${hours}h`;
   return `${hours}h${minutes}min`;
 });
-
-// Method to check if service can be booked at a specific time
-serviceSchema.methods.canBeBookedAt = function (bookingTime: Date): boolean {
-  if (!this.isActive || !this.settings.isOnline) return false;
-  
-  const now = new Date();
-  const hoursUntilBooking = (bookingTime.getTime() - now.getTime()) / (1000 * 60 * 60);
-  
-  // Check minimum booking time
-  if (hoursUntilBooking < this.settings.minimumBookingTime) return false;
-  
-  // Check maximum booking advance
-  const daysUntilBooking = hoursUntilBooking / 24;
-  if (daysUntilBooking > this.settings.maximumBookingAdvance) return false;
-  
-  return true;
-};
 
 export const Service = model<IService>('Service', serviceSchema);

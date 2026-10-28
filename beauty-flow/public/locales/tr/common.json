@@ -96,5 +96,11 @@
     "units": {
       "min": "dk"
     }
+  },
+  "unsaved": {
+    "title": "Kaydedilmemiş değişiklikler",
+    "message": "Bazı değişiklikler kaydedilmedi. Şimdi çıkarsanız kaybolacak.",
+    "leave": "Kaydetmeden çık",
+    "stay": "Kal"
   }
 }

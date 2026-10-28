@@ -37,7 +37,8 @@ export class ImageOptimizer {
   static async resizeToExactDimensions(
     file: File, 
     targetDimensions: ImageDimensions,
-    quality: number = 0.95
+    quality: number = 0.95,
+    mimeType: 'image/png' | 'image/jpeg' | 'image/webp' = 'image/png'
   ): Promise<OptimizedImage> {
     return new Promise((resolve, reject) => {
       const img = new Image();
@@ -96,7 +97,7 @@ export class ImageOptimizer {
                 quality
               });
             },
-            'image/png', // PNG pour éviter la compression JPEG
+            mimeType, // PNG par défaut pour éviter la compression JPEG ; JPEG pour les photos
             quality
           );
         } catch (error) {
