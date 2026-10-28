@@ -24,10 +24,10 @@ export const AuthGuard: React.FC = () => {
 };
 
 export const PublicOnlyGuard: React.FC = () => {
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated, user } = useAuthStore();
 
   if (isAuthenticated) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to={user?.role === 'supplier' ? '/fournisseur' : '/dashboard'} replace />;
   }
 
   return <Outlet />;

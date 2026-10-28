@@ -1,3 +1,5 @@
+import { StaffPermissions } from '../auth/types';
+
 export interface TeamMember {
   id: string;
   firstName: string;
@@ -13,6 +15,17 @@ export interface TeamMember {
   isActive: boolean;
   avatar?: string;
   color?: string;
+  /** What this member's login may do (owner view only) */
+  permissions?: StaffPermissions;
+  /** Their login: invited, active, revoked… (owner view only) */
+  access?: StaffAccess;
+}
+
+export interface StaffAccess {
+  status: 'none' | 'invited' | 'expired' | 'active' | 'revoked';
+  email?: string;
+  expiresAt?: string;
+  lastLogin?: string;
 }
 
 export interface WorkingHours {
@@ -31,6 +44,8 @@ export interface Absence {
   start?: string;
   end?: string;
   reason?: string;
+  /** Set when the absence comes from an approved leave request */
+  leaveId?: string;
 }
 
 export interface Break {

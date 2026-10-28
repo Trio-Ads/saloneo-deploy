@@ -57,7 +57,7 @@ const listedFilter = {
   isActive: true,
   'subscription.isActive': true,
   'directory.listed': { $ne: false },
-  role: { $ne: UserRole.ADMIN },
+  role: { $nin: [UserRole.ADMIN, UserRole.STAFF, UserRole.SUPPLIER] },
   isAdmin: { $ne: true },
   slug: { $exists: true, $ne: '' },
   email: { $not: /(\.test|@saloneo\.app)$/i },

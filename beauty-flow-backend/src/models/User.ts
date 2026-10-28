@@ -18,14 +18,26 @@ export enum SubscriptionDuration {
 
 export enum UserRole {
   OWNER = 'owner',
-  ADMIN = 'admin'
+  ADMIN = 'admin',
+  /** Team member login, scoped to the owner's salon (see middleware/auth.ts) */
+  STAFF = 'staff',
+  /** Supplier on the marketplace (own space, no salon data) */
+  SUPPLIER = 'supplier',
 }
+
+/** Accounts that are salons (owners, admins): not staff logins nor suppliers. Add to any query listing salons. */
+export const SALON_ACCOUNT_FILTER = { role: { $nin: [UserRole.STAFF, UserRole.SUPPLIER] } };
 
 export interface IUser extends Document {
   email: string;
   password: string;
   role: UserRole;
   isAdmin: boolean;
+  /** Staff login only: the owner's user id and the TeamMember this account is */
+  salonId?: Schema.Types.ObjectId;
+  teamMemberId?: Schema.Types.ObjectId;
+  /** Staff invitation (sha256 of the emailed token); cleared once accepted or revoked */
+  invitation?: { tokenHash: string; expiresAt: Date };
   firstName?: string;
   lastName?: string;
   establishmentName: string;
@@ -196,6 +208,12 @@ const userSchema = new Schema<IUser>(
     isAdmin: {
       type: Boolean,
       default: false,
+    },
+    salonId: { type: Schema.Types.ObjectId, ref: 'User' },
+    teamMemberId: { type: Schema.Types.ObjectId, ref: 'TeamMember' },
+    invitation: {
+      type: new Schema({ tokenHash: { type: String, required: true }, expiresAt: { type: Date, required: true } }, { _id: false }),
+      select: false,
     },
     subscription: {
       plan: {
@@ -412,9 +430,13 @@ userSchema.index({ 'affiliation.affiliateCode': 1 });
 userSchema.index({ 'affiliation.referredBy': 1 });
 // Public directory: listed salon accounts
 userSchema.index({ isActive: 1, 'subscription.isActive': 1, 'directory.listed': 1 });
+userSchema.index({ salonId: 1, teamMemberId: 1 }, { sparse: true });
+userSchema.index({ 'invitation.tokenHash': 1 }, { sparse: true });
 
 // Keep a unique public slug in sync with the establishment name
 userSchema.pre('save', async function (next) {
+  // Staff logins and suppliers are not salons: no public page
+  if (this.role === UserRole.STAFF || this.role === UserRole.SUPPLIER) return next();
   if (this.slug && !this.isModified('establishmentName')) return next();
   const base = salonBaseSlug(this);
   let slug = base;

@@ -7,6 +7,10 @@ import { socketService } from '../../services/socket';
 
 interface AuthStore extends AuthState {
   login: (credentials: AuthCredentials) => Promise<void>;
+  /** Staff invitation accepted: the API answers like a login */
+  acceptInvitation: (token: string, data: { firstName: string; lastName: string; password: string }) => Promise<void>;
+  /** Refresh the user (staff: permissions the owner may have changed) */
+  setUser: (apiUser: any) => void;
   register: (data: RegisterData) => Promise<void>;
   logout: () => Promise<void>;
   checkAuth: () => Promise<void>;
@@ -74,6 +78,10 @@ const mapUserFromAPI = (apiUser: any): UserProfile => {
     currency: currencyObject,
     role: apiUser.role,
     isAdmin: apiUser.isAdmin,
+    salonId: apiUser.salonId,
+    teamMemberId: apiUser.teamMemberId,
+    permissions: apiUser.permissions,
+    avatar: apiUser.avatar,
     createdAt: apiUser.createdAt,
     subscription: {
       planType: apiUser.subscription?.plan || 'FREE',
@@ -105,7 +113,9 @@ export const useAuthStore = create<AuthStore>()(
           
           // Update profile store
           const { useProfileStore } = await import('../profile/store');
-          useProfileStore.getState().updateProfile({
+          // Staff: the profile store holds their salon (read from GET /profile), not their own name
+          if (mappedUser.role === 'staff') useProfileStore.getState().loadProfile().catch(() => undefined);
+          else useProfileStore.getState().updateProfile({
             firstName: mappedUser.firstName,
             lastName: mappedUser.lastName,
             establishmentName: mappedUser.establishmentName,
@@ -135,6 +145,19 @@ export const useAuthStore = create<AuthStore>()(
           throw error;
         }
       },
+
+      acceptInvitation: async (inviteToken, data) => {
+        const response = await authAPI.acceptInvitation(inviteToken, data);
+        const { token, refreshToken, user } = response.data;
+        localStorage.setItem('token', token);
+        localStorage.setItem('refreshToken', refreshToken);
+        set({ isAuthenticated: true, user: mapUserFromAPI(user), token, error: null });
+        socketService.connect(token);
+        const { useProfileStore } = await import('../profile/store');
+        useProfileStore.getState().loadProfile().catch(() => undefined);
+      },
+
+      setUser: (apiUser) => set({ user: mapUserFromAPI(apiUser) }),
 
       register: async (data) => {
         set({ loading: true, error: null });
@@ -239,7 +262,9 @@ export const useAuthStore = create<AuthStore>()(
           
           // Update profile store
           const { useProfileStore } = await import('../profile/store');
-          useProfileStore.getState().updateProfile({
+          // Staff: the profile store holds their salon (read from GET /profile), not their own name
+          if (mappedUser.role === 'staff') useProfileStore.getState().loadProfile().catch(() => undefined);
+          else useProfileStore.getState().updateProfile({
             firstName: mappedUser.firstName,
             lastName: mappedUser.lastName,
             establishmentName: mappedUser.establishmentName,

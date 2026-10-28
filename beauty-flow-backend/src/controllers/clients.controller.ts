@@ -3,6 +3,7 @@ import { validationResult } from 'express-validator';
 import { Types } from 'mongoose';
 import { Client } from '../models/Client';
 import { AuthRequest } from '../middleware/auth';
+import { can } from '../middleware/permissions';
 import { logger } from '../utils/logger';
 
 // Helper function to validate and convert ObjectIds
@@ -10,6 +11,13 @@ const validateObjectIds = (ids: string[]): Types.ObjectId[] => {
   return ids
     .filter(id => Types.ObjectId.isValid(id))
     .map(id => new Types.ObjectId(id));
+};
+
+/** Name, e-mail and phone search; staff who don't see contacts search by name only (no guessing numbers by search). */
+const searchFields = (req: AuthRequest, q: string) => {
+  const rx = { $regex: q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').slice(0, 100), $options: 'i' };
+  const fields = can(req, 'viewClientContacts') ? ['firstName', 'lastName', 'email', 'phone'] : ['firstName', 'lastName'];
+  return fields.map((f) => ({ [f]: rx }));
 };
 
 export const getAllClients = async (req: AuthRequest, res: Response): Promise<void> => {
@@ -20,14 +28,7 @@ export const getAllClients = async (req: AuthRequest, res: Response): Promise<vo
     const query: any = { userId };
     
     // Search filter
-    if (search) {
-      query.$or = [
-        { firstName: { $regex: search, $options: 'i' } },
-        { lastName: { $regex: search, $options: 'i' } },
-        { email: { $regex: search, $options: 'i' } },
-        { phone: { $regex: search, $options: 'i' } },
-      ];
-    }
+    if (search) query.$or = searchFields(req, String(search));
 
     // Status filter
     if (status) {
@@ -213,12 +214,7 @@ export const searchClients = async (req: AuthRequest, res: Response): Promise<vo
 
     const clients = await Client.find({
       userId,
-      $or: [
-        { firstName: { $regex: q, $options: 'i' } },
-        { lastName: { $regex: q, $options: 'i' } },
-        { email: { $regex: q, $options: 'i' } },
-        { phone: { $regex: q, $options: 'i' } },
-      ],
+      $or: searchFields(req, String(q)),
     })
       .limit(10)
       .select('firstName lastName email phone');

@@ -1,6 +1,6 @@
 import { emailService } from './emailService';
 import { logger } from '../utils/logger';
-import { User, IUser } from '../models/User';
+import { User, IUser, SALON_ACCOUNT_FILTER } from '../models/User';
 import { Client, IClient } from '../models/Client';
 import { EmailTemplateData } from '../types/email.types';
 import * as cron from 'node-cron';
@@ -69,7 +69,8 @@ class MarketingEmailService {
   // Send monthly newsletter
   async sendMonthlyNewsletter() {
     try {
-      const users = await User.find({ 
+      const users = await User.find({
+        ...SALON_ACCOUNT_FILTER,
         isActive: true,
         'subscription.isActive': true 
       });
@@ -167,7 +168,8 @@ class MarketingEmailService {
       const todayMonth = today.getMonth() + 1;
       const todayDay = today.getDate();
 
-      const users = await User.find({ 
+      const users = await User.find({
+        ...SALON_ACCOUNT_FILTER,
         isActive: true,
         'subscription.isActive': true 
       });
@@ -233,7 +235,8 @@ class MarketingEmailService {
   // Send loyalty program updates
   async sendLoyaltyProgramUpdates() {
     try {
-      const users = await User.find({ 
+      const users = await User.find({
+        ...SALON_ACCOUNT_FILTER,
         isActive: true,
         'subscription.isActive': true 
       });
@@ -355,7 +358,8 @@ class MarketingEmailService {
       const threeMonthsAgo = new Date();
       threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
 
-      const users = await User.find({ 
+      const users = await User.find({
+        ...SALON_ACCOUNT_FILTER,
         isActive: true,
         'subscription.isActive': true 
       });
@@ -479,7 +483,8 @@ class MarketingEmailService {
   // Send seasonal campaign
   async sendSeasonalCampaign(season: 'spring' | 'summer' | 'autumn' | 'winter') {
     try {
-      const users = await User.find({ 
+      const users = await User.find({
+        ...SALON_ACCOUNT_FILTER,
         isActive: true,
         'subscription.isActive': true 
       });

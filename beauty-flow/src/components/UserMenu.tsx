@@ -20,7 +20,9 @@ const UserMenu: React.FC = () => {
   const menuRef = useRef<HTMLDivElement>(null);
   // The auth user carries the plan from the API; the subscription store defaults to FREE until /subscription is visited
   const plan = user?.subscription?.planType || 'FREE';
-  const displayName = user?.establishmentName || [user?.firstName, user?.lastName].filter(Boolean).join(' ');
+  const isStaff = user?.role === 'staff';
+  // A staff login is a person of the salon: their name first, the salon under it
+  const displayName = isStaff ? [user?.firstName, user?.lastName].filter(Boolean).join(' ') : user?.establishmentName || [user?.firstName, user?.lastName].filter(Boolean).join(' ');
 
   // Fermer le menu au clic extérieur ou avec Escape
   useEffect(() => {
@@ -57,7 +59,9 @@ const UserMenu: React.FC = () => {
     }
   };
 
-  const menuItems = [
+  const menuItems = isStaff ? [
+    { icon: UserIcon, label: t('navigation.profile'), description: user?.establishmentName || '', href: '/my-profile' },
+  ] : [
     { icon: UserIcon, label: t('navigation.profile'), description: t('user_menu.menu_items.profile.description'), href: '/profile' },
     { icon: SwatchIcon, label: t('navigation.interface'), description: t('user_menu.menu_items.interface.description'), href: '/interface' },
     { icon: CreditCardIcon, label: t('navigation.subscription'), description: t('user_menu.menu_items.subscription.description'), href: '/subscription' },
@@ -90,9 +94,11 @@ const UserMenu: React.FC = () => {
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-semibold text-gray-900 dark:text-gray-50">{displayName}</p>
               <p className="truncate text-xs text-gray-500 dark:text-gray-400">{user?.email}</p>
-              <Badge tone={plan === 'FREE' ? 'neutral' : 'orange'} className="mt-2">
-                {t('user_menu.plan_prefix')} {t(`user_menu.plans.${plan}`, plan)}
-              </Badge>
+              {!isStaff && (
+                <Badge tone={plan === 'FREE' ? 'neutral' : 'orange'} className="mt-2">
+                  {t('user_menu.plan_prefix')} {t(`user_menu.plans.${plan}`, plan)}
+                </Badge>
+              )}
             </div>
           </div>
 

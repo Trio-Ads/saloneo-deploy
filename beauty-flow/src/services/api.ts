@@ -71,6 +71,13 @@ api.interceptors.response.use(
       }
     }
 
+    // A staff login reaching an owner-only action: say so instead of failing silently (reads fail quietly in their page)
+    const data = error.response?.data as { code?: string } | undefined;
+    if (error.response?.status === 403 && data?.code === 'STAFF_FORBIDDEN' && originalRequest?.method !== 'get') {
+      const [{ useToastStore }, { default: i18n }] = await Promise.all([import('../components/Toast'), import('i18next')]);
+      useToastStore.getState().showToast(i18n.t('team:staff.forbidden'), 'warning');
+    }
+
     return Promise.reject(error);
   }
 );
@@ -104,6 +111,45 @@ export const authAPI = {
 
   verifyEmail: (token: string) => 
     api.get(`/auth/verify-email/${token}`),
+
+  getInvitation: (token: string) => api.get(`/auth/invitation/${token}`),
+  acceptInvitation: (token: string, data: { firstName: string; lastName: string; password: string }) =>
+    api.post(`/auth/invitation/${token}`, data),
+};
+
+/** Staff space (staff logins only) */
+export const staffAPI = {
+  me: () => api.get('/staff/me'),
+  updateMe: (data: { firstName?: string; lastName?: string; phone?: string }) => api.put('/staff/me', data),
+  updatePassword: (data: { currentPassword: string; newPassword: string }) => api.put('/staff/me/password', data),
+  stats: () => api.get('/staff/me/stats'),
+  leaves: () => api.get('/staff/leaves'),
+  requestLeave: (data: any) => api.post('/staff/leaves', data),
+  cancelLeave: (id: string) => api.delete(`/staff/leaves/${id}`),
+  markSeen: () => api.post('/staff/leaves/seen'),
+  uploadAvatar: (teamMemberId: string, file: File) => {
+    const form = new FormData();
+    form.append('avatar', file);
+    return api.post(`/upload/team/${teamMemberId}/avatar`, form, { headers: { 'Content-Type': 'multipart/form-data' } });
+  },
+  /** Leave certificate: stored privately, readable only by the owner and this member */
+  uploadAttachment: (file: File) => {
+    const form = new FormData();
+    form.append('file', file);
+    return api.post('/leave-attachments', form, { headers: { 'Content-Type': 'multipart/form-data' } });
+  },
+  openAttachment: (id: string) => api.get(`/leave-attachments/${id}`, { responseType: 'blob' }),
+};
+
+/** Owner side of staff logins and leave */
+export const teamAccessAPI = {
+  invite: (memberId: string, email?: string) => api.post(`/team/${memberId}/access`, { email }),
+  revoke: (memberId: string) => api.delete(`/team/${memberId}/access`),
+  leaves: (params?: { status?: string; teamMemberId?: string }) => api.get('/team/leaves', { params }),
+  decide: (id: string, decision: 'approve' | 'refuse', comment?: string) => api.post(`/team/leaves/${id}/decision`, { decision, comment }),
+  conflicts: (id: string) => api.get(`/team/leaves/${id}/conflicts`),
+  hr: (memberId: string) => api.get(`/team/${memberId}/hr`),
+  updateHr: (memberId: string, data: any) => api.put(`/team/${memberId}/hr`, data),
 };
 
 export const clientsAPI = {

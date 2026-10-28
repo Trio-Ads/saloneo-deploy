@@ -285,7 +285,12 @@ class CloudStorageService {
           await cloudinary.uploader.destroy(keyOrPublicId);
           break;
         case StorageProvider.LOCAL:
-          await fs.unlink(path.join(this.localDir(), keyOrPublicId.replace(/^\/?uploads\//, ''))).catch(() => {});
+          {
+            // Stay inside the upload directory whatever the key says
+            const file = path.resolve(this.localDir(), keyOrPublicId.replace(/^\/?uploads\//, ''));
+            if (!file.startsWith(this.localDir() + path.sep)) throw new Error('Key outside the upload directory');
+            await fs.unlink(file).catch(() => {});
+          }
           break;
       }
 

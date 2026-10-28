@@ -2,10 +2,12 @@ import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
-import { User } from '../models/User';
+import { User, UserRole, SALON_ACCOUNT_FILTER } from '../models/User';
 import { generateToken, generateRefreshToken, AuthRequest } from '../middleware/auth';
 import { logger } from '../utils/logger';
 import { subscriptionEmailService } from '../services/subscriptionEmailService';
+import { TeamMember } from '../models/Team';
+import { accountPayload } from './staff.controller';
 
 export const register = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -123,6 +125,18 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
+    // Staff: the salon must be open and the member still active on the team
+    if (user.role === UserRole.STAFF) {
+      const [owner, member] = await Promise.all([
+        User.exists({ _id: user.salonId, isActive: true, ...SALON_ACCOUNT_FILTER }),
+        TeamMember.exists({ _id: user.teamMemberId, userId: user.salonId, isActive: true }),
+      ]);
+      if (!owner || !member) {
+        res.status(403).json({ error: 'Account is deactivated' });
+        return;
+      }
+    }
+
     // Check for suspicious login (different IP or user agent)
     const currentIp = req.ip || req.connection.remoteAddress || 'unknown';
     const currentUserAgent = req.get('user-agent') || 'unknown';
@@ -152,22 +166,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     user.lastLoginUserAgent = currentUserAgent;
     await user.save();
 
-    res.json({
-      token,
-      refreshToken,
-      user: {
-        id: user._id,
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        establishmentName: user.establishmentName,
-        address: user.address,
-        phone: user.phone,
-        settings: user.settings,
-        subscription: user.subscription,
-        createdAt: user.createdAt,
-      },
-    });
+    res.json({ token, refreshToken, user: await accountPayload(user) });
   } catch (error) {
     logger.error('Login error:', error);
     res.status(500).json({ error: 'Server error' });
@@ -184,7 +183,7 @@ export const refreshToken = async (req: Request, res: Response): Promise<void> =
     }
 
     // Find user with this refresh token
-    const user = await User.findOne({ refreshToken });
+    const user = await User.findOne({ refreshToken, isActive: true });
     if (!user) {
       res.status(401).json({ error: 'Invalid refresh token' });
       return;
@@ -211,11 +210,8 @@ export const refreshToken = async (req: Request, res: Response): Promise<void> =
 
 export const logout = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
-    const user = await User.findById(req.userId);
-    if (user) {
-      user.refreshToken = undefined;
-      await user.save();
-    }
+    // The account logged in (a staff login must not log its owner out)
+    await User.updateOne({ _id: req.actor!.id }, { $unset: { refreshToken: 1 } });
 
     res.json({ message: 'Logged out successfully' });
   } catch (error) {
@@ -226,13 +222,14 @@ export const logout = async (req: AuthRequest, res: Response): Promise<void> => 
 
 export const getCurrentUser = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
-    const user = await User.findById(req.userId).select('-password -refreshToken');
+    const user = await User.findById(req.actor!.id).select('-password -refreshToken');
     if (!user) {
       res.status(404).json({ error: 'User not found' });
       return;
     }
 
-    res.json({ user });
+    // Staff get their salon context and permissions, not the owner's account
+    res.json({ user: user.role === UserRole.STAFF ? await accountPayload(user) : user });
   } catch (error) {
     logger.error('Get current user error:', error);
     res.status(500).json({ error: 'Server error' });

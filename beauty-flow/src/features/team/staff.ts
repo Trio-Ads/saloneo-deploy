@@ -13,9 +13,12 @@ import { TeamMember } from './types';
 export function useStaff(): TeamMember[] {
   const { t } = useTranslation('appointments');
   const members = useTeamStore((s) => s.members);
-  const ownerId = useAuthStore((s) => s.user?.id);
+  // A staff login's salon owner is user.salonId; "own planning" staff work with themselves only
+  const ownerId = useAuthStore((s) => s.user?.salonId || s.user?.id);
+  const scope = useAuthStore((s) => (s.user?.role === 'staff' && s.user.permissions?.planning !== 'all' ? s.user.teamMemberId : undefined));
   const profile = useProfileStore((s) => s.profile);
   return useMemo(() => {
+    if (scope) return members.filter((m) => m.id === scope);
     if (!ownerId || !(profile.showAsTeamMember || !members.some((m) => m.isActive))) return members;
     const owner: TeamMember = {
       id: ownerId,
@@ -29,14 +32,14 @@ export function useStaff(): TeamMember[] {
       isActive: true,
     };
     return [owner, ...members];
-  }, [members, ownerId, profile.showAsTeamMember, profile.firstName, profile.lastName, profile.establishmentName, t]);
+  }, [members, ownerId, scope, profile.showAsTeamMember, profile.firstName, profile.lastName, profile.establishmentName, t]);
 }
 
 /** Display name of whoever holds an appointment; the owner is known even when no longer shown as staff. */
 export function useStaffName(fallback?: string) {
   const { t } = useTranslation('appointments');
   const staff = useStaff();
-  const ownerId = useAuthStore((s) => s.user?.id);
+  const ownerId = useAuthStore((s) => s.user?.salonId || s.user?.id);
   const profile = useProfileStore((s) => s.profile);
   return useCallback((id?: string) => {
     const m = staff.find((s) => s.id === id);

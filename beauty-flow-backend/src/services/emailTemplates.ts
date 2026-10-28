@@ -178,6 +178,35 @@ export class EmailTemplates {
     `);
   }
 
+  // TEAM TEMPLATES
+  static getStaffInvitationTemplate(): string {
+    return this.wrapTemplate(`
+      <h2>Rejoignez l'équipe sur Saloneo</h2>
+      <p>Bonjour <strong>{{userName}}</strong>,</p>
+      <p><strong>{{salonName}}</strong> vous invite à créer votre accès Saloneo : votre planning, vos clientes et vos demandes de congé, depuis votre téléphone.</p>
+      <p style="text-align: center;">
+        <a href="{{link}}" class="button">Créer mon accès</a>
+      </p>
+      <p>Ce lien est valable {{expires}}. Si vous n'attendiez pas cette invitation, ignorez cet e-mail.</p>
+    `);
+  }
+
+  static getLeaveDecisionTemplate(): string {
+    return this.wrapTemplate(`
+      <h2>Demande de congé {{decisionLabel}}</h2>
+      <p>Bonjour <strong>{{userName}}</strong>,</p>
+      <p>Votre demande chez <strong>{{salonName}}</strong> a été <strong>{{decisionLabel}}</strong>.</p>
+      <div class="info-box">
+        <p><strong>Type :</strong> {{typeLabel}}</p>
+        <p><strong>Période :</strong> {{period}}</p>
+        {{#if comment}}<p><strong>Commentaire :</strong> {{comment}}</p>{{/if}}
+      </div>
+      <p style="text-align: center;">
+        <a href="{{link}}" class="button">Voir mes congés</a>
+      </p>
+    `);
+  }
+
   // SUBSCRIPTION TEMPLATES
   static getSubscriptionWelcomeTemplate(): string {
     return this.wrapTemplate(`

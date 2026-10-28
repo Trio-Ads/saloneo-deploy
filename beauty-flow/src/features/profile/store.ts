@@ -49,6 +49,9 @@ const useProfileStore = create<ProfileStore>()(
       lastUpdateTimestamp: 0,
 
       loadProfile: async () => {
+        // Suppliers (marketplace) have no salon profile: GET /profile is refused for them
+        const { useAuthStore } = await import('../auth/store');
+        if (useAuthStore.getState().user?.role === 'supplier') return;
         set({ isLoading: true, error: null });
         try {
           const response = await profileAPI.get();
@@ -97,6 +100,14 @@ const useProfileStore = create<ProfileStore>()(
       },
 
       updateProfile: async (profileData) => {
+        // A staff login shows its salon's profile but never writes it (the API refuses): keep the change local.
+        // Suppliers have no salon profile at all (marketplace supplier space).
+        const { useAuthStore } = await import('../auth/store');
+        const role = useAuthStore.getState().user?.role;
+        if (role === 'staff' || role === 'supplier') {
+          set((state) => ({ profile: { ...state.profile, ...profileData } }));
+          return;
+        }
         set({ isLoading: true, error: null });
         try {
           console.log('🔄 Mise à jour du profil avec:', profileData);

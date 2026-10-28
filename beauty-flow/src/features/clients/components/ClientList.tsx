@@ -8,8 +8,9 @@ import { Panel, Badge, IconButton, BadgeTone } from '../../../components/ui';
 
 interface ClientListProps {
   clients: Client[];
-  onEdit: (client: Client) => void;
-  onDelete: (clientId: string) => void;
+  /** Omitted for staff logins (owner-only actions) */
+  onEdit?: (client: Client) => void;
+  onDelete?: (clientId: string) => void;
 }
 
 const ClientList: React.FC<ClientListProps> = ({ clients, onEdit, onDelete }) => {
@@ -82,12 +83,16 @@ const ClientList: React.FC<ClientListProps> = ({ clients, onEdit, onDelete }) =>
                     </p>
                   </div>
                   <div className="flex shrink-0 items-center gap-1">
-                    <IconButton label={t('client_list.tooltips.edit_client')} onClick={(e) => { e.preventDefault(); onEdit(client); }}>
-                      <PencilIcon className="size-[18px]" />
-                    </IconButton>
-                    <IconButton label={t('client_list.tooltips.delete_client')} tone="danger" onClick={(e) => { e.preventDefault(); onDelete(client.id); }}>
-                      <TrashIcon className="size-[18px]" />
-                    </IconButton>
+                    {onEdit && (
+                      <IconButton label={t('client_list.tooltips.edit_client')} onClick={(e) => { e.preventDefault(); onEdit(client); }}>
+                        <PencilIcon className="size-[18px]" />
+                      </IconButton>
+                    )}
+                    {onDelete && (
+                      <IconButton label={t('client_list.tooltips.delete_client')} tone="danger" onClick={(e) => { e.preventDefault(); onDelete(client.id); }}>
+                        <TrashIcon className="size-[18px]" />
+                      </IconButton>
+                    )}
                     <ChevronDownIcon aria-hidden className="hidden size-4 text-gray-400 transition-transform duration-150 ease-out group-open:rotate-180 sm:block" />
                   </div>
                 </summary>

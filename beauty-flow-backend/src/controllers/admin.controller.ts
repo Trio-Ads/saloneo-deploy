@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { User, PlanType, SubscriptionDuration } from '../models/User';
+import { User, PlanType, SubscriptionDuration, SALON_ACCOUNT_FILTER } from '../models/User';
 import { Appointment } from '../models/Appointment';
 import { Client } from '../models/Client';
 import { Service } from '../models/Service';
@@ -26,7 +26,7 @@ export const getAllUsers = async (req: AuthRequest, res: Response): Promise<void
     const skip = (pageNum - 1) * limitNum;
 
     // Build query
-    const query: any = { role: { $ne: 'admin' } }; // Exclude admins from list
+    const query: any = { role: { $nin: ['admin', 'staff', 'supplier'] } }; // Salons only: no admins, staff logins or suppliers
 
     // Search by establishment name or email
     if (search) {
@@ -264,12 +264,13 @@ export const getPlatformStats = async (req: AuthRequest, res: Response): Promise
       totalClients,
       totalServices
     ] = await Promise.all([
-      User.countDocuments({ role: { $ne: 'admin' } }),
-      User.countDocuments({ 'subscription.plan': PlanType.FREE }),
-      User.countDocuments({ 'subscription.plan': PlanType.STARTER }),
-      User.countDocuments({ 'subscription.plan': PlanType.PRO }),
-      User.countDocuments({ 'subscription.plan': PlanType.ENTERPRISE }),
+      User.countDocuments({ role: { $nin: ['admin', 'staff', 'supplier'] } }),
+      User.countDocuments({ ...SALON_ACCOUNT_FILTER, 'subscription.plan': PlanType.FREE }),
+      User.countDocuments({ ...SALON_ACCOUNT_FILTER, 'subscription.plan': PlanType.STARTER }),
+      User.countDocuments({ ...SALON_ACCOUNT_FILTER, 'subscription.plan': PlanType.PRO }),
+      User.countDocuments({ ...SALON_ACCOUNT_FILTER, 'subscription.plan': PlanType.ENTERPRISE }),
       User.countDocuments({
+        ...SALON_ACCOUNT_FILTER,
         'subscription.isActive': true,
         'subscription.expiresAt': { $gt: new Date() }
       }),
@@ -283,7 +284,7 @@ export const getPlatformStats = async (req: AuthRequest, res: Response): Promise
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
     const recentUsers = await User.countDocuments({
       createdAt: { $gte: thirtyDaysAgo },
-      role: { $ne: 'admin' }
+      role: { $nin: ['admin', 'staff', 'supplier'] }
     });
 
     res.json({

@@ -5,6 +5,20 @@ import { Service } from '../models/Service';
 import { AuthRequest } from '../middleware/auth';
 import { logger } from '../utils/logger';
 import { recheckSalon } from '../services/waitlist';
+import { User, UserRole } from '../models/User';
+import { LeaveAttachment, LeaveRequest } from '../models/LeaveRequest';
+import { normalizePermissions } from '../middleware/permissions';
+import { accessByMember } from './staff.controller';
+
+/** What staff logins see of their colleagues: enough for the agenda, no contacts, HR file or permissions. */
+const STAFF_VIEW = 'firstName lastName role color avatar isActive services specialties workingHours absences';
+
+/** Owner-writable fields of the team form (never userId, hr through /hr). */
+function memberUpdates(body: any) {
+  const { userId: _u, _id: _i, id: _id, hr: _h, createdAt: _c, updatedAt: _up, ...rest } = body || {};
+  if (rest.permissions !== undefined) rest.permissions = normalizePermissions(rest.permissions);
+  return rest;
+}
 
 export const getAllTeamMembers = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
@@ -20,17 +34,29 @@ export const getAllTeamMembers = async (req: AuthRequest, res: Response): Promis
 
     const skip = (Number(page) - 1) * Number(limit);
     
-    const [teamMembers, total] = await Promise.all([
+    const isStaff = req.actor?.role === UserRole.STAFF;
+    const [teamMembers, total, access] = await Promise.all([
       TeamMember.find(query)
+        .select(isStaff ? STAFF_VIEW : '')
         .populate('services', 'name category')
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(Number(limit)),
       TeamMember.countDocuments(query),
+      isStaff ? null : accessByMember(userId!),
     ]);
 
     res.json({
-      teamMembers,
+      teamMembers: teamMembers.map((m) => {
+        const json: any = m.toJSON();
+        // Absence reasons (maladie…) are between the member and the owner
+        if (isStaff) json.absences = (json.absences || []).map(({ from, to, start, end }: any) => ({ from, to, start, end }));
+        else {
+          json.access = access!.get(String(m._id)) || { status: 'none' };
+          json.permissions = normalizePermissions(json.permissions);
+        }
+        return json;
+      }),
       pagination: {
         page: Number(page),
         limit: Number(limit),
@@ -73,7 +99,7 @@ export const createTeamMember = async (req: AuthRequest, res: Response): Promise
     }
 
     const userId = req.userId;
-    const { services: serviceIds, ...teamMemberData } = req.body;
+    const { services: serviceIds, ...teamMemberData } = memberUpdates(req.body);
 
     // Verify services belong to the user
     if (serviceIds && serviceIds.length > 0) {
@@ -115,7 +141,7 @@ export const updateTeamMember = async (req: AuthRequest, res: Response): Promise
 
     const { id } = req.params;
     const userId = req.userId;
-    const { services: serviceIds, ...updates } = req.body;
+    const { services: serviceIds, ...updates } = memberUpdates(req.body);
 
     // Verify services if provided
     if (serviceIds) {
@@ -162,6 +188,12 @@ export const deleteTeamMember = async (req: AuthRequest, res: Response): Promise
       res.status(404).json({ error: 'Team member not found' });
       return;
     }
+    // Their login and leave requests go with them
+    await Promise.all([
+      User.deleteOne({ teamMemberId: teamMember._id, salonId: userId, role: UserRole.STAFF }),
+      LeaveRequest.deleteMany({ teamMemberId: teamMember._id, userId }),
+      LeaveAttachment.deleteMany({ teamMemberId: teamMember._id, userId }),
+    ]);
 
     res.json({ message: 'Team member deleted successfully' });
   } catch (error) {
@@ -239,7 +271,8 @@ export const updatePermissions = async (req: AuthRequest, res: Response): Promis
 
     const { id } = req.params;
     const userId = req.userId;
-    const { permissions } = req.body;
+    const current = await TeamMember.findOne({ _id: id, userId }).select('permissions').lean();
+    const permissions = normalizePermissions({ ...normalizePermissions(current?.permissions), ...req.body.permissions });
 
     const teamMember = await TeamMember.findOneAndUpdate(
       { _id: id, userId },

@@ -17,6 +17,8 @@ interface TeamStore {
   addTimeOff: (timeOff: Omit<TimeOff, 'id' | 'status'>) => void;
   updateTimeOffStatus: (id: string, status: TimeOffStatus) => void;
   deleteTimeOff: (id: string) => void;
+  /** After an invitation or a revocation */
+  setAccess: (id: string, access: TeamMember['access']) => void;
   clearError: () => void;
 }
 
@@ -58,7 +60,9 @@ const mapTeamMemberFromAPI = (apiMember: any): TeamMember => ({
   absences: apiMember.absences || [],
   isActive: apiMember.isActive !== false,
   avatar: apiMember.avatar,
-  color: apiMember.color || '#3B82F6'
+  color: apiMember.color || '#3B82F6',
+  permissions: apiMember.permissions,
+  access: apiMember.access
 });
 
 // Fonction pour mapper les données du frontend vers le backend
@@ -81,7 +85,8 @@ const mapTeamMemberToAPI = (member: TeamMemberFormData) => ({
   },
   ...(member.absences && { absences: member.absences }),
   avatar: member.avatar,
-  color: member.color || '#3B82F6'
+  color: member.color || '#3B82F6',
+  ...(member.permissions && { permissions: member.permissions })
 });
 
 const initialState = {
@@ -95,6 +100,8 @@ export const useTeamStore = create<TeamStore>()((set, get) => ({
   ...initialState,
 
   clearError: () => set({ error: null }),
+
+  setAccess: (id, access) => set((state) => ({ members: state.members.map((m) => (m.id === id ? { ...m, access } : m)) })),
 
   fetchMembers: async () => {
     set({ loading: true, error: null });
@@ -175,8 +182,9 @@ export const useTeamStore = create<TeamStore>()((set, get) => ({
       const updatedMember = mapTeamMemberFromAPI(response.data.teamMember || response.data.member || response.data);
       
       set((state) => ({
+        // The update answer has no login status: keep the one we know
         members: state.members.map((member) =>
-          member.id === id ? updatedMember : member
+          member.id === id ? { ...updatedMember, access: updatedMember.access ?? member.access } : member
         ),
         loading: false
       }));

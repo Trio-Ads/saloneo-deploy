@@ -1,6 +1,6 @@
 import { emailService } from './emailService';
 import { logger } from '../utils/logger';
-import { User, IUser } from '../models/User';
+import { User, IUser, SALON_ACCOUNT_FILTER } from '../models/User';
 import { Client } from '../models/Client';
 import { Appointment } from '../models/Appointment';
 import { Service } from '../models/Service';
@@ -66,6 +66,7 @@ class SubscriptionEmailService {
         endDate.setHours(23, 59, 59, 999);
 
         const users = await User.find({
+          ...SALON_ACCOUNT_FILTER,
           'subscription.isActive': true,
           'subscription.expiresAt': {
             $gte: expiryDate,
@@ -87,6 +88,7 @@ class SubscriptionEmailService {
 
       // Check for expired subscriptions
       const expiredUsers = await User.find({
+        ...SALON_ACCOUNT_FILTER,
         'subscription.isActive': true,
         'subscription.expiresAt': { $lt: now },
         'subscription.notifications.expired': { $ne: true }
@@ -113,6 +115,7 @@ class SubscriptionEmailService {
   async checkUsageLimits() {
     try {
       const users = await User.find({
+        ...SALON_ACCOUNT_FILTER,
         'subscription.isActive': true
       });
 
@@ -939,6 +942,7 @@ class SubscriptionEmailService {
   async checkUpgradeSuggestion() {
     try {
       const users = await User.find({
+        ...SALON_ACCOUNT_FILTER,
         'subscription.isActive': true,
         'subscription.plan': { $ne: 'enterprise' }
       });

@@ -32,9 +32,20 @@ import LandingPage from './features/marketing/pages/LandingPage';
 import PricingPage from './features/marketing/pages/PricingPage';
 import DirectoryPage from './features/directory/DirectoryPage';
 import AdminPage from './features/admin/AdminPage';
+import EmployeeFilePage from './features/team/EmployeeFilePage';
+import InvitationPage from './features/staff/InvitationPage';
+import MyPlanningPage from './features/staff/MyPlanningPage';
+import MyLeavesPage from './features/staff/MyLeavesPage';
+import MyProfilePage from './features/staff/MyProfilePage';
+import { Allowed, OwnerOnly, StaffOnly } from './features/staff/RouteGuards';
 
 // Dev server only: every public layout variant on one page (/dev/layouts).
 const DevLayouts = import.meta.env.DEV ? React.lazy(() => import('./features/public/dev/LayoutsPage')) : null;
+// Supplier marketplace: loaded on demand (salons never download the supplier space)
+const SupplierSpace = React.lazy(() => import('./features/marketplace/supplier/SupplierSpace'));
+const SupplierApply = React.lazy(() => import('./features/marketplace/ApplyPage'));
+const MarketPaymentReturn = React.lazy(() => import('./features/marketplace/salon/PaymentReturn'));
+const lazy = (el: React.ReactNode) => <React.Suspense fallback={null}>{el}</React.Suspense>;
 
 export const App: React.FC = () => {
   const { t } = useTranslation('common');
@@ -72,6 +83,10 @@ export const App: React.FC = () => {
         {/* Targets of the password-reset and verification e-mails */}
         <Route path="reset-password" element={<ResetPasswordPage />} />
         <Route path="verify-email" element={<VerifyEmailPage />} />
+        {/* Target of the staff invitation e-mail */}
+        <Route path="invitation/:token" element={<InvitationPage />} />
+        {/* Supplier marketplace: public "Devenir fournisseur" signup */}
+        <Route path="devenir-fournisseur" element={lazy(<SupplierApply />)} />
 
         {/* Authentication routes */}
         <Route path="auth" element={<PublicOnlyGuard />}>
@@ -83,18 +98,28 @@ export const App: React.FC = () => {
 
         {/* Protected routes */}
         <Route element={<AuthGuard />}>
+          {/* Supplier space (own layout) */}
+          <Route path="fournisseur/*" element={lazy(<SupplierSpace />)} />
           <Route element={<MainLayout />}>
-            <Route path="dashboard" element={<DashboardPage />} />
-            <Route path="clients" element={<ClientsPage />} />
-            <Route path="services" element={<ServicesPage />} />
-            <Route path="appointments" element={<AppointmentsPage />} />
-            <Route path="appointments/history" element={<AppointmentHistoryPage />} />
-            <Route path="team" element={<TeamPage />} />
-            <Route path="products" element={<ProductsPage />} />
-            <Route path="interface" element={<InterfacePage />} />
-            <Route path="profile" element={<ProfilePage />} />
-            <Route path="subscription" element={<SubscriptionPage />} />
-            <Route path="admin" element={<AdminPage />} />
+            {/* Owner pages: a staff login is sent to "Mon planning" (the API refuses their calls anyway) */}
+            <Route path="dashboard" element={<OwnerOnly><DashboardPage /></OwnerOnly>} />
+            <Route path="clients" element={<Allowed perm="viewClients"><ClientsPage /></Allowed>} />
+            <Route path="services" element={<Allowed perm="manageServices"><ServicesPage /></Allowed>} />
+            <Route path="appointments" element={<OwnerOnly><AppointmentsPage /></OwnerOnly>} />
+            <Route path="appointments/history" element={<OwnerOnly><AppointmentHistoryPage /></OwnerOnly>} />
+            <Route path="team" element={<OwnerOnly><TeamPage /></OwnerOnly>} />
+            <Route path="team/:id/file" element={<OwnerOnly><EmployeeFilePage /></OwnerOnly>} />
+            <Route path="products" element={<Allowed perm="manageProducts"><ProductsPage /></Allowed>} />
+            <Route path="interface" element={<OwnerOnly><InterfacePage /></OwnerOnly>} />
+            <Route path="profile" element={<OwnerOnly><ProfilePage /></OwnerOnly>} />
+            <Route path="subscription" element={<OwnerOnly><SubscriptionPage /></OwnerOnly>} />
+            <Route path="admin" element={<OwnerOnly><AdminPage /></OwnerOnly>} />
+            {/* SATIM sends the salon back here after paying a supplier order */}
+            <Route path="marketplace/payment-return" element={<OwnerOnly>{lazy(<MarketPaymentReturn />) as React.ReactElement}</OwnerOnly>} />
+            {/* Staff space */}
+            <Route path="my-planning" element={<StaffOnly><MyPlanningPage /></StaffOnly>} />
+            <Route path="my-leaves" element={<StaffOnly><MyLeavesPage /></StaffOnly>} />
+            <Route path="my-profile" element={<StaffOnly><MyProfilePage /></StaffOnly>} />
           </Route>
         </Route>
 

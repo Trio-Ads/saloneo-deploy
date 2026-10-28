@@ -61,7 +61,8 @@ export const LoginForm: React.FC = () => {
     try {
       await login(formData);
       const from = location.state?.from?.pathname || '/dashboard';
-      navigate(from);
+      // Suppliers have their own space; staff are sent from /dashboard to their planning by OwnerOnly
+      navigate(useAuthStore.getState().user?.role === 'supplier' ? '/fournisseur' : from);
     } catch (error) {
       const response = (error as AxiosError)?.response;
       setErrors({

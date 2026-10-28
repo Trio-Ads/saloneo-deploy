@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, Outlet } from 'react-router-dom';
+import { Link, useLocation, Outlet, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 import {
@@ -26,6 +26,8 @@ import NavbarLanguageSelector from '../components/NavbarLanguageSelector';
 import MobileBottomNav from '../components/MobileBottomNav';
 import SaloneoLogo from '../components/SaloneoLogo';
 import { IconButton } from '../components/ui';
+import { staffAPI } from '../services/api';
+import { useStaffNav, useStaffNotices } from '../features/staff/nav';
 
 const MOBILE_QUERY = '(max-width: 768px)';
 
@@ -35,6 +37,11 @@ const MainLayout: React.FC = () => {
   const { currentTheme, toggleTheme } = useThemeColors();
   const user = useAuthStore((state) => state.user);
   const isAdmin = user?.isAdmin || user?.role === 'admin';
+  const isStaff = user?.role === 'staff';
+  const canViewClients = !isStaff || user?.permissions?.canViewClients !== false;
+  const staffNav = useStaffNav();
+  const setUser = useAuthStore((state) => state.setUser);
+  const setUnread = useStaffNotices((state) => state.setUnread);
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(() => window.matchMedia(MOBILE_QUERY).matches);
 
@@ -54,14 +61,22 @@ const MainLayout: React.FC = () => {
   // Close the tablet menu on navigation
   useEffect(() => setIsOpen(false), [location.pathname]);
 
-  // Charger toutes les données au démarrage
+  // Charger toutes les données au démarrage (staff: only what their permissions open)
+  const isSupplier = user?.role === 'supplier';
   useEffect(() => {
-    Promise.all([fetchClients(), fetchServices(), fetchMembers(), loadAppointments()]).catch((error) =>
+    if (isSupplier) return;
+    Promise.all([canViewClients ? fetchClients() : null, fetchServices(), fetchMembers(), loadAppointments()]).catch((error) =>
       console.error('Erreur lors du chargement des données:', error)
     );
-  }, [fetchClients, fetchServices, fetchMembers, loadAppointments]);
+  }, [fetchClients, fetchServices, fetchMembers, loadAppointments, canViewClients, isSupplier]);
 
-  const navigation = [
+  // Staff: permissions the owner may have changed since login, and unread answers to leave requests
+  useEffect(() => {
+    if (!isStaff) return;
+    staffAPI.me().then(({ data }) => { setUser(data.user); setUnread(data.unreadDecisions); }).catch(() => undefined);
+  }, [isStaff, location.pathname, setUser, setUnread]);
+
+  const navigation: { name: string; href: string; icon: typeof HomeIcon; badge?: number }[] = staffNav ?? [
     { name: t('navigation.dashboard'), href: 'dashboard', icon: HomeIcon },
     { name: t('navigation.appointments'), href: 'appointments', icon: CalendarDaysIcon },
     { name: t('navigation.clients'), href: 'clients', icon: UsersIcon },
@@ -82,6 +97,9 @@ const MainLayout: React.FC = () => {
         : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50'
     );
 
+  // Suppliers never see salon pages: their space is /fournisseur
+  if (isSupplier) return <Navigate to="/fournisseur" replace />;
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-[#0F1419]">
       <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
@@ -99,6 +117,7 @@ const MainLayout: React.FC = () => {
                   <Link key={item.href} to={item.href} className={navItemClass(active)} aria-current={active ? 'page' : undefined}>
                     <Icon className="hidden xl:block size-4" />
                     {item.name}
+                    {!!item.badge && <span className="grid min-w-5 place-items-center rounded-full bg-orange-500 px-1.5 text-[0.6875rem] font-semibold tabular-nums text-white">{item.badge}</span>}
                   </Link>
                 );
               })}
@@ -139,6 +158,7 @@ const MainLayout: React.FC = () => {
                     <Link key={item.href} to={item.href} className={clsx(navItemClass(active), 'min-h-11')}>
                       <Icon className="size-5" />
                       {item.name}
+                      {!!item.badge && <span className="grid min-w-5 place-items-center rounded-full bg-orange-500 px-1.5 text-[0.6875rem] font-semibold tabular-nums text-white">{item.badge}</span>}
                     </Link>
                   );
                 })}

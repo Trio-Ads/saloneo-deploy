@@ -13,6 +13,7 @@ import {
   ArrowRightOnRectangleIcon,
 } from '@heroicons/react/24/outline';
 import { useAuthStore } from '../features/auth/store';
+import { useStaffNav } from '../features/staff/nav';
 import { Badge } from './ui';
 import clsx from 'clsx';
 
@@ -29,6 +30,7 @@ const MobileUserMenu: React.FC = () => {
   const { logout, user } = useAuthStore();
   const plan = user?.subscription?.planType || 'FREE';
   const isAdmin = user?.isAdmin || user?.role === 'admin';
+  const staffNav = useStaffNav();
 
   useEffect(() => {
     if (!isOpen) return;
@@ -48,7 +50,8 @@ const MobileUserMenu: React.FC = () => {
     navigate('/login');
   };
 
-  const menuItems = [
+  // Staff: the pages the bottom bar has no room for
+  const menuItems = staffNav ? staffNav.slice(4).map((i) => ({ label: i.name, path: `/${i.href}`, icon: i.icon })) : [
     { label: t('navigation.profile'), path: '/profile', icon: UserIcon },
     { label: t('navigation.interface'), path: '/interface', icon: SwatchIcon },
     { label: t('navigation.subscription'), path: '/subscription', icon: CreditCardIcon },
@@ -73,10 +76,10 @@ const MobileUserMenu: React.FC = () => {
             {(user?.firstName || user?.establishmentName || '?').charAt(0).toUpperCase()}
           </span>
           <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-semibold text-gray-900 dark:text-gray-50">{user?.establishmentName || user?.firstName}</p>
-            <p className="truncate text-xs text-gray-500 dark:text-gray-400">{user?.email}</p>
+            <p className="truncate text-sm font-semibold text-gray-900 dark:text-gray-50">{staffNav ? `${user?.firstName || ''} ${user?.lastName || ''}`.trim() : user?.establishmentName || user?.firstName}</p>
+            <p className="truncate text-xs text-gray-500 dark:text-gray-400">{staffNav ? user?.establishmentName : user?.email}</p>
           </div>
-          <Badge tone={plan === 'FREE' ? 'neutral' : 'orange'}>{t(`user_menu.plans.${plan}`, plan)}</Badge>
+          {!staffNav && <Badge tone={plan === 'FREE' ? 'neutral' : 'orange'}>{t(`user_menu.plans.${plan}`, plan)}</Badge>}
         </div>
         <div className="py-1">
           {menuItems.map(({ label, path, icon: Icon }) => (

@@ -76,7 +76,8 @@
   },
   "sections": {
     "salons": "Isaluna",
-    "deposits": "Lɛerbunat"
+    "deposits": "Lɛerbunat",
+    "marketplace": "Asuq n yimsewwqen"
   },
   "deposits": {
     "load_error": "D awezɣi asali n lɛerbunat.",

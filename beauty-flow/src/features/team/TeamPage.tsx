@@ -9,7 +9,8 @@ import { useLimitedForm } from '../subscription/components/LimitedForms';
 import { useSocket } from '../../hooks/useSocket';
 import { useSubscriptionLimits } from '../subscription/hooks/useSubscriptionLimits';
 import { SubscriptionLimitWidget } from '../subscription/components/SubscriptionLimitWidget';
-import { EmptyState, PageHeader, Panel, StatGroup } from '../../components/ui';
+import { Badge, EmptyState, PageHeader, Panel, StatGroup } from '../../components/ui';
+import LeaveRequests from './components/LeaveRequests';
 
 const TeamPage: React.FC = () => {
   const { t } = useTranslation('team');
@@ -20,6 +21,7 @@ const TeamPage: React.FC = () => {
   const [editingMember, setEditingMember] = useState<TeamMember | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRole, setSelectedRole] = useState<string>('all');
+  const [pendingLeaves, setPendingLeaves] = useState(0);
   const formRef = React.useRef<HTMLDivElement>(null);
   const teamLimit = checkTeamMemberLimit();
 
@@ -126,12 +128,15 @@ const TeamPage: React.FC = () => {
         title={t('title')}
         subtitle={t('subtitle')}
         meta={
-          <SubscriptionLimitWidget
-            title={t('limits.title')}
-            limitCheck={teamLimit}
-            planName={currentPlan}
-            resourceType={t('resources.team', { ns: 'subscription' })}
-          />
+          <>
+            <SubscriptionLimitWidget
+              title={t('limits.title')}
+              limitCheck={teamLimit}
+              planName={currentPlan}
+              resourceType={t('resources.team', { ns: 'subscription' })}
+            />
+            {pendingLeaves > 0 && <Badge tone="orange">{t('staff.decision.pending_badge', { count: pendingLeaves })}</Badge>}
+          </>
         }
         actions={
           !isFormOpen && (
@@ -162,6 +167,8 @@ const TeamPage: React.FC = () => {
               { label: t('stats.avg_specialties'), value: teamStats.avgSpecialties, hint: t('stats.per_member') }
             ]}
           />
+
+          <LeaveRequests onPendingChange={setPendingLeaves} />
 
           {members.length > 0 && (
             <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center">

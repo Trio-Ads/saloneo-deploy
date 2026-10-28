@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { CubeIcon, PlusIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import ProductList from './components/ProductList';
@@ -8,10 +9,18 @@ import { ProductFormWithLimits } from '../subscription/components/LimitedForms';
 import { useLimitedForm } from '../subscription/components/LimitedForms';
 import { useSubscriptionLimits } from '../subscription/hooks/useSubscriptionLimits';
 import { SubscriptionLimitWidget } from '../subscription/components/SubscriptionLimitWidget';
-import { PageHeader, StatGroup, Panel, EmptyState } from '../../components/ui';
+import { PageHeader, StatGroup, Panel, EmptyState, Segmented } from '../../components/ui';
+import { useAuthStore } from '../auth/store';
+import SuppliersTab from '../marketplace/salon/SuppliersTab';
 
 const ProductsPage: React.FC = () => {
-  const { t } = useTranslation(['services', 'common']);
+  const { t } = useTranslation(['services', 'common', 'marketplace']);
+  // "Fournisseurs" tab (supplier marketplace): salon owners only — staff never buy for the salon
+  const [params, setParams] = useSearchParams();
+  const canBuy = useAuthStore((s) => s.user?.role) !== 'staff';
+  const tab = canBuy && params.get('tab') === 'suppliers' ? 'suppliers' : 'stock';
+  const setTab = (v: 'stock' | 'suppliers') => setParams(v === 'suppliers' ? { tab: 'suppliers' } : {});
+  const orderFromSupplier = (product: Product) => setParams({ tab: 'suppliers', q: product.name });
   const { products, fetchProducts, addProduct, updateProduct, deleteProduct, loading, error } = useServiceStore();
   const { handleLimitExceeded } = useLimitedForm();
   const { checkProductLimit, currentPlan } = useSubscriptionLimits();
@@ -133,18 +142,18 @@ const ProductsPage: React.FC = () => {
   return (
     <div className="py-6 sm:py-8">
       <PageHeader
-        title={t('products.title')}
-        subtitle={t('products.subtitle')}
-        meta={
+        title={tab === 'suppliers' ? t('marketplace:products_tab.title') : t('products.title')}
+        subtitle={tab === 'suppliers' ? t('marketplace:products_tab.subtitle') : t('products.subtitle')}
+        meta={tab === 'stock' && (
           <SubscriptionLimitWidget
             title={t('products.limit_title')}
             limitCheck={checkProductLimit()}
             planName={currentPlan}
             resourceType={t('products.resource')}
           />
-        }
+        )}
         actions={
-          !showForm && (
+          !showForm && tab === 'stock' && (
             <button onClick={handleAddClick} className="btn-primary">
               <PlusIcon className="size-4" />
               {t('products.add_product')}
@@ -153,6 +162,16 @@ const ProductsPage: React.FC = () => {
         }
       />
 
+      {canBuy && (
+        <Segmented
+          className="mb-6"
+          value={tab}
+          onChange={setTab}
+          options={[{ value: 'stock', label: t('marketplace:products_tab.stock') }, { value: 'suppliers', label: t('marketplace:products_tab.suppliers') }]}
+        />
+      )}
+
+      {tab === 'suppliers' ? <SuppliersTab /> : <>
       <StatGroup
         items={[
           { label: t('products.stats.all_products'), value: stats.total },
@@ -232,10 +251,11 @@ const ProductsPage: React.FC = () => {
               />
             </Panel>
           ) : (
-            <ProductList products={filteredProducts} onEdit={handleEditClick} onDelete={handleDeleteClick} />
+            <ProductList products={filteredProducts} onEdit={handleEditClick} onDelete={handleDeleteClick} onOrder={canBuy ? orderFromSupplier : undefined} />
           )}
         </>
       )}
+      </>}
     </div>
   );
 };

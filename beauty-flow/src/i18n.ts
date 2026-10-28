@@ -31,7 +31,7 @@ const i18nConfig: InitOptions = {
   },
   
   defaultNS: 'common',
-  ns: ['common', 'admin', 'clients', 'appointments', 'services', 'team', 'interface', 'public', 'profile', 'auth', 'subscription', 'marketing', 'dashboard', 'errors'],
+  ns: ['common', 'admin', 'clients', 'appointments', 'services', 'team', 'interface', 'public', 'profile', 'auth', 'subscription', 'marketing', 'dashboard', 'errors', 'marketplace'],
 };
 
 i18n

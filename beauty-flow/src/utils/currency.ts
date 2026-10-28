@@ -48,7 +48,9 @@ export const getCurrencySymbol = (currency: Currency | string): string => {
 };
 
 // Formatage des prix avec la devise appropriée
-export const formatPrice = (price: number, currency: Currency | string): string => {
+export const formatPrice = (price: number | undefined, currency: Currency | string): string => {
+  // No price at all: hidden from this login (staff without revenue access) — show a dash, not "0 DA"
+  if (price === undefined || price === null) return '—';
   const symbol = getCurrencySymbol(currency);
   const amount = Number(price) || 0;
   return `${amount.toLocaleString('fr-FR', { maximumFractionDigits: Number.isInteger(amount) ? 0 : 2 })} ${symbol}`;

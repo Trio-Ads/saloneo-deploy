@@ -10,7 +10,8 @@ import {
   forgotPassword,
   resetPassword
 } from '../controllers/auth.controller';
-import { authenticate } from '../middleware/auth';
+import { authenticateAny } from '../middleware/auth';
+import { acceptInvitation, getInvitation } from '../controllers/staff.controller';
 
 const router = Router();
 
@@ -38,11 +39,13 @@ router.post(
 // Refresh token
 router.post('/refresh', refreshToken);
 
-// Logout
-router.post('/logout', authenticate, logout);
+// Logout / current user: any account (owner, staff, supplier, admin)
+router.post('/logout', authenticateAny, logout);
+router.get('/me', authenticateAny, getCurrentUser);
 
-// Get current user
-router.get('/me', authenticate, getCurrentUser);
+// Staff invitation: who is invited, then set name + password (logs in)
+router.get('/invitation/:token', getInvitation);
+router.post('/invitation/:token', acceptInvitation);
 
 // Verify email
 router.get('/verify-email/:token', verifyEmail);

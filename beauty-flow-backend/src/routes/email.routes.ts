@@ -3,11 +3,14 @@ import { authenticate, AuthRequest } from '../middleware/auth';
 import { emailService } from '../services/emailService';
 import { subscriptionEmailService } from '../services/subscriptionEmailService';
 import { logger } from '../utils/logger';
+import { adminAuth } from '../middleware/adminAuth';
 
 const router = Router();
 
+// Platform-wide tools (SMTP test, global stats, cron triggers): admins only
+
 // Test email connection
-router.get('/test-connection', authenticate, async (_req, res) => {
+router.get('/test-connection', authenticate, adminAuth as any, async (_req, res) => {
   try {
     const isConnected = await emailService.testConnection();
     res.json({ 
@@ -21,7 +24,7 @@ router.get('/test-connection', authenticate, async (_req, res) => {
 });
 
 // Send test email
-router.post('/test', authenticate, async (req: AuthRequest, res) => {
+router.post('/test', authenticate, adminAuth as any, async (req: AuthRequest, res) => {
   try {
     const { to } = req.body;
     const { User } = await import('../models/User');
@@ -57,7 +60,7 @@ router.get('/logs', authenticate, async (req: AuthRequest, res) => {
 });
 
 // Get email statistics
-router.get('/stats', authenticate, async (_req, res) => {
+router.get('/stats', authenticate, adminAuth as any, async (_req, res) => {
   try {
     const stats = await emailService.getEmailStats();
     res.json(stats);
@@ -83,7 +86,7 @@ router.post('/reset-notifications', authenticate, async (req: AuthRequest, res) 
 });
 
 // Manually trigger subscription checks (for testing)
-router.post('/check-subscriptions', authenticate, async (_req, res) => {
+router.post('/check-subscriptions', authenticate, adminAuth as any, async (_req, res) => {
   try {
     await subscriptionEmailService.checkExpiringSubscriptions();
     await subscriptionEmailService.checkUsageLimits();
@@ -95,7 +98,7 @@ router.post('/check-subscriptions', authenticate, async (_req, res) => {
 });
 
 // Manually send appointment reminders (for testing)
-router.post('/send-reminders', authenticate, async (_req, res) => {
+router.post('/send-reminders', authenticate, adminAuth as any, async (_req, res) => {
   try {
     await subscriptionEmailService.sendAppointmentReminders24h();
     await subscriptionEmailService.sendAppointmentReminders2h();

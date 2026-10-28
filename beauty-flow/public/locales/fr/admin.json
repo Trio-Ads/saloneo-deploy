@@ -76,7 +76,8 @@
   },
   "sections": {
     "salons": "Salons",
-    "deposits": "Acomptes"
+    "deposits": "Acomptes",
+    "marketplace": "Marketplace"
   },
   "deposits": {
     "load_error": "Impossible de charger les acomptes.",

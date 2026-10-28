@@ -26,6 +26,7 @@ import {
 } from './components';
 import { Appointment } from '../appointments/types';
 import { useEnrichedAppointments } from './hooks/useEnrichedAppointments';
+import { usePendingLeaves } from '../team/components/LeaveRequests';
 
 const DashboardPage: React.FC = () => {
   const { t, i18n } = useTranslation('dashboard');
@@ -40,6 +41,7 @@ const DashboardPage: React.FC = () => {
   const plan = usageStats ? currentPlan : user?.subscription?.planType || currentPlan;
   
   const [timeRange, setTimeRange] = useState<'day' | 'week' | 'month'>('week');
+  const pendingLeaves = usePendingLeaves();
   const [isLoading, setIsLoading] = useState(true);
 
   // Enrichir les rendez-vous avec les prix et les informations client
@@ -186,6 +188,15 @@ const DashboardPage: React.FC = () => {
       });
     }
 
+    // Leave requests from the team, waiting for an answer
+    if (pendingLeaves > 0) {
+      alertList.push({
+        type: 'warning',
+        message: t('team:staff.decision.dashboard_alert', { count: pendingLeaves }),
+        action: { label: t('alerts.view'), link: '/team' }
+      });
+    }
+
     // Clients fidèles à récompenser (basé sur les points de fidélité)
     const loyalClients = clients?.filter((client: any) => 
       client.loyaltyPoints > 100
@@ -200,7 +211,7 @@ const DashboardPage: React.FC = () => {
     }
 
     return alertList;
-  }, [appointments, clients, checkAppointmentLimit, t]);
+  }, [appointments, clients, checkAppointmentLimit, pendingLeaves, t]);
 
   if (isLoading) {
     return (

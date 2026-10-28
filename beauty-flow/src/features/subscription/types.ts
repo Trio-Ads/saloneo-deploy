@@ -132,14 +132,14 @@ export const DURATION_PRICES: Record<PlanType, DurationPrice | null> = {
   [PlanType.FREE]: null,
   [PlanType.STARTER]: {
     monthly: 1900,
-    yearly: 14250,    // -25% (9 mois payés pour 12)
+    yearly: 17100,    // -25% (9 mois payés pour 12)
     biennial: 24700,  // -35% (13 mois payés pour 24)
     triennial: 34200, // -50% (18 mois payés pour 36)
     currency: 'DZD'
   },
   [PlanType.PRO]: {
     monthly: 3500,
-    yearly: 26250,    // -25% (9 mois payés pour 12)
+    yearly: 31500,    // -25% (9 mois payés pour 12)
     biennial: 45500,  // -35% (13 mois payés pour 24)
     triennial: 63000, // -50% (18 mois payés pour 36)
     currency: 'DZD'

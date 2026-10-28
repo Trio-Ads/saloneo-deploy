@@ -11,6 +11,7 @@ import {
 import api from '../../services/api';
 import { Badge, BadgeTone, EmptyState, IconButton, PageHeader, Panel, Segmented, StatGroup } from '../../components/ui';
 import AdminDeposits from './AdminDeposits';
+import AdminMarketplace from '../marketplace/admin/AdminMarketplace';
 
 const labelClass = 'block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5';
 import { useAdminStore } from './store';
@@ -190,7 +191,8 @@ const AdminPage: React.FC = () => {
   const [selectedUser, setSelectedUser] = useState<AdminUser | null>(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [sendingFeedback, setSendingFeedback] = useState<string | null>(null);
-  const [section, setSection] = useState<'salons' | 'deposits'>('salons');
+  // ?section=marketplace from the admin emails (disputes, applications, failed refunds)
+  const [section, setSection] = useState<'salons' | 'deposits' | 'marketplace'>(() => (new URLSearchParams(window.location.search).get('section') === 'marketplace' ? 'marketplace' : 'salons'));
 
   useEffect(() => {
     fetchUsers();
@@ -272,10 +274,10 @@ const AdminPage: React.FC = () => {
         className="mb-6"
         value={section}
         onChange={setSection}
-        options={[{ value: 'salons', label: t('sections.salons') }, { value: 'deposits', label: t('sections.deposits') }]}
+        options={[{ value: 'salons', label: t('sections.salons') }, { value: 'deposits', label: t('sections.deposits') }, { value: 'marketplace', label: t('sections.marketplace') }]}
       />
 
-      {section === 'deposits' ? <AdminDeposits /> : <>
+      {section === 'deposits' ? <AdminDeposits /> : section === 'marketplace' ? <AdminMarketplace /> : <>
 
       {platformStats && (
         <StatGroup

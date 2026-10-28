@@ -10,7 +10,11 @@ import bcrypt from 'bcryptjs';
 
 export const getProfile = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
-    const user = await User.findById(req.userId).select('-password -refreshToken');
+    // Staff logins get the salon's shell info only (name, logo, currency, hours), not the owner's account
+    const fields = req.actor?.role === 'staff'
+      ? 'establishmentName firstName lastName logo slug settings businessHours showAsTeamMember showTeamOnPublicPage theme serviceDisplay'
+      : '-password -refreshToken';
+    const user = await User.findById(req.userId).select(fields);
     
     if (!user) {
       res.status(404).json({ error: 'User not found' });

@@ -48,3 +48,18 @@ export const getFileUrl = (_filePath: string, _baseUrl: string): string => {
   console.warn('getFileUrl is deprecated. URLs are provided by Cloudinary.');
   return '';
 };
+
+/** Every salon's public files live under saloneo/<kind>/<salonId>/ (avatars, logos, service photos…). */
+export const uploadFolder = (kind: string, salonId: string) => `saloneo/${kind}/${salonId}`;
+
+/**
+ * The storage key of a file this salon uploaded, from what a client sends (key, public id or /uploads/… URL);
+ * null when it is not theirs, or not a plain key (no "..", no absolute path): such a delete is refused.
+ */
+export function ownedUploadKey(raw: unknown, salonId: string): string | null {
+  if (typeof raw !== 'string' || !/^[a-f0-9]{24}$/.test(salonId)) return null;
+  const key = raw.trim().replace(/^https?:\/\/[^/]+/, '').replace(/^\/?uploads\//, '');
+  if (key.includes('..') || key.includes('\\') || key.includes('\0')) return null;
+  // File names keep the original name (spaces, accents): anything but a separator
+  return new RegExp(`^saloneo/[a-z]+/${salonId}/[^/]+$`).test(key) ? key : null;
+}

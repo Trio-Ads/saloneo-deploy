@@ -18,12 +18,28 @@ export interface UserProfile extends Profile {
   email: string;
   id: string;
   createdAt: string;
-  role?: 'owner' | 'admin';
+  role?: 'owner' | 'admin' | 'staff' | 'supplier';
   isAdmin?: boolean;
+  /** Staff logins: the owner's user id, their team member and what the owner allows (enforced by the API) */
+  salonId?: string;
+  teamMemberId?: string;
+  permissions?: StaffPermissions;
+  avatar?: string;
   subscription: {
     planType: PlanType;
     expiresAt: string;
   };
+}
+
+export interface StaffPermissions {
+  planning: 'own' | 'all';
+  canCreateAppointments: boolean;
+  canEditAppointments: 'none' | 'own' | 'all';
+  canViewClients: boolean;
+  canViewClientContacts: boolean;
+  canViewRevenue: boolean;
+  canManageServices: boolean;
+  canManageProducts: boolean;
 }
 
 export interface RegisterData extends AuthCredentials {

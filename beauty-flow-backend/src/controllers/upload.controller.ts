@@ -5,6 +5,7 @@ import { logger } from '../utils/logger';
 import { User } from '../models/User';
 import { Service } from '../models/Service';
 import { TeamMember } from '../models/Team';
+import { ownedUploadKey, uploadFolder } from '../middleware/upload';
 
 export const uploadFile = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
@@ -19,7 +20,7 @@ export const uploadFile = async (req: AuthRequest, res: Response): Promise<void>
       req.file.originalname,
       req.file.mimetype,
       {
-        folder: 'saloneo/general',
+        folder: uploadFolder('general', req.userId!),
         optimize: true,
       }
     );
@@ -57,7 +58,7 @@ export const uploadMultipleFiles = async (req: AuthRequest, res: Response): Prom
         file.originalname,
         file.mimetype,
         {
-          folder: 'saloneo/general',
+          folder: uploadFolder('general', req.userId!),
           optimize: true,
         }
       )
@@ -111,7 +112,7 @@ export const uploadProfileAvatar = async (req: AuthRequest, res: Response): Prom
       req.file.originalname,
       req.file.mimetype,
       {
-        folder: 'saloneo/avatars',
+        folder: uploadFolder('avatars', req.userId!),
         optimize: true,
         generateThumbnails: true,
         thumbnailSizes: [
@@ -159,7 +160,7 @@ export const uploadServiceImage = async (req: AuthRequest, res: Response): Promi
       req.file.originalname,
       req.file.mimetype,
       {
-        folder: 'saloneo/services',
+        folder: uploadFolder('services', req.userId!),
         optimize: true,
         generateThumbnails: true,
         thumbnailSizes: [
@@ -223,7 +224,7 @@ export const uploadTeamMemberAvatar = async (req: AuthRequest, res: Response): P
       req.file.originalname,
       req.file.mimetype,
       {
-        folder: 'saloneo/team',
+        folder: uploadFolder('team', req.userId!),
         optimize: true,
         generateThumbnails: true,
         thumbnailSizes: [
@@ -256,8 +257,14 @@ export const deleteFile = async (req: AuthRequest, res: Response): Promise<void>
       res.status(400).json({ error: 'Public ID is required' });
       return;
     }
+    // Only a file this salon uploaded (under its own folder); never another salon's or a path outside the store
+    const key = ownedUploadKey(publicId, req.userId!);
+    if (!key) {
+      res.status(403).json({ error: 'Forbidden', code: 'NOT_YOUR_FILE' });
+      return;
+    }
 
-    const success = await cloudStorageService.deleteFile(publicId);
+    const success = await cloudStorageService.deleteFile(key);
 
     if (success) {
       res.json({ message: 'File deleted successfully' });
@@ -298,7 +305,7 @@ export const uploadLogo = async (req: AuthRequest, res: Response): Promise<void>
       req.file.originalname,
       req.file.mimetype,
       {
-        folder: 'saloneo/logos',
+        folder: uploadFolder('logos', req.userId!),
         optimize: true,
         generateThumbnails: true,
         thumbnailSizes: [
@@ -351,7 +358,7 @@ export const uploadBanner = async (req: AuthRequest, res: Response): Promise<voi
       req.file.originalname,
       req.file.mimetype,
       {
-        folder: 'saloneo/banners',
+        folder: uploadFolder('banners', req.userId!),
         optimize: true,
         generateThumbnails: true,
         thumbnailSizes: [

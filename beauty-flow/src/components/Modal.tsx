@@ -53,7 +53,7 @@ const Modal: React.FC<ModalProps> = ({
 
   // Phone: bottom sheet. sm+: centered dialog. Enter only; exit is instant.
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center sm:p-4" role="dialog" aria-modal="true" aria-labelledby="modal-title">
       <div className="absolute inset-0 bg-gray-900/45 animate-[modal-fade_200ms_ease-out]" onClick={onClose} />
       <div
         className={`relative flex w-full ${sizeClasses[size]} max-h-[92dvh] sm:max-h-[90vh] flex-col overflow-hidden rounded-t-2xl sm:rounded-2xl border border-gray-200 bg-white shadow-[0_24px_48px_-12px_rgb(24_24_27/0.25)] animate-[modal-sheet_240ms_cubic-bezier(0.32,0.72,0,1)] sm:animate-[modal-in_200ms_ease-out] dark:border-gray-800 dark:bg-gray-900`}

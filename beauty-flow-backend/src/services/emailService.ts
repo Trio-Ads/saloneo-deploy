@@ -120,6 +120,9 @@ class EmailService {
         'appointment-modification',
         'deposit-notice',
         'waitlist-offer',
+        // Team
+        'staff-invitation',
+        'leave-decision',
         // Subscriptions
         'subscription-welcome',
         'subscription-expiry-reminder',
@@ -188,6 +191,8 @@ class EmailService {
       'appointment-modification': EmailTemplates.getAppointmentModificationTemplate(),
       'deposit-notice': EmailTemplates.getDepositNoticeTemplate(),
       'waitlist-offer': EmailTemplates.getWaitlistOfferTemplate(),
+      'staff-invitation': EmailTemplates.getStaffInvitationTemplate(),
+      'leave-decision': EmailTemplates.getLeaveDecisionTemplate(),
       'subscription-welcome': EmailTemplates.getSubscriptionWelcomeTemplate(),
       'subscription-expiry-reminder': EmailTemplates.getSubscriptionExpiryReminderTemplate(),
       'subscription-expired': EmailTemplates.getSubscriptionExpiredTemplate(),
@@ -368,6 +373,8 @@ class EmailService {
       'appointment-cancellation': 'Annulation de votre rendez-vous',
       'deposit-notice': String(data.subject || 'Votre acompte'),
       'waitlist-offer': `Un créneau s'est libéré chez ${data.salonName}`,
+      'staff-invitation': `${data.salonName} vous invite sur Saloneo`,
+      'leave-decision': `Votre demande de congé a été ${(data as any).decisionLabel}`,
       'subscription-welcome': `Bienvenue sur Saloneo - ${data.planName}`,
       'subscription-expiry-reminder': `⏰ Votre abonnement expire dans ${data.daysRemaining} jours`,
       'subscription-expired': 'Votre abonnement Saloneo a expiré',

@@ -1,6 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { PencilIcon, PlusIcon, TrashIcon, UserGroupIcon } from '@heroicons/react/24/outline';
+import { IdentificationIcon, PencilIcon, PlusIcon, TrashIcon, UserGroupIcon } from '@heroicons/react/24/outline';
+import { useNavigate } from 'react-router-dom';
+import { AccessBadge } from './AccessSection';
 import clsx from 'clsx';
 import { TeamMember, Specialty } from '../types';
 import { useServiceStore } from '../../services/store';
@@ -20,6 +22,7 @@ const MAX_SPECIALTIES = 3;
 
 const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete, onAdd }) => {
   const { t } = useTranslation('team');
+  const navigate = useNavigate();
   const services = useServiceStore((state) => state.services);
   const activeMembers = members.filter((member) => member.isActive);
 
@@ -67,6 +70,7 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete, onAdd })
                 <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
                   <span className="truncate font-medium text-gray-900 dark:text-gray-50">{member.firstName} {member.lastName}</span>
                   <Badge>{t(`role_values.${member.role}`, member.role)}</Badge>
+                  <AccessBadge access={member.access} />
                 </p>
                 <p className="mt-0.5 truncate text-sm text-gray-500 dark:text-gray-400">
                   {[member.email, member.phone].filter(Boolean).join(' · ')}
@@ -103,6 +107,9 @@ const TeamList: React.FC<TeamListProps> = ({ members, onEdit, onDelete, onAdd })
                 )}
               </div>
               <div className="flex shrink-0 items-center gap-1">
+                <IconButton label={t('staff.file.open')} onClick={() => navigate(`/team/${member.id}/file`)} className="size-10">
+                  <IdentificationIcon className="size-5" />
+                </IconButton>
                 <IconButton label={t('team_list.tooltips.edit_member')} onClick={() => onEdit(member)} className="size-10">
                   <PencilIcon className="size-5" />
                 </IconButton>

@@ -76,7 +76,8 @@
   },
   "sections": {
     "salons": "Salonlar",
-    "deposits": "Kaporalar"
+    "deposits": "Kaporalar",
+    "marketplace": "Tedarikçi pazarı"
   },
   "deposits": {
     "load_error": "Kaporalar yüklenemedi.",

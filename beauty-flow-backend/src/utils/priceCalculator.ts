@@ -36,9 +36,9 @@ const DURATION_PRICE_CONFIG: Record<PlanType, DurationPriceConfig | null> = {
       production: 190000  // 1900 DZD production
     },
     [SubscriptionDuration.YEARLY]: {
-      display: 14250,     // -25%
+      display: 17100,     // -25%
       satim: 75000,       // 750 DZD test
-      production: 1425000 // 14250 DZD production
+      production: 1710000 // 17100 DZD production
     },
     [SubscriptionDuration.BIENNIAL]: {
       display: 24700,     // -35%
@@ -58,9 +58,9 @@ const DURATION_PRICE_CONFIG: Record<PlanType, DurationPriceConfig | null> = {
       production: 350000  // 3500 DZD production
     },
     [SubscriptionDuration.YEARLY]: {
-      display: 26250,     // -25%
+      display: 31500,     // -25%
       satim: 140000,      // 1400 DZD test
-      production: 2625000 // 26250 DZD production
+      production: 3150000 // 31500 DZD production
     },
     [SubscriptionDuration.BIENNIAL]: {
       display: 45500,     // -35%

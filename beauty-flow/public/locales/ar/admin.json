@@ -76,7 +76,8 @@
   },
   "sections": {
     "salons": "الصالونات",
-    "deposits": "العرابين"
+    "deposits": "العرابين",
+    "marketplace": "سوق المورّدين"
   },
   "deposits": {
     "load_error": "تعذر تحميل العرابين.",

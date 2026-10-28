@@ -1,3 +1,4 @@
+import { useAuthStore } from '../../auth/store';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSubscriptionStore } from '../store';
@@ -37,6 +38,8 @@ export const useSubscriptionLimits = () => {
   // Charger les statistiques d'utilisation depuis le backend
   useEffect(() => {
     const fetchUsageStats = async () => {
+      // Plan usage is the owner's business: staff logins don't load it (the API refuses)
+      if (useAuthStore.getState().user?.role === 'staff') return;
       try {
         setLoading(true);
         const stats = await subscriptionService.getUsageStats();

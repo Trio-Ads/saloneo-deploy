@@ -31,7 +31,10 @@ import { sitemap } from './controllers/directory.controller';
 import waitlistRoutes from './routes/waitlist.routes';
 import { startWaitlistCron } from './services/waitlist';
 import depositRoutes from './routes/deposit.routes';
+import staffRoutes, { leaveAttachmentRoutes } from './routes/staff.routes';
 import { startDepositJobs } from './services/deposits';
+import { adminMarketRoutes, marketRoutes, supplierRoutes } from './routes/marketplace.routes';
+import { startMarketplaceJobs } from './services/marketplace';
 
 // Load environment variables
 dotenv.config();
@@ -54,6 +57,9 @@ startWaitlistCron();
 
 // Online deposits: expired payment holds released every minute, weekly payout reminder to admins
 startDepositJobs();
+
+// Supplier marketplace: unpaid expiry, ship-deadline refunds, auto-release and reminders every minute
+startMarketplaceJobs();
 
 // Initialize email service
 emailService.initialize().catch(err => {
@@ -207,10 +213,15 @@ app.use('/api/services', serviceRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api/team', teamRoutes);
+app.use('/api/staff', staffRoutes);
+app.use('/api/leave-attachments', leaveAttachmentRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/deposits', depositRoutes);
+app.use('/api/supplier', supplierRoutes);
+app.use('/api/market', marketRoutes);
+app.use('/api/admin/marketplace', adminMarketRoutes);
 app.use('/api/subscription', subscriptionRoutes);
 app.use('/api/affiliation', affiliationRoutes);
 app.use('/api/email', emailRoutes);

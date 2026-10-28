@@ -32,7 +32,8 @@ export const adminAuth = async (
     }
 
     // Récupérer l'utilisateur complet depuis la base de données
-    const user = await User.findById(req.user.id).select('+role +isAdmin');
+    // The account logged in (for a staff login req.user is the salon owner's)
+    const user = await User.findById((req as any).actor?.id || req.user.id).select('+role +isAdmin');
 
     if (!user) {
       logger.warn(`Admin access attempt with invalid user ID: ${req.user.id}`);

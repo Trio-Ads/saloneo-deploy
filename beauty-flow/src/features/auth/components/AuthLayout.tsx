@@ -34,7 +34,10 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title, subtitl
 
         <footer className="flex flex-wrap items-center justify-between gap-2 text-xs text-gray-500 dark:text-gray-400">
           <span>© {new Date().getFullYear()} Saloneo</span>
-          <Link to="/" className="hover:text-gray-900 dark:hover:text-gray-50">{t('layout.backHome')}</Link>
+          <span className="flex gap-4">
+            <Link to="/devenir-fournisseur" className="hover:text-gray-900 dark:hover:text-gray-50">{t('marketplace:apply.footer_link')}</Link>
+            <Link to="/" className="hover:text-gray-900 dark:hover:text-gray-50">{t('layout.backHome')}</Link>
+          </span>
         </footer>
       </div>
 

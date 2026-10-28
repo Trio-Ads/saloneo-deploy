@@ -3,7 +3,9 @@ import { useTranslation } from 'react-i18next';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import clsx from 'clsx';
-import { TeamMemberFormData } from '../types';
+import { TeamMember, TeamMemberFormData } from '../types';
+import AccessSection from './AccessSection';
+import { useTeamStore } from '../store';
 import { TEAM_ROLES } from '../store';
 import { useServiceStore } from '../../services/store';
 import { Panel, IconButton } from '../../../components/ui';
@@ -39,6 +41,9 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
 }) => {
   const { t, i18n } = useTranslation('team');
   const services = useServiceStore((state) => state.services);
+  // Editing: initialData is the stored member (with its id and login status, kept fresh from the store)
+  const memberId = (initialData as Partial<TeamMember> | undefined)?.id;
+  const access = useTeamStore((s) => s.members.find((m) => m.id === memberId)?.access);
   const [defaultCountry, setDefaultCountry] = React.useState<string>('DZ');
   const [formData, setFormData] = React.useState<TeamMemberFormData>(
     initialData || {
@@ -395,6 +400,17 @@ const TeamMemberForm: React.FC<TeamMemberFormProps> = ({
               </div>
             </div>
           </div>
+        </Section>
+
+        <Section title={t('staff.access_title')} description={t('staff.access_description')}>
+          <AccessSection
+            memberId={memberId}
+            email={formData.email}
+            phone={formData.phone}
+            access={access}
+            permissions={formData.permissions}
+            onPermissionsChange={(permissions) => setFormData((prev) => ({ ...prev, permissions }))}
+          />
         </Section>
 
         <div className="flex flex-col-reverse gap-2 px-5 py-4 sm:flex-row sm:justify-end">

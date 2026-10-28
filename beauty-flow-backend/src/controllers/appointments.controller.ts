@@ -5,6 +5,7 @@ import { Appointment } from '../models/Appointment';
 import { Client } from '../models/Client';
 import { User } from '../models/User';
 import { AuthRequest } from '../middleware/auth';
+import { canEditAppointment, canSeeAppointment, planningScope } from '../middleware/permissions';
 import { logger } from '../utils/logger';
 import { subscriptionEmailService } from '../services/subscriptionEmailService';
 import { onCapacityFreed, recheckSalon } from '../services/waitlist';
@@ -55,6 +56,9 @@ export const getAllAppointments = async (req: AuthRequest, res: Response): Promi
     if (clientId) query.clientId = clientId;
     if (serviceId) query.serviceId = serviceId;
     if (teamMemberId) query.stylistId = teamMemberId;
+    // Staff with "own planning" only ever see their own appointments
+    const scope = planningScope(req);
+    if (scope) query.stylistId = scope;
 
     const perPage = Math.min(500, Math.max(1, Number(limit) || 10));
     const skip = (Math.max(1, Number(page) || 1) - 1) * perPage;
@@ -95,7 +99,7 @@ export const getAppointmentById = async (req: AuthRequest, res: Response): Promi
       .populate('serviceId')
       .populate('stylistId');
     
-    if (!appointment) {
+    if (!appointment || !canSeeAppointment(req, (appointment as any).stylistId?._id ?? appointment.stylistId)) {
       res.status(404).json({ error: 'Appointment not found' });
       return;
     }
@@ -125,6 +129,13 @@ export const createAppointment = async (req: AuthRequest, res: Response): Promis
     if (!teamMemberId) {
       logger.error('Tentative de création de rendez-vous sans coiffeur');
       res.status(400).json({ error: 'Un coiffeur doit être sélectionné pour créer un rendez-vous' });
+      return;
+    }
+
+    // Staff with "own planning" book for themselves only
+    const scope = planningScope(req);
+    if (scope && resolveStylistId(teamMemberId) !== scope) {
+      res.status(403).json({ error: 'Forbidden', code: 'STAFF_FORBIDDEN' });
       return;
     }
 
@@ -248,8 +259,13 @@ export const updateAppointment = async (req: AuthRequest, res: Response): Promis
     const updates = req.body;
 
     const appointment = await Appointment.findOne({ _id: id, userId });
-    if (!appointment) {
+    if (!appointment || !canSeeAppointment(req, appointment.stylistId)) {
       res.status(404).json({ error: 'Appointment not found' });
+      return;
+    }
+    // Staff: own appointments only (per their permissions), and cannot hand them to someone they could not edit for
+    if (!canEditAppointment(req, appointment.stylistId) || (updates.teamMemberId && !canEditAppointment(req, resolveStylistId(updates.teamMemberId)))) {
+      res.status(403).json({ error: 'Forbidden', code: 'STAFF_FORBIDDEN' });
       return;
     }
 
@@ -329,8 +345,18 @@ export const updateAppointmentStatus = async (req: AuthRequest, res: Response): 
       return status;
     })();
 
+    const current = await Appointment.findOne({ _id: id, userId }).select('stylistId').lean();
+    if (!current || !canSeeAppointment(req, current.stylistId)) {
+      res.status(404).json({ error: 'Appointment not found' });
+      return;
+    }
+    if (!canEditAppointment(req, current.stylistId)) {
+      res.status(403).json({ error: 'Forbidden', code: 'STAFF_FORBIDDEN' });
+      return;
+    }
+
     const appointment = await Appointment.findOneAndUpdate(
-      { _id: id, userId },
+      { _id: id, userId, stylistId: current.stylistId },
       { status: normalizedStatus },
       { new: true, runValidators: true }
     ).populate([

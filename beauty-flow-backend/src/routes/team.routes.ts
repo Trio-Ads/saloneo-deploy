@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { body, param } from 'express-validator';
 import * as teamController from '../controllers/team.controller';
+import * as staff from '../controllers/staff.controller';
 import { authenticate, checkLimits } from '../middleware/auth';
 
 const router = Router();
@@ -13,6 +14,19 @@ router.get('/stats', teamController.getTeamStats);
 
 // Get all team members
 router.get('/', teamController.getAllTeamMembers);
+
+// Leave requests (owner): list + pending count, decision, conflicting appointments
+router.get('/leaves', staff.salonLeaves);
+router.post('/leaves/:id/decision', staff.decideLeave);
+router.get('/leaves/:id/conflicts', staff.leaveConflicts);
+
+// Staff login: invite / re-invite, revoke
+router.post('/:id/access', staff.inviteMember);
+router.delete('/:id/access', staff.revokeMember);
+
+// Fiche employé: HR fields, leave balance, absences history, planned hours
+router.get('/:id/hr', staff.getHr);
+router.put('/:id/hr', staff.updateHr);
 
 // Get team member by ID
 router.get(
@@ -76,16 +90,18 @@ router.patch(
   teamController.updateWorkingHours
 );
 
-// Update permissions
+// Update permissions (see middleware/permissions.ts; normalized in the controller)
 router.patch(
   '/:id/permissions',
   [
     param('id').isMongoId(),
     body('permissions').isObject(),
-    body('permissions.canManageAppointments').optional().isBoolean(),
-    body('permissions.canManageClients').optional().isBoolean(),
-    body('permissions.canManageServices').optional().isBoolean(),
-    body('permissions.canViewReports').optional().isBoolean(),
+    body('permissions.planning').optional().isIn(['own', 'all']),
+    body('permissions.canEditAppointments').optional().isIn(['none', 'own', 'all']),
+    body([
+      'permissions.canCreateAppointments', 'permissions.canViewClients', 'permissions.canViewClientContacts',
+      'permissions.canViewRevenue', 'permissions.canManageServices', 'permissions.canManageProducts',
+    ]).optional().isBoolean(),
   ],
   teamController.updatePermissions
 );

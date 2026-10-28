@@ -565,7 +565,7 @@ const longDate = (key: string) =>
 const mask = (rib?: string) => (rib ? `•••• ${rib.slice(-4)}` : '');
 
 /** One generic template ('deposit-notice'): title, intro, rows, note, button. */
-function notice(to: string | string[], data: { subject: string; title: string; intro: string; rows: [string, string][]; note?: string; buttonLabel?: string; buttonUrl?: string; salon?: any }) {
+export function notice(to: string | string[], data: { subject: string; title: string; intro: string; rows: [string, string][]; note?: string; buttonLabel?: string; buttonUrl?: string; salon?: any }) {
   const s = data.salon || {};
   return emailService.sendTemplateEmail('deposit-notice', to, {
     ...data,
@@ -677,7 +677,7 @@ async function notifyPayout(user: any, payout: any) {
   });
 }
 
-async function adminEmails(): Promise<string[]> {
+export async function adminEmails(): Promise<string[]> {
   const admins: any[] = await User.find({ $or: [{ isAdmin: true }, { role: 'admin' }] }).select('email').lean();
   return [...new Set([...admins.map((a) => a.email), process.env.ADMIN_EMAIL].filter(Boolean) as string[])];
 }

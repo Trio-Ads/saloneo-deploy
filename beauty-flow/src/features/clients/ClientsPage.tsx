@@ -10,6 +10,7 @@ import { useSocket } from '../../hooks/useSocket';
 import { useSubscriptionLimits } from '../subscription/hooks/useSubscriptionLimits';
 import { SubscriptionLimitWidget } from '../subscription/components/SubscriptionLimitWidget';
 import { PageHeader, StatGroup, Panel, EmptyState, IconButton } from '../../components/ui';
+import { useAccess } from '../staff/access';
 
 const ClientsPage: React.FC = () => {
   const { t, i18n } = useTranslation(['clients', 'common']);
@@ -30,6 +31,9 @@ const ClientsPage: React.FC = () => {
   
   const { handleLimitExceeded } = useLimitedForm();
   const { checkClientLimit, currentPlan } = useSubscriptionLimits();
+  // Staff: read-only list (contacts masked by the API unless allowed); a new client comes with a new appointment
+  const { isStaff, can } = useAccess();
+  const canAdd = can('createAppointments');
   
   // Enable real-time updates
   useSocket();
@@ -132,16 +136,16 @@ const ClientsPage: React.FC = () => {
       <PageHeader
         title={t('page_title')}
         subtitle={t('page_subtitle')}
-        meta={
+        meta={!isStaff && (
           <SubscriptionLimitWidget
             title={t('limits.title')}
             limitCheck={checkClientLimit()}
             planName={currentPlan}
             resourceType={t('limits.resource')}
           />
-        }
+        )}
         actions={
-          !showForm && (
+          !showForm && canAdd && (
             <button onClick={handleAddClick} className="btn-primary" disabled={loading}>
               <PlusIcon className="size-4" />
               {t('new_client')}
@@ -209,7 +213,7 @@ const ClientsPage: React.FC = () => {
                 icon={UsersIcon}
                 title={t('empty_state.no_clients')}
                 body={searchTerm ? t('empty_state.modify_filters') : t('empty_state.create_first')}
-                action={!searchTerm && (
+                action={!searchTerm && canAdd && (
                   <button onClick={handleAddClick} className="btn-primary">
                     <PlusIcon className="size-4" />
                     {t('empty_state.create_client')}
@@ -218,7 +222,7 @@ const ClientsPage: React.FC = () => {
               />
             </Panel>
           ) : (
-            <ClientList clients={filteredClients} onEdit={handleEdit} onDelete={handleDelete} />
+            <ClientList clients={filteredClients} onEdit={isStaff ? undefined : handleEdit} onDelete={isStaff ? undefined : handleDelete} />
           )}
         </>
       )}

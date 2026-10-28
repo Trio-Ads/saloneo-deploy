@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { PlusIcon, MinusIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { PlusIcon, MinusIcon, PencilIcon, TrashIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { Product } from '../types';
 import { useServiceStore } from '../store';
 import { Panel, Badge, IconButton, BadgeTone } from '../../../components/ui';
@@ -9,10 +9,12 @@ interface ProductListProps {
   products?: Product[];
   onEdit?: (product: Product) => void;
   onDelete?: (productId: string) => void;
+  /** Low stock → "Commander": opens the supplier marketplace searching this product. */
+  onOrder?: (product: Product) => void;
 }
 
-const ProductList: React.FC<ProductListProps> = ({ products: propProducts, onEdit, onDelete }) => {
-  const { t } = useTranslation('services');
+const ProductList: React.FC<ProductListProps> = ({ products: propProducts, onEdit, onDelete, onOrder }) => {
+  const { t } = useTranslation(['services', 'marketplace']);
   const { products: storeProducts, updateProductQuantity } = useServiceStore();
   const products = propProducts || storeProducts;
   const activeProducts = products.filter(p => p.isActive);
@@ -61,6 +63,12 @@ const ProductList: React.FC<ProductListProps> = ({ products: propProducts, onEdi
                   </IconButton>
                 </div>
                 <div className="ms-auto flex items-center gap-1 sm:ms-0">
+                  {onOrder && product.quantity <= product.minQuantity && (
+                    <button type="button" onClick={() => onOrder(product)} className="btn-ghost text-sm">
+                      <ShoppingCartIcon className="size-4" />
+                      {t('marketplace:products_tab.order')}
+                    </button>
+                  )}
                   <IconButton label={t('products.edit_product')} onClick={() => onEdit?.(product)}>
                     <PencilIcon className="size-[18px]" />
                   </IconButton>

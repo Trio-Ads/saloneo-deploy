@@ -76,7 +76,8 @@
   },
   "sections": {
     "salons": "Salons",
-    "deposits": "Deposits"
+    "deposits": "Deposits",
+    "marketplace": "Supplier marketplace"
   },
   "deposits": {
     "load_error": "Deposits could not be loaded.",

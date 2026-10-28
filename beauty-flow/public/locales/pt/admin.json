@@ -76,7 +76,8 @@
   },
   "sections": {
     "salons": "Salões",
-    "deposits": "Sinais"
+    "deposits": "Sinais",
+    "marketplace": "Marketplace de fornecedores"
   },
   "deposits": {
     "load_error": "Não foi possível carregar os sinais.",

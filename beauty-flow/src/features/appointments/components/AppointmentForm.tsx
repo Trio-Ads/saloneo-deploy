@@ -10,6 +10,7 @@ import { dayKey, getDateLocale } from '../utils';
 import { AppointmentFormData } from '../types';
 import { availabilityAPI, DashboardAvailability } from '../availability';
 import { useStaff } from '../../team/staff';
+import { useAccess } from '../../staff/access';
 import { Service } from '../../services/types';
 import { useAppointmentForm } from '../hooks/useAppointmentForm';
 import { useClientStore } from '../../clients/store';
@@ -78,13 +79,15 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   const { clients, services } = useAppointmentForm();
   // Team + the owner when they take appointments (same rule as the server)
   const staff = useStaff();
+  // Staff logins: own planning books for themselves; creating services/team members stays with the owner
+  const access = useAccess();
   const stylists = useMemo(() => staff.filter((m) => m.isActive), [staff]);
 
   const initialState: FormState = {
     formData: {
       clientId: initialData?.clientId || '',
       serviceId: initialData?.serviceId || '',
-      stylistId: initialData?.stylistId || '',
+      stylistId: initialData?.stylistId || access.scope || '',
       date: initialData?.date ? dayKey(initialData.date) : format(new Date(), 'yyyy-MM-dd'),
       startTime: initialData?.startTime || '',
       serviceDuration: initialData?.serviceDuration || 0,
@@ -196,7 +199,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     timeOptions.unshift({ time: formData.startTime, reason: null, staff: [] }); // keep an edited appointment's own time
   }
   const pickedReason = grid?.find((o) => o.time === formData.startTime)?.reason;
-  const price = (value?: number) => formatPrice(value || 0, profile.currency);
+  const price = (value?: number) => formatPrice(value, profile.currency);
 
   const newButton = (onClick: () => void) => (
     <button type="button" onClick={onClick} className="-my-2 inline-flex items-center gap-1 py-2 text-sm font-medium text-orange-600 hover:text-orange-700 dark:text-orange-400 dark:hover:text-orange-300">
@@ -216,7 +219,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             <div className="sm:col-span-2">
               <div className="mb-1.5 flex items-center justify-between">
                 <label htmlFor="clientId" className={labelClass}>{t('appointment_form.labels.select_client')}</label>
-                {newButton(() => setShowClientModal(true))}
+                {access.can('createAppointments') && newButton(() => setShowClientModal(true))}
               </div>
               <select id="clientId" name="clientId" value={formData.clientId} onChange={handleChange} required className="field">
                 <option value="">{t('appointment_form.labels.choose_client')}</option>
@@ -232,7 +235,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             <div>
               <div className="mb-1.5 flex items-center justify-between">
                 <label htmlFor="serviceId" className={labelClass}>{t('appointment_form.labels.select_service')}</label>
-                {newButton(() => setShowServiceModal(true))}
+                {access.can('manageServices') && newButton(() => setShowServiceModal(true))}
               </div>
               <select id="serviceId" name="serviceId" value={formData.serviceId} onChange={handleChange} required className="field">
                 <option value="">{t('appointment_form.labels.choose_service')}</option>
@@ -248,7 +251,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             <div>
               <div className="mb-1.5 flex items-center justify-between">
                 <label htmlFor="stylistId" className={labelClass}>{t('appointment_form.labels.select_stylist')}</label>
-                {newButton(() => setShowTeamModal(true))}
+                {!access.isStaff && newButton(() => setShowTeamModal(true))}
               </div>
               <select id="stylistId" name="stylistId" value={formData.stylistId} onChange={handleChange} required className="field">
                 <option value="">{t('appointment_form.labels.choose_stylist')}</option>

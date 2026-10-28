@@ -76,7 +76,8 @@
   },
   "sections": {
     "salons": "Salones",
-    "deposits": "Señales"
+    "deposits": "Señales",
+    "marketplace": "Marketplace de proveedores"
   },
   "deposits": {
     "load_error": "No se han podido cargar las señales.",
