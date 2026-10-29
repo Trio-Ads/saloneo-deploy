@@ -30,7 +30,9 @@
   },
   "page": {
     "title": "Escolha o seu plano",
-    "subtitle": "Mude de plano a qualquer momento. Pagamento seguro com cartão CIB através da SATIM."
+    "subtitle": "Mude de plano a qualquer momento. Pagamento seguro com cartão CIB através da SATIM.",
+    "app_title": "O seu plano",
+    "app_current_plan": "O seu plano está ativo na sua conta Saloneo. Os seus limites aplicam-se à aplicação e ao site."
   },
   "faq": {
     "title": "Perguntas frequentes",

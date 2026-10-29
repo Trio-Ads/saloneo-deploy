@@ -9,6 +9,7 @@ import { PageHeader, Panel } from '../../components/ui';
 import { useToastStore } from '../../components/Toast';
 import { StaffAvatar } from '../team/StaffAvatar';
 import AppPanel from '../pwa/AppPanel';
+import DeleteAccountPanel from '../auth/components/DeleteAccountPanel';
 import { DEFAULT_STAFF_PERMISSIONS } from './access';
 
 const labelClass = 'mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300';
@@ -165,6 +166,7 @@ const MyProfilePage: React.FC = () => {
             </ul>
           </Panel>
           <AppPanel audience="staff" />
+          <DeleteAccountPanel audience="staff" />
         </div>
       </div>
     </div>

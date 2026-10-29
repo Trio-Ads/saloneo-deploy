@@ -52,7 +52,7 @@ const SupplierLayout: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-[#0F1419]">
-      <nav className="sticky top-0 z-40 border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
+      <nav className="sticky top-0 z-40 pt-[env(safe-area-inset-top)] border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
         <div className="container-2025 flex h-16 items-center justify-between gap-4">
           <Link to="/fournisseur" className="flex shrink-0 items-center gap-2">
             <SaloneoLogo variant="auto" size="sm" />

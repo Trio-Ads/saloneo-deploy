@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Saloneo</string>
+    <string name="title_activity_main">Saloneo</string>
+    <string name="package_name">app.saloneo</string>
+    <string name="custom_url_scheme">app.saloneo</string>
+</resources>

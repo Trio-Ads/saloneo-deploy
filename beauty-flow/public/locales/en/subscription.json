@@ -30,7 +30,9 @@
   },
   "page": {
     "title": "Choose your plan",
-    "subtitle": "Switch plans anytime. Secure CIB card payment via SATIM."
+    "subtitle": "Switch plans anytime. Secure CIB card payment via SATIM.",
+    "app_title": "Your plan",
+    "app_current_plan": "Your plan is active on your Saloneo account. Its limits apply to the app and the website alike."
   },
   "faq": {
     "title": "Frequently asked questions",

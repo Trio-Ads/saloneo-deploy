@@ -12,6 +12,7 @@ import {
 } from '../controllers/auth.controller';
 import { authenticateAny } from '../middleware/auth';
 import { acceptInvitation, getInvitation } from '../controllers/staff.controller';
+import { deleteAccount } from '../controllers/profile.controller';
 
 const router = Router();
 
@@ -42,6 +43,8 @@ router.post('/refresh', refreshToken);
 // Logout / current user: any account (owner, staff, supplier, admin)
 router.post('/logout', authenticateAny, logout);
 router.get('/me', authenticateAny, getCurrentUser);
+// Owner, staff and supplier: in-app account deletion (password in the body)
+router.delete('/account', authenticateAny, deleteAccount);
 
 // Staff invitation: who is invited, then set name + password (logs in)
 router.get('/invitation/:token', getInvitation);

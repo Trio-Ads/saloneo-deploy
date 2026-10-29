@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Capacitor offline shell (built by npm run cap:sync)
+native-shell/

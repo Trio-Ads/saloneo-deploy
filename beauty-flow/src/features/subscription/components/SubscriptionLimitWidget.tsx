@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
+import { isIosApp } from '../../../native';
 import { LimitCheck } from '../hooks/useSubscriptionLimits';
 
 interface SubscriptionLimitWidgetProps {
@@ -55,12 +56,14 @@ export const SubscriptionLimitWidget: React.FC<SubscriptionLimitWidgetProps> = (
         <ExclamationTriangleIcon className="size-4 shrink-0" />
         {isAtLimit ? t('widget.at_limit', vars) : t('widget.near_limit', vars)}
       </span>
-      <Link
-        to="/subscription"
-        className="font-semibold underline underline-offset-2 hover:no-underline"
-      >
-        {t('actions.upgrade')}
-      </Link>
+      {!isIosApp && (
+        <Link
+          to="/subscription"
+          className="font-semibold underline underline-offset-2 hover:no-underline"
+        >
+          {t('actions.upgrade')}
+        </Link>
+      )}
     </span>
   );
 };

@@ -123,6 +123,7 @@
     "blocked": "Notifications are blocked for Saloneo. Allow them in your browser or phone settings, then come back here.",
     "ios_install_first": "On iPhone, first add Saloneo to your Home Screen (iOS 16.4 or later), then open the app to turn on notifications.",
     "unsupported": "This browser does not support notifications. Use an up-to-date Chrome, Edge, Firefox or Safari.",
-    "error": "Notifications could not be turned on. Check your connection and try again."
+    "error": "Notifications could not be turned on. Check your connection and try again.",
+    "native_soon": "App notifications are coming very soon. Meanwhile, you get everything by email."
   }
 }

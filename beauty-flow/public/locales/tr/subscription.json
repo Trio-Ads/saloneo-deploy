@@ -30,7 +30,9 @@
   },
   "page": {
     "title": "Planınızı seçin",
-    "subtitle": "Planınızı istediğiniz zaman değiştirin. SATIM üzerinden CIB kartıyla güvenli ödeme."
+    "subtitle": "Planınızı istediğiniz zaman değiştirin. SATIM üzerinden CIB kartıyla güvenli ödeme.",
+    "app_title": "Paketiniz",
+    "app_current_plan": "Paketiniz Saloneo hesabınızda etkin. Sınırları hem uygulamada hem sitede geçerlidir."
   },
   "faq": {
     "title": "Sık sorulan sorular",

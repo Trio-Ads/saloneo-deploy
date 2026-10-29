@@ -7,6 +7,7 @@ import { clearDirectoryCache } from './directory.controller';
 import { findWilaya } from '../utils/wilayas';
 import { recheckSalon } from '../services/waitlist';
 import bcrypt from 'bcryptjs';
+import { DeletionError, requestDeletion } from '../services/accountDeletion';
 
 export const getProfile = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
@@ -270,36 +271,22 @@ export const updatePreferences = async (req: AuthRequest, res: Response): Promis
   }
 };
 
+/** DELETE /auth/account (any role) and DELETE /profile: password-confirmed deletion, see services/accountDeletion.ts. */
 export const deleteAccount = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      res.status(400).json({ errors: errors.array() });
+    const account = await User.findById(req.account?._id).select('+password');
+    if (!account || !req.body?.password || !(await bcrypt.compare(String(req.body.password), account.password))) {
+      res.status(400).json({ error: 'Password is incorrect', code: 'PASSWORD_INCORRECT' });
       return;
     }
-
-    const { password } = req.body;
-    const userId = req.userId;
-
-    const user = await User.findById(userId).select('+password');
-    if (!user) {
-      res.status(404).json({ error: 'User not found' });
-      return;
-    }
-
-    // Verify password
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      res.status(400).json({ error: 'Password is incorrect' });
-      return;
-    }
-
-    // Soft delete - just deactivate the account
-    user.isActive = false;
-    await user.save();
-
-    res.json({ message: 'Account deactivated successfully' });
+    const { purgeAt } = await requestDeletion(account);
+    clearDirectoryCache();
+    res.json({ purgeAt });
   } catch (error) {
+    if (error instanceof DeletionError) {
+      res.status(409).json({ error: error.message, code: error.code });
+      return;
+    }
     logger.error('Delete account error:', error);
     res.status(500).json({ error: 'Server error' });
   }

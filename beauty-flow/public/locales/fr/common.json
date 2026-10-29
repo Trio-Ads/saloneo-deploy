@@ -123,6 +123,7 @@
     "blocked": "Les notifications sont bloquées pour Saloneo. Autorisez-les dans les réglages du navigateur ou du téléphone, puis revenez ici.",
     "ios_install_first": "Sur iPhone, installez d'abord Saloneo sur l'écran d'accueil (iOS 16.4 ou plus), puis ouvrez l'application pour activer les notifications.",
     "unsupported": "Ce navigateur ne permet pas les notifications. Utilisez Chrome, Edge, Firefox ou Safari à jour.",
-    "error": "Impossible d'activer les notifications. Vérifiez votre connexion puis réessayez."
+    "error": "Impossible d'activer les notifications. Vérifiez votre connexion puis réessayez.",
+    "native_soon": "Les notifications de l'application arrivent très bientôt. En attendant, vous recevez tout par e-mail."
   }
 }

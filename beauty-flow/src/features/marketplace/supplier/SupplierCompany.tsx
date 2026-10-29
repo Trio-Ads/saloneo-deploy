@@ -7,6 +7,7 @@ import { CATEGORIES, Category, supplierAPI } from '../api';
 import { Notice, labelClass, money } from '../shared';
 import { useSupplier } from './SupplierLayout';
 import AppPanel from '../../pwa/AppPanel';
+import DeleteAccountPanel from '../../auth/components/DeleteAccountPanel';
 import ZonePicker from './ZonePicker';
 
 /** Fiche entreprise (shown to salons, NIF/RC for Saloneo) + delivery rules applied to every order. */
@@ -110,6 +111,7 @@ const SupplierCompany: React.FC = () => {
           </form>
         </Panel>
         <AppPanel audience="supplier" />
+        <DeleteAccountPanel audience="supplier" />
       </div>
     </div>
   );

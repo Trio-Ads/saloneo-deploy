@@ -67,6 +67,7 @@ export const LoginForm: React.FC = () => {
       const response = (error as AxiosError)?.response;
       setErrors({
         submit: !response ? 'errors.network'
+          : (response.data as any)?.code === 'ACCOUNT_DELETION_PENDING' ? 'login.errors.deletion_pending'
           : response.status === 403 ? 'login.errors.deactivated'
           : response.status >= 500 ? 'errors.generic'
           : 'login.errors.invalidCredentials'

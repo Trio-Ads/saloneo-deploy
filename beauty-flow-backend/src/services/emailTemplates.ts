@@ -392,6 +392,19 @@ export class EmailTemplates {
     `);
   }
 
+  static getAccountDeletionTemplate(): string {
+    return this.wrapTemplate(`
+      <h2>Suppression de votre compte</h2>
+      <p>Bonjour <strong>{{userName}}</strong>,</p>
+      <p>Votre demande de suppression est bien prise en compte. Votre compte Saloneo est fermé dès maintenant : il n'est plus possible de s'y connecter et votre page publique n'est plus visible.</p>
+      <div class="warning-box">
+        <p>Vos données seront définitivement effacées le <strong>{{purgeDate}}</strong>.</p>
+      </div>
+      <p>Les données de paiement exigées par la loi (montants, dates, références) sont conservées sans vos coordonnées.</p>
+      <p>Vous n'êtes pas à l'origine de cette demande, ou vous avez changé d'avis ? Écrivez-nous avant cette date à <a href="mailto:{{supportEmail}}">{{supportEmail}}</a>.</p>
+    `);
+  }
+
   static getAccountReactivatedTemplate(): string {
     return this.wrapTemplate(`
       <h2>✅ Compte réactivé</h2>

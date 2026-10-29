@@ -28,6 +28,7 @@ import SaloneoLogo from '../components/SaloneoLogo';
 import { IconButton } from '../components/ui';
 import { staffAPI } from '../services/api';
 import { useStaffNav, useStaffNotices } from '../features/staff/nav';
+import { isNativeApp } from '../native';
 
 const MOBILE_QUERY = '(max-width: 768px)';
 
@@ -102,9 +103,9 @@ const MainLayout: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-[#0F1419]">
-      <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
+      <nav className="sticky top-0 z-50 pt-[env(safe-area-inset-top)] border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
         <div className="container-2025 flex h-16 items-center justify-between gap-4">
-          <Link to="/" className="shrink-0">
+          <Link to={isNativeApp ? '/dashboard' : '/'} className="shrink-0">
             <SaloneoLogo variant="auto" size="sm" />
           </Link>
 
@@ -148,7 +149,7 @@ const MainLayout: React.FC = () => {
         {/* Tablet menu: drops below the bar */}
         {isOpen && !isMobile && (
           <>
-            <div className="lg:hidden fixed inset-0 top-16 bg-gray-900/30" onClick={() => setIsOpen(false)} />
+            <div className="lg:hidden fixed inset-0 top-[calc(4rem+env(safe-area-inset-top))] bg-gray-900/30" onClick={() => setIsOpen(false)} />
             <div className="lg:hidden absolute inset-x-0 top-full border-b border-gray-200 bg-white px-4 py-3 shadow-[0_8px_16px_-8px_rgb(24_24_27/0.12)] animate-[menu-in_150ms_ease-out] dark:border-gray-800 dark:bg-gray-900">
               <div className="grid grid-cols-2 gap-1">
                 {navigation.map((item) => {

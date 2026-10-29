@@ -30,7 +30,9 @@
   },
   "page": {
     "title": "Choisissez votre plan",
-    "subtitle": "Changez de plan à tout moment. Paiement sécurisé par carte CIB via SATIM."
+    "subtitle": "Changez de plan à tout moment. Paiement sécurisé par carte CIB via SATIM.",
+    "app_title": "Votre formule",
+    "app_current_plan": "Votre formule est active sur votre compte Saloneo. Ses limites s'appliquent à l'application comme au site."
   },
   "faq": {
     "title": "Questions fréquentes",

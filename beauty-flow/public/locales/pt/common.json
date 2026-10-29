@@ -123,6 +123,7 @@
     "blocked": "As notificações estão bloqueadas para o Saloneo. Autorize-as nas definições do navegador ou do telemóvel e volte aqui.",
     "ios_install_first": "No iPhone, adicione primeiro o Saloneo ao ecrã principal (iOS 16.4 ou superior) e abra a aplicação para ativar as notificações.",
     "unsupported": "Este navegador não suporta notificações. Use Chrome, Edge, Firefox ou Safari atualizados.",
-    "error": "Não foi possível ativar as notificações. Verifique a ligação e tente novamente."
+    "error": "Não foi possível ativar as notificações. Verifique a ligação e tente novamente.",
+    "native_soon": "As notificações da aplicação chegam muito em breve. Entretanto, recebe tudo por e-mail."
   }
 }

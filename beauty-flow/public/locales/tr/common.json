@@ -123,6 +123,7 @@
     "blocked": "Saloneo bildirimleri engellenmiş. Tarayıcı veya telefon ayarlarından izin verip buraya dönün.",
     "ios_install_first": "iPhone'da önce Saloneo'yu Ana Ekrana ekleyin (iOS 16.4 veya üzeri), ardından bildirimleri açmak için uygulamayı açın.",
     "unsupported": "Bu tarayıcı bildirimleri desteklemiyor. Güncel Chrome, Edge, Firefox veya Safari kullanın.",
-    "error": "Bildirimler açılamadı. Bağlantınızı kontrol edip tekrar deneyin."
+    "error": "Bildirimler açılamadı. Bağlantınızı kontrol edip tekrar deneyin.",
+    "native_soon": "Uygulama bildirimleri çok yakında geliyor. Bu arada her şeyi e-postayla alırsınız."
   }
 }

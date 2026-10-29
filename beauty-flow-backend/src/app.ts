@@ -36,6 +36,7 @@ import { startDepositJobs } from './services/deposits';
 import { adminMarketRoutes, marketRoutes, supplierRoutes } from './routes/marketplace.routes';
 import { startMarketplaceJobs } from './services/marketplace';
 import pushRoutes from './routes/push.routes';
+import { startAccountDeletionCron } from './services/accountDeletion';
 
 // Load environment variables
 dotenv.config();
@@ -61,6 +62,9 @@ startDepositJobs();
 
 // Supplier marketplace: unpaid expiry, ship-deadline refunds, auto-release and reminders every minute
 startMarketplaceJobs();
+
+// Account deletion: accounts closed 30 days ago are purged daily
+startAccountDeletionCron();
 
 // Initialize email service
 emailService.initialize().catch(err => {

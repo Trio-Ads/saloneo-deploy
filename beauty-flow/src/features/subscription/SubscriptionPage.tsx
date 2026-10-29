@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { PlanCardWithDuration } from './components/PlanCardWithDuration';
+import { PlanCardWithDuration, PLAN_KEY } from './components/PlanCardWithDuration';
+import { isIosApp } from '../../native';
 import { PaymentModal } from './components/PaymentModal';
 import { PaymentSuccess } from './components/PaymentSuccess';
 import { PaymentFailed } from './components/PaymentFailed';
@@ -117,6 +118,18 @@ export const SubscriptionPage: React.FC = () => {
         onRetry={handleReturnToSubscriptions}
         onBack={handleReturnToSubscriptions}
       />
+    );
+  }
+
+  // iOS app: show the current plan only (no sale outside Apple's in-app purchase)
+  if (isIosApp) {
+    return (
+      <div className="py-6 sm:py-8">
+        <PageHeader title={t('page.app_title')} />
+        <Panel title={t(`plans.${PLAN_KEY[currentPlan as PlanType] || 'free'}.name`)} description={t(`plans.${PLAN_KEY[currentPlan as PlanType] || 'free'}.description`)}>
+          <p className="text-sm text-gray-600 dark:text-gray-400">{t('page.app_current_plan')}</p>
+        </Panel>
+      </div>
     );
   }
 

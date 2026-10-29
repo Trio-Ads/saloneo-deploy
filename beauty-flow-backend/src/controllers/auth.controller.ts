@@ -8,6 +8,7 @@ import { logger } from '../utils/logger';
 import { subscriptionEmailService } from '../services/subscriptionEmailService';
 import { TeamMember } from '../models/Team';
 import { accountPayload } from './staff.controller';
+import { SUPPORT_EMAIL } from '../services/accountDeletion';
 
 export const register = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -120,6 +121,10 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     }
 
     // Check if account is active
+    if (!user.isActive && user.deletionRequestedAt) {
+      res.status(403).json({ error: `Ce compte est en cours de suppression. Écrivez à ${SUPPORT_EMAIL} pour annuler.`, code: 'ACCOUNT_DELETION_PENDING' });
+      return;
+    }
     if (!user.isActive) {
       res.status(403).json({ error: 'Account is deactivated' });
       return;

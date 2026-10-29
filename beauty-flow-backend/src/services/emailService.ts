@@ -139,6 +139,7 @@ class EmailService {
         // Account
         'account-suspended',
         'account-reactivated',
+        'account-deletion',
         // Affiliation
         'affiliation-activation',
         'commission-earned',
@@ -205,6 +206,7 @@ class EmailService {
       'suspicious-login-alert': EmailTemplates.getSuspiciousLoginAlertTemplate(),
       'account-suspended': EmailTemplates.getAccountSuspendedTemplate(),
       'account-reactivated': EmailTemplates.getAccountReactivatedTemplate(),
+      'account-deletion': EmailTemplates.getAccountDeletionTemplate(),
       'affiliation-activation': EmailTemplates.getAffiliationActivationTemplate(),
       'commission-earned': EmailTemplates.getCommissionEarnedTemplate(),
       'commission-payout': EmailTemplates.getCommissionPayoutTemplate(),
@@ -375,6 +377,7 @@ class EmailService {
       'waitlist-offer': `Un créneau s'est libéré chez ${data.salonName}`,
       'staff-invitation': `${data.salonName} vous invite sur Saloneo`,
       'leave-decision': `Votre demande de congé a été ${(data as any).decisionLabel}`,
+      'account-deletion': 'Suppression de votre compte Saloneo',
       'subscription-welcome': `Bienvenue sur Saloneo - ${data.planName}`,
       'subscription-expiry-reminder': `⏰ Votre abonnement expire dans ${data.daysRemaining} jours`,
       'subscription-expired': 'Votre abonnement Saloneo a expiré',

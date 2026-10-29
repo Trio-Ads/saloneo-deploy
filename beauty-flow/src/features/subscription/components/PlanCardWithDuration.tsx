@@ -22,7 +22,7 @@ export const DURATION_MONTHS: Record<SubscriptionDuration, number> = {
   [SubscriptionDuration.TRIENNIAL]: 36
 };
 
-const PLAN_KEY: Record<PlanType, string> = {
+export const PLAN_KEY: Record<PlanType, string> = {
   [PlanType.FREE]: 'free',
   [PlanType.STARTER]: 'starter',
   [PlanType.PRO]: 'professional',

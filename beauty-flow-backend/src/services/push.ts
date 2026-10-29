@@ -1,5 +1,5 @@
 /**
- * Web push for the installed app (PWA): new bookings, cancellations, leave requests, marketplace orders.
+ * Push for the installed web app (PWA) and the store apps (see nativePush.ts): new bookings, cancellations, leave requests, marketplace orders.
  * VAPID keys come from VAPID_PUBLIC_KEY / VAPID_PRIVATE_KEY, or are generated once and kept in Mongo
  * (`appsecrets`), so a deploy without env changes still works and subscriptions survive restarts.
  */
@@ -7,13 +7,14 @@ import mongoose, { Schema, Types } from 'mongoose';
 import webpush from 'web-push';
 import { User, UserRole } from '../models/User';
 import { logger } from '../utils/logger';
+import { sendNative } from './nativePush';
 
 export interface PushPayload { title: string; body: string; url: string; tag?: string }
 
 const PushSubscription = mongoose.model('PushSubscription', new Schema({
   accountId: { type: Schema.Types.ObjectId, ref: 'User', required: true, index: true }, // the account that logged in (owner, staff or supplier)
-  endpoint: { type: String, required: true, unique: true },
-  keys: { p256dh: { type: String, required: true }, auth: { type: String, required: true } },
+  endpoint: { type: String, required: true, unique: true }, // web push URL, or 'apns:<token>' / 'fcm:<token>' for the store apps
+  keys: { p256dh: String, auth: String }, // web push only
 }, { timestamps: true }));
 
 let keys: Promise<{ publicKey: string; privateKey: string }> | null = null;
@@ -51,6 +52,16 @@ export async function subscribe(accountId: string, sub: { endpoint: string; keys
   );
 }
 
+export const isNativeToken = (platform: unknown, token: unknown): token is string =>
+  (platform === 'ios' || platform === 'android') && typeof token === 'string' && /^[A-Za-z0-9_:\-]{20,4096}$/.test(token);
+
+export const subscribeNative = (accountId: string, platform: 'ios' | 'android', token: string) =>
+  PushSubscription.updateOne(
+    { endpoint: `${platform === 'ios' ? 'apns' : 'fcm'}:${token}` },
+    { $set: { accountId }, $unset: { keys: 1 } },
+    { upsert: true }
+  );
+
 export const unsubscribe = (accountId: string, endpoint: string) => PushSubscription.deleteOne({ accountId, endpoint });
 
 /** Fire and forget: never throws, drops subscriptions the browser has revoked. */
@@ -60,13 +71,20 @@ export async function pushTo(accountIds: (string | Types.ObjectId | undefined | 
     if (!ids.length) return;
     const subs = await PushSubscription.find({ accountId: { $in: ids } }).lean();
     if (!subs.length) return;
-    await vapidKeys();
     const body = JSON.stringify(payload);
-    await Promise.all(subs.map((s: any) => webpush.sendNotification({ endpoint: s.endpoint, keys: s.keys }, body, { TTL: 24 * 3600 })
-      .catch(async (e: any) => {
+    if (subs.some((s: any) => s.endpoint.startsWith('https://'))) await vapidKeys();
+    await Promise.all(subs.map(async (s: any) => {
+      if (!s.endpoint.startsWith('https://')) {
+        const r = await sendNative(s.endpoint, payload);
+        if (r === 'gone') await PushSubscription.deleteOne({ _id: s._id });
+        else if (r === 'failed') logger.warn(`Native push failed (${s.endpoint.slice(0, 4)})`);
+        return;
+      }
+      await webpush.sendNotification({ endpoint: s.endpoint, keys: s.keys }, body, { TTL: 24 * 3600 }).catch(async (e: any) => {
         if (e?.statusCode === 404 || e?.statusCode === 410) await PushSubscription.deleteOne({ _id: s._id });
         else logger.warn(`Push failed (${e?.statusCode || e?.message})`);
-      })));
+      });
+    }));
   } catch (e) {
     logger.error('Push error', e);
   }

@@ -34,7 +34,7 @@ export function PublicNavbar({ data }: { data: SalonPublicData }) {
   return (
     <>
       <header
-        className={`sticky top-0 z-40 border-b transition-[border-color] duration-200 ${scrolled || open ? 'sp-line' : 'border-transparent'}`}
+        className={`sticky top-0 z-40 pt-[env(safe-area-inset-top)] border-b transition-[border-color] duration-200 ${scrolled || open ? 'sp-line' : 'border-transparent'}`}
         style={{ background: 'var(--sp-bg)' }}
       >
         <nav aria-label={t('site.nav_label')} className="sp-wrap h-16 md:h-[4.5rem] flex items-center justify-between gap-6">

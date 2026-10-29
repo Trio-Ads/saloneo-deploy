@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import AuthLanguageSelector from '../../../components/AuthLanguageSelector';
 import { SaloneoLogo } from '../../../components/SaloneoLogo';
+import { isNativeApp } from '../../../native';
 import { BrowserFrame } from '../../marketing/components/site';
 
 interface AuthLayoutProps {
@@ -18,9 +19,9 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title, subtitl
 
   return (
     <div className="grid min-h-dvh bg-white lg:grid-cols-2 dark:bg-[#0F1419]">
-      <div className="flex flex-col px-4 py-4 sm:px-8 sm:py-6">
+      <div className="flex flex-col px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))] sm:px-8 sm:py-6">
         <header className="flex items-center justify-between gap-4">
-          <Link to="/" aria-label="Saloneo"><SaloneoLogo size="sm" /></Link>
+          <Link to={isNativeApp ? '/auth/login' : '/'} aria-label="Saloneo"><SaloneoLogo size="sm" /></Link>
           <AuthLanguageSelector />
         </header>
 
@@ -36,7 +37,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title, subtitl
           <span>© {new Date().getFullYear()} Saloneo</span>
           <span className="flex gap-4">
             <Link to="/devenir-fournisseur" className="hover:text-gray-900 dark:hover:text-gray-50">{t('marketplace:apply.footer_link')}</Link>
-            <Link to="/" className="hover:text-gray-900 dark:hover:text-gray-50">{t('layout.backHome')}</Link>
+            {!isNativeApp && <Link to="/" className="hover:text-gray-900 dark:hover:text-gray-50">{t('layout.backHome')}</Link>}
           </span>
         </footer>
       </div>

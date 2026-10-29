@@ -4,6 +4,7 @@ import ProfileForm from './components/ProfileForm';
 import { useProfileStore } from './store';
 import { PageHeader } from '../../components/ui';
 import AppPanel from '../pwa/AppPanel';
+import DeleteAccountPanel from '../auth/components/DeleteAccountPanel';
 
 const ProfilePage: React.FC = () => {
   const { t } = useTranslation('profile');
@@ -24,6 +25,7 @@ const ProfilePage: React.FC = () => {
         <>
           <ProfileForm />
           <AppPanel audience="owner" className="mt-6" />
+          <DeleteAccountPanel audience="owner" className="mt-6" />
         </>
       ) : (
         <div className="flex items-center justify-center gap-3 py-16 text-sm text-gray-500 dark:text-gray-400">

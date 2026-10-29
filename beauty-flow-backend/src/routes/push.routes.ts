@@ -1,13 +1,14 @@
 import { Router, Response } from 'express';
 import { AuthRequest, authenticateAny } from '../middleware/auth';
-import { isPushSubscription, subscribe, unsubscribe, vapidKeys } from '../services/push';
+import { isNativeToken, isPushSubscription, subscribe, subscribeNative, unsubscribe, vapidKeys } from '../services/push';
 import { logger } from '../utils/logger';
+import { nativeConfigured } from '../services/nativePush';
 
 const router = Router();
 
 router.get('/key', async (_req, res) => {
   try {
-    res.json({ publicKey: (await vapidKeys()).publicKey });
+    res.json({ publicKey: (await vapidKeys()).publicKey, native: nativeConfigured() });
   } catch (e) {
     logger.error('VAPID key error', e);
     res.status(503).json({ error: 'Push unavailable' });
@@ -21,6 +22,19 @@ router.post('/subscribe', authenticateAny, async (req: AuthRequest, res: Respons
     res.json({ ok: true });
   } catch (e) {
     logger.error('Push subscribe error', e);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Store apps: APNs (iOS) / FCM (Android) device token
+router.post('/native', authenticateAny, async (req: AuthRequest, res: Response) => {
+  const { platform, token } = req.body || {};
+  if (!isNativeToken(platform, token)) { res.status(400).json({ error: 'Invalid token' }); return; }
+  try {
+    await subscribeNative(req.actor!.id, platform, token);
+    res.json({ ok: true });
+  } catch (e) {
+    logger.error('Native push subscribe error', e);
     res.status(500).json({ error: 'Server error' });
   }
 });

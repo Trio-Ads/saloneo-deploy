@@ -12,6 +12,7 @@ import { useSubscriptionLimits } from '../hooks/useSubscriptionLimits';
 import { LimitAlert } from './LimitAlert';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
+import { isIosApp } from '../../../native';
 import { Panel, EmptyState } from '../../../components/ui';
 
 const LimitReached: React.FC<{
@@ -27,11 +28,11 @@ const LimitReached: React.FC<{
       <EmptyState
         icon={ExclamationTriangleIcon}
         title={t(`limits.${titleKey}`)}
-        body={<>{message} {upgradeMessage}</>}
+        body={<>{message}{!isIosApp && <> {upgradeMessage}</>}</>}
         action={
           <div className="flex flex-wrap justify-center gap-2">
             <button type="button" onClick={onCancel} className="btn-secondary">{t('limits.back')}</button>
-            <button type="button" onClick={onUpgrade} className="btn-primary">{t('limits.see_plans')}</button>
+            {!isIosApp && <button type="button" onClick={onUpgrade} className="btn-primary">{t('limits.see_plans')}</button>}
           </div>
         }
       />

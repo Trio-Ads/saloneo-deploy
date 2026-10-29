@@ -73,6 +73,8 @@ export interface IUser extends Document {
     timezone: string;
   };
   isActive: boolean;
+  /** Account deletion asked (in-app): the account is closed now and purged 30 days later (services/accountDeletion.ts). */
+  deletionRequestedAt?: Date;
   isEmailVerified: boolean;
   emailVerificationToken?: string;
   emailVerificationExpires?: Date;
@@ -277,6 +279,7 @@ const userSchema = new Schema<IUser>(
       type: Boolean,
       default: true,
     },
+    deletionRequestedAt: { type: Date, index: { sparse: true } },
     isEmailVerified: {
       type: Boolean,
       default: false,

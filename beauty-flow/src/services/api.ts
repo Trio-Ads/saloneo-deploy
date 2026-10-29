@@ -101,6 +101,9 @@ export const authAPI = {
 
   logout: () => api.post('/auth/logout'),
 
+  /** Any role: owner/supplier closed now and purged after 30 days, staff login deleted at once. */
+  deleteAccount: (password: string) => api.delete('/auth/account', { data: { password } }),
+
   getCurrentUser: () => api.get('/auth/me'),
 
   forgotPassword: (email: string) => 

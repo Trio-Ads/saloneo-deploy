@@ -26,6 +26,7 @@ import {
 } from './components';
 import { Appointment } from '../appointments/types';
 import { useEnrichedAppointments } from './hooks/useEnrichedAppointments';
+import { isIosApp } from '../../native';
 import { usePendingLeaves } from '../team/components/LeaveRequests';
 
 const DashboardPage: React.FC = () => {
@@ -171,7 +172,7 @@ const DashboardPage: React.FC = () => {
       alertList.push({
         type: 'warning',
         message: t('alerts.subscription_limit', { percentage: Math.round(usagePercentage) }),
-        action: { label: t('alerts.upgrade'), link: '/subscription' }
+        ...(isIosApp ? {} : { action: { label: t('alerts.upgrade'), link: '/subscription' } })
       });
     }
 
