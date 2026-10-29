@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import ProfileForm from './components/ProfileForm';
 import { useProfileStore } from './store';
 import { PageHeader } from '../../components/ui';
+import AppPanel from '../pwa/AppPanel';
 
 const ProfilePage: React.FC = () => {
   const { t } = useTranslation('profile');
@@ -20,7 +21,10 @@ const ProfilePage: React.FC = () => {
     <div className="py-6 sm:py-8">
       <PageHeader title={t('my_profile')} subtitle={t('profile_page.subtitle')} />
       {ready ? (
-        <ProfileForm />
+        <>
+          <ProfileForm />
+          <AppPanel audience="owner" className="mt-6" />
+        </>
       ) : (
         <div className="flex items-center justify-center gap-3 py-16 text-sm text-gray-500 dark:text-gray-400">
           <span className="size-5 rounded-full border-2 border-orange-500 border-t-transparent animate-spin" />

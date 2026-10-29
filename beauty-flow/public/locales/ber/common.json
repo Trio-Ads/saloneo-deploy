@@ -102,5 +102,27 @@
     "message": "Kra n yibeddilen ur ttwaskelsen ara. Ma teffɣeḍ tura, ad ruḥen.",
     "leave": "Ffeɣ war asekles",
     "stay": "Qqim"
+  },
+  "pwa": {
+    "title": "Asnas n tiliɣri",
+    "description_owner": "Sbedd Saloneo deg tiliɣri-k, ad k-d-yaweḍ yiwen n ulɣu i yal asekles, asefsex, asuter n usteɛfu neɣ taladna ɣer umsaḍuf.",
+    "description_staff": "Sbedd Saloneo deg tiliɣri-m, ad m-d-yaweḍ ulɣu ɣef yimesfasen-im imaynuten d tririt ɣef usteɛfu-m.",
+    "description_supplier": "Sbedd Saloneo deg tiliɣri-k, ad k-d-yaweḍ ulɣu ɣef yal taladna yettwaxelṣen d yal izen n usalun.",
+    "installed": "Saloneo yebded deg ibenk-a.",
+    "install": "Sbedd asnas",
+    "install_how": "I wakken ad t-tesbeddeḍ deg tiliɣri-a:",
+    "ios_step1": "Ldi Saloneo deg Safari.",
+    "ios_step2": "Sit ɣef tqeffalt Bḍu, ddaw n ugdil.",
+    "ios_step3": "Fren « Rnu ɣer ugdil agejdan », syin « Rnu ».",
+    "android_step1": "Ldi Saloneo deg Chrome, sit ɣef wumuɣ ⋮ s afella ɣer yefus.",
+    "android_step2": "Fren « Sbedd asnas » neɣ « Rnu ɣer ugdil agejdan ».",
+    "notifications": "Ilɣa deg ibenk-a",
+    "enable": "Rmed ilɣa",
+    "disable": "Sens",
+    "enabled": "Rmed deg ibenk-a.",
+    "blocked": "Ilɣa n Saloneo ttwaḥebsen. Sireg-iten deg yiɣewwaṛen n yiminig neɣ n tiliɣri, syin uɣal-d ɣer da.",
+    "ios_install_first": "Deg iPhone, rnu qbel Saloneo ɣer ugdil agejdan (iOS 16.4 neɣ ugar), syin ldi asnas akken ad tesremdeḍ ilɣa.",
+    "unsupported": "Iminig-a ur yessefrak ara ilɣa. Seqdec Chrome, Edge, Firefox neɣ Safari imaynuten.",
+    "error": "Ur yezmir ara ad yermed yilɣa. Senqed tuqqna, syin ɛreḍ tikkelt-nniḍen."
   }
 }

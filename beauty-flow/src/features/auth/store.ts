@@ -3,6 +3,7 @@ import { persist } from 'zustand/middleware';
 import { AuthState, AuthCredentials, RegisterData, UserProfile } from './types';
 import { authAPI } from '../../services/api';
 import { AxiosError } from 'axios';
+import { disablePush } from '../pwa/pwa';
 import { socketService } from '../../services/socket';
 
 interface AuthStore extends AuthState {
@@ -212,6 +213,7 @@ export const useAuthStore = create<AuthStore>()(
 
       logout: async () => {
         set({ loading: true });
+        await disablePush().catch(() => undefined);
         try {
           await authAPI.logout();
         } catch (error) {

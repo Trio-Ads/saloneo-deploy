@@ -19,6 +19,7 @@ import { Service } from '../models/Service';
 import { satimPaymentService } from './satimPayment.service';
 import { emailService } from './emailService';
 import { onCapacityFreed } from './waitlist';
+import { pushSalon } from './push';
 import { logger } from '../utils/logger';
 import {
   AvailabilityError, BookingSettings, bookWithLock, dateKey, dayNum, fmt, keyOf, normalizeBooking, nowIn, staffName, toMin, withSlotLock,
@@ -756,6 +757,11 @@ export async function sendBookingConfirmation(appointmentId: string): Promise<vo
       depositOrderNumber: dep.satim?.orderNumber || '',
     } : {}),
   };
+  void pushSalon(appt.userId, appt.stylistId, {
+    title: 'Nouveau rendez-vous',
+    body: `${data.clientName} : ${data.serviceName}, ${data.appointmentDate} à ${appt.startTime}`,
+    url: '/appointments', tag: `appt-${appt._id}`,
+  });
   if (appt.clientInfo.email) await emailService.sendTemplateEmail('appointment-confirmation', appt.clientInfo.email, data);
   if (salon.email) {
     await emailService.sendTemplateEmail('appointment-confirmation', salon.email, {

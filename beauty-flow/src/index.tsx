@@ -8,6 +8,9 @@ import '@fontsource/noto-sans-arabic/400.css';
 import '@fontsource/noto-sans-arabic/700.css';
 import DirectionProvider from './components/DirectionProvider';
 import LoadingFallback from './components/LoadingFallback';
+import { registerPwa } from './features/pwa/pwa';
+
+registerPwa();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

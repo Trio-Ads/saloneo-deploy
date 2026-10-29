@@ -13,6 +13,7 @@ import crypto from 'crypto';
 // Helper function to generate slug
 import { findSalonBySlug } from '../services/salonLookup';
 import { onCapacityFreed, normalizeWaitlistSettings } from '../services/waitlist';
+import { pushClientChange } from '../services/push';
 import {
   HOLD_MINUTES, bookingPolicy, depositsEnabled, cancellationPolicy, clientCancelDecision, clientRescheduleDecision, depositAmount, onClientCancel,
   paidDepositOf, policyView, sendBookingConfirmation, sendDepositError, startDeposit,
@@ -529,6 +530,7 @@ export const modifyAppointmentByModificationToken = async (req: Request, res: Re
     }, { excludeAppointmentId: appointment._id, duration: appointment.duration, publicOnly: true });
     // The old slot (moved away or shortened) may serve the waitlist
     void onCapacityFreed(appointment.userId, before.date, before.stylistId);
+    void pushClientChange(appointment, 'moved');
 
     // Return updated appointment (reuse formatter)
     const populated = await Appointment.findById(appointment._id)
@@ -576,6 +578,7 @@ export const cancelAppointmentByModificationToken = async (req: Request, res: Re
     };
     await appointment.save();
     void onCapacityFreed(appointment.userId, appointment.date, appointment.stylistId);
+    void pushClientChange(appointment, 'cancelled');
     // Deposit: refunded before the deadline, kept by the salon after it
     const deposit = decision.deposit ? await onClientCancel(appointment._id, decision.deposit) : null;
 
@@ -956,6 +959,7 @@ export const cancelPublicAppointment = async (req: Request, res: Response): Prom
     };
     await appointment.save();
     void onCapacityFreed(appointment.userId, appointment.date, appointment.stylistId);
+    void pushClientChange(appointment, 'cancelled');
     const deposit = decision.deposit ? await onClientCancel(appointment._id, decision.deposit) : null;
 
     res.json({ message: 'Appointment cancelled successfully', deposit: deposit && { status: deposit.status, amount: deposit.amount } });

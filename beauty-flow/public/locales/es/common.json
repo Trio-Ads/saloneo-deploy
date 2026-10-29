@@ -102,5 +102,27 @@
     "message": "Algunos cambios no están guardados. Si sales ahora, se perderán.",
     "leave": "Salir sin guardar",
     "stay": "Quedarme"
+  },
+  "pwa": {
+    "title": "Aplicación móvil",
+    "description_owner": "Instala Saloneo en tu teléfono y recibe una notificación con cada reserva, cancelación, solicitud de vacaciones o pedido a proveedor.",
+    "description_staff": "Instala Saloneo en tu teléfono y entérate de tus nuevas citas y de las respuestas a tus vacaciones.",
+    "description_supplier": "Instala Saloneo en tu teléfono y entérate de cada pedido pagado y de cada mensaje de un salón.",
+    "installed": "Saloneo está instalado en este dispositivo.",
+    "install": "Instalar la aplicación",
+    "install_how": "Para instalarla en este teléfono:",
+    "ios_step1": "Abre Saloneo en Safari.",
+    "ios_step2": "Toca el botón Compartir, en la parte inferior.",
+    "ios_step3": "Elige «Añadir a pantalla de inicio» y luego «Añadir».",
+    "android_step1": "Abre Saloneo en Chrome y toca el menú ⋮ arriba a la derecha.",
+    "android_step2": "Elige «Instalar aplicación» o «Añadir a pantalla de inicio».",
+    "notifications": "Notificaciones en este dispositivo",
+    "enable": "Activar notificaciones",
+    "disable": "Desactivar",
+    "enabled": "Activadas en este dispositivo.",
+    "blocked": "Las notificaciones están bloqueadas para Saloneo. Permítelas en los ajustes del navegador o del teléfono y vuelve aquí.",
+    "ios_install_first": "En iPhone, añade primero Saloneo a la pantalla de inicio (iOS 16.4 o posterior) y abre la aplicación para activar las notificaciones.",
+    "unsupported": "Este navegador no admite notificaciones. Usa Chrome, Edge, Firefox o Safari actualizados.",
+    "error": "No se pudieron activar las notificaciones. Comprueba tu conexión e inténtalo de nuevo."
   }
 }

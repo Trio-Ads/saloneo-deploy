@@ -102,5 +102,27 @@
     "message": "Bazı değişiklikler kaydedilmedi. Şimdi çıkarsanız kaybolacak.",
     "leave": "Kaydetmeden çık",
     "stay": "Kal"
+  },
+  "pwa": {
+    "title": "Mobil uygulama",
+    "description_owner": "Saloneo'yu telefonunuza yükleyin; her rezervasyon, iptal, izin talebi veya tedarikçi siparişinde bildirim alın.",
+    "description_staff": "Saloneo'yu telefonunuza yükleyin; yeni randevularınızdan ve izin taleplerinize verilen yanıtlardan haberdar olun.",
+    "description_supplier": "Saloneo'yu telefonunuza yükleyin; ödenen her siparişten ve salonlardan gelen her mesajdan haberdar olun.",
+    "installed": "Saloneo bu cihazda yüklü.",
+    "install": "Uygulamayı yükle",
+    "install_how": "Bu telefona yüklemek için:",
+    "ios_step1": "Saloneo'yu Safari'de açın.",
+    "ios_step2": "Ekranın altındaki Paylaş düğmesine dokunun.",
+    "ios_step3": "“Ana Ekrana Ekle”yi, ardından “Ekle”yi seçin.",
+    "android_step1": "Saloneo'yu Chrome'da açın ve sağ üstteki ⋮ menüsüne dokunun.",
+    "android_step2": "“Uygulamayı yükle” veya “Ana ekrana ekle”yi seçin.",
+    "notifications": "Bu cihazdaki bildirimler",
+    "enable": "Bildirimleri aç",
+    "disable": "Kapat",
+    "enabled": "Bu cihazda açık.",
+    "blocked": "Saloneo bildirimleri engellenmiş. Tarayıcı veya telefon ayarlarından izin verip buraya dönün.",
+    "ios_install_first": "iPhone'da önce Saloneo'yu Ana Ekrana ekleyin (iOS 16.4 veya üzeri), ardından bildirimleri açmak için uygulamayı açın.",
+    "unsupported": "Bu tarayıcı bildirimleri desteklemiyor. Güncel Chrome, Edge, Firefox veya Safari kullanın.",
+    "error": "Bildirimler açılamadı. Bağlantınızı kontrol edip tekrar deneyin."
   }
 }

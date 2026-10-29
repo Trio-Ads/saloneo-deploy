@@ -102,5 +102,27 @@
     "message": "Some changes are not saved. If you leave now, they will be lost.",
     "leave": "Leave without saving",
     "stay": "Stay"
+  },
+  "pwa": {
+    "title": "Mobile app",
+    "description_owner": "Install Saloneo on your phone and get a notification for every booking, cancellation, leave request or supplier order.",
+    "description_staff": "Install Saloneo on your phone and be told about your new appointments and answers to your leave requests.",
+    "description_supplier": "Install Saloneo on your phone and be told about every paid order and every message from a salon.",
+    "installed": "Saloneo is installed on this device.",
+    "install": "Install the app",
+    "install_how": "To install it on this phone:",
+    "ios_step1": "Open Saloneo in Safari.",
+    "ios_step2": "Tap the Share button at the bottom of the screen.",
+    "ios_step3": "Choose “Add to Home Screen”, then “Add”.",
+    "android_step1": "Open Saloneo in Chrome and tap the ⋮ menu at the top right.",
+    "android_step2": "Choose “Install app” or “Add to Home screen”.",
+    "notifications": "Notifications on this device",
+    "enable": "Turn on notifications",
+    "disable": "Turn off",
+    "enabled": "On for this device.",
+    "blocked": "Notifications are blocked for Saloneo. Allow them in your browser or phone settings, then come back here.",
+    "ios_install_first": "On iPhone, first add Saloneo to your Home Screen (iOS 16.4 or later), then open the app to turn on notifications.",
+    "unsupported": "This browser does not support notifications. Use an up-to-date Chrome, Edge, Firefox or Safari.",
+    "error": "Notifications could not be turned on. Check your connection and try again."
   }
 }

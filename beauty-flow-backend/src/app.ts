@@ -35,6 +35,7 @@ import staffRoutes, { leaveAttachmentRoutes } from './routes/staff.routes';
 import { startDepositJobs } from './services/deposits';
 import { adminMarketRoutes, marketRoutes, supplierRoutes } from './routes/marketplace.routes';
 import { startMarketplaceJobs } from './services/marketplace';
+import pushRoutes from './routes/push.routes';
 
 // Load environment variables
 dotenv.config();
@@ -234,6 +235,7 @@ app.use('/api/public', publicRoutes);
 app.use('/api/waitlist', waitlistRoutes);
 app.use('/api/marketing', marketingRoutes);
 app.use('/api/stats', statsRoutes);
+app.use('/api/push', pushRoutes);
 
 // Serve static files from React build (production only)
 if (process.env.NODE_ENV === 'production') {
@@ -246,7 +248,7 @@ if (process.env.NODE_ENV === 'production') {
     lastModified: true,
     setHeaders: (res, path) => {
       // index.html must never be cached: it references hashed bundles that change on every deploy
-      if (path.endsWith('index.html')) res.setHeader('Cache-Control', 'no-cache');
+      if (/(index\.html|sw\.js|\.webmanifest)$/.test(path)) res.setHeader('Cache-Control', 'no-cache');
       // Définir les types MIME corrects
       if (path.endsWith('.css')) {
         res.setHeader('Content-Type', 'text/css');

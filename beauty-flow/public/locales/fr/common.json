@@ -102,5 +102,27 @@
     "message": "Certaines modifications ne sont pas enregistrées. Si vous quittez maintenant, elles seront perdues.",
     "leave": "Quitter sans enregistrer",
     "stay": "Rester"
+  },
+  "pwa": {
+    "title": "Application mobile",
+    "description_owner": "Installez Saloneo sur votre téléphone et recevez une notification à chaque réservation, annulation, demande de congé ou commande fournisseur.",
+    "description_staff": "Installez Saloneo sur votre téléphone et soyez prévenue de vos nouveaux rendez-vous et des réponses à vos congés.",
+    "description_supplier": "Installez Saloneo sur votre téléphone et soyez prévenu de chaque commande payée et de chaque message d'un salon.",
+    "installed": "Saloneo est installé sur cet appareil.",
+    "install": "Installer l'application",
+    "install_how": "Pour l'installer sur ce téléphone :",
+    "ios_step1": "Ouvrez Saloneo dans Safari.",
+    "ios_step2": "Touchez le bouton Partager, en bas de l'écran.",
+    "ios_step3": "Choisissez « Sur l'écran d'accueil », puis « Ajouter ».",
+    "android_step1": "Ouvrez Saloneo dans Chrome et touchez le menu ⋮ en haut à droite.",
+    "android_step2": "Choisissez « Installer l'application » ou « Ajouter à l'écran d'accueil ».",
+    "notifications": "Notifications sur cet appareil",
+    "enable": "Activer les notifications",
+    "disable": "Désactiver",
+    "enabled": "Activées sur cet appareil.",
+    "blocked": "Les notifications sont bloquées pour Saloneo. Autorisez-les dans les réglages du navigateur ou du téléphone, puis revenez ici.",
+    "ios_install_first": "Sur iPhone, installez d'abord Saloneo sur l'écran d'accueil (iOS 16.4 ou plus), puis ouvrez l'application pour activer les notifications.",
+    "unsupported": "Ce navigateur ne permet pas les notifications. Utilisez Chrome, Edge, Firefox ou Safari à jour.",
+    "error": "Impossible d'activer les notifications. Vérifiez votre connexion puis réessayez."
   }
 }

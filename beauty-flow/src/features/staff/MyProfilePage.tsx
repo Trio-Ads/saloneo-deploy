@@ -8,6 +8,7 @@ import { ImageOptimizer } from '../../services/imageOptimizer';
 import { PageHeader, Panel } from '../../components/ui';
 import { useToastStore } from '../../components/Toast';
 import { StaffAvatar } from '../team/StaffAvatar';
+import AppPanel from '../pwa/AppPanel';
 import { DEFAULT_STAFF_PERMISSIONS } from './access';
 
 const labelClass = 'mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300';
@@ -152,16 +153,19 @@ const MyProfilePage: React.FC = () => {
           </Panel>
         </div>
 
-        <Panel title={t('staff.profile.rights')} description={t('staff.profile.rights_help')} className="lg:self-start">
-          <ul className="space-y-2.5 text-sm">
-            {rights.map(([key, on]) => (
-              <li key={key} className={on ? 'flex items-start gap-2 text-gray-700 dark:text-gray-300' : 'flex items-start gap-2 text-gray-400 dark:text-gray-500'}>
-                {on ? <CheckIcon className="mt-0.5 size-4 shrink-0 text-emerald-600 dark:text-emerald-400" /> : <MinusIcon className="mt-0.5 size-4 shrink-0" />}
-                {t(key)}
-              </li>
-            ))}
-          </ul>
-        </Panel>
+        <div className="space-y-6 lg:self-start">
+          <Panel title={t('staff.profile.rights')} description={t('staff.profile.rights_help')}>
+            <ul className="space-y-2.5 text-sm">
+              {rights.map(([key, on]) => (
+                <li key={key} className={on ? 'flex items-start gap-2 text-gray-700 dark:text-gray-300' : 'flex items-start gap-2 text-gray-400 dark:text-gray-500'}>
+                  {on ? <CheckIcon className="mt-0.5 size-4 shrink-0 text-emerald-600 dark:text-emerald-400" /> : <MinusIcon className="mt-0.5 size-4 shrink-0" />}
+                  {t(key)}
+                </li>
+              ))}
+            </ul>
+          </Panel>
+          <AppPanel audience="staff" />
+        </div>
       </div>
     </div>
   );

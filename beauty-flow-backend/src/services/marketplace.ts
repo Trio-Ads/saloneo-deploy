@@ -27,6 +27,7 @@ import { withSlotLock } from './availability';
 import { WILAYAS, findWilaya } from '../utils/wilayas';
 import { generateSalonSlug } from '../utils/slug';
 import { logger } from '../utils/logger';
+import { pushTo } from './push';
 
 /**
  * Production gate: online payment of orders runs only with MARKETPLACE_PAYMENTS_ENABLED=1.
@@ -1087,7 +1088,26 @@ const salonUrl = (o: IMarketOrder) => `${frontend()}/products?tab=suppliers&orde
 const supplierUrl = (o: IMarketOrder) => `${frontend()}/fournisseur/commandes/${o._id}`;
 
 type Kind = 'paid' | 'accepted' | 'shipped' | 'released' | 'refunded' | 'partially_refunded' | 'disputed';
+const supplierAccount = async (o: IMarketOrder) => ((await Supplier.findById(o.supplierId).select('userId').lean()) as any)?.userId;
+const PUSH: Partial<Record<Kind, { to: 'salon' | 'supplier' | 'both'; title: string }>> = {
+  paid: { to: 'supplier', title: 'Nouvelle commande payée' },
+  accepted: { to: 'salon', title: 'Commande acceptée' },
+  shipped: { to: 'salon', title: 'Commande expédiée' },
+  released: { to: 'supplier', title: 'Fonds libérés' },
+  refunded: { to: 'both', title: 'Commande remboursée' },
+  partially_refunded: { to: 'both', title: 'Remboursement partiel' },
+  disputed: { to: 'supplier', title: 'Problème signalé' },
+};
+async function pushOrder(o: IMarketOrder, kind: Kind) {
+  const p = PUSH[kind];
+  if (!p) return;
+  const body = `${o.number} : ${p.to === 'supplier' ? o.salonName : o.supplierName}, ${da(o.total)}`;
+  if (p.to !== 'salon') await pushTo([await supplierAccount(o)], { title: p.title, body, url: `/fournisseur/commandes/${o._id}`, tag: `order-${o._id}` });
+  if (p.to !== 'supplier') await pushTo([o.salonId], { title: p.title, body, url: `/products?tab=suppliers&order=${o._id}`, tag: `order-${o._id}` });
+}
+
 async function notifyOrder(o: IMarketOrder, kind: Kind) {
+  void pushOrder(o, kind).catch(() => undefined);
   const [toSalon, toSupplier, settings] = await Promise.all([salonEmail(o), supplierEmail(o), getSettings()]);
   const rows: [string, string][] = [['Commande', o.number], ['Articles', itemsLine(o)], ['Total TTC', da(o.total)]];
   const net = settlement(o.total, kind === 'partially_refunded' ? o.refundAmount || 0 : 0, o.commissionPercent);
@@ -1165,6 +1185,9 @@ async function notifyMessage(o: IMarketOrder, msg: { from: string; body: string 
   const targets = msg.from === 'admin' ? [await salonEmail(o), await supplierEmail(o)].filter(Boolean) as string[] : to ? [to] : [];
   if (!targets.length) return;
   const sender = msg.from === 'salon' ? o.salonName : msg.from === 'supplier' ? o.supplierName : 'Équipe Saloneo';
+  const push = { title: `Message de ${sender}`, body: msg.body.slice(0, 140), tag: `msg-${o._id}` };
+  if (msg.from !== 'supplier') void pushTo([await supplierAccount(o)], { ...push, url: `/fournisseur/commandes/${o._id}` });
+  if (msg.from !== 'salon') void pushTo([o.salonId], { ...push, url: `/products?tab=suppliers&order=${o._id}` });
   await notice(targets, {
     subject: `Nouveau message - commande ${o.number}`,
     title: `Message de ${sender}`,

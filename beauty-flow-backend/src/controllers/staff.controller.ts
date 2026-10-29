@@ -9,6 +9,7 @@ import { LeaveAttachment, LeaveRequest, LEAVE_TYPES } from '../models/LeaveReque
 import { AuthRequest, generateToken, generateRefreshToken } from '../middleware/auth';
 import { can, normalizePermissions } from '../middleware/permissions';
 import { emailService } from '../services/emailService';
+import { pushTo } from '../services/push';
 import { leaveBalance, leaveDays, plainHours, plannedMinutes, hitsLeave, validLeaveWindow, Window } from '../services/leave';
 import { dateKey, nowIn } from '../services/availability';
 import { logger } from '../utils/logger';
@@ -320,7 +321,12 @@ export const requestLeave = async (req: AuthRequest, res: Response): Promise<voi
       ...(reason ? { reason: reason.trim() } : {}),
       ...(file ? { attachment: { id: file._id, name: file.name } } : {}),
     });
-    const member: any = await TeamMember.findById(req.actor!.teamMemberId).select('workingHours').lean();
+    const member: any = await TeamMember.findById(req.actor!.teamMemberId).select('workingHours firstName lastName').lean();
+    void pushTo([req.userId], {
+      title: 'Demande de congé',
+      body: `${`${member?.firstName || ''} ${member?.lastName || ''}`.trim()} : ${LEAVE_LABELS[type] || ''}, ${period(windowOf(leave))}`,
+      url: '/team', tag: `leave-${leave._id}`,
+    });
     res.status(201).json({ leave: leaveView(leave.toObject(), member?.workingHours) });
   } catch (error) { fail(res, 'Request leave', error); }
 };
@@ -400,6 +406,11 @@ export const decideLeave = async (req: AuthRequest, res: Response): Promise<void
         typeLabel: LEAVE_LABELS[leave.type], period: period(windowOf(leave)), comment: leave.decision?.comment || '',
         link: `${frontend()}/my-leaves`,
       } as any).catch((e) => logger.error('Leave decision email failed', e));
+      void pushTo([staff._id], {
+        title: status === 'approved' ? 'Congé accepté' : 'Congé refusé',
+        body: `${LEAVE_LABELS[leave.type]}, ${period(windowOf(leave))}${leave.decision?.comment ? ` : ${leave.decision.comment}` : ''}`,
+        url: '/my-leaves', tag: `leave-${leave._id}`,
+      });
     }
     res.json({ leave: leaveView(leave, member?.workingHours, member), conflicts });
   } catch (error) { fail(res, 'Decide leave', error); }

@@ -102,5 +102,27 @@
     "message": "Algumas alterações não estão guardadas. Se sair agora, serão perdidas.",
     "leave": "Sair sem guardar",
     "stay": "Ficar"
+  },
+  "pwa": {
+    "title": "Aplicação móvel",
+    "description_owner": "Instale o Saloneo no seu telemóvel e receba uma notificação a cada reserva, cancelamento, pedido de férias ou encomenda ao fornecedor.",
+    "description_staff": "Instale o Saloneo no seu telemóvel e saiba das suas novas marcações e das respostas aos seus pedidos de férias.",
+    "description_supplier": "Instale o Saloneo no seu telemóvel e saiba de cada encomenda paga e de cada mensagem de um salão.",
+    "installed": "O Saloneo está instalado neste dispositivo.",
+    "install": "Instalar a aplicação",
+    "install_how": "Para a instalar neste telemóvel:",
+    "ios_step1": "Abra o Saloneo no Safari.",
+    "ios_step2": "Toque no botão Partilhar, na parte inferior do ecrã.",
+    "ios_step3": "Escolha «Adicionar ao ecrã principal» e depois «Adicionar».",
+    "android_step1": "Abra o Saloneo no Chrome e toque no menu ⋮ no canto superior direito.",
+    "android_step2": "Escolha «Instalar aplicação» ou «Adicionar ao ecrã principal».",
+    "notifications": "Notificações neste dispositivo",
+    "enable": "Ativar notificações",
+    "disable": "Desativar",
+    "enabled": "Ativadas neste dispositivo.",
+    "blocked": "As notificações estão bloqueadas para o Saloneo. Autorize-as nas definições do navegador ou do telemóvel e volte aqui.",
+    "ios_install_first": "No iPhone, adicione primeiro o Saloneo ao ecrã principal (iOS 16.4 ou superior) e abra a aplicação para ativar as notificações.",
+    "unsupported": "Este navegador não suporta notificações. Use Chrome, Edge, Firefox ou Safari atualizados.",
+    "error": "Não foi possível ativar as notificações. Verifique a ligação e tente novamente."
   }
 }
